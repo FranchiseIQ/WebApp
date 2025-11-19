@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <title>FranchiseIQ Stock Tools</title>
+    <title>FranchiseIQ - AI-Powered Stock Analytics</title>
     <style>
         * {
             margin: 0;
@@ -12,161 +12,390 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark-bg: #0f1419;
+            --card-bg: rgba(255, 255, 255, 0.98);
+            --text-primary: #1a1a1a;
+            --text-secondary: #6b7280;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 25%, #1e40af 50%, #7c3aed 75%, #6366f1 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Grid Pattern Overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
+        }
+
+        /* Glowing Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: #8b5cf6;
+            top: -200px;
+            left: -200px;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: #3b82f6;
+            bottom: -250px;
+            right: -250px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(100px, -100px) scale(1.1); }
+            66% { transform: translate(-50px, 100px) scale(0.9); }
         }
 
         .container {
-            max-width: 1200px;
-            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        header {
+        /* Navigation */
+        nav {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        /* Hero Section */
+        .hero {
             text-align: center;
-            color: white;
-            margin-bottom: 50px;
-            padding: 20px;
+            padding: 80px 0 60px;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
         }
 
         h1 {
-            font-size: 3em;
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-size: 4em;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #fff 0%, #c7d2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
         }
 
-        .subtitle {
+        .gradient-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
             font-size: 1.3em;
-            opacity: 0.95;
-            margin-bottom: 10px;
-        }
-
-        .description {
-            font-size: 1em;
-            opacity: 0.85;
+            color: #c7d2fe;
             max-width: 700px;
-            margin: 0 auto;
+            margin: 0 auto 40px;
             line-height: 1.6;
+            font-weight: 400;
         }
 
-        .widgets-container {
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .stat-label {
+            color: #a5b4fc;
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+
+        /* Widget Cards */
+        .widgets-section {
+            padding: 60px 0;
+        }
+
+        .widgets-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
         }
 
         .widget-card {
-            background: white;
-            border-radius: 16px;
-            padding: 40px 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            transition: all 0.3s ease;
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 50px;
             position: relative;
             overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(139, 92, 246, 0.1);
         }
 
-        iframe {
-            width: 100%;
-            height: 100px;
-            border: none;
-            display: block;
+        .widget-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
+
+        .widget-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.03) 0%, transparent 70%);
+            transition: transform 0.5s;
         }
 
         .widget-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .widget-card:hover::after {
+            transform: translate(20%, 20%);
         }
 
         .widget-icon {
-            font-size: 4em;
-            margin-bottom: 20px;
-            display: block;
+            width: 70px;
+            height: 70px;
+            background: var(--primary-gradient);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
         }
 
         .widget-card h2 {
-            color: #2c3e50;
+            color: var(--text-primary);
             font-size: 1.8em;
             margin-bottom: 15px;
             font-weight: 700;
         }
 
         .widget-card p {
-            color: #666;
+            color: var(--text-secondary);
             line-height: 1.7;
-            margin-bottom: 15px;
-            font-size: 1em;
+            margin-bottom: 20px;
+            font-size: 1.05em;
         }
 
-        .features-list {
-            text-align: left;
-            margin: 20px 0;
-            padding: 0 10px;
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
         }
 
-        .features-list li {
-            color: #555;
-            margin-bottom: 8px;
-            padding-left: 5px;
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
             font-size: 0.95em;
-            list-style: none;
-            position: relative;
         }
 
-        .features-list li::before {
-            content: '✓';
-            color: #10B981;
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-
-        .button {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .feature-check {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            padding: 14px 32px;
-            border-radius: 8px;
+            font-size: 0.7em;
+            flex-shrink: 0;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: var(--primary-gradient);
+            color: white;
             text-decoration: none;
+            border-radius: 12px;
             font-weight: 600;
             font-size: 1.05em;
-            margin-top: 15px;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+            margin-top: 10px;
         }
 
-        .button:hover {
+        .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.5);
         }
 
+        .cta-button::after {
+            content: '→';
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover::after {
+            transform: translateX(5px);
+        }
+
+        /* Demo Section */
         .demo-section {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 50px;
+            margin-bottom: 60px;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
         }
 
         .demo-section h3 {
-            color: #2c3e50;
-            font-size: 1.5em;
-            margin-bottom: 20px;
+            color: var(--text-primary);
+            font-size: 1.8em;
+            margin-bottom: 25px;
             text-align: center;
+            font-weight: 700;
         }
 
         .ticker-frame {
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin-bottom: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.1);
         }
 
         iframe {
@@ -177,195 +406,367 @@
         }
 
         .demo-note {
-            color: #666;
-            font-size: 0.9em;
+            color: var(--text-secondary);
+            font-size: 0.95em;
             text-align: center;
             font-style: italic;
         }
 
-        .info-section {
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            margin-bottom: 40px;
+        /* Features Section */
+        .features-section {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 60px 50px;
+            margin-bottom: 60px;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .info-section h3 {
-            color: #2c3e50;
-            font-size: 1.8em;
-            margin-bottom: 20px;
+        .features-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
+
+        .features-section h3 {
+            color: var(--text-primary);
+            font-size: 2.2em;
+            margin-bottom: 50px;
             text-align: center;
+            font-weight: 700;
         }
 
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
         }
 
         .info-item {
             text-align: center;
         }
 
-        .info-item-icon {
+        .info-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 2.5em;
-            margin-bottom: 10px;
+            border: 2px solid rgba(139, 92, 246, 0.2);
         }
 
         .info-item h4 {
-            color: #667eea;
-            font-size: 1.2em;
-            margin-bottom: 10px;
+            color: var(--accent-purple);
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            font-weight: 700;
         }
 
         .info-item p {
-            color: #666;
-            line-height: 1.6;
-            font-size: 0.95em;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1em;
         }
 
+        /* Footer */
         footer {
             text-align: center;
-            color: white;
-            padding: 30px 20px;
-            opacity: 0.9;
+            padding: 60px 20px 40px;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            margin-top: 60px;
         }
 
         footer p {
-            margin-bottom: 10px;
+            color: #a5b4fc;
+            margin-bottom: 15px;
         }
 
         .footer-links {
-            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+            flex-wrap: wrap;
         }
 
         .footer-links a {
-            color: white;
+            color: #c7d2fe;
             text-decoration: none;
-            margin: 0 15px;
-            opacity: 0.9;
-            transition: opacity 0.2s;
+            font-size: 0.95em;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
         }
 
         .footer-links a:hover {
-            opacity: 1;
-            text-decoration: underline;
+            color: white;
+            background: rgba(139, 92, 246, 0.2);
         }
 
-        @media (max-width: 768px) {
+        .powered-by {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(139, 92, 246, 0.1);
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
             h1 {
-                font-size: 2em;
+                font-size: 2.5em;
             }
 
-            .subtitle {
+            .hero-subtitle {
                 font-size: 1.1em;
             }
 
-            .widgets-container {
+            .widgets-grid {
                 grid-template-columns: 1fr;
             }
 
             .widget-card {
-                padding: 30px 20px;
+                padding: 35px;
             }
 
-            .widget-icon {
-                font-size: 3em;
+            .features-grid {
+                grid-template-columns: 1fr;
             }
 
             .info-grid {
                 grid-template-columns: 1fr;
             }
+
+            .hero-stats {
+                gap: 30px;
+            }
+
+            .stat-number {
+                font-size: 2em;
+            }
+
+            .demo-section,
+            .features-section {
+                padding: 35px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .widgets-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .widget-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8em;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Background Elements -->
+    <div class="bg-animation"></div>
+    <div class="grid-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
     <div class="container">
-        <header>
-            <h1>📊 FranchiseIQ Stock Tools</h1>
-            <p class="subtitle">Professional Stock Market Visualization Widgets</p>
-            <p class="description">
-                Choose from our suite of powerful, embeddable stock market tools.
-                Built with modern web technologies, 100% client-side, and free to use.
+        <!-- Navigation -->
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                FranchiseIQ
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                AI-Powered Stock Analytics Platform
+            </div>
+
+            <h1>
+                Intelligent Stock Market<br>
+                <span class="gradient-text">Visualization Tools</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Professional-grade stock analysis widgets powered by cutting-edge technology.
+                Real-time data visualization with zero configuration. Built for investors, analysts, and financial professionals.
             </p>
-        </header>
 
-        <div class="widgets-container">
-            <!-- Stock Ticker Widget -->
-            <div class="widget-card">
-                <span class="widget-icon">📈</span>
-                <h2>Stock Ticker Tape</h2>
-                <p>Real-time scrolling ticker displaying live stock prices for 37+ franchise companies.</p>
-
-                <ul class="features-list">
-                    <li>Auto-scrolling ticker tape</li>
-                    <li>Live price updates every 60s</li>
-                    <li>Color-coded price changes</li>
-                    <li>37 franchise stocks covered</li>
-                    <li>Lightweight & fast loading</li>
-                    <li>Perfect for dashboards</li>
-                </ul>
-
-                <a href="Website/ticker.html" class="button">Open Ticker Widget →</a>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Simultaneous Tickers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">API Requests</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Client-Side</span>
+                </div>
             </div>
+        </section>
 
-            <!-- Interactive Chart Widget -->
-            <div class="widget-card">
-                <span class="widget-icon">📊</span>
-                <h2>Interactive Stock Chart</h2>
-                <p>Advanced charting tool to compare up to 10 stocks with zoom, pan, and customization.</p>
+        <!-- Widgets Section -->
+        <section class="widgets-section">
+            <div class="widgets-grid">
+                <!-- Stock Ticker Widget -->
+                <div class="widget-card">
+                    <div class="widget-icon">📈</div>
+                    <h2>Stock Ticker Tape</h2>
+                    <p>Real-time scrolling ticker displaying live stock prices for 37+ franchise companies with automatic updates.</p>
 
-                <ul class="features-list">
-                    <li>Compare up to 10 stocks</li>
-                    <li>Interactive zoom & pan</li>
-                    <li>Custom colors & line widths</li>
-                    <li>Multiple time ranges (1D-MAX)</li>
-                    <li>Adjusted close prices</li>
-                    <li>OHLC data in tooltips</li>
-                </ul>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            Auto-scrolling display
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            Live price updates
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            Color-coded changes
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            37+ stocks tracked
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            Lightweight & fast
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            Dashboard ready
+                        </div>
+                    </div>
 
-                <a href="StockChart/chart.html" class="button">Open Chart Widget →</a>
+                    <a href="Website/ticker.html" class="cta-button">Launch Ticker Widget</a>
+                </div>
+
+                <!-- Interactive Chart Widget -->
+                <div class="widget-card">
+                    <div class="widget-icon">📊</div>
+                    <h2>Interactive Stock Chart</h2>
+                    <p>Advanced charting tool to compare up to 10 stocks with interactive zoom, pan, and deep customization options.</p>
+
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            Compare 10 stocks
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            Interactive zoom/pan
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            Custom colors & widths
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            10 time ranges
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            Adjusted prices
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-check">✓</span>
+                            OHLC tooltips
+                        </div>
+                    </div>
+
+                    <a href="StockChart/chart.html" class="cta-button">Launch Chart Widget</a>
+                </div>
             </div>
-        </div>
+        </section>
 
         <!-- Live Demo Section -->
-        <div class="demo-section">
+        <section class="demo-section">
             <h3>🎯 Live Ticker Demo</h3>
             <div class="ticker-frame">
                 <iframe src="Website/ticker.html"></iframe>
             </div>
             <p class="demo-note">↑ Real-time stock ticker updates every 60 seconds</p>
-        </div>
+        </section>
 
-        <div class="embed-instructions">
-            <h2>📝 How to Embed on Google Sites</h2>
-            <p style="color: #666; margin-bottom: 15px;">
-                Copy this iframe code and paste it into Google Sites (Insert → Embed → Embed Code):
-            </p>
-            <div class="code-block">
-&lt;iframe src="https://monroegamble.github.io/WebApp/Website/ticker.html"
-        width="100%"
-        height="100"
-        frameborder="0"
-        style="border: none;"&gt;
-&lt;/iframe&gt;
+        <!-- Features Section -->
+        <section class="features-section">
+            <h3>Why Choose FranchiseIQ?</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-icon">🚀</div>
+                    <h4>Blazing Fast</h4>
+                    <p>100% client-side architecture with no backend. Direct API calls to Stooq with unlimited requests.</p>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">🎨</div>
+                    <h4>Fully Customizable</h4>
+                    <p>Adjust colors, line widths, time ranges, and more. Tailor every aspect to match your needs.</p>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">📱</div>
+                    <h4>Responsive Design</h4>
+                    <p>Perfect on desktop, tablet, and mobile. Embed anywhere with iframe support for any platform.</p>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">⚡</div>
+                    <h4>Zero Config</h4>
+                    <p>No setup required. Copy, paste, and deploy instantly. Works out of the box with sensible defaults.</p>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">🔓</div>
+                    <h4>Open Source</h4>
+                    <p>Fully transparent codebase. Free to use, modify, and distribute for any commercial or personal project.</p>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">🛡️</div>
+                    <h4>Privacy First</h4>
+                    <p>Zero tracking, no cookies, no data collection. Your privacy is completely protected by design.</p>
+                </div>
             </div>
-        </div>
+        </section>
 
+        <!-- Footer -->
         <footer>
-            <p><strong>FranchiseIQ Stock Tools</strong></p>
-            <p style="font-size: 0.95em; margin-top: 15px;">
+            <p><strong style="font-size: 1.2em; background: linear-gradient(135deg, #8b5cf6, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">FranchiseIQ</strong></p>
+            <p style="font-size: 1em; margin-top: 15px; color: #c7d2fe;">
                 Professional stock market visualization tools for investors, educators, and financial professionals
-            </p>
-            <p style="font-size: 0.85em; margin-top: 20px; opacity: 0.8;">
-                Powered by Stooq API | Built with Chart.js
             </p>
             <div class="footer-links">
                 <a href="Website/README.md">Ticker Documentation</a>
                 <a href="StockChart/README.md">Chart Documentation</a>
-                <a href="https://github.com/MonroeGamble/WebApp">GitHub</a>
+                <a href="https://github.com/MonroeGamble/WebApp">GitHub Repository</a>
+            </div>
+            <div class="powered-by">
+                Powered by Stooq API • Built with Chart.js • Made with ❤️ for the franchise industry
             </div>
         </footer>
     </div>
