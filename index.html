@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FranchiseIQ Stock Ticker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .ticker-demo {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .ticker-demo h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .ticker-frame {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 60px;
+            border: none;
+            display: block;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .card ul {
+            color: #666;
+            line-height: 1.8;
+            margin-left: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .embed-instructions {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .embed-instructions h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 FranchiseIQ Stock Ticker</h1>
+            <p class="subtitle">Live real-time stock prices for franchise companies</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">37</span>
+                    <span class="stat-label">Franchise Stocks</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">60s</span>
+                    <span class="stat-label">Auto-Refresh</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Client-Side</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="ticker-demo">
+            <h2>🎯 Live Demo</h2>
+            <div class="ticker-frame">
+                <iframe src="Website/ticker.html"></iframe>
+            </div>
+            <p style="color: #666; font-size: 0.9em; margin-top: 10px;">
+                ↑ The ticker updates every 60 seconds with live data from Yahoo Finance
+            </p>
+        </div>
+
+        <div class="info-cards">
+            <div class="card">
+                <h3>🚀 Features</h3>
+                <ul>
+                    <li>Live real-time prices</li>
+                    <li>Smooth scrolling animation</li>
+                    <li>Color-coded changes</li>
+                    <li>Auto-refresh every 60s</li>
+                    <li>Offline fallback</li>
+                    <li>100% client-side</li>
+                    <li>No dependencies</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>📈 Stock Coverage</h3>
+                <p><strong>Quick Service & Restaurants:</strong></p>
+                <p style="font-size: 0.9em;">MCD, YUM, QSR, WEN, DPZ, JACK, WING, SHAK, CAVA, DENN, DIN, DNUT, NATH, RRGB</p>
+                <p><strong>Hospitality:</strong></p>
+                <p style="font-size: 0.9em;">MAR, HLT, H, CHH, WH, VAC, TNL, CWH</p>
+                <p><strong>Fitness & Services:</strong></p>
+                <p style="font-size: 0.9em;">PLNT, BFT, SERV, ROL, DRVN, HRB, CAR, UHAL, ADUS, LOPE, PLAY, ARCO, TAST</p>
+            </div>
+
+            <div class="card">
+                <h3>🔗 Quick Links</h3>
+                <a href="Website/ticker.html" class="button" target="_blank">Open Full Ticker</a>
+                <a href="Website/README.md" class="button" target="_blank">View Documentation</a>
+                <p style="margin-top: 20px; color: #666; font-size: 0.9em;">
+                    Download the widget files and host them on your own server, or embed directly using the code below.
+                </p>
+            </div>
+        </div>
+
+        <div class="embed-instructions">
+            <h2>📝 How to Embed on Google Sites</h2>
+            <p style="color: #666; margin-bottom: 15px;">
+                Copy this iframe code and paste it into Google Sites (Insert → Embed → Embed Code):
+            </p>
+            <div class="code-block">
+&lt;iframe src="https://monroegamble.github.io/WebApp/Website/ticker.html"
+        width="100%"
+        height="60"
+        frameborder="0"
+        style="border: none;"&gt;
+&lt;/iframe&gt;
+            </div>
+            <p style="color: #666; margin-top: 15px; font-size: 0.9em;">
+                <strong>Note:</strong> Replace the URL with your actual GitHub Pages URL once deployed.
+            </p>
+        </div>
+
+        <footer>
+            <p><strong>FranchiseIQ Stock Ticker Widget</strong></p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Built for tracking franchise industry public companies</p>
+            <p style="font-size: 0.85em; margin-top: 20px;">Powered by Yahoo Finance API | Updates every 60 seconds</p>
+        </footer>
+    </div>
+</body>
+</html>
