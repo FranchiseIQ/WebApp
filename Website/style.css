@@ -1,0 +1,255 @@
+/* ============================================================================
+   STOCK TICKER WIDGET STYLES
+   ============================================================================ */
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  overflow: hidden;
+  background-color: #1a1a1a;
+}
+
+/* Ticker container */
+#ticker-container {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(90deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+/* Ticker content wrapper */
+#ticker-content {
+  display: flex;
+  white-space: nowrap;
+  animation: scroll-left 90s linear infinite;
+  will-change: transform;
+}
+
+/* Pause animation on hover (optional) */
+#ticker-content:hover {
+  animation-play-state: paused;
+}
+
+/* Individual ticker item */
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 30px;
+  gap: 12px;
+  font-size: 16px;
+  color: #ffffff;
+  border-right: 1px solid #333;
+  min-width: 220px;
+  height: 100%;
+}
+
+/* Ticker symbol */
+.ticker-symbol {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  text-transform: uppercase;
+  min-width: 50px;
+}
+
+/* Ticker price */
+.ticker-price {
+  font-weight: 600;
+  font-size: 16px;
+  color: #e0e0e0;
+  min-width: 70px;
+  text-align: right;
+}
+
+/* Ticker change percentage */
+.ticker-change {
+  font-weight: 600;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  min-width: 70px;
+  text-align: center;
+}
+
+/* Positive change (green) */
+.ticker-change.positive {
+  color: #00ff88;
+  background-color: rgba(0, 255, 136, 0.1);
+}
+
+/* Negative change (red) */
+.ticker-change.negative {
+  color: #ff4444;
+  background-color: rgba(255, 68, 68, 0.1);
+}
+
+/* Neutral/zero change (gray) */
+.ticker-change.neutral {
+  color: #999999;
+  background-color: rgba(153, 153, 153, 0.1);
+}
+
+/* Smooth scrolling animation */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+/* Tablet and smaller screens */
+@media (max-width: 768px) {
+  .ticker-item {
+    padding: 0 20px;
+    gap: 8px;
+    font-size: 14px;
+    min-width: 180px;
+  }
+
+  .ticker-symbol {
+    font-size: 12px;
+    min-width: 40px;
+  }
+
+  .ticker-price {
+    font-size: 14px;
+    min-width: 60px;
+  }
+
+  .ticker-change {
+    font-size: 12px;
+    padding: 3px 6px;
+    min-width: 60px;
+  }
+
+  #ticker-content {
+    animation-duration: 60s;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 480px) {
+  .ticker-item {
+    padding: 0 15px;
+    gap: 6px;
+    font-size: 12px;
+    min-width: 150px;
+  }
+
+  .ticker-symbol {
+    font-size: 11px;
+    min-width: 35px;
+  }
+
+  .ticker-price {
+    font-size: 12px;
+    min-width: 50px;
+  }
+
+  .ticker-change {
+    font-size: 11px;
+    padding: 2px 5px;
+    min-width: 50px;
+  }
+
+  #ticker-content {
+    animation-duration: 45s;
+  }
+}
+
+/* ============================================================================
+   EMBEDDED IFRAME OPTIMIZATION
+   ============================================================================ */
+
+/* When embedded in an iframe with fixed height */
+@media (max-height: 80px) {
+  #ticker-container {
+    height: 100%;
+  }
+
+  .ticker-item {
+    padding: 0 20px;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .ticker-symbol {
+    font-size: 13px;
+  }
+
+  .ticker-price {
+    font-size: 14px;
+  }
+
+  .ticker-change {
+    font-size: 12px;
+  }
+}
+
+@media (max-height: 60px) {
+  .ticker-item {
+    padding: 0 15px;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .ticker-symbol {
+    font-size: 11px;
+  }
+
+  .ticker-price {
+    font-size: 12px;
+  }
+
+  .ticker-change {
+    font-size: 11px;
+    padding: 2px 6px;
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  #ticker-content {
+    animation-duration: 180s;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .ticker-change.positive {
+    color: #00ff00;
+    background-color: rgba(0, 255, 0, 0.2);
+  }
+
+  .ticker-change.negative {
+    color: #ff0000;
+    background-color: rgba(255, 0, 0, 0.2);
+  }
+
+  #ticker-container {
+    border-top: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+  }
+}
