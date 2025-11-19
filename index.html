@@ -73,14 +73,11 @@
             overflow: hidden;
         }
 
-        .widget-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        iframe {
+            width: 100%;
+            height: 100px;
+            border: none;
+            display: block;
         }
 
         .widget-card:hover {
@@ -342,45 +339,18 @@
             <p class="demo-note">↑ Real-time stock ticker updates every 60 seconds</p>
         </div>
 
-        <!-- Info Section -->
-        <div class="info-section">
-            <h3>Why Choose Our Stock Widgets?</h3>
-            <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-item-icon">🚀</div>
-                    <h4>100% Client-Side</h4>
-                    <p>No backend required. All data fetched directly from Stooq API in your browser. No rate limits!</p>
-                </div>
-
-                <div class="info-item">
-                    <div class="info-item-icon">🎨</div>
-                    <h4>Fully Customizable</h4>
-                    <p>Adjust colors, widths, time ranges, and more. Tailor the widgets to match your needs.</p>
-                </div>
-
-                <div class="info-item">
-                    <div class="info-item-icon">📱</div>
-                    <h4>Responsive Design</h4>
-                    <p>Works perfectly on desktop, tablet, and mobile devices. Embed anywhere with iframes.</p>
-                </div>
-
-                <div class="info-item">
-                    <div class="info-item-icon">⚡</div>
-                    <h4>Fast & Lightweight</h4>
-                    <p>Optimized performance with minimal dependencies. Quick loading times guaranteed.</p>
-                </div>
-
-                <div class="info-item">
-                    <div class="info-item-icon">🔓</div>
-                    <h4>Open Source</h4>
-                    <p>All code is transparent and auditable. Free to use and modify for your projects.</p>
-                </div>
-
-                <div class="info-item">
-                    <div class="info-item-icon">🛡️</div>
-                    <h4>Privacy First</h4>
-                    <p>No tracking, no cookies, no data collection. Your privacy is completely protected.</p>
-                </div>
+        <div class="embed-instructions">
+            <h2>📝 How to Embed on Google Sites</h2>
+            <p style="color: #666; margin-bottom: 15px;">
+                Copy this iframe code and paste it into Google Sites (Insert → Embed → Embed Code):
+            </p>
+            <div class="code-block">
+&lt;iframe src="https://monroegamble.github.io/WebApp/Website/ticker.html"
+        width="100%"
+        height="100"
+        frameborder="0"
+        style="border: none;"&gt;
+&lt;/iframe&gt;
             </div>
         </div>
 

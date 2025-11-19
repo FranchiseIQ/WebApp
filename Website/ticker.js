@@ -188,6 +188,139 @@ function renderTicker(stockData) {
 async function updateTicker() {
   const stockData = await fetchStockData();
   renderTicker(stockData);
+  resetCountdown(); // Reset countdown after refresh
+}
+
+// ============================================================================
+// CLOCK AND STATUS MANAGEMENT
+// ============================================================================
+
+// Countdown tracking
+let countdownSeconds = 60;
+let countdownInterval = null;
+
+/**
+ * Get current Eastern Time
+ * @returns {Date} Current time in ET
+ */
+function getEasternTime() {
+  const now = new Date();
+  // Convert to Eastern Time (handles EST/EDT automatically)
+  return new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+}
+
+/**
+ * Format time as 12-hour clock with AM/PM
+ * @param {Date} date - Date object
+ * @returns {string} Formatted time string
+ */
+function formatTime(date) {
+  let hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+
+  hours = hours % 12;
+  hours = hours ? hours : 12; // 0 should be 12
+
+  return `${hours}:${minutes}:${seconds} ${ampm}`;
+}
+
+/**
+ * Check if US stock market is open
+ * @param {Date} etTime - Current Eastern Time
+ * @returns {boolean} True if market is open
+ */
+function isMarketOpen(etTime) {
+  const day = etTime.getDay(); // 0 = Sunday, 6 = Saturday
+
+  // Market closed on weekends
+  if (day === 0 || day === 6) {
+    return false;
+  }
+
+  const hours = etTime.getHours();
+  const minutes = etTime.getMinutes();
+  const timeInMinutes = hours * 60 + minutes;
+
+  // Market hours: 9:30 AM to 4:00 PM ET
+  const marketOpen = 9 * 60 + 30;  // 9:30 AM
+  const marketClose = 16 * 60;      // 4:00 PM
+
+  return timeInMinutes >= marketOpen && timeInMinutes < marketClose;
+}
+
+/**
+ * Update clock display
+ */
+function updateClock() {
+  const etTime = getEasternTime();
+  const clockElement = document.getElementById('clock');
+  const indicatorElement = document.getElementById('market-indicator');
+  const labelElement = document.getElementById('market-label');
+
+  if (clockElement) {
+    clockElement.textContent = formatTime(etTime);
+  }
+
+  // Update market status
+  const marketOpen = isMarketOpen(etTime);
+
+  if (indicatorElement && labelElement) {
+    if (marketOpen) {
+      indicatorElement.className = 'open';
+      labelElement.textContent = 'Market Open';
+    } else {
+      indicatorElement.className = 'closed';
+      labelElement.textContent = 'Market Closed';
+    }
+  }
+}
+
+/**
+ * Update countdown timer
+ */
+function updateCountdown() {
+  const countdownElement = document.getElementById('countdown');
+
+  if (countdownElement) {
+    countdownElement.textContent = `${countdownSeconds}s`;
+  }
+
+  countdownSeconds--;
+
+  // When countdown reaches 0, it will be reset by the refresh
+  if (countdownSeconds < 0) {
+    countdownSeconds = 0;
+  }
+}
+
+/**
+ * Reset countdown to 60 seconds
+ */
+function resetCountdown() {
+  countdownSeconds = 60;
+  const countdownElement = document.getElementById('countdown');
+  if (countdownElement) {
+    countdownElement.textContent = '60s';
+  }
+}
+
+/**
+ * Start all timers (clock and countdown)
+ */
+function startTimers() {
+  // Update clock immediately
+  updateClock();
+
+  // Update clock every second
+  setInterval(updateClock, 1000);
+
+  // Start countdown immediately
+  updateCountdown();
+
+  // Update countdown every second
+  setInterval(updateCountdown, 1000);
 }
 
 // ============================================================================
@@ -198,10 +331,13 @@ async function updateTicker() {
  * Initialize the ticker widget
  */
 function init() {
+  // Start clock and countdown timers
+  startTimers();
+
   // Initial load
   updateTicker();
 
-  // Auto-refresh every 60 seconds
+  // Auto-refresh every 60 seconds (synced with countdown)
   setInterval(updateTicker, REFRESH_INTERVAL);
 }
 

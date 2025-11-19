@@ -10,6 +10,20 @@
     <link rel="stylesheet" href="style.css?v=1.1">
 </head>
 <body>
+    <div id="status-bar">
+        <div id="clock-section">
+            <span id="clock">--:--:-- --</span>
+            <span id="timezone">ET</span>
+        </div>
+        <div id="market-status-section">
+            <span id="market-indicator" class="closed"></span>
+            <span id="market-label">Market Closed</span>
+        </div>
+        <div id="refresh-section">
+            <span id="refresh-label">Next refresh:</span>
+            <span id="countdown">60s</span>
+        </div>
+    </div>
     <div id="ticker-container">
         <div id="ticker-content"></div>
     </div>

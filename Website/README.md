@@ -84,7 +84,7 @@ After making changes, save the file. The ticker will automatically fetch data fo
    ```html
    <iframe src="https://YOUR_HOSTED_LOCATION/ticker.html"
            width="100%"
-           height="60"
+           height="100"
            frameborder="0"
            style="border: none;">
    </iframe>
@@ -128,7 +128,7 @@ After making changes, save the file. The ticker will automatically fetch data fo
 5. **Embed in Google Sites:**
    ```html
    <iframe src="https://YOUR_USERNAME.github.io/YOUR_REPO/Website/ticker.html"
-           width="100%" height="60" frameborder="0"></iframe>
+           width="100%" height="100" frameborder="0"></iframe>
    ```
 
 ### Option 2: Netlify
@@ -145,7 +145,7 @@ After making changes, save the file. The ticker will automatically fetch data fo
 4. **Embed in Google Sites:**
    ```html
    <iframe src="https://YOUR_SITE.netlify.app/ticker.html"
-           width="100%" height="60" frameborder="0"></iframe>
+           width="100%" height="100" frameborder="0"></iframe>
    ```
 
 ### Option 3: Google Drive (Limited Support)
