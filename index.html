@@ -103,23 +103,23 @@
         }
 
         h1 {
-            font-size: 6em !important;
-            margin-bottom: 20px !important;
+            font-size: 8em !important;
+            margin-bottom: 25px !important;
             font-weight: 800 !important;
             letter-spacing: -2px;
         }
 
         h2 {
-            font-size: 3em !important;
-            margin-bottom: 20px !important;
+            font-size: 4em !important;
+            margin-bottom: 25px !important;
             font-weight: 600 !important;
         }
 
         .subtitle {
-            font-size: 2em !important;
+            font-size: 2.4em !important;
             opacity: 0.95;
-            margin-bottom: 40px;
-            line-height: 1.4;
+            margin-bottom: 50px;
+            line-height: 1.5;
         }
 
         .ticker-demo {
@@ -133,12 +133,12 @@
         .ticker-demo h2 {
             margin-bottom: 30px;
             color: #333;
-            font-size: 3em !important;
+            font-size: 3.5em !important;
         }
 
         .ticker-demo p {
-            font-size: 1.6em !important;
-            line-height: 1.6;
+            font-size: 1.8em !important;
+            line-height: 1.7;
         }
 
         .ticker-frame {
@@ -172,36 +172,36 @@
         .card h3 {
             color: #667eea;
             margin-bottom: 25px;
-            font-size: 2.5em !important;
+            font-size: 3em !important;
         }
 
         .card p {
             color: #666;
             line-height: 1.8;
             margin-bottom: 20px;
-            font-size: 1.4em !important;
+            font-size: 1.6em !important;
         }
 
         .card ul {
             color: #666;
-            line-height: 2;
+            line-height: 2.2;
             margin-left: 30px;
         }
 
         .card li {
-            font-size: 1.4em;
-            margin-bottom: 12px;
+            font-size: 1.6em;
+            margin-bottom: 15px;
         }
 
         .button {
             display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px 50px !important;
-            border-radius: 8px;
+            padding: 25px 60px !important;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.6em !important;
+            font-size: 1.8em !important;
             transition: transform 0.2s, box-shadow 0.2s;
             margin-top: 20px;
         }
@@ -219,9 +219,9 @@
             margin: 20px 0;
             overflow-x: auto;
             font-family: 'Courier New', monospace;
-            font-size: 1.3em !important;
+            font-size: 1.5em !important;
             color: #333;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         .embed-instructions {
@@ -235,15 +235,15 @@
         .embed-instructions h2 {
             color: #333;
             margin-bottom: 30px;
-            font-size: 3em !important;
+            font-size: 3.5em !important;
         }
 
         .embed-instructions h3 {
-            font-size: 2.2em !important;
+            font-size: 2.5em !important;
         }
 
         .embed-instructions p {
-            font-size: 1.5em !important;
+            font-size: 1.7em !important;
         }
 
         .stats {
@@ -260,15 +260,15 @@
         }
 
         .stat-number {
-            font-size: 4em !important;
+            font-size: 5em !important;
             font-weight: 800 !important;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .stat-label {
-            font-size: 1.8em !important;
-            opacity: 0.9;
+            font-size: 2em !important;
+            opacity: 0.95;
             display: block;
         }
 
@@ -291,7 +291,7 @@
         }
 
         .sitemap-section-main h3 {
-            font-size: 2em !important;
+            font-size: 2.2em !important;
             margin-bottom: 20px;
             color: #ffffff;
         }
@@ -302,14 +302,14 @@
 
         .sitemap-section-main ul li {
             margin-bottom: 15px;
-            font-size: 1.4em;
+            font-size: 1.6em;
         }
 
         .sitemap-section-main a {
             color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
             transition: color 0.2s;
-            font-size: 1.4em;
+            font-size: 1.6em;
         }
 
         .sitemap-section-main a:hover {
@@ -320,12 +320,12 @@
         .sitemap-section-main p {
             color: rgba(255, 255, 255, 0.85);
             line-height: 1.8;
-            font-size: 1.4em !important;
+            font-size: 1.6em !important;
         }
 
         .copyright-main {
             text-align: center;
-            font-size: 1.3em;
+            font-size: 1.5em;
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             color: rgba(255, 255, 255, 0.7);
@@ -560,8 +560,9 @@
     <script src="Website/ticker.js"></script>
 
     <!-- Vanta.js Initialization -->
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
     <script>
-        VANTA.NET({
+        VANTA.WAVES({
             el: "#vanta-bg",
             mouseControls: true,
             touchControls: true,
@@ -570,11 +571,11 @@
             minWidth: 200.00,
             scale: 1.00,
             scaleMobile: 1.00,
-            color: 0x667eea,
-            backgroundColor: 0x0a0a2e,
-            points: 15.00,
-            maxDistance: 25.00,
-            spacing: 18.00
+            color: 0x192a56,
+            shininess: 30.00,
+            waveHeight: 15.00,
+            waveSpeed: 0.50,
+            zoom: 0.75
         })
     </script>
 </body>

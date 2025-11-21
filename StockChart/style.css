@@ -555,15 +555,17 @@ body {
 .table-container {
   background: white;
   margin: 20px;
-  padding: 25px;
+  padding: 30px;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .table-container h2 {
   color: #333;
-  font-size: 1.5em;
-  margin-bottom: 20px;
+  font-size: 2em;
+  margin-bottom: 25px;
   font-weight: 700;
 }
 
@@ -571,12 +573,15 @@ body {
   overflow-x: auto;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
+  width: 100%;
 }
 
 #stock-data-table {
   width: 100%;
+  min-width: 800px;
   border-collapse: collapse;
-  font-size: 15px;
+  font-size: 16px;
+  table-layout: auto;
 }
 
 #stock-data-table thead {
@@ -585,12 +590,13 @@ body {
 }
 
 #stock-data-table th {
-  padding: 15px;
+  padding: 18px 20px;
   text-align: left;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 17px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 #stock-data-table tbody tr {
@@ -607,14 +613,16 @@ body {
 }
 
 #stock-data-table td {
-  padding: 15px;
+  padding: 18px 20px;
   color: #333;
+  font-size: 16px;
+  white-space: nowrap;
 }
 
 #stock-data-table td:first-child {
   font-weight: 700;
   color: #667eea;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .positive-change {
