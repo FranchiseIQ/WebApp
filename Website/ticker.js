@@ -618,6 +618,30 @@ function updateClock() {
 }
 
 /**
+ * Get time until market close in seconds
+ */
+function getTimeUntilClose(etTime) {
+  const hours = etTime.getHours();
+  const minutes = etTime.getMinutes();
+  const seconds = etTime.getSeconds();
+
+  // Market closes at 4:00 PM (16:00)
+  const marketClose = 16 * 60; // 4:00 PM in minutes
+  const currentTimeInMinutes = hours * 60 + minutes;
+
+  // Calculate minutes until close
+  const minutesUntilClose = marketClose - currentTimeInMinutes;
+
+  if (minutesUntilClose <= 0) {
+    return 0;
+  }
+
+  // Convert to seconds
+  const secondsUntilClose = (minutesUntilClose * 60) - seconds;
+  return secondsUntilClose > 0 ? secondsUntilClose : 0;
+}
+
+/**
  * Get time until next market open in seconds
  */
 function getTimeUntilOpen(etTime) {
@@ -688,6 +712,8 @@ function formatCountdown(totalSeconds) {
 function updateCountdown() {
   const countdownElement = document.getElementById('countdown');
   const refreshLabelElement = document.getElementById('refresh-label');
+  const marketCloseSection = document.getElementById('market-close-section');
+  const marketCloseCountdown = document.getElementById('market-close-countdown');
   const etTime = getEasternTime();
   const marketOpen = isMarketOpen(etTime);
 
@@ -704,8 +730,28 @@ function updateCountdown() {
     if (countdownSeconds < 0) {
       countdownSeconds = 0;
     }
+
+    // Show market close countdown
+    if (marketCloseSection && marketCloseCountdown) {
+      marketCloseSection.style.display = 'flex';
+      const secondsUntilClose = getTimeUntilClose(etTime);
+      const hours = Math.floor(secondsUntilClose / 3600);
+      const minutes = Math.floor((secondsUntilClose % 3600) / 60);
+      const secs = secondsUntilClose % 60;
+
+      if (hours > 0) {
+        marketCloseCountdown.textContent = `${hours}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      } else {
+        marketCloseCountdown.textContent = `${minutes}:${String(secs).padStart(2, '0')}`;
+      }
+    }
   } else {
-    // Market is closed - show time until open
+    // Market is closed - hide market close countdown
+    if (marketCloseSection) {
+      marketCloseSection.style.display = 'none';
+    }
+
+    // Show time until open
     refreshLabelElement.textContent = 'Opens:';
     const secondsUntilOpen = getTimeUntilOpen(etTime);
     const countdown = formatCountdown(secondsUntilOpen);

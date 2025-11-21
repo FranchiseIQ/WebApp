@@ -11,7 +11,7 @@ import os
 import json
 import time
 import requests
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Ticker symbols (same as in ticker.js)
 TICKER_SYMBOLS = [
@@ -42,6 +42,110 @@ FINNHUB_BASE_URL = "https://finnhub.io/api/v1"
 
 # Output file
 OUTPUT_FILE = "data/live_ticker.json"
+
+# US Stock Market Holidays (2024-2026)
+# Source: NYSE/NASDAQ official holiday schedules
+US_MARKET_HOLIDAYS = {
+    # 2024
+    "2024-01-01",  # New Year's Day
+    "2024-01-15",  # Martin Luther King Jr. Day
+    "2024-02-19",  # Presidents' Day
+    "2024-03-29",  # Good Friday
+    "2024-05-27",  # Memorial Day
+    "2024-06-19",  # Juneteenth
+    "2024-07-04",  # Independence Day
+    "2024-09-02",  # Labor Day
+    "2024-11-28",  # Thanksgiving Day
+    "2024-12-25",  # Christmas Day
+
+    # 2025
+    "2025-01-01",  # New Year's Day
+    "2025-01-20",  # Martin Luther King Jr. Day
+    "2025-02-17",  # Presidents' Day
+    "2025-04-18",  # Good Friday
+    "2025-05-26",  # Memorial Day
+    "2025-06-19",  # Juneteenth
+    "2025-07-04",  # Independence Day
+    "2025-09-01",  # Labor Day
+    "2025-11-27",  # Thanksgiving Day
+    "2025-12-25",  # Christmas Day
+
+    # 2026
+    "2026-01-01",  # New Year's Day
+    "2026-01-19",  # Martin Luther King Jr. Day
+    "2026-02-16",  # Presidents' Day
+    "2026-04-03",  # Good Friday
+    "2026-05-25",  # Memorial Day
+    "2026-06-19",  # Juneteenth
+    "2026-07-03",  # Independence Day (observed, July 4 is Saturday)
+    "2026-09-07",  # Labor Day
+    "2026-11-26",  # Thanksgiving Day
+    "2026-12-25",  # Christmas Day
+}
+
+
+def is_market_holiday():
+    """
+    Check if today is a US market holiday
+
+    Returns:
+        bool: True if today is a market holiday
+    """
+    # Get current date in ET timezone
+    from datetime import datetime
+    import pytz
+
+    try:
+        et_tz = pytz.timezone('America/New_York')
+        now_et = datetime.now(et_tz)
+        today = now_et.strftime('%Y-%m-%d')
+
+        if today in US_MARKET_HOLIDAYS:
+            holiday_name = get_holiday_name(today)
+            print(f"🏖️  Market is closed today for {holiday_name}")
+            return True
+
+        return False
+    except ImportError:
+        # If pytz is not available, use UTC date as fallback
+        # This is less accurate but still works
+        today = datetime.utcnow().strftime('%Y-%m-%d')
+        return today in US_MARKET_HOLIDAYS
+
+
+def get_holiday_name(date_str):
+    """Get holiday name from date"""
+    holiday_names = {
+        "-01-01": "New Year's Day",
+        "-01-15": "Martin Luther King Jr. Day",
+        "-01-19": "Martin Luther King Jr. Day",
+        "-01-20": "Martin Luther King Jr. Day",
+        "-02-16": "Presidents' Day",
+        "-02-17": "Presidents' Day",
+        "-02-19": "Presidents' Day",
+        "-03-29": "Good Friday",
+        "-04-03": "Good Friday",
+        "-04-18": "Good Friday",
+        "-05-25": "Memorial Day",
+        "-05-26": "Memorial Day",
+        "-05-27": "Memorial Day",
+        "-06-19": "Juneteenth",
+        "-07-03": "Independence Day",
+        "-07-04": "Independence Day",
+        "-09-01": "Labor Day",
+        "-09-02": "Labor Day",
+        "-09-07": "Labor Day",
+        "-11-26": "Thanksgiving Day",
+        "-11-27": "Thanksgiving Day",
+        "-11-28": "Thanksgiving Day",
+        "-12-25": "Christmas Day",
+    }
+
+    for suffix, name in holiday_names.items():
+        if date_str.endswith(suffix):
+            return name
+
+    return "Market Holiday"
 
 
 def fetch_quote(symbol):
@@ -171,6 +275,13 @@ def main():
     print("=" * 60)
     print("📈 FINNHUB LIVE TICKER FETCHER")
     print("=" * 60)
+
+    # Check if today is a market holiday
+    if is_market_holiday():
+        print("\n⏸️  Skipping API calls - market is closed for holiday")
+        print("💡 No charges incurred, no actions used")
+        print("\n" + "=" * 60)
+        exit(0)
 
     # Fetch all quotes
     quotes = fetch_all_quotes()
