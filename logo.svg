@@ -1,18 +1,27 @@
-<svg width="120" height="40" xmlns="http://www.w3.org/2000/svg">
+<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
   <defs>
-    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e0e0e0;stop-opacity:1" />
     </linearGradient>
   </defs>
 
-  <!-- Icon -->
-  <path d="M 8 20 L 15 10 L 22 15 L 29 8" stroke="url(#logoGradient)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="8" cy="20" r="2.5" fill="#667eea"/>
-  <circle cx="15" cy="10" r="2.5" fill="#667eea"/>
-  <circle cx="22" cy="15" r="2.5" fill="#764ba2"/>
-  <circle cx="29" cy="8" r="2.5" fill="#764ba2"/>
+  <!-- Background circle for contrast -->
+  <circle cx="25" cy="25" r="24" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255, 255, 255, 0.4)" stroke-width="1"/>
 
-  <!-- Text -->
-  <text x="38" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#ffffff">FranResearch</text>
+  <!-- Stock chart line -->
+  <path d="M 10 30 L 17 18 L 24 23 L 31 15 L 38 20"
+        stroke="url(#iconGradient)"
+        stroke-width="3.5"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"/>
+
+  <!-- Data points with glow -->
+  <circle cx="10" cy="30" r="3" fill="#ffffff" stroke="#667eea" stroke-width="1.5"/>
+  <circle cx="17" cy="18" r="3" fill="#ffffff" stroke="#667eea" stroke-width="1.5"/>
+  <circle cx="24" cy="23" r="3" fill="#ffffff" stroke="#764ba2" stroke-width="1.5"/>
+  <circle cx="31" cy="15" r="3" fill="#ffffff" stroke="#764ba2" stroke-width="1.5"/>
+  <circle cx="38" cy="20" r="3" fill="#ffffff" stroke="#f093fb" stroke-width="1.5"/>
 </svg>

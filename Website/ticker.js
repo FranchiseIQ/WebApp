@@ -390,6 +390,40 @@ function isMarketOpen(etTime) {
 }
 
 /**
+ * Check if market is closing soon (last 30 minutes)
+ */
+function isClosingSoon(etTime) {
+  const day = etTime.getDay();
+  if (day === 0 || day === 6) return false;
+
+  const hours = etTime.getHours();
+  const minutes = etTime.getMinutes();
+  const timeInMinutes = hours * 60 + minutes;
+
+  const closingSoonStart = 15 * 60 + 30;  // 3:30 PM
+  const marketClose = 16 * 60;             // 4:00 PM
+
+  return timeInMinutes >= closingSoonStart && timeInMinutes < marketClose;
+}
+
+/**
+ * Check if market is opening soon (30 minutes before open)
+ */
+function isOpeningSoon(etTime) {
+  const day = etTime.getDay();
+  if (day === 0 || day === 6) return false;
+
+  const hours = etTime.getHours();
+  const minutes = etTime.getMinutes();
+  const timeInMinutes = hours * 60 + minutes;
+
+  const openingSoonStart = 9 * 60;       // 9:00 AM
+  const marketOpen = 9 * 60 + 30;        // 9:30 AM
+
+  return timeInMinutes >= openingSoonStart && timeInMinutes < marketOpen;
+}
+
+/**
  * Update clock display
  */
 function updateClock() {
@@ -404,9 +438,17 @@ function updateClock() {
 
   // Update market status
   const marketOpen = isMarketOpen(etTime);
+  const closingSoon = isClosingSoon(etTime);
+  const openingSoon = isOpeningSoon(etTime);
 
   if (indicatorElement && labelElement) {
-    if (marketOpen) {
+    if (marketOpen && closingSoon) {
+      indicatorElement.className = 'closing-soon';
+      labelElement.textContent = 'Closing Soon';
+    } else if (openingSoon) {
+      indicatorElement.className = 'opening-soon';
+      labelElement.textContent = 'Opening Soon';
+    } else if (marketOpen) {
       indicatorElement.className = 'open';
       labelElement.textContent = 'Market Open';
     } else {
@@ -417,26 +459,98 @@ function updateClock() {
 }
 
 /**
+ * Get time until next market open in seconds
+ */
+function getTimeUntilOpen(etTime) {
+  const day = etTime.getDay();
+  const hours = etTime.getHours();
+  const minutes = etTime.getMinutes();
+  const seconds = etTime.getSeconds();
+
+  // If it's weekend, calculate to Monday 9:30 AM
+  if (day === 0) { // Sunday
+    const hoursUntilMonday = 24 + 9;
+    const minutesUntilMonday = 30;
+    const totalMinutes = (hoursUntilMonday * 60 + minutesUntilMonday) - (hours * 60 + minutes);
+    const totalSeconds = (totalMinutes * 60) - seconds;
+    return totalSeconds;
+  } else if (day === 6) { // Saturday
+    const hoursUntilMonday = 48 + 9;
+    const minutesUntilMonday = 30;
+    const totalMinutes = (hoursUntilMonday * 60 + minutesUntilMonday) - (hours * 60 + minutes);
+    const totalSeconds = (totalMinutes * 60) - seconds;
+    return totalSeconds;
+  }
+
+  // Weekday logic
+  const timeInMinutes = hours * 60 + minutes;
+  const marketOpen = 9 * 60 + 30;  // 9:30 AM
+
+  // If before market open today
+  if (timeInMinutes < marketOpen) {
+    const minutesUntilOpen = marketOpen - timeInMinutes;
+    return (minutesUntilOpen * 60) - seconds;
+  }
+
+  // If after market close, calculate to next day (or Monday if Friday)
+  if (day === 5) { // Friday
+    const hoursUntilMonday = (24 - hours) + 48 + 9;
+    const minutesUntilMonday = 30 - minutes;
+    const totalMinutes = (hoursUntilMonday * 60 + minutesUntilMonday);
+    return (totalMinutes * 60) - seconds;
+  } else {
+    const hoursUntilTomorrow = (24 - hours) + 9;
+    const minutesUntilTomorrow = 30 - minutes;
+    const totalMinutes = (hoursUntilTomorrow * 60 + minutesUntilTomorrow);
+    return (totalMinutes * 60) - seconds;
+  }
+}
+
+/**
+ * Format seconds to countdown string (HH:MM:SS or DD:HH:MM:SS)
+ */
+function formatCountdown(totalSeconds) {
+  if (totalSeconds <= 0) return '00:00:00';
+
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  if (days > 0) {
+    return `${days}d ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  }
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+/**
  * Update countdown timer
  */
 function updateCountdown() {
   const countdownElement = document.getElementById('countdown');
+  const refreshLabelElement = document.getElementById('refresh-label');
+  const etTime = getEasternTime();
+  const marketOpen = isMarketOpen(etTime);
 
-  if (countdownElement) {
+  if (!countdownElement || !refreshLabelElement) return;
+
+  if (marketOpen) {
+    // Market is open - show refresh countdown
+    refreshLabelElement.textContent = 'Next:';
     const minutes = Math.floor(countdownSeconds / 60);
     const seconds = countdownSeconds % 60;
     countdownElement.textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
-  }
 
-  // Only decrement if market is open
-  const etTime = getEasternTime();
-  if (isMarketOpen(etTime)) {
     countdownSeconds--;
-
-    // When countdown reaches 0, it will be reset by the refresh
     if (countdownSeconds < 0) {
       countdownSeconds = 0;
     }
+  } else {
+    // Market is closed - show time until open
+    refreshLabelElement.textContent = 'Opens:';
+    const secondsUntilOpen = getTimeUntilOpen(etTime);
+    const countdown = formatCountdown(secondsUntilOpen);
+    countdownElement.textContent = countdown;
   }
 }
 
