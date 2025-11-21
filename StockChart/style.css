@@ -1,0 +1,549 @@
+/* ============================================================================
+   INTERACTIVE STOCK CHART STYLES
+   ============================================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================================
+   HEADER
+   ============================================================================ */
+
+.header {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.logo-link:hover {
+  transform: scale(1.05);
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.header h1 {
+  color: white;
+  font-size: 1.8em;
+  font-weight: 700;
+}
+
+/* ============================================================================
+   CONTROL PANEL
+   ============================================================================ */
+
+.control-panel {
+  background: white;
+  margin: 20px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.control-group {
+  margin-bottom: 20px;
+}
+
+.control-group:last-child {
+  margin-bottom: 0;
+}
+
+.control-group label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* Ticker Input */
+.ticker-input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.ticker-input-group input {
+  flex: 1;
+  max-width: 300px;
+  padding: 10px 15px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  text-transform: uppercase;
+  transition: border-color 0.2s;
+}
+
+.ticker-input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+/* Ticker Chips */
+.ticker-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 40px;
+}
+
+.ticker-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f5f5f5;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 2px solid;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ticker-name {
+  color: #333;
+}
+
+.ticker-settings,
+.ticker-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.ticker-settings:hover,
+.ticker-remove:hover {
+  opacity: 1;
+}
+
+.ticker-remove {
+  font-size: 20px;
+  color: #ff4444;
+}
+
+/* Error Message */
+.error-message {
+  display: none;
+  color: #ff4444;
+  font-size: 13px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 68, 68, 0.1);
+  border-radius: 6px;
+  border-left: 3px solid #ff4444;
+}
+
+/* Time Range Buttons */
+.time-range-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Inline Controls */
+.inline-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================================
+   BUTTONS
+   ============================================================================ */
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+  background: #f5f5f5;
+  color: #333;
+  border: 2px solid #ddd;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+  border-color: #ccc;
+}
+
+.btn-range {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+.btn-range:hover {
+  background: #f0f0ff;
+}
+
+.btn-range.active {
+  background: #667eea;
+  color: white;
+}
+
+/* ============================================================================
+   LOADING INDICATOR
+   ============================================================================ */
+
+.loading {
+  display: none;
+  text-align: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  margin: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.loading.active {
+  display: block;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading p {
+  color: #666;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* ============================================================================
+   CHART
+   ============================================================================ */
+
+.chart-wrapper {
+  background: white;
+  margin: 0 20px 20px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  height: calc(100vh - 450px);
+  min-height: 400px;
+  position: relative;
+}
+
+#stock-chart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ============================================================================
+   MODAL
+   ============================================================================ */
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.3em;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+.modal-body {
+  padding: 25px;
+}
+
+.setting-group {
+  margin-bottom: 20px;
+}
+
+.setting-group:last-child {
+  margin-bottom: 0;
+}
+
+.setting-group label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.setting-group input[type="color"] {
+  width: 100px;
+  height: 40px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.setting-group input[type="range"] {
+  width: calc(100% - 60px);
+  margin-right: 15px;
+}
+
+#line-width-value {
+  display: inline-block;
+  min-width: 40px;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 20px 25px;
+  border-top: 1px solid #eee;
+}
+
+/* ============================================================================
+   FOOTER
+   ============================================================================ */
+
+.sitemap {
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 40px 20px 20px;
+  margin-top: auto;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.sitemap-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.sitemap-section h3 {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.sitemap-section ul {
+  list-style: none;
+}
+
+.sitemap-section ul li {
+  margin-bottom: 10px;
+}
+
+.sitemap-section a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.sitemap-section a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.sitemap-section p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9em;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 15px;
+  }
+
+  .header h1 {
+    font-size: 1.3em;
+  }
+
+  .logo {
+    height: 32px;
+  }
+
+  .control-panel {
+    margin: 15px;
+    padding: 20px 15px;
+  }
+
+  .ticker-input-group {
+    flex-direction: column;
+  }
+
+  .ticker-input-group input {
+    max-width: 100%;
+  }
+
+  .time-range-buttons {
+    gap: 5px;
+  }
+
+  .btn-range {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .chart-wrapper {
+    margin: 0 15px 15px;
+    padding: 15px;
+    height: 400px;
+  }
+
+  .inline-controls {
+    flex-direction: column;
+  }
+
+  .inline-controls .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-left {
+    gap: 10px;
+  }
+
+  .header h1 {
+    font-size: 1.1em;
+  }
+
+  .time-range-buttons {
+    justify-content: center;
+  }
+
+  .btn-range {
+    flex: 0 0 calc(25% - 5px);
+    padding: 8px 4px;
+    font-size: 11px;
+  }
+}

@@ -284,13 +284,37 @@
         </header>
 
         <div class="ticker-demo">
-            <h2>🎯 Live Demo</h2>
+            <h2>🎯 Live Stock Ticker</h2>
             <div class="ticker-frame">
                 <iframe src="Website/ticker.html"></iframe>
             </div>
             <p style="color: #666; font-size: 0.9em; margin-top: 10px;">
                 ↑ The ticker updates every 60 seconds with live data from Yahoo Finance
             </p>
+        </div>
+
+        <div class="ticker-demo">
+            <h2>📊 Interactive Stock Charts (NEW!)</h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                Advanced charting with up to 10 simultaneous tickers, zoom/pan controls, custom colors, and adjusted close prices for accurate historical analysis.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+                    <div style="font-size: 2em; font-weight: bold; color: #667eea;">10</div>
+                    <div style="font-size: 0.9em; color: #666;">Tickers at Once</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+                    <div style="font-size: 2em; font-weight: bold; color: #764ba2;">11</div>
+                    <div style="font-size: 0.9em; color: #666;">Time Ranges</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+                    <div style="font-size: 2em; font-weight: bold; color: #f093fb;">∞</div>
+                    <div style="font-size: 0.9em; color: #666;">History (MAX)</div>
+                </div>
+            </div>
+            <a href="StockChart/chart.html" class="button" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s;">
+                Open Interactive Charts →
+            </a>
         </div>
 
         <div class="info-cards">
