@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comprehensive franchise financial calculators for ROI, investment estimation, cash flow analysis, and more">
+    <title>Franchise Financial Calculators</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+
+    <!-- Calculator Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div id="franchise-calculators" class="calc-container">
+        <!-- Header -->
+        <div class="calc-header">
+            <h1>💰 Franchise Financial Calculators</h1>
+            <p class="calc-subtitle">Professional tools for franchise investment analysis and decision-making</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="calc-tabs" id="calc-tabs">
+            <button class="calc-tab active" data-tab="roi">ROI Calculator</button>
+            <button class="calc-tab" data-tab="item7">Item 7 Investment</button>
+            <button class="calc-tab" data-tab="royalty">Royalty Breakdown</button>
+            <button class="calc-tab" data-tab="cashflow">Cash Flow</button>
+            <button class="calc-tab" data-tab="uniteco">Unit Economics</button>
+            <button class="calc-tab" data-tab="payback">Payback Period</button>
+            <button class="calc-tab" data-tab="scaling">Multi-Unit Scaling</button>
+            <button class="calc-tab" data-tab="penetration">Territory Penetration</button>
+            <button class="calc-tab" data-tab="saturation">Saturation Map</button>
+            <button class="calc-tab" data-tab="sba">SBA Loan Payoff</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="calc-content-wrapper">
+            <!-- ROI Calculator -->
+            <div id="tab-roi" class="calc-tab-content active">
+                <h2>📈 ROI Calculator</h2>
+                <p class="calc-description">Calculate your return on investment and determine how quickly you'll reach breakeven.</p>
+                <div id="calculator-roi"></div>
+            </div>
+
+            <!-- Item 7 Initial Investment -->
+            <div id="tab-item7" class="calc-tab-content">
+                <h2>💼 Item 7 Initial Investment Estimator</h2>
+                <p class="calc-description">Estimate total initial investment based on FDD Item 7 ranges.</p>
+                <div id="calculator-item7"></div>
+            </div>
+
+            <!-- Royalty Breakdown -->
+            <div id="tab-royalty" class="calc-tab-content">
+                <h2>💳 Royalty + Marketing Fee Breakdown</h2>
+                <p class="calc-description">Calculate total monthly franchise fees and effective royalty rates.</p>
+                <div id="calculator-royalty"></div>
+            </div>
+
+            <!-- Cash Flow -->
+            <div id="tab-cashflow" class="calc-tab-content">
+                <h2>💵 Franchisee Cash Flow Estimator</h2>
+                <p class="calc-description">Model your monthly cash flow and EBITDA based on revenue and expenses.</p>
+                <div id="calculator-cashflow"></div>
+            </div>
+
+            <!-- Unit Economics -->
+            <div id="tab-uniteco" class="calc-tab-content">
+                <h2>📊 Unit Economics Simulator</h2>
+                <p class="calc-description">Analyze per-customer and per-transaction economics.</p>
+                <div id="calculator-uniteco"></div>
+            </div>
+
+            <!-- Payback Period -->
+            <div id="tab-payback" class="calc-tab-content">
+                <h2>⏱️ Payback Period Estimator</h2>
+                <p class="calc-description">Calculate how long it will take to recoup your initial investment.</p>
+                <div id="calculator-payback"></div>
+            </div>
+
+            <!-- Multi-Unit Scaling -->
+            <div id="tab-scaling" class="calc-tab-content">
+                <h2>🚀 Multi-Unit Scaling Model</h2>
+                <p class="calc-description">Model the financial impact of owning multiple franchise units.</p>
+                <div id="calculator-scaling"></div>
+            </div>
+
+            <!-- Territory Penetration -->
+            <div id="tab-penetration" class="calc-tab-content">
+                <h2>🎯 Territory Penetration Estimator</h2>
+                <p class="calc-description">Analyze market saturation and territory coverage.</p>
+                <div id="calculator-penetration"></div>
+            </div>
+
+            <!-- Saturation Map -->
+            <div id="tab-saturation" class="calc-tab-content">
+                <h2>🗺️ Franchise Saturation Map</h2>
+                <p class="calc-description">Visualize franchise density in your target area using interactive maps.</p>
+                <div id="calculator-saturation"></div>
+            </div>
+
+            <!-- SBA Loan Payoff -->
+            <div id="tab-sba" class="calc-tab-content">
+                <h2>🏦 SBA Loan Payoff Estimator</h2>
+                <p class="calc-description">Calculate loan payoff timeline and interest savings.</p>
+                <div id="calculator-sba"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="calc-footer">
+            <p>💡 <strong>Note:</strong> These calculators provide estimates for planning purposes. Consult with financial advisors and franchise consultants for specific guidance.</p>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    <!-- Calculator JS -->
+    <script src="calculators.js"></script>
+
+    <!-- Initialize -->
+    <script>
+        // Auto-initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof window.initFranchiseCalculators === 'function') {
+                window.initFranchiseCalculators();
+            }
+        });
+    </script>
+</body>
+</html>
