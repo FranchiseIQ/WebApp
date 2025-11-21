@@ -1,0 +1,539 @@
+/* ============================================================================
+   FRANCHISE NEWS WIDGET STYLES
+   Matches the existing stock ticker visual design and behavior
+   ============================================================================ */
+
+/* ============================================================================
+   SCROLLING NEWS TICKER STYLES (Mode A)
+   Mirrors the stock ticker at the top, designed for bottom placement
+   ============================================================================ */
+
+/* News ticker wrapper - can be fixed at bottom or embedded */
+.fiq-news-ticker-wrapper {
+  width: 100%;
+  background: #0a0a0a;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+  z-index: 999;
+}
+
+/* Optional: Fixed bottom positioning for site-wide ticker */
+.fiq-news-ticker-wrapper.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+/* News ticker label bar (similar to status bar) */
+.fiq-news-ticker-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0f0f0f;
+  padding: 8px 20px;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  color: #e0e0e0;
+  font-size: 13px;
+  height: 40px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.fiq-news-ticker-label-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.fiq-news-ticker-label-icon {
+  font-size: 16px;
+}
+
+.fiq-news-ticker-label-source {
+  font-size: 11px;
+  color: #999;
+  font-weight: 500;
+}
+
+/* News ticker scrolling container */
+.fiq-news-ticker-container {
+  width: 100%;
+  background: linear-gradient(90deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  min-height: 50px;
+}
+
+/* News ticker content wrapper (scrolling animation) */
+.fiq-news-ticker-content {
+  display: flex;
+  white-space: nowrap;
+  animation: fiq-scroll-left 90s linear infinite;
+  will-change: transform;
+}
+
+/* Pause on hover */
+.fiq-news-ticker-content:hover {
+  animation-play-state: paused;
+}
+
+/* Individual news ticker item */
+.fiq-news-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 30px;
+  gap: 12px;
+  font-size: 16px;
+  color: #ffffff;
+  border-right: 1px solid #333;
+  min-width: 300px;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* News headline in ticker */
+.fiq-news-ticker-headline {
+  font-weight: 500;
+  font-size: 15px;
+  color: #e0e0e0;
+  flex: 1;
+}
+
+.fiq-news-ticker-headline a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.fiq-news-ticker-headline a:hover {
+  color: #667eea;
+}
+
+/* Source label in ticker */
+.fiq-news-ticker-source {
+  font-weight: 600;
+  font-size: 13px;
+  color: #667eea;
+  background-color: rgba(102, 126, 234, 0.1);
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Scrolling animation */
+@keyframes fiq-scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================================================
+   NEWS FEED WIDGET STYLES (Mode B)
+   Vertical embeddable feed with cards
+   ============================================================================ */
+
+/* News feed container */
+.fiq-news-feed {
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* News feed header */
+.fiq-news-feed-header {
+  background: #0f0f0f;
+  padding: 20px;
+  border-bottom: 2px solid #333;
+  border-radius: 12px 12px 0 0;
+}
+
+.fiq-news-feed-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fiq-news-feed-subtitle {
+  font-size: 13px;
+  color: #999;
+  margin: 8px 0 0 0;
+}
+
+/* News feed items container */
+.fiq-news-feed-items {
+  padding: 0;
+}
+
+/* Individual news item (card) */
+.fiq-news-item {
+  background: #0f0f0f;
+  border-bottom: 1px solid #333;
+  padding: 18px 20px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.fiq-news-item:hover {
+  background: #1a1a1a;
+}
+
+.fiq-news-item:last-child {
+  border-bottom: none;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Compact layout variant */
+.fiq-news-feed.compact .fiq-news-item {
+  padding: 12px 20px;
+}
+
+/* News item title */
+.fiq-news-item-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+}
+
+.fiq-news-item-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.fiq-news-item-title a:hover {
+  color: #667eea;
+}
+
+/* News item metadata */
+.fiq-news-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+/* Source label */
+.fiq-news-item-source {
+  color: #667eea;
+  font-weight: 600;
+  background-color: rgba(102, 126, 234, 0.1);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* Published date */
+.fiq-news-item-date {
+  color: #999;
+  font-size: 12px;
+}
+
+/* Category pill */
+.fiq-news-item-category {
+  color: #00ff88;
+  font-weight: 500;
+  font-size: 11px;
+  background-color: rgba(0, 255, 136, 0.1);
+  padding: 3px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Category color variants */
+.fiq-news-item-category.trade-press {
+  color: #00ff88;
+  background-color: rgba(0, 255, 136, 0.1);
+}
+
+.fiq-news-item-category.big-portals {
+  color: #667eea;
+  background-color: rgba(102, 126, 234, 0.1);
+}
+
+.fiq-news-item-category.research {
+  color: #ff9800;
+  background-color: rgba(255, 152, 0, 0.1);
+}
+
+.fiq-news-item-category.associations {
+  color: #e91e63;
+  background-color: rgba(233, 30, 99, 0.1);
+}
+
+.fiq-news-item-category.consultants {
+  color: #9c27b0;
+  background-color: rgba(156, 39, 176, 0.1);
+}
+
+/* Empty state */
+.fiq-news-feed-empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+}
+
+/* Loading state */
+.fiq-news-feed-loading {
+  padding: 40px 20px;
+  text-align: center;
+  color: #667eea;
+  font-size: 14px;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   Matches the breakpoints from the stock ticker
+   ============================================================================ */
+
+/* Tablet and smaller screens (768px) */
+@media (max-width: 768px) {
+  .fiq-news-ticker-label {
+    padding: 6px 15px;
+    font-size: 11px;
+    height: 35px;
+  }
+
+  .fiq-news-ticker-label-text {
+    font-size: 12px;
+  }
+
+  .fiq-news-ticker-label-icon {
+    font-size: 14px;
+  }
+
+  .fiq-news-ticker-item {
+    padding: 0 20px;
+    gap: 8px;
+    font-size: 14px;
+    min-width: 200px;
+  }
+
+  .fiq-news-ticker-headline {
+    font-size: 13px;
+  }
+
+  .fiq-news-ticker-source {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+
+  .fiq-news-ticker-content {
+    animation-duration: 60s;
+  }
+
+  /* Feed adjustments */
+  .fiq-news-feed-header {
+    padding: 15px;
+  }
+
+  .fiq-news-feed-title {
+    font-size: 18px;
+  }
+
+  .fiq-news-item {
+    padding: 15px;
+  }
+
+  .fiq-news-item-title {
+    font-size: 15px;
+  }
+}
+
+/* Mobile screens (480px) */
+@media (max-width: 480px) {
+  .fiq-news-ticker-label {
+    padding: 5px 10px;
+    font-size: 10px;
+    height: 30px;
+  }
+
+  .fiq-news-ticker-label-text {
+    font-size: 11px;
+  }
+
+  .fiq-news-ticker-label-icon {
+    font-size: 12px;
+  }
+
+  .fiq-news-ticker-label-source {
+    display: none; /* Hide source info on small screens */
+  }
+
+  .fiq-news-ticker-item {
+    padding: 0 15px;
+    gap: 6px;
+    font-size: 12px;
+    min-width: 180px;
+  }
+
+  .fiq-news-ticker-headline {
+    font-size: 12px;
+  }
+
+  .fiq-news-ticker-source {
+    font-size: 10px;
+    padding: 2px 5px;
+  }
+
+  .fiq-news-ticker-content {
+    animation-duration: 45s;
+  }
+
+  /* Feed adjustments */
+  .fiq-news-feed-header {
+    padding: 12px;
+  }
+
+  .fiq-news-feed-title {
+    font-size: 16px;
+  }
+
+  .fiq-news-feed-subtitle {
+    font-size: 11px;
+  }
+
+  .fiq-news-item {
+    padding: 12px;
+  }
+
+  .fiq-news-item-title {
+    font-size: 14px;
+  }
+
+  .fiq-news-item-meta {
+    font-size: 11px;
+    gap: 8px;
+  }
+
+  .fiq-news-item-source {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+
+  .fiq-news-item-date {
+    font-size: 11px;
+  }
+
+  .fiq-news-item-category {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+}
+
+/* Embedded iframe optimization (height-based) */
+@media (max-height: 120px) {
+  .fiq-news-ticker-label {
+    height: 35px;
+    padding: 6px 15px;
+    font-size: 11px;
+  }
+
+  .fiq-news-ticker-item {
+    padding: 0 20px;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .fiq-news-ticker-headline {
+    font-size: 13px;
+  }
+
+  .fiq-news-ticker-source {
+    font-size: 11px;
+  }
+}
+
+@media (max-height: 100px) {
+  .fiq-news-ticker-label {
+    height: 30px;
+    padding: 5px 12px;
+    font-size: 10px;
+  }
+
+  .fiq-news-ticker-item {
+    padding: 0 15px;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .fiq-news-ticker-headline {
+    font-size: 11px;
+  }
+
+  .fiq-news-ticker-source {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .fiq-news-ticker-content {
+    animation-duration: 180s;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .fiq-news-ticker-container {
+    border-top: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+  }
+
+  .fiq-news-ticker-source {
+    color: #88aaff;
+    background-color: rgba(136, 170, 255, 0.2);
+  }
+
+  .fiq-news-item-category {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.fiq-news-item:focus,
+.fiq-news-ticker-headline a:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   UTILITY CLASSES
+   ============================================================================ */
+
+/* Hide on mobile */
+.fiq-hide-mobile {
+  @media (max-width: 480px) {
+    display: none !important;
+  }
+}
+
+/* Hide on tablet */
+.fiq-hide-tablet {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}

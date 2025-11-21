@@ -24,6 +24,9 @@
     <!-- Ticker Widget Styles -->
     <link rel="stylesheet" href="Website/style.css">
 
+    <!-- Franchise News Widget Styles -->
+    <link rel="stylesheet" href="FranchiseNews/news-widget.css">
+
     <style>
         * {
             margin: 0;
@@ -37,7 +40,8 @@
             min-height: 100vh;
             margin: 0 !important;
             padding: 0 !important;
-            padding-top: 120px !important; /* Space for fixed ticker */
+            padding-top: 120px !important; /* Space for fixed stock ticker */
+            padding-bottom: 95px !important; /* Space for fixed news ticker */
             display: block !important;
         }
 
@@ -573,6 +577,8 @@
                         <li><a href="Website/ticker.html">Stock Ticker</a></li>
                         <li><a href="StockChart/chart.html">Stock Charts</a></li>
                         <li><a href="FranchiseMap/map.html">Franchise Map</a></li>
+                        <li><a href="FranchiseNews/news-ticker.html">News Ticker</a></li>
+                        <li><a href="FranchiseNews/news-feed.html">News Feed</a></li>
                     </ul>
                 </div>
                 <div class="sitemap-section-main">
@@ -597,8 +603,36 @@
     <!-- Vanta.js Background -->
     <div id="vanta-bg"></div>
 
+    <!-- Fixed Bottom News Ticker -->
+    <div id="franchise-news-ticker-bottom" style="position: fixed; bottom: 0; left: 0; width: 100%; z-index: 999;"></div>
+
     <!-- Ticker Widget Script -->
     <script src="Website/ticker.js"></script>
+
+    <!-- Franchise News Widget Scripts -->
+    <script src="FranchiseNews/newsService.js"></script>
+    <script src="FranchiseNews/news-widget.js"></script>
+    <script>
+        // Initialize the bottom news ticker
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await window.FranchiseNewsWidget.initTicker({
+                    mountSelector: '#franchise-news-ticker-bottom',
+                    categories: [
+                        window.NEWS_CATEGORIES.TRADE_PRESS,
+                        window.NEWS_CATEGORIES.BIG_PORTALS
+                    ],
+                    tickerSpeed: 90,
+                    pauseOnHover: true,
+                    showLabel: true,
+                    labelText: 'Franchise News',
+                    labelIcon: '📰'
+                });
+            } catch (error) {
+                console.error('Failed to initialize news ticker:', error);
+            }
+        });
+    </script>
 
     <!-- Vanta.js Initialization -->
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
