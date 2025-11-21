@@ -27,7 +27,7 @@ FRANCHISE_STOCKS = [
     "PLNT", "BFT",
 
     # Hospitality
-    "MAR", "HLT", "H", "CHH", "WH", "VAC", "TNL", "CWH",
+    "MAR", "HLT", "H", "CHH", "WH", "IHG", "VAC", "TNL", "CWH",
 
     # Retail & Other
     "GNC", "RENT", "SERV", "ROL", "ADUS", "LOPE", "PLAY", "ARCO", "TAST"

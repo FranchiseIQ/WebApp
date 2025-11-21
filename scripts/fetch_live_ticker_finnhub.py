@@ -20,7 +20,7 @@ TICKER_SYMBOLS = [
     "DENN", "DIN", "DNUT", "NATH", "RRGB",
     "DRVN", "HRB", "CAR", "UHAL",
     "PLNT", "BFT",
-    "MAR", "HLT", "H", "CHH", "WH", "VAC", "TNL", "CWH",
+    "MAR", "HLT", "H", "CHH", "WH", "IHG", "VAC", "TNL", "CWH",
     "GNC", "RENT",
     "SERV", "ROL",
     "ADUS",
