@@ -332,21 +332,60 @@ class NewsService {
    */
   async getAllArticles() {
     try {
-      // Fetch from static JSON file (updated by GitHub Actions)
-      const response = await fetch('/FranchiseNews/data/news.json');
+      // Fetch from static JSON file (updated by GitHub Actions RSS aggregator)
+      const response = await fetch('/data/franchise_news.json');
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const articles = await response.json();
+      const rssArticles = await response.json();
+
+      // Transform RSS aggregator format to widget format
+      const articles = rssArticles.map(article => ({
+        id: article.id,
+        title: article.title,
+        sourceId: this._normalizeSourceId(article.source_name),
+        url: article.url,
+        publishedAt: article.published_iso ? article.published_iso.split('T')[0] : new Date().toISOString().split('T')[0],
+        category: this._mapRSSCategory(article.category),
+        shortSourceLabel: article.source_name
+      }));
+
       return articles;
     } catch (error) {
-      console.warn('[NewsService] Failed to fetch news.json, falling back to mock data:', error);
+      console.warn('[NewsService] Failed to fetch franchise_news.json, falling back to mock data:', error);
 
       // Fallback to mock data if fetch fails (for local development)
       return MOCK_NEWS_ARTICLES;
     }
+  }
+
+  /**
+   * Normalize source name to source ID
+   * @private
+   */
+  _normalizeSourceId(sourceName) {
+    return sourceName.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
+  /**
+   * Map RSS category to widget category
+   * @private
+   */
+  _mapRSSCategory(rssCategory) {
+    const categoryMap = {
+      'trade_press': NEWS_CATEGORIES.TRADE_PRESS,
+      'directory': NEWS_CATEGORIES.BIG_PORTALS,
+      'research': NEWS_CATEGORIES.RESEARCH,
+      'association': NEWS_CATEGORIES.ASSOCIATIONS,
+      'consultant': NEWS_CATEGORIES.CONSULTANTS,
+      'google_news': NEWS_CATEGORIES.TRADE_PRESS  // Treat Google News as trade press
+    };
+
+    return categoryMap[rssCategory] || NEWS_CATEGORIES.TRADE_PRESS;
   }
 
   /**

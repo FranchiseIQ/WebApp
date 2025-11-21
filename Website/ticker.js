@@ -37,6 +37,91 @@ try {
 }
 
 // ============================================================================
+// CSV DATA INTEGRATION
+// ============================================================================
+
+/**
+ * Fetch stock data from local CSV file (populated by GitHub Actions)
+ * @returns {Promise<Object>} Stock data keyed by symbol
+ */
+async function fetchStockDataFromCSV() {
+  try {
+    console.log('Fetching stock data from CSV...');
+    const response = await fetch('/data/franchise_stocks.csv');
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch CSV: ${response.status}`);
+    }
+
+    const csvText = await response.text();
+    const lines = csvText.trim().split('\n');
+
+    if (lines.length < 2) {
+      throw new Error('CSV file is empty or invalid');
+    }
+
+    // Parse CSV header
+    const headers = lines[0].split(',');
+
+    // Build map of most recent data for each symbol
+    const stockData = {};
+    const latestDates = {}; // Track latest date for each symbol
+
+    // Process lines in reverse (most recent first)
+    for (let i = lines.length - 1; i >= 1; i--) {
+      const values = lines[i].split(',');
+
+      if (values.length < headers.length) continue;
+
+      const date = values[0];
+      const symbol = values[1];
+      const close = parseFloat(values[5]); // adjClose column
+
+      // Skip if we already have more recent data for this symbol
+      if (latestDates[symbol] && latestDates[symbol] > date) {
+        continue;
+      }
+
+      // Calculate change percent (we'll need previous day's data for this)
+      // For now, we'll mark it as unchanged if we don't have previous data
+      let changePercent = 0;
+
+      // Try to find previous day's data for change calculation
+      if (!latestDates[symbol]) {
+        // Look for the previous entry for this symbol
+        for (let j = i - 1; j >= 1; j--) {
+          const prevValues = lines[j].split(',');
+          if (prevValues[1] === symbol) {
+            const prevClose = parseFloat(prevValues[5]);
+            changePercent = ((close - prevClose) / prevClose) * 100;
+            break;
+          }
+        }
+      }
+
+      latestDates[symbol] = date;
+      stockData[symbol] = {
+        symbol: symbol,
+        price: close.toFixed(2),
+        changePercent: changePercent.toFixed(2),
+        isPositive: changePercent > 0,
+        isNegative: changePercent < 0,
+        afterHours: false,
+        source: 'csv',
+        date: date
+      };
+    }
+
+    console.log(`✓ Loaded ${Object.keys(stockData).length} stocks from CSV`);
+    return stockData;
+
+  } catch (error) {
+    console.error('Failed to fetch CSV data:', error);
+    return {};
+  }
+}
+
+// ============================================================================
 // YAHOO FINANCE API INTEGRATION
 // ============================================================================
 
@@ -283,9 +368,25 @@ async function updateTicker() {
   const closingMessageEl = document.getElementById('closing-message');
   const lastUpdatedEl = document.getElementById('last-updated');
 
+  let stockData = {};
+
   if (marketOpen) {
-    // Market is open: fetch fresh data
-    const stockData = await fetchStockData();
+    // Market is open: Try Yahoo Finance for live data, fall back to CSV
+    console.log('Market is open - fetching live data...');
+    stockData = await fetchStockData();
+
+    // If Yahoo Finance failed or returned insufficient data, try CSV
+    if (Object.keys(stockData).length < TICKER_SYMBOLS.length / 2) {
+      console.log('Yahoo Finance data insufficient, trying CSV...');
+      const csvData = await fetchStockDataFromCSV();
+      // Merge CSV data for any missing symbols
+      TICKER_SYMBOLS.forEach(symbol => {
+        if (!stockData[symbol] && csvData[symbol]) {
+          stockData[symbol] = csvData[symbol];
+        }
+      });
+    }
+
     renderTicker(stockData);
     resetCountdown(); // Reset countdown after refresh
 
@@ -301,10 +402,19 @@ async function updateTicker() {
       closingMessageEl.style.display = 'none';
     }
   } else {
-    // Market is closed: use last known data or fetch once for previous close
+    // Market is closed: Use CSV data (updated daily by GitHub Actions)
+    console.log('Market is closed - loading from CSV...');
+
     if (Object.keys(lastMarketData).length === 0) {
-      // Fetch once to get previous close data
-      const stockData = await fetchStockData();
+      // Try CSV first (preferred for after-hours)
+      stockData = await fetchStockDataFromCSV();
+
+      // If CSV failed, try Yahoo Finance for previous close
+      if (Object.keys(stockData).length === 0) {
+        console.log('CSV unavailable, trying Yahoo Finance...');
+        stockData = await fetchStockData();
+      }
+
       lastMarketData = stockData;
       renderTicker(stockData);
 
