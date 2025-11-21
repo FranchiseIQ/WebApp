@@ -37,11 +37,60 @@ try {
 }
 
 // ============================================================================
-// CSV DATA INTEGRATION
+// FINNHUB LIVE DATA INTEGRATION
+// ============================================================================
+
+/**
+ * Fetch live stock data from Finnhub (updated hourly by GitHub Actions)
+ * @returns {Promise<Object>} Stock data keyed by symbol
+ */
+async function fetchLiveTickerData() {
+  try {
+    console.log('Fetching live ticker data from Finnhub...');
+    const response = await fetch('/data/live_ticker.json');
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch live ticker: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.quotes || Object.keys(data.quotes).length === 0) {
+      throw new Error('Live ticker data is empty');
+    }
+
+    // Transform Finnhub format to ticker format
+    const stockData = {};
+    for (const [symbol, quote] of Object.entries(data.quotes)) {
+      stockData[symbol] = {
+        symbol: quote.symbol,
+        price: quote.price.toFixed(2),
+        changePercent: quote.changePercent.toFixed(2),
+        isPositive: quote.isPositive,
+        isNegative: quote.isNegative,
+        afterHours: false,
+        source: 'finnhub',
+        fetchedAt: data.fetchedAt
+      };
+    }
+
+    console.log(`✓ Loaded ${Object.keys(stockData).length} live quotes from Finnhub`);
+    console.log(`  Last updated: ${data.fetchedAt}`);
+    return stockData;
+
+  } catch (error) {
+    console.error('Failed to fetch live ticker data:', error);
+    return {};
+  }
+}
+
+// ============================================================================
+// CSV DATA INTEGRATION (FOR CHART HISTORICAL DATA)
 // ============================================================================
 
 /**
  * Fetch stock data from local CSV file (populated by GitHub Actions)
+ * This is used primarily for the chart's historical data, not the ticker
  * @returns {Promise<Object>} Stock data keyed by symbol
  */
 async function fetchStockDataFromCSV() {
@@ -371,13 +420,13 @@ async function updateTicker() {
   let stockData = {};
 
   if (marketOpen) {
-    // Market is open: Try Yahoo Finance for live data, fall back to CSV
-    console.log('Market is open - fetching live data...');
-    stockData = await fetchStockData();
+    // Market is open: Try Finnhub live data first, fall back to CSV
+    console.log('Market is open - fetching live data from Finnhub...');
+    stockData = await fetchLiveTickerData();
 
-    // If Yahoo Finance failed or returned insufficient data, try CSV
+    // If Finnhub data failed or insufficient, try CSV as fallback
     if (Object.keys(stockData).length < TICKER_SYMBOLS.length / 2) {
-      console.log('Yahoo Finance data insufficient, trying CSV...');
+      console.log('Finnhub data insufficient, trying CSV...');
       const csvData = await fetchStockDataFromCSV();
       // Merge CSV data for any missing symbols
       TICKER_SYMBOLS.forEach(symbol => {
@@ -402,17 +451,17 @@ async function updateTicker() {
       closingMessageEl.style.display = 'none';
     }
   } else {
-    // Market is closed: Use CSV data (updated daily by GitHub Actions)
-    console.log('Market is closed - loading from CSV...');
+    // Market is closed: Use most recent data (Finnhub or CSV)
+    console.log('Market is closed - loading most recent data...');
 
     if (Object.keys(lastMarketData).length === 0) {
-      // Try CSV first (preferred for after-hours)
-      stockData = await fetchStockDataFromCSV();
+      // Try Finnhub first (may have after-hours data)
+      stockData = await fetchLiveTickerData();
 
-      // If CSV failed, try Yahoo Finance for previous close
+      // If Finnhub failed, fall back to CSV
       if (Object.keys(stockData).length === 0) {
-        console.log('CSV unavailable, trying Yahoo Finance...');
-        stockData = await fetchStockData();
+        console.log('Finnhub unavailable, trying CSV...');
+        stockData = await fetchStockDataFromCSV();
       }
 
       lastMarketData = stockData;

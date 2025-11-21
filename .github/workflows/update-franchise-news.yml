@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # Allow workflow to commit and push
+      actions: write   # Allow workflow to trigger deploy workflow
 
     steps:
       - name: Checkout repository
