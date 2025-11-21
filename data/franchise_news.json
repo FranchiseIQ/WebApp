@@ -1,1 +1,72 @@
-[]
+[
+  {
+    "id": "test-1",
+    "title": "McDonald's Reports Strong Q4 Earnings",
+    "url": "https://example.com/article-1",
+    "summary": "Global restaurant chain sees strong performance in franchise segment.",
+    "source_name": "Test Feed",
+    "source_feed_url": "https://example.com/feed",
+    "source_type": "test",
+    "category": "earnings",
+    "published_raw": "2025-11-21T22:18:41.416009",
+    "published_iso": "2025-11-21T22:18:41.416009Z",
+    "author": "Test Author",
+    "fetched_at": "2025-11-21T22:18:41.416031Z"
+  },
+  {
+    "id": "test-2",
+    "title": "Domino's Expands International Footprint",
+    "url": "https://example.com/article-2",
+    "summary": "Pizza franchise announces 50 new locations across Europe and Asia.",
+    "source_name": "Test Feed",
+    "source_feed_url": "https://example.com/feed",
+    "source_type": "test",
+    "category": "expansion",
+    "published_raw": "2025-11-21T21:18:41.416053",
+    "published_iso": "2025-11-21T21:18:41.416053Z",
+    "author": "Test Author",
+    "fetched_at": "2025-11-21T22:18:41.416058Z"
+  },
+  {
+    "id": "test-3",
+    "title": "Marriott International Unveils New Brand",
+    "url": "https://example.com/article-3",
+    "summary": "Hotel franchisor launches budget-friendly brand for emerging markets.",
+    "source_name": "Test Feed",
+    "source_feed_url": "https://example.com/feed",
+    "source_type": "test",
+    "category": "brand",
+    "published_raw": "2025-11-21T20:18:41.416065",
+    "published_iso": "2025-11-21T20:18:41.416065Z",
+    "author": "Test Author",
+    "fetched_at": "2025-11-21T22:18:41.416068Z"
+  },
+  {
+    "id": "test-4",
+    "title": "Franchise Industry Sees Record Growth",
+    "url": "https://example.com/article-4",
+    "summary": "Industry report shows franchise sector outperforming expectations.",
+    "source_name": "Test Feed",
+    "source_feed_url": "https://example.com/feed",
+    "source_type": "test",
+    "category": "industry",
+    "published_raw": "2025-11-21T19:18:41.416074",
+    "published_iso": "2025-11-21T19:18:41.416074Z",
+    "author": "Test Author",
+    "fetched_at": "2025-11-21T22:18:41.416077Z"
+  },
+  {
+    "id": "test-5",
+    "title": "Private Equity Interest in Franchises Surges",
+    "url": "https://example.com/article-5",
+    "summary": "Investment firms increasingly targeting franchise acquisitions.",
+    "source_name": "Test Feed",
+    "source_feed_url": "https://example.com/feed",
+    "source_type": "test",
+    "category": "finance",
+    "published_raw": "2025-11-21T18:18:41.416084",
+    "published_iso": "2025-11-21T18:18:41.416084Z",
+    "author": "Test Author",
+    "fetched_at": "2025-11-21T22:18:41.416087Z"
+  }
+]
