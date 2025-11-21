@@ -3,95 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <title>Stock Charts - FranchiseIQ</title>
-    <link rel="stylesheet" href="charts.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <meta http-equiv="refresh" content="0; url=../StockChart/chart.html">
+    <title>Redirecting to FranResearch Charts...</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .message {
+            max-width: 600px;
+            padding: 40px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        a {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        a:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
-    <!-- Header with Logo -->
-    <header class="page-header">
-        <a href="../index.html" class="logo-link">
-            <img src="../logo.svg" alt="FranchiseIQ Logo" class="logo">
-        </a>
-        <h1>Stock Market Charts</h1>
-    </header>
-
-    <!-- Main Content -->
-    <div class="container">
-        <div class="controls">
-            <label for="stock-select">Select Stock:</label>
-            <select id="stock-select">
-                <option value="MCD">McDonald's (MCD)</option>
-                <option value="YUM">Yum! Brands (YUM)</option>
-                <option value="QSR">Restaurant Brands (QSR)</option>
-                <option value="WEN">Wendy's (WEN)</option>
-                <option value="DPZ">Domino's (DPZ)</option>
-                <option value="JACK">Jack in the Box (JACK)</option>
-                <option value="WING">Wingstop (WING)</option>
-                <option value="SHAK">Shake Shack (SHAK)</option>
-                <option value="CAVA">CAVA (CAVA)</option>
-                <option value="MAR">Marriott (MAR)</option>
-                <option value="HLT">Hilton (HLT)</option>
-                <option value="H">Hyatt (H)</option>
-                <option value="PLNT">Planet Fitness (PLNT)</option>
-            </select>
-
-            <label for="timeframe-select">Timeframe:</label>
-            <select id="timeframe-select">
-                <option value="1d">1 Day</option>
-                <option value="5d" selected>5 Days</option>
-                <option value="1mo">1 Month</option>
-                <option value="3mo">3 Months</option>
-                <option value="6mo">6 Months</option>
-                <option value="1y">1 Year</option>
-            </select>
-
-            <button id="refresh-btn">Refresh Data</button>
-        </div>
-
-        <div class="chart-info">
-            <h2 id="chart-title">Loading...</h2>
-            <div id="chart-stats"></div>
-        </div>
-
-        <div class="chart-container">
-            <canvas id="stockChart"></canvas>
-        </div>
-
-        <div id="loading" class="loading">Loading chart data...</div>
-        <div id="error" class="error" style="display: none;"></div>
+    <div class="message">
+        <h1>🚀 FranResearch Charts</h1>
+        <p>Redirecting you to the new advanced charting platform...</p>
+        <a href="../StockChart/chart.html">Click here if not redirected automatically</a>
     </div>
-
-    <!-- Sitemap Footer -->
-    <footer class="sitemap">
-        <div class="sitemap-container">
-            <div class="sitemap-section">
-                <h3>Pages</h3>
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="ticker.html">Stock Ticker</a></li>
-                    <li><a href="charts.html">Stock Charts</a></li>
-                </ul>
-            </div>
-            <div class="sitemap-section">
-                <h3>Resources</h3>
-                <ul>
-                    <li><a href="README.md">Documentation</a></li>
-                    <li><a href="https://github.com/MonroeGamble/WebApp" target="_blank">GitHub Repo</a></li>
-                </ul>
-            </div>
-            <div class="sitemap-section">
-                <h3>About</h3>
-                <p>FranchiseIQ - Live stock tracking for franchise companies</p>
-                <p style="font-size: 0.85em; margin-top: 10px;">Data provided by Yahoo Finance</p>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2024 FranchiseIQ. All rights reserved.
-        </div>
-    </footer>
-
-    <script src="charts.js"></script>
 </body>
 </html>
