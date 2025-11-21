@@ -49,46 +49,47 @@ body {
   justify-content: space-between;
   align-items: center;
   background: #0f0f0f;
-  padding: 8px 20px;
+  padding: 12px 24px;
   border-bottom: 1px solid #333;
   color: #e0e0e0;
-  font-size: 13px;
+  font-size: 16px;
   flex-shrink: 0;
-  height: 40px;
+  height: 50px;
 }
 
 #clock-section {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  align-items: baseline;
+  gap: 4px;
 }
 
 #clock {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 18px;
   font-variant-numeric: tabular-nums;
   color: #ffffff;
-  min-width: 100px;
+  min-width: 130px;
 }
 
 #timezone {
-  font-size: 11px;
+  font-size: 16px;
   color: #999;
   font-weight: 500;
+  margin-left: 2px;
 }
 
 #market-status-section {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 #market-indicator {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   display: inline-block;
-  box-shadow: 0 0 6px currentColor;
+  box-shadow: 0 0 8px currentColor;
 }
 
 #market-indicator.open {
@@ -116,36 +117,173 @@ body {
 @keyframes pulse-orange {
   0%, 100% {
     opacity: 1;
-    box-shadow: 0 0 6px currentColor;
+    box-shadow: 0 0 8px currentColor;
   }
   50% {
     opacity: 0.6;
-    box-shadow: 0 0 12px currentColor;
+    box-shadow: 0 0 14px currentColor;
   }
 }
 
 #market-label {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
 }
 
 #refresh-section {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 #refresh-label {
-  font-size: 12px;
+  font-size: 15px;
   color: #999;
 }
 
 #countdown {
   font-weight: 600;
-  font-size: 13px;
+  font-size: 16px;
   color: #667eea;
   font-variant-numeric: tabular-nums;
-  min-width: 30px;
+  min-width: 50px;
+}
+
+#last-updated-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#last-updated-section span:first-child {
+  font-size: 15px;
+}
+
+#last-updated {
+  font-size: 16px;
+}
+
+#market-close-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#market-close-section span:first-child {
+  font-size: 15px;
+}
+
+#market-close-countdown {
+  font-size: 16px;
+}
+
+/* Giant Countdown Clock */
+#giant-countdown {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  padding: 40px 20px;
+  border-bottom: 3px solid #ff9800;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+#giant-countdown.warning-red {
+  border-bottom-color: #ff4444;
+  background: linear-gradient(135deg, #2a1a1a 0%, #1a0f0f 100%);
+}
+
+#giant-countdown.warning-orange {
+  border-bottom-color: #ff9800;
+  background: linear-gradient(135deg, #2a2010 0%, #1a1508 100%);
+}
+
+#giant-countdown.complete-green {
+  border-bottom-color: #00ff88;
+  background: linear-gradient(135deg, #0a2a1a 0%, #051a0f 100%);
+}
+
+.countdown-label {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #999;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.countdown-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.countdown-segment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-number {
+  font-size: 72px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+  transition: all 0.3s ease;
+  min-width: 120px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 152, 0, 0.3);
+}
+
+#giant-countdown.warning-red .countdown-number {
+  color: #ff4444;
+  text-shadow: 0 0 20px rgba(255, 68, 68, 0.6);
+  border-color: rgba(255, 68, 68, 0.5);
+  animation: pulse-red 2s ease-in-out infinite;
+}
+
+#giant-countdown.warning-orange .countdown-number {
+  color: #ff9800;
+  text-shadow: 0 0 20px rgba(255, 152, 0, 0.6);
+  border-color: rgba(255, 152, 0, 0.5);
+}
+
+#giant-countdown.complete-green .countdown-number {
+  color: #00ff88;
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+  border-color: rgba(0, 255, 136, 0.5);
+}
+
+@keyframes pulse-red {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(255, 68, 68, 0.3);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(255, 68, 68, 0.6);
+  }
+}
+
+.countdown-separator {
+  font-size: 60px;
+  font-weight: 700;
+  color: #666;
+  margin: 0 10px;
+  line-height: 1;
+  padding-bottom: 30px;
+}
+
+.countdown-unit {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  margin-top: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 /* Ticker container */
@@ -249,6 +387,36 @@ body {
 
 /* Tablet and smaller screens */
 @media (max-width: 768px) {
+  /* Giant countdown responsive */
+  #giant-countdown {
+    padding: 30px 15px;
+  }
+
+  .countdown-label {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+  .countdown-display {
+    gap: 15px;
+  }
+
+  .countdown-number {
+    font-size: 48px;
+    min-width: 80px;
+    padding: 15px;
+  }
+
+  .countdown-separator {
+    font-size: 40px;
+    padding-bottom: 20px;
+  }
+
+  .countdown-unit {
+    font-size: 11px;
+    margin-top: 8px;
+  }
+
   #status-bar {
     padding: 6px 15px;
     font-size: 11px;
@@ -311,6 +479,39 @@ body {
 
 /* Mobile screens */
 @media (max-width: 480px) {
+  /* Giant countdown mobile */
+  #giant-countdown {
+    padding: 20px 10px;
+  }
+
+  .countdown-label {
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+  }
+
+  .countdown-display {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .countdown-number {
+    font-size: 36px;
+    min-width: 60px;
+    padding: 10px;
+  }
+
+  .countdown-separator {
+    font-size: 30px;
+    padding-bottom: 15px;
+  }
+
+  .countdown-unit {
+    font-size: 10px;
+    margin-top: 5px;
+    letter-spacing: 1px;
+  }
+
   #status-bar {
     padding: 5px 10px;
     font-size: 10px;

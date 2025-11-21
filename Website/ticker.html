@@ -30,6 +30,27 @@
         📊 Showing Closing Prices
     </div>
 
+    <!-- Giant Countdown Clock (shown 2 hours before close) -->
+    <div id="giant-countdown" style="display: none;">
+        <div class="countdown-label">MARKET CLOSES IN</div>
+        <div class="countdown-display">
+            <div class="countdown-segment">
+                <div class="countdown-number" id="countdown-hours">00</div>
+                <div class="countdown-unit">HOURS</div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-segment">
+                <div class="countdown-number" id="countdown-minutes">00</div>
+                <div class="countdown-unit">MINUTES</div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-segment">
+                <div class="countdown-number" id="countdown-seconds">00</div>
+                <div class="countdown-unit">SECONDS</div>
+            </div>
+        </div>
+    </div>
+
     <div id="status-bar">
         <div id="clock-section">
             <span id="clock">--:--:-- --</span>

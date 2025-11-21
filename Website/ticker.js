@@ -707,6 +707,72 @@ function formatCountdown(totalSeconds) {
 }
 
 /**
+ * Update giant countdown clock
+ */
+function updateGiantCountdown() {
+  const giantCountdown = document.getElementById('giant-countdown');
+  const hoursEl = document.getElementById('countdown-hours');
+  const minutesEl = document.getElementById('countdown-minutes');
+  const secondsEl = document.getElementById('countdown-seconds');
+
+  if (!giantCountdown || !hoursEl || !minutesEl || !secondsEl) return;
+
+  const etTime = getEasternTime();
+  const marketOpen = isMarketOpen(etTime);
+
+  if (!marketOpen) {
+    // Hide when market is closed
+    giantCountdown.style.display = 'none';
+    return;
+  }
+
+  const secondsUntilClose = getTimeUntilClose(etTime);
+  const twoHoursInSeconds = 2 * 60 * 60; // 2 hours
+
+  // Only show if within 2 hours of close
+  if (secondsUntilClose <= twoHoursInSeconds && secondsUntilClose > 0) {
+    giantCountdown.style.display = 'block';
+
+    // Calculate time components
+    const hours = Math.floor(secondsUntilClose / 3600);
+    const minutes = Math.floor((secondsUntilClose % 3600) / 60);
+    const seconds = secondsUntilClose % 60;
+
+    // Update display
+    hoursEl.textContent = String(hours).padStart(2, '0');
+    minutesEl.textContent = String(minutes).padStart(2, '0');
+    secondsEl.textContent = String(seconds).padStart(2, '0');
+
+    // Change colors based on time remaining
+    giantCountdown.classList.remove('warning-orange', 'warning-red', 'complete-green');
+
+    if (secondsUntilClose <= 60 * 60) {
+      // Less than 1 hour: RED (critical)
+      giantCountdown.classList.add('warning-red');
+    } else {
+      // 1-2 hours: ORANGE (warning)
+      giantCountdown.classList.add('warning-orange');
+    }
+  } else if (secondsUntilClose <= 0) {
+    // Market just closed - show green briefly
+    giantCountdown.style.display = 'block';
+    giantCountdown.classList.remove('warning-orange', 'warning-red');
+    giantCountdown.classList.add('complete-green');
+    hoursEl.textContent = '00';
+    minutesEl.textContent = '00';
+    secondsEl.textContent = '00';
+
+    // Hide after 5 seconds
+    setTimeout(() => {
+      giantCountdown.style.display = 'none';
+    }, 5000);
+  } else {
+    // More than 2 hours until close - hide
+    giantCountdown.style.display = 'none';
+  }
+}
+
+/**
  * Update countdown timer
  */
 function updateCountdown() {
@@ -757,6 +823,9 @@ function updateCountdown() {
     const countdown = formatCountdown(secondsUntilOpen);
     countdownElement.textContent = countdown;
   }
+
+  // Update giant countdown clock
+  updateGiantCountdown();
 }
 
 /**
