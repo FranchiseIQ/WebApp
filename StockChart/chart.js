@@ -1023,6 +1023,106 @@ function closeModal() {
 }
 
 /**
+ * Get stock data from CSV file
+ */
+async function getStockDataFromCSV(ticker) {
+  try {
+    const response = await fetch('../data/franchise_stocks.csv');
+    if (!response.ok) {
+      throw new Error('CSV file not found');
+    }
+
+    const csvText = await response.text();
+    const lines = csvText.split('\n');
+    const headers = lines[0].split(',');
+
+    // Find most recent data for this ticker
+    let latestData = null;
+    let latestDate = '';
+
+    for (let i = lines.length - 1; i >= 1; i--) {
+      const line = lines[i].trim();
+      if (!line) continue;
+
+      const values = line.split(',');
+      const symbol = values[1];
+
+      if (symbol === ticker) {
+        const date = values[0];
+        if (!latestData || date > latestDate) {
+          latestDate = date;
+          latestData = {
+            symbol: values[1],
+            open: parseFloat(values[2]),
+            high: parseFloat(values[3]),
+            low: parseFloat(values[4]),
+            close: parseFloat(values[5]),
+            adjClose: parseFloat(values[6]),
+            volume: parseInt(values[7])
+          };
+        }
+      }
+    }
+
+    if (!latestData) {
+      throw new Error(`No data found for ${ticker}`);
+    }
+
+    // Calculate 52-week high/low
+    let fiftyTwoWeekHigh = latestData.high;
+    let fiftyTwoWeekLow = latestData.low;
+    const oneYearAgo = new Date(latestDate);
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+    for (let i = lines.length - 1; i >= 1; i--) {
+      const line = lines[i].trim();
+      if (!line) continue;
+
+      const values = line.split(',');
+      const symbol = values[1];
+      const date = values[0];
+
+      if (symbol === ticker && date >= oneYearAgo.toISOString().split('T')[0]) {
+        const high = parseFloat(values[3]);
+        const low = parseFloat(values[4]);
+        if (high > fiftyTwoWeekHigh) fiftyTwoWeekHigh = high;
+        if (low < fiftyTwoWeekLow) fiftyTwoWeekLow = low;
+      }
+    }
+
+    // Calculate change percent (compare adjClose to previous close)
+    let changePercent = 0;
+    for (let i = lines.length - 1; i >= 1; i--) {
+      const line = lines[i].trim();
+      if (!line) continue;
+
+      const values = line.split(',');
+      const symbol = values[1];
+      const date = values[0];
+
+      if (symbol === ticker && date < latestDate) {
+        const prevClose = parseFloat(values[5]);
+        changePercent = ((latestData.adjClose - prevClose) / prevClose) * 100;
+        break;
+      }
+    }
+
+    return {
+      symbol: ticker,
+      price: latestData.adjClose,
+      change: changePercent,
+      volume: latestData.volume,
+      marketCap: 0, // Not available in CSV
+      fiftyTwoWeekHigh: fiftyTwoWeekHigh,
+      fiftyTwoWeekLow: fiftyTwoWeekLow
+    };
+  } catch (error) {
+    console.error(`Error reading CSV for ${ticker}:`, error);
+    throw error;
+  }
+}
+
+/**
  * Update stock data table
  */
 async function updateTable() {
@@ -1045,28 +1145,28 @@ async function updateTable() {
 
   for (const ticker of activeTickers.keys()) {
     try {
-      const quote = await fetchQuoteData(ticker);
+      const quote = await getStockDataFromCSV(ticker);
 
       const changeClass = quote.change > 0 ? 'positive-change' : (quote.change < 0 ? 'negative-change' : '');
       const changeSign = quote.change > 0 ? '+' : '';
 
       rows.push(`
         <tr>
-          <td>${quote.symbol}</td>
+          <td><strong>${quote.symbol}</strong></td>
           <td>$${quote.price.toFixed(2)}</td>
           <td class="${changeClass}">${changeSign}${quote.change.toFixed(2)}%</td>
           <td>${formatNumber(quote.volume)}</td>
-          <td>${formatMarketCap(quote.marketCap)}</td>
+          <td>${quote.marketCap > 0 ? formatMarketCap(quote.marketCap) : 'N/A'}</td>
           <td>$${quote.fiftyTwoWeekHigh.toFixed(2)}</td>
           <td>$${quote.fiftyTwoWeekLow.toFixed(2)}</td>
         </tr>
       `);
     } catch (error) {
-      console.error(`Failed to fetch quote for ${ticker}:`, error);
+      console.error(`Failed to get data for ${ticker}:`, error);
       rows.push(`
         <tr>
-          <td>${ticker}</td>
-          <td colspan="6" style="color: #fa709a;">Error loading data</td>
+          <td><strong>${ticker}</strong></td>
+          <td colspan="6" style="color: #fa709a;">No data available</td>
         </tr>
       `);
     }
