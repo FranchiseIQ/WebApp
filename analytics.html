@@ -1,0 +1,33 @@
+<!-- Google Analytics (GA4) Tracking Script -->
+<!-- Replace G-XXXXXXXXXX with your actual GA4 Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XXXXXXXXXX', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+
+  // Track custom events
+  function trackEvent(category, action, label, value) {
+    gtag('event', action, {
+      'event_category': category,
+      'event_label': label,
+      'value': value
+    });
+  }
+
+  // Track widget interactions
+  function trackWidgetView(widgetName) {
+    gtag('event', 'widget_view', {
+      'widget_name': widgetName
+    });
+  }
+
+  // Expose tracking functions globally
+  window.trackEvent = trackEvent;
+  window.trackWidgetView = trackWidgetView;
+</script>
