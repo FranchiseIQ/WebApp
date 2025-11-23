@@ -3,8 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - claude/stock-ticker-widget-01WsYAVjT7kuL6HVqFZpuoKa
-      - claude/franchise-news-widget-01WM5qh2UNjRZcSmCRVhQpwX
       - main
       - master
   workflow_dispatch:
