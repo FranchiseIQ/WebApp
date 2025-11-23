@@ -1,3 +1,36 @@
+# 📈 Interactive Stock Chart Widget
+
+A powerful, interactive stock chart visualization tool built with Chart.js. Compare up to 10 stock tickers simultaneously with customizable colors, line widths, and time ranges. Features zoom, pan, and detailed tooltips with OHLC data.
+
+## 🌟 Features
+
+### Multi-Ticker Comparison
+- **Add up to 10 tickers** simultaneously
+- Real-time data from Yahoo Finance API
+- Uses **adjusted close prices** for accurate historical analysis
+- Automatic color assignment with custom color picker
+
+### Interactive Chart Controls
+- **Zoom & Pan**: Mouse wheel or pinch to zoom, click and drag to pan
+- **Time Ranges**: 1D, 1W, 1M, 6M, YTD, 1Y, 2Y, 5Y, 10Y, MAX
+- **Customizable Lines**: Adjust color and width (1-5px) for each ticker
+- **Toggle Options**: Show/hide legend and grid lines
+
+### Rich Tooltips
+Hover over any point to see:
+- Adjusted close price
+- Open, High, Low prices
+- Trading volume
+
+### Responsive Design
+- Works seamlessly on desktop, tablet, and mobile
+- Optimized for embedding in iframes
+- Clean, modern interface
+
+## 🚀 Quick Start
+
+### Direct Access
+Simply open the widget in your browser:
 # Interactive Stock Chart Widget
 
 A powerful, interactive stock charting application with support for multiple tickers, custom styling, zoom/pan controls, and adjusted close prices.
@@ -32,320 +65,288 @@ Open the chart directly:
 https://monroegamble.github.io/WebApp/StockChart/chart.html
 ```
 
-### Embed in Website
+### Embedding on Your Website
 
+#### Basic Embed (HTML)
 ```html
 <iframe src="https://monroegamble.github.io/WebApp/StockChart/chart.html"
         width="100%"
-        height="700"
+        height="600"
         frameborder="0"
-        style="border: none;">
+        style="border:none;">
 </iframe>
 ```
 
-### Embed in Google Sites
-
+#### Google Sites
 1. Go to **Insert** → **Embed** → **Embed Code**
 2. Paste the iframe code above
-3. Adjust height as needed (recommended: 700px)
+3. Adjust dimensions as needed
 4. Click **Insert**
 
-## How to Use
+#### WordPress
+```html
+<!-- Use the HTML block -->
+<iframe src="https://monroegamble.github.io/WebApp/StockChart/chart.html"
+        width="100%"
+        height="600"
+        frameborder="0"
+        style="border:none; min-height:600px;">
+</iframe>
+```
 
-### Adding Tickers
+#### Wix
+1. Click **Add** → **Embed** → **Custom Embeds** → **Embed a Widget**
+2. Paste the iframe code
+3. Adjust settings and save
 
-1. Type a stock symbol in the "Add Ticker" input (e.g., AAPL, TSLA, MCD)
-2. Click **Add** or press **Enter**
-3. The ticker will appear as a colored chip below the input
+## 📖 How to Use
+
+### Adding Stocks
+1. Enter a ticker symbol in the input field (e.g., `AAPL`, `MSFT`, `GOOGL`)
+2. Click **Add Ticker** or press **Enter**
+3. The stock will be added to your chart with a unique color
 4. Repeat to add up to 10 tickers
 
-### Removing Tickers
+### Customizing Display
+- **Change Color**: Click the color box next to any ticker
+- **Adjust Line Width**: Use the slider to change thickness (1-5px)
+- **Select Time Range**: Click any time range button (1D, 1M, 6M, etc.)
+- **Toggle Grid**: Check/uncheck "Show Grid Lines"
+- **Toggle Legend**: Click "Toggle Legend" button
 
-Click the **×** button on any ticker chip to remove it from the chart.
+### Interacting with the Chart
+- **Zoom In/Out**:
+  - Desktop: Scroll mouse wheel up/down
+  - Mobile: Pinch gesture
+- **Pan**: Click and drag the chart
+- **Reset View**: Click "Reset Zoom" button
+- **View Details**: Hover over any point to see tooltip
 
-### Customizing Tickers
+### Removing Stocks
+- Click the **✕** button next to any ticker to remove it from the chart
 
-1. Click the **⚙️** settings icon on any ticker chip
-2. Choose a custom line color using the color picker
-3. Adjust line width with the slider (1-5 pixels)
-4. Click **Save** to apply changes
+## 🔧 Technical Details
 
-### Changing Time Range
-
-Click any of the time range buttons:
-- **1D** - Today's intraday data
-- **5D** - Last 5 trading days
-- **1M** - Last month
-- **3M** - Last 3 months
-- **6M** - Last 6 months
-- **YTD** - Year to date
-- **1Y** - Last year
-- **2Y** - Last 2 years
-- **5Y** - Last 5 years
-- **10Y** - Last 10 years
-- **MAX** - All available history
-
-### Zooming and Panning
-
-**Zoom:**
-- Mouse wheel up/down
-- Pinch gesture on touch devices
-
-**Pan:**
-- Hold **Shift** and drag the chart
-- Touch and drag on mobile
-
-**Reset:**
-- Click **Reset Zoom** button to restore original view
-
-## Default Tickers
-
-The chart loads with three default franchise stocks:
-- **MCD** - McDonald's
-- **YUM** - Yum! Brands
-- **QSR** - Restaurant Brands International
-
-## Technical Details
+### Technology Stack
+- **HTML5/CSS3/JavaScript**: Pure vanilla implementation
+- **Chart.js 4.4.0**: Powerful charting library
+- **Chart.js Zoom Plugin**: Interactive zoom and pan
+- **Stooq API**: Free, reliable stock data with no rate limits
 
 ### Data Source
-
-**Yahoo Finance Chart API**
 ```
-https://query1.finance.yahoo.com/v8/finance/chart/{TICKER}?range={RANGE}&interval=1d
+Endpoint: https://stooq.com/q/d/l/?s={TICKER}.US&i=d
 ```
 
-### Adjusted Close Prices
+Returns CSV format:
+```csv
+Date,Open,High,Low,Close,Volume
+2024-01-02,290.30,293.48,289.97,292.12,2408700
+2024-01-03,292.00,293.80,289.40,291.16,2898700
+```
 
-The widget uses **adjusted close prices** (`adjclose`) which account for:
-- Stock splits (e.g., 2-for-1, 3-for-1)
+Benefits:
+- **No authentication** required
+- **No rate limits** - unlimited requests
+- **Adjusted prices** included (splits, dividends)
+- **Clean CSV format** - easy to parse
+- **Historical data** going back decades
+- **100% free** forever
+
+### Price Data
+The widget uses **adjusted close prices** which account for:
+- Stock splits
 - Dividends
-- Other corporate actions
+- Corporate actions
 
-This ensures accurate historical performance analysis.
+This provides accurate historical performance comparison.
 
-**Example:**
-```javascript
-// Raw close: Shows apparent -50% drop after 2-for-1 split
-// Adjusted close: Shows true performance (no artificial drop)
-```
-
-### CORS Proxy System
-
-The widget uses a 4-tier fallback system:
-1. `allorigins.win` (Primary - 90% reliability)
-2. `corsproxy.io` (Backup - 85% reliability)
-3. `codetabs.com` (Alternative - 75% reliability)
-4. Direct connection (Fallback - may fail due to CORS)
-
-### Browser Support
-
+### Browser Compatibility
 - ✅ Chrome 90+
 - ✅ Firefox 88+
 - ✅ Safari 14+
 - ✅ Edge 90+
 - ✅ Mobile browsers (iOS Safari, Chrome Mobile)
 
-## API Rate Limits
+## 📱 Responsive Breakpoints
+- **Desktop**: > 768px (full features)
+- **Tablet**: 481px - 768px (optimized layout)
+- **Mobile**: ≤ 480px (stacked controls)
 
-**Yahoo Finance:**
-- No official rate limits
-- Recommended: Max 60 requests per minute
-- Widget batches requests efficiently
+## ⚙️ Customization
 
-**This widget:**
-- 1 API call per ticker per time range change
-- Cached data prevents redundant calls
-- Example: Loading 5 tickers = 5 API calls
-
-## Customization Guide
-
-### Changing Default Tickers
-
-Edit `chart.js` line 10:
-```javascript
-const DEFAULT_TICKERS = ['MCD', 'YUM', 'QSR']; // Change these
-```
-
-### Adjusting Color Palette
-
-Edit `chart.js` lines 16-21:
-```javascript
-const COLOR_PALETTE = [
-  '#667eea', // Purple
-  '#764ba2', // Violet
-  '#f093fb', // Pink
-  // Add more hex colors...
-];
-```
-
-### Modifying Max Tickers
-
-Edit `chart.js` line 8:
-```javascript
-const MAX_TICKERS = 10; // Change to any number
-```
-
-### Changing Default Time Range
-
-Edit `chart.js` line 11:
-```javascript
-let currentRange = 'ytd'; // Options: 1d, 5d, 1mo, 3mo, 6mo, ytd, 1y, 2y, 5y, 10y, max
-```
-
-## Embed Size Recommendations
-
-### Full Desktop Experience
-```html
-<iframe src="..." width="100%" height="700" frameborder="0"></iframe>
-```
-
-### Compact View
-```html
-<iframe src="..." width="100%" height="500" frameborder="0"></iframe>
-```
-
-### Mobile Optimized
-```html
-<iframe src="..." width="100%" height="600" frameborder="0"></iframe>
-```
-
-## Troubleshooting
-
-### No Data Loading
-
-**Symptoms:** Spinning loader, no chart appears
-
-**Solutions:**
-1. Check browser console (F12) for errors
-2. Verify ticker symbols are valid (check Yahoo Finance)
-3. Try refreshing the page
-4. Wait 10-15 seconds for API to respond
-5. Check internet connection
-
-### Chart Not Responding
-
-**Symptoms:** Can't zoom/pan, buttons don't work
-
-**Solutions:**
-1. Ensure JavaScript is enabled
-2. Try a hard refresh: `Ctrl + F5` (Windows) or `Cmd + Shift + R` (Mac)
-3. Clear browser cache
-4. Check console for JavaScript errors
-
-### Ticker Won't Add
-
-**Symptoms:** "Failed to fetch data" error
-
-**Possible causes:**
-- Invalid ticker symbol
-- Delisted stock
-- API temporarily unavailable
-- CORS proxy down
-
-**Solutions:**
-- Verify ticker exists on Yahoo Finance: `https://finance.yahoo.com/quote/SYMBOL`
-- Try again in 30 seconds (proxy may be rate limited)
-- Try a different ticker first
-
-### Adjusted Prices Not Showing
-
-**Symptoms:** Chart shows sharp drops on split dates
-
-**This should NOT happen** - the widget automatically uses adjusted prices. If you see this:
-1. Check browser console for warnings
-2. Look for message: "Using regular close (adjusted not available)"
-3. This means Yahoo Finance didn't provide adjusted data for that ticker
-4. Report the ticker symbol as an issue
-
-### Slow Performance
-
-**Symptoms:** Chart lags when adding tickers or changing ranges
-
-**Solutions:**
-- Reduce number of active tickers (max performance with 3-5)
-- Use shorter time ranges (1M, 3M instead of MAX)
-- Close unnecessary browser tabs
-- Update to latest browser version
-
-## Keyboard Shortcuts
-
-| Key | Action |
-|-----|--------|
-| **Enter** | Add ticker (when input focused) |
-| **Shift + Drag** | Pan chart |
-| **Mouse Wheel** | Zoom in/out |
-| **Esc** | Close modal |
-
-## Performance Tips
-
-1. **Limit tickers** - 5-7 tickers for best performance
-2. **Use shorter ranges** - MAX range can load decades of data
-3. **Close settings modal** - Modal overlay affects render speed
-4. **Avoid rapid clicking** - Wait for data to load before changing range again
-
-## Security & Privacy
-
-- ✅ No user data collected
-- ✅ No cookies or tracking
-- ✅ No backend server
-- ✅ All processing done in browser
-- ✅ HTTPS encrypted connections
-- ✅ No API keys exposed
-
-## File Structure
-
+### File Structure
 ```
 StockChart/
-├── chart.html      # Main HTML page
-├── chart.js        # Application logic (400+ lines)
-├── style.css       # Complete styling (600+ lines)
+├── chart.html      # Main HTML structure
+├── chart.js        # JavaScript logic
+├── style.css       # Styling and responsive design
 └── README.md       # This file
 ```
 
-## Dependencies (CDN)
+### Modifying Default Settings
 
-- **Chart.js 4.4.0** - Charting library
-- **chartjs-plugin-zoom 2.0.1** - Zoom/pan functionality
-- **chartjs-adapter-date-fns 3.0.0** - Date handling
-- **Hammer.js 2.0.8** - Touch gesture support
+#### Change Default Time Range
+In `chart.js`, find:
+```javascript
+let currentRange = '1y';  // Change to: '1d', '1mo', '6mo', etc.
+```
 
-All dependencies loaded via CDN - no local installation required.
+#### Adjust Maximum Tickers
+In `chart.js`, find:
+```javascript
+const MAX_TICKERS = 10;  // Change to desired limit
+```
 
-## Limitations
+#### Modify Default Colors
+In `chart.js`, edit the `DEFAULT_COLORS` array:
+```javascript
+const DEFAULT_COLORS = [
+    '#3B82F6',  // Blue
+    '#EF4444',  // Red
+    '#10B981',  // Green
+    // Add or modify colors...
+];
+```
 
-1. **Maximum 10 tickers** - Technical limit to maintain performance
-2. **Daily interval only** - Intraday (minute-level) data not supported for historical ranges
-3. **US market focus** - Best support for US-listed stocks
-4. **API dependency** - Requires Yahoo Finance to be accessible
-5. **No real-time streaming** - Data refreshed on demand, not pushed
+#### Change Chart Height
+In `style.css`, modify `.chart-container`:
+```css
+.chart-container {
+    min-height: 400px;  /* Adjust as needed */
+}
+```
 
-## Future Enhancements
+## 🎯 Use Cases
 
-Potential features for future versions:
-- [ ] Save/load ticker configurations
-- [ ] Export chart as image
-- [ ] Multiple chart types (candlestick, area, bar)
-- [ ] Technical indicators (SMA, EMA, RSI, MACD)
-- [ ] Comparison mode (% change from baseline)
-- [ ] Volume overlay
-- [ ] Split/dividend markers
-- [ ] News integration
-- [ ] Earnings date markers
+### Investment Analysis
+- Compare multiple stocks in the same sector
+- Analyze relative performance over different time periods
+- Identify trends and patterns
 
-## Support
+### Educational Content
+- Teaching students about stock market behavior
+- Demonstrating portfolio diversification
+- Explaining market correlations
 
-For issues, feature requests, or questions:
-- Create an issue on GitHub
-- Check browser console for error messages
-- Verify ticker symbols on Yahoo Finance first
+### Financial Blogging
+- Embed live charts in articles
+- Create interactive portfolio showcases
+- Provide real-time market commentary
 
-## License
+### Client Presentations
+- Showcase portfolio performance
+- Compare investment options
+- Present market research
 
-This widget is provided as-is for educational and personal use.
+## ⚠️ Limitations
+
+### Data Availability
+- Stooq primarily supports US stocks (append `.US` to ticker)
+- Some tickers may have limited historical data
+- Delisted stocks may not return data
+- For international stocks: Use appropriate suffix (e.g., `.UK`, `.DE`)
+
+### Data Updates
+- Daily data updated after market close
+- Not real-time intraday data (end-of-day only)
+- Perfect for historical analysis and long-term charting
+- Not suitable for day-trading or real-time monitoring
+
+### CORS & Hosting
+- Stooq API allows cross-origin requests
+- Works directly from GitHub Pages, static hosts, or local files
+- No server-side proxy required
+
+## 🛠️ Troubleshooting
+
+### "Failed to load data" Error
+- Verify the ticker symbol is correct (US stocks only by default)
+- Check internet connection
+- Try a well-known ticker like AAPL or MSFT to test API
+- Ensure ticker exists on Stooq (visit stooq.com to verify)
+
+### Chart Not Displaying
+- Check browser console for JavaScript errors
+- Ensure Chart.js CDN is accessible
+- Verify iframe dimensions are set correctly
+- Try disabling browser extensions (ad blockers)
+
+### Zoom Not Working
+- Verify Chart.js Zoom plugin is loaded
+- Check browser compatibility
+- On mobile, use pinch gesture instead of scrolling
+
+### Slow Performance
+- Reduce number of tickers (fewer = faster)
+- Use shorter time ranges
+- Close other browser tabs
+- Check internet speed
+
+## 🔐 Privacy & Security
+
+- **No data collection**: Widget runs entirely client-side
+- **No cookies**: No tracking or user data storage
+- **No backend**: All API calls made directly to Stooq
+- **Open source**: All code is visible and auditable
+
+## 📄 License
+
+This project is provided as-is for educational and personal use. Stooq data is freely available for personal and commercial use.
+
+## 🤝 Contributing
+
+Found a bug or have a feature request? Please:
+1. Check existing issues on GitHub
+2. Create a new issue with detailed description
+3. Include browser/device information
+4. Provide steps to reproduce (for bugs)
+
+## 📞 Support
+
+For questions or issues:
+- Review this README thoroughly
+- Check the **Help** modal (? button) in the widget
+- Search for similar issues on GitHub
+- Create a new issue with detailed information
+
+## 🔗 Related Tools
+
+- **Stock Ticker Widget**: Scrolling ticker tape at `/Website/ticker.html`
+- **Chart.js Documentation**: https://www.chartjs.org/docs/latest/
+- **Stooq**: https://stooq.com/ (data source)
+
+## 📊 Example Ticker Symbols
+
+### Technology
+- AAPL (Apple)
+- MSFT (Microsoft)
+- GOOGL (Google)
+- AMZN (Amazon)
+- META (Meta/Facebook)
+- NVDA (NVIDIA)
+- TSLA (Tesla)
+
+### Finance
+- JPM (JPMorgan Chase)
+- BAC (Bank of America)
+- WFC (Wells Fargo)
+- GS (Goldman Sachs)
+
+### Healthcare
+- JNJ (Johnson & Johnson)
+- PFE (Pfizer)
+- UNH (UnitedHealth)
+- ABBV (AbbVie)
+
+### ETFs & Indices
+- SPY (S&P 500 ETF)
+- QQQ (NASDAQ-100 ETF)
+- DIA (Dow Jones ETF)
+- IWM (Russell 2000 ETF)
 
 ---
 
-**Built for FranResearch** - Professional stock analysis for the franchise industry
+**Built with ❤️ using Chart.js and Stooq API**
 
-**Version:** 1.0
-**Last Updated:** November 2024
+*Last Updated: 2025*

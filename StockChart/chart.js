@@ -1,1484 +1,546 @@
-// ============================================================================
-// INTERACTIVE STOCK CHART WIDGET
-// Using Yahoo Finance API with Adjusted Close Prices
-// ============================================================================
-
-// Configuration
-const MAX_TICKERS = 10;
-const DEFAULT_TICKERS = ['^GSPC', 'MCD', 'YUM', 'QSR', 'WEN', 'DPZ', 'MAR', 'HLT', 'PLNT', 'DNUT'];
-const CORS_PROXIES = [
-  'https://api.allorigins.win/raw?url=',
-  'https://corsproxy.io/?',
-  'https://api.codetabs.com/v1/proxy?quest=',
-  ''
-];
-
-// State Management
+// Global state
 let chartInstance = null;
-let currentRange = 'ytd';
-let activeTickers = new Map(); // ticker -> {color, width, data, rawData}
+let tickers = [];
+let currentRange = '1y';
 let showLegend = true;
-let showYearMarkers = true; // Toggle for year-end markers
-let displayMode = 'percent'; // 'percent' or 'price'
-let currentModal = null;
+let showGrid = true;
 
-// Chart Data Cache (1 hour expiration)
-const CHART_CACHE_DURATION = 3600000; // 1 hour
-function getCachedChartData(ticker, range) {
-  try {
-    const cacheKey = `chart_${ticker}_${range}`;
-    const cached = localStorage.getItem(cacheKey);
-    if (cached) {
-      const { data, timestamp } = JSON.parse(cached);
-      if (Date.now() - timestamp < CHART_CACHE_DURATION) {
-        console.log(`✓ Using cached data for ${ticker} (${range})`);
-        return data;
-      }
-    }
-  } catch (e) {
-    console.error('Cache read error:', e);
-  }
-  return null;
-}
-
-function setCachedChartData(ticker, range, data) {
-  try {
-    const cacheKey = `chart_${ticker}_${range}`;
-    localStorage.setItem(cacheKey, JSON.stringify({
-      data: data,
-      timestamp: Date.now()
-    }));
-    console.log(`✓ Cached data for ${ticker} (${range})`);
-  } catch (e) {
-    console.error('Cache write error:', e);
-  }
-}
-
-// Color Palette for auto-assignment (^GSPC gets black, others get colors)
-const COLOR_PALETTE = [
-  '#667eea', '#764ba2', '#f093fb', '#4facfe',
-  '#43e97b', '#fa709a', '#fee140', '#30cfd0',
-  '#a8edea', '#fed6e3'
+const MAX_TICKERS = 10;
+const DEFAULT_COLORS = [
+    '#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#8B5CF6',
+    '#EC4899', '#14B8A6', '#F97316', '#06B6D4', '#84CC16'
 ];
 
-// ============================================================================
-// CSV DATA LOADING
-// ============================================================================
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initializeApp();
+});
 
-/**
- * Load historical data from CSV file
- * @param {string} ticker - Stock symbol
- * @returns {Promise<Array>} Array of historical data points
- */
-async function loadHistoricalDataFromCSV(ticker) {
-  try {
-    const response = await fetch('../data/franchise_stocks.csv');
+function initializeApp() {
+    setupEventListeners();
+    initializeChart();
+    showEmptyState();
+}
 
-    if (!response.ok) {
-      console.log(`CSV file not found, will fetch all data from API`);
-      return null;
-    }
+function setupEventListeners() {
+    // Add ticker
+    document.getElementById('addTickerBtn').addEventListener('click', addTicker);
+    document.getElementById('tickerInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') addTicker();
+    });
 
-    const csvText = await response.text();
-    const lines = csvText.split('\n');
-
-    // Parse CSV header
-    const headers = lines[0].split(',');
-
-    // Find data for this ticker
-    const tickerData = [];
-
-    for (let i = 1; i < lines.length; i++) {
-      const line = lines[i].trim();
-      if (!line) continue;
-
-      const values = line.split(',');
-      const row = {};
-
-      headers.forEach((header, index) => {
-        row[header.trim()] = values[index];
-      });
-
-      // Check if this row is for our ticker
-      if (row.symbol === ticker) {
-        tickerData.push({
-          x: new Date(row.date),
-          y: parseFloat(row.adjClose)
+    // Time range buttons
+    document.querySelectorAll('.time-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentRange = btn.dataset.range;
+            refreshChart();
         });
-      }
-    }
+    });
 
-    if (tickerData.length > 0) {
-      console.log(`✓ Loaded ${tickerData.length} historical records for ${ticker} from CSV`);
-      return tickerData;
-    }
+    // Chart controls
+    document.getElementById('resetZoomBtn').addEventListener('click', resetZoom);
+    document.getElementById('toggleLegendBtn').addEventListener('click', toggleLegend);
+    document.getElementById('showGridLines').addEventListener('change', toggleGridLines);
 
-    return null;
-
-  } catch (error) {
-    console.error(`Error loading CSV data for ${ticker}:`, error);
-    return null;
-  }
+    // Help modal
+    document.getElementById('helpBtn').addEventListener('click', () => {
+        document.getElementById('helpModal').style.display = 'block';
+    });
+    document.querySelector('.close-modal').addEventListener('click', () => {
+        document.getElementById('helpModal').style.display = 'none';
+    });
+    window.addEventListener('click', (e) => {
+        const modal = document.getElementById('helpModal');
+        if (e.target === modal) modal.style.display = 'none';
+    });
 }
 
-/**
- * Fetch today's data from API
- * @param {string} ticker - Stock symbol
- * @returns {Promise<Array>} Array with today's data point(s)
- */
-async function fetchTodayData(ticker) {
-  const yahooUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=1d&interval=1d`;
+function initializeChart() {
+    const ctx = document.getElementById('stockChart').getContext('2d');
 
-  for (let i = 0; i < CORS_PROXIES.length; i++) {
-    const proxy = CORS_PROXIES[i];
-    const url = proxy ? proxy + encodeURIComponent(yahooUrl) : yahooUrl;
+    chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: []
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 15,
+                        font: {
+                            size: 12,
+                            weight: '600'
+                        }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 12,
+                    titleFont: {
+                        size: 14,
+                        weight: 'bold'
+                    },
+                    bodyFont: {
+                        size: 13
+                    },
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) label += ': ';
+                            if (context.parsed.y !== null) {
+                                label += '$' + context.parsed.y.toFixed(2);
+                            }
+                            return label;
+                        },
+                        afterLabel: function(context) {
+                            const dataset = context.dataset;
+                            if (dataset.rawData && dataset.rawData[context.dataIndex]) {
+                                const point = dataset.rawData[context.dataIndex];
+                                return [
+                                    `Open: $${point.open?.toFixed(2) || 'N/A'}`,
+                                    `High: $${point.high?.toFixed(2) || 'N/A'}`,
+                                    `Low: $${point.low?.toFixed(2) || 'N/A'}`,
+                                    `Volume: ${formatVolume(point.volume)}`
+                                ];
+                            }
+                            return '';
+                        }
+                    }
+                },
+                zoom: {
+                    zoom: {
+                        wheel: {
+                            enabled: true,
+                            speed: 0.1
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'x',
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'x',
+                    },
+                    limits: {
+                        x: {min: 'original', max: 'original'},
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'day',
+                        displayFormats: {
+                            day: 'MMM d',
+                            week: 'MMM d',
+                            month: 'MMM yyyy',
+                            year: 'yyyy'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Date',
+                        font: {
+                            size: 14,
+                            weight: '600'
+                        }
+                    },
+                    grid: {
+                        display: true,
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Price (USD)',
+                        font: {
+                            size: 14,
+                            weight: '600'
+                        }
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return '$' + value.toFixed(2);
+                        }
+                    },
+                    grid: {
+                        display: true,
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                }
+            }
+        }
+    });
+}
+
+async function addTicker() {
+    const input = document.getElementById('tickerInput');
+    const ticker = input.value.trim().toUpperCase();
+
+    if (!ticker) {
+        showError('Please enter a ticker symbol');
+        return;
+    }
+
+    if (tickers.length >= MAX_TICKERS) {
+        showError(`Maximum ${MAX_TICKERS} tickers allowed`);
+        return;
+    }
+
+    if (tickers.find(t => t.symbol === ticker)) {
+        showError(`${ticker} is already added`);
+        return;
+    }
+
+    // Show loading
+    showLoading(true);
 
     try {
-      const response = await fetch(url);
+        // Fetch data to validate ticker
+        const data = await fetchAdjustedPrices(ticker, currentRange);
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (!data.chart || !data.chart.result || data.chart.result.length === 0) {
-        throw new Error('Invalid response structure');
-      }
-
-      const result = data.chart.result[0];
-      const timestamps = result.timestamp;
-      const indicators = result.indicators;
-
-      // Get adjusted close prices
-      let prices;
-      if (indicators.adjclose && indicators.adjclose[0]) {
-        prices = indicators.adjclose[0].adjclose;
-      } else {
-        prices = indicators.quote[0].close;
-      }
-
-      // Get today's data
-      const todayData = [];
-      for (let i = 0; i < timestamps.length; i++) {
-        if (prices[i] !== null && prices[i] !== undefined) {
-          todayData.push({
-            x: new Date(timestamps[i] * 1000),
-            y: prices[i]
-          });
+        if (!data || data.length === 0) {
+            throw new Error('No data available');
         }
-      }
 
-      console.log(`✓ Fetched ${todayData.length} data points for ${ticker} from API`);
-      return todayData;
+        // Add ticker to list
+        const tickerObj = {
+            symbol: ticker,
+            color: DEFAULT_COLORS[tickers.length % DEFAULT_COLORS.length],
+            lineWidth: 2,
+            data: data
+        };
+
+        tickers.push(tickerObj);
+        input.value = '';
+
+        renderTickerList();
+        updateChart();
+        hideEmptyState();
 
     } catch (error) {
-      if (i < CORS_PROXIES.length - 1) {
-        continue;
-      }
-      throw error;
+        console.error('Error adding ticker:', error);
+        showError(`Failed to load data for ${ticker}. Please check the ticker symbol.`);
+    } finally {
+        showLoading(false);
     }
-  }
-
-  return [];
 }
 
-// ============================================================================
-// YAHOO FINANCE API - CHART DATA WITH ADJUSTED CLOSE
-// ============================================================================
+function removeTicker(symbol) {
+    tickers = tickers.filter(t => t.symbol !== symbol);
+    renderTickerList();
 
-/**
- * Fetch current quote data for table display
- */
-async function fetchQuoteData(ticker) {
-  const yahooUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${ticker}`;
+    if (tickers.length === 0) {
+        showEmptyState();
+        chartInstance.data.datasets = [];
+        chartInstance.update();
+    } else {
+        updateChart();
+    }
+}
 
-  for (let i = 0; i < CORS_PROXIES.length; i++) {
-    const proxy = CORS_PROXIES[i];
-    const url = proxy ? proxy + encodeURIComponent(yahooUrl) : yahooUrl;
+function renderTickerList() {
+    const container = document.getElementById('tickerList');
+
+    if (tickers.length === 0) {
+        container.innerHTML = '<p class="no-tickers">No tickers added yet</p>';
+        return;
+    }
+
+    container.innerHTML = tickers.map(ticker => `
+        <div class="ticker-item">
+            <div class="ticker-info">
+                <input type="color"
+                       class="color-picker"
+                       value="${ticker.color}"
+                       onchange="updateTickerColor('${ticker.symbol}', this.value)"
+                       title="Change line color">
+                <span class="ticker-symbol">${ticker.symbol}</span>
+            </div>
+            <div class="ticker-controls">
+                <label class="width-control">
+                    <span>Width:</span>
+                    <input type="range"
+                           min="1"
+                           max="5"
+                           value="${ticker.lineWidth}"
+                           oninput="updateTickerWidth('${ticker.symbol}', this.value)"
+                           class="width-slider">
+                    <span class="width-value">${ticker.lineWidth}px</span>
+                </label>
+                <button class="btn-remove" onclick="removeTicker('${ticker.symbol}')" title="Remove ticker">✕</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function updateTickerColor(symbol, color) {
+    const ticker = tickers.find(t => t.symbol === symbol);
+    if (ticker) {
+        ticker.color = color;
+        updateChart();
+    }
+}
+
+function updateTickerWidth(symbol, width) {
+    const ticker = tickers.find(t => t.symbol === symbol);
+    if (ticker) {
+        ticker.lineWidth = parseInt(width);
+        // Update display
+        const widthValue = document.querySelector(`[onclick="updateTickerWidth('${symbol}', this.value)"]`)
+            ?.parentElement.querySelector('.width-value');
+        if (widthValue) widthValue.textContent = width + 'px';
+        updateChart();
+    }
+}
+
+async function refreshChart() {
+    if (tickers.length === 0) return;
+
+    showLoading(true);
 
     try {
-      const response = await fetch(url);
+        // Fetch new data for all tickers
+        const promises = tickers.map(async ticker => {
+            const data = await fetchAdjustedPrices(ticker.symbol, currentRange);
+            ticker.data = data;
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (!data.quoteResponse || !data.quoteResponse.result || data.quoteResponse.result.length === 0) {
-        throw new Error('Invalid response structure');
-      }
-
-      const quote = data.quoteResponse.result[0];
-
-      return {
-        symbol: quote.symbol,
-        price: quote.regularMarketPrice || 0,
-        change: quote.regularMarketChangePercent || 0,
-        volume: quote.regularMarketVolume || 0,
-        marketCap: quote.marketCap || 0,
-        fiftyTwoWeekHigh: quote.fiftyTwoWeekHigh || 0,
-        fiftyTwoWeekLow: quote.fiftyTwoWeekLow || 0
-      };
-
+        await Promise.all(promises);
+        updateChart();
     } catch (error) {
-      console.error(`Proxy ${i + 1} failed for quote ${ticker}:`, error.message);
-
-      if (i < CORS_PROXIES.length - 1) {
-        continue;
-      }
-
-      throw new Error(`Failed to fetch quote for ${ticker}`);
+        console.error('Error refreshing chart:', error);
+        showError('Failed to refresh chart data');
+    } finally {
+        showLoading(false);
     }
-  }
 }
 
-// ============================================================================
-// YAHOO FINANCE API - CHART DATA WITH ADJUSTED CLOSE
-// ============================================================================
+function updateChart() {
+    if (!chartInstance || tickers.length === 0) return;
 
-/**
- * Fetch historical chart data with adjusted close prices
- * Loads from CSV when available, falls back to API
- */
-async function fetchChartData(ticker, range) {
-  // Check cache first
-  const cachedData = getCachedChartData(ticker, range);
-  if (cachedData) {
-    return cachedData;
-  }
+    const datasets = tickers.map(ticker => ({
+        label: ticker.symbol,
+        data: ticker.data.map(d => ({
+            x: d.date,
+            y: d.price
+        })),
+        rawData: ticker.data,
+        borderColor: ticker.color,
+        backgroundColor: ticker.color + '20',
+        borderWidth: ticker.lineWidth,
+        fill: false,
+        tension: 0.1,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: ticker.color,
+        pointHoverBorderColor: '#fff',
+        pointHoverBorderWidth: 2
+    }));
 
-  try {
-    // Try to load historical data from CSV first
-    let historicalData = await loadHistoricalDataFromCSV(ticker);
+    chartInstance.data.datasets = datasets;
+    chartInstance.update('none');
+    chartInstance.resetZoom();
+}
 
-    // If CSV data exists, merge with today's data from API
-    if (historicalData && historicalData.length > 0) {
-      console.log(`Using CSV data for ${ticker}, fetching today's update...`);
+async function fetchAdjustedPrices(ticker, range) {
+    // Stooq API endpoint - returns CSV with adjusted prices
+    const url = `https://stooq.com/q/d/l/?s=${ticker}.US&i=d`;
 
-      try {
-        const todayData = await fetchTodayData(ticker);
-
-        // Merge historical and today's data
-        const mergedData = [...historicalData];
-
-        // Add today's data if it doesn't overlap
-        if (todayData && todayData.length > 0) {
-          const lastHistoricalDate = new Date(historicalData[historicalData.length - 1].x);
-          const todayDate = new Date(todayData[0].x);
-
-          // Only add if today's data is newer
-          if (todayDate > lastHistoricalDate) {
-            mergedData.push(...todayData);
-          }
-        }
-
-        // Filter to requested range
-        const filteredData = filterDataByRange(mergedData, range);
-
-        const result = {
-          symbol: ticker,
-          data: filteredData,
-          meta: { fromCSV: true }
-        };
-
-        // Cache the result
-        setCachedChartData(ticker, range, result);
-
-        return result;
-
-      } catch (error) {
-        console.warn(`Could not fetch today's data, using CSV only: ${error.message}`);
-
-        const filteredData = filterDataByRange(historicalData, range);
-
-        const result = {
-          symbol: ticker,
-          data: filteredData,
-          meta: { fromCSV: true }
-        };
-
-        // Cache the result
-        setCachedChartData(ticker, range, result);
-
-        return result;
-      }
-    }
-
-    // Fallback: Fetch all data from API if CSV not available
-    console.log(`CSV not available for ${ticker}, fetching from API...`);
-
-    const yahooUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=${range}&interval=1d`;
-
-    for (let i = 0; i < CORS_PROXIES.length; i++) {
-      const proxy = CORS_PROXIES[i];
-      const url = proxy ? proxy + encodeURIComponent(yahooUrl) : yahooUrl;
-
-      try {
+    try {
         const response = await fetch(url);
 
         if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
+        const text = await response.text();
 
-        if (!data.chart || !data.chart.result || data.chart.result.length === 0) {
-          throw new Error('Invalid response structure');
+        // Parse CSV (format: Date,Open,High,Low,Close,Volume)
+        const lines = text.trim().split('\n');
+
+        if (lines.length < 2) {
+            throw new Error('No data in response');
         }
 
-        const result = data.chart.result[0];
-        const timestamps = result.timestamp;
-        const indicators = result.indicators;
+        // Skip header row
+        const dataRows = lines.slice(1);
 
-        // Get adjusted close prices
-        let prices;
-        if (indicators.adjclose && indicators.adjclose[0]) {
-          prices = indicators.adjclose[0].adjclose;
-          console.log(`✓ Using adjusted close for ${ticker}`);
-        } else {
-          prices = indicators.quote[0].close;
-          console.warn(`⚠ Using regular close for ${ticker} (adjusted not available)`);
-        }
+        // Parse all data
+        const allData = [];
+        for (const row of dataRows) {
+            const [dateStr, open, high, low, close, volume] = row.split(',');
 
-        // Filter out null values
-        const chartData = [];
-        for (let i = 0; i < timestamps.length; i++) {
-          if (prices[i] !== null && prices[i] !== undefined) {
-            chartData.push({
-              x: new Date(timestamps[i] * 1000),
-              y: prices[i]
+            // Skip invalid rows
+            if (!dateStr || !close) continue;
+
+            const parsedDate = new Date(dateStr);
+            const parsedClose = parseFloat(close);
+            const parsedOpen = parseFloat(open);
+            const parsedHigh = parseFloat(high);
+            const parsedLow = parseFloat(low);
+            const parsedVolume = parseInt(volume);
+
+            // Skip if parsing failed
+            if (isNaN(parsedClose) || isNaN(parsedDate.getTime())) continue;
+
+            allData.push({
+                date: parsedDate,
+                price: parsedClose,  // Already adjusted by Stooq
+                open: isNaN(parsedOpen) ? null : parsedOpen,
+                high: isNaN(parsedHigh) ? null : parsedHigh,
+                low: isNaN(parsedLow) ? null : parsedLow,
+                volume: isNaN(parsedVolume) ? null : parsedVolume
             });
-          }
         }
 
-        console.log(`✓ Fetched ${chartData.length} data points for ${ticker} from API`);
-
-        const apiResult = {
-          symbol: ticker,
-          data: chartData,
-          meta: result.meta
-        };
-
-        // Cache the result
-        setCachedChartData(ticker, range, apiResult);
-
-        return apiResult;
-
-      } catch (error) {
-        if (i < CORS_PROXIES.length - 1) {
-          console.log('Trying next proxy...');
-          continue;
+        if (allData.length === 0) {
+            throw new Error('No valid data found');
         }
 
-        throw new Error(`Failed to fetch data for ${ticker}: ${error.message}`);
-      }
+        // Sort by date ascending (oldest first)
+        allData.sort((a, b) => a.date - b.date);
+
+        // Filter data based on time range
+        const filteredData = filterDataByRange(allData, range);
+
+        return filteredData;
+
+    } catch (error) {
+        console.error(`Error fetching data for ${ticker}:`, error);
+        throw error;
     }
-
-  } catch (error) {
-    throw new Error(`Failed to load chart data for ${ticker}: ${error.message}`);
-  }
 }
 
-/**
- * Filter data by time range
- */
 function filterDataByRange(data, range) {
-  if (!data || data.length === 0) return [];
+    if (!data || data.length === 0) return data;
 
-  const now = new Date();
-  let startDate;
-
-  switch (range) {
-    case '1d':
-      startDate = new Date(now.getTime() - 1 * 24 * 60 * 60 * 1000);
-      break;
-    case '5d':
-      startDate = new Date(now.getTime() - 5 * 24 * 60 * 60 * 1000);
-      break;
-    case '1mo':
-      startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-      break;
-    case '3mo':
-      startDate = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
-      break;
-    case '6mo':
-      startDate = new Date(now.getTime() - 180 * 24 * 60 * 60 * 1000);
-      break;
-    case 'ytd':
-      startDate = new Date(now.getFullYear(), 0, 1);
-      break;
-    case '1y':
-      startDate = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
-      break;
-    case '2y':
-      startDate = new Date(now.getTime() - 2 * 365 * 24 * 60 * 60 * 1000);
-      break;
-    case '5y':
-      startDate = new Date(now.getTime() - 5 * 365 * 24 * 60 * 60 * 1000);
-      break;
-    case '10y':
-      startDate = new Date(now.getTime() - 10 * 365 * 24 * 60 * 60 * 1000);
-      break;
-    case 'max':
-      return data; // Return all data
-    default:
-      startDate = new Date(now.getFullYear(), 0, 1); // Default to YTD
-  }
-
-  return data.filter(point => new Date(point.x) >= startDate);
-}
-
-// ============================================================================
-// DATA TRANSFORMATION
-// ============================================================================
-
-/**
- * Convert price data to percent change from first point
- * @param {Array} data - Array of {x: Date, y: price} objects
- * @param {Date} startDate - Optional start date for visible range
- * @param {Date} endDate - Optional end date for visible range
- * @returns {Array} Array of {x: Date, y: percentChange} objects
- */
-function convertToPercentChange(data, startDate = null, endDate = null) {
-  if (!data || data.length === 0) return [];
-
-  // Filter data to visible range if dates provided
-  let visibleData = data;
-  if (startDate && endDate) {
-    visibleData = data.filter(point => {
-      const pointDate = new Date(point.x);
-      return pointDate >= startDate && pointDate <= endDate;
-    });
-  }
-
-  if (visibleData.length === 0) return data; // Fallback to original if no visible data
-
-  // Get the first price as baseline
-  const baselinePrice = visibleData[0].y;
-
-  // Convert all prices to percent change from baseline
-  return data.map(point => ({
-    x: point.x,
-    y: ((point.y - baselinePrice) / baselinePrice) * 100,
-    price: point.y // Store original price for tooltip
-  }));
-}
-
-/**
- * Get visible date range from chart
- */
-function getVisibleRange() {
-  if (!chartInstance) return null;
-
-  const xScale = chartInstance.scales.x;
-  if (!xScale) return null;
-
-  return {
-    min: new Date(xScale.min),
-    max: new Date(xScale.max)
-  };
-}
-
-/**
- * Recalculate percent changes based on visible range
- */
-function recalculatePercentChanges() {
-  if (displayMode !== 'percent') return;
-
-  const visibleRange = getVisibleRange();
-  if (!visibleRange) return;
-
-  let needsUpdate = false;
-
-  activeTickers.forEach((tickerData, ticker) => {
-    const newData = convertToPercentChange(
-      tickerData.rawData.data,
-      visibleRange.min,
-      visibleRange.max
-    );
-
-    // Update only if data changed
-    if (JSON.stringify(newData) !== JSON.stringify(tickerData.data.data)) {
-      tickerData.data = {
-        ...tickerData.rawData,
-        data: newData
-      };
-      needsUpdate = true;
-    }
-  });
-
-  if (needsUpdate) {
-    updateChartData();
-  }
-}
-
-/**
- * Update chart data without recreating entire chart
- */
-function updateChartData() {
-  if (!chartInstance) return;
-
-  const datasets = [];
-  activeTickers.forEach((tickerData, ticker) => {
-    const dataToUse = displayMode === 'percent' ? tickerData.data : tickerData.rawData;
-
-    datasets.push({
-      label: ticker,
-      data: dataToUse.data,
-      borderColor: tickerData.color,
-      backgroundColor: tickerData.color + '20',
-      borderWidth: tickerData.width,
-      fill: false,
-      tension: 0.1,
-      pointRadius: 0,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: tickerData.color,
-      pointHoverBorderColor: '#fff',
-      pointHoverBorderWidth: 2
-    });
-  });
-
-  chartInstance.data.datasets = datasets;
-  chartInstance.update('none'); // Update without animation
-}
-
-// ============================================================================
-// TICKER MANAGEMENT
-// ============================================================================
-
-/**
- * Add ticker to chart
- */
-async function addTicker(ticker) {
-  ticker = ticker.toUpperCase().trim();
-
-  // Validation
-  if (!ticker) {
-    showError('Please enter a ticker symbol');
-    return;
-  }
-
-  if (ticker.length > 10) {
-    showError('Ticker symbol too long');
-    return;
-  }
-
-  if (activeTickers.has(ticker)) {
-    showError(`${ticker} is already on the chart`);
-    return;
-  }
-
-  if (activeTickers.size >= MAX_TICKERS) {
-    showError(`Maximum ${MAX_TICKERS} tickers allowed`);
-    return;
-  }
-
-  // Show loading
-  showLoading();
-  clearError();
-
-  try {
-    // Fetch data
-    const chartData = await fetchChartData(ticker, currentRange);
-
-    // Special handling for ^GSPC (S&P 500) - thick black line as baseline
-    let color, width;
-    if (ticker === '^GSPC') {
-      color = '#000000'; // Black
-      width = 3; // Thicker line
-    } else {
-      // Auto-assign color from palette
-      const colorIndex = activeTickers.size % COLOR_PALETTE.length;
-      color = COLOR_PALETTE[colorIndex];
-      width = 2;
-    }
-
-    // Store ticker data (both raw and processed)
-    activeTickers.set(ticker, {
-      color: color,
-      width: width,
-      rawData: chartData, // Store original data
-      data: chartData // Will be transformed based on display mode
-    });
-
-    // Update UI
-    renderTickerChip(ticker);
-    updateChart();
-    updateTable(); // Update table with new ticker
-    clearInput();
-    updateLastUpdatedTimestamp(); // Update timestamp
-
-    console.log(`✓ Added ${ticker} to chart`);
-
-  } catch (error) {
-    showError(error.message);
-    console.error('Error adding ticker:', error);
-  } finally {
-    hideLoading();
-  }
-}
-
-/**
- * Remove ticker from chart
- */
-function removeTicker(ticker) {
-  if (activeTickers.has(ticker)) {
-    activeTickers.delete(ticker);
-    updateChart();
-    renderAllTickerChips();
-    updateTable(); // Update table after removing ticker
-    console.log(`✓ Removed ${ticker} from chart`);
-  }
-}
-
-/**
- * Open settings modal for ticker
- */
-function openTickerSettings(ticker) {
-  const tickerData = activeTickers.get(ticker);
-  if (!tickerData) return;
-
-  currentModal = ticker;
-
-  // Set current values
-  document.getElementById('modal-title').textContent = `${ticker} Settings`;
-  document.getElementById('line-color').value = tickerData.color;
-  document.getElementById('line-width').value = tickerData.width;
-  document.getElementById('line-width-value').textContent = `${tickerData.width}px`;
-
-  // Show modal
-  document.getElementById('settings-modal').classList.add('active');
-}
-
-/**
- * Save ticker settings
- */
-function saveTickerSettings() {
-  if (!currentModal) return;
-
-  const ticker = currentModal;
-  const tickerData = activeTickers.get(ticker);
-  if (!tickerData) return;
-
-  // Update settings
-  tickerData.color = document.getElementById('line-color').value;
-  tickerData.width = parseInt(document.getElementById('line-width').value);
-
-  // Close modal and update chart
-  closeModal();
-  updateChart();
-
-  console.log(`✓ Updated settings for ${ticker}`);
-}
-
-// ============================================================================
-// CHART RENDERING
-// ============================================================================
-
-/**
- * Create or update the chart
- */
-function updateChart() {
-  const canvas = document.getElementById('stock-chart');
-  const ctx = canvas.getContext('2d');
-
-  // Destroy existing chart
-  if (chartInstance) {
-    chartInstance.destroy();
-  }
-
-  // Prepare datasets - use appropriate data based on display mode
-  const datasets = [];
-  activeTickers.forEach((tickerData, ticker) => {
-    // Transform data to percent if in percent mode
-    let dataToDisplay;
-    if (displayMode === 'percent') {
-      dataToDisplay = convertToPercentChange(tickerData.rawData.data);
-      tickerData.data = { ...tickerData.rawData, data: dataToDisplay };
-    } else {
-      dataToDisplay = tickerData.rawData.data;
-    }
-
-    datasets.push({
-      label: ticker,
-      data: dataToDisplay,
-      borderColor: tickerData.color,
-      backgroundColor: tickerData.color + '20',
-      borderWidth: tickerData.width,
-      fill: false,
-      tension: 0.1,
-      pointRadius: 0,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: tickerData.color,
-      pointHoverBorderColor: '#fff',
-      pointHoverBorderWidth: 2
-    });
-  });
-
-  // Create chart
-  chartInstance = new Chart(ctx, {
-    type: 'line',
-    data: { datasets },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: {
-        mode: 'index',
-        intersect: false
-      },
-      plugins: {
-        legend: {
-          display: showLegend,
-          position: 'top',
-          labels: {
-            usePointStyle: true,
-            padding: 20,
-            font: {
-              size: 16,
-              weight: '600'
-            },
-            boxWidth: 15,
-            boxHeight: 15
-          }
-        },
-        tooltip: {
-          enabled: true,
-          mode: 'index',
-          intersect: false,
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          titleColor: '#fff',
-          bodyColor: '#fff',
-          borderColor: '#667eea',
-          borderWidth: 1,
-          padding: 12,
-          displayColors: true,
-          callbacks: {
-            title: function(context) {
-              if (context[0] && context[0].parsed) {
-                const date = new Date(context[0].parsed.x);
-                return date.toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric'
-                });
-              }
-              return '';
-            },
-            label: function(context) {
-              const label = context.dataset.label || '';
-              const dataPoint = context.raw;
-
-              if (displayMode === 'percent') {
-                const percentChange = context.parsed.y;
-                const price = dataPoint.price || 0;
-                return [
-                  `${label}: ${percentChange >= 0 ? '+' : ''}${percentChange.toFixed(2)}%`,
-                  `Price: $${price.toFixed(2)}`
-                ];
-              } else {
-                const price = context.parsed.y;
-                return `${label}: $${price.toFixed(2)}`;
-              }
-            }
-          }
-        },
-        zoom: {
-          pan: {
-            enabled: true,
-            mode: 'x',
-            modifierKey: 'shift',
-            onPanComplete: function() {
-              // Recalculate percent changes after pan
-              setTimeout(() => recalculatePercentChanges(), 100);
-            }
-          },
-          zoom: {
-            wheel: {
-              enabled: true,
-              speed: 0.1
-            },
-            pinch: {
-              enabled: true
-            },
-            mode: 'x',
-            onZoomComplete: function() {
-              // Recalculate percent changes after zoom
-              setTimeout(() => recalculatePercentChanges(), 100);
-            }
-          },
-          limits: {
-            x: { min: 'original', max: 'original' }
-          }
-        }
-      },
-      scales: {
-        x: {
-          type: 'time',
-          time: {
-            unit: getTimeUnit(currentRange),
-            displayFormats: {
-              day: 'MMM d',
-              week: 'MMM d',
-              month: 'MMM yyyy',
-              quarter: 'MMM yyyy',
-              year: 'yyyy'
-            }
-          },
-          grid: {
-            display: showYearMarkers,
-            color: function(context) {
-              // Show year-end markers as dashed vertical lines
-              if (!showYearMarkers) return 'transparent';
-
-              const date = new Date(context.tick.value);
-              const month = date.getMonth();
-              const day = date.getDate();
-
-              // Check if it's near year-end (December 31st)
-              if (month === 11 && day >= 28) {
-                return 'rgba(150, 150, 150, 0.3)';
-              }
-              return 'transparent';
-            },
-            borderDash: [5, 5],
-            lineWidth: 1
-          },
-          ticks: {
-            maxRotation: 0,
-            autoSkipPadding: 20,
-            font: {
-              size: 14,
-              weight: '500'
-            }
-          }
-        },
-        y: {
-          position: 'right',
-          grid: {
-            color: 'rgba(0, 0, 0, 0.05)'
-          },
-          ticks: {
-            font: {
-              size: 14,
-              weight: '500'
-            },
-            callback: function(value) {
-              if (displayMode === 'percent') {
-                return (value >= 0 ? '+' : '') + value.toFixed(1) + '%';
-              } else {
-                return '$' + value.toFixed(2);
-              }
-            }
-          }
-        }
-      }
-    }
-  });
-}
-
-/**
- * Get appropriate time unit for range
- */
-function getTimeUnit(range) {
-  switch(range) {
-    case '1d': return 'hour';
-    case '5d': return 'day';
-    case '1mo': return 'day';
-    case '3mo': return 'week';
-    case '6mo': return 'week';
-    case 'ytd': return 'week';
-    case '1y': return 'month';
-    case '2y': return 'month';
-    case '5y': return 'month';
-    case '10y': return 'year';
-    case 'max': return 'year';
-    default: return 'day';
-  }
-}
-
-// ============================================================================
-// TIME RANGE MANAGEMENT
-// ============================================================================
-
-/**
- * Change time range and reload all ticker data
- */
-async function changeTimeRange(range) {
-  currentRange = range;
-
-  // Update button states
-  document.querySelectorAll('.btn-range').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  document.querySelector(`[data-range="${range}"]`).classList.add('active');
-
-  // Reload all tickers with new range
-  if (activeTickers.size > 0) {
-    showLoading();
-    clearError();
-
-    try {
-      const tickers = Array.from(activeTickers.keys());
-
-      for (const ticker of tickers) {
-        const tickerData = activeTickers.get(ticker);
-        const newData = await fetchChartData(ticker, range);
-        tickerData.data = newData;
-        activeTickers.set(ticker, tickerData);
-      }
-
-      updateChart();
-      updateLastUpdatedTimestamp(); // Update timestamp
-      console.log(`✓ Loaded ${range} data for all tickers`);
-
-    } catch (error) {
-      showError(`Failed to load ${range} data: ${error.message}`);
-      console.error('Error changing time range:', error);
-    } finally {
-      hideLoading();
-    }
-  }
-}
-
-// ============================================================================
-// UI MANAGEMENT
-// ============================================================================
-
-/**
- * Render ticker chip
- */
-function renderTickerChip(ticker) {
-  const container = document.getElementById('ticker-list');
-  const tickerData = activeTickers.get(ticker);
-
-  const chip = document.createElement('div');
-  chip.className = 'ticker-chip';
-  chip.style.borderColor = tickerData.color;
-
-  chip.innerHTML = `
-    <span class="ticker-name">${ticker}</span>
-    <button class="ticker-settings" data-ticker="${ticker}">⚙️</button>
-    <button class="ticker-remove" data-ticker="${ticker}">×</button>
-  `;
-
-  container.appendChild(chip);
-}
-
-/**
- * Render all ticker chips
- */
-function renderAllTickerChips() {
-  const container = document.getElementById('ticker-list');
-  container.innerHTML = '';
-  activeTickers.forEach((_, ticker) => renderTickerChip(ticker));
-}
-
-/**
- * Show loading indicator
- */
-function showLoading() {
-  document.getElementById('loading').classList.add('active');
-}
-
-/**
- * Hide loading indicator
- */
-function hideLoading() {
-  document.getElementById('loading').classList.remove('active');
-}
-
-/**
- * Show error message
- */
-function showError(message) {
-  const errorEl = document.getElementById('ticker-error');
-  errorEl.textContent = message;
-  errorEl.style.display = 'block';
-}
-
-/**
- * Clear error message
- */
-function clearError() {
-  const errorEl = document.getElementById('ticker-error');
-  errorEl.textContent = '';
-  errorEl.style.display = 'none';
-}
-
-/**
- * Clear input field
- */
-function clearInput() {
-  document.getElementById('ticker-input').value = '';
-}
-
-/**
- * Close modal
- */
-function closeModal() {
-  document.getElementById('settings-modal').classList.remove('active');
-  currentModal = null;
-}
-
-/**
- * Update stock data table
- */
-async function updateTable() {
-  const tableBody = document.getElementById('table-body');
-
-  if (activeTickers.size === 0) {
-    tableBody.innerHTML = `
-      <tr>
-        <td colspan="7" style="text-align: center; padding: 20px; color: #999;">
-          Add tickers to see data in the table
-        </td>
-      </tr>
-    `;
-    return;
-  }
-
-  tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px;">Loading...</td></tr>';
-
-  const rows = [];
-
-  for (const ticker of activeTickers.keys()) {
-    try {
-      const quote = await fetchQuoteData(ticker);
-
-      const changeClass = quote.change > 0 ? 'positive-change' : (quote.change < 0 ? 'negative-change' : '');
-      const changeSign = quote.change > 0 ? '+' : '';
-
-      rows.push(`
-        <tr>
-          <td>${quote.symbol}</td>
-          <td>$${quote.price.toFixed(2)}</td>
-          <td class="${changeClass}">${changeSign}${quote.change.toFixed(2)}%</td>
-          <td>${formatNumber(quote.volume)}</td>
-          <td>${formatMarketCap(quote.marketCap)}</td>
-          <td>$${quote.fiftyTwoWeekHigh.toFixed(2)}</td>
-          <td>$${quote.fiftyTwoWeekLow.toFixed(2)}</td>
-        </tr>
-      `);
-    } catch (error) {
-      console.error(`Failed to fetch quote for ${ticker}:`, error);
-      rows.push(`
-        <tr>
-          <td>${ticker}</td>
-          <td colspan="6" style="color: #fa709a;">Error loading data</td>
-        </tr>
-      `);
-    }
-  }
-
-  tableBody.innerHTML = rows.join('');
-}
-
-/**
- * Format large numbers (volume)
- */
-function formatNumber(num) {
-  if (num >= 1000000000) {
-    return (num / 1000000000).toFixed(2) + 'B';
-  } else if (num >= 1000000) {
-    return (num / 1000000).toFixed(2) + 'M';
-  } else if (num >= 1000) {
-    return (num / 1000).toFixed(2) + 'K';
-  }
-  return num.toString();
-}
-
-/**
- * Format market cap
- */
-function formatMarketCap(num) {
-  if (num === 0) return 'N/A';
-  if (num >= 1000000000000) {
-    return '$' + (num / 1000000000000).toFixed(2) + 'T';
-  } else if (num >= 1000000000) {
-    return '$' + (num / 1000000000).toFixed(2) + 'B';
-  } else if (num >= 1000000) {
-    return '$' + (num / 1000000).toFixed(2) + 'M';
-  }
-  return '$' + num.toString();
-}
-
-// ============================================================================
-// CLOCK AND MARKET STATUS (CHART PAGE)
-// ============================================================================
-
-/**
- * Get current Eastern Time
- */
-function getEasternTime() {
-  const now = new Date();
-  return new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-}
-
-/**
- * Format time as 12-hour clock
- */
-function formatTime(date) {
-  let hours = date.getHours();
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-
-  hours = hours % 12;
-  hours = hours ? hours : 12;
-
-  return `${hours}:${minutes}:${seconds} ${ampm}`;
-}
-
-/**
- * Update the last updated timestamp display
- */
-function updateLastUpdatedTimestamp() {
-  const lastUpdatedEl = document.getElementById('chart-last-updated');
-  if (lastUpdatedEl) {
     const now = new Date();
-    const timeStr = formatTime(now);
-    lastUpdatedEl.textContent = timeStr.split(' ')[0]; // Just time, not AM/PM
-  }
-}
+    const startOfYear = new Date(now.getFullYear(), 0, 1);
+    let cutoffDate;
 
-/**
- * Check if market is open
- */
-function isMarketOpen(etTime) {
-  const day = etTime.getDay();
-  if (day === 0 || day === 6) return false;
-
-  const hours = etTime.getHours();
-  const minutes = etTime.getMinutes();
-  const timeInMinutes = hours * 60 + minutes;
-
-  const marketOpen = 9 * 60 + 30;  // 9:30 AM
-  const marketClose = 16 * 60;      // 4:00 PM
-
-  return timeInMinutes >= marketOpen && timeInMinutes < marketClose;
-}
-
-/**
- * Check if market is closing soon (last 30 minutes)
- */
-function isClosingSoon(etTime) {
-  const day = etTime.getDay();
-  if (day === 0 || day === 6) return false;
-
-  const hours = etTime.getHours();
-  const minutes = etTime.getMinutes();
-  const timeInMinutes = hours * 60 + minutes;
-
-  const closingSoonStart = 15 * 60 + 30;  // 3:30 PM
-  const marketClose = 16 * 60;             // 4:00 PM
-
-  return timeInMinutes >= closingSoonStart && timeInMinutes < marketClose;
-}
-
-/**
- * Check if market is opening soon (30 minutes before open)
- */
-function isOpeningSoon(etTime) {
-  const day = etTime.getDay();
-  if (day === 0 || day === 6) return false;
-
-  const hours = etTime.getHours();
-  const minutes = etTime.getMinutes();
-  const timeInMinutes = hours * 60 + minutes;
-
-  const openingSoonStart = 9 * 60;       // 9:00 AM
-  const marketOpen = 9 * 60 + 30;        // 9:30 AM
-
-  return timeInMinutes >= openingSoonStart && timeInMinutes < marketOpen;
-}
-
-/**
- * Get time until next market open
- */
-function getTimeUntilOpen(etTime) {
-  const day = etTime.getDay();
-  const hours = etTime.getHours();
-  const minutes = etTime.getMinutes();
-  const seconds = etTime.getSeconds();
-
-  // If it's weekend, calculate to Monday 9:30 AM
-  if (day === 0) { // Sunday
-    const hoursUntilMonday = 24 + 9;
-    const minutesUntilMonday = 30;
-    const totalMinutes = (hoursUntilMonday * 60 + minutesUntilMonday) - (hours * 60 + minutes);
-    const totalSeconds = (totalMinutes * 60) - seconds;
-    return totalSeconds;
-  } else if (day === 6) { // Saturday
-    const hoursUntilMonday = 48 + 9;
-    const minutesUntilMonday = 30;
-    const totalMinutes = (hoursUntilMonday * 60 + minutesUntilMonday) - (hours * 60 + minutes);
-    const totalSeconds = (totalMinutes * 60) - seconds;
-    return totalSeconds;
-  }
-
-  // Weekday logic
-  const timeInMinutes = hours * 60 + minutes;
-  const marketOpen = 9 * 60 + 30;  // 9:30 AM
-
-  // If before market open today
-  if (timeInMinutes < marketOpen) {
-    const minutesUntilOpen = marketOpen - timeInMinutes;
-    return (minutesUntilOpen * 60) - seconds;
-  }
-
-  // If after market close, calculate to next day (or Monday if Friday)
-  if (day === 5) { // Friday
-    const hoursUntilMonday = (24 - hours) + 48 + 9;
-    const minutesUntilMonday = 30 - minutes;
-    const totalMinutes = (hoursUntilMonday * 60 + minutesUntilMonday);
-    return (totalMinutes * 60) - seconds;
-  } else {
-    const hoursUntilTomorrow = (24 - hours) + 9;
-    const minutesUntilTomorrow = 30 - minutes;
-    const totalMinutes = (hoursUntilTomorrow * 60 + minutesUntilTomorrow);
-    return (totalMinutes * 60) - seconds;
-  }
-}
-
-/**
- * Format seconds to countdown string (HH:MM:SS or DD:HH:MM:SS)
- */
-function formatCountdown(totalSeconds) {
-  if (totalSeconds <= 0) return '00:00:00';
-
-  const days = Math.floor(totalSeconds / 86400);
-  const hours = Math.floor((totalSeconds % 86400) / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  if (days > 0) {
-    return `${days}d ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-  }
-  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-}
-
-/**
- * Update clock and market status
- */
-function updateClockAndStatus() {
-  const etTime = getEasternTime();
-  const clockElement = document.getElementById('chart-clock');
-  const indicatorElement = document.getElementById('chart-market-indicator');
-  const labelElement = document.getElementById('chart-market-label');
-  const marketTimeElement = document.getElementById('chart-market-time');
-  const lastUpdatedElement = document.getElementById('chart-last-updated');
-
-  if (clockElement) {
-    clockElement.textContent = formatTime(etTime);
-  }
-
-  // Update last updated time
-  if (lastUpdatedElement) {
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    const displayHours = hours % 12 || 12;
-    lastUpdatedElement.textContent = `${displayHours}:${minutes} ${ampm}`;
-  }
-
-  if (indicatorElement && labelElement && marketTimeElement) {
-    const marketOpen = isMarketOpen(etTime);
-    const closingSoon = isClosingSoon(etTime);
-    const openingSoon = isOpeningSoon(etTime);
-
-    if (marketOpen && closingSoon) {
-      indicatorElement.className = 'market-dot closing-soon';
-      labelElement.textContent = 'Closing Soon';
-      marketTimeElement.textContent = 'Market closes 4:00pm EST';
-    } else if (openingSoon) {
-      indicatorElement.className = 'market-dot opening-soon';
-      labelElement.textContent = 'Opening Soon';
-      marketTimeElement.textContent = 'Market opens 9:30am EST';
-    } else if (marketOpen) {
-      indicatorElement.className = 'market-dot open';
-      labelElement.textContent = 'Market Open';
-      marketTimeElement.textContent = 'Closes at 4:00pm EST';
-    } else {
-      // Market is closed
-      indicatorElement.className = 'market-dot closed';
-      labelElement.textContent = 'Market Closed';
-      marketTimeElement.textContent = 'Opens at 9:30am EST';
+    switch (range) {
+        case '1d':
+            // Last trading day
+            return data.slice(-1);
+        case '5d':
+            // Last 5 trading days (approximately 1 week)
+            return data.slice(-5);
+        case '1mo':
+            // Last ~30 days
+            cutoffDate = new Date(now);
+            cutoffDate.setDate(cutoffDate.getDate() - 30);
+            break;
+        case '6mo':
+            // Last ~180 days
+            cutoffDate = new Date(now);
+            cutoffDate.setDate(cutoffDate.getDate() - 180);
+            break;
+        case 'ytd':
+            // Year to date
+            cutoffDate = startOfYear;
+            break;
+        case '1y':
+            // Last 365 days
+            cutoffDate = new Date(now);
+            cutoffDate.setFullYear(cutoffDate.getFullYear() - 1);
+            break;
+        case '2y':
+            // Last 2 years
+            cutoffDate = new Date(now);
+            cutoffDate.setFullYear(cutoffDate.getFullYear() - 2);
+            break;
+        case '5y':
+            // Last 5 years
+            cutoffDate = new Date(now);
+            cutoffDate.setFullYear(cutoffDate.getFullYear() - 5);
+            break;
+        case '10y':
+            // Last 10 years
+            cutoffDate = new Date(now);
+            cutoffDate.setFullYear(cutoffDate.getFullYear() - 10);
+            break;
+        case 'max':
+        default:
+            // Return all data
+            return data;
     }
-  }
+
+    // Filter data after cutoff date
+    return data.filter(d => d.date >= cutoffDate);
 }
 
-/**
- * Start clock updates
- */
-function startClock() {
-  updateClockAndStatus();
-  setInterval(updateClockAndStatus, 1000);
-}
-
-// ============================================================================
-// EVENT HANDLERS
-// ============================================================================
-
-/**
- * Initialize event listeners
- */
-function initEventListeners() {
-  // Add ticker button
-  document.getElementById('add-ticker-btn').addEventListener('click', () => {
-    const input = document.getElementById('ticker-input');
-    addTicker(input.value);
-  });
-
-  // Add ticker on Enter key
-  document.getElementById('ticker-input').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      addTicker(e.target.value);
-    }
-  });
-
-  // Ticker chip actions (event delegation)
-  document.getElementById('ticker-list').addEventListener('click', (e) => {
-    if (e.target.classList.contains('ticker-remove')) {
-      removeTicker(e.target.dataset.ticker);
-    } else if (e.target.classList.contains('ticker-settings')) {
-      openTickerSettings(e.target.dataset.ticker);
-    }
-  });
-
-  // Time range buttons
-  document.querySelectorAll('.btn-range').forEach(btn => {
-    btn.addEventListener('click', () => {
-      changeTimeRange(btn.dataset.range);
-    });
-  });
-
-  // Chart controls
-  document.getElementById('toggle-display-mode-btn').addEventListener('click', function() {
-    // Toggle between percent and price modes
-    displayMode = displayMode === 'percent' ? 'price' : 'percent';
-
-    // Update button text
-    this.textContent = displayMode === 'percent' ? '📊 Switch to Price View' : '📈 Switch to Percent View';
-
-    // Update chart
-    updateChart();
-  });
-
-  document.getElementById('reset-zoom-btn').addEventListener('click', () => {
+function resetZoom() {
     if (chartInstance) {
-      chartInstance.resetZoom();
-      // Recalculate percent changes after reset
-      setTimeout(() => recalculatePercentChanges(), 100);
+        chartInstance.resetZoom();
     }
-  });
+}
 
-  document.getElementById('toggle-legend-btn').addEventListener('click', () => {
+function toggleLegend() {
     showLegend = !showLegend;
     if (chartInstance) {
-      chartInstance.options.plugins.legend.display = showLegend;
-      chartInstance.update();
+        chartInstance.options.plugins.legend.display = showLegend;
+        chartInstance.update();
     }
-  });
-
-  document.getElementById('toggle-year-markers-btn').addEventListener('click', () => {
-    showYearMarkers = !showYearMarkers;
-    updateChart(); // Need to recreate chart to update grid display
-  });
-
-  document.getElementById('refresh-btn').addEventListener('click', () => {
-    changeTimeRange(currentRange);
-  });
-
-  // Modal controls
-  document.querySelector('.modal-close').addEventListener('click', closeModal);
-  document.querySelector('.modal-cancel').addEventListener('click', closeModal);
-  document.querySelector('.modal-save').addEventListener('click', saveTickerSettings);
-
-  // Line width slider update
-  document.getElementById('line-width').addEventListener('input', (e) => {
-    document.getElementById('line-width-value').textContent = `${e.target.value}px`;
-  });
-
-  // Close modal on outside click
-  document.getElementById('settings-modal').addEventListener('click', (e) => {
-    if (e.target.id === 'settings-modal') {
-      closeModal();
-    }
-  });
 }
 
-// ============================================================================
-// INITIALIZATION
-// ============================================================================
-
-/**
- * Pre-load default ticker data in background for faster display
- */
-async function preloadDefaultTickers() {
-  console.log('Pre-loading default ticker data...');
-
-  const ranges = ['ytd', '1y', '5y']; // Pre-load common ranges
-
-  for (const ticker of DEFAULT_TICKERS) {
-    for (const range of ranges) {
-      try {
-        // Check if already cached
-        const cached = getCachedChartData(ticker, range);
-        if (!cached) {
-          // Fetch and cache in background
-          await fetchChartData(ticker, range);
-          console.log(`✓ Pre-loaded ${ticker} (${range})`);
-        } else {
-          console.log(`✓ ${ticker} (${range}) already cached`);
-        }
-      } catch (error) {
-        console.error(`Failed to pre-load ${ticker} (${range}):`, error.message);
-      }
+function toggleGridLines() {
+    showGrid = document.getElementById('showGridLines').checked;
+    if (chartInstance) {
+        chartInstance.options.scales.x.grid.display = showGrid;
+        chartInstance.options.scales.y.grid.display = showGrid;
+        chartInstance.update();
     }
-  }
-
-  console.log('✓ Pre-loading complete');
 }
 
-/**
- * Initialize the application
- */
-async function init() {
-  console.log('Initializing FranResearch Interactive Stock Chart...');
-
-  // Start clock and market status
-  startClock();
-
-  // Setup event listeners
-  initEventListeners();
-
-  // Load default tickers
-  showLoading();
-
-  for (const ticker of DEFAULT_TICKERS) {
-    try {
-      await addTicker(ticker);
-    } catch (error) {
-      console.error(`Failed to load default ticker ${ticker}:`, error);
-    }
-  }
-
-  hideLoading();
-
-  // Pre-load additional ranges in background for faster switching
-  setTimeout(() => {
-    preloadDefaultTickers();
-  }, 2000); // Wait 2 seconds after initial load to pre-load other ranges
-
-  console.log('✓ Chart initialized');
+function showEmptyState() {
+    document.getElementById('emptyState').style.display = 'flex';
+    document.querySelector('.chart-container').style.display = 'none';
 }
 
-// Start when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
+function hideEmptyState() {
+    document.getElementById('emptyState').style.display = 'none';
+    document.querySelector('.chart-container').style.display = 'block';
 }
+
+function showLoading(show) {
+    document.getElementById('loadingIndicator').style.display = show ? 'flex' : 'none';
+}
+
+function showError(message) {
+    const toast = document.getElementById('errorToast');
+    toast.textContent = message;
+    toast.classList.add('show');
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 4000);
+}
+
+function formatVolume(volume) {
+    if (!volume) return 'N/A';
+    if (volume >= 1e9) return (volume / 1e9).toFixed(2) + 'B';
+    if (volume >= 1e6) return (volume / 1e6).toFixed(2) + 'M';
+    if (volume >= 1e3) return (volume / 1e3).toFixed(2) + 'K';
+    return volume.toString();
+}
+
+// Make functions available globally for inline event handlers
+window.removeTicker = removeTicker;
+window.updateTickerColor = updateTickerColor;
+window.updateTickerWidth = updateTickerWidth;
