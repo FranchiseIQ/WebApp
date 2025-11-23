@@ -488,6 +488,219 @@
   }
 
   /* ==========================================================================
+     VERTICAL SCROLLING NEWS FEED (Mode C - Auto-Scrolling Up/Down)
+     ========================================================================== */
+
+  class VerticalScrollerWidget {
+    constructor(config) {
+      this.config = {
+        mountSelector: config.mountSelector || '#franchise-news-vertical',
+        categories: config.categories || [],
+        sources: config.sources || [],
+        maxItems: config.maxItems || 20,
+        scrollSpeed: config.scrollSpeed || 60,
+        pauseOnHover: config.pauseOnHover !== false,
+        showHeader: config.showHeader !== false,
+        headerTitle: config.headerTitle || '📰 Latest News',
+        headerSubtitle: config.headerSubtitle || 'Live Updates',
+        showDate: config.showDate !== false,
+        theme: config.theme || {}
+      };
+
+      this.articles = [];
+      this.container = null;
+    }
+
+    /**
+     * Initialize the vertical scroller widget
+     */
+    async init() {
+      try {
+        // Get container element
+        this.container = document.querySelector(this.config.mountSelector);
+        if (!this.container) {
+          console.error(`[VerticalScrollerWidget] Container not found: ${this.config.mountSelector}`);
+          return;
+        }
+
+        // Fetch articles
+        this.articles = await newsService.getArticles({
+          categories: this.config.categories,
+          sources: this.config.sources,
+          days: 30,
+          limit: this.config.maxItems
+        });
+
+        // Render scroller
+        this.render();
+
+        // Apply theme customizations
+        this.applyTheme();
+
+        console.log(`[VerticalScrollerWidget] Initialized with ${this.articles.length} articles`);
+      } catch (error) {
+        console.error('[VerticalScrollerWidget] Initialization error:', error);
+        this.renderError();
+      }
+    }
+
+    /**
+     * Render the vertical scroller HTML
+     */
+    render() {
+      if (this.articles.length === 0) {
+        this.renderEmpty();
+        return;
+      }
+
+      // Build scroller HTML structure
+      const scrollerDiv = document.createElement('div');
+      scrollerDiv.className = 'fiq-news-vertical-scroller';
+
+      // Add header (optional)
+      if (this.config.showHeader) {
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'fiq-news-vertical-header';
+        headerDiv.innerHTML = `
+          <h3 class="fiq-news-vertical-title">${this.config.headerTitle}</h3>
+          <p class="fiq-news-vertical-subtitle">${this.config.headerSubtitle} • ${this.articles.length} articles</p>
+        `;
+        scrollerDiv.appendChild(headerDiv);
+      }
+
+      // Add scroller container
+      const containerDiv = document.createElement('div');
+      containerDiv.className = 'fiq-news-vertical-container';
+
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'fiq-news-vertical-content';
+
+      // Customize animation speed
+      if (this.config.scrollSpeed !== 60) {
+        contentDiv.style.animationDuration = `${this.config.scrollSpeed}s`;
+      }
+
+      // Disable pause on hover if configured
+      if (!this.config.pauseOnHover) {
+        contentDiv.style.animationPlayState = 'running';
+        contentDiv.addEventListener('mouseenter', (e) => {
+          e.currentTarget.style.animationPlayState = 'running';
+        });
+      }
+
+      // Create scroller items (duplicate for seamless loop)
+      const itemsHTML = this.articles.map(article => this.createScrollerItem(article)).join('');
+      contentDiv.innerHTML = itemsHTML + itemsHTML; // Duplicate for seamless scroll
+
+      containerDiv.appendChild(contentDiv);
+      scrollerDiv.appendChild(containerDiv);
+
+      // Mount to DOM
+      this.container.innerHTML = '';
+      this.container.appendChild(scrollerDiv);
+    }
+
+    /**
+     * Create a single scroller item HTML
+     */
+    createScrollerItem(article) {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'fiq-news-vertical-item';
+
+      // Title
+      const titleDiv = document.createElement('div');
+      titleDiv.className = 'fiq-news-vertical-item-title';
+      titleDiv.innerHTML = `
+        <a href="${article.url}" target="_blank" rel="noopener noreferrer">
+          ${article.title}
+        </a>
+      `;
+
+      // Metadata
+      const metaDiv = document.createElement('div');
+      metaDiv.className = 'fiq-news-vertical-item-meta';
+
+      // Source
+      const sourceSpan = document.createElement('span');
+      sourceSpan.className = 'fiq-news-vertical-item-source';
+      sourceSpan.textContent = article.shortSourceLabel;
+      metaDiv.appendChild(sourceSpan);
+
+      // Date
+      if (this.config.showDate) {
+        const dateSpan = document.createElement('span');
+        dateSpan.className = 'fiq-news-vertical-item-date';
+        dateSpan.textContent = newsService.getRelativeTime(article.publishedAt);
+        metaDiv.appendChild(dateSpan);
+      }
+
+      // Assemble item
+      itemDiv.appendChild(titleDiv);
+      itemDiv.appendChild(metaDiv);
+
+      // Make entire item clickable
+      itemDiv.addEventListener('click', (e) => {
+        if (e.target.tagName !== 'A') {
+          window.open(article.url, '_blank', 'noopener,noreferrer');
+        }
+      });
+
+      return itemDiv.outerHTML;
+    }
+
+    /**
+     * Apply theme customizations
+     */
+    applyTheme() {
+      if (!this.config.theme || Object.keys(this.config.theme).length === 0) {
+        return;
+      }
+
+      const scroller = this.container.querySelector('.fiq-news-vertical-scroller');
+      if (!scroller) return;
+
+      const theme = this.config.theme;
+
+      if (theme.backgroundColor) {
+        scroller.style.backgroundColor = theme.backgroundColor;
+      }
+      if (theme.maxWidth) {
+        scroller.style.maxWidth = theme.maxWidth;
+      }
+    }
+
+    /**
+     * Render empty state
+     */
+    renderEmpty() {
+      this.container.innerHTML = `
+        <div class="fiq-news-vertical-scroller">
+          <div class="fiq-news-vertical-container">
+            <div style="padding: 40px 20px; text-align: center; color: #999;">
+              No news articles available
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /**
+     * Render error state
+     */
+    renderError() {
+      this.container.innerHTML = `
+        <div class="fiq-news-vertical-scroller">
+          <div class="fiq-news-vertical-container">
+            <div style="padding: 40px 20px; text-align: center; color: #ff4444;">
+              Error loading news feed
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  /* ==========================================================================
      GLOBAL API
      ========================================================================== */
 
@@ -534,6 +747,29 @@
       const feed = new NewsFeedWidget(config);
       await feed.init();
       return feed;
+    },
+
+    /**
+     * Initialize a vertical auto-scrolling news widget
+     *
+     * @param {Object} config - Configuration options
+     * @param {string} config.mountSelector - DOM selector to mount the scroller
+     * @param {Array<string>} config.categories - Filter by categories
+     * @param {Array<string>} config.sources - Filter by source IDs
+     * @param {number} config.maxItems - Maximum number of articles (default: 20)
+     * @param {number} config.scrollSpeed - Animation speed in seconds (default: 60)
+     * @param {boolean} config.pauseOnHover - Pause animation on hover (default: true)
+     * @param {boolean} config.showHeader - Show header section (default: true)
+     * @param {string} config.headerTitle - Custom header title
+     * @param {string} config.headerSubtitle - Custom header subtitle
+     * @param {boolean} config.showDate - Show published dates (default: true)
+     * @param {Object} config.theme - Theme customizations
+     * @returns {Promise<VerticalScrollerWidget>}
+     */
+    async initVerticalScroller(config) {
+      const scroller = new VerticalScrollerWidget(config);
+      await scroller.init();
+      return scroller;
     },
 
     /**
