@@ -31,6 +31,36 @@ Hover over any point to see:
 
 ### Direct Access
 Simply open the widget in your browser:
+# Interactive Stock Chart Widget
+
+A powerful, interactive stock charting application with support for multiple tickers, custom styling, zoom/pan controls, and adjusted close prices.
+
+## Features
+
+### Core Functionality
+- ✅ **Up to 10 simultaneous tickers** - Compare multiple stocks on one chart
+- ✅ **Adjusted close prices** - Accurate historical analysis accounting for splits and dividends
+- ✅ **11 time ranges** - 1D, 5D, 1M, 3M, 6M, YTD, 1Y, 2Y, 5Y, 10Y, MAX
+- ✅ **Zoom & Pan** - Mouse wheel zoom, click and drag to pan (Shift+drag)
+- ✅ **Custom line colors** - Pick any color for each ticker
+- ✅ **Adjustable line width** - 1px to 5px thickness
+- ✅ **Interactive tooltips** - Hover to see exact prices and dates
+- ✅ **Toggle legend** - Show/hide ticker legend
+- ✅ **Auto-refresh** - Reload data with one click
+
+### Technical Features
+- 100% client-side - No server required
+- Yahoo Finance API integration
+- Multi-proxy CORS fallback system
+- Chart.js with zoom plugin
+- Responsive design - works on mobile and desktop
+- Embeddable via iframe
+
+## Quick Start
+
+### Standalone Usage
+
+Open the chart directly:
 ```
 https://monroegamble.github.io/WebApp/StockChart/chart.html
 ```

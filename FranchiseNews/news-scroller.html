@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="description" content="Live vertical scrolling franchise news feed - Auto-scrolling industry updates">
+    <meta name="robots" content="index, follow">
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <title>FranchiseIQ News Scroller</title>
+    <link rel="stylesheet" href="news-widget.css?v=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0a2e;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #franchise-news-vertical {
+            width: 100%;
+            max-width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fiq-news-vertical-scroller {
+            max-width: 100% !important;
+            width: 100%;
+            height: 100vh;
+            border-radius: 0 !important;
+        }
+
+        .fiq-news-vertical-container {
+            height: calc(100vh - 70px) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Vertical News Scroller Container -->
+    <div id="franchise-news-vertical"></div>
+
+    <!-- Scripts -->
+    <script src="newsService.js?v=1.0"></script>
+    <script src="news-widget.js?v=1.0"></script>
+    <script>
+        // Initialize the vertical news scroller
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await window.FranchiseNewsWidget.initVerticalScroller({
+                    mountSelector: '#franchise-news-vertical',
+                    categories: [
+                        window.NEWS_CATEGORIES.TRADE_PRESS,
+                        window.NEWS_CATEGORIES.BIG_PORTALS,
+                        window.NEWS_CATEGORIES.RESEARCH
+                    ],
+                    maxItems: 25,
+                    scrollSpeed: 60,
+                    pauseOnHover: true,
+                    showHeader: true,
+                    headerTitle: '📰 Live Franchise News',
+                    headerSubtitle: 'Auto-scrolling updates',
+                    showDate: true
+                });
+            } catch (error) {
+                console.error('Failed to initialize vertical news scroller:', error);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+name: Update Live Stock Ticker
+
+on:
+  schedule:
+    # Run every hour on the hour during market hours (9 AM - 4 PM ET = 2 PM - 9 PM UTC)
+    # Monday-Friday only
+    - cron: '0 14-21 * * 1-5'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  fetch-live-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to commit and push changes
+      actions: write   # Required to trigger deploy workflow
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Fetch live ticker data from Finnhub
+        env:
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+        run: |
+          python scripts/fetch_live_ticker_finnhub.py
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/live_ticker.json
+
+          # Check if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "CHANGES=false" >> $GITHUB_ENV
+          else
+            git commit -m "Update live ticker data - $(date +'%Y-%m-%d %H:%M UTC')"
+            git push
+            echo "CHANGES=true" >> $GITHUB_ENV
+          fi
+
+      - name: Trigger GitHub Pages deployment
+        if: env.CHANGES == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'deploy.yml',
+              ref: context.ref
+            });

@@ -383,4 +383,4 @@ For issues or questions:
 
 ---
 
-**Built for FranchiseIQ** – Tracking the franchise industry's public companies
+**Built for FranResearch** – Tracking the franchise industry's public companies

@@ -1,0 +1,282 @@
+/* ============================================================================
+   STOCK CHARTS PAGE STYLES
+   ============================================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.page-header {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.logo-link:hover {
+  transform: scale(1.05);
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.page-header h1 {
+  color: white;
+  font-size: 1.8em;
+  font-weight: 700;
+}
+
+/* Main Container */
+.container {
+  max-width: 1400px;
+  margin: 30px auto;
+  padding: 0 20px;
+  flex: 1;
+}
+
+/* Controls */
+.controls {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.controls label {
+  font-weight: 600;
+  color: #333;
+}
+
+.controls select,
+.controls button {
+  padding: 10px 15px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.controls select:hover,
+.controls select:focus {
+  border-color: #667eea;
+  outline: none;
+}
+
+.controls button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  font-weight: 600;
+  padding: 10px 20px;
+}
+
+.controls button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.controls button:active {
+  transform: translateY(0);
+}
+
+/* Chart Info */
+.chart-info {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.chart-info h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#chart-stats {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: #666;
+}
+
+#chart-stats .stat {
+  display: flex;
+  flex-direction: column;
+}
+
+#chart-stats .stat-label {
+  font-size: 12px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#chart-stats .stat-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 5px;
+}
+
+#chart-stats .stat-value.positive {
+  color: #00ff88;
+}
+
+#chart-stats .stat-value.negative {
+  color: #ff4444;
+}
+
+/* Chart Container */
+.chart-container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  position: relative;
+  min-height: 500px;
+}
+
+.chart-container canvas {
+  max-height: 500px;
+}
+
+/* Loading & Error States */
+.loading,
+.error {
+  text-align: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #666;
+}
+
+.error {
+  background: rgba(255, 68, 68, 0.1);
+  color: #ff4444;
+  border: 2px solid #ff4444;
+}
+
+/* Sitemap Footer */
+.sitemap {
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 40px 20px 20px;
+  margin-top: 40px;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.sitemap-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.sitemap-section h3 {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.sitemap-section ul {
+  list-style: none;
+}
+
+.sitemap-section ul li {
+  margin-bottom: 10px;
+}
+
+.sitemap-section a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.sitemap-section a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.sitemap-section p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-header {
+    padding: 10px 15px;
+  }
+
+  .page-header h1 {
+    font-size: 1.3em;
+  }
+
+  .logo {
+    height: 32px;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls select,
+  .controls button {
+    width: 100%;
+  }
+
+  .chart-container {
+    padding: 15px;
+  }
+
+  #chart-stats {
+    gap: 15px;
+  }
+}

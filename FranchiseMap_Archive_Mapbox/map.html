@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FranResearch - Interactive Franchise Map</title>
+    <meta name="description" content="Interactive map showing franchise locations across North America">
+
+    <!-- Mapbox GL JS -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
+
+    <link rel="stylesheet" href="map-style.css">
+</head>
+<body>
+    <div class="map-container">
+        <!-- Header -->
+        <div class="map-header">
+            <div class="header-left">
+                <a href="../index.html" class="logo-link">
+                    <img src="../logo.svg" alt="FranResearch" class="logo">
+                </a>
+                <h1>Interactive Franchise Map</h1>
+            </div>
+            <div class="header-controls">
+                <select id="brand-filter" class="filter-select">
+                    <option value="all">All Brands</option>
+                    <option value="MCD">McDonald's (MCD)</option>
+                    <option value="YUM">Yum! Brands (YUM)</option>
+                    <option value="QSR">Restaurant Brands (QSR)</option>
+                    <option value="WEN">Wendy's (WEN)</option>
+                    <option value="DPZ">Domino's (DPZ)</option>
+                    <option value="SBUX">Starbucks (SBUX)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Map -->
+        <div id="map"></div>
+
+        <!-- Map Attribution -->
+        <div class="map-attribution">
+            © <a href="https://www.mapbox.com/" target="_blank">Mapbox</a> ©
+            <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>
+            <span class="map-hint">Use two fingers to move the map</span>
+        </div>
+
+        <!-- Info Panel -->
+        <div id="info-panel" class="info-panel">
+            <button id="close-panel" class="close-btn">&times;</button>
+            <h2 id="location-name">Select a location</h2>
+            <div id="location-details">
+                <p>Click on a marker to view details</p>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <h3>Legend</h3>
+            <div class="legend-item">
+                <span class="legend-marker" style="background: #ff6b6b;"></span>
+                <span>Quick Service Restaurant</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-marker" style="background: #4ecdc4;"></span>
+                <span>Casual Dining</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-marker" style="background: #45b7d1;"></span>
+                <span>Hotel/Hospitality</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-marker" style="background: #96ceb4;"></span>
+                <span>Fitness/Wellness</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-marker" style="background: #ffa07a;"></span>
+                <span>Business Services</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="map.js"></script>
+</body>
+</html>

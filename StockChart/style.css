@@ -615,3 +615,858 @@ html.iframe-mode .container {
     height: auto;
     min-height: 100vh;
 }
+/* ============================================================================
+   INTERACTIVE STOCK CHART STYLES
+   ============================================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ============================================================================
+   HEADER
+   ============================================================================ */
+
+.header {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.logo-link:hover {
+  transform: scale(1.05);
+}
+
+.logo {
+  height: 32px;
+  width: auto;
+}
+
+.header h1 {
+  color: white;
+  font-size: 1.6em;
+  font-weight: 700;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.clock-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#chart-clock {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  font-variant-numeric: tabular-nums;
+}
+
+#chart-timezone {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.market-status-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.market-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.market-dot.open {
+  background-color: #00ff88;
+  color: #00ff88;
+}
+
+.market-dot.closed {
+  background-color: #ff4444;
+  color: #ff4444;
+}
+
+.market-dot.opening-soon,
+.market-dot.closing-soon {
+  background-color: #ff9800;
+  color: #ff9800;
+  animation: pulse-orange 2s ease-in-out infinite;
+}
+
+@keyframes pulse-orange {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 10px currentColor;
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 20px currentColor;
+  }
+}
+
+#chart-market-label {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.market-time-display {
+  display: flex;
+  align-items: center;
+}
+
+#chart-market-time {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
+.last-updated-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ============================================================================
+   CONTROL PANEL
+   ============================================================================ */
+
+.control-panel {
+  background: white;
+  margin: 20px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.control-group {
+  margin-bottom: 20px;
+}
+
+.control-group:last-child {
+  margin-bottom: 0;
+}
+
+.control-group label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 1.05em;
+}
+
+/* Ticker Input */
+.ticker-input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.ticker-input-group input {
+  flex: 1;
+  max-width: 400px;
+  padding: 10px 14px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95em;
+  font-family: inherit;
+  text-transform: uppercase;
+  transition: border-color 0.2s;
+}
+
+.ticker-input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+/* Ticker Chips */
+.ticker-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 40px;
+}
+
+.ticker-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #f5f5f5;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 2px solid;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.ticker-name {
+  color: #333;
+}
+
+.ticker-settings,
+.ticker-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.ticker-settings:hover,
+.ticker-remove:hover {
+  opacity: 1;
+}
+
+.ticker-remove {
+  font-size: 20px;
+  color: #ff4444;
+}
+
+/* Error Message */
+.error-message {
+  display: none;
+  color: #ff4444;
+  font-size: 1.05em;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: rgba(255, 68, 68, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid #ff4444;
+}
+
+/* Time Range Buttons */
+.time-range-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Inline Controls */
+.inline-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================================
+   BUTTONS
+   ============================================================================ */
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.05em;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+  background: #f5f5f5;
+  color: #333;
+  border: 2px solid #ddd;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+  border-color: #ccc;
+}
+
+.btn-range {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 10px 18px;
+  font-size: 0.95em;
+}
+
+.btn-range:hover {
+  background: #f0f0ff;
+}
+
+.btn-range.active {
+  background: #667eea;
+  color: white;
+}
+
+/* ============================================================================
+   LOADING INDICATOR
+   ============================================================================ */
+
+.loading {
+  display: none;
+  text-align: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  margin: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.loading.active {
+  display: block;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading p {
+  color: #666;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* ============================================================================
+   CHART
+   ============================================================================ */
+
+.chart-wrapper {
+  background: white;
+  margin: 0 20px 20px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  height: calc(100vh - 450px);
+  min-height: 400px;
+  position: relative;
+}
+
+#stock-chart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ============================================================================
+   MODAL
+   ============================================================================ */
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.3em;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+.modal-body {
+  padding: 25px;
+}
+
+.setting-group {
+  margin-bottom: 20px;
+}
+
+.setting-group:last-child {
+  margin-bottom: 0;
+}
+
+.setting-group label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.setting-group input[type="color"] {
+  width: 100px;
+  height: 40px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.setting-group input[type="range"] {
+  width: calc(100% - 60px);
+  margin-right: 15px;
+}
+
+#line-width-value {
+  display: inline-block;
+  min-width: 40px;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 20px 25px;
+  border-top: 1px solid #eee;
+}
+
+/* ============================================================================
+   FOOTER
+   ============================================================================ */
+
+.sitemap {
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 40px 20px 20px;
+  margin-top: auto;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.sitemap-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.sitemap-section h3 {
+  font-size: 1.4em;
+  margin-bottom: 18px;
+  color: #ffffff;
+}
+
+.sitemap-section ul {
+  list-style: none;
+}
+
+.sitemap-section ul li {
+  margin-bottom: 12px;
+  font-size: 1.05em;
+}
+
+.sitemap-section a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-size: 1.05em;
+}
+
+.sitemap-section a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.sitemap-section p {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  font-size: 1.05em;
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95em;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 15px;
+  }
+
+  .header h1 {
+    font-size: 1.3em;
+  }
+
+  .logo {
+    height: 32px;
+  }
+
+  .control-panel {
+    margin: 15px;
+    padding: 20px 15px;
+  }
+
+  .ticker-input-group {
+    flex-direction: column;
+  }
+
+  .ticker-input-group input {
+    max-width: 100%;
+  }
+
+  .time-range-buttons {
+    gap: 5px;
+  }
+
+  .btn-range {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .chart-wrapper {
+    margin: 0 15px 15px;
+    padding: 15px;
+    height: 400px;
+  }
+
+  .inline-controls {
+    flex-direction: column;
+  }
+
+  .inline-controls .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-left {
+    gap: 10px;
+  }
+
+  .header h1 {
+    font-size: 1.1em;
+  }
+
+  .time-range-buttons {
+    justify-content: center;
+  }
+
+  .btn-range {
+    flex: 0 0 calc(25% - 5px);
+    padding: 8px 4px;
+    font-size: 11px;
+  }
+}
+
+/* ============================================================================
+   TABLE VIEW
+   ============================================================================ */
+
+.table-container {
+  background: white;
+  margin: 20px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.table-container h2 {
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  width: 100%;
+}
+
+#stock-data-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+  font-size: 16px;
+  table-layout: auto;
+}
+
+#stock-data-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+#stock-data-table th {
+  padding: 18px 20px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 17px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+#stock-data-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
+}
+
+#stock-data-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+#stock-data-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+#stock-data-table td {
+  padding: 18px 20px;
+  color: #333;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+#stock-data-table td:first-child {
+  font-weight: 700;
+  color: #667eea;
+  font-size: 18px;
+}
+
+.positive-change {
+  color: #43e97b !important;
+  font-weight: 600;
+}
+
+.negative-change {
+  color: #fa709a !important;
+  font-weight: 600;
+}
+
+
+/* ============================================================================
+   HEADER ENHANCEMENTS - Clock and Market Status
+   ============================================================================ */
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.clock-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-size: 1.1em;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+#chart-clock {
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+}
+
+#chart-timezone {
+  font-size: 1em;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+.market-status-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  font-size: 1.1em;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+.last-updated-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-size: 1.1em;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+.market-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+  transition: all 0.3s ease;
+}
+
+.market-dot.open {
+  background-color: #43e97b;
+  color: #43e97b;
+}
+
+.market-dot.closing-soon {
+  background-color: #ff9800;
+  color: #ff9800;
+  animation: pulse-orange 2s ease-in-out infinite;
+}
+
+.market-dot.opening-soon {
+  background-color: #ff9800;
+  color: #ff9800;
+  animation: pulse-orange 2s ease-in-out infinite;
+}
+
+.market-dot.closed {
+  background-color: #fa709a;
+  color: #fa709a;
+}
+
+@keyframes pulse-orange {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px currentColor;
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 15px currentColor;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .clock-display,
+  .market-status-display {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+}
+

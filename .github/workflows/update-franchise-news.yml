@@ -1,0 +1,61 @@
+name: Update Franchise News
+on:
+  schedule:
+    # Run every 6 hours (at 00:00, 06:00, 12:00, 18:00 UTC)
+    - cron: '0 */6 * * *'
+  workflow_dispatch:  # Allow manual trigger from Actions tab
+
+jobs:
+  fetch-news:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Allow workflow to commit and push
+      actions: write   # Allow workflow to trigger deploy workflow
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install feedparser requests beautifulsoup4 python-dateutil
+
+      - name: Fetch franchise news from RSS feeds
+        run: |
+          python scripts/fetch_franchise_news_rss.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/franchise_news.json
+
+          # Check if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "CHANGES=false" >> $GITHUB_ENV
+          else
+            git commit -m "Update franchise news - $(date +'%Y-%m-%d %H:%M UTC')"
+            git push
+            echo "CHANGES=true" >> $GITHUB_ENV
+          fi
+
+      - name: Trigger GitHub Pages deployment
+        if: env.CHANGES == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'deploy.yml',
+              ref: context.ref
+            });

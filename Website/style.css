@@ -11,10 +11,36 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-color: #1a1a1a;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+#header {
+  background: #0a0a0a;
+  padding: 10px 20px;
+  border-bottom: 1px solid #333;
+  flex-shrink: 0;
+}
+
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.logo-link:hover {
+  transform: scale(1.05);
+}
+
+.logo {
+  height: 35px;
+  width: auto;
 }
 
 /* Status bar */
@@ -75,6 +101,29 @@ body {
   color: #ff4444;
 }
 
+#market-indicator.closing-soon {
+  background-color: #ff9800;
+  color: #ff9800;
+  animation: pulse-orange 2s ease-in-out infinite;
+}
+
+#market-indicator.opening-soon {
+  background-color: #ff9800;
+  color: #ff9800;
+  animation: pulse-orange 2s ease-in-out infinite;
+}
+
+@keyframes pulse-orange {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 6px currentColor;
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 12px currentColor;
+  }
+}
+
 #market-label {
   font-size: 13px;
   font-weight: 500;
@@ -129,40 +178,40 @@ body {
   display: inline-flex;
   align-items: center;
   padding: 0 30px;
-  gap: 12px;
-  font-size: 16px;
+  gap: 15px;
+  font-size: 20px;
   color: #ffffff;
   border-right: 1px solid #333;
-  min-width: 220px;
+  min-width: 260px;
   height: 100%;
 }
 
 /* Ticker symbol */
 .ticker-symbol {
   font-weight: 700;
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: 0.5px;
   color: #ffffff;
   text-transform: uppercase;
-  min-width: 50px;
+  min-width: 55px;
 }
 
 /* Ticker price */
 .ticker-price {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 20px;
   color: #e0e0e0;
-  min-width: 70px;
+  min-width: 80px;
   text-align: right;
 }
 
 /* Ticker change percentage */
 .ticker-change {
   font-weight: 600;
-  font-size: 14px;
-  padding: 4px 8px;
+  font-size: 17px;
+  padding: 5px 10px;
   border-radius: 4px;
-  min-width: 70px;
+  min-width: 80px;
   text-align: center;
 }
 
@@ -447,5 +496,79 @@ body {
   #ticker-container {
     border-top: 2px solid #ffffff;
     border-bottom: 2px solid #ffffff;
+  }
+}
+
+/* ============================================================================
+   SITEMAP FOOTER
+   ============================================================================ */
+
+.sitemap {
+  background: #0a0a0a;
+  color: #e0e0e0;
+  padding: 30px 20px 15px;
+  margin-top: auto;
+  border-top: 2px solid #333;
+  flex-shrink: 0;
+}
+
+.sitemap-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.sitemap-section h3 {
+  font-size: 1em;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.sitemap-section ul {
+  list-style: none;
+}
+
+.sitemap-section ul li {
+  margin-bottom: 8px;
+}
+
+.sitemap-section a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-size: 0.9em;
+}
+
+.sitemap-section a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.sitemap-section p {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  font-size: 0.9em;
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85em;
+}
+
+/* Responsive sitemap */
+@media (max-width: 768px) {
+  .sitemap {
+    padding: 20px 15px 10px;
+  }
+
+  .sitemap-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 }

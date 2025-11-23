@@ -6,10 +6,30 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Stock Ticker Widget</title>
+    <meta name="description" content="Live stock ticker for franchise companies - Real-time prices updating hourly">
+    <meta name="robots" content="index, follow">
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <title>FranResearch Stock Ticker</title>
     <link rel="stylesheet" href="style.css?v=1.1">
 </head>
 <body>
+    <!-- Header with Logo -->
+    <div id="header">
+        <a href="../index.html" class="logo-link">
+            <img src="../logo.svg" alt="FranResearch Logo" class="logo">
+        </a>
+    </div>
+
+    <!-- Closing Prices Message -->
+    <div id="closing-message" style="display: none; background: #ff9800; color: white; text-align: center; padding: 8px; font-weight: 600; font-size: 14px;">
+        📊 Showing Closing Prices
+    </div>
+
     <div id="status-bar">
         <div id="clock-section">
             <span id="clock">--:--:-- --</span>
@@ -19,14 +39,47 @@
             <span id="market-indicator" class="closed"></span>
             <span id="market-label">Market Closed</span>
         </div>
+        <div id="last-updated-section" style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 12px; color: #999;">Updated:</span>
+            <span id="last-updated" style="font-weight: 600; font-size: 13px; color: #667eea;">--:--</span>
+        </div>
         <div id="refresh-section">
-            <span id="refresh-label">Next refresh:</span>
-            <span id="countdown">60s</span>
+            <span id="refresh-label">Next:</span>
+            <span id="countdown">60:00</span>
         </div>
     </div>
     <div id="ticker-container">
         <div id="ticker-content"></div>
     </div>
-    <script src="ticker.js?v=1.1"></script>
+
+    <!-- Sitemap Footer -->
+    <footer class="sitemap">
+        <div class="sitemap-container">
+            <div class="sitemap-section">
+                <h3>Pages</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="ticker.html">Stock Ticker</a></li>
+                    <li><a href="charts.html">Stock Charts</a></li>
+                </ul>
+            </div>
+            <div class="sitemap-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="README.md">Documentation</a></li>
+                    <li><a href="https://github.com/MonroeGamble/WebApp" target="_blank">GitHub Repo</a></li>
+                </ul>
+            </div>
+            <div class="sitemap-section">
+                <h3>About</h3>
+                <p>FranResearch - Live stock tracking for franchise companies</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2024 FranResearch. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="ticker.js?v=1.2"></script>
 </body>
 </html>

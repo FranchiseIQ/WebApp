@@ -4,11 +4,12 @@
 // ============================================================================
 // Modify this array to add or remove ticker symbols
 const TICKER_SYMBOLS = [
+  "^GSPC", "^IXIC", "^DJI", // Market Indices
   "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK", "CAVA",
   "DENN", "DIN", "DNUT", "NATH", "RRGB",
   "DRVN", "HRB", "CAR", "UHAL",
   "PLNT", "BFT",
-  "MAR", "HLT", "H", "CHH", "WH", "VAC", "TNL", "CWH",
+  "MAR", "HLT", "H", "CHH", "WH", "IHG", "VAC", "TNL", "CWH",
   "GNC", "RENT",
   "SERV", "ROL",
   "ADUS",
@@ -17,11 +18,157 @@ const TICKER_SYMBOLS = [
   "TAST"
 ];
 
-// Refresh interval in milliseconds (60 seconds)
-const REFRESH_INTERVAL = 60000;
+// Refresh interval in milliseconds (1 hour = 3600 seconds)
+const REFRESH_INTERVAL = 3600000; // 1 hour
 
 // Cache for last known prices (for offline fallback)
 let lastKnownData = {};
+let lastMarketData = {}; // Store last market close data for after-hours
+
+// Load cached data from localStorage on initialization
+try {
+  const cached = localStorage.getItem('franresearch_ticker_cache');
+  if (cached) {
+    lastKnownData = JSON.parse(cached);
+    console.log('Loaded cached data from localStorage');
+  }
+} catch (e) {
+  console.error('Failed to load cache from localStorage:', e);
+}
+
+// ============================================================================
+// FINNHUB LIVE DATA INTEGRATION
+// ============================================================================
+
+/**
+ * Fetch live stock data from Finnhub (updated hourly by GitHub Actions)
+ * @returns {Promise<Object>} Stock data keyed by symbol
+ */
+async function fetchLiveTickerData() {
+  try {
+    console.log('Fetching live ticker data from Finnhub...');
+    const response = await fetch('/data/live_ticker.json');
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch live ticker: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.quotes || Object.keys(data.quotes).length === 0) {
+      throw new Error('Live ticker data is empty');
+    }
+
+    // Transform Finnhub format to ticker format
+    const stockData = {};
+    for (const [symbol, quote] of Object.entries(data.quotes)) {
+      stockData[symbol] = {
+        symbol: quote.symbol,
+        price: quote.price.toFixed(2),
+        changePercent: quote.changePercent.toFixed(2),
+        isPositive: quote.isPositive,
+        isNegative: quote.isNegative,
+        afterHours: false,
+        source: 'finnhub',
+        fetchedAt: data.fetchedAt
+      };
+    }
+
+    console.log(`✓ Loaded ${Object.keys(stockData).length} live quotes from Finnhub`);
+    console.log(`  Last updated: ${data.fetchedAt}`);
+    return stockData;
+
+  } catch (error) {
+    console.error('Failed to fetch live ticker data:', error);
+    return {};
+  }
+}
+
+// ============================================================================
+// CSV DATA INTEGRATION (FOR CHART HISTORICAL DATA)
+// ============================================================================
+
+/**
+ * Fetch stock data from local CSV file (populated by GitHub Actions)
+ * This is used primarily for the chart's historical data, not the ticker
+ * @returns {Promise<Object>} Stock data keyed by symbol
+ */
+async function fetchStockDataFromCSV() {
+  try {
+    console.log('Fetching stock data from CSV...');
+    const response = await fetch('/data/franchise_stocks.csv');
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch CSV: ${response.status}`);
+    }
+
+    const csvText = await response.text();
+    const lines = csvText.trim().split('\n');
+
+    if (lines.length < 2) {
+      throw new Error('CSV file is empty or invalid');
+    }
+
+    // Parse CSV header
+    const headers = lines[0].split(',');
+
+    // Build map of most recent data for each symbol
+    const stockData = {};
+    const latestDates = {}; // Track latest date for each symbol
+
+    // Process lines in reverse (most recent first)
+    for (let i = lines.length - 1; i >= 1; i--) {
+      const values = lines[i].split(',');
+
+      if (values.length < headers.length) continue;
+
+      const date = values[0];
+      const symbol = values[1];
+      const close = parseFloat(values[5]); // adjClose column
+
+      // Skip if we already have more recent data for this symbol
+      if (latestDates[symbol] && latestDates[symbol] > date) {
+        continue;
+      }
+
+      // Calculate change percent (we'll need previous day's data for this)
+      // For now, we'll mark it as unchanged if we don't have previous data
+      let changePercent = 0;
+
+      // Try to find previous day's data for change calculation
+      if (!latestDates[symbol]) {
+        // Look for the previous entry for this symbol
+        for (let j = i - 1; j >= 1; j--) {
+          const prevValues = lines[j].split(',');
+          if (prevValues[1] === symbol) {
+            const prevClose = parseFloat(prevValues[5]);
+            changePercent = ((close - prevClose) / prevClose) * 100;
+            break;
+          }
+        }
+      }
+
+      latestDates[symbol] = date;
+      stockData[symbol] = {
+        symbol: symbol,
+        price: close.toFixed(2),
+        changePercent: changePercent.toFixed(2),
+        isPositive: changePercent > 0,
+        isNegative: changePercent < 0,
+        afterHours: false,
+        source: 'csv',
+        date: date
+      };
+    }
+
+    console.log(`✓ Loaded ${Object.keys(stockData).length} stocks from CSV`);
+    return stockData;
+
+  } catch (error) {
+    console.error('Failed to fetch CSV data:', error);
+    return {};
+  }
+}
 
 // ============================================================================
 // YAHOO FINANCE API INTEGRATION
@@ -35,74 +182,153 @@ async function fetchStockData() {
   const symbolsParam = TICKER_SYMBOLS.join(',');
   const yahooUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbolsParam}`;
 
-  // Use CORS proxy to bypass browser CORS restrictions
-  const corsProxy = 'https://api.allorigins.win/raw?url=';
-  const url = corsProxy + encodeURIComponent(yahooUrl);
+  // Try multiple CORS proxies for reliability
+  const corsProxies = [
+    'https://api.allorigins.win/raw?url=',
+    'https://corsproxy.io/?',
+    ''  // Try direct as last resort
+  ];
 
-  try {
-    console.log('Fetching stock data...');
-    const response = await fetch(url);
+  for (let i = 0; i < corsProxies.length; i++) {
+    const proxy = corsProxies[i];
+    const url = proxy ? proxy + encodeURIComponent(yahooUrl) : yahooUrl;
 
-    if (!response.ok) {
-      throw new Error(`API returned status ${response.status}`);
+    try {
+      console.log(`Attempt ${i + 1}: Fetching stock data using ${proxy ? 'proxy' : 'direct'}...`);
+      console.log(`URL: ${url.substring(0, 100)}...`);
+
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      console.log(`Response status: ${response.status}`);
+
+      if (!response.ok) {
+        throw new Error(`API returned status ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Received data:', data);
+
+      // Check if we got valid data
+      if (!data.quoteResponse || !data.quoteResponse.result) {
+        throw new Error('Invalid API response structure');
+      }
+
+      const quotes = data.quoteResponse.result;
+      console.log(`Found ${quotes.length} quotes`);
+
+      const stockData = {};
+
+      quotes.forEach(quote => {
+        const symbol = quote.symbol;
+
+        // Use appropriate price based on market status
+        const etTime = getEasternTime();
+        const marketOpen = isMarketOpen(etTime);
+
+        let price, change;
+
+        if (marketOpen) {
+          // During market hours: use regular market price
+          price = quote.regularMarketPrice;
+          change = quote.regularMarketChangePercent;
+        } else {
+          // After hours: use previous close (adjusted close if available)
+          price = quote.regularMarketPreviousClose || quote.regularMarketPrice;
+          change = quote.regularMarketChangePercent;
+        }
+
+        // Only add to stockData if we have valid price
+        if (price !== undefined && price !== null && !isNaN(price)) {
+          stockData[symbol] = {
+            symbol: symbol,
+            price: price.toFixed(2),
+            changePercent: change !== undefined && change !== null && !isNaN(change) ? change.toFixed(2) : '–',
+            isPositive: change > 0,
+            isNegative: change < 0,
+            afterHours: !marketOpen
+          };
+        }
+      });
+
+      // Only update cache if we got valid data
+      if (Object.keys(stockData).length > 0) {
+        // Merge with existing cache to preserve symbols that weren't updated
+        lastKnownData = { ...lastKnownData, ...stockData };
+
+        // Store in localStorage for persistence
+        try {
+          localStorage.setItem('franresearch_ticker_cache', JSON.stringify(lastKnownData));
+          console.log(`Cached ${Object.keys(lastKnownData).length} symbols to localStorage`);
+        } catch (e) {
+          console.error('Failed to save to localStorage:', e);
+        }
+
+        // Store as last market data if market is closed
+        if (!isMarketOpen(getEasternTime())) {
+          lastMarketData = lastKnownData;
+        }
+      }
+
+      console.log(`✓ Successfully fetched data for ${Object.keys(stockData).length} valid stocks`);
+      return lastKnownData; // Return merged cache (includes all historical + new data)
+
+    } catch (error) {
+      console.error(`Proxy ${i + 1} failed:`, error.message);
+
+      // If this isn't the last proxy, continue to next one
+      if (i < corsProxies.length - 1) {
+        console.log('Trying next proxy...');
+        continue;
+      }
+
+      // All proxies failed
+      console.error('All fetch attempts failed');
+
+      // Return cached data if available
+      if (Object.keys(lastKnownData).length > 0) {
+        console.info('Using cached stock data');
+        return lastKnownData;
+      }
+
+      // Return fallback data with N/A values
+      console.warn('No cached data available, using fallback');
+      return getFallbackData();
     }
-
-    const data = await response.json();
-
-    // Check if we got valid data
-    if (!data.quoteResponse || !data.quoteResponse.result) {
-      throw new Error('Invalid API response structure');
-    }
-
-    const quotes = data.quoteResponse.result;
-    const stockData = {};
-
-    quotes.forEach(quote => {
-      const symbol = quote.symbol;
-      const price = quote.regularMarketPrice;
-      const change = quote.regularMarketChangePercent;
-
-      stockData[symbol] = {
-        symbol: symbol,
-        price: price !== undefined && price !== null ? price.toFixed(2) : 'N/A',
-        changePercent: change !== undefined && change !== null ? change.toFixed(2) : '–',
-        isPositive: change > 0,
-        isNegative: change < 0
-      };
-    });
-
-    // Update cache with successful data
-    lastKnownData = stockData;
-    console.log(`Successfully fetched data for ${Object.keys(stockData).length} stocks`);
-    return stockData;
-
-  } catch (error) {
-    console.error('Failed to fetch stock data:', error.message);
-
-    // Return cached data if available, otherwise return fallback
-    if (Object.keys(lastKnownData).length > 0) {
-      console.info('Using cached stock data');
-      return lastKnownData;
-    }
-
-    // Return fallback data with N/A values
-    console.warn('No cached data available, using fallback');
-    return getFallbackData();
   }
+
+  // This shouldn't be reached, but just in case
+  return getFallbackData();
 }
 
 /**
  * Generate fallback data when API is unavailable
+ * Uses last known prices or reasonable defaults
  * @returns {Object} Fallback stock data
  */
 function getFallbackData() {
   const fallbackData = {};
 
+  // If we have cached data, use it
+  if (Object.keys(lastKnownData).length > 0) {
+    return lastKnownData;
+  }
+
+  // If we have last market data, use it
+  if (Object.keys(lastMarketData).length > 0) {
+    return lastMarketData;
+  }
+
+  // Last resort: return placeholder showing "Loading..."
   TICKER_SYMBOLS.forEach(symbol => {
     fallbackData[symbol] = {
       symbol: symbol,
-      price: 'N/A',
-      changePercent: '–',
+      price: '---',
+      changePercent: '---',
       isPositive: false,
       isNegative: false
     };
@@ -186,9 +412,81 @@ function renderTicker(stockData) {
  * Update the ticker with fresh data
  */
 async function updateTicker() {
-  const stockData = await fetchStockData();
-  renderTicker(stockData);
-  resetCountdown(); // Reset countdown after refresh
+  const etTime = getEasternTime();
+  const marketOpen = isMarketOpen(etTime);
+  const closingMessageEl = document.getElementById('closing-message');
+  const lastUpdatedEl = document.getElementById('last-updated');
+
+  let stockData = {};
+
+  if (marketOpen) {
+    // Market is open: Try Finnhub live data first, fall back to CSV
+    console.log('Market is open - fetching live data from Finnhub...');
+    stockData = await fetchLiveTickerData();
+
+    // If Finnhub data failed or insufficient, try CSV as fallback
+    if (Object.keys(stockData).length < TICKER_SYMBOLS.length / 2) {
+      console.log('Finnhub data insufficient, trying CSV...');
+      const csvData = await fetchStockDataFromCSV();
+      // Merge CSV data for any missing symbols
+      TICKER_SYMBOLS.forEach(symbol => {
+        if (!stockData[symbol] && csvData[symbol]) {
+          stockData[symbol] = csvData[symbol];
+        }
+      });
+    }
+
+    renderTicker(stockData);
+    resetCountdown(); // Reset countdown after refresh
+
+    // Update last updated timestamp
+    if (lastUpdatedEl) {
+      const now = new Date();
+      const timeStr = formatTime(now);
+      lastUpdatedEl.textContent = timeStr.split(' ')[0]; // Just time, not AM/PM
+    }
+
+    // Hide closing message during market hours
+    if (closingMessageEl) {
+      closingMessageEl.style.display = 'none';
+    }
+  } else {
+    // Market is closed: Use most recent data (Finnhub or CSV)
+    console.log('Market is closed - loading most recent data...');
+
+    if (Object.keys(lastMarketData).length === 0) {
+      // Try Finnhub first (may have after-hours data)
+      stockData = await fetchLiveTickerData();
+
+      // If Finnhub failed, fall back to CSV
+      if (Object.keys(stockData).length === 0) {
+        console.log('Finnhub unavailable, trying CSV...');
+        stockData = await fetchStockDataFromCSV();
+      }
+
+      lastMarketData = stockData;
+      renderTicker(stockData);
+
+      // Update timestamp
+      if (lastUpdatedEl) {
+        const now = new Date();
+        lastUpdatedEl.textContent = formatTime(now).split(' ')[0];
+      }
+    } else {
+      // Use cached after-hours data
+      renderTicker(lastMarketData);
+
+      // Show when data was last fetched (from cache)
+      if (lastUpdatedEl) {
+        lastUpdatedEl.textContent = 'Cached';
+      }
+    }
+
+    // Show closing message when market is closed
+    if (closingMessageEl) {
+      closingMessageEl.style.display = 'block';
+    }
+  }
 }
 
 // ============================================================================
@@ -196,7 +494,7 @@ async function updateTicker() {
 // ============================================================================
 
 // Countdown tracking
-let countdownSeconds = 60;
+let countdownSeconds = 3600; // 1 hour
 let countdownInterval = null;
 
 /**
@@ -251,6 +549,40 @@ function isMarketOpen(etTime) {
 }
 
 /**
+ * Check if market is closing soon (last 30 minutes)
+ */
+function isClosingSoon(etTime) {
+  const day = etTime.getDay();
+  if (day === 0 || day === 6) return false;
+
+  const hours = etTime.getHours();
+  const minutes = etTime.getMinutes();
+  const timeInMinutes = hours * 60 + minutes;
+
+  const closingSoonStart = 15 * 60 + 30;  // 3:30 PM
+  const marketClose = 16 * 60;             // 4:00 PM
+
+  return timeInMinutes >= closingSoonStart && timeInMinutes < marketClose;
+}
+
+/**
+ * Check if market is opening soon (30 minutes before open)
+ */
+function isOpeningSoon(etTime) {
+  const day = etTime.getDay();
+  if (day === 0 || day === 6) return false;
+
+  const hours = etTime.getHours();
+  const minutes = etTime.getMinutes();
+  const timeInMinutes = hours * 60 + minutes;
+
+  const openingSoonStart = 9 * 60;       // 9:00 AM
+  const marketOpen = 9 * 60 + 30;        // 9:30 AM
+
+  return timeInMinutes >= openingSoonStart && timeInMinutes < marketOpen;
+}
+
+/**
  * Update clock display
  */
 function updateClock() {
@@ -265,9 +597,17 @@ function updateClock() {
 
   // Update market status
   const marketOpen = isMarketOpen(etTime);
+  const closingSoon = isClosingSoon(etTime);
+  const openingSoon = isOpeningSoon(etTime);
 
   if (indicatorElement && labelElement) {
-    if (marketOpen) {
+    if (marketOpen && closingSoon) {
+      indicatorElement.className = 'closing-soon';
+      labelElement.textContent = 'Closing Soon';
+    } else if (openingSoon) {
+      indicatorElement.className = 'opening-soon';
+      labelElement.textContent = 'Opening Soon';
+    } else if (marketOpen) {
       indicatorElement.className = 'open';
       labelElement.textContent = 'Market Open';
     } else {
@@ -278,31 +618,109 @@ function updateClock() {
 }
 
 /**
- * Update countdown timer
+ * Get time until next market open in seconds
  */
-function updateCountdown() {
-  const countdownElement = document.getElementById('countdown');
+function getTimeUntilOpen(etTime) {
+  const day = etTime.getDay();
+  const hours = etTime.getHours();
+  const minutes = etTime.getMinutes();
+  const seconds = etTime.getSeconds();
 
-  if (countdownElement) {
-    countdownElement.textContent = `${countdownSeconds}s`;
+  // If it's weekend, calculate to Monday 9:30 AM
+  if (day === 0) { // Sunday
+    const hoursUntilMonday = 24 + 9;
+    const minutesUntilMonday = 30;
+    const totalMinutes = (hoursUntilMonday * 60 + minutesUntilMonday) - (hours * 60 + minutes);
+    const totalSeconds = (totalMinutes * 60) - seconds;
+    return totalSeconds;
+  } else if (day === 6) { // Saturday
+    const hoursUntilMonday = 48 + 9;
+    const minutesUntilMonday = 30;
+    const totalMinutes = (hoursUntilMonday * 60 + minutesUntilMonday) - (hours * 60 + minutes);
+    const totalSeconds = (totalMinutes * 60) - seconds;
+    return totalSeconds;
   }
 
-  countdownSeconds--;
+  // Weekday logic
+  const timeInMinutes = hours * 60 + minutes;
+  const marketOpen = 9 * 60 + 30;  // 9:30 AM
 
-  // When countdown reaches 0, it will be reset by the refresh
-  if (countdownSeconds < 0) {
-    countdownSeconds = 0;
+  // If before market open today
+  if (timeInMinutes < marketOpen) {
+    const minutesUntilOpen = marketOpen - timeInMinutes;
+    return (minutesUntilOpen * 60) - seconds;
+  }
+
+  // If after market close, calculate to next day (or Monday if Friday)
+  if (day === 5) { // Friday
+    const hoursUntilMonday = (24 - hours) + 48 + 9;
+    const minutesUntilMonday = 30 - minutes;
+    const totalMinutes = (hoursUntilMonday * 60 + minutesUntilMonday);
+    return (totalMinutes * 60) - seconds;
+  } else {
+    const hoursUntilTomorrow = (24 - hours) + 9;
+    const minutesUntilTomorrow = 30 - minutes;
+    const totalMinutes = (hoursUntilTomorrow * 60 + minutesUntilTomorrow);
+    return (totalMinutes * 60) - seconds;
   }
 }
 
 /**
- * Reset countdown to 60 seconds
+ * Format seconds to countdown string (HH:MM:SS or DD:HH:MM:SS)
+ */
+function formatCountdown(totalSeconds) {
+  if (totalSeconds <= 0) return '00:00:00';
+
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  if (days > 0) {
+    return `${days}d ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  }
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+/**
+ * Update countdown timer
+ */
+function updateCountdown() {
+  const countdownElement = document.getElementById('countdown');
+  const refreshLabelElement = document.getElementById('refresh-label');
+  const etTime = getEasternTime();
+  const marketOpen = isMarketOpen(etTime);
+
+  if (!countdownElement || !refreshLabelElement) return;
+
+  if (marketOpen) {
+    // Market is open - show refresh countdown
+    refreshLabelElement.textContent = 'Next:';
+    const minutes = Math.floor(countdownSeconds / 60);
+    const seconds = countdownSeconds % 60;
+    countdownElement.textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
+
+    countdownSeconds--;
+    if (countdownSeconds < 0) {
+      countdownSeconds = 0;
+    }
+  } else {
+    // Market is closed - show time until open
+    refreshLabelElement.textContent = 'Opens:';
+    const secondsUntilOpen = getTimeUntilOpen(etTime);
+    const countdown = formatCountdown(secondsUntilOpen);
+    countdownElement.textContent = countdown;
+  }
+}
+
+/**
+ * Reset countdown to 1 hour
  */
 function resetCountdown() {
-  countdownSeconds = 60;
+  countdownSeconds = 3600; // 1 hour
   const countdownElement = document.getElementById('countdown');
   if (countdownElement) {
-    countdownElement.textContent = '60s';
+    countdownElement.textContent = '60:00';
   }
 }
 
