@@ -19,7 +19,19 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeApp() {
     setupEventListeners();
     initializeChart();
-    showEmptyState();
+
+    // Check for symbol in URL parameter (e.g., ?symbol=MCD)
+    const urlParams = new URLSearchParams(window.location.search);
+    const symbolParam = urlParams.get('symbol');
+
+    if (symbolParam) {
+        // Auto-load the stock chart for the specified symbol
+        console.log(`Loading chart for ${symbolParam} from URL parameter`);
+        document.getElementById('tickerInput').value = symbolParam;
+        addTicker();
+    } else {
+        showEmptyState();
+    }
 }
 
 function setupEventListeners() {

@@ -350,6 +350,14 @@ function createTickerItem(stockInfo) {
   const item = document.createElement('div');
   item.className = 'ticker-item';
 
+  // Make ticker item clickable - navigate to charts
+  item.style.cursor = 'pointer';
+  item.title = `Click to view ${stockInfo.symbol} chart`;
+  item.addEventListener('click', () => {
+    // Navigate to charts page with stock symbol in URL
+    window.location.href = `../StockChart/chart.html?symbol=${stockInfo.symbol}`;
+  });
+
   const symbol = document.createElement('span');
   symbol.className = 'ticker-symbol';
   symbol.textContent = stockInfo.symbol;
@@ -361,12 +369,16 @@ function createTickerItem(stockInfo) {
   const change = document.createElement('span');
   change.className = 'ticker-change';
 
+  // Add arrow indicators based on daily performance
+  let arrow = '';
   if (stockInfo.isPositive) {
     change.classList.add('positive');
-    change.textContent = `+${stockInfo.changePercent}%`;
+    arrow = '▲ '; // Green up arrow
+    change.textContent = `${arrow}+${stockInfo.changePercent}%`;
   } else if (stockInfo.isNegative) {
     change.classList.add('negative');
-    change.textContent = `${stockInfo.changePercent}%`;
+    arrow = '▼ '; // Red down arrow
+    change.textContent = `${arrow}${stockInfo.changePercent}%`;
   } else {
     change.classList.add('neutral');
     change.textContent = stockInfo.changePercent === '–' ? '–' : `${stockInfo.changePercent}%`;
