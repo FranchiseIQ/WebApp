@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="description" content="FranResearch Sports - Track NFL, NBA, MLB, and other sports franchises. Real-time scores, standings, and franchise performance analytics.">
+    <meta name="keywords" content="sports franchises, NFL scores, NBA scores, MLB scores, franchise sports, team performance">
+    <title>FranResearch Sports - Franchise Sports Tracker</title>
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            'page_title': 'FranResearch Sports',
+            'anonymize_ip': true,
+            'cookie_flags': 'SameSite=None;Secure'
+        });
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .logo-link:hover {
+            transform: scale(1.1);
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .sport-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .sport-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .sport-card h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sport-icon {
+            font-size: 1.2em;
+        }
+
+        .sport-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .franchise-count {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .scores-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 60px;
+        }
+
+        .scores-container h2 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .scores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .game-card {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .game-time {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .game-status {
+            background: #43e97b;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .game-status.final {
+            background: #666;
+        }
+
+        .teams {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .team {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        .team.winner {
+            background: #e8f5e9;
+            font-weight: 700;
+        }
+
+        .team-name {
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .team-score {
+            color: #667eea;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .info-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+        }
+
+        .info-section h2 {
+            color: #333;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+
+        .info-section p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1em;
+            opacity: 0.95;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: background 0.2s;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            margin-top: 60px;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .sports-grid,
+            .scores-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">← Back to Home</a>
+
+        <header>
+            <div class="header-logo">
+                <a href="index.html" class="logo-link">
+                    <img src="logo.svg" alt="FranResearch Logo" class="logo">
+                </a>
+                <h1>FranResearch Sports</h1>
+            </div>
+            <p class="subtitle">
+                Track major sports franchises across NFL, NBA, MLB, NHL, and MLS.
+                Professional sports teams are the ultimate franchises!
+            </p>
+        </header>
+
+        <!-- Sports Overview -->
+        <div class="sports-grid">
+            <div class="sport-card">
+                <h2><span class="sport-icon">🏈</span> NFL</h2>
+                <div class="franchise-count">32 Franchises</div>
+                <p>National Football League - America's most popular sport with franchises valued in billions. Track scores, standings, and franchise performance across all 32 teams.</p>
+            </div>
+
+            <div class="sport-card">
+                <h2><span class="sport-icon">🏀</span> NBA</h2>
+                <div class="franchise-count">30 Franchises</div>
+                <p>National Basketball Association - Global basketball powerhouse with franchises across North America. Follow scores, playoffs, and championship races.</p>
+            </div>
+
+            <div class="sport-card">
+                <h2><span class="sport-icon">⚾</span> MLB</h2>
+                <div class="franchise-count">30 Franchises</div>
+                <p>Major League Baseball - Historic sports franchises with over a century of tradition. Track regular season, playoffs, and World Series action.</p>
+            </div>
+
+            <div class="sport-card">
+                <h2><span class="sport-icon">🏒</span> NHL</h2>
+                <div class="franchise-count">32 Franchises</div>
+                <p>National Hockey League - Premier ice hockey franchises across USA and Canada. Follow games, standings, and Stanley Cup playoffs.</p>
+            </div>
+
+            <div class="sport-card">
+                <h2><span class="sport-icon">⚽</span> MLS</h2>
+                <div class="franchise-count">29 Franchises</div>
+                <p>Major League Soccer - Fast-growing soccer franchises in North America. Track MLS regular season, playoffs, and MLS Cup competition.</p>
+            </div>
+
+            <div class="sport-card">
+                <h2><span class="sport-icon">🏟️</span> Other Leagues</h2>
+                <div class="franchise-count">100+ Franchises</div>
+                <p>WNBA, MLS Next Pro, USL, and more - Growing sports franchise ecosystems across various professional leagues and sports.</p>
+            </div>
+        </div>
+
+        <!-- Live Scores Section -->
+        <div class="scores-container">
+            <h2>🏆 Live Scores & Updates</h2>
+            <div id="scores-content" class="scores-grid">
+                <!-- Scores will be loaded here -->
+                <div class="empty-state">
+                    <div class="empty-state-icon">📊</div>
+                    <h3>Coming Soon!</h3>
+                    <p>Live scores and real-time updates will be displayed here.<br>
+                    Check back during game days for live coverage.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sports Franchise Info -->
+        <div class="info-section">
+            <h2>📈 Sports Franchises as Businesses</h2>
+            <p>
+                Professional sports teams are among the world's most valuable franchises. From the Dallas Cowboys
+                (valued at $9 billion) to the New York Yankees ($7.1 billion), these franchises combine
+                athletic excellence with business acumen.
+            </p>
+            <p style="margin-top: 15px;">
+                Sports franchises generate revenue through ticket sales, broadcasting rights, merchandise,
+                sponsorships, and more. They're unique franchise businesses that blend entertainment,
+                community engagement, and financial performance.
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">153</div>
+                    <div class="stat-label">Major League Teams</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$300B+</div>
+                    <div class="stat-label">Combined Value</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50M+</div>
+                    <div class="stat-label">Annual Attendance</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Coverage</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 FranResearch Sports. Part of the FranResearch franchise analytics platform.</p>
+            <p style="margin-top: 10px; opacity: 0.8;">
+                <a href="index.html" style="color: white; text-decoration: none;">Back to Main Site</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Load scores from data file when available
+        async function loadScores() {
+            try {
+                const response = await fetch('data/football/current-week.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    displayScores(data);
+                }
+            } catch (error) {
+                console.log('No scores data available yet');
+            }
+        }
+
+        function displayScores(games) {
+            const container = document.getElementById('scores-content');
+
+            if (!games || games.length === 0) {
+                return; // Keep empty state
+            }
+
+            container.innerHTML = games.map(game => `
+                <div class="game-card">
+                    <div class="game-header">
+                        <span class="game-time">${game.date || 'TBD'}</span>
+                        <span class="game-status ${game.status === 'Final' ? 'final' : ''}">${game.status || 'Scheduled'}</span>
+                    </div>
+                    <div class="teams">
+                        <div class="team ${game.awayScore > game.homeScore ? 'winner' : ''}">
+                            <span class="team-name">${game.awayTeam}</span>
+                            <span class="team-score">${game.awayScore || 0}</span>
+                        </div>
+                        <div class="team ${game.homeScore > game.awayScore ? 'winner' : ''}">
+                            <span class="team-name">${game.homeTeam}</span>
+                            <span class="team-score">${game.homeScore || 0}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Try to load scores on page load
+        loadScores();
+
+        // Reload scores every 2 minutes
+        setInterval(loadScores, 120000);
+    </script>
+</body>
+</html>
