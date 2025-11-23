@@ -5,6 +5,7 @@ on:
     branches:
       - claude/stock-ticker-widget-01WsYAVjT7kuL6HVqFZpuoKa
       - claude/franchise-news-widget-01WM5qh2UNjRZcSmCRVhQpwX
+      - claude/github-pages-protection-017sXQb9NcSFxvZUQVQVEs8h
       - main
       - master
   workflow_dispatch:
