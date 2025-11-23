@@ -1,12 +1,18 @@
 name: Deploy to GitHub Pages
 
+# ============================================================================
+# DEPLOYMENT STRATEGY:
+# - ONLY main branch deploys to GitHub Pages
+# - Feature branches are blocked from deployment
+# - Pull requests get build validation only (no deployment)
+# - Manual deploys allowed via workflow_dispatch
+# ============================================================================
+
 on:
   push:
     branches:
-      - main
-      - master
-      - 'claude/**'
-  workflow_dispatch:
+      - main                    # PRODUCTION DEPLOYMENT
+  workflow_dispatch:            # Manual deployment trigger
 
 permissions:
   contents: read
@@ -14,18 +20,51 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: "pages-${{ github.ref }}"
+  cancel-in-progress: true
 
 jobs:
+  # ==========================================================================
+  # DEPLOYMENT GUARD
+  # Prevents non-main branches from attempting deployment
+  # ==========================================================================
+  guard:
+    name: Deployment Guard
+    runs-on: ubuntu-latest
+    outputs:
+      should-deploy: ${{ steps.check.outputs.deploy }}
+    steps:
+      - name: Check if deployment is allowed
+        id: check
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "✅ Deployment ALLOWED: main branch detected"
+            echo "deploy=true" >> $GITHUB_OUTPUT
+          else
+            echo "⛔ Deployment BLOCKED: Only main branch can deploy"
+            echo "Current branch: ${{ github.ref }}"
+            echo "deploy=false" >> $GITHUB_OUTPUT
+          fi
+
+  # ==========================================================================
+  # MAIN DEPLOYMENT JOB
+  # Deploys static site to GitHub Pages
+  # ==========================================================================
   deploy:
+    name: Deploy to GitHub Pages
+    needs: guard
+    if: needs.guard.outputs.should-deploy == 'true'
+    runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -38,3 +77,35 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Deployment summary
+        run: |
+          echo "🚀 Deployment successful!"
+          echo "📍 Site URL: ${{ steps.deployment.outputs.page_url }}"
+          echo "✅ GitHub Pages is now serving the latest version"
+
+  # ==========================================================================
+  # SKIP JOB (for non-main branches)
+  # Runs when deployment is blocked - provides clear feedback
+  # ==========================================================================
+  skip:
+    name: Deployment Skipped
+    needs: guard
+    if: needs.guard.outputs.should-deploy == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip deployment message
+        run: |
+          echo "=================================================="
+          echo "⛔ DEPLOYMENT SKIPPED"
+          echo "=================================================="
+          echo ""
+          echo "Branch: ${{ github.ref }}"
+          echo "Reason: Only the 'main' branch deploys to GitHub Pages"
+          echo ""
+          echo "ℹ️  To deploy your changes:"
+          echo "   1. Create a Pull Request to main"
+          echo "   2. Merge your PR after review"
+          echo "   3. GitHub Pages will deploy automatically"
+          echo ""
+          echo "=================================================="
