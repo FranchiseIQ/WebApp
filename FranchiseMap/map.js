@@ -1,7 +1,7 @@
 // ============================================================================
-// FRANCHISE LOCATION MAP - Google Maps Version
-// FRANCHISE LOCATION MAP - GOOGLE MAPS
-// Using Google Maps JavaScript API
+// FRANCHISE LOCATION MAP - OpenStreetMap Version
+// Using Leaflet.js with OpenStreetMap tiles
+// FREE - No API key required!
 // ============================================================================
 
 // Sample franchise location data (representative locations)
@@ -23,8 +23,9 @@ const franchiseLocations = [
     { brand: 'WEN', name: "Wendy's - Houston", type: 'QSR', lat: 29.7604, lng: -95.3698, address: 'Main St, Houston, TX', color: '#ff6b6b' },
     { brand: 'WEN', name: "Wendy's - Phoenix", type: 'QSR', lat: 33.4484, lng: -112.0740, address: 'Central Ave, Phoenix, AZ', color: '#ff6b6b' },
 
-    // Domino's (DPZ)
-    { brand: 'DPZ', name: "Domino's - Boston", type: 'QSR', lat: 42.3601, lng: -71.0589, address: 'Boylston St, Boston, MA', color: '#ff6b6b' },
+    // Domino's (DPZ) - Including Boston locations
+    { brand: 'DPZ', name: "Domino's - Boston Common", type: 'QSR', lat: 42.3551, lng: -71.0656, address: 'Tremont St, Boston, MA', color: '#ff6b6b' },
+    { brand: 'DPZ', name: "Domino's - Back Bay", type: 'QSR', lat: 42.3467, lng: -71.0824, address: 'Boylston St, Boston, MA', color: '#ff6b6b' },
     { brand: 'DPZ', name: "Domino's - Seattle", type: 'QSR', lat: 47.6062, lng: -122.3321, address: 'Pike St, Seattle, WA', color: '#ff6b6b' },
 
     // Starbucks (SBUX)
@@ -50,58 +51,35 @@ const franchiseLocations = [
 // Global variables
 let map;
 let markers = [];
+let markerLayer;
 let currentFilter = 'all';
-let infoWindow;
 
-// Initialize map (called by Google Maps API callback)
-// Initialize map
+// Initialize map on page load
+document.addEventListener('DOMContentLoaded', initMap);
+
 function initMap() {
-    // Create map centered on US
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 39.8283, lng: -98.5795 }, // Center of continental US
-        zoom: 4,
-        mapTypeControl: true,
-        mapTypeControlOptions: {
-            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-            position: google.maps.ControlPosition.TOP_RIGHT
-        },
-        streetViewControl: true,
-        streetViewControlOptions: {
-            position: google.maps.ControlPosition.RIGHT_BOTTOM
-        },
+    // Create map centered on Boston, MA
+    map = L.map('map', {
+        center: [42.3601, -71.0589], // Boston, MA coordinates
+        zoom: 11, // Zoomed in to show Boston area
         zoomControl: true,
-        zoomControlOptions: {
-            position: google.maps.ControlPosition.RIGHT_BOTTOM
-            position: google.maps.ControlPosition.RIGHT_TOP
-        },
-        fullscreenControl: true,
-        fullscreenControlOptions: {
-            position: google.maps.ControlPosition.RIGHT_TOP
-        },
-        gestureHandling: 'greedy', // Allow one-finger pan on mobile
-        styles: [
-            {
-                featureType: 'poi',
-                elementType: 'labels',
-                stylers: [{ visibility: 'on' }]
-        zoomControl: true,
-        zoomControlOptions: {
-            position: google.maps.ControlPosition.RIGHT_CENTER
-        },
-        gestureHandling: 'greedy', // Allow single-finger pan on mobile
-        styles: [
-            // Subtle custom styling
-            {
-                featureType: 'poi',
-                elementType: 'labels',
-                stylers: [{ visibility: 'off' }] // Hide POI labels for cleaner look
-            }
-        ]
+        scrollWheelZoom: true,
+        touchZoom: true,
+        doubleClickZoom: true,
+        boxZoom: true,
+        keyboard: true,
+        dragging: true
     });
 
-    // Create info window
-    infoWindow = new google.maps.InfoWindow();
+    // Add OpenStreetMap tile layer (free, no API key needed!)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19,
+        minZoom: 3
+    }).addTo(map);
+
+    // Create layer group for markers
+    markerLayer = L.layerGroup().addTo(map);
 
     // Add markers
     addMarkers();
@@ -115,96 +93,64 @@ function initMap() {
     // Handle close panel button
     document.getElementById('close-panel').addEventListener('click', () => {
         document.getElementById('info-panel').classList.remove('active');
-        infoWindow.close();
     });
+
+    console.log('✓ Map initialized with OpenStreetMap');
+    console.log(`✓ Loaded ${franchiseLocations.length} franchise locations`);
+    console.log('✓ Default view: Boston, MA');
 }
 
 // Add markers to map
 function addMarkers() {
     franchiseLocations.forEach(location => {
-        // Create custom marker icon (colored circle)
-        const icon = {
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 10,
+        // Create custom circle marker
+        const marker = L.circleMarker([location.lat, location.lng], {
+            radius: 10,
             fillColor: location.color,
-            fillOpacity: 1,
-            strokeColor: '#ffffff',
-            strokeWeight: 3
-        };
-
-        // Create marker
-        const marker = new google.maps.Marker({
-            position: { lat: location.lat, lng: location.lng },
-            map: map,
-            icon: icon,
-            title: location.name,
-            animation: google.maps.Animation.DROP,
-            optimized: false // Allow CSS animations
+            color: '#ffffff',
+            weight: 3,
+            opacity: 1,
+            fillOpacity: 0.9
         });
 
-        // Add hover effect
-        marker.addListener('mouseover', () => {
-            marker.setIcon({
-                ...icon,
-                scale: 13
-            });
-        });
+        // Create popup content
+        const popupContent = `
+            <div style="padding: 5px; min-width: 200px;">
+                <h3 style="margin: 0 0 8px 0; color: #333; font-size: 1em; font-weight: 700;">${location.name}</h3>
+                <p style="margin: 4px 0; color: #666; font-size: 0.9em;"><strong>Brand:</strong> ${location.brand}</p>
+                <p style="margin: 4px 0; color: #666; font-size: 0.9em;">${location.address}</p>
+            </div>
+        `;
 
-        marker.addListener('mouseout', () => {
-            marker.setIcon(icon);
-        // Create custom marker icon
-        const icon = {
-            path: google.maps.SymbolPath.CIRCLE,
-            fillColor: location.color,
-            fillOpacity: 1,
-            strokeColor: '#ffffff',
-            strokeWeight: 3,
-            scale: 10
-        };
+        // Bind popup
+        marker.bindPopup(popupContent);
 
-        // Create marker
-        const marker = new google.maps.Marker({
-            position: { lat: location.lat, lng: location.lng },
-            map: map,
-            title: location.name,
-            icon: icon,
-            animation: google.maps.Animation.DROP
-        });
-
-        // Add click event
-        marker.addListener('click', () => {
+        // Click event to show details panel
+        marker.on('click', () => {
             showLocationDetails(location);
-            map.panTo(marker.getPosition());
-            map.setZoom(14);
-
-            // Pan to marker and zoom in slightly
-            map.panTo(marker.getPosition());
+            map.panTo([location.lat, location.lng]);
             if (map.getZoom() < 14) {
                 map.setZoom(14);
             }
-
-            // Show info window
-            infoWindow.setContent(`
-                <div style="padding: 10px;">
-                    <h3 style="margin: 0 0 8px 0; color: #333; font-size: 1.1em;">${location.name}</h3>
-                    <p style="margin: 4px 0; color: #666; font-size: 0.95em;"><strong>Brand:</strong> ${location.brand}</p>
-                    <p style="margin: 4px 0; color: #666; font-size: 0.95em;">${location.address}</p>
-                </div>
-            `);
-            infoWindow.open(map, marker);
         });
 
-        // Hover effect
-        marker.addListener('mouseover', () => {
-            marker.setIcon({
-                ...icon,
-                scale: 13
+        // Hover effects
+        marker.on('mouseover', function() {
+            this.setStyle({
+                radius: 13,
+                weight: 4
             });
         });
 
-        marker.addListener('mouseout', () => {
-            marker.setIcon(icon);
+        marker.on('mouseout', function() {
+            this.setStyle({
+                radius: 10,
+                weight: 3
+            });
         });
+
+        // Add to layer group
+        marker.addTo(markerLayer);
 
         // Store marker reference
         markers.push({ marker, location });
@@ -215,15 +161,16 @@ function addMarkers() {
 function filterMarkers() {
     markers.forEach(({ marker, location }) => {
         if (currentFilter === 'all' || location.brand === currentFilter) {
-            marker.setVisible(true);
+            marker.addTo(markerLayer);
         } else {
-            marker.setVisible(false);
+            markerLayer.removeLayer(marker);
         }
     });
 
-    // Close info window and panel when filtering
-    infoWindow.close();
+    // Close panel when filtering
     document.getElementById('info-panel').classList.remove('active');
+
+    console.log(`Filter applied: ${currentFilter}`);
 }
 
 // Show location details in panel
@@ -255,25 +202,34 @@ function showLocationDetails(location) {
     panel.classList.add('active');
 }
 
-// Make initMap globally accessible for Google Maps callback
-window.initMap = initMap;
-// Handle window errors gracefully
-window.gm_authFailure = function() {
-    document.getElementById('map').innerHTML = `
-        <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f5f5f5; padding: 40px; text-align: center;">
-            <div>
-                <h2 style="color: #333; margin-bottom: 15px;">⚠️ Google Maps API Key Required</h2>
-                <p style="color: #666; margin-bottom: 10px;">To use this map, you need a Google Maps API key.</p>
-                <p style="color: #666; margin-bottom: 20px;">
-                    <strong>Get a free API key at:</strong><br>
-                    <a href="https://developers.google.com/maps/gmp-get-started" target="_blank" style="color: #667eea;">
-                        https://developers.google.com/maps/gmp-get-started
-                    </a>
-                </p>
-                <p style="color: #666; font-size: 0.9em;">
-                    Replace YOUR_API_KEY in map.html with your actual key.
-                </p>
-            </div>
-        </div>
-    `;
-};
+// Add convenient map controls
+const resetViewButton = L.Control.extend({
+    options: {
+        position: 'topright'
+    },
+
+    onAdd: function(map) {
+        const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+
+        container.style.backgroundColor = 'white';
+        container.style.width = '34px';
+        container.style.height = '34px';
+        container.style.cursor = 'pointer';
+        container.style.lineHeight = '34px';
+        container.style.textAlign = 'center';
+        container.style.fontSize = '18px';
+        container.title = 'Reset view to Boston';
+        container.innerHTML = '🏠';
+
+        container.onclick = function() {
+            map.setView([42.3601, -71.0589], 11);
+        };
+
+        return container;
+    }
+});
+
+map.addControl(new resetViewButton());
+
+console.log('✓ OpenStreetMap initialized successfully');
+console.log('✓ No API key required - completely free!');

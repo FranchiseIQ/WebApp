@@ -4,17 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FranResearch - Interactive Franchise Map</title>
-    <meta name="description" content="Interactive map showing franchise locations across North America using OpenStreetMap">
+    <meta name="description" content="Interactive map showing franchise locations across North America">
 
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-          crossorigin=""/>
-
-    <!-- Leaflet JavaScript -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
+    <!-- Google Maps JavaScript API -->
+    <!-- IMPORTANT: Replace YOUR_API_KEY with your actual Google Maps API key -->
+    <!-- Get free key at: https://console.cloud.google.com/google/maps-apis/credentials -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=places" async defer></script>
 
     <link rel="stylesheet" href="map-style.css">
 </head>
@@ -46,9 +41,9 @@
 
         <!-- Map Attribution -->
         <div class="map-attribution">
-            © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors
-            • Powered by <a href="https://leafletjs.com" target="_blank">Leaflet</a>
-            <span class="map-hint">Use two fingers to move the map on mobile</span>
+            © <a href="https://www.google.com/maps" target="_blank">Google Maps</a>
+            © <a href="https://www.google.com/maps" target="_blank">Google</a>
+            <span class="map-hint">Use two fingers to move the map</span>
         </div>
 
         <!-- Info Panel -->
@@ -86,6 +81,8 @@
         </div>
     </div>
 
+    <!-- Google Maps API - Replace YOUR_API_KEY with your actual key -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
     <script src="map.js"></script>
 </body>
 </html>
