@@ -3,8 +3,8 @@ name: Update Sports Scores
 on:
   schedule:
     # Run every 5 minutes during game days (Friday-Monday)
-    # Friday-Sunday: Run frequently
-    - cron: '*/5 * * * 5-0'
+    # Friday-Sunday: Run frequently (5=Fri, 6=Sat, 0=Sun)
+    - cron: '*/5 * * * 5,6,0'
     # Monday: Run during prime time
     - cron: '*/5 * * * 1'
   workflow_dispatch:  # Allow manual trigger
