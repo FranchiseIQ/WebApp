@@ -33,6 +33,22 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: white;
+            padding-top: 120px;
+        }
+
+        .global-ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1200;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.16);
+        }
+
+        .global-ticker iframe {
+            width: 100%;
+            height: 110px;
+            border: none;
         }
 
         .container {
@@ -152,6 +168,20 @@
             gap: 20px;
         }
 
+        .scores-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .last-updated {
+            color: #666;
+            font-size: 0.95em;
+        }
+
         .game-card {
             background: #f9f9f9;
             border-radius: 12px;
@@ -184,6 +214,11 @@
 
         .game-status.final {
             background: #666;
+        }
+
+        .game-status.scheduled {
+            background: #fbbf24;
+            color: #111;
         }
 
         .teams {
@@ -311,6 +346,9 @@
     </style>
 </head>
 <body>
+    <div class="global-ticker">
+        <iframe src="Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
+    </div>
     <div class="container">
         <a href="index.html" class="back-button">← Back to Home</a>
 
@@ -368,14 +406,16 @@
 
         <!-- Live Scores Section -->
         <div class="scores-container">
-            <h2>🏆 Live Scores & Updates</h2>
+            <div class="scores-header">
+                <h2>🏆 Live Scores & Updates</h2>
+                <span id="scores-updated" class="last-updated">Last updated: --</span>
+            </div>
             <div id="scores-content" class="scores-grid">
                 <!-- Scores will be loaded here -->
                 <div class="empty-state">
                     <div class="empty-state-icon">📊</div>
-                    <h3>Coming Soon!</h3>
-                    <p>Live scores and real-time updates will be displayed here.<br>
-                    Check back during game days for live coverage.</p>
+                    <h3>Loading scores...</h3>
+                    <p>Please wait while we fetch the latest franchise game updates.</p>
                 </div>
             </div>
         </div>
@@ -423,51 +463,102 @@
     </div>
 
     <script>
-        // Load scores from data file when available
-        async function loadScores() {
-            try {
-                const response = await fetch('data/football/current-week.json');
-                if (response.ok) {
-                    const data = await response.json();
-                    displayScores(data);
-                }
-            } catch (error) {
-                console.log('No scores data available yet');
+        const SPORTS_SOURCES = [
+            { label: 'NFL', sport: 'American Football' },
+            { label: 'NBA', sport: 'Basketball' },
+            { label: 'MLB', sport: 'Baseball' },
+            { label: 'NHL', sport: 'Ice Hockey' },
+            { label: 'MLS', sport: 'Soccer' },
+        ];
+
+        const API_BASE = 'https://www.thesportsdb.com/api/v1/json/3/eventsday.php';
+
+        async function fetchSportEvents(sport) {
+            const today = new Date().toISOString().split('T')[0];
+            const url = `${API_BASE}?d=${today}&s=${encodeURIComponent(sport)}`;
+
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch ${sport} events`);
             }
+
+            const data = await response.json();
+            return data?.events || [];
         }
 
-        function displayScores(games) {
-            const container = document.getElementById('scores-content');
+        function normalizeStatus(event) {
+            const statusText = (event.strStatus || event.strProgress || '').toLowerCase();
+            if (statusText.includes('final') || statusText.includes('ft')) return 'final';
+            if (statusText.includes('live') || statusText.includes('in progress')) return 'live';
+            return 'scheduled';
+        }
 
-            if (!games || games.length === 0) {
-                return; // Keep empty state
-            }
+        function formatTime(event) {
+            const datePart = event.dateEvent || '';
+            const timePart = event.strTime || '';
+            return `${datePart} ${timePart}`.trim() || 'TBD';
+        }
 
-            container.innerHTML = games.map(game => `
+        function buildGameCard(game) {
+            const statusClass = normalizeStatus(game);
+            const homeScore = Number.isFinite(Number(game.intHomeScore)) ? Number(game.intHomeScore) : 0;
+            const awayScore = Number.isFinite(Number(game.intAwayScore)) ? Number(game.intAwayScore) : 0;
+
+            return `
                 <div class="game-card">
                     <div class="game-header">
-                        <span class="game-time">${game.date || 'TBD'}</span>
-                        <span class="game-status ${game.status === 'Final' ? 'final' : ''}">${game.status || 'Scheduled'}</span>
+                        <span class="game-time">${formatTime(game)}</span>
+                        <span class="game-status ${statusClass}">${game.strStatus || game.strProgress || 'Scheduled'}</span>
                     </div>
                     <div class="teams">
-                        <div class="team ${game.awayScore > game.homeScore ? 'winner' : ''}">
-                            <span class="team-name">${game.awayTeam}</span>
-                            <span class="team-score">${game.awayScore || 0}</span>
+                        <div class="team ${awayScore > homeScore ? 'winner' : ''}">
+                            <span class="team-name">${game.strAwayTeam || 'Away Team'}</span>
+                            <span class="team-score">${awayScore}</span>
                         </div>
-                        <div class="team ${game.homeScore > game.awayScore ? 'winner' : ''}">
-                            <span class="team-name">${game.homeTeam}</span>
-                            <span class="team-score">${game.homeScore || 0}</span>
+                        <div class="team ${homeScore > awayScore ? 'winner' : ''}">
+                            <span class="team-name">${game.strHomeTeam || 'Home Team'}</span>
+                            <span class="team-score">${homeScore}</span>
                         </div>
                     </div>
+                    <div class="game-time" style="margin-top: 6px; color:#555;">${game.strLeague || ''}</div>
                 </div>
-            `).join('');
+            `;
+        }
+
+        async function loadScores() {
+            const container = document.getElementById('scores-content');
+            const updatedEl = document.getElementById('scores-updated');
+
+            container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">⏳</div><h3>Updating scores...</h3></div>';
+
+            try {
+                const results = await Promise.allSettled(SPORTS_SOURCES.map(src => fetchSportEvents(src.sport)));
+                const games = results
+                    .filter(r => r.status === 'fulfilled')
+                    .flatMap(r => r.value.map(event => ({ ...event, sourceLabel: event.strSport || '' })))
+                    .sort((a, b) => (a.dateEvent || '').localeCompare(b.dateEvent || ''))
+                    .slice(0, 20);
+
+                if (!games.length) {
+                    container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📭</div><h3>No games scheduled today</h3><p>Check back on active game days for real-time franchise scores.</p></div>';
+                } else {
+                    container.innerHTML = games.map(buildGameCard).join('');
+                }
+
+                const now = new Date();
+                updatedEl.textContent = `Last updated: ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+            } catch (error) {
+                console.error('Unable to load sports scores', error);
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚠️</div><h3>Scores unavailable</h3><p>We could not reach the free sports API. Please try again soon.</p></div>';
+                updatedEl.textContent = 'Last updated: error';
+            }
         }
 
         // Try to load scores on page load
         loadScores();
 
-        // Reload scores every 2 minutes
-        setInterval(loadScores, 120000);
+        // Reload scores every 60 seconds
+        setInterval(loadScores, 60000);
     </script>
 </body>
 </html>

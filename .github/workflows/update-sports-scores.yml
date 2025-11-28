@@ -4,10 +4,10 @@ on:
   schedule:
     # Run every 5 minutes during game days (Friday-Monday)
     # Friday-Sunday: Run frequently
-    - cron: '*/5 * * * 5-0'
+    - cron: '*/5 * * * 5,6,0'
     # Monday: Run during prime time
     - cron: '*/5 * * * 1'
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch: {}
 
 jobs:
   fetch-scores:
@@ -28,14 +28,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd scripts
-          npm install node-fetch
+          npm install --prefix scripts node-fetch@3
 
       - name: Fetch sports scores
         env:
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
         run: |
-          node scripts/fetch_sports_scores.js
+          node scripts/fetch_football_scores.js
 
       - name: Commit and push if changed
         run: |

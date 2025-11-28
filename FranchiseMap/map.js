@@ -28,13 +28,12 @@ const franchiseLocations = [
     { brand: 'DPZ', name: "Domino's - Back Bay", type: 'QSR', lat: 42.3467, lng: -71.0824, address: 'Boylston St, Boston, MA', color: '#ff6b6b' },
     { brand: 'DPZ', name: "Domino's - Seattle", type: 'QSR', lat: 47.6062, lng: -122.3321, address: 'Pike St, Seattle, WA', color: '#ff6b6b' },
 
-    // Starbucks (SBUX)
-    { brand: 'SBUX', name: 'Starbucks Reserve - Seattle', type: 'QSR', lat: 47.6145, lng: -122.3418, address: '1124 Pike St, Seattle, WA', color: '#ff6b6b' },
-    { brand: 'SBUX', name: 'Starbucks - Pike Place', type: 'QSR', lat: 47.6097, lng: -122.3421, address: '1912 Pike Pl, Seattle, WA', color: '#ff6b6b' },
+    // Shake Shack (SHAK)
+    { brand: 'SHAK', name: 'Shake Shack - Madison Square Park', type: 'QSR', lat: 40.7410, lng: -73.9887, address: 'Madison Ave, New York, NY', color: '#ff6b6b' },
 
     // Casual Dining Examples
     { brand: 'DENN', name: "Denny's - Las Vegas", type: 'Casual', lat: 36.1699, lng: -115.1398, address: 'Las Vegas Blvd, NV', color: '#4ecdc4' },
-    { brand: 'DIN', name: 'Applebee's - Dallas', type: 'Casual', lat: 32.7767, lng: -96.7970, address: 'Commerce St, Dallas, TX', color: '#4ecdc4' },
+    { brand: 'DIN', name: "IHOP - Dallas", type: 'Casual', lat: 32.7767, lng: -96.7970, address: 'Commerce St, Dallas, TX', color: '#4ecdc4' },
 
     // Hotels (MAR, HLT)
     { brand: 'MAR', name: 'Marriott Marquis - NYC', type: 'Hotel', lat: 40.7484, lng: -73.9857, address: '1535 Broadway, New York, NY', color: '#45b7d1' },
@@ -45,7 +44,8 @@ const franchiseLocations = [
     { brand: 'PLNT', name: 'Planet Fitness - Philadelphia', type: 'Fitness', lat: 39.9526, lng: -75.1652, address: 'Market St, Philadelphia, PA', color: '#96ceb4' },
 
     // Business Services
-    { brand: 'HRB', name: 'H&R Block - Denver', type: 'Service', lat: 39.7392, lng: -104.9903, address: '16th St, Denver, CO', color: '#ffa07a' },
+    { brand: 'DRVN', name: 'Take 5 - Denver', type: 'Service', lat: 39.7392, lng: -104.9903, address: '16th St, Denver, CO', color: '#ffa07a' },
+    { brand: 'ROL', name: 'Orkin - Atlanta', type: 'Service', lat: 33.7490, lng: -84.3880, address: 'Midtown, Atlanta, GA', color: '#ffa07a' },
 ];
 
 // Global variables
@@ -83,6 +83,35 @@ function initMap() {
 
     // Add markers
     addMarkers();
+
+    // Add reset control after the map exists
+    const resetViewButton = L.Control.extend({
+        options: {
+            position: 'topright'
+        },
+
+        onAdd: function(map) {
+            const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+
+            container.style.backgroundColor = 'white';
+            container.style.width = '34px';
+            container.style.height = '34px';
+            container.style.cursor = 'pointer';
+            container.style.lineHeight = '34px';
+            container.style.textAlign = 'center';
+            container.style.fontSize = '18px';
+            container.title = 'Reset view to Boston';
+            container.innerHTML = '🏠';
+
+            container.onclick = function() {
+                map.setView([42.3601, -71.0589], 11);
+            };
+
+            return container;
+        }
+    });
+
+    map.addControl(new resetViewButton());
 
     // Handle filter changes
     document.getElementById('brand-filter').addEventListener('change', (e) => {
@@ -202,34 +231,6 @@ function showLocationDetails(location) {
     panel.classList.add('active');
 }
 
-// Add convenient map controls
-const resetViewButton = L.Control.extend({
-    options: {
-        position: 'topright'
-    },
-
-    onAdd: function(map) {
-        const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-
-        container.style.backgroundColor = 'white';
-        container.style.width = '34px';
-        container.style.height = '34px';
-        container.style.cursor = 'pointer';
-        container.style.lineHeight = '34px';
-        container.style.textAlign = 'center';
-        container.style.fontSize = '18px';
-        container.title = 'Reset view to Boston';
-        container.innerHTML = '🏠';
-
-        container.onclick = function() {
-            map.setView([42.3601, -71.0589], 11);
-        };
-
-        return container;
-    }
-});
-
-map.addControl(new resetViewButton());
-
-console.log('✓ OpenStreetMap initialized successfully');
-console.log('✓ No API key required - completely free!');
+    console.log('✓ OpenStreetMap initialized successfully');
+    console.log('✓ No API key required - completely free!');
+}

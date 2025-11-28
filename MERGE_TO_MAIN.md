@@ -104,3 +104,53 @@ Your feature branch `claude/franchise-news-widget-01WM5qh2UNjRZcSmCRVhQpwX` cont
 - ✅ Stock data workflow fix
 
 **Everything is ready** - you just need to merge it to `main`!
+
+## Local Repository Check
+
+If you're working from a fresh clone of this repository and don't see all of the feature branches yet, first verify what's available locally:
+
+```bash
+git branch -a
+```
+
+At the moment, only the `work` branch is present in the local checkout. If additional branches exist on the remote, add the remote (for example, `origin`) and fetch them before merging:
+
+```bash
+git remote add origin <REMOTE_URL>
+git fetch --all --prune
+```
+
+After fetching, merge each remote feature branch into `main`, resolve any conflicts with the most recent code, and delete the obsolete branches once they've been incorporated.
+
+### One-shot consolidation (combine all outstanding PRs)
+
+If several feature branches or open pull requests need to be rolled into a single clean history entry so the old branches can be deleted, use a temporary staging branch to collect them and then squash-merge into `main`:
+
+```bash
+# Create a staging branch from the latest default branch
+git checkout work
+git pull
+git checkout -b merge-consolidation
+
+# Merge every remote feature branch, preferring the newest code on conflicts
+for branch in <branch-a> <branch-b> <branch-c>; do
+  git merge --no-ff origin/$branch
+done
+
+# Resolve any conflicts by keeping the newest incoming changes, then continue the merge
+git status  # use this to identify files needing conflict resolution
+
+# Once all branches are merged, squash everything into a single commit for main
+git checkout work
+git merge --squash merge-consolidation
+git commit -m "Consolidate outstanding branches and fixes"
+
+# Push the consolidated commit and clean up
+git push origin work:main
+for branch in <branch-a> <branch-b> <branch-c>; do
+  git push origin --delete $branch
+done
+git branch -D merge-consolidation
+```
+
+This process results in one fresh commit that contains the merged work from every outstanding branch, after which the old branches can be safely removed.

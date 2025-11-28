@@ -4,8 +4,11 @@ let tickers = [];
 let currentRange = '1y';
 let showLegend = true;
 let showGrid = true;
+let historicalCache = new Map();
+let customCache = {};
 
 const MAX_TICKERS = 10;
+const DEFAULT_STOCKS = ['MCD', 'YUM', 'QSR', 'WEN', 'DPZ', 'JACK', 'WING', 'SHAK', 'DENN', 'DIN'];
 const DEFAULT_COLORS = [
     '#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#8B5CF6',
     '#EC4899', '#14B8A6', '#F97316', '#06B6D4', '#84CC16'
@@ -22,31 +25,64 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initializeApp() {
+    try {
+        customCache = JSON.parse(localStorage.getItem('franresearch_chart_cache')) || {};
+    } catch (e) {
+        customCache = {};
+    }
+
     setupEventListeners();
     initializeChart();
 
     // Check for symbol in URL parameter (e.g., ?symbol=MCD)
     const urlParams = new URLSearchParams(window.location.search);
     const symbolParam = urlParams.get('symbol');
+    const symbolsParam = urlParams.get('symbols');
 
-    if (symbolParam) {
-        // Auto-load the stock chart for the specified symbol
+    if (symbolsParam) {
+        const symbols = symbolsParam.split(',').map(s => s.trim().toUpperCase()).filter(Boolean).slice(0, MAX_TICKERS);
+        loadPresetSymbols(symbols);
+    } else if (symbolParam) {
         console.log(`Loading chart for ${symbolParam} from URL parameter`);
         document.getElementById('tickerInput').value = symbolParam;
         addTicker();
     } else {
-        // Auto-load 10 default franchise stocks
         loadDefaultStocks();
+    }
+}
+
+async function loadPresetSymbols(symbols) {
+    showLoading(true);
+    for (const symbol of symbols) {
+        try {
+            const data = await fetchAdjustedPrices(symbol, currentRange);
+            if (data && data.length) {
+                tickers.push({
+                    symbol,
+                    color: DEFAULT_COLORS[tickers.length % DEFAULT_COLORS.length],
+                    lineWidth: 2,
+                    data
+                });
+            }
+        } catch (err) {
+            console.warn(`Skipping ${symbol}:`, err);
+        }
+    }
+    showLoading(false);
+    if (tickers.length) {
+        renderTickerList();
+        updateChart();
+        hideEmptyState();
+    } else {
+        showEmptyState();
     }
 }
 
 // Load 10 default franchise stocks
 async function loadDefaultStocks() {
-    const defaultStocks = ['MCD', 'YUM', 'QSR', 'WEN', 'DPZ', 'MAR', 'HLT', 'PLNT', 'SHAK', 'WING'];
-
     showLoading(true);
 
-    for (const symbol of defaultStocks) {
+    for (const symbol of DEFAULT_STOCKS) {
         try {
             const data = await fetchAdjustedPrices(symbol, currentRange);
 
@@ -155,10 +191,21 @@ function initializeChart() {
                     callbacks: {
                         label: function(context) {
                             let label = context.dataset.label || '';
+                            const dataset = context.dataset;
+                            const firstPoint = dataset.rawData?.[0];
+                            const currentPoint = dataset.rawData?.[context.dataIndex];
+
                             if (label) label += ': ';
                             if (context.parsed.y !== null) {
                                 label += '$' + context.parsed.y.toFixed(2);
                             }
+
+                            if (firstPoint && currentPoint) {
+                                const delta = currentPoint.price - firstPoint.price;
+                                const pct = (delta / firstPoint.price) * 100;
+                                label += ` (${delta >= 0 ? '+' : ''}${delta.toFixed(2)}, ${pct.toFixed(2)}%)`;
+                            }
+
                             return label;
                         },
                         afterLabel: function(context) {
@@ -336,6 +383,7 @@ function renderTickerList() {
                            min="1"
                            max="5"
                            value="${ticker.lineWidth}"
+                           data-symbol="${ticker.symbol}"
                            oninput="updateTickerWidth('${ticker.symbol}', this.value)"
                            class="width-slider">
                     <span class="width-value">${ticker.lineWidth}px</span>
@@ -359,9 +407,11 @@ function updateTickerWidth(symbol, width) {
     if (ticker) {
         ticker.lineWidth = parseInt(width);
         // Update display
-        const widthValue = document.querySelector(`[onclick="updateTickerWidth('${symbol}', this.value)"]`)
-            ?.parentElement.querySelector('.width-value');
-        if (widthValue) widthValue.textContent = width + 'px';
+        const slider = document.querySelector(`.width-slider[data-symbol="${symbol}"]`);
+        if (slider) {
+            const widthValue = slider.parentElement.querySelector('.width-value');
+            if (widthValue) widthValue.textContent = width + 'px';
+        }
         updateChart();
     }
 }
@@ -388,7 +438,7 @@ async function refreshChart() {
     }
 }
 
-function updateChart() {
+async function updateChart() {
     if (!chartInstance || tickers.length === 0) return;
 
     const datasets = tickers.map(ticker => ({
@@ -414,125 +464,188 @@ function updateChart() {
     chartInstance.update('none');
     chartInstance.resetZoom();
 
-    // Update the stock data table
-    updateStockTable();
+    // Update supporting UI
+    await updateStockTable();
+    updateEmbedSnippet();
 }
 
 // Update the stock data table
-function updateStockTable() {
+async function updateStockTable() {
     const tableContainer = document.getElementById('stockTableContainer');
     const tableBody = document.getElementById('stock-table-body');
+    const tableHead = document.getElementById('stock-table-head');
 
-    if (!tableBody) return;
+    if (!tableBody || !tableHead) return;
 
     if (tickers.length === 0) {
         tableContainer.style.display = 'none';
         return;
     }
 
-    // Show table
     tableContainer.style.display = 'block';
-
-    // Clear existing rows
     tableBody.innerHTML = '';
+    tableHead.innerHTML = '';
 
-    // Populate table with stock data
-    tickers.forEach(ticker => {
-        if (!ticker.data || ticker.data.length === 0) return;
+    const symbols = tickers.map(t => t.symbol);
+    const seriesBySymbol = {};
+    const dateSet = new Set();
 
-        // Get most recent data point and first data point
-        const latestData = ticker.data[ticker.data.length - 1];
-        const firstData = ticker.data[0];
+    for (const symbol of symbols) {
+        const series = await getLocalSeries(symbol);
+        const sourceSeries = (series && series.length) ? series : (tickers.find(t => t.symbol === symbol)?.data || []);
 
-        // Calculate change
-        const priceChange = latestData.price - firstData.price;
-        const percentChange = ((priceChange / firstData.price) * 100).toFixed(2);
-        const changeClass = priceChange >= 0 ? 'positive-change' : 'negative-change';
-        const changeSign = priceChange >= 0 ? '+' : '';
+        if (sourceSeries && sourceSeries.length) {
+            const last30 = sourceSeries.slice(-30);
+            seriesBySymbol[symbol] = last30;
+            last30.forEach(point => dateSet.add(point.date.toISOString().split('T')[0]));
+        }
+    }
 
+    const dates = Array.from(dateSet).sort((a, b) => b.localeCompare(a)).slice(0, 30).reverse();
+
+    const headerRow = document.createElement('tr');
+    headerRow.innerHTML = `<th>Date</th>${symbols.map(s => `<th>${s}</th>`).join('')}`;
+    tableHead.appendChild(headerRow);
+
+    dates.forEach(dateStr => {
         const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${ticker.symbol}</td>
-            <td>$${latestData.price.toFixed(2)}</td>
-            <td class="${changeClass}">${changeSign}$${priceChange.toFixed(2)}</td>
-            <td class="${changeClass}">${changeSign}${percentChange}%</td>
-            <td>$${(latestData.open || latestData.price).toFixed(2)}</td>
-            <td>$${(latestData.high || latestData.price).toFixed(2)}</td>
-            <td>$${(latestData.low || latestData.price).toFixed(2)}</td>
-            <td>${formatVolume(latestData.volume)}</td>
-        `;
+        const cells = [`<td>${dateStr}</td>`];
 
+        symbols.forEach(symbol => {
+            const point = (seriesBySymbol[symbol] || []).find(p => p.date.toISOString().startsWith(dateStr));
+            cells.push(`<td>${point ? `$${point.price.toFixed(2)}` : '–'}</td>`);
+        });
+
+        row.innerHTML = cells.join('');
         tableBody.appendChild(row);
     });
 }
 
 async function fetchAdjustedPrices(ticker, range) {
-    // Stooq API endpoint - returns CSV with adjusted prices
+    const cachedSeries = await getLocalSeries(ticker);
+    if (cachedSeries && cachedSeries.length) {
+        return filterDataByRange(cachedSeries, range);
+    }
+
+    const remoteSeries = await fetchFromStooq(ticker);
+
+    if (remoteSeries && remoteSeries.length) {
+        saveCustomSeries(ticker, remoteSeries);
+        return filterDataByRange(remoteSeries, range);
+    }
+
+    throw new Error(`No data available for ${ticker}`);
+}
+
+async function getLocalSeries(symbol) {
+    await loadCsvIntoCache();
+
+    if (historicalCache.has(symbol)) {
+        return historicalCache.get(symbol);
+    }
+
+    if (customCache[symbol]) {
+        return customCache[symbol].map(point => ({
+            ...point,
+            date: new Date(point.date)
+        }));
+    }
+
+    return null;
+}
+
+async function loadCsvIntoCache() {
+    if (historicalCache.size > 0) return;
+
+    const csvUrl = new URL('../data/franchise_stocks.csv', window.location.href).toString();
+    const response = await fetch(csvUrl);
+    if (!response.ok) {
+        console.warn('Failed to preload franchise_stocks.csv:', response.status);
+        return;
+    }
+
+    const text = await response.text();
+    const lines = text.trim().split('\n');
+    if (lines.length < 2) return;
+
+    for (let i = 1; i < lines.length; i++) {
+        const [dateStr, symbol, open, high, low, close, adjClose, volume] = lines[i].split(',');
+        const parsedDate = new Date(dateStr);
+        const parsedClose = parseFloat(adjClose || close);
+        if (!symbol || isNaN(parsedClose) || isNaN(parsedDate.getTime())) continue;
+
+        const parsedOpen = parseFloat(open);
+        const parsedHigh = parseFloat(high);
+        const parsedLow = parseFloat(low);
+        const parsedVolume = parseInt(volume);
+
+        if (!historicalCache.has(symbol)) {
+            historicalCache.set(symbol, []);
+        }
+
+        historicalCache.get(symbol).push({
+            date: parsedDate,
+            price: parsedClose,
+            open: isNaN(parsedOpen) ? null : parsedOpen,
+            high: isNaN(parsedHigh) ? null : parsedHigh,
+            low: isNaN(parsedLow) ? null : parsedLow,
+            volume: isNaN(parsedVolume) ? null : parsedVolume
+        });
+    }
+
+    // Ensure arrays are sorted
+    historicalCache.forEach(series => series.sort((a, b) => a.date - b.date));
+}
+
+async function fetchFromStooq(ticker) {
     const url = `https://stooq.com/q/d/l/?s=${ticker}.US&i=d`;
 
-    try {
-        const response = await fetch(url);
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const text = await response.text();
-
-        // Parse CSV (format: Date,Open,High,Low,Close,Volume)
-        const lines = text.trim().split('\n');
-
-        if (lines.length < 2) {
-            throw new Error('No data in response');
-        }
-
-        // Skip header row
-        const dataRows = lines.slice(1);
-
-        // Parse all data
-        const allData = [];
-        for (const row of dataRows) {
-            const [dateStr, open, high, low, close, volume] = row.split(',');
-
-            // Skip invalid rows
-            if (!dateStr || !close) continue;
-
-            const parsedDate = new Date(dateStr);
-            const parsedClose = parseFloat(close);
-            const parsedOpen = parseFloat(open);
-            const parsedHigh = parseFloat(high);
-            const parsedLow = parseFloat(low);
-            const parsedVolume = parseInt(volume);
-
-            // Skip if parsing failed
-            if (isNaN(parsedClose) || isNaN(parsedDate.getTime())) continue;
-
-            allData.push({
-                date: parsedDate,
-                price: parsedClose,  // Already adjusted by Stooq
-                open: isNaN(parsedOpen) ? null : parsedOpen,
-                high: isNaN(parsedHigh) ? null : parsedHigh,
-                low: isNaN(parsedLow) ? null : parsedLow,
-                volume: isNaN(parsedVolume) ? null : parsedVolume
-            });
-        }
-
-        if (allData.length === 0) {
-            throw new Error('No valid data found');
-        }
-
-        // Sort by date ascending (oldest first)
-        allData.sort((a, b) => a.date - b.date);
-
-        // Filter data based on time range
-        const filteredData = filterDataByRange(allData, range);
-
-        return filteredData;
-
-    } catch (error) {
-        console.error(`Error fetching data for ${ticker}:`, error);
-        throw error;
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    const lines = text.trim().split('\n');
+    if (lines.length < 2) {
+        throw new Error('No data in response');
+    }
+
+    const dataRows = lines.slice(1);
+    const allData = [];
+    for (const row of dataRows) {
+        const [dateStr, open, high, low, close, volume] = row.split(',');
+        if (!dateStr || !close) continue;
+        const parsedDate = new Date(dateStr);
+        const parsedClose = parseFloat(close);
+        const parsedOpen = parseFloat(open);
+        const parsedHigh = parseFloat(high);
+        const parsedLow = parseFloat(low);
+        const parsedVolume = parseInt(volume);
+
+        if (isNaN(parsedClose) || isNaN(parsedDate.getTime())) continue;
+
+        allData.push({
+            date: parsedDate,
+            price: parsedClose,
+            open: isNaN(parsedOpen) ? null : parsedOpen,
+            high: isNaN(parsedHigh) ? null : parsedHigh,
+            low: isNaN(parsedLow) ? null : parsedLow,
+            volume: isNaN(parsedVolume) ? null : parsedVolume
+        });
+    }
+
+    allData.sort((a, b) => a.date - b.date);
+    return allData;
+}
+
+function saveCustomSeries(symbol, series) {
+    customCache[symbol] = series.map(point => ({
+        ...point,
+        date: point.date.toISOString()
+    }));
+
+    localStorage.setItem('franresearch_chart_cache', JSON.stringify(customCache));
 }
 
 function filterDataByRange(data, range) {
@@ -646,6 +759,14 @@ function formatVolume(volume) {
     if (volume >= 1e6) return (volume / 1e6).toFixed(2) + 'M';
     if (volume >= 1e3) return (volume / 1e3).toFixed(2) + 'K';
     return volume.toString();
+}
+
+function updateEmbedSnippet() {
+    const embed = document.getElementById('embedCode');
+    if (!embed) return;
+    const symbolsParam = tickers.length ? `?symbols=${tickers.map(t => t.symbol).join(',')}` : '';
+    const src = `https://monroegamble.github.io/WebApp/StockChart/chart.html${symbolsParam}`;
+    embed.value = `<iframe src="${src}" width="100%" height="640" frameborder="0" style="border:none;"></iframe>`;
 }
 
 // Make functions available globally for inline event handlers

@@ -29,19 +29,19 @@ Website/
 The widget displays the following franchise-related stocks:
 
 **Quick Service & Restaurants:**
-MCD (McDonald's), YUM (Yum! Brands), QSR (Restaurant Brands), WEN (Wendy's), DPZ (Domino's), JACK (Jack in the Box), WING (Wingstop), SHAK (Shake Shack), CAVA, DENN (Denny's), DIN (Dine Brands), DNUT (Krispy Kreme), NATH (Nathan's Famous), RRGB (Red Robin)
+MCD (McDonald's), YUM (Yum! Brands), QSR (Restaurant Brands), WEN (Wendy's), DPZ (Domino's), JACK (Jack in the Box), WING (Wingstop), SHAK (Shake Shack), DENN (Denny's), DIN (Dine Brands), DNUT (Krispy Kreme), NATH (Nathan's Famous), RRGB (Red Robin)
 
 **Automotive & Services:**
-DRVN (Driven Brands), HRB (H&R Block), CAR (Avis Budget), UHAL (U-Haul)
+DRVN (Driven Brands), HRB (H&R Block), MCW (Mister Car Wash), SERV (ServiceMaster), ROL (Rollins)
 
-**Fitness & Health:**
-PLNT (Planet Fitness), BFT (BurgerFi)
+**Fitness & Travel:**
+PLNT (Planet Fitness), BFT (F45 Training), TNL (Travel + Leisure)
 
 **Hospitality:**
-MAR (Marriott), HLT (Hilton), H (Hyatt), CHH (Choice Hotels), WH (Wyndham), VAC (Marriott Vacations), TNL (Travel + Leisure), CWH (Camping World)
+MAR (Marriott), HLT (Hilton), H (Hyatt), CHH (Choice Hotels), WH (Wyndham), VAC (Marriott Vacations)
 
 **Retail & Other:**
-GNC, RENT (Rent-A-Center), SERV (ServiceMaster), ROL (Rollins), ADUS (Addus HomeCare), LOPE (Grand Canyon Education), PLAY (Dave & Buster's), ARCO (Arcos Dorados), TAST (Carrols Restaurant)
+RENT (Rent-A-Center), GNC, ADUS (Addus HomeCare), LOPE (Grand Canyon Education), PLAY (Dave & Buster's), ARCO (Arcos Dorados), TAST (Carrols Restaurant)
 
 ## How to Change the Ticker List
 
@@ -50,7 +50,7 @@ Open `ticker.js` and modify the `TICKER_SYMBOLS` array at the top of the file:
 ```javascript
 const TICKER_SYMBOLS = [
   "MCD", "YUM", "QSR", // Keep existing
-  "AAPL", "GOOGL",     // Add new symbols
+  "ARCO", "TAST",      // Add new symbols
   // "DNUT"             // Comment out to remove
 ];
 ```
@@ -61,7 +61,7 @@ const TICKER_SYMBOLS = [
    ```javascript
    const TICKER_SYMBOLS = [
      "MCD", "YUM", "QSR",
-     "SBUX"  // Added Starbucks
+     "ARCO"  // Added Arcos Dorados
    ];
    ```
 

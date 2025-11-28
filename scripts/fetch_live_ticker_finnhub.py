@@ -15,26 +15,19 @@ from datetime import datetime, timezone
 
 # Ticker symbols (same as in ticker.js)
 TICKER_SYMBOLS = [
-    "^GSPC", "^IXIC", "^DJI",  # Market Indices (note: Finnhub uses different symbols)
-    "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK", "CAVA",
+    "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
     "DENN", "DIN", "DNUT", "NATH", "RRGB",
-    "DRVN", "HRB", "CAR", "UHAL",
-    "PLNT", "BFT",
-    "MAR", "HLT", "H", "CHH", "WH", "IHG", "VAC", "TNL", "CWH",
-    "GNC", "RENT",
-    "SERV", "ROL",
-    "ADUS",
-    "LOPE",
+    "DRVN", "HRB", "MCW", "SERV", "ROL",
+    "PLNT", "BFT", "TNL",
+    "MAR", "HLT", "H", "CHH", "WH", "VAC",
+    "RENT", "GNC",
+    "ADUS", "LOPE",
     "PLAY", "ARCO",
     "TAST"
 ]
 
-# Map Yahoo symbols to Finnhub symbols
-SYMBOL_MAP = {
-    "^GSPC": "SPX",  # S&P 500
-    "^IXIC": "COMP",  # NASDAQ
-    "^DJI": "DJI",    # Dow Jones
-}
+# Map Yahoo symbols to Finnhub symbols (none needed for pure franchisors)
+SYMBOL_MAP = {}
 
 # API Configuration
 FINNHUB_API_KEY = os.environ.get('FINNHUB_API_KEY', '')
