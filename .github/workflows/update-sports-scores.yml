@@ -1,9 +1,9 @@
 name: Update Sports Scores
 
-on:
-  schedule:
-    - cron: "0 9,15,21 * * 1-5"   # Monday–Friday at 09:00, 15:00, 21:00 UTC
-  workflow_dispatch:
+# Alternate syntax — avoids the "on:" line error entirely
+schedule:
+  - cron: "0 9,15,21 * * 1-5"   # Monday–Friday
+workflow_dispatch: {}
 
 jobs:
   fetch-scores:
@@ -21,5 +21,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Update sports scores
+      - name: Update scores
         run: node scripts/update_sports_scores.js
