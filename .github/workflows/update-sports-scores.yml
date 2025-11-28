@@ -28,14 +28,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd scripts
-          npm install node-fetch
+          npm install --prefix scripts node-fetch@3
 
       - name: Fetch sports scores
         env:
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
         run: |
-          node scripts/fetch_sports_scores.js
+          node scripts/fetch_football_scores.js
 
       - name: Commit and push if changed
         run: |

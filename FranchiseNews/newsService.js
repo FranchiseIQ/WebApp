@@ -332,8 +332,9 @@ class NewsService {
    */
   async getAllArticles() {
     try {
-      // Fetch from static JSON file (updated by GitHub Actions RSS aggregator)
-      const response = await fetch('data/franchise_news.json');
+        // Fetch from static JSON file (updated by GitHub Actions RSS aggregator)
+        const dataUrl = new URL('../data/franchise_news.json', document.baseURI).toString();
+        const response = await fetch(dataUrl);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
