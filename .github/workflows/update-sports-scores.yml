@@ -1,10 +1,8 @@
 name: Update Sports Scores
-
-on:
-  schedule
-    - cron: '0 9,15,21 * * 1-5'  # Monday to Friday only
-
-  workflow_dispatch:  # Allow manual trigger
+  on:
+    schedule:
+      - cron: "0 9,15,21 * * 1-5" # Monday to Friday only
+    workflow_dispatch: # Allow manual trigger
 
 jobs:
   fetch-scores:
