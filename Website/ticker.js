@@ -480,6 +480,22 @@ function renderTicker(stockData) {
   });
 }
 
+function ensurePlaceholders(stockData) {
+  TICKER_SYMBOLS.forEach(symbol => {
+    if (!stockData[symbol]) {
+      stockData[symbol] = {
+        symbol,
+        price: 'N/A',
+        changePercent: '–',
+        isPositive: false,
+        isNegative: false,
+        afterHours: false,
+        source: 'unavailable'
+      };
+    }
+  });
+}
+
 /**
  * Update the ticker with fresh data
  */
@@ -508,6 +524,7 @@ async function updateTicker() {
       });
     }
 
+    ensurePlaceholders(stockData);
     renderTicker(stockData);
     resetCountdown(); // Reset countdown after refresh
 
@@ -537,6 +554,7 @@ async function updateTicker() {
       }
 
       lastMarketData = stockData;
+      ensurePlaceholders(stockData);
       renderTicker(stockData);
 
       // Update timestamp
@@ -546,6 +564,7 @@ async function updateTicker() {
       }
     } else {
       // Use cached after-hours data
+      ensurePlaceholders(lastMarketData);
       renderTicker(lastMarketData);
 
       // Show when data was last fetched (from cache)

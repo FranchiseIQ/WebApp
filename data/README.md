@@ -57,4 +57,4 @@ Daily workflow (`update-stock-data.yml`):
 - CSV uses efficient format
 - Data compressed via Git LFS if needed
 - Old data (>2 years) can be archived
-- Current estimated size: ~50MB for 40 stocks over 10 years
+- Current estimated size: ~40MB for 34 stocks over 10 years
