@@ -339,27 +339,10 @@ class NewsService {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
-      const rssArticles = await response.json();
-
-      // Transform RSS aggregator format to widget format
-      const articles = rssArticles.map(article => ({
-        id: article.id,
-        title: article.title,
-        sourceId: this._normalizeSourceId(article.source_name),
-        url: article.url,
-        publishedAt: article.published_iso ? article.published_iso.split('T')[0] : new Date().toISOString().split('T')[0],
-        category: this._mapRSSCategory(article.category),
-        shortSourceLabel: article.source_name
-      }));
-
-      return articles;
-    } catch (error) {
-      console.warn('[NewsService] Failed to fetch franchise_news.json, falling back to mock data:', error);
-
-      // Fallback to mock data if fetch fails (for local development)
-      return MOCK_NEWS_ARTICLES;
     }
+
+    console.warn('[NewsService] Falling back to mock data after all fetch attempts failed');
+    return MOCK_NEWS_ARTICLES;
   }
 
   /**

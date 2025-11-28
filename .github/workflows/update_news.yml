@@ -1,0 +1,32 @@
+name: Update Franchise News
+
+on:
+  schedule:
+    - cron: "*/15 * * * 1-5"   # Every 15 minutes Mon–Fri
+  workflow_dispatch:
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests feedparser beautifulsoup4
+
+      - name: Run news fetcher
+        run: python FranchiseNews/news_fetcher.py
+
+      - name: Commit output
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add FranchiseNews/news.json
+          git commit -m "Update news" || echo "No changes"
+          git push

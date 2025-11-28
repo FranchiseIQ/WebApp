@@ -136,6 +136,14 @@ function setupEventListeners() {
     document.getElementById('resetZoomBtn').addEventListener('click', resetZoom);
     document.getElementById('toggleLegendBtn').addEventListener('click', toggleLegend);
     document.getElementById('showGridLines').addEventListener('change', toggleGridLines);
+    const togglePriceBtn = document.getElementById('togglePriceMode');
+    if (togglePriceBtn) {
+        togglePriceBtn.addEventListener('click', () => {
+            priceMode = priceMode === 'percent' ? 'dollar' : 'percent';
+            togglePriceBtn.textContent = priceMode === 'percent' ? 'Show Dollar Prices' : 'Show % Change';
+            updateChart();
+        });
+    }
 
     // Help modal
     document.getElementById('helpBtn').addEventListener('click', () => {
@@ -197,7 +205,9 @@ function initializeChart() {
 
                             if (label) label += ': ';
                             if (context.parsed.y !== null) {
-                                label += '$' + context.parsed.y.toFixed(2);
+                                label += priceMode === 'percent'
+                                    ? `${context.parsed.y.toFixed(2)}%`
+                                    : '$' + context.parsed.y.toFixed(2);
                             }
 
                             if (firstPoint && currentPoint) {
@@ -271,7 +281,7 @@ function initializeChart() {
                 y: {
                     title: {
                         display: true,
-                        text: 'Price (USD)',
+                        text: priceMode === 'percent' ? '% Change' : 'Price (USD)',
                         font: {
                             size: 14,
                             weight: '600'
@@ -279,7 +289,7 @@ function initializeChart() {
                     },
                     ticks: {
                         callback: function(value) {
-                            return '$' + value.toFixed(2);
+                            return priceMode === 'percent' ? `${value.toFixed(2)}%` : '$' + value.toFixed(2);
                         }
                     },
                     grid: {
@@ -441,26 +451,36 @@ async function refreshChart() {
 async function updateChart() {
     if (!chartInstance || tickers.length === 0) return;
 
-    const datasets = tickers.map(ticker => ({
-        label: ticker.symbol,
-        data: ticker.data.map(d => ({
-            x: d.date,
-            y: d.price
-        })),
-        rawData: ticker.data,
-        borderColor: ticker.color,
-        backgroundColor: ticker.color + '20',
-        borderWidth: ticker.lineWidth,
-        fill: false,
-        tension: 0.1,
-        pointRadius: 0,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: ticker.color,
-        pointHoverBorderColor: '#fff',
-        pointHoverBorderWidth: 2
-    }));
+    const datasets = tickers.map(ticker => {
+        const basePrice = ticker.data?.[0]?.price || 1;
+        return {
+            label: ticker.symbol,
+            data: ticker.data.map(d => ({
+                x: d.date,
+                y: priceMode === 'percent'
+                    ? ((d.price - basePrice) / basePrice) * 100
+                    : d.price
+            })),
+            rawData: ticker.data,
+            borderColor: ticker.color,
+            backgroundColor: ticker.color + '20',
+            borderWidth: ticker.lineWidth,
+            fill: false,
+            tension: 0.1,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: ticker.color,
+            pointHoverBorderColor: '#fff',
+            pointHoverBorderWidth: 2
+        };
+    });
 
     chartInstance.data.datasets = datasets;
+    chartInstance.options.scales.y.title.text = priceMode === 'percent' ? '% Change' : 'Price (USD)';
+    chartInstance.options.scales.y.ticks.callback = function(value) {
+        return priceMode === 'percent' ? `${value.toFixed(2)}%` : '$' + value.toFixed(2);
+    };
+
     chartInstance.update('none');
     chartInstance.resetZoom();
 

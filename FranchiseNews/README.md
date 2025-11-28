@@ -20,6 +20,7 @@ A reusable, embeddable JavaScript widget system for displaying curated franchise
 - **News Ticker**: [https://monroegamble.github.io/WebApp/FranchiseNews/news-ticker.html](FranchiseNews/news-ticker.html)
 - **News Feed**: [https://monroegamble.github.io/WebApp/FranchiseNews/news-feed.html](FranchiseNews/news-feed.html)
 - **Main Site** (ticker at bottom): [https://monroegamble.github.io/WebApp/](../)
+- **JSON Source**: Updated automatically at `/FranchiseNews/news.json` by `.github/workflows/update_news.yml` (every 15 minutes, Mon–Fri)
 
 ## Quick Start
 

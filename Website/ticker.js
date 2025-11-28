@@ -93,7 +93,7 @@ async function loadHistoricalSnapshots() {
 async function fetchLiveTickerData() {
   try {
     console.log('Fetching live ticker data from Finnhub...');
-    const response = await fetch('data/live_ticker.json');
+    const response = await fetch('../data/live_ticker.json');
 
     if (!response.ok) {
       throw new Error(`Failed to fetch live ticker: ${response.status}`);
