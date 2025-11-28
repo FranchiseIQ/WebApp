@@ -12,6 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
 </head>
 <body>
+    <div class="global-ticker">
+        <iframe src="../Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
+    </div>
     <div class="container">
         <!-- Control Panel -->
         <div class="control-panel">
@@ -78,21 +81,19 @@
 
         <!-- Stock Data Table -->
         <div class="table-container" id="stockTableContainer" style="display: none;">
-            <h2>📊 Stock Data Summary</h2>
+            <div class="table-header">
+                <div>
+                    <h2>📊 30-Day Adjusted Close Snapshot</h2>
+                    <p class="table-subtitle">Data auto-populates from the local franchise database before calling external APIs.</p>
+                </div>
+                <div class="embed-wrapper">
+                    <label for="embedCode">Embed this chart anywhere</label>
+                    <textarea id="embedCode" readonly></textarea>
+                </div>
+            </div>
             <div class="table-wrapper">
                 <table id="stock-data-table">
-                    <thead>
-                        <tr>
-                            <th>Symbol</th>
-                            <th>Current Price</th>
-                            <th>Change ($)</th>
-                            <th>Change (%)</th>
-                            <th>Open</th>
-                            <th>High</th>
-                            <th>Low</th>
-                            <th>Volume</th>
-                        </tr>
-                    </thead>
+                    <thead id="stock-table-head"></thead>
                     <tbody id="stock-table-body">
                         <!-- Data will be populated by JavaScript -->
                     </tbody>

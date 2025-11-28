@@ -198,9 +198,10 @@ Edit `scripts/update_franchise_stocks.py`:
 
 ```python
 FRANCHISE_STOCKS = [
-    "^GSPC", "^IXIC", "^DJI",  # Market indices
-    "MCD", "YUM", "QSR",        # Add your stocks here
-    # ... add more symbols
+    "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
+    "DENN", "DIN", "DNUT", "NATH", "RRGB", "DRVN", "HRB", "MCW",
+    "SERV", "ROL", "PLNT", "BFT", "TNL", "MAR", "HLT", "H", "CHH",
+    "WH", "VAC", "RENT", "GNC", "ADUS", "LOPE", "PLAY", "ARCO", "TAST"
 ]
 ```
 
@@ -212,12 +213,12 @@ Then re-run workflow to fetch historical data for new stocks.
 
 ### After First Run:
 - `data/franchise_stocks.csv` created
-- ~100,000+ records (40 stocks × 10 years × ~250 trading days)
+- ~85,000+ records (34 stocks × 10 years × ~250 trading days)
 - File size: ~5-10 MB
 - Commit in git history
 
 ### After Daily Runs:
-- +40 records per day (one per stock)
+- +34 records per day (one per stock)
 - Commit message: "Update franchise stock data - YYYY-MM-DD"
 - Charts load instantly with historical data
 - Only today's data fetched via API (fast!)

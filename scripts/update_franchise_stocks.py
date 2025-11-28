@@ -11,26 +11,23 @@ from datetime import datetime, timedelta
 import os
 import sys
 
-# Franchise stock symbols
+# Franchise stock symbols (pure franchisors and system participants)
 FRANCHISE_STOCKS = [
-    # Market Indices
-    "^GSPC", "^IXIC", "^DJI",
-
     # Quick Service & Restaurants
-    "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK", "CAVA",
+    "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
     "DENN", "DIN", "DNUT", "NATH", "RRGB",
 
     # Auto & Services
-    "DRVN", "HRB", "CAR", "UHAL",
+    "DRVN", "HRB", "MCW", "SERV", "ROL",
 
     # Fitness
-    "PLNT", "BFT",
+    "PLNT", "BFT", "TNL",
 
     # Hospitality
-    "MAR", "HLT", "H", "CHH", "WH", "IHG", "VAC", "TNL", "CWH",
+    "MAR", "HLT", "H", "CHH", "WH", "VAC",
 
     # Retail & Other
-    "GNC", "RENT", "SERV", "ROL", "ADUS", "LOPE", "PLAY", "ARCO", "TAST"
+    "RENT", "GNC", "ADUS", "LOPE", "PLAY", "ARCO", "TAST"
 ]
 
 CSV_FILE = "data/franchise_stocks.csv"

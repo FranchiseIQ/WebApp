@@ -4,18 +4,13 @@
 // ============================================================================
 // Modify this array to add or remove ticker symbols
 const TICKER_SYMBOLS = [
-  "^GSPC", "^IXIC", "^DJI", // Market Indices
-  "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK", "CAVA",
+  "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
   "DENN", "DIN", "DNUT", "NATH", "RRGB",
-  "DRVN", "HRB", "CAR", "UHAL",
-  "PLNT", "BFT",
-  "MAR", "HLT", "H", "CHH", "WH", "IHG", "VAC", "TNL", "CWH",
-  "GNC", "RENT",
-  "SERV", "ROL",
-  "ADUS",
-  "LOPE",
-  "PLAY", "ARCO",
-  "TAST"
+  "DRVN", "HRB", "MCW", "SERV", "ROL",
+  "PLNT", "BFT", "TNL",
+  "MAR", "HLT", "H", "CHH", "WH", "VAC",
+  "RENT", "GNC", "ADUS", "LOPE",
+  "PLAY", "ARCO", "TAST"
 ];
 
 // Refresh interval in milliseconds (1 hour = 3600 seconds)
@@ -24,6 +19,7 @@ const REFRESH_INTERVAL = 3600000; // 1 hour
 // Cache for last known prices (for offline fallback)
 let lastKnownData = {};
 let lastMarketData = {}; // Store last market close data for after-hours
+let historicalSnapshots = null; // { symbol: { latest, previous, previousDate } }
 
 // Load cached data from localStorage on initialization
 try {
@@ -34,6 +30,54 @@ try {
   }
 } catch (e) {
   console.error('Failed to load cache from localStorage:', e);
+}
+
+// ============================================================================
+// LOCAL HISTORICAL CACHE (CSV)
+// ============================================================================
+
+async function loadHistoricalSnapshots() {
+  if (historicalSnapshots) {
+    return historicalSnapshots;
+  }
+
+  const csvUrl = new URL('../data/franchise_stocks.csv', window.location.href).toString();
+
+  try {
+    const response = await fetch(csvUrl);
+    if (!response.ok) {
+      throw new Error(`CSV fetch failed with status ${response.status}`);
+    }
+
+    const text = await response.text();
+    const lines = text.trim().split('\n');
+
+    if (lines.length < 3) {
+      throw new Error('CSV missing enough rows for snapshot calculation');
+    }
+
+    const snapshots = {};
+    // iterate newest to oldest
+    for (let i = lines.length - 1; i >= 1; i--) {
+      const [date, symbol, open, high, low, close, adjClose] = lines[i].split(',');
+      const price = parseFloat(adjClose || close);
+      if (!symbol || isNaN(price)) continue;
+
+      if (!snapshots[symbol]) {
+        snapshots[symbol] = { latest: price, latestDate: date, previous: null, previousDate: null };
+      } else if (!snapshots[symbol].previous) {
+        snapshots[symbol].previous = price;
+        snapshots[symbol].previousDate = date;
+      }
+    }
+
+    historicalSnapshots = snapshots;
+    return snapshots;
+  } catch (error) {
+    console.warn('Unable to load historical CSV snapshots:', error);
+    historicalSnapshots = {};
+    return historicalSnapshots;
+  }
 }
 
 // ============================================================================
@@ -61,13 +105,30 @@ async function fetchLiveTickerData() {
 
     // Transform Finnhub format to ticker format
     const stockData = {};
+    const snapshots = await loadHistoricalSnapshots();
+
     for (const [symbol, quote] of Object.entries(data.quotes)) {
+      const priceNumber = typeof quote.price === 'number' && Number.isFinite(quote.price)
+        ? quote.price
+        : null;
+
+      let changePercent = typeof quote.changePercent === 'number' && Number.isFinite(quote.changePercent)
+        ? quote.changePercent
+        : null;
+
+      const snapshot = snapshots[symbol];
+      if (snapshot && snapshot.previous && snapshot.latest && snapshot.previous !== 0) {
+        changePercent = ((snapshot.latest - snapshot.previous) / snapshot.previous) * 100;
+      }
+
+      const formattedChange = Number.isFinite(changePercent) ? changePercent.toFixed(2) : '–';
+
       stockData[symbol] = {
         symbol: quote.symbol,
-        price: quote.price.toFixed(2),
-        changePercent: quote.changePercent.toFixed(2),
-        isPositive: quote.isPositive,
-        isNegative: quote.isNegative,
+        price: priceNumber !== null ? priceNumber.toFixed(2) : 'N/A',
+        changePercent: formattedChange,
+        isPositive: Number.isFinite(changePercent) ? changePercent > 0 : false,
+        isNegative: Number.isFinite(changePercent) ? changePercent < 0 : false,
         afterHours: false,
         source: 'finnhub',
         fetchedAt: data.fetchedAt
@@ -114,7 +175,7 @@ async function fetchStockDataFromCSV() {
 
     // Build map of most recent data for each symbol
     const stockData = {};
-    const latestDates = {}; // Track latest date for each symbol
+    const snapshots = {};
 
     // Process lines in reverse (most recent first)
     for (let i = lines.length - 1; i >= 1; i--) {
@@ -126,40 +187,34 @@ async function fetchStockDataFromCSV() {
       const symbol = values[1];
       const close = parseFloat(values[5]); // adjClose column
 
-      // Skip if we already have more recent data for this symbol
-      if (latestDates[symbol] && latestDates[symbol] > date) {
-        continue;
+      if (!symbol || isNaN(close)) continue;
+
+      if (!snapshots[symbol]) {
+        snapshots[symbol] = { latest: close, latestDate: date, previous: null, previousDate: null };
+      } else if (!snapshots[symbol].previous) {
+        snapshots[symbol].previous = close;
+        snapshots[symbol].previousDate = date;
       }
+    }
 
-      // Calculate change percent (we'll need previous day's data for this)
-      // For now, we'll mark it as unchanged if we don't have previous data
-      let changePercent = 0;
+    Object.entries(snapshots).forEach(([symbol, snapshot]) => {
+      const changePercent = snapshot.previous
+        ? ((snapshot.latest - snapshot.previous) / snapshot.previous) * 100
+        : 0;
 
-      // Try to find previous day's data for change calculation
-      if (!latestDates[symbol]) {
-        // Look for the previous entry for this symbol
-        for (let j = i - 1; j >= 1; j--) {
-          const prevValues = lines[j].split(',');
-          if (prevValues[1] === symbol) {
-            const prevClose = parseFloat(prevValues[5]);
-            changePercent = ((close - prevClose) / prevClose) * 100;
-            break;
-          }
-        }
-      }
-
-      latestDates[symbol] = date;
       stockData[symbol] = {
         symbol: symbol,
-        price: close.toFixed(2),
-        changePercent: changePercent.toFixed(2),
+        price: snapshot.latest.toFixed(2),
+        changePercent: Number.isFinite(changePercent) ? changePercent.toFixed(2) : '–',
         isPositive: changePercent > 0,
         isNegative: changePercent < 0,
         afterHours: false,
         source: 'csv',
-        date: date
+        date: snapshot.latestDate
       };
-    }
+    });
+
+    historicalSnapshots = historicalSnapshots || snapshots;
 
     console.log(`✓ Loaded ${Object.keys(stockData).length} stocks from CSV`);
     return stockData;
@@ -255,10 +310,21 @@ async function fetchStockData() {
         }
       });
 
-      // Only update cache if we got valid data
-      if (Object.keys(stockData).length > 0) {
-        // Merge with existing cache to preserve symbols that weren't updated
-        lastKnownData = { ...lastKnownData, ...stockData };
+    // Only update cache if we got valid data
+    if (Object.keys(stockData).length > 0) {
+      const snapshots = await loadHistoricalSnapshots();
+      Object.values(stockData).forEach(entry => {
+        const snap = snapshots[entry.symbol];
+        if (snap && snap.previous && snap.latest) {
+          const changePct = ((snap.latest - snap.previous) / snap.previous) * 100;
+          entry.changePercent = changePct.toFixed(2);
+          entry.isPositive = changePct > 0;
+          entry.isNegative = changePct < 0;
+        }
+      });
+
+      // Merge with existing cache to preserve symbols that weren't updated
+      lastKnownData = { ...lastKnownData, ...stockData };
 
         // Store in localStorage for persistence
         try {
@@ -420,6 +486,22 @@ function renderTicker(stockData) {
   });
 }
 
+function ensurePlaceholders(stockData) {
+  TICKER_SYMBOLS.forEach(symbol => {
+    if (!stockData[symbol]) {
+      stockData[symbol] = {
+        symbol,
+        price: 'N/A',
+        changePercent: '–',
+        isPositive: false,
+        isNegative: false,
+        afterHours: false,
+        source: 'unavailable'
+      };
+    }
+  });
+}
+
 /**
  * Update the ticker with fresh data
  */
@@ -448,6 +530,7 @@ async function updateTicker() {
       });
     }
 
+    ensurePlaceholders(stockData);
     renderTicker(stockData);
     resetCountdown(); // Reset countdown after refresh
 
@@ -477,6 +560,7 @@ async function updateTicker() {
       }
 
       lastMarketData = stockData;
+      ensurePlaceholders(stockData);
       renderTicker(stockData);
 
       // Update timestamp
@@ -486,6 +570,7 @@ async function updateTicker() {
       }
     } else {
       // Use cached after-hours data
+      ensurePlaceholders(lastMarketData);
       renderTicker(lastMarketData);
 
       // Show when data was last fetched (from cache)
