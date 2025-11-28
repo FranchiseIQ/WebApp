@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FranResearch - Interactive Franchise Map</title>
     <meta name="description" content="Interactive map showing franchise locations across North America using OpenStreetMap">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/layouts.css">
-    <link rel="stylesheet" href="../common/footer.css">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
     <link rel="stylesheet" href="map-style.css">
 </head>
 <body>
-    <div class="global-ticker">
-        <iframe src="../Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
-    </div>
     <div class="map-container">
         <!-- Header -->
         <div class="map-header">
@@ -25,7 +27,6 @@
                     <img src="../logo.svg" alt="FranResearch" class="logo">
                 </a>
                 <h1>Interactive Franchise Map</h1>
-                <p class="section-subtitle">Leaflet tiles with brand filtering and refreshed layout.</p>
             </div>
             <div class="header-controls">
                 <select id="brand-filter" class="filter-select">
@@ -35,6 +36,7 @@
                     <option value="QSR">Restaurant Brands (QSR)</option>
                     <option value="WEN">Wendy's (WEN)</option>
                     <option value="DPZ">Domino's (DPZ)</option>
+                    <option value="SBUX">Starbucks (SBUX)</option>
                 </select>
             </div>
         </div>
@@ -44,123 +46,45 @@
 
         <!-- Map Attribution -->
         <div class="map-attribution">
-            © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors
-            • Powered by <a href="https://leafletjs.com" target="_blank">Leaflet</a>
+            &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors
+            - Powered by <a href="https://leafletjs.com" target="_blank">Leaflet</a>
             <span class="map-hint">Use two fingers to move the map on mobile</span>
         </div>
 
-        <div class="map-container card">
-            <div class="map-header">
-                <div class="header-left">
-                    <a href="../index.html" class="logo-link">
-                        <img src="../logo.svg" alt="FranResearch" class="logo">
-                    </a>
-                    <h2>Brand Filters</h2>
-                </div>
-                <div class="header-controls">
-                    <select id="brand-filter" class="filter-select">
-                        <option value="all">All Brands</option>
-                        <option value="MCD">McDonald's (MCD)</option>
-                        <option value="YUM">Yum! Brands (YUM)</option>
-                        <option value="QSR">Restaurant Brands (QSR)</option>
-                        <option value="WEN">Wendy's (WEN)</option>
-                        <option value="DPZ">Domino's (DPZ)</option>
-                        <option value="SHAK">Shake Shack (SHAK)</option>
-                        <option value="DENN">Denny's (DENN)</option>
-                        <option value="DIN">Dine Brands (DIN)</option>
-                        <option value="PLNT">Planet Fitness (PLNT)</option>
-                        <option value="MAR">Marriott (MAR)</option>
-                        <option value="HLT">Hilton (HLT)</option>
-                        <option value="H">Hyatt (H)</option>
-                        <option value="CHH">Choice Hotels (CHH)</option>
-                        <option value="WH">Wyndham (WH)</option>
-                        <option value="DRVN">Driven Brands (DRVN)</option>
-                        <option value="ROL">Rollins (ROL)</option>
-                        <option value="ADUS">Addus HomeCare (ADUS)</option>
-                        <option value="PLAY">Dave & Buster's (PLAY)</option>
-                        <option value="ARCO">Arcos Dorados (ARCO)</option>
-                    </select>
-                    <button id="reset-view" class="button">Reset View</button>
-                </div>
-            </div>
-
-            <div class="map-wrapper">
-                <div id="map"></div>
-                <div id="map-legend" aria-label="Map legend">
-                    <div class="legend-header">Legend</div>
-                    <div class="legend-item"><span class="legend-color brand-restaurant"></span> Restaurants</div>
-                    <div class="legend-item"><span class="legend-color brand-fitness"></span> Fitness</div>
-                    <div class="legend-item"><span class="legend-color brand-hospitality"></span> Hospitality</div>
-                    <div class="legend-item"><span class="legend-color brand-services"></span> Services</div>
-                </div>
-            </div>
-
-            <div class="status-panel">
-                <div class="status-card">
-                    <h3>Live Map Status</h3>
-                    <p id="status-message">Loading map data...</p>
-                    <p class="updated" id="last-updated">--</p>
-                </div>
-                <div class="status-card">
-                    <h3>Usage Tips</h3>
-                    <ul>
-                        <li>Use the brand filter to focus on a single franchisor</li>
-                        <li>Scroll or pinch to zoom, drag to pan</li>
-                        <li>Click markers for location details</li>
-                        <li>Reset the view anytime with the button above</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div id="info-panel" class="info-panel">
-                <button id="close-panel" class="close-btn">&times;</button>
-                <h2 id="location-name">Select a location</h2>
-                <div id="location-details">
-                    <p>Click on a marker to view details</p>
-                </div>
-            </div>
-
-            <div class="legend">
-                <h3>Legend</h3>
-                <div class="legend-item">
-                    <span class="legend-marker" style="background: #ff6b6b;"></span>
-                    <span>Quick Service Restaurant</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-marker" style="background: #4ecdc4;"></span>
-                    <span>Casual Dining</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-marker" style="background: #45b7d1;"></span>
-                    <span>Hotel/Hospitality</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-marker" style="background: #96ceb4;"></span>
-                    <span>Fitness/Wellness</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-marker" style="background: #ffa07a;"></span>
-                    <span>Business Services</span>
-                </div>
+        <!-- Info Panel -->
+        <div id="info-panel" class="info-panel">
+            <button id="close-panel" class="close-btn">&times;</button>
+            <h2 id="location-name">Select a location</h2>
+            <div id="location-details">
+                <p>Click on a marker to view details</p>
             </div>
         </div>
-    </main>
 
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div>
-                <h3>Site Directory</h3>
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="../StockChart/chart.html">Stock Charts</a></li>
-                    <li><a href="./map.html">Franchise Map</a></li>
-                    <li><a href="../Website/ticker.html">Stock Ticker</a></li>
-                    <li><a href="../FranchiseNews/news-feed.html">Franchise News</a></li>
-                    <li><a href="../sports.html">Sports Dashboard</a></li>
-                </ul>
+        <!-- Legend -->
+        <div class="legend">
+            <h3>Legend</h3>
+            <div class="legend-item">
+                <span class="legend-marker" style="background: #ff6b6b;"></span>
+                <span>Quick Service Restaurant</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-marker" style="background: #4ecdc4;"></span>
+                <span>Casual Dining</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-marker" style="background: #45b7d1;"></span>
+                <span>Hotel/Hospitality</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-marker" style="background: #96ceb4;"></span>
+                <span>Fitness/Wellness</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-marker" style="background: #ffa07a;"></span>
+                <span>Business Services</span>
             </div>
         </div>
-    </footer>
+    </div>
 
     <script src="map.js"></script>
 </body>

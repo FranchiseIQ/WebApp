@@ -17,22 +17,12 @@
 
     <title>FranResearch - Stock Analysis Platform</title>
 
-    <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX', {
-            'page_title': 'FranResearch Homepage',
-            'anonymize_ip': true,
-            'cookie_flags': 'SameSite=None;Secure'
-        });
-    </script>
-
     <!-- Vanta.js Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+
+    <!-- Ticker Widget Styles -->
+    <link rel="stylesheet" href="Website/style.css">
 
     <!-- Franchise News Widget Styles -->
     <link rel="stylesheet" href="FranchiseNews/news-widget.css">
@@ -50,7 +40,7 @@
             min-height: 100vh;
             margin: 0 !important;
             padding: 0 !important;
-            padding-top: 0 !important;
+            padding-top: 120px !important; /* Space for fixed stock ticker */
             padding-bottom: 95px !important; /* Space for fixed news ticker */
             display: block !important;
         }
@@ -65,11 +55,27 @@
             z-index: -1;
         }
 
+        /* Sticky ticker wrapper - always visible at top */
+        .ticker-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #0a0a0a;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Hide ticker header (logo) on main page */
+        #header {
+            display: none !important;
+        }
+
         .container {
-            max-width: 1200px;
+            max-width: 95%;
             width: 100%;
             margin: 0 auto;
-            padding: 40px 20px 80px;
+            padding: 40px 60px;
         }
 
         header {
@@ -101,22 +107,22 @@
         }
 
         h1 {
-            font-size: 3em !important;
-            margin-bottom: 20px !important;
+            font-size: 8em !important;
+            margin-bottom: 25px !important;
             font-weight: 800 !important;
-            letter-spacing: -1px;
+            letter-spacing: -2px;
         }
 
         h2 {
-            font-size: 2.2em !important;
-            margin-bottom: 20px !important;
-            font-weight: 700 !important;
+            font-size: 4em !important;
+            margin-bottom: 25px !important;
+            font-weight: 600 !important;
         }
 
         .subtitle {
-            font-size: 1.1em !important;
+            font-size: 1.5em !important;
             opacity: 0.95;
-            margin-bottom: 24px;
+            margin-bottom: 35px;
             line-height: 1.5;
         }
 
@@ -126,18 +132,6 @@
             padding: 35px;
             margin-bottom: 45px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
-
-        .ticker-embed {
-            margin: 10px auto 30px;
-            max-width: 1200px;
-        }
-
-        .ticker-embed iframe {
-            width: 100%;
-            height: 60px;
-            border: none;
-            display: block;
         }
 
         .ticker-demo h2 {
@@ -168,7 +162,7 @@
         .info-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 24px;
+            gap: 40px;
             margin-bottom: 60px;
         }
 
@@ -342,30 +336,47 @@
         }
 
         @media (max-width: 768px) {
-            body {
-                padding-top: 0 !important;
-                padding-bottom: 120px !important;
-            }
-
             h1 {
                 font-size: 2em;
-            }
-
-            h2 {
-                font-size: 1.6em !important;
             }
 
             .info-cards {
                 grid-template-columns: 1fr;
             }
-
-            .ticker-demo {
-                padding: 20px;
-            }
         }
     </style>
 </head>
 <body>
+    <!-- Full-Width Live Ticker -->
+    <div class="ticker-wrapper">
+        <!-- Closing Prices Message -->
+        <div id="closing-message" style="display: none; background: #ff9800; color: white; text-align: center; padding: 8px; font-weight: 600; font-size: 14px;">
+            Showing Closing Prices
+        </div>
+
+        <div id="status-bar">
+            <div id="clock-section">
+                <span id="clock">--:--:-- --</span>
+                <span id="timezone">ET</span>
+            </div>
+            <div id="market-status-section">
+                <span id="market-indicator" class="closed"></span>
+                <span id="market-label">Market Closed</span>
+            </div>
+            <div id="last-updated-section" style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 12px; color: #999;">Updated:</span>
+                <span id="last-updated" style="font-weight: 600; font-size: 13px; color: #667eea;">--:--</span>
+            </div>
+            <div id="refresh-section">
+                <span id="refresh-label">Next:</span>
+                <span id="countdown">60:00</span>
+            </div>
+        </div>
+        <div id="ticker-container">
+            <div id="ticker-content"></div>
+        </div>
+    </div>
+
     <div class="container">
         <header>
             <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 5px;">
@@ -374,7 +385,7 @@
                 </a>
                 <h1 style="font-size: 2.5em; margin: 0; font-weight: 800;">FranResearch</h1>
             </div>
-            <h2 style="font-size: 1.3em; margin-bottom: 10px; font-weight: 600; opacity: 0.95;">📊 Stock Analysis Platform</h2>
+            <h2 style="font-size: 1.3em; margin-bottom: 10px; font-weight: 600; opacity: 0.95;">Stock Analysis Platform</h2>
             <p class="subtitle">Professional stock analysis for franchise companies with real-time data, interactive charts, and comprehensive historical tracking</p>
             <div class="stats">
                 <div class="stat">
@@ -392,14 +403,9 @@
             </div>
         </header>
 
-        <!-- Embedded Stock Ticker (sandboxed) -->
-        <div class="ticker-embed" aria-label="Live stock ticker">
-            <iframe src="./Website/ticker.html" width="100%" height="60" frameborder="0" style="border:none; overflow:hidden;"></iframe>
-        </div>
-
 
         <div class="ticker-demo">
-            <h2>📊 Interactive Stock Charts</h2>
+            <h2>Interactive Stock Charts</h2>
             <p style="color: #666; margin-bottom: 20px;">
                 <strong>Professional-grade charting tool</strong> with support for up to 10 simultaneous tickers, zoom/pan controls, custom colors, and adjusted close prices for accurate historical analysis. Compare franchise stocks side-by-side with relative percent change views.
             </p>
@@ -413,42 +419,48 @@
                     <div style="font-size: 0.85em; color: #666;">Time Ranges</div>
                 </div>
                 <div style="text-align: center; padding: 12px; background: #f9f9f9; border-radius: 8px;">
-                    <div style="font-size: 1.4em; font-weight: bold; color: #f093fb;">∞</div>
-                    <div style="font-size: 0.85em; color: #666;">History (MAX)</div>
+                    <div style="font-size: 1.4em; font-weight: bold; color: #f093fb;">MAX</div>
+                    <div style="font-size: 0.85em; color: #666;">History</div>
                 </div>
             </div>
 
             <!-- Chart Preview -->
             <div style="margin: 40px 0; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);">
                 <iframe src="StockChart/chart.html"
-                        style="width: 100%; height: 900px; border: none; display: block;"
+                        style="width: 100%; height: 1100px; border: none; display: block; overflow: hidden;"
                         scrolling="no"
-                        frameborder="0"
                         title="Interactive Stock Chart Preview">
                 </iframe>
             </div>
 
             <a href="StockChart/chart.html" class="button" target="_blank">
-                Open Full Screen Charts →
+                Open Full Screen Charts
             </a>
         </div>
-      </div>
-      <div class="card">
-        <iframe src="./Website/ticker.html" width="100%" height="60" frameborder="0" class="embed-frame" title="Franchise ticker"></iframe>
-        <p style="margin-top:12px;">Embed anywhere with: <code>&lt;iframe src=&quot;https://monroegamble.github.io/WebApp/Website/ticker.html&quot; width=&quot;100%&quot; height=&quot;60&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</code></p>
-      </div>
-    </section>
 
-    <section class="section-container">
-      <div class="section-header">
-        <div>
-          <h2 class="section-title">Analysis Tools</h2>
-          <p class="section-subtitle">Compare performance, map locations, and monitor scores.</p>
+        <div class="ticker-demo">
+            <h2>Interactive Franchise Map</h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                <strong>Geographic visualization</strong> showing franchise locations across North America. Built with Leaflet and OpenStreetMap, featuring interactive markers, brand filtering, and detailed location information.
+            </p>
+
+            <!-- Map Preview -->
+            <div style="margin: 30px 0; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);">
+                <iframe src="FranchiseMap/map.html"
+                        style="width: 100%; height: 600px; border: none; display: block; overflow: hidden;"
+                        scrolling="no"
+                        title="Interactive Franchise Map Preview">
+                </iframe>
+            </div>
+
+            <a href="FranchiseMap/map.html" class="button" target="_blank">
+                Open Full Screen Map
+            </a>
         </div>
 
         <div class="info-cards">
             <div class="card">
-                <h3>🚀 Features</h3>
+                <h3>Features</h3>
                 <ul>
                     <li><strong>Relative Percent Charts:</strong> Compare stocks regardless of price</li>
                     <li><strong>Dynamic Recalculation:</strong> Zoom/pan updates baseline automatically</li>
@@ -461,17 +473,17 @@
             </div>
 
             <div class="card">
-                <h3>📈 Stock Coverage</h3>
+                <h3>Stock Coverage</h3>
                 <p><strong>Quick Service & Restaurants:</strong></p>
-                <p style="font-size: 0.9em;">MCD, YUM, QSR, WEN, DPZ, JACK, WING, SHAK, DENN, DIN, DNUT, NATH, RRGB</p>
+                <p style="font-size: 0.9em;">MCD, YUM, QSR, WEN, DPZ, JACK, WING, SHAK, CAVA, DENN, DIN, DNUT, NATH, RRGB</p>
                 <p><strong>Hospitality:</strong></p>
-                <p style="font-size: 0.9em;">MAR, HLT, H, CHH, WH, VAC, TNL</p>
+                <p style="font-size: 0.9em;">MAR, HLT, H, CHH, WH, IHG, VAC, TNL, CWH</p>
                 <p><strong>Fitness & Services:</strong></p>
-                <p style="font-size: 0.9em;">PLNT, BFT, DRVN, HRB, MCW, SERV, ROL, ADUS, LOPE, RENT, GNC, PLAY, ARCO, TAST</p>
+                <p style="font-size: 0.9em;">PLNT, BFT, SERV, ROL, DRVN, HRB, CAR, UHAL, ADUS, LOPE, PLAY, ARCO, TAST</p>
             </div>
 
             <div class="card">
-                <h3>🔗 Quick Links</h3>
+                <h3>Quick Links</h3>
                 <a href="Website/ticker.html" class="button" target="_blank">Open Full Ticker</a>
                 <a href="StockChart/chart.html" class="button" target="_blank">View Stock Charts</a>
                 <a href="Website/README.md" class="button" target="_blank">View Documentation</a>
@@ -480,111 +492,184 @@
                 </p>
             </div>
         </div>
-        <div class="card hero-card">
-          <h3>Interactive Franchise Map</h3>
-          <p>Leaflet-powered map with brand filters and refreshed layout that no longer overlaps with ticker styles.</p>
-          <iframe src="FranchiseMap/map.html" title="Franchise map" class="embed-frame" style="height:320px;"></iframe>
-          <a class="button" href="FranchiseMap/map.html">View Map</a>
-        </div>
-        <div class="card hero-card">
-          <h3>Sports Dashboard</h3>
-          <p>Auto-refreshing scoreboard fed by a free API with the global ticker included for quick market context.</p>
-          <a class="button" href="sports.html">Open Sports Scores</a>
-        </div>
-      </div>
-    </section>
 
-    <section class="section-container">
-      <div class="section-header">
-        <div>
-          <h2 class="section-title">Franchise News</h2>
-          <p class="section-subtitle">Auto-updating feed sourced by GitHub Actions every 15 minutes.</p>
-        </div>
-      </div>
-      <div class="card" style="overflow:hidden;">
-        <div id="franchise-news-vertical-home"></div>
-        <div class="flex-between footer-top-border">
-          <a class="button" href="FranchiseNews/news-feed.html">Full News Feed</a>
-          <a class="btn-secondary" href="FranchiseNews/news-scroller.html">Vertical Scroller</a>
-          <a class="btn-secondary" href="FranchiseNews/news-ticker.html">Horizontal Ticker</a>
-        </div>
-      </div>
-    </section>
+        <div class="ticker-demo">
+            <h2>Live Franchise News</h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                <strong>Auto-scrolling vertical news feed</strong> with real-time updates from leading franchise industry sources. Features smooth vertical scrolling animation, pause-on-hover, and clickable articles.
+            </p>
 
-    <section class="section-container">
-      <div class="section-header">
-        <div>
-          <h2 class="section-title">Quick Links</h2>
-          <p class="section-subtitle">Jump directly to any interactive component or documentation.</p>
-        </div>
-      </div>
-      <div class="grid grid-3">
-        <div class="card mini-widget">
-          <div class="sparkline"></div>
-          <div>
-            <strong>Stock Ticker</strong>
-            <p><a href="Website/ticker.html">Embed-ready widget</a></p>
-          </div>
-        </div>
-        <div class="card mini-widget">
-          <div class="sparkline"></div>
-          <div>
-            <strong>Percent Charts</strong>
-            <p><a href="StockChart/chart.html">Interactive comparison</a></p>
-          </div>
-        </div>
-        <div class="card mini-widget">
-          <div class="sparkline"></div>
-          <div>
-            <strong>Franchise Map</strong>
-            <p><a href="FranchiseMap/map.html">Brand filters + markers</a></p>
-          </div>
-        </div>
-        <div class="card mini-widget">
-          <div class="sparkline"></div>
-          <div>
-            <strong>News Widgets</strong>
-            <p><a href="FranchiseNews/news-feed.html">Ticker & feeds</a></p>
-          </div>
-        </div>
-        <div class="card mini-widget">
-          <div class="sparkline"></div>
-          <div>
-            <strong>Sports</strong>
-            <p><a href="sports.html">Live franchise teams</a></p>
-          </div>
-        </div>
-        <div class="card mini-widget">
-          <div class="sparkline"></div>
-          <div>
-            <strong>Docs</strong>
-            <p><a href="Website/README.md">Embedding guide</a></p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+            <!-- News Scroller Preview -->
+            <div style="display: flex; justify-content: center; margin: 30px 0; gap: 30px; flex-wrap: wrap;">
+                <!-- Vertical Scroller Widget -->
+                <div style="flex: 0 0 400px; max-width: 100%;">
+                    <div id="franchise-news-vertical-home"></div>
+                </div>
+            </div>
 
-  <footer class="footer">
-    <div class="shell footer-grid">
-      <div>
-        <h3>FranchiseIQ</h3>
-        <p>Unified market intelligence for franchisors with live pricing, maps, news, and sports context.</p>
-      </div>
-      <div>
-        <h3>Quick Links</h3>
-        <ul class="list-reset">
-          <li><a href="Website/ticker.html">Stock Ticker</a></li>
-          <li><a href="StockChart/chart.html">Stock Charts</a></li>
-          <li><a href="FranchiseMap/map.html">Franchise Map</a></li>
-          <li><a href="FranchiseNews/news-feed.html">Franchise News</a></li>
-          <li><a href="sports.html">Sports Dashboard</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Data & Disclaimer</h3>
-        <p>Prices sourced from cached CSVs and free APIs; news refreshed via GitHub Actions. Use for informational purposes only.</p>
-      </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 30px;">
+                <a href="FranchiseNews/news-scroller.html" class="button" target="_blank">
+                    Open Vertical Scroller
+                </a>
+                <a href="FranchiseNews/news-ticker.html" class="button" target="_blank">
+                    Open Horizontal Ticker
+                </a>
+                <a href="FranchiseNews/news-feed.html" class="button" target="_blank">
+                    Open News Feed
+                </a>
+            </div>
+        </div>
+
+        <div class="embed-instructions">
+            <h2>Embed Stock Ticker & Charts</h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                Easily embed the live ticker or interactive charts into your website, Notion, or other platforms:
+            </p>
+
+            <!-- Ticker Embed -->
+            <h3 style="color: #333; margin-top: 25px; margin-bottom: 10px;">Live Stock Ticker</h3>
+            <p style="color: #666; font-size: 0.9em; margin-bottom: 10px;"><strong>For Websites & Google Sites:</strong></p>
+            <div class="code-block">
+&lt;iframe src="https://monroegamble.github.io/WebApp/Website/ticker.html"
+        width="100%"
+        height="120"
+        frameborder="0"
+        style="border: none;"&gt;
+&lt;/iframe&gt;
+            </div>
+
+            <p style="color: #666; font-size: 0.9em; margin-top: 15px; margin-bottom: 10px;"><strong>For Notion:</strong></p>
+            <div class="code-block">
+1. Copy this URL: https://monroegamble.github.io/WebApp/Website/ticker.html
+2. In Notion, type /embed and paste the URL
+3. Adjust height to 120-150px for optimal display
+            </div>
+
+            <!-- Chart Embed -->
+            <h3 style="color: #333; margin-top: 25px; margin-bottom: 10px;">Interactive Stock Charts</h3>
+            <p style="color: #666; font-size: 0.9em; margin-bottom: 10px;"><strong>For Websites & Google Sites:</strong></p>
+            <div class="code-block">
+&lt;iframe src="https://monroegamble.github.io/WebApp/StockChart/chart.html"
+        width="100%"
+        height="700"
+        frameborder="0"
+        style="border: none;"&gt;
+&lt;/iframe&gt;
+            </div>
+
+            <p style="color: #666; font-size: 0.9em; margin-top: 15px; margin-bottom: 10px;"><strong>For Notion:</strong></p>
+            <div class="code-block">
+1. Copy this URL: https://monroegamble.github.io/WebApp/StockChart/chart.html
+2. In Notion, type /embed and paste the URL
+3. Adjust height to 700-800px for full functionality
+            </div>
+
+            <!-- Map Embed -->
+            <h3 style="color: #333; margin-top: 25px; margin-bottom: 10px;">Interactive Franchise Map</h3>
+            <p style="color: #666; font-size: 0.9em; margin-bottom: 10px;"><strong>For Websites & Google Sites:</strong></p>
+            <div class="code-block">
+&lt;iframe src="https://monroegamble.github.io/WebApp/FranchiseMap/map.html"
+        width="100%"
+        height="600"
+        frameborder="0"
+        style="border: none;"&gt;
+&lt;/iframe&gt;
+            </div>
+
+            <p style="color: #666; font-size: 0.9em; margin-top: 15px; margin-bottom: 10px;"><strong>For Notion:</strong></p>
+            <div class="code-block">
+1. Copy this URL: https://monroegamble.github.io/WebApp/FranchiseMap/map.html
+2. In Notion, type /embed and paste the URL
+3. Adjust height to 600px for full map view
+            </div>
+
+            <p style="color: #666; margin-top: 20px; font-size: 0.9em;">
+                <strong>Note:</strong> Replace <code>monroegamble.github.io/WebApp</code> with your actual GitHub Pages URL once deployed.
+            </p>
+
+            <!-- Vertical News Scroller Embed -->
+            <h3 style="color: #333; margin-top: 25px; margin-bottom: 10px;">Vertical News Scroller (Auto-Scrolling)</h3>
+            <p style="color: #666; font-size: 0.9em; margin-bottom: 10px;"><strong>For Websites & Google Sites:</strong></p>
+            <div class="code-block">
+&lt;iframe src="https://monroegamble.github.io/WebApp/FranchiseNews/news-scroller.html"
+        width="400"
+        height="600"
+        frameborder="0"
+        style="border: none;"&gt;
+&lt;/iframe&gt;
+            </div>
+
+            <p style="color: #666; font-size: 0.9em; margin-top: 15px; margin-bottom: 10px;"><strong>For Notion:</strong></p>
+            <div class="code-block">
+1. Copy this URL: https://monroegamble.github.io/WebApp/FranchiseNews/news-scroller.html
+2. In Notion, type /embed and paste the URL
+3. Adjust width to 400px and height to 600px for optimal display
+            </div>
+
+            <!-- Horizontal News Ticker Embed -->
+            <h3 style="color: #333; margin-top: 25px; margin-bottom: 10px;">Horizontal News Ticker</h3>
+            <p style="color: #666; font-size: 0.9em; margin-bottom: 10px;"><strong>For Websites & Google Sites:</strong></p>
+            <div class="code-block">
+&lt;iframe src="https://monroegamble.github.io/WebApp/FranchiseNews/news-ticker.html"
+        width="100%"
+        height="120"
+        frameborder="0"
+        style="border: none;"&gt;
+&lt;/iframe&gt;
+            </div>
+
+            <p style="color: #666; font-size: 0.9em; margin-top: 15px; margin-bottom: 10px;"><strong>For Notion:</strong></p>
+            <div class="code-block">
+1. Copy this URL: https://monroegamble.github.io/WebApp/FranchiseNews/news-ticker.html
+2. In Notion, type /embed and paste the URL
+3. Adjust height to 120px for optimal display
+            </div>
+
+            <h3 style="color: #333; margin-top: 25px; margin-bottom: 10px;">Direct Links</h3>
+            <p style="color: #666; font-size: 0.9em;">
+                - Stock Ticker: <a href="Website/ticker.html" target="_blank" style="color: #667eea;">https://monroegamble.github.io/WebApp/Website/ticker.html</a><br>
+                - Stock Charts: <a href="StockChart/chart.html" target="_blank" style="color: #667eea;">https://monroegamble.github.io/WebApp/StockChart/chart.html</a><br>
+                - Franchise Map: <a href="FranchiseMap/map.html" target="_blank" style="color: #667eea;">https://monroegamble.github.io/WebApp/FranchiseMap/map.html</a><br>
+                - News Scroller (Vertical): <a href="FranchiseNews/news-scroller.html" target="_blank" style="color: #667eea;">https://monroegamble.github.io/WebApp/FranchiseNews/news-scroller.html</a><br>
+                - News Ticker (Horizontal): <a href="FranchiseNews/news-ticker.html" target="_blank" style="color: #667eea;">https://monroegamble.github.io/WebApp/FranchiseNews/news-ticker.html</a><br>
+                - News Feed: <a href="FranchiseNews/news-feed.html" target="_blank" style="color: #667eea;">https://monroegamble.github.io/WebApp/FranchiseNews/news-feed.html</a>
+            </p>
+        </div>
+
+        <!-- Sitemap Footer -->
+        <footer class="sitemap-footer">
+            <div class="sitemap-container-main">
+                <div class="sitemap-section-main">
+                    <h3>Pages</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="Website/ticker.html">Stock Ticker</a></li>
+                        <li><a href="StockChart/chart.html">Stock Charts</a></li>
+                        <li><a href="FranchiseMap/map.html">Franchise Map</a></li>
+                        <li><a href="franchise_calculators_module/index.html">Financial Calculators</a></li>
+                        <li><a href="FranchiseNews/news-scroller.html">News Scroller (Vertical)</a></li>
+                        <li><a href="FranchiseNews/news-ticker.html">News Ticker (Horizontal)</a></li>
+                        <li><a href="FranchiseNews/news-feed.html">News Feed</a></li>
+                        <li><a href="sports.html">Sports Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="sitemap-section-main">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="Website/README.md">Documentation</a></li>
+                        <li><a href="https://github.com/MonroeGamble/WebApp" target="_blank">GitHub Repo</a></li>
+                    </ul>
+                </div>
+                <div class="sitemap-section-main">
+                    <h3>About</h3>
+                    <p>FranResearch - Advanced stock analysis for franchise companies</p>
+                    <p style="font-size: 0.9em; margin-top: 10px;">Powered by Yahoo Finance API | Hourly updates during market hours</p>
+                </div>
+            </div>
+            <div class="copyright-main">
+                &copy; 2024 FranResearch. All rights reserved.
+            </div>
+        </footer>
     </div>
 
     <!-- Vanta.js Background -->
@@ -592,6 +677,9 @@
 
     <!-- Fixed Bottom News Ticker -->
     <div id="franchise-news-ticker-bottom" style="position: fixed; bottom: 0; left: 0; width: 100%; z-index: 999;"></div>
+
+    <!-- Ticker Widget Script -->
+    <script src="Website/ticker.js"></script>
 
     <!-- Franchise News Widget Scripts -->
     <script src="FranchiseNews/newsService.js"></script>
@@ -611,7 +699,7 @@
                     pauseOnHover: true,
                     showLabel: true,
                     labelText: 'Franchise News',
-                    labelIcon: '📰'
+                    labelIcon: ''
                 });
 
                 // Vertical scroller on homepage
@@ -626,7 +714,7 @@
                     scrollSpeed: 60,
                     pauseOnHover: true,
                     showHeader: true,
-                    headerTitle: '📰 Latest News',
+                    headerTitle: 'Latest News',
                     headerSubtitle: 'Auto-scrolling updates',
                     showDate: true
                 });
@@ -634,23 +722,26 @@
                 console.error('Failed to initialize news widgets:', error);
             }
         });
+    </script>
 
-        await window.FranchiseNewsWidget.initTicker({
-          mountSelector: '#franchise-news-ticker-bottom',
-          categories: [
-            window.NEWS_CATEGORIES.TRADE_PRESS,
-            window.NEWS_CATEGORIES.BIG_PORTALS
-          ],
-          tickerSpeed: 90,
-          pauseOnHover: true,
-          showLabel: true,
-          labelText: 'Franchise News',
-          labelIcon: '📰'
-        });
-      } catch (error) {
-        console.error('Failed to initialize news widgets:', error);
-      }
-    });
-  </script>
+    <!-- Vanta.js Initialization -->
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+    <script>
+        VANTA.WAVES({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x192a56,
+            shininess: 30.00,
+            waveHeight: 15.00,
+            waveSpeed: 0.50,
+            zoom: 0.75
+        })
+    </script>
 </body>
 </html>

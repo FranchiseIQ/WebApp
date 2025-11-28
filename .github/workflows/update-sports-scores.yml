@@ -1,9 +1,10 @@
 name: Update Sports Scores
 
-# Alternate syntax — avoids the "on:" line error entirely
-schedule:
-  - cron: "0 9,15,21 * * 1-5"   # Monday–Friday
-workflow_dispatch: {}
+on:
+  schedule:
+    # Run twice daily at 9 AM and 6 PM UTC (approx before/after games)
+    - cron: "0 9,18 * * *"
+  workflow_dispatch:
 
 jobs:
   fetch-scores:
@@ -19,7 +20,15 @@ jobs:
           node-version: "18"
 
       - name: Install dependencies
-        run: npm install
+        run: npm install node-fetch
 
       - name: Update scores
-        run: node scripts/update_sports_scores.js
+        run: node scripts/fetch_football_scores.js
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add -A
+          git diff --staged --quiet || git commit -m "Update sports scores - $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push

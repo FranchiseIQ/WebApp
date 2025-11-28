@@ -5,37 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <title>Interactive Stock Chart</title>
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/layouts.css">
     <link rel="stylesheet" href="style.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <!-- Chart.js Zoom Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
 </head>
 <body>
-    <div class="global-ticker">
-        <iframe src="../Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
-    </div>
     <div class="container">
         <!-- Control Panel -->
         <div class="control-panel">
             <div class="panel-header">
-                <h1>📈 Interactive Stock Chart</h1>
-                <p class="section-subtitle">Percent-change by default with adjustable ranges, legend toggles, and embeds.</p>
+                <h1>Interactive Stock Chart</h1>
+                <button id="helpBtn" class="help-btn" title="How to use">?</button>
             </div>
-            <a class="btn-secondary" href="../index.html">← Back to home</a>
-        </section>
-
-        <div class="chart-shell">
-            <!-- Control Panel -->
-            <div class="control-panel card sidebar-card">
-                <div class="panel-header">
-                    <h2 style="margin:0;">Manage Tickers</h2>
-                    <button id="helpBtn" class="help-btn" title="How to use">?</button>
-                </div>
 
             <!-- Ticker Management -->
             <div class="ticker-section">
@@ -63,66 +46,42 @@
                 </div>
             </div>
 
-                <!-- Chart Controls -->
-                <div class="chart-controls">
-                    <button id="resetZoomBtn" class="btn btn-secondary">Reset Zoom</button>
-                    <button id="toggleLegendBtn" class="btn btn-secondary">Toggle Legend</button>
-                    <button id="togglePriceMode" class="btn btn-secondary">Show Dollar Prices</button>
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="showGridLines" checked>
-                        Show Grid Lines
-                    </label>
-                </div>
-            </div>
-
-            <div class="card chart-wrapper">
-                <!-- Loading Indicator -->
-                <div id="loadingIndicator" class="loading-indicator" style="display: none;">
-                    <div class="spinner"></div>
-                    <p>Loading stock data...</p>
-                </div>
-
-                <!-- Chart Container -->
-                <div id="chartContainer" class="chart-container">
-                    <canvas id="stockChart"></canvas>
-                </div>
-
-                <!-- Empty State -->
-                <div id="emptyState" class="empty-state">
-                    <div class="empty-icon">📊</div>
-                    <h2>Start Building Your Chart</h2>
-                    <p>Add up to 10 stock tickers to compare their performance over time.</p>
-                    <p class="tip">💡 Try adding: AAPL, MSFT, GOOGL, AMZN, or any other ticker symbol</p>
-                </div>
-
-        <!-- Stock Data Table -->
-        <div class="table-container" id="stockTableContainer" style="display: none;">
-            <div class="table-header">
-                <div>
-                    <h2>📊 30-Day Adjusted Close Snapshot</h2>
-                    <p class="table-subtitle">Data auto-populates from the local franchise database before calling external APIs.</p>
-                </div>
-                <div class="embed-wrapper">
-                    <label for="embedCode">Embed this chart anywhere</label>
-                    <textarea id="embedCode" readonly></textarea>
-                </div>
-            </div>
-            <div class="table-wrapper">
-                <table id="stock-data-table">
-                    <thead id="stock-table-head"></thead>
-                    <tbody id="stock-table-body">
-                        <!-- Data will be populated by JavaScript -->
-                    </tbody>
-                </table>
+            <!-- Chart Controls -->
+            <div class="chart-controls">
+                <button id="resetZoomBtn" class="btn btn-secondary">Reset Zoom</button>
+                <button id="toggleLegendBtn" class="btn btn-secondary">Toggle Legend</button>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="showGridLines" checked>
+                    Show Grid Lines
+                </label>
             </div>
         </div>
-    </main>
+
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+            <div class="spinner"></div>
+            <p>Loading stock data...</p>
+        </div>
+
+        <!-- Chart Container -->
+        <div class="chart-container">
+            <canvas id="stockChart"></canvas>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state">
+            <div class="empty-icon">Chart</div>
+            <h2>Start Building Your Chart</h2>
+            <p>Add up to 10 stock tickers to compare their performance over time.</p>
+            <p class="tip">Try adding: AAPL, MSFT, GOOGL, AMZN, or any other ticker symbol</p>
+        </div>
+    </div>
 
     <!-- Help Modal -->
     <div id="helpModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h2>📖 How to Use</h2>
+            <h2>How to Use</h2>
             <div class="help-content">
                 <section>
                     <h3>Adding Stocks</h3>
