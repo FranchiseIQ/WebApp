@@ -383,6 +383,7 @@ function renderTickerList() {
                            min="1"
                            max="5"
                            value="${ticker.lineWidth}"
+                           data-symbol="${ticker.symbol}"
                            oninput="updateTickerWidth('${ticker.symbol}', this.value)"
                            class="width-slider">
                     <span class="width-value">${ticker.lineWidth}px</span>
@@ -406,9 +407,11 @@ function updateTickerWidth(symbol, width) {
     if (ticker) {
         ticker.lineWidth = parseInt(width);
         // Update display
-        const widthValue = document.querySelector(`[onclick="updateTickerWidth('${symbol}', this.value)"]`)
-            ?.parentElement.querySelector('.width-value');
-        if (widthValue) widthValue.textContent = width + 'px';
+        const slider = document.querySelector(`.width-slider[data-symbol="${symbol}"]`);
+        if (slider) {
+            const widthValue = slider.parentElement.querySelector('.width-value');
+            if (widthValue) widthValue.textContent = width + 'px';
+        }
         updateChart();
     }
 }
