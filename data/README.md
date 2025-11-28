@@ -6,11 +6,10 @@ This directory contains CSV files for historical stock data to reduce API calls 
 
 ### Daily Updated Stocks (franchise_stocks.csv)
 **Updated:** Every trading day via GitHub Actions
-**Purpose:** Franchise companies and market indices we actively track
+**Purpose:** Pure franchisor universe we actively track
 
 Includes:
-- S&P 500 (^GSPC), NASDAQ (^IXIC), DOW JONES (^DJI)
-- All franchise stocks from our default list
+- Core franchisor list (MCD, YUM, QSR, WEN, DPZ, JACK, WING, SHAK, DENN, DIN, DNUT, NATH, RRGB, DRVN, HRB, MCW, SERV, ROL, PLNT, BFT, MAR, HLT, H, CHH, WH, VAC, TNL, RENT, GNC, ADUS, LOPE, PLAY, ARCO, TAST)
 - User-searched tickers (cached after first search)
 
 ### CSV Format

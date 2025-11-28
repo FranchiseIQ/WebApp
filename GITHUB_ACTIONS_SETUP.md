@@ -198,9 +198,10 @@ Edit `scripts/update_franchise_stocks.py`:
 
 ```python
 FRANCHISE_STOCKS = [
-    "^GSPC", "^IXIC", "^DJI",  # Market indices
-    "MCD", "YUM", "QSR",        # Add your stocks here
-    # ... add more symbols
+    "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
+    "DENN", "DIN", "DNUT", "NATH", "RRGB", "DRVN", "HRB", "MCW",
+    "SERV", "ROL", "PLNT", "BFT", "MAR", "HLT", "H", "CHH", "WH",
+    "VAC", "TNL", "RENT", "GNC", "ADUS", "LOPE", "PLAY", "ARCO", "TAST"
 ]
 ```
 
