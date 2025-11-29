@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auntie Anne's Pretzel Price Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Auntie Anne's Pretzel Price Tracker</h1>
+      <p class="intro">Help crowdsource Auntie Anne's pretzel prices by location so we can study pricing trends across stores.</p>
+    </header>
+
+    <section class="card">
+      <h2>Submit a Price Report</h2>
+      <p class="note">Please share prices you see in-store. Usernames must be respectful.</p>
+      <form id="priceForm">
+        <div class="field-group">
+          <label for="username">Username<span class="required">*</span></label>
+          <input type="text" id="username" name="username" required placeholder="PretzelFan" />
+        </div>
+        <div class="field-group">
+          <label for="location">Location<span class="required">*</span></label>
+          <input type="text" id="location" name="location" required placeholder="Mall name or city" />
+        </div>
+        <div class="field-group">
+          <label for="price_original">Original Pretzel Price (USD)<span class="required">*</span></label>
+          <input type="number" id="price_original" name="price_original" step="0.01" min="0" required placeholder="4.99" />
+        </div>
+        <div class="field-group">
+          <label for="price_cinnamon">Cinnamon Sugar Pretzel Price (USD)</label>
+          <input type="number" id="price_cinnamon" name="price_cinnamon" step="0.01" min="0" placeholder="5.49" />
+        </div>
+        <div class="field-group">
+          <label for="price_pepperoni">Pepperoni Pretzel Price (USD)</label>
+          <input type="number" id="price_pepperoni" name="price_pepperoni" step="0.01" min="0" placeholder="5.99" />
+        </div>
+        <div class="field-group">
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" rows="3" placeholder="Any deals, combos, or observations"></textarea>
+        </div>
+        <button type="submit">Submit Report</button>
+      </form>
+      <div id="statusMessage" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="card">
+      <div class="section-header">
+        <h2>Recent Submissions</h2>
+        <p class="muted">Latest community reports ordered by time submitted.</p>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Location</th>
+              <th>Original</th>
+              <th>Cinnamon</th>
+              <th>Pepperoni</th>
+              <th>Submitted</th>
+            </tr>
+          </thead>
+          <tbody id="submissionsBody"></tbody>
+        </table>
+        <p id="emptyMessage" class="muted"></p>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-header">
+        <h2>Average Original Pretzel Price Over Time</h2>
+        <p class="muted">Daily averages based on submitted Original Pretzel prices.</p>
+      </div>
+      <div class="chart-container">
+        <canvas id="pretzelChart" aria-label="Average Original Pretzel Price Chart"></canvas>
+      </div>
+    </section>
+  </div>
+
+  <script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
