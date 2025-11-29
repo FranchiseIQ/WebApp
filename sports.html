@@ -34,18 +34,20 @@
             background: var(--bg);
             min-height: 100vh;
             color: var(--text);
+            padding-top: 170px; /* Account for fixed ticker + nav */
             padding-bottom: 100px;
         }
 
-        /* Global Stock Ticker - Relative positioning */
+        /* Global Stock Ticker - Fixed positioning */
         .global-ticker {
-            position: relative;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 99;
+            z-index: 300;
             background: #0a0a0a;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
 
         .global-ticker iframe {
@@ -53,15 +55,16 @@
             height: 120px;
             border: none;
             display: block;
+            overflow: hidden;
         }
 
-        /* Navigation Bar - Consistent with site-wide nav */
+        /* Navigation Bar - Fixed below ticker */
         .main-nav {
-            position: relative;
-            top: 0;
+            position: fixed;
+            top: 120px;
             left: 0;
             width: 100%;
-            z-index: 50;
+            z-index: 299;
             display: flex;
             align-items: center;
             gap: 20px;

@@ -513,13 +513,13 @@
         }
     </style>
 </head>
-<body>
+<body class="has-fixed-ticker has-fixed-nav">
     <!-- Skip link for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <div class="page-wrapper">
         <!-- =================================================================
-             LIVE STOCK TICKER - Preserved exactly from original
+             LIVE STOCK TICKER - Fixed at top, always visible
              Structure: #closing-message, #status-bar, #ticker-container
              ================================================================= -->
         <div class="ticker-wrapper-global">
@@ -550,9 +550,9 @@
         </div>
 
         <!-- =================================================================
-             NAVIGATION - Hick's Law: 7 primary items max
+             NAVIGATION - Fixed below ticker, Hick's Law: 7 primary items max
              ================================================================= -->
-        <nav class="site-nav" role="navigation" aria-label="Main navigation">
+        <nav class="site-nav below-ticker" role="navigation" aria-label="Main navigation">
             <a href="index.html" class="nav-brand">
                 <img src="logo.svg" alt="FranResearch" width="32" height="32">
                 <span>FranResearch</span>
@@ -667,7 +667,7 @@
                         </header>
                         <div class="preview-content">
                             <iframe
-                                src="StockChart/chart.html"
+                                src="StockChart/chart.html?embed=true"
                                 height="700"
                                 loading="lazy"
                                 title="Interactive Stock Chart Preview">
@@ -729,7 +729,7 @@
                         </header>
                         <div class="preview-content">
                             <iframe
-                                src="FranchiseMap/map.html"
+                                src="FranchiseMap/map.html?embed=true"
                                 height="500"
                                 loading="lazy"
                                 title="Franchise Map Preview">

@@ -24,19 +24,20 @@
         }
 
         body {
-            padding-top: 0 !important;
+            padding-top: 170px; /* Account for fixed ticker + nav */
             padding-bottom: 20px;
         }
 
-        /* Global Ticker at Top - Relative positioning, not fixed */
+        /* Global Ticker at Top - Fixed positioning */
         .global-ticker {
-            position: relative;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 99;
+            z-index: 300;
             background: #0a0a0a;
             box-shadow: 0 4px 20px rgba(0,0,0,0.16);
+            overflow: hidden;
         }
 
         .global-ticker iframe {
@@ -44,15 +45,16 @@
             height: 120px;
             border: none;
             display: block;
+            overflow: hidden;
         }
 
-        /* Navigation Bar - Consistent with site-wide nav */
+        /* Navigation Bar - Fixed below ticker */
         .main-nav {
-            position: relative;
-            top: 0;
+            position: fixed;
+            top: 120px;
             left: 0;
             width: 100%;
-            z-index: 50;
+            z-index: 299;
             display: flex;
             align-items: center;
             gap: 20px;
@@ -239,7 +241,22 @@
             font-size: 12px;
             margin-right: 6px;
         }
+        /* Embed mode - hide ticker and nav when loaded in iframe */
+        body.embed-mode {
+            padding-top: 0 !important;
+        }
+
+        body.embed-mode .global-ticker,
+        body.embed-mode .main-nav {
+            display: none !important;
+        }
     </style>
+    <script>
+        // Detect embed mode from URL parameter - add class before body renders
+        if (new URLSearchParams(window.location.search).get('embed') === 'true') {
+            document.write('<style>body{padding-top:0!important}.global-ticker,.main-nav{display:none!important}</style>');
+        }
+    </script>
 </head>
 <body>
     <!-- Global Stock Ticker at Top -->
