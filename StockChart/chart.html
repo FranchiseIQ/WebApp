@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <title>Interactive Stock Chart - FranResearch</title>
+    <link rel="stylesheet" href="../Website/style.css">
     <link rel="stylesheet" href="style.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -12,8 +13,187 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <!-- Chart.js Zoom Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <style>
+        body {
+            padding-top: 160px !important;
+            padding-bottom: 20px;
+        }
+
+        /* Global Ticker at Top */
+        .global-ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1200;
+            background: #0a0a0a;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.16);
+        }
+
+        .global-ticker iframe {
+            width: 100%;
+            height: 110px;
+            border: none;
+        }
+
+        /* Navigation Bar */
+        .main-nav {
+            position: fixed;
+            top: 110px;
+            left: 0;
+            width: 100%;
+            z-index: 1100;
+            display: flex;
+            gap: 24px;
+            background: rgba(255,255,255,0.08);
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            overflow-x: auto;
+        }
+
+        .main-nav a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #667eea;
+        }
+
+        /* Compact Ticker Controls */
+        .ticker-section {
+            max-width: 100%;
+        }
+
+        .ticker-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 8px;
+            max-width: 100%;
+        }
+
+        .ticker-item {
+            padding: 6px 10px !important;
+            font-size: 13px;
+            border-radius: 8px;
+        }
+
+        .ticker-item .ticker-symbol {
+            font-size: 13px;
+            min-width: auto;
+        }
+
+        .ticker-item .ticker-info {
+            gap: 6px;
+        }
+
+        .ticker-item .color-picker {
+            width: 28px;
+            height: 22px;
+        }
+
+        .ticker-item .width-control {
+            display: none;
+        }
+
+        .ticker-item .btn-remove {
+            width: 22px;
+            height: 22px;
+            font-size: 14px;
+        }
+
+        /* Collapsible Controls on Mobile */
+        .controls-toggle {
+            display: none;
+            width: 100%;
+            padding: 10px 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .controls-toggle {
+                display: block;
+            }
+
+            .ticker-controls-collapsible {
+                display: none;
+            }
+
+            .ticker-controls-collapsible.expanded {
+                display: block;
+            }
+
+            .ticker-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .main-nav {
+                gap: 16px;
+                padding: 10px 15px;
+            }
+        }
+
+        /* Compact Control Panel */
+        .control-panel {
+            padding: 15px;
+            margin: 10px;
+        }
+
+        .panel-header h1 {
+            font-size: 1.3em;
+        }
+
+        .time-range-buttons {
+            gap: 6px;
+        }
+
+        .time-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .chart-controls {
+            gap: 8px;
+        }
+
+        .btn-secondary {
+            padding: 8px 14px;
+            font-size: 12px;
+            margin-right: 6px;
+        }
+    </style>
 </head>
 <body>
+    <!-- Global Stock Ticker at Top -->
+    <div class="global-ticker">
+        <iframe src="../Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <a href="../index.html">Home</a>
+        <a href="../Website/ticker.html">Stock Ticker</a>
+        <a href="chart.html" class="active">Stock Charts</a>
+        <a href="../FranchiseMap/map.html">Franchise Map</a>
+        <a href="../FranchiseNews/news-feed.html">News</a>
+        <a href="../sports.html">Sports</a>
+        <a href="../franchise_calculators_module/index.html">Calculators</a>
+        <a href="../about.html">About</a>
+    </nav>
+
     <div class="container">
         <!-- Control Panel -->
         <div class="control-panel">
@@ -22,41 +202,48 @@
                 <button id="helpBtn" class="help-btn" title="How to use">?</button>
             </div>
 
-            <!-- Ticker Management -->
-            <div class="ticker-section">
-                <div class="ticker-input-group">
-                    <input type="text" id="tickerInput" placeholder="Enter ticker symbol (e.g., AAPL)" maxlength="10">
-                    <button id="addTickerBtn" class="btn btn-primary">Add Ticker</button>
-                </div>
-                <div id="tickerList" class="ticker-list"></div>
-            </div>
+            <!-- Mobile Toggle -->
+            <button class="controls-toggle" onclick="toggleControls()">
+                ▼ Show/Hide Controls
+            </button>
 
-            <!-- Time Range Buttons -->
-            <div class="time-range-section">
-                <label>Time Range:</label>
-                <div class="time-range-buttons">
-                    <button class="time-btn" data-range="1d">1D</button>
-                    <button class="time-btn" data-range="5d">1W</button>
-                    <button class="time-btn" data-range="1mo">1M</button>
-                    <button class="time-btn" data-range="6mo">6M</button>
-                    <button class="time-btn" data-range="ytd">YTD</button>
-                    <button class="time-btn active" data-range="1y">1Y</button>
-                    <button class="time-btn" data-range="2y">2Y</button>
-                    <button class="time-btn" data-range="5y">5Y</button>
-                    <button class="time-btn" data-range="10y">10Y</button>
-                    <button class="time-btn" data-range="max">MAX</button>
+            <div class="ticker-controls-collapsible expanded">
+                <!-- Ticker Management -->
+                <div class="ticker-section">
+                    <div class="ticker-input-group">
+                        <input type="text" id="tickerInput" placeholder="Enter ticker (e.g., AAPL)" maxlength="10">
+                        <button id="addTickerBtn" class="btn btn-primary">Add</button>
+                    </div>
+                    <div id="tickerList" class="ticker-list"></div>
                 </div>
-            </div>
 
-            <!-- Chart Controls -->
-            <div class="chart-controls">
-                <button id="togglePriceMode" class="btn btn-secondary">Show $ Prices</button>
-                <button id="resetZoomBtn" class="btn btn-secondary">Reset Zoom</button>
-                <button id="toggleLegendBtn" class="btn btn-secondary">Toggle Legend</button>
-                <label class="checkbox-label">
-                    <input type="checkbox" id="showGridLines" checked>
-                    Show Grid Lines
-                </label>
+                <!-- Time Range Buttons -->
+                <div class="time-range-section">
+                    <label>Time Range:</label>
+                    <div class="time-range-buttons">
+                        <button class="time-btn" data-range="1d">1D</button>
+                        <button class="time-btn" data-range="5d">1W</button>
+                        <button class="time-btn" data-range="1mo">1M</button>
+                        <button class="time-btn" data-range="6mo">6M</button>
+                        <button class="time-btn" data-range="ytd">YTD</button>
+                        <button class="time-btn active" data-range="1y">1Y</button>
+                        <button class="time-btn" data-range="2y">2Y</button>
+                        <button class="time-btn" data-range="5y">5Y</button>
+                        <button class="time-btn" data-range="10y">10Y</button>
+                        <button class="time-btn" data-range="max">MAX</button>
+                    </div>
+                </div>
+
+                <!-- Chart Controls -->
+                <div class="chart-controls">
+                    <button id="togglePriceMode" class="btn btn-secondary">Show $</button>
+                    <button id="resetZoomBtn" class="btn btn-secondary">Reset</button>
+                    <button id="toggleLegendBtn" class="btn btn-secondary">Legend</button>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="showGridLines" checked>
+                        Grid
+                    </label>
+                </div>
             </div>
         </div>
 
@@ -110,60 +297,22 @@
                     <h3>Adding Stocks</h3>
                     <ol>
                         <li>Enter a ticker symbol (e.g., AAPL, MSFT, GOOGL)</li>
-                        <li>Click "Add Ticker" or press Enter</li>
-                        <li>The stock will appear in your list with a color indicator</li>
+                        <li>Click "Add" or press Enter</li>
                         <li>You can add up to 10 tickers at once</li>
                     </ol>
                 </section>
-
                 <section>
                     <h3>Default Stocks</h3>
-                    <p>By default, the chart shows:</p>
-                    <ul>
-                        <li><strong>SPY (Black):</strong> S&P 500 ETF as market benchmark</li>
-                        <li><strong>9 Franchise Stocks:</strong> MCD, YUM, QSR, WEN, DPZ, JACK, WING, SHAK, DENN</li>
-                    </ul>
+                    <p><strong>SPY (Black):</strong> S&P 500 ETF as market benchmark</p>
+                    <p><strong>9 Franchise Stocks:</strong> MCD, YUM, QSR, WEN, DPZ, JACK, WING, SHAK, DENN</p>
                 </section>
-
                 <section>
-                    <h3>Chart Modes</h3>
+                    <h3>Chart Controls</h3>
                     <ul>
-                        <li><strong>% Change (Default):</strong> Shows relative performance from start date</li>
-                        <li><strong>$ Prices:</strong> Shows actual stock prices</li>
-                        <li>Click "Show $ Prices" / "Show % Change" to toggle</li>
+                        <li><strong>Zoom:</strong> Scroll or pinch to zoom</li>
+                        <li><strong>Pan:</strong> Click and drag</li>
+                        <li><strong>Reset:</strong> Click "Reset" button</li>
                     </ul>
-                </section>
-
-                <section>
-                    <h3>Customizing Your Chart</h3>
-                    <ul>
-                        <li><strong>Color:</strong> Click the color box next to each ticker to change its line color</li>
-                        <li><strong>Line Width:</strong> Use the slider to adjust line thickness (1-5px)</li>
-                        <li><strong>Time Range:</strong> Click any time range button to adjust the period displayed</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Interacting with the Chart</h3>
-                    <ul>
-                        <li><strong>Zoom:</strong> Scroll up/down or pinch on mobile to zoom in/out</li>
-                        <li><strong>Pan:</strong> Click and drag to move around the chart</li>
-                        <li><strong>Reset:</strong> Click "Reset Zoom" to return to the default view</li>
-                        <li><strong>Tooltip:</strong> Hover over the chart to see detailed price information</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Embedding This Chart</h3>
-                    <p>Copy this code to embed the chart on your website or Google Sites:</p>
-                    <div class="code-snippet">
-&lt;iframe src="https://monroegamble.github.io/WebApp/StockChart/chart.html"
-        width="100%"
-        height="900"
-        frameborder="0"
-        style="border:none;"&gt;
-&lt;/iframe&gt;
-                    </div>
                 </section>
             </div>
         </div>
@@ -173,5 +322,11 @@
     <div id="errorToast" class="error-toast"></div>
 
     <script src="chart.js"></script>
+    <script>
+        function toggleControls() {
+            const controls = document.querySelector('.ticker-controls-collapsible');
+            controls.classList.toggle('expanded');
+        }
+    </script>
 </body>
 </html>

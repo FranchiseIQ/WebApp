@@ -124,6 +124,9 @@ function initMap() {
         document.getElementById('info-panel').classList.remove('active');
     });
 
+    // Initialize search functionality
+    initSearch();
+
     console.log('✓ Map initialized with OpenStreetMap');
     console.log(`✓ Loaded ${franchiseLocations.length} franchise locations`);
     console.log('✓ Default view: Boston, MA');
@@ -231,6 +234,103 @@ function showLocationDetails(location) {
     panel.classList.add('active');
 }
 
-    console.log('✓ OpenStreetMap initialized successfully');
-    console.log('✓ No API key required - completely free!');
+// Search for a location by address
+async function searchLocation(query) {
+    if (!query || query.trim().length < 3) return;
+
+    try {
+        // Use Nominatim (OpenStreetMap's geocoding service)
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=us,ca&limit=1`,
+            { headers: { 'User-Agent': 'FranResearch/1.0' } }
+        );
+
+        if (!response.ok) throw new Error('Search failed');
+
+        const results = await response.json();
+
+        if (results.length > 0) {
+            const result = results[0];
+            const lat = parseFloat(result.lat);
+            const lng = parseFloat(result.lon);
+
+            // Zoom to the location
+            map.setView([lat, lng], 13);
+
+            // Add a temporary marker
+            const searchMarker = L.marker([lat, lng], {
+                title: 'Search Result'
+            }).addTo(map);
+
+            searchMarker.bindPopup(`<strong>Search Result:</strong><br>${result.display_name}`).openPopup();
+
+            // Remove the marker after 10 seconds
+            setTimeout(() => {
+                map.removeLayer(searchMarker);
+            }, 10000);
+
+            return result;
+        } else {
+            alert('Location not found. Please try a different search term.');
+            return null;
+        }
+    } catch (error) {
+        console.error('Search error:', error);
+        alert('Search failed. Please try again.');
+        return null;
+    }
+}
+
+// Filter by radius from current center
+function filterByRadius(radiusMiles) {
+    if (radiusMiles === 'all') {
+        // Show all markers
+        markers.forEach(({ marker }) => {
+            if (currentFilter === 'all' || marker.location?.brand === currentFilter) {
+                marker.addTo(markerLayer);
+            }
+        });
+        return;
+    }
+
+    const center = map.getCenter();
+    const radiusKm = radiusMiles * 1.60934; // Convert miles to km
+
+    markers.forEach(({ marker, location }) => {
+        const distance = map.distance(center, [location.lat, location.lng]) / 1000; // km
+
+        if (distance <= radiusKm) {
+            if (currentFilter === 'all' || location.brand === currentFilter) {
+                marker.addTo(markerLayer);
+            }
+        } else {
+            markerLayer.removeLayer(marker);
+        }
+    });
+}
+
+// Initialize search functionality
+function initSearch() {
+    const searchInput = document.getElementById('location-search');
+    const searchBtn = document.getElementById('search-btn');
+
+    if (searchInput && searchBtn) {
+        searchBtn.addEventListener('click', () => {
+            searchLocation(searchInput.value);
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchLocation(searchInput.value);
+            }
+        });
+    }
+
+    // Radius filter
+    const radiusSelect = document.getElementById('radius-filter');
+    if (radiusSelect) {
+        radiusSelect.addEventListener('change', (e) => {
+            filterByRadius(e.target.value === 'all' ? 'all' : parseInt(e.target.value));
+        });
+    }
 }

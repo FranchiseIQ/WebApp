@@ -31,7 +31,7 @@
             background: var(--bg);
             min-height: 100vh;
             color: var(--text);
-            padding-top: 120px;
+            padding-top: 160px;
             padding-bottom: 100px;
         }
 
@@ -42,6 +42,7 @@
             left: 0;
             width: 100%;
             z-index: 1200;
+            background: #0a0a0a;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
@@ -49,6 +50,67 @@
             width: 100%;
             height: 110px;
             border: none;
+        }
+
+        /* Navigation Bar */
+        .main-nav {
+            position: fixed;
+            top: 110px;
+            left: 0;
+            width: 100%;
+            z-index: 1100;
+            display: flex;
+            gap: 24px;
+            background: rgba(255,255,255,0.08);
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            overflow-x: auto;
+        }
+
+        .main-nav a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #667eea;
+        }
+
+        /* Franchisor Filter */
+        .franchisor-filter {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: rgba(0,0,0,0.2);
+            align-items: center;
+        }
+
+        .franchisor-filter label {
+            font-size: 0.9em;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .franchisor-filter select {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            background: #1e293b;
+            color: var(--text);
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .franchisor-filter select:focus {
+            outline: 2px solid var(--accent1);
         }
 
         /* Hero Header */
@@ -370,6 +432,18 @@
         <iframe src="Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
     </div>
 
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="Website/ticker.html">Stock Ticker</a>
+        <a href="StockChart/chart.html">Stock Charts</a>
+        <a href="FranchiseMap/map.html">Franchise Map</a>
+        <a href="FranchiseNews/news-feed.html">News</a>
+        <a href="sports.html" class="active">Sports</a>
+        <a href="franchise_calculators_module/index.html">Calculators</a>
+        <a href="about.html">About</a>
+    </nav>
+
     <!-- Hero Header -->
     <header class="sports-hero">
         <h1>Live Sports Dashboard</h1>
@@ -385,6 +459,40 @@
         <button data-league="MLS">MLS</button>
         <button data-league="MLB">MLB</button>
     </nav>
+
+    <!-- Franchisor Filter -->
+    <div class="franchisor-filter">
+        <label for="franchisor-select">Filter by Franchisor:</label>
+        <select id="franchisor-select">
+            <option value="all">All Teams</option>
+            <optgroup label="NFL Teams">
+                <option value="Patriots">New England Patriots</option>
+                <option value="Cowboys">Dallas Cowboys</option>
+                <option value="Chiefs">Kansas City Chiefs</option>
+                <option value="Packers">Green Bay Packers</option>
+                <option value="49ers">San Francisco 49ers</option>
+            </optgroup>
+            <optgroup label="NBA Teams">
+                <option value="Lakers">Los Angeles Lakers</option>
+                <option value="Celtics">Boston Celtics</option>
+                <option value="Warriors">Golden State Warriors</option>
+                <option value="Bulls">Chicago Bulls</option>
+                <option value="Heat">Miami Heat</option>
+            </optgroup>
+            <optgroup label="NHL Teams">
+                <option value="Bruins">Boston Bruins</option>
+                <option value="Rangers">New York Rangers</option>
+                <option value="Maple Leafs">Toronto Maple Leafs</option>
+                <option value="Blackhawks">Chicago Blackhawks</option>
+            </optgroup>
+            <optgroup label="MLB Teams">
+                <option value="Yankees">New York Yankees</option>
+                <option value="Red Sox">Boston Red Sox</option>
+                <option value="Dodgers">Los Angeles Dodgers</option>
+                <option value="Cubs">Chicago Cubs</option>
+            </optgroup>
+        </select>
+    </div>
 
     <!-- Day Selector -->
     <div class="day-selector" id="day-selector"></div>
@@ -429,6 +537,7 @@
         let currentDate = new Date();
         let gamesCache = {};
         let leaguesWithGames = new Set();
+        let currentFranchisor = 'all';
 
         // Format time to 12-hour EST
         function formatTimeEST(dateStr, timeStr) {
@@ -654,10 +763,20 @@
                 const events = await fetchEvents(config.sport, currentDate);
 
                 // Filter for the specific league
-                const leagueGames = events.filter(e => {
+                let leagueGames = events.filter(e => {
                     const league = (e.strLeague || '').toUpperCase();
                     return league.includes(currentLeague);
                 });
+
+                // Filter by franchisor if selected
+                if (currentFranchisor !== 'all') {
+                    leagueGames = leagueGames.filter(e => {
+                        const homeTeam = (e.strHomeTeam || '').toLowerCase();
+                        const awayTeam = (e.strAwayTeam || '').toLowerCase();
+                        const filter = currentFranchisor.toLowerCase();
+                        return homeTeam.includes(filter) || awayTeam.includes(filter);
+                    });
+                }
 
                 if (leagueGames.length === 0) {
                     container.innerHTML = `
@@ -723,10 +842,22 @@
             }
         }
 
+        // Setup franchisor filter
+        function setupFranchisorFilter() {
+            const franchisorSelect = document.getElementById('franchisor-select');
+            if (franchisorSelect) {
+                franchisorSelect.addEventListener('change', (e) => {
+                    currentFranchisor = e.target.value;
+                    renderGames();
+                });
+            }
+        }
+
         // Initialize app
         async function init() {
             generateDaySelector();
             setupLeagueTabs();
+            setupFranchisorFilter();
 
             // Check leagues with games in background
             checkLeaguesWithGames();

@@ -17,8 +17,125 @@
             crossorigin=""></script>
 
     <link rel="stylesheet" href="map-style.css">
+    <style>
+        body {
+            padding-top: 160px;
+        }
+
+        /* Global Ticker */
+        .global-ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1200;
+            background: #0a0a0a;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.16);
+        }
+
+        .global-ticker iframe {
+            width: 100%;
+            height: 110px;
+            border: none;
+        }
+
+        /* Navigation Bar */
+        .main-nav {
+            position: fixed;
+            top: 110px;
+            left: 0;
+            width: 100%;
+            z-index: 1100;
+            display: flex;
+            gap: 24px;
+            background: rgba(255,255,255,0.08);
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            overflow-x: auto;
+        }
+
+        .main-nav a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #667eea;
+        }
+
+        .map-container {
+            height: calc(100vh - 160px);
+        }
+
+        /* Search Box */
+        .search-container {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95em;
+            width: 200px;
+            background: white;
+        }
+
+        .search-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95em;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            color: #667eea;
+            transition: all 0.2s;
+        }
+
+        .search-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                gap: 16px;
+                padding: 10px 15px;
+            }
+
+            .search-input {
+                width: 140px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Global Stock Ticker -->
+    <div class="global-ticker">
+        <iframe src="../Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <a href="../index.html">Home</a>
+        <a href="../Website/ticker.html">Stock Ticker</a>
+        <a href="../StockChart/chart.html">Stock Charts</a>
+        <a href="map.html" class="active">Franchise Map</a>
+        <a href="../FranchiseNews/news-feed.html">News</a>
+        <a href="../sports.html">Sports</a>
+        <a href="../franchise_calculators_module/index.html">Calculators</a>
+        <a href="../about.html">About</a>
+    </nav>
+
     <div class="map-container">
         <!-- Header -->
         <div class="map-header">
@@ -29,6 +146,17 @@
                 <h1>Interactive Franchise Map</h1>
             </div>
             <div class="header-controls">
+                <div class="search-container">
+                    <input type="text" id="location-search" class="search-input" placeholder="Search location...">
+                    <button id="search-btn" class="search-btn">Search</button>
+                </div>
+                <select id="radius-filter" class="filter-select">
+                    <option value="all">All Distances</option>
+                    <option value="5">Within 5 miles</option>
+                    <option value="10">Within 10 miles</option>
+                    <option value="25">Within 25 miles</option>
+                    <option value="50">Within 50 miles</option>
+                </select>
                 <select id="brand-filter" class="filter-select">
                     <option value="all">All Brands</option>
                     <option value="MCD">McDonald's (MCD)</option>

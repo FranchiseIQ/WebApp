@@ -40,9 +40,136 @@
             min-height: 100vh;
             margin: 0 !important;
             padding: 0 !important;
-            padding-top: 120px !important; /* Space for fixed stock ticker */
+            padding-top: 160px !important; /* Space for fixed stock ticker + nav */
             padding-bottom: 95px !important; /* Space for fixed news ticker */
             display: block !important;
+        }
+
+        /* Navigation Bar */
+        .main-nav {
+            position: fixed;
+            top: 110px;
+            left: 0;
+            width: 100%;
+            z-index: 1100;
+            display: flex;
+            gap: 24px;
+            background: rgba(255,255,255,0.08);
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            overflow-x: auto;
+        }
+
+        .main-nav a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #667eea;
+        }
+
+        /* Explore Tools Grid */
+        .explore-tools {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 45px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .explore-tools h2 {
+            color: #333;
+            font-size: 2.2em !important;
+            margin-bottom: 10px;
+        }
+
+        .explore-tools > p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .tool-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 25px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid #667eea;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .tool-card .tool-icon {
+            font-size: 2em;
+            margin-bottom: 12px;
+        }
+
+        .tool-card h3 {
+            color: #333;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+
+        .tool-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Collapsible Embed Instructions */
+        .embed-toggle {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .embed-toggle:hover {
+            transform: translateY(-2px);
+        }
+
+        .embed-toggle .toggle-icon {
+            transition: transform 0.3s;
+        }
+
+        .embed-toggle.expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .embed-content {
+            display: none;
+        }
+
+        .embed-content.expanded {
+            display: block;
         }
 
         /* Vanta.js background container */
@@ -377,6 +504,18 @@
         </div>
     </div>
 
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="Website/ticker.html">Stock Ticker</a>
+        <a href="StockChart/chart.html">Stock Charts</a>
+        <a href="FranchiseMap/map.html">Franchise Map</a>
+        <a href="FranchiseNews/news-feed.html">News</a>
+        <a href="sports.html">Sports</a>
+        <a href="franchise_calculators_module/index.html">Calculators</a>
+        <a href="about.html">About</a>
+    </nav>
+
     <div class="container">
         <header>
             <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 5px;">
@@ -403,6 +542,43 @@
             </div>
         </header>
 
+        <!-- Explore Tools Section -->
+        <div class="explore-tools">
+            <h2>Explore Tools</h2>
+            <p>Access our suite of professional-grade analysis tools for franchise investing</p>
+            <div class="tools-grid">
+                <a href="StockChart/chart.html" class="tool-card">
+                    <div class="tool-icon">📈</div>
+                    <h3>Stock Charts</h3>
+                    <p>Interactive charting with 10+ years of data. Compare up to 10 tickers with zoom, pan, and percent-change views.</p>
+                </a>
+                <a href="Website/ticker.html" class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <h3>Live Ticker</h3>
+                    <p>Real-time scrolling display of 40+ franchise stocks with price changes and market status indicators.</p>
+                </a>
+                <a href="FranchiseMap/map.html" class="tool-card">
+                    <div class="tool-icon">🗺️</div>
+                    <h3>Franchise Map</h3>
+                    <p>Geographic visualization of franchise locations across North America with brand filtering and search.</p>
+                </a>
+                <a href="FranchiseNews/news-feed.html" class="tool-card">
+                    <div class="tool-icon">📰</div>
+                    <h3>News Feed</h3>
+                    <p>Curated industry news from leading franchise trade publications and business portals.</p>
+                </a>
+                <a href="sports.html" class="tool-card">
+                    <div class="tool-icon">🏆</div>
+                    <h3>Sports Dashboard</h3>
+                    <p>Live scores and schedules for major sports leagues including NFL, NBA, NHL, MLB, and MLS.</p>
+                </a>
+                <a href="franchise_calculators_module/index.html" class="tool-card">
+                    <div class="tool-icon">🧮</div>
+                    <h3>Financial Calculators</h3>
+                    <p>ROI calculators, loan amortization, payback period, and other financial planning tools.</p>
+                </a>
+            </div>
+        </div>
 
         <div class="ticker-demo">
             <h2>Interactive Stock Charts</h2>
@@ -521,7 +697,11 @@
         </div>
 
         <div class="embed-instructions">
-            <h2>Embed Stock Ticker & Charts</h2>
+            <button class="embed-toggle" onclick="toggleEmbed()" id="embedToggle">
+                <span>Embed Stock Ticker & Charts</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="embed-content" id="embedContent">
             <p style="color: #666; margin-bottom: 20px;">
                 Easily embed the live ticker or interactive charts into your website, Notion, or other platforms:
             </p>
@@ -634,6 +814,7 @@
                 - News Ticker (Horizontal): <a href="FranchiseNews/news-ticker.html" target="_blank" style="color: #667eea;">https://monroegamble.github.io/WebApp/FranchiseNews/news-ticker.html</a><br>
                 - News Feed: <a href="FranchiseNews/news-feed.html" target="_blank" style="color: #667eea;">https://monroegamble.github.io/WebApp/FranchiseNews/news-feed.html</a>
             </p>
+            </div>
         </div>
 
         <!-- Sitemap Footer -->
@@ -647,10 +828,9 @@
                         <li><a href="StockChart/chart.html">Stock Charts</a></li>
                         <li><a href="FranchiseMap/map.html">Franchise Map</a></li>
                         <li><a href="franchise_calculators_module/index.html">Financial Calculators</a></li>
-                        <li><a href="FranchiseNews/news-scroller.html">News Scroller (Vertical)</a></li>
-                        <li><a href="FranchiseNews/news-ticker.html">News Ticker (Horizontal)</a></li>
                         <li><a href="FranchiseNews/news-feed.html">News Feed</a></li>
                         <li><a href="sports.html">Sports Dashboard</a></li>
+                        <li><a href="about.html">About</a></li>
                     </ul>
                 </div>
                 <div class="sitemap-section-main">
@@ -722,6 +902,14 @@
                 console.error('Failed to initialize news widgets:', error);
             }
         });
+
+        // Toggle embed instructions
+        function toggleEmbed() {
+            const toggle = document.getElementById('embedToggle');
+            const content = document.getElementById('embedContent');
+            toggle.classList.toggle('expanded');
+            content.classList.toggle('expanded');
+        }
     </script>
 
     <!-- Vanta.js Initialization -->

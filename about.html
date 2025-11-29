@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="description" content="About FranResearch - Your comprehensive franchise stock analysis platform">
+    <title>About - FranResearch</title>
+    <link rel="stylesheet" href="Website/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a2e 0%, #1a1a4e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding-top: 160px;
+            padding-bottom: 40px;
+        }
+
+        /* Global Ticker */
+        .global-ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1200;
+            background: #0a0a0a;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.16);
+        }
+
+        .global-ticker iframe {
+            width: 100%;
+            height: 110px;
+            border: none;
+        }
+
+        /* Navigation Bar */
+        .main-nav {
+            position: fixed;
+            top: 110px;
+            left: 0;
+            width: 100%;
+            z-index: 1100;
+            display: flex;
+            gap: 24px;
+            background: rgba(255,255,255,0.08);
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            overflow-x: auto;
+        }
+
+        .main-nav a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #667eea;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2em;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .content-section h2 {
+            color: #333;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .content-section h2 .icon {
+            font-size: 1.2em;
+        }
+
+        .content-section p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        /* Mission Section */
+        .mission-text {
+            font-size: 1.1em;
+            color: #333;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+
+        /* Modules Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .module-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .module-card h3 {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .module-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: white;
+        }
+
+        .team-member h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 0;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group label .required {
+            color: #ef4444;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group .error-message {
+            color: #ef4444;
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group.error input,
+        .form-group.error textarea {
+            border-color: #ef4444;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        /* Footer */
+        .page-footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 40px;
+        }
+
+        .page-footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2em;
+            }
+
+            .content-section {
+                padding: 25px 20px;
+            }
+
+            .main-nav {
+                gap: 16px;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Global Stock Ticker -->
+    <div class="global-ticker">
+        <iframe src="Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="Website/ticker.html">Stock Ticker</a>
+        <a href="StockChart/chart.html">Stock Charts</a>
+        <a href="FranchiseMap/map.html">Franchise Map</a>
+        <a href="FranchiseNews/news-feed.html">News</a>
+        <a href="sports.html">Sports</a>
+        <a href="franchise_calculators_module/index.html">Calculators</a>
+        <a href="about.html" class="active">About</a>
+    </nav>
+
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>About FranResearch</h1>
+            <p>Your comprehensive franchise stock analysis platform</p>
+        </div>
+
+        <!-- Mission Section -->
+        <div class="content-section">
+            <h2><span class="icon">🎯</span> Our Mission</h2>
+            <div class="mission-text">
+                <p>FranResearch provides professional-grade tools for analyzing franchise company stocks. We believe that individual investors deserve access to the same quality of data and analysis tools that institutional investors use.</p>
+            </div>
+            <p>Our platform tracks over 40 franchise-related stocks across quick service restaurants, hospitality, fitness, and business services sectors. With 10 years of historical data, real-time updates, and interactive charting tools, we empower investors to make informed decisions.</p>
+        </div>
+
+        <!-- Modules Section -->
+        <div class="content-section">
+            <h2><span class="icon">🛠️</span> Our Tools</h2>
+            <p>FranResearch offers a suite of integrated tools for comprehensive franchise stock analysis:</p>
+            <div class="modules-grid">
+                <div class="module-card">
+                    <h3>📈 Stock Ticker</h3>
+                    <p>Real-time scrolling ticker showing live prices, daily changes, and market status for 40+ franchise stocks.</p>
+                </div>
+                <div class="module-card">
+                    <h3>📊 Stock Charts</h3>
+                    <p>Interactive charting with 10-year history, multiple tickers, zoom/pan, and percent-change comparison mode.</p>
+                </div>
+                <div class="module-card">
+                    <h3>🗺️ Franchise Map</h3>
+                    <p>Geographic visualization of franchise locations across North America with brand filtering and search.</p>
+                </div>
+                <div class="module-card">
+                    <h3>📰 News Feed</h3>
+                    <p>Curated franchise industry news from leading trade publications and business portals.</p>
+                </div>
+                <div class="module-card">
+                    <h3>🏆 Sports Dashboard</h3>
+                    <p>Live scores and schedules for major franchise sports leagues including NFL, NBA, NHL, MLB, and MLS.</p>
+                </div>
+                <div class="module-card">
+                    <h3>🧮 Financial Calculators</h3>
+                    <p>ROI calculators, loan amortization, payback period, and other financial planning tools.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="content-section">
+            <h2><span class="icon">👥</span> Our Team</h2>
+            <p>FranResearch is built by a team passionate about franchise investing and financial technology.</p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-avatar">👨‍💻</div>
+                    <h4>Lead Developer</h4>
+                    <p>Full-stack development & data integration</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-avatar">📊</div>
+                    <h4>Data Analyst</h4>
+                    <p>Stock data curation & analysis</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-avatar">🎨</div>
+                    <h4>UI/UX Designer</h4>
+                    <p>Interface design & user experience</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="content-section">
+            <h2><span class="icon">📧</span> Contact Us</h2>
+            <p>Have questions, suggestions, or feedback? We'd love to hear from you!</p>
+
+            <form class="contact-form" id="contactForm" onsubmit="return handleSubmit(event)">
+                <div class="form-group" id="nameGroup">
+                    <label for="name">Name <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="Your name">
+                    <div class="error-message">Please enter your name</div>
+                </div>
+
+                <div class="form-group" id="emailGroup">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com">
+                    <div class="error-message">Please enter a valid email address</div>
+                </div>
+
+                <div class="form-group" id="messageGroup">
+                    <label for="message">Message <span class="required">*</span></label>
+                    <textarea id="message" name="message" placeholder="Your message..."></textarea>
+                    <div class="error-message">Please enter your message</div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+
+                <div class="form-success" id="successMessage">
+                    Thank you for your message! We'll get back to you soon.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <p>&copy; 2024 FranResearch. All rights reserved.</p>
+        <p style="margin-top: 10px;"><a href="index.html">Back to Home</a></p>
+    </footer>
+
+    <script>
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            let isValid = true;
+
+            // Reset errors
+            ['nameGroup', 'emailGroup', 'messageGroup'].forEach(id => {
+                document.getElementById(id).classList.remove('error');
+            });
+
+            // Validate name
+            const name = document.getElementById('name').value.trim();
+            if (!name) {
+                document.getElementById('nameGroup').classList.add('error');
+                isValid = false;
+            }
+
+            // Validate email
+            const email = document.getElementById('email').value.trim();
+            if (!email || !validateEmail(email)) {
+                document.getElementById('emailGroup').classList.add('error');
+                isValid = false;
+            }
+
+            // Validate message
+            const message = document.getElementById('message').value.trim();
+            if (!message) {
+                document.getElementById('messageGroup').classList.add('error');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Show success message
+                document.getElementById('successMessage').classList.add('show');
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('submitBtn').textContent = 'Sent!';
+
+                // Reset form
+                document.getElementById('contactForm').reset();
+
+                // Re-enable after 3 seconds
+                setTimeout(() => {
+                    document.getElementById('submitBtn').disabled = false;
+                    document.getElementById('submitBtn').textContent = 'Send Message';
+                }, 3000);
+            }
+
+            return false;
+        }
+    </script>
+</body>
+</html>

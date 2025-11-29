@@ -43,16 +43,61 @@
             min-height: 100vh;
             padding: 0;
             margin: 0;
+            padding-top: 160px;
             display: flex;
             flex-direction: column;
         }
 
-        /* Header */
-        #page-header {
+        /* Global Ticker */
+        .global-ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1200;
             background: #0a0a0a;
-            padding: 15px 20px;
-            border-bottom: 2px solid #333;
-            flex-shrink: 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.16);
+        }
+
+        .global-ticker iframe {
+            width: 100%;
+            height: 110px;
+            border: none;
+        }
+
+        /* Navigation Bar */
+        .main-nav {
+            position: fixed;
+            top: 110px;
+            left: 0;
+            width: 100%;
+            z-index: 1100;
+            display: flex;
+            gap: 24px;
+            background: rgba(255,255,255,0.08);
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            overflow-x: auto;
+        }
+
+        .main-nav a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #667eea;
+        }
+
+        /* Header - hidden since we have global nav */
+        #page-header {
+            display: none;
         }
 
         .logo-link {
@@ -157,7 +202,24 @@
     </style>
 </head>
 <body>
-    <!-- Header with Logo -->
+    <!-- Global Stock Ticker -->
+    <div class="global-ticker">
+        <iframe src="../Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <a href="../index.html">Home</a>
+        <a href="../Website/ticker.html">Stock Ticker</a>
+        <a href="../StockChart/chart.html">Stock Charts</a>
+        <a href="../FranchiseMap/map.html">Franchise Map</a>
+        <a href="news-feed.html" class="active">News</a>
+        <a href="../sports.html">Sports</a>
+        <a href="../franchise_calculators_module/index.html">Calculators</a>
+        <a href="../about.html">About</a>
+    </nav>
+
+    <!-- Header with Logo (hidden) -->
     <div id="page-header">
         <a href="../index.html" class="logo-link">
             <img src="../logo.svg" alt="FranchiseIQ Logo" class="logo">
