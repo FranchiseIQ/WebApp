@@ -1,116 +1,8 @@
 {
   "season": 2025,
   "week": 13,
-  "lastUpdated": "2025-11-29T18:29:22.923Z",
+  "lastUpdated": "2025-11-30T18:17:41.360Z",
   "games": [
-    {
-      "id": "nfl-[object Object]-401772891",
-      "league": "NFL",
-      "season": null,
-      "week": 13,
-      "startTime": "2025-11-27T18:00Z",
-      "homeTeam": {
-        "id": "8",
-        "name": "Detroit Lions",
-        "shortName": "Lions",
-        "abbreviation": "DET",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png"
-      },
-      "awayTeam": {
-        "id": "9",
-        "name": "Green Bay Packers",
-        "shortName": "Packers",
-        "abbreviation": "GB",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png"
-      },
-      "status": "final",
-      "homeScore": 24,
-      "awayScore": 31,
-      "quarter": 4,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "nfl-[object Object]-401772694",
-      "league": "NFL",
-      "season": null,
-      "week": 13,
-      "startTime": "2025-11-27T21:30Z",
-      "homeTeam": {
-        "id": "6",
-        "name": "Dallas Cowboys",
-        "shortName": "Cowboys",
-        "abbreviation": "DAL",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png"
-      },
-      "awayTeam": {
-        "id": "12",
-        "name": "Kansas City Chiefs",
-        "shortName": "Chiefs",
-        "abbreviation": "KC",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png"
-      },
-      "status": "final",
-      "homeScore": 31,
-      "awayScore": 28,
-      "quarter": 4,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "nfl-[object Object]-401772930",
-      "league": "NFL",
-      "season": null,
-      "week": 13,
-      "startTime": "2025-11-28T01:20Z",
-      "homeTeam": {
-        "id": "33",
-        "name": "Baltimore Ravens",
-        "shortName": "Ravens",
-        "abbreviation": "BAL",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png"
-      },
-      "awayTeam": {
-        "id": "4",
-        "name": "Cincinnati Bengals",
-        "shortName": "Bengals",
-        "abbreviation": "CIN",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png"
-      },
-      "status": "final",
-      "homeScore": 14,
-      "awayScore": 32,
-      "quarter": 4,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "nfl-[object Object]-401772621",
-      "league": "NFL",
-      "season": null,
-      "week": 13,
-      "startTime": "2025-11-28T20:00Z",
-      "homeTeam": {
-        "id": "21",
-        "name": "Philadelphia Eagles",
-        "shortName": "Eagles",
-        "abbreviation": "PHI",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png"
-      },
-      "awayTeam": {
-        "id": "3",
-        "name": "Chicago Bears",
-        "shortName": "Bears",
-        "abbreviation": "CHI",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png"
-      },
-      "status": "final",
-      "homeScore": 15,
-      "awayScore": 24,
-      "quarter": 4,
-      "clock": "0:00",
-      "possession": null
-    },
     {
       "id": "nfl-[object Object]-401772785",
       "league": "NFL",
@@ -131,12 +23,12 @@
         "abbreviation": "SF",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
+      "status": "in_progress",
+      "homeScore": 0,
+      "awayScore": 0,
+      "quarter": 1,
+      "clock": "8:15",
+      "possession": "away"
     },
     {
       "id": "nfl-[object Object]-401772786",
@@ -158,11 +50,11 @@
         "abbreviation": "JAX",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
+      "status": "in_progress",
+      "homeScore": 3,
+      "awayScore": 0,
+      "quarter": 1,
+      "clock": "5:06",
       "possession": null
     },
     {
@@ -185,12 +77,12 @@
         "abbreviation": "HOU",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
+      "status": "in_progress",
+      "homeScore": 0,
+      "awayScore": 0,
+      "quarter": 1,
+      "clock": "9:15",
+      "possession": "away"
     },
     {
       "id": "nfl-[object Object]-401772892",
@@ -212,12 +104,12 @@
         "abbreviation": "NO",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
+      "status": "in_progress",
+      "homeScore": 7,
+      "awayScore": 0,
+      "quarter": 1,
+      "clock": "9:01",
+      "possession": "home"
     },
     {
       "id": "nfl-[object Object]-401772893",
@@ -239,12 +131,12 @@
         "abbreviation": "ATL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
+      "status": "in_progress",
+      "homeScore": 0,
+      "awayScore": 0,
+      "quarter": 1,
+      "clock": "7:10",
+      "possession": "away"
     },
     {
       "id": "nfl-[object Object]-401772895",
@@ -266,12 +158,12 @@
         "abbreviation": "ARI",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
+      "status": "in_progress",
+      "homeScore": 0,
+      "awayScore": 0,
+      "quarter": 1,
+      "clock": "5:56",
+      "possession": "away"
     },
     {
       "id": "nfl-[object Object]-401772894",
@@ -293,12 +185,12 @@
         "abbreviation": "LAR",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
+      "status": "in_progress",
+      "homeScore": 0,
+      "awayScore": 7,
+      "quarter": 1,
+      "clock": "7:46",
+      "possession": "home"
     },
     {
       "id": "nfl-[object Object]-401772896",
@@ -409,6 +301,114 @@
       "possession": null
     },
     {
+      "id": "nfl-[object Object]-401772891",
+      "league": "NFL",
+      "season": null,
+      "week": 13,
+      "startTime": "2025-11-27T18:00Z",
+      "homeTeam": {
+        "id": "8",
+        "name": "Detroit Lions",
+        "shortName": "Lions",
+        "abbreviation": "DET",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png"
+      },
+      "awayTeam": {
+        "id": "9",
+        "name": "Green Bay Packers",
+        "shortName": "Packers",
+        "abbreviation": "GB",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png"
+      },
+      "status": "final",
+      "homeScore": 24,
+      "awayScore": 31,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "nfl-[object Object]-401772694",
+      "league": "NFL",
+      "season": null,
+      "week": 13,
+      "startTime": "2025-11-27T21:30Z",
+      "homeTeam": {
+        "id": "6",
+        "name": "Dallas Cowboys",
+        "shortName": "Cowboys",
+        "abbreviation": "DAL",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png"
+      },
+      "awayTeam": {
+        "id": "12",
+        "name": "Kansas City Chiefs",
+        "shortName": "Chiefs",
+        "abbreviation": "KC",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png"
+      },
+      "status": "final",
+      "homeScore": 31,
+      "awayScore": 28,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "nfl-[object Object]-401772930",
+      "league": "NFL",
+      "season": null,
+      "week": 13,
+      "startTime": "2025-11-28T01:20Z",
+      "homeTeam": {
+        "id": "33",
+        "name": "Baltimore Ravens",
+        "shortName": "Ravens",
+        "abbreviation": "BAL",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png"
+      },
+      "awayTeam": {
+        "id": "4",
+        "name": "Cincinnati Bengals",
+        "shortName": "Bengals",
+        "abbreviation": "CIN",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png"
+      },
+      "status": "final",
+      "homeScore": 14,
+      "awayScore": 32,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "nfl-[object Object]-401772621",
+      "league": "NFL",
+      "season": null,
+      "week": 13,
+      "startTime": "2025-11-28T20:00Z",
+      "homeTeam": {
+        "id": "21",
+        "name": "Philadelphia Eagles",
+        "shortName": "Eagles",
+        "abbreviation": "PHI",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png"
+      },
+      "awayTeam": {
+        "id": "3",
+        "name": "Chicago Bears",
+        "shortName": "Bears",
+        "abbreviation": "CHI",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png"
+      },
+      "status": "final",
+      "homeScore": 15,
+      "awayScore": 24,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
       "id": "nfl-[object Object]-401772821",
       "league": "NFL",
       "season": null,
@@ -427,357 +427,6 @@
         "shortName": "Giants",
         "abbreviation": "NYG",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401752921",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-29T17:00Z",
-      "homeTeam": {
-        "id": "130",
-        "name": "Michigan Wolverines",
-        "shortName": "Michigan",
-        "abbreviation": "MICH",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/130.png"
-      },
-      "awayTeam": {
-        "id": "194",
-        "name": "Ohio State Buckeyes",
-        "shortName": "Ohio State",
-        "abbreviation": "OSU",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/194.png"
-      },
-      "status": "in_progress",
-      "homeScore": 9,
-      "awayScore": 10,
-      "quarter": 2,
-      "clock": "5:11",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401756968",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-29T17:00Z",
-      "homeTeam": {
-        "id": "277",
-        "name": "West Virginia Mountaineers",
-        "shortName": "West Virginia",
-        "abbreviation": "WVU",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png"
-      },
-      "awayTeam": {
-        "id": "2641",
-        "name": "Texas Tech Red Raiders",
-        "shortName": "Texas Tech",
-        "abbreviation": "TTU",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2641.png"
-      },
-      "status": "in_progress",
-      "homeScore": 0,
-      "awayScore": 28,
-      "quarter": 2,
-      "clock": "1:54",
-      "possession": "away"
-    },
-    {
-      "id": "ncaa-[object Object]-401754611",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-29T17:00Z",
-      "homeTeam": {
-        "id": "221",
-        "name": "Pittsburgh Panthers",
-        "shortName": "Pitt",
-        "abbreviation": "PITT",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/221.png"
-      },
-      "awayTeam": {
-        "id": "2390",
-        "name": "Miami Hurricanes",
-        "shortName": "Miami",
-        "abbreviation": "MIA",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2390.png"
-      },
-      "status": "in_progress",
-      "homeScore": 7,
-      "awayScore": 17,
-      "quarter": 2,
-      "clock": "1:54",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401756963",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-29T18:00Z",
-      "homeTeam": {
-        "id": "252",
-        "name": "BYU Cougars",
-        "shortName": "BYU",
-        "abbreviation": "BYU",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png"
-      },
-      "awayTeam": {
-        "id": "2116",
-        "name": "UCF Knights",
-        "shortName": "UCF",
-        "abbreviation": "UCF",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2116.png"
-      },
-      "status": "in_progress",
-      "homeScore": 0,
-      "awayScore": 14,
-      "quarter": 1,
-      "clock": "3:39",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401752917",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-29T20:30Z",
-      "homeTeam": {
-        "id": "264",
-        "name": "Washington Huskies",
-        "shortName": "Washington",
-        "abbreviation": "WASH",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/264.png"
-      },
-      "awayTeam": {
-        "id": "2483",
-        "name": "Oregon Ducks",
-        "shortName": "Oregon",
-        "abbreviation": "ORE",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2483.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401752789",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-29T20:30Z",
-      "homeTeam": {
-        "id": "201",
-        "name": "Oklahoma Sooners",
-        "shortName": "Oklahoma",
-        "abbreviation": "OU",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/201.png"
-      },
-      "awayTeam": {
-        "id": "99",
-        "name": "LSU Tigers",
-        "shortName": "LSU",
-        "abbreviation": "LSU",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/99.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401752791",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-29T20:30Z",
-      "homeTeam": {
-        "id": "2633",
-        "name": "Tennessee Volunteers",
-        "shortName": "Tennessee",
-        "abbreviation": "TENN",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png"
-      },
-      "awayTeam": {
-        "id": "238",
-        "name": "Vanderbilt Commodores",
-        "shortName": "Vanderbilt",
-        "abbreviation": "VAN",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/238.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401754613",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-30T00:00Z",
-      "homeTeam": {
-        "id": "258",
-        "name": "Virginia Cavaliers",
-        "shortName": "Virginia",
-        "abbreviation": "UVA",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/258.png"
-      },
-      "awayTeam": {
-        "id": "259",
-        "name": "Virginia Tech Hokies",
-        "shortName": "Virginia Tech",
-        "abbreviation": "VT",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/259.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401752784",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-30T00:30Z",
-      "homeTeam": {
-        "id": "2",
-        "name": "Auburn Tigers",
-        "shortName": "Auburn",
-        "abbreviation": "AUB",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2.png"
-      },
-      "awayTeam": {
-        "id": "333",
-        "name": "Alabama Crimson Tide",
-        "shortName": "Alabama",
-        "abbreviation": "ALA",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/333.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401752919",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-30T00:30Z",
-      "homeTeam": {
-        "id": "30",
-        "name": "USC Trojans",
-        "shortName": "USC",
-        "abbreviation": "USC",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/30.png"
-      },
-      "awayTeam": {
-        "id": "26",
-        "name": "UCLA Bruins",
-        "shortName": "UCLA",
-        "abbreviation": "UCLA",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/26.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401762518",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-30T00:30Z",
-      "homeTeam": {
-        "id": "2655",
-        "name": "Tulane Green Wave",
-        "shortName": "Tulane",
-        "abbreviation": "TULN",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2655.png"
-      },
-      "awayTeam": {
-        "id": "2429",
-        "name": "Charlotte 49ers",
-        "shortName": "Charlotte",
-        "abbreviation": "CLT",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2429.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401754609",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-30T01:00Z",
-      "homeTeam": {
-        "id": "25",
-        "name": "California Golden Bears",
-        "shortName": "California",
-        "abbreviation": "CAL",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/25.png"
-      },
-      "awayTeam": {
-        "id": "2567",
-        "name": "SMU Mustangs",
-        "shortName": "SMU",
-        "abbreviation": "SMU",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2567.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401754614",
-      "league": "NCAA",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-11-30T03:30Z",
-      "homeTeam": {
-        "id": "24",
-        "name": "Stanford Cardinal",
-        "shortName": "Stanford",
-        "abbreviation": "STAN",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/24.png"
-      },
-      "awayTeam": {
-        "id": "87",
-        "name": "Notre Dame Fighting Irish",
-        "shortName": "Notre Dame",
-        "abbreviation": "ND",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/87.png"
       },
       "status": "scheduled",
       "homeScore": null,
@@ -944,6 +593,357 @@
       "status": "final",
       "homeScore": 7,
       "awayScore": 23,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401752921",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-29T17:00Z",
+      "homeTeam": {
+        "id": "130",
+        "name": "Michigan Wolverines",
+        "shortName": "Michigan",
+        "abbreviation": "MICH",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/130.png"
+      },
+      "awayTeam": {
+        "id": "194",
+        "name": "Ohio State Buckeyes",
+        "shortName": "Ohio State",
+        "abbreviation": "OSU",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/194.png"
+      },
+      "status": "final",
+      "homeScore": 9,
+      "awayScore": 27,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401756968",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-29T17:00Z",
+      "homeTeam": {
+        "id": "277",
+        "name": "West Virginia Mountaineers",
+        "shortName": "West Virginia",
+        "abbreviation": "WVU",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png"
+      },
+      "awayTeam": {
+        "id": "2641",
+        "name": "Texas Tech Red Raiders",
+        "shortName": "Texas Tech",
+        "abbreviation": "TTU",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2641.png"
+      },
+      "status": "final",
+      "homeScore": 0,
+      "awayScore": 49,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401752917",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-29T20:30Z",
+      "homeTeam": {
+        "id": "264",
+        "name": "Washington Huskies",
+        "shortName": "Washington",
+        "abbreviation": "WASH",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/264.png"
+      },
+      "awayTeam": {
+        "id": "2483",
+        "name": "Oregon Ducks",
+        "shortName": "Oregon",
+        "abbreviation": "ORE",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2483.png"
+      },
+      "status": "final",
+      "homeScore": 14,
+      "awayScore": 26,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401752789",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-29T20:30Z",
+      "homeTeam": {
+        "id": "201",
+        "name": "Oklahoma Sooners",
+        "shortName": "Oklahoma",
+        "abbreviation": "OU",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/201.png"
+      },
+      "awayTeam": {
+        "id": "99",
+        "name": "LSU Tigers",
+        "shortName": "LSU",
+        "abbreviation": "LSU",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/99.png"
+      },
+      "status": "final",
+      "homeScore": 17,
+      "awayScore": 13,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401754614",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-30T03:30Z",
+      "homeTeam": {
+        "id": "24",
+        "name": "Stanford Cardinal",
+        "shortName": "Stanford",
+        "abbreviation": "STAN",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/24.png"
+      },
+      "awayTeam": {
+        "id": "87",
+        "name": "Notre Dame Fighting Irish",
+        "shortName": "Notre Dame",
+        "abbreviation": "ND",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/87.png"
+      },
+      "status": "final",
+      "homeScore": 20,
+      "awayScore": 49,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401752784",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-30T00:30Z",
+      "homeTeam": {
+        "id": "2",
+        "name": "Auburn Tigers",
+        "shortName": "Auburn",
+        "abbreviation": "AUB",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2.png"
+      },
+      "awayTeam": {
+        "id": "333",
+        "name": "Alabama Crimson Tide",
+        "shortName": "Alabama",
+        "abbreviation": "ALA",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/333.png"
+      },
+      "status": "final",
+      "homeScore": 20,
+      "awayScore": 27,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401756963",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-29T18:00Z",
+      "homeTeam": {
+        "id": "252",
+        "name": "BYU Cougars",
+        "shortName": "BYU",
+        "abbreviation": "BYU",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png"
+      },
+      "awayTeam": {
+        "id": "2116",
+        "name": "UCF Knights",
+        "shortName": "UCF",
+        "abbreviation": "UCF",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2116.png"
+      },
+      "status": "final",
+      "homeScore": 41,
+      "awayScore": 21,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401754611",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-29T17:00Z",
+      "homeTeam": {
+        "id": "221",
+        "name": "Pittsburgh Panthers",
+        "shortName": "Pitt",
+        "abbreviation": "PITT",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/221.png"
+      },
+      "awayTeam": {
+        "id": "2390",
+        "name": "Miami Hurricanes",
+        "shortName": "Miami",
+        "abbreviation": "MIA",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2390.png"
+      },
+      "status": "final",
+      "homeScore": 7,
+      "awayScore": 38,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401752791",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-29T20:30Z",
+      "homeTeam": {
+        "id": "2633",
+        "name": "Tennessee Volunteers",
+        "shortName": "Tennessee",
+        "abbreviation": "TENN",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png"
+      },
+      "awayTeam": {
+        "id": "238",
+        "name": "Vanderbilt Commodores",
+        "shortName": "Vanderbilt",
+        "abbreviation": "VAN",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/238.png"
+      },
+      "status": "final",
+      "homeScore": 24,
+      "awayScore": 45,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401752919",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-30T00:30Z",
+      "homeTeam": {
+        "id": "30",
+        "name": "USC Trojans",
+        "shortName": "USC",
+        "abbreviation": "USC",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/30.png"
+      },
+      "awayTeam": {
+        "id": "26",
+        "name": "UCLA Bruins",
+        "shortName": "UCLA",
+        "abbreviation": "UCLA",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/26.png"
+      },
+      "status": "final",
+      "homeScore": 29,
+      "awayScore": 10,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401754613",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-30T00:00Z",
+      "homeTeam": {
+        "id": "258",
+        "name": "Virginia Cavaliers",
+        "shortName": "Virginia",
+        "abbreviation": "UVA",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/258.png"
+      },
+      "awayTeam": {
+        "id": "259",
+        "name": "Virginia Tech Hokies",
+        "shortName": "Virginia Tech",
+        "abbreviation": "VT",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/259.png"
+      },
+      "status": "final",
+      "homeScore": 27,
+      "awayScore": 7,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401754609",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-30T01:00Z",
+      "homeTeam": {
+        "id": "25",
+        "name": "California Golden Bears",
+        "shortName": "California",
+        "abbreviation": "CAL",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/25.png"
+      },
+      "awayTeam": {
+        "id": "2567",
+        "name": "SMU Mustangs",
+        "shortName": "SMU",
+        "abbreviation": "SMU",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2567.png"
+      },
+      "status": "final",
+      "homeScore": 38,
+      "awayScore": 35,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401762518",
+      "league": "NCAA",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-11-30T00:30Z",
+      "homeTeam": {
+        "id": "2655",
+        "name": "Tulane Green Wave",
+        "shortName": "Tulane",
+        "abbreviation": "TULN",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2655.png"
+      },
+      "awayTeam": {
+        "id": "2429",
+        "name": "Charlotte 49ers",
+        "shortName": "Charlotte",
+        "abbreviation": "CLT",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2429.png"
+      },
+      "status": "final",
+      "homeScore": 27,
+      "awayScore": 0,
       "quarter": 4,
       "clock": "0:00",
       "possession": null
