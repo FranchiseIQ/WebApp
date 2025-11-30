@@ -205,28 +205,32 @@
                 <a href="../index.html" class="logo-link">
                     <img src="../logo.svg" alt="FranResearch" class="logo">
                 </a>
-                <h1>Interactive Franchise Map</h1>
+                <h1>Discover Franchise Locations</h1>
             </div>
             <div class="header-controls">
                 <div class="search-container">
-                    <input type="text" id="location-search" class="search-input" placeholder="Search location...">
-                    <button id="search-btn" class="search-btn">Search</button>
+                    <input type="text" id="location-search" class="search-input" placeholder="Enter city or zip...">
+                    <button id="search-btn" class="search-btn">Find</button>
                 </div>
-                <select id="radius-filter" class="filter-select">
-                    <option value="all">All Distances</option>
-                    <option value="5">Within 5 miles</option>
-                    <option value="10">Within 10 miles</option>
-                    <option value="25">Within 25 miles</option>
-                    <option value="50">Within 50 miles</option>
+                <select id="radius-filter" class="filter-select" title="Competitor analysis radius">
+                    <option value="all">Competitor Radius</option>
+                    <option value="1">1 mile</option>
+                    <option value="2">2 miles</option>
+                    <option value="5">5 miles</option>
+                    <option value="10">10 miles</option>
+                    <option value="15">15 miles</option>
+                    <option value="25">25 miles</option>
+                    <option value="50">50 miles</option>
+                    <option value="100">100 miles</option>
                 </select>
-                <select id="brand-filter" class="filter-select">
+                <select id="brand-filter" class="filter-select" title="Filter by brand">
                     <option value="all">All Brands</option>
-                    <option value="MCD">McDonald's (MCD)</option>
-                    <option value="YUM">Yum! Brands (YUM)</option>
-                    <option value="QSR">Restaurant Brands (QSR)</option>
-                    <option value="WEN">Wendy's (WEN)</option>
-                    <option value="DPZ">Domino's (DPZ)</option>
-                    <option value="SBUX">Starbucks (SBUX)</option>
+                    <option value="MCD">McDonald's</option>
+                    <option value="YUM">Yum! Brands</option>
+                    <option value="QSR">Restaurant Brands</option>
+                    <option value="WEN">Wendy's</option>
+                    <option value="DPZ">Domino's</option>
+                    <option value="SBUX">Starbucks</option>
                 </select>
             </div>
         </div>
@@ -236,26 +240,26 @@
 
         <!-- Map Attribution -->
         <div class="map-attribution">
-            &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors
-            - Powered by <a href="https://leafletjs.com" target="_blank">Leaflet</a>
-            <span class="map-hint">Use two fingers to move the map on mobile</span>
+            &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>
+            &middot; <a href="https://leafletjs.com" target="_blank">Leaflet</a>
+            <span class="map-hint">Drag to pan · Scroll to zoom</span>
         </div>
 
         <!-- Info Panel -->
         <div id="info-panel" class="info-panel">
             <button id="close-panel" class="close-btn">&times;</button>
-            <h2 id="location-name">Select a location</h2>
+            <h2 id="location-name">Explore Locations</h2>
             <div id="location-details">
-                <p>Click on a marker to view details</p>
+                <p>Click any marker to see franchise details, nearby competitors, and market insights.</p>
             </div>
         </div>
 
         <!-- Legend -->
         <div class="legend">
-            <h3>Legend</h3>
+            <h3>Franchise Categories</h3>
             <div class="legend-item">
                 <span class="legend-marker" style="background: #ff6b6b;"></span>
-                <span>Quick Service Restaurant</span>
+                <span>Quick Service (QSR)</span>
             </div>
             <div class="legend-item">
                 <span class="legend-marker" style="background: #4ecdc4;"></span>
@@ -263,11 +267,11 @@
             </div>
             <div class="legend-item">
                 <span class="legend-marker" style="background: #45b7d1;"></span>
-                <span>Hotel/Hospitality</span>
+                <span>Hotels & Hospitality</span>
             </div>
             <div class="legend-item">
                 <span class="legend-marker" style="background: #96ceb4;"></span>
-                <span>Fitness/Wellness</span>
+                <span>Fitness & Wellness</span>
             </div>
             <div class="legend-item">
                 <span class="legend-marker" style="background: #ffa07a;"></span>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="description" content="Contact FranchiseIQ - Get in touch with our team for questions, feedback, or partnership opportunities">
+    <title>Contact - FranchiseIQ</title>
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        body {
+            padding-top: 170px;
+            padding-bottom: 40px;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2em;
+            color: var(--text-muted);
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* Contact Card */
+        .contact-card {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .contact-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .contact-card a {
+            color: var(--accent1);
+            text-decoration: none;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact Form */
+        .contact-form-section {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 40px;
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-form-section h2 {
+            font-size: 1.5em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: #ef4444;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group .error-message {
+            color: #ef4444;
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group.error .form-input,
+        .form-group.error .form-textarea {
+            border-color: #ef4444;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px 32px;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-success {
+            background: rgba(34, 197, 94, 0.15);
+            color: #86efac;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 60px;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .faq-item h4 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .faq-item p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2em;
+            }
+
+            .contact-form-section {
+                padding: 25px 20px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Global Stock Ticker -->
+    <div class="global-ticker">
+        <iframe src="Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <a href="index.html" class="nav-brand">
+            <img src="logo.svg" alt="FranchiseIQ">
+            <span>FranchiseIQ</span>
+        </a>
+        <a href="StockChart/chart.html">Charts</a>
+        <a href="FranchiseMap/map.html">Map</a>
+        <a href="FranchiseNews/news-feed.html">News</a>
+        <a href="sports.html">Sports</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="page-container">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1>Contact Us</h1>
+            <p>Get in touch with our team for questions, feedback, or partnership opportunities</p>
+        </header>
+
+        <!-- Contact Cards -->
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h3>General Inquiries</h3>
+                <p>Have a question about our platform or services? We're here to help with any general inquiries.</p>
+                <a href="mailto:info@franchiseiq.com">info@franchiseiq.com</a>
+            </div>
+
+            <div class="contact-card">
+                <h3>Technical Support</h3>
+                <p>Experiencing issues with the platform? Our technical team is ready to assist you.</p>
+                <a href="https://github.com/MonroeGamble/WebApp/issues" target="_blank">Submit an Issue on GitHub</a>
+            </div>
+
+            <div class="contact-card">
+                <h3>Partnerships</h3>
+                <p>Interested in partnering with FranchiseIQ for data, integrations, or business opportunities?</p>
+                <a href="mailto:partners@franchiseiq.com">partners@franchiseiq.com</a>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <section class="contact-form-section">
+            <h2>Send Us a Message</h2>
+
+            <form id="contactForm" onsubmit="return handleSubmit(event)">
+                <div class="form-group" id="nameGroup">
+                    <label class="form-label" for="name">Name <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="Your name">
+                    <div class="error-message">Please enter your name</div>
+                </div>
+
+                <div class="form-group" id="emailGroup">
+                    <label class="form-label" for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com">
+                    <div class="error-message">Please enter a valid email address</div>
+                </div>
+
+                <div class="form-group" id="subjectGroup">
+                    <label class="form-label" for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" class="form-input" placeholder="What is this regarding?">
+                </div>
+
+                <div class="form-group" id="messageGroup">
+                    <label class="form-label" for="message">Message <span class="required">*</span></label>
+                    <textarea id="message" name="message" class="form-textarea" placeholder="Your message..."></textarea>
+                    <div class="error-message">Please enter your message</div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+
+                <div class="form-success" id="successMessage">
+                    Thank you for your message! We'll get back to you soon.
+                </div>
+            </form>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h4>What data sources does FranchiseIQ use?</h4>
+                <p>We aggregate stock data from Finnhub API, sports data from TheSportsDB, and franchise news from multiple RSS feeds including Franchise Times, QSR Magazine, and business portals.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>How often is the data updated?</h4>
+                <p>Stock ticker data updates hourly during market hours, historical chart data updates daily, and news feeds update twice daily. Sports scores refresh every 60 seconds during games.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Can I embed widgets on my own site?</h4>
+                <p>Yes! All our widgets are designed for embedding. Visit the homepage and expand the "Embed Widgets" section for iframe code snippets.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Is the platform free to use?</h4>
+                <p>Yes, FranchiseIQ is completely free. All functionality runs client-side, no account required.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+        <div class="footer-col">
+            <h4>FranchiseIQ Web Tools</h4>
+            <p>Franchise data, analytics, and AI-driven insights.</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Navigation</h4>
+            <a href="index.html">Home</a>
+            <a href="StockChart/chart.html">Stock Charts</a>
+            <a href="FranchiseMap/map.html">Map</a>
+            <a href="FranchiseNews/news-feed.html">News</a>
+            <a href="sports.html">Sports</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>Data Sources</h4>
+            <p>Financial data via Finnhub API. Sports data via TheSportsDB. News from franchise industry publications.</p>
+        </div>
+    </footer>
+
+    <script>
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            let isValid = true;
+
+            // Reset errors
+            ['nameGroup', 'emailGroup', 'messageGroup'].forEach(id => {
+                document.getElementById(id).classList.remove('error');
+            });
+
+            // Validate name
+            const name = document.getElementById('name').value.trim();
+            if (!name) {
+                document.getElementById('nameGroup').classList.add('error');
+                isValid = false;
+            }
+
+            // Validate email
+            const email = document.getElementById('email').value.trim();
+            if (!email || !validateEmail(email)) {
+                document.getElementById('emailGroup').classList.add('error');
+                isValid = false;
+            }
+
+            // Validate message
+            const message = document.getElementById('message').value.trim();
+            if (!message) {
+                document.getElementById('messageGroup').classList.add('error');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Show success message
+                document.getElementById('successMessage').classList.add('show');
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('submitBtn').textContent = 'Sent!';
+
+                // Reset form
+                document.getElementById('contactForm').reset();
+
+                // Re-enable after 3 seconds
+                setTimeout(() => {
+                    document.getElementById('submitBtn').disabled = false;
+                    document.getElementById('submitBtn').textContent = 'Send Message';
+                }, 3000);
+            }
+
+            return false;
+        }
+    </script>
+</body>
+</html>

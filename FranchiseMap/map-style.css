@@ -43,7 +43,7 @@ body {
     position: relative;
 }
 
-/* Header */
+/* Header - Controls overlay on map */
 .map-header {
     position: absolute;
     top: 0;
@@ -54,8 +54,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 10;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .header-left {
@@ -108,16 +108,16 @@ body {
     left: 0;
 }
 
-/* Map Attribution */
+/* Map Attribution - Overlay on map */
 .map-attribution {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 0.85em;
-    z-index: 5;
+    z-index: 900;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -138,7 +138,7 @@ body {
     margin-top: 4px;
 }
 
-/* Info Panel */
+/* Info Panel - Overlay on map */
 .info-panel {
     position: absolute;
     top: 90px;
@@ -149,7 +149,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     padding: 25px;
-    z-index: 15;
+    z-index: 950;
     overflow-y: auto;
     transform: translateX(400px);
     transition: transform 0.3s ease;
@@ -200,16 +200,16 @@ body {
     margin-bottom: 4px;
 }
 
-/* Legend */
+/* Legend - Overlay on map */
 .legend {
     position: absolute;
     bottom: 20px;
     left: 20px;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    z-index: 5;
+    z-index: 900;
 }
 
 .legend h3 {

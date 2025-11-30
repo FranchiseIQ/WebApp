@@ -279,7 +279,77 @@
         <a href="../about.html">About</a>
     </nav>
 
-    <div class="container">
+    <!-- Hero Section -->
+    <section class="hero-section" style="background:#0B0F1A; padding:80px 20px; text-align:center; color:white;">
+        <div class="hero-content" style="max-width:900px; margin:0 auto;">
+
+            <div class="badge" style="
+                display:inline-block;
+                background:rgba(255,255,255,0.08);
+                padding:6px 14px;
+                font-size:13px;
+                border-radius:20px;
+                margin-bottom:20px;
+                color:#A3A9C2;
+            ">Live Franchise Market Data</div>
+
+            <h1 style="
+                font-size:48px;
+                font-weight:700;
+                margin:0 0 20px 0;
+            ">Franchise Stock Analytics</h1>
+
+            <p style="
+                font-size:18px;
+                line-height:1.6;
+                color:#C2C8DD;
+                max-width:700px;
+                margin:0 auto 40px auto;
+            ">
+                Interactive charts, real-time pricing, and 10+ years of historical data.
+                Fully client-side. No account required.
+            </p>
+
+            <a href="#chart-controls" style="
+                display:inline-block;
+                background:linear-gradient(90deg,#6B4DFF,#8A63FF);
+                padding:14px 28px;
+                border-radius:10px;
+                color:white;
+                font-size:17px;
+                font-weight:600;
+                text-decoration:none;
+                box-shadow:0 4px 14px rgba(91,68,255,0.25);
+                transition:0.2s transform;
+            " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+                Start Analyzing
+            </a>
+
+            <div class="hero-metrics" style="
+                display:flex;
+                justify-content:center;
+                gap:40px;
+                margin-top:50px;
+                flex-wrap:wrap;
+            ">
+                <div style="text-align:center;">
+                    <div style="font-size:36px; font-weight:700;">41</div>
+                    <div style="color:#9CA3B8; font-size:14px;">Stocks Tracked</div>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-size:36px; font-weight:700;">10 Years</div>
+                    <div style="color:#9CA3B8; font-size:14px;">Historical Data</div>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-size:36px; font-weight:700;">100%</div>
+                    <div style="color:#9CA3B8; font-size:14px;">Client-Side</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="container" id="chart-controls">
         <!-- Control Panel -->
         <div class="control-panel">
             <div class="panel-header">
