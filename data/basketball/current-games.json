@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-11-30T18:14:30.729Z",
+  "lastUpdated": "2025-11-30T21:09:11.770Z",
   "games": [
     {
       "id": "nba-2026-401810156",
@@ -21,11 +21,11 @@
         "abbreviation": "HOU",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/hou.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 45,
+      "awayScore": 65,
+      "period": 2,
+      "clock": "40.4",
       "venue": "Delta Center"
     },
     {
