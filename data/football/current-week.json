@@ -1,35 +1,8 @@
 {
   "season": 2025,
   "week": 13,
-  "lastUpdated": "2025-11-30T18:17:41.360Z",
+  "lastUpdated": "2025-11-30T21:10:43.708Z",
   "games": [
-    {
-      "id": "nfl-[object Object]-401772785",
-      "league": "NFL",
-      "season": null,
-      "week": 13,
-      "startTime": "2025-11-30T18:00Z",
-      "homeTeam": {
-        "id": "5",
-        "name": "Cleveland Browns",
-        "shortName": "Browns",
-        "abbreviation": "CLE",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png"
-      },
-      "awayTeam": {
-        "id": "25",
-        "name": "San Francisco 49ers",
-        "shortName": "49ers",
-        "abbreviation": "SF",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png"
-      },
-      "status": "in_progress",
-      "homeScore": 0,
-      "awayScore": 0,
-      "quarter": 1,
-      "clock": "8:15",
-      "possession": "away"
-    },
     {
       "id": "nfl-[object Object]-401772786",
       "league": "NFL",
@@ -50,39 +23,12 @@
         "abbreviation": "JAX",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png"
       },
-      "status": "in_progress",
+      "status": "final",
       "homeScore": 3,
-      "awayScore": 0,
-      "quarter": 1,
-      "clock": "5:06",
+      "awayScore": 25,
+      "quarter": 4,
+      "clock": "0:00",
       "possession": null
-    },
-    {
-      "id": "nfl-[object Object]-401772787",
-      "league": "NFL",
-      "season": null,
-      "week": 13,
-      "startTime": "2025-11-30T18:00Z",
-      "homeTeam": {
-        "id": "11",
-        "name": "Indianapolis Colts",
-        "shortName": "Colts",
-        "abbreviation": "IND",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png"
-      },
-      "awayTeam": {
-        "id": "34",
-        "name": "Houston Texans",
-        "shortName": "Texans",
-        "abbreviation": "HOU",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png"
-      },
-      "status": "in_progress",
-      "homeScore": 0,
-      "awayScore": 0,
-      "quarter": 1,
-      "clock": "9:15",
-      "possession": "away"
     },
     {
       "id": "nfl-[object Object]-401772892",
@@ -104,12 +50,12 @@
         "abbreviation": "NO",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png"
       },
-      "status": "in_progress",
-      "homeScore": 7,
-      "awayScore": 0,
-      "quarter": 1,
-      "clock": "9:01",
-      "possession": "home"
+      "status": "final",
+      "homeScore": 21,
+      "awayScore": 17,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
     },
     {
       "id": "nfl-[object Object]-401772893",
@@ -132,11 +78,65 @@
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png"
       },
       "status": "in_progress",
-      "homeScore": 0,
-      "awayScore": 0,
-      "quarter": 1,
-      "clock": "7:10",
-      "possession": "away"
+      "homeScore": 24,
+      "awayScore": 24,
+      "quarter": 4,
+      "clock": "0:12",
+      "possession": "home"
+    },
+    {
+      "id": "nfl-[object Object]-401772785",
+      "league": "NFL",
+      "season": null,
+      "week": 13,
+      "startTime": "2025-11-30T18:00Z",
+      "homeTeam": {
+        "id": "5",
+        "name": "Cleveland Browns",
+        "shortName": "Browns",
+        "abbreviation": "CLE",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png"
+      },
+      "awayTeam": {
+        "id": "25",
+        "name": "San Francisco 49ers",
+        "shortName": "49ers",
+        "abbreviation": "SF",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png"
+      },
+      "status": "final",
+      "homeScore": 8,
+      "awayScore": 26,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "nfl-[object Object]-401772787",
+      "league": "NFL",
+      "season": null,
+      "week": 13,
+      "startTime": "2025-11-30T18:00Z",
+      "homeTeam": {
+        "id": "11",
+        "name": "Indianapolis Colts",
+        "shortName": "Colts",
+        "abbreviation": "IND",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png"
+      },
+      "awayTeam": {
+        "id": "34",
+        "name": "Houston Texans",
+        "shortName": "Texans",
+        "abbreviation": "HOU",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png"
+      },
+      "status": "final",
+      "homeScore": 16,
+      "awayScore": 20,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
     },
     {
       "id": "nfl-[object Object]-401772895",
@@ -158,12 +158,12 @@
         "abbreviation": "ARI",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png"
       },
-      "status": "in_progress",
-      "homeScore": 0,
-      "awayScore": 0,
-      "quarter": 1,
-      "clock": "5:56",
-      "possession": "away"
+      "status": "final",
+      "homeScore": 20,
+      "awayScore": 17,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
     },
     {
       "id": "nfl-[object Object]-401772894",
@@ -185,12 +185,12 @@
         "abbreviation": "LAR",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png"
       },
-      "status": "in_progress",
-      "homeScore": 0,
-      "awayScore": 7,
-      "quarter": 1,
-      "clock": "7:46",
-      "possession": "home"
+      "status": "final",
+      "homeScore": 31,
+      "awayScore": 28,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
     },
     {
       "id": "nfl-[object Object]-401772896",
@@ -212,12 +212,12 @@
         "abbreviation": "MIN",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
+      "status": "in_progress",
+      "homeScore": 0,
+      "awayScore": 0,
+      "quarter": 1,
+      "clock": "12:00",
+      "possession": "away"
     },
     {
       "id": "nfl-[object Object]-401772789",
