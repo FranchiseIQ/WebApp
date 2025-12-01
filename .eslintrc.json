@@ -1,0 +1,54 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "globals": {
+    "Chart": "readonly",
+    "L": "readonly",
+    "FranResearch": "writable",
+    "APP_CONFIG": "writable",
+    "Formatters": "writable",
+    "DOM": "writable",
+    "Storage": "writable",
+    "MarketUtils": "writable",
+    "DataService": "writable",
+    "FranchiseNewsWidget": "writable",
+    "NEWS_CATEGORIES": "writable"
+  },
+  "rules": {
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["warn", "single", { "avoidEscape": true }],
+    "semi": ["warn", "always"],
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-console": "off",
+    "eqeqeq": ["warn", "always"],
+    "curly": ["warn", "all"],
+    "brace-style": ["warn", "1tbs"],
+    "comma-dangle": ["warn", "never"],
+    "no-trailing-spaces": "warn",
+    "eol-last": ["warn", "always"],
+    "no-multiple-empty-lines": ["warn", { "max": 2, "maxEOF": 1 }],
+    "space-before-blocks": "warn",
+    "keyword-spacing": "warn",
+    "space-infix-ops": "warn",
+    "arrow-spacing": "warn",
+    "prefer-const": "warn",
+    "no-var": "warn"
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    "archive/",
+    "*.min.js",
+    "vendor/"
+  ]
+}
