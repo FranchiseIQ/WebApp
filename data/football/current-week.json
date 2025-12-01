@@ -1,8 +1,62 @@
 {
   "season": 2025,
   "week": 13,
-  "lastUpdated": "2025-11-30T21:10:43.708Z",
+  "lastUpdated": "2025-12-01T03:08:58.465Z",
   "games": [
+    {
+      "id": "nfl-[object Object]-401772931",
+      "league": "NFL",
+      "season": null,
+      "week": 13,
+      "startTime": "2025-12-01T01:20Z",
+      "homeTeam": {
+        "id": "28",
+        "name": "Washington Commanders",
+        "shortName": "Commanders",
+        "abbreviation": "WSH",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png"
+      },
+      "awayTeam": {
+        "id": "7",
+        "name": "Denver Broncos",
+        "shortName": "Broncos",
+        "abbreviation": "DEN",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png"
+      },
+      "status": "in_progress",
+      "homeScore": 14,
+      "awayScore": 13,
+      "quarter": 3,
+      "clock": "9:58",
+      "possession": null
+    },
+    {
+      "id": "nfl-[object Object]-401772785",
+      "league": "NFL",
+      "season": null,
+      "week": 13,
+      "startTime": "2025-11-30T18:00Z",
+      "homeTeam": {
+        "id": "5",
+        "name": "Cleveland Browns",
+        "shortName": "Browns",
+        "abbreviation": "CLE",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png"
+      },
+      "awayTeam": {
+        "id": "25",
+        "name": "San Francisco 49ers",
+        "shortName": "49ers",
+        "abbreviation": "SF",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png"
+      },
+      "status": "final",
+      "homeScore": 8,
+      "awayScore": 26,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
     {
       "id": "nfl-[object Object]-401772786",
       "league": "NFL",
@@ -26,6 +80,33 @@
       "status": "final",
       "homeScore": 3,
       "awayScore": 25,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "nfl-[object Object]-401772787",
+      "league": "NFL",
+      "season": null,
+      "week": 13,
+      "startTime": "2025-11-30T18:00Z",
+      "homeTeam": {
+        "id": "11",
+        "name": "Indianapolis Colts",
+        "shortName": "Colts",
+        "abbreviation": "IND",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png"
+      },
+      "awayTeam": {
+        "id": "34",
+        "name": "Houston Texans",
+        "shortName": "Texans",
+        "abbreviation": "HOU",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png"
+      },
+      "status": "final",
+      "homeScore": 16,
+      "awayScore": 20,
       "quarter": 4,
       "clock": "0:00",
       "possession": null
@@ -77,63 +158,9 @@
         "abbreviation": "ATL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png"
       },
-      "status": "in_progress",
-      "homeScore": 24,
+      "status": "final",
+      "homeScore": 27,
       "awayScore": 24,
-      "quarter": 4,
-      "clock": "0:12",
-      "possession": "home"
-    },
-    {
-      "id": "nfl-[object Object]-401772785",
-      "league": "NFL",
-      "season": null,
-      "week": 13,
-      "startTime": "2025-11-30T18:00Z",
-      "homeTeam": {
-        "id": "5",
-        "name": "Cleveland Browns",
-        "shortName": "Browns",
-        "abbreviation": "CLE",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png"
-      },
-      "awayTeam": {
-        "id": "25",
-        "name": "San Francisco 49ers",
-        "shortName": "49ers",
-        "abbreviation": "SF",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png"
-      },
-      "status": "final",
-      "homeScore": 8,
-      "awayScore": 26,
-      "quarter": 4,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "nfl-[object Object]-401772787",
-      "league": "NFL",
-      "season": null,
-      "week": 13,
-      "startTime": "2025-11-30T18:00Z",
-      "homeTeam": {
-        "id": "11",
-        "name": "Indianapolis Colts",
-        "shortName": "Colts",
-        "abbreviation": "IND",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png"
-      },
-      "awayTeam": {
-        "id": "34",
-        "name": "Houston Texans",
-        "shortName": "Texans",
-        "abbreviation": "HOU",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png"
-      },
-      "status": "final",
-      "homeScore": 16,
-      "awayScore": 20,
       "quarter": 4,
       "clock": "0:00",
       "possession": null
@@ -212,12 +239,12 @@
         "abbreviation": "MIN",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png"
       },
-      "status": "in_progress",
-      "homeScore": 0,
+      "status": "final",
+      "homeScore": 26,
       "awayScore": 0,
-      "quarter": 1,
-      "clock": "12:00",
-      "possession": "away"
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
     },
     {
       "id": "nfl-[object Object]-401772789",
@@ -239,10 +266,10 @@
         "abbreviation": "BUF",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
+      "status": "final",
+      "homeScore": 7,
+      "awayScore": 26,
+      "quarter": 4,
       "clock": "0:00",
       "possession": null
     },
@@ -266,37 +293,10 @@
         "abbreviation": "LV",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "nfl-[object Object]-401772931",
-      "league": "NFL",
-      "season": null,
-      "week": 13,
-      "startTime": "2025-12-01T01:20Z",
-      "homeTeam": {
-        "id": "28",
-        "name": "Washington Commanders",
-        "shortName": "Commanders",
-        "abbreviation": "WSH",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png"
-      },
-      "awayTeam": {
-        "id": "7",
-        "name": "Denver Broncos",
-        "shortName": "Broncos",
-        "abbreviation": "DEN",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
+      "status": "final",
+      "homeScore": 31,
+      "awayScore": 14,
+      "quarter": 4,
       "clock": "0:00",
       "possession": null
     },
