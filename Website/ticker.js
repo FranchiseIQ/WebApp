@@ -7,7 +7,7 @@ const TICKER_SYMBOLS = [
   "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
   "DENN", "DIN", "DNUT", "NATH", "RRGB",
   "DRVN", "HRB", "MCW", "SERV", "ROL",
-  "PLNT", "BFT",
+  "PLNT",
   "MAR", "HLT", "H", "CHH", "WH", "VAC", "TNL",
   "RENT", "GNC",
   "ADUS", "LOPE",
