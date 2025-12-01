@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FranResearch Widget Embed</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .error {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #64748b;
+            background: #0f172a;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .error h2 {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            color: #94a3b8;
+        }
+
+        .error p {
+            font-size: 0.9em;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Widget router - loads appropriate widget based on ?id= parameter
+        const params = new URLSearchParams(window.location.search);
+        const widgetId = params.get('id');
+
+        // Available widgets
+        const widgets = {
+            'stock': 'stock-widget.html',
+            'chart': 'stock-widget.html',
+            'stocks': 'stock-widget.html',
+            'index': 'index-market-widget/index-widget.html',
+            'sp500': 'index-market-widget/index-widget.html',
+            'market': 'index-market-widget/index-widget.html'
+        };
+
+        if (widgetId && widgets[widgetId]) {
+            // Load the widget in an iframe
+            const iframe = document.createElement('iframe');
+            iframe.src = widgets[widgetId];
+            iframe.title = 'FranResearch Widget';
+            document.body.appendChild(iframe);
+        } else {
+            // Show error message for invalid widget ID
+            document.body.innerHTML = `
+                <div class="error">
+                    <div>
+                        <h2>Widget Not Found</h2>
+                        <p>Valid widget IDs: stock, index, sp500</p>
+                        <p style="margin-top: 12px; font-size: 0.8em;">
+                            Usage: embed.html?id=stock or embed.html?id=index
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

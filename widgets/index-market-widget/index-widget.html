@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>S&P 500 Index Chart - FranResearch</title>
+    <link rel="stylesheet" href="index-widget.css">
+    <!-- Lightweight Charts (TradingView OSS) -->
+    <script src="https://unpkg.com/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+    <div class="widget-container">
+        <!-- Header with symbol and price -->
+        <div class="widget-header">
+            <div class="symbol-info">
+                <div class="symbol-name">S&P 500</div>
+                <div class="symbol-label">Index</div>
+            </div>
+            <div class="price-info">
+                <div id="current-price" class="current-price">--</div>
+                <div id="price-change" class="price-change">--</div>
+            </div>
+        </div>
+
+        <!-- Time range buttons -->
+        <div class="time-range-buttons">
+            <button class="time-btn" data-range="1D">1D</button>
+            <button class="time-btn" data-range="5D">5D</button>
+            <button class="time-btn" data-range="1M">1M</button>
+            <button class="time-btn" data-range="6M">6M</button>
+            <button class="time-btn" data-range="YTD">YTD</button>
+            <button class="time-btn active" data-range="1Y">1Y</button>
+            <button class="time-btn" data-range="5Y">5Y</button>
+            <button class="time-btn" data-range="MAX">MAX</button>
+        </div>
+
+        <!-- Chart type toggle -->
+        <div class="chart-controls">
+            <button class="chart-type-btn active" data-type="line">Line</button>
+            <button class="chart-type-btn" data-type="candlestick">Candles</button>
+        </div>
+
+        <!-- Chart container -->
+        <div class="chart-wrapper">
+            <div id="chart-container"></div>
+
+            <!-- Tooltip -->
+            <div id="chart-tooltip" class="chart-tooltip"></div>
+
+            <!-- Loading overlay -->
+            <div id="loading-overlay" class="loading-overlay">
+                <div class="spinner"></div>
+            </div>
+
+            <!-- Error message -->
+            <div id="error-message" class="error-message"></div>
+        </div>
+    </div>
+
+    <script src="index-widget.js"></script>
+</body>
+</html>
