@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-11-30T21:09:11.770Z",
+  "lastUpdated": "2025-12-01T01:01:19.341Z",
   "games": [
     {
       "id": "nba-2026-401810156",
@@ -21,11 +21,11 @@
         "abbreviation": "HOU",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/hou.png"
       },
-      "status": "in_progress",
-      "homeScore": 45,
-      "awayScore": 65,
-      "period": 2,
-      "clock": "40.4",
+      "status": "final",
+      "homeScore": 101,
+      "awayScore": 129,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Delta Center"
     },
     {
@@ -47,11 +47,11 @@
         "abbreviation": "BOS",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bos.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 91,
+      "awayScore": 97,
+      "period": 4,
+      "clock": "6:17",
       "venue": "Rocket Arena"
     },
     {
@@ -73,11 +73,11 @@
         "abbreviation": "TOR",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/tor.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 99,
+      "awayScore": 83,
+      "period": 4,
+      "clock": "9:45",
       "venue": "Madison Square Garden"
     },
     {
@@ -99,11 +99,11 @@
         "abbreviation": "ATL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/atl.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 89,
+      "awayScore": 96,
+      "period": 4,
+      "clock": "8:53",
       "venue": "Xfinity Mobile Arena"
     },
     {
@@ -125,11 +125,11 @@
         "abbreviation": "OKC",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/okc.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 87,
+      "awayScore": 93,
+      "period": 4,
+      "clock": "10:24",
       "venue": "Moda Center"
     },
     {
@@ -151,10 +151,10 @@
         "abbreviation": "SA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
+      "status": "in_progress",
+      "homeScore": 61,
+      "awayScore": 62,
+      "period": 2,
       "clock": "0.0",
       "venue": "Target Center"
     },
