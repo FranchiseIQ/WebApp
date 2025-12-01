@@ -11,7 +11,7 @@
       "low": 310.69,
       "open": 312.37,
       "previousClose": 312.4,
-      "timestamp": 1764363586,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "YUM": {
@@ -25,7 +25,7 @@
       "low": 153.06,
       "open": 153.06,
       "previousClose": 153.8,
-      "timestamp": 1764361800,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "QSR": {
@@ -39,7 +39,7 @@
       "low": 71.96,
       "open": 72.28,
       "previousClose": 72.22,
-      "timestamp": 1764362973,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "WEN": {
@@ -109,7 +109,7 @@
       "low": 87.2,
       "open": 88.44,
       "previousClose": 88.48,
-      "timestamp": 1764361800,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "DENN": {
@@ -137,7 +137,7 @@
       "low": 30.81,
       "open": 31.25,
       "previousClose": 31.29,
-      "timestamp": 1764361800,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "DNUT": {
@@ -151,7 +151,7 @@
       "low": 4.05,
       "open": 4.11,
       "previousClose": 4.11,
-      "timestamp": 1764363081,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "NATH": {
@@ -207,7 +207,7 @@
       "low": 41.49,
       "open": 41.72,
       "previousClose": 41.72,
-      "timestamp": 1764361800,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "MCW": {
@@ -263,7 +263,7 @@
       "low": 111.51,
       "open": 111.71,
       "previousClose": 111.84,
-      "timestamp": 1764361800,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "MAR": {
@@ -291,7 +291,7 @@
       "low": 284.21,
       "open": 285,
       "previousClose": 285.77,
-      "timestamp": 1764361800,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "H": {
@@ -305,7 +305,7 @@
       "low": 163.59,
       "open": 166.03,
       "previousClose": 166.05,
-      "timestamp": 1764361800,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "CHH": {
@@ -319,7 +319,7 @@
       "low": 90.72,
       "open": 91.17,
       "previousClose": 91.41,
-      "timestamp": 1764361800,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "WH": {
@@ -333,7 +333,7 @@
       "low": 72.97,
       "open": 73.6,
       "previousClose": 73.84,
-      "timestamp": 1764361800,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "VAC": {
@@ -347,7 +347,7 @@
       "low": 54.5,
       "open": 54.87,
       "previousClose": 54.87,
-      "timestamp": 1764361800,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "TNL": {
@@ -361,7 +361,7 @@
       "low": 68.21,
       "open": 68.24,
       "previousClose": 68.35,
-      "timestamp": 1764361800,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "RENT": {
@@ -403,7 +403,7 @@
       "low": 155.87,
       "open": 157.36,
       "previousClose": 156.43,
-      "timestamp": 1764352801,
+      "timestamp": 1764363600,
       "source": "finnhub"
     },
     "PLAY": {
@@ -431,11 +431,11 @@
       "low": 7.3,
       "open": 7.31,
       "previousClose": 7.31,
-      "timestamp": 1764361800,
+      "timestamp": 1764363600,
       "source": "finnhub"
     }
   },
-  "fetchedAt": "2025-11-28T21:15:22.063977Z",
+  "fetchedAt": "2025-12-01T14:23:06.796739Z",
   "count": 31,
   "source": "finnhub"
 }
