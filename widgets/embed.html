@@ -59,7 +59,10 @@
         const widgets = {
             'stock': 'stock-widget.html',
             'chart': 'stock-widget.html',
-            'stocks': 'stock-widget.html'
+            'stocks': 'stock-widget.html',
+            'index': 'index-market-widget/index-widget.html',
+            'sp500': 'index-market-widget/index-widget.html',
+            'market': 'index-market-widget/index-widget.html'
         };
 
         if (widgetId && widgets[widgetId]) {
@@ -74,9 +77,9 @@
                 <div class="error">
                     <div>
                         <h2>Widget Not Found</h2>
-                        <p>Valid widget IDs: stock</p>
+                        <p>Valid widget IDs: stock, index, sp500</p>
                         <p style="margin-top: 12px; font-size: 0.8em;">
-                            Usage: embed.html?id=stock
+                            Usage: embed.html?id=stock or embed.html?id=index
                         </p>
                     </div>
                 </div>
