@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-01T21:09:08.813Z",
+  "lastUpdated": "2025-12-02T00:51:47.261Z",
   "games": [
     {
       "id": "nba-2026-401810164",
@@ -21,11 +21,11 @@
         "abbreviation": "ATL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/atl.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 39,
+      "awayScore": 35,
+      "period": 2,
+      "clock": "6:26",
       "venue": "Little Caesars Arena"
     },
     {
@@ -47,11 +47,11 @@
         "abbreviation": "CLE",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cle.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 32,
+      "awayScore": 53,
+      "period": 2,
+      "clock": "6:58",
       "venue": "Gainbridge Fieldhouse"
     },
     {
@@ -73,11 +73,11 @@
         "abbreviation": "MIL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mil.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 43,
+      "awayScore": 44,
+      "period": 2,
+      "clock": "6:36",
       "venue": "Capital One Arena"
     },
     {
@@ -99,11 +99,11 @@
         "abbreviation": "CHA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cha.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 16,
+      "awayScore": 17,
+      "period": 1,
+      "clock": "6:57",
       "venue": "Barclays Center"
     },
     {
@@ -125,11 +125,11 @@
         "abbreviation": "LAC",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lac.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 14,
+      "awayScore": 8,
+      "period": 1,
+      "clock": "7:01",
       "venue": "Kaseya Center"
     },
     {
@@ -151,11 +151,11 @@
         "abbreviation": "CHI",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/chi.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 11,
+      "awayScore": 13,
+      "period": 1,
+      "clock": "6:50",
       "venue": "Kia Center"
     },
     {
