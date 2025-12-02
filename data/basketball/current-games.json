@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-02T00:51:47.261Z",
+  "lastUpdated": "2025-12-02T03:46:04.661Z",
   "games": [
     {
       "id": "nba-2026-401810164",
@@ -21,11 +21,11 @@
         "abbreviation": "ATL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/atl.png"
       },
-      "status": "in_progress",
-      "homeScore": 39,
-      "awayScore": 35,
-      "period": 2,
-      "clock": "6:26",
+      "status": "final",
+      "homeScore": 99,
+      "awayScore": 98,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Little Caesars Arena"
     },
     {
@@ -47,11 +47,11 @@
         "abbreviation": "CLE",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cle.png"
       },
-      "status": "in_progress",
-      "homeScore": 32,
-      "awayScore": 53,
-      "period": 2,
-      "clock": "6:58",
+      "status": "final",
+      "homeScore": 119,
+      "awayScore": 135,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Gainbridge Fieldhouse"
     },
     {
@@ -73,11 +73,11 @@
         "abbreviation": "MIL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mil.png"
       },
-      "status": "in_progress",
-      "homeScore": 43,
-      "awayScore": 44,
-      "period": 2,
-      "clock": "6:36",
+      "status": "final",
+      "homeScore": 129,
+      "awayScore": 126,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Capital One Arena"
     },
     {
@@ -99,11 +99,11 @@
         "abbreviation": "CHA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cha.png"
       },
-      "status": "in_progress",
-      "homeScore": 16,
-      "awayScore": 17,
-      "period": 1,
-      "clock": "6:57",
+      "status": "final",
+      "homeScore": 116,
+      "awayScore": 103,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Barclays Center"
     },
     {
@@ -125,11 +125,11 @@
         "abbreviation": "LAC",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lac.png"
       },
-      "status": "in_progress",
-      "homeScore": 14,
-      "awayScore": 8,
-      "period": 1,
-      "clock": "7:01",
+      "status": "final",
+      "homeScore": 140,
+      "awayScore": 123,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Kaseya Center"
     },
     {
@@ -151,11 +151,11 @@
         "abbreviation": "CHI",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/chi.png"
       },
-      "status": "in_progress",
-      "homeScore": 11,
-      "awayScore": 13,
-      "period": 1,
-      "clock": "6:50",
+      "status": "final",
+      "homeScore": 125,
+      "awayScore": 120,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Kia Center"
     },
     {
@@ -177,11 +177,11 @@
         "abbreviation": "DAL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/dal.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 103,
+      "awayScore": 100,
+      "period": 3,
+      "clock": "38.2",
       "venue": "Ball Arena"
     },
     {
@@ -203,11 +203,11 @@
         "abbreviation": "HOU",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/hou.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 92,
+      "awayScore": 75,
+      "period": 3,
+      "clock": "2:51",
       "venue": "Delta Center"
     },
     {
@@ -229,11 +229,11 @@
         "abbreviation": "PHX",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phx.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 33,
+      "awayScore": 31,
+      "period": 2,
+      "clock": "10:25",
       "venue": "crypto.com Arena"
     }
   ]
