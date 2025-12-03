@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-03T00:51:49.650Z",
+  "lastUpdated": "2025-12-03T03:45:03.941Z",
   "games": [
     {
       "id": "nba-2026-401810173",
@@ -21,11 +21,11 @@
         "abbreviation": "WSH",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/wsh.png"
       },
-      "status": "in_progress",
-      "homeScore": 58,
-      "awayScore": 47,
-      "period": 2,
-      "clock": "5:23",
+      "status": "final",
+      "homeScore": 121,
+      "awayScore": 102,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Xfinity Mobile Arena"
     },
     {
@@ -47,11 +47,11 @@
         "abbreviation": "POR",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/por.png"
       },
-      "status": "in_progress",
-      "homeScore": 13,
-      "awayScore": 15,
-      "period": 1,
-      "clock": "7:47",
+      "status": "final",
+      "homeScore": 121,
+      "awayScore": 118,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Scotiabank Arena"
     },
     {
@@ -73,10 +73,10 @@
         "abbreviation": "NY",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ny.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
+      "status": "final",
+      "homeScore": 123,
+      "awayScore": 117,
+      "period": 4,
       "clock": "0.0",
       "venue": "TD Garden"
     },
@@ -99,10 +99,10 @@
         "abbreviation": "MIN",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/min.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
+      "status": "final",
+      "homeScore": 142,
+      "awayScore": 149,
+      "period": 5,
       "clock": "0.0",
       "venue": "Smoothie King Center"
     },
@@ -125,10 +125,10 @@
         "abbreviation": "MEM",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mem.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
+      "status": "final",
+      "homeScore": 126,
+      "awayScore": 119,
+      "period": 4,
       "clock": "0.0",
       "venue": "Frost Bank Center"
     },
