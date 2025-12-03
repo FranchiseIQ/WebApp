@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-03T03:45:03.941Z",
+  "lastUpdated": "2025-12-03T06:17:39.945Z",
   "games": [
     {
       "id": "nba-2026-401810173",
@@ -77,7 +77,7 @@
       "homeScore": 123,
       "awayScore": 117,
       "period": 4,
-      "clock": "0.0",
+      "clock": "12:00",
       "venue": "TD Garden"
     },
     {
@@ -103,7 +103,7 @@
       "homeScore": 142,
       "awayScore": 149,
       "period": 5,
-      "clock": "0.0",
+      "clock": "5:00",
       "venue": "Smoothie King Center"
     },
     {
@@ -129,7 +129,7 @@
       "homeScore": 126,
       "awayScore": 119,
       "period": 4,
-      "clock": "0.0",
+      "clock": "12:00",
       "venue": "Frost Bank Center"
     },
     {
@@ -151,11 +151,11 @@
         "abbreviation": "OKC",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/okc.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 107,
+      "awayScore": 108,
+      "period": 4,
+      "clock": "4:37",
       "venue": "Chase Center"
     }
   ]
