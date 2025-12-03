@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-03T06:17:39.945Z",
+  "lastUpdated": "2025-12-03T09:15:28.586Z",
   "games": [
     {
       "id": "nba-2026-401810173",
@@ -151,11 +151,11 @@
         "abbreviation": "OKC",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/okc.png"
       },
-      "status": "in_progress",
-      "homeScore": 107,
-      "awayScore": 108,
+      "status": "final",
+      "homeScore": 112,
+      "awayScore": 124,
       "period": 4,
-      "clock": "4:37",
+      "clock": "12:00",
       "venue": "Chase Center"
     }
   ]
