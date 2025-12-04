@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-04T03:46:50.934Z",
+  "lastUpdated": "2025-12-04T06:17:28.770Z",
   "games": [
     {
       "id": "nba-2026-401810179",
@@ -229,11 +229,11 @@
         "abbreviation": "MIA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mia.png"
       },
-      "status": "in_progress",
+      "status": "final",
       "homeScore": 118,
       "awayScore": 108,
       "period": 4,
-      "clock": "0.0",
+      "clock": "12:00",
       "venue": "American Airlines Center"
     }
   ]
