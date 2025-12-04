@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-03T21:10:08.963Z",
+  "lastUpdated": "2025-12-04T00:51:49.410Z",
   "games": [
     {
       "id": "nba-2026-401810179",
@@ -21,11 +21,11 @@
         "abbreviation": "POR",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/por.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 43,
+      "awayScore": 42,
+      "period": 2,
+      "clock": "6:29",
       "venue": "Rocket Arena"
     },
     {
@@ -47,11 +47,11 @@
         "abbreviation": "DEN",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/den.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 39,
+      "awayScore": 46,
+      "period": 2,
+      "clock": "7:24",
       "venue": "Gainbridge Fieldhouse"
     },
     {
@@ -73,11 +73,11 @@
         "abbreviation": "SA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 38,
+      "awayScore": 44,
+      "period": 2,
+      "clock": "6:23",
       "venue": "Kia Center"
     },
     {
@@ -99,11 +99,11 @@
         "abbreviation": "LAC",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lac.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 8,
+      "awayScore": 14,
+      "period": 1,
+      "clock": "6:56",
       "venue": "State Farm Arena"
     },
     {
@@ -125,11 +125,11 @@
         "abbreviation": "CHA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cha.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 12,
+      "awayScore": 7,
+      "period": 1,
+      "clock": "6:05",
       "venue": "Madison Square Garden"
     },
     {
