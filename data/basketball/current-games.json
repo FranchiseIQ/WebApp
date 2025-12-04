@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-04T00:51:49.410Z",
+  "lastUpdated": "2025-12-04T03:46:50.934Z",
   "games": [
     {
       "id": "nba-2026-401810179",
@@ -21,11 +21,11 @@
         "abbreviation": "POR",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/por.png"
       },
-      "status": "in_progress",
-      "homeScore": 43,
-      "awayScore": 42,
-      "period": 2,
-      "clock": "6:29",
+      "status": "final",
+      "homeScore": 110,
+      "awayScore": 122,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Rocket Arena"
     },
     {
@@ -47,11 +47,11 @@
         "abbreviation": "DEN",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/den.png"
       },
-      "status": "in_progress",
-      "homeScore": 39,
-      "awayScore": 46,
-      "period": 2,
-      "clock": "7:24",
+      "status": "final",
+      "homeScore": 120,
+      "awayScore": 135,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Gainbridge Fieldhouse"
     },
     {
@@ -73,11 +73,11 @@
         "abbreviation": "SA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png"
       },
-      "status": "in_progress",
-      "homeScore": 38,
-      "awayScore": 44,
-      "period": 2,
-      "clock": "6:23",
+      "status": "final",
+      "homeScore": 112,
+      "awayScore": 114,
+      "period": 4,
+      "clock": "0.0",
       "venue": "Kia Center"
     },
     {
@@ -99,11 +99,11 @@
         "abbreviation": "LAC",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lac.png"
       },
-      "status": "in_progress",
-      "homeScore": 8,
-      "awayScore": 14,
-      "period": 1,
-      "clock": "6:56",
+      "status": "final",
+      "homeScore": 92,
+      "awayScore": 115,
+      "period": 4,
+      "clock": "12:00",
       "venue": "State Farm Arena"
     },
     {
@@ -125,11 +125,11 @@
         "abbreviation": "CHA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cha.png"
       },
-      "status": "in_progress",
-      "homeScore": 12,
-      "awayScore": 7,
-      "period": 1,
-      "clock": "6:05",
+      "status": "final",
+      "homeScore": 119,
+      "awayScore": 104,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Madison Square Garden"
     },
     {
@@ -151,11 +151,11 @@
         "abbreviation": "BKN",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bkn.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "final",
+      "homeScore": 103,
+      "awayScore": 113,
+      "period": 4,
+      "clock": "12:00",
       "venue": "United Center"
     },
     {
@@ -177,11 +177,11 @@
         "abbreviation": "SAC",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sac.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "final",
+      "homeScore": 121,
+      "awayScore": 95,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Toyota Center (Houston)"
     },
     {
@@ -203,11 +203,11 @@
         "abbreviation": "DET",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/det.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "final",
+      "homeScore": 113,
+      "awayScore": 109,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Fiserv Forum"
     },
     {
@@ -229,10 +229,10 @@
         "abbreviation": "MIA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mia.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
+      "status": "in_progress",
+      "homeScore": 118,
+      "awayScore": 108,
+      "period": 4,
       "clock": "0.0",
       "venue": "American Airlines Center"
     }
