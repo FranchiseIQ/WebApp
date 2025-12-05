@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-05T00:52:32.884Z",
+  "lastUpdated": "2025-12-05T03:45:52.412Z",
   "games": [
     {
       "id": "nba-2026-401810188",
@@ -21,11 +21,11 @@
         "abbreviation": "GS",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png"
       },
-      "status": "in_progress",
-      "homeScore": 41,
-      "awayScore": 25,
-      "period": 2,
-      "clock": "5:02",
+      "status": "final",
+      "homeScore": 99,
+      "awayScore": 98,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Xfinity Mobile Arena"
     },
     {
@@ -47,11 +47,11 @@
         "abbreviation": "BOS",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bos.png"
       },
-      "status": "in_progress",
-      "homeScore": 37,
-      "awayScore": 48,
-      "period": 2,
-      "clock": "6:41",
+      "status": "final",
+      "homeScore": 101,
+      "awayScore": 146,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Capital One Arena"
     },
     {
@@ -73,11 +73,11 @@
         "abbreviation": "UTAH",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/utah.png"
       },
-      "status": "in_progress",
-      "homeScore": 11,
-      "awayScore": 12,
-      "period": 1,
-      "clock": "6:27",
+      "status": "final",
+      "homeScore": 110,
+      "awayScore": 123,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Barclays Center"
     },
     {
@@ -99,11 +99,11 @@
         "abbreviation": "LAL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png"
       },
-      "status": "in_progress",
-      "homeScore": 10,
-      "awayScore": 15,
-      "period": 1,
-      "clock": "6:05",
+      "status": "final",
+      "homeScore": 120,
+      "awayScore": 123,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Scotiabank Arena"
     },
     {
@@ -125,11 +125,11 @@
         "abbreviation": "MIN",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/min.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "final",
+      "homeScore": 116,
+      "awayScore": 125,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Smoothie King Center"
     }
   ]
