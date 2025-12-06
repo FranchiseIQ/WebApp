@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-06T03:37:02.621Z",
+  "lastUpdated": "2025-12-06T06:15:18.799Z",
   "games": [
     {
       "id": "nba-2026-401810193",
@@ -307,11 +307,11 @@
         "abbreviation": "DAL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/dal.png"
       },
-      "status": "in_progress",
-      "homeScore": 47,
-      "awayScore": 43,
-      "period": 2,
-      "clock": "3:46",
+      "status": "final",
+      "homeScore": 132,
+      "awayScore": 111,
+      "period": 4,
+      "clock": "0.0",
       "venue": "Paycom Center"
     }
   ]
