@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-05T21:10:00.894Z",
+  "lastUpdated": "2025-12-06T00:48:38.893Z",
   "games": [
     {
       "id": "nba-2026-401810193",
@@ -21,11 +21,11 @@
         "abbreviation": "LAL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 51,
+      "awayScore": 23,
+      "period": 2,
+      "clock": "9:21",
       "venue": "TD Garden"
     },
     {
@@ -47,11 +47,11 @@
         "abbreviation": "MIA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mia.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 40,
+      "awayScore": 42,
+      "period": 2,
+      "clock": "7:03",
       "venue": "Kia Center"
     },
     {
@@ -73,11 +73,11 @@
         "abbreviation": "DEN",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/den.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 17,
+      "awayScore": 11,
+      "period": 1,
+      "clock": "6:55",
       "venue": "State Farm Arena"
     },
     {
@@ -99,11 +99,11 @@
         "abbreviation": "SA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 9,
+      "awayScore": 14,
+      "period": 1,
+      "clock": "7:52",
       "venue": "Rocket Arena"
     },
     {
@@ -125,11 +125,11 @@
         "abbreviation": "POR",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/por.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 3,
+      "awayScore": 4,
+      "period": 1,
+      "clock": "10:32",
       "venue": "Little Caesars Arena"
     },
     {
@@ -151,11 +151,11 @@
         "abbreviation": "UTAH",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/utah.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 11,
+      "awayScore": 0,
+      "period": 1,
+      "clock": "7:52",
       "venue": "Madison Square Garden"
     },
     {
@@ -177,11 +177,11 @@
         "abbreviation": "CHA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cha.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 2,
+      "awayScore": 2,
+      "period": 1,
+      "clock": "11:20",
       "venue": "Scotiabank Arena"
     },
     {
