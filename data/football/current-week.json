@@ -1,35 +1,8 @@
 {
   "season": 2025,
   "week": 14,
-  "lastUpdated": "2025-12-04T23:23:55.133Z",
+  "lastUpdated": "2025-12-07T18:17:36.438Z",
   "games": [
-    {
-      "id": "nfl-[object Object]-401772947",
-      "league": "NFL",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-12-05T01:15Z",
-      "homeTeam": {
-        "id": "8",
-        "name": "Detroit Lions",
-        "shortName": "Lions",
-        "abbreviation": "DET",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png"
-      },
-      "awayTeam": {
-        "id": "6",
-        "name": "Dallas Cowboys",
-        "shortName": "Cowboys",
-        "abbreviation": "DAL",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
     {
       "id": "nfl-[object Object]-401772900",
       "league": "NFL",
@@ -50,12 +23,12 @@
         "abbreviation": "SEA",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
+      "status": "in_progress",
+      "homeScore": 0,
+      "awayScore": 0,
+      "quarter": 1,
+      "clock": "7:17",
+      "possession": "home"
     },
     {
       "id": "nfl-[object Object]-401772902",
@@ -77,92 +50,11 @@
         "abbreviation": "CIN",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "nfl-[object Object]-401772898",
-      "league": "NFL",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-12-07T18:00Z",
-      "homeTeam": {
-        "id": "5",
-        "name": "Cleveland Browns",
-        "shortName": "Browns",
-        "abbreviation": "CLE",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png"
-      },
-      "awayTeam": {
-        "id": "10",
-        "name": "Tennessee Titans",
-        "shortName": "Titans",
-        "abbreviation": "TEN",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "nfl-[object Object]-401772899",
-      "league": "NFL",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-12-07T18:00Z",
-      "homeTeam": {
-        "id": "16",
-        "name": "Minnesota Vikings",
-        "shortName": "Vikings",
-        "abbreviation": "MIN",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png"
-      },
-      "awayTeam": {
-        "id": "28",
-        "name": "Washington Commanders",
-        "shortName": "Commanders",
-        "abbreviation": "WSH",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "nfl-[object Object]-401772790",
-      "league": "NFL",
-      "season": null,
-      "week": 14,
-      "startTime": "2025-12-07T18:00Z",
-      "homeTeam": {
-        "id": "20",
-        "name": "New York Jets",
-        "shortName": "Jets",
-        "abbreviation": "NYJ",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png"
-      },
-      "awayTeam": {
-        "id": "15",
-        "name": "Miami Dolphins",
-        "shortName": "Dolphins",
-        "abbreviation": "MIA",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
+      "status": "in_progress",
+      "homeScore": 0,
+      "awayScore": 7,
+      "quarter": 1,
+      "clock": "6:44",
       "possession": null
     },
     {
@@ -185,11 +77,11 @@
         "abbreviation": "NO",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
+      "status": "in_progress",
+      "homeScore": 7,
+      "awayScore": 7,
+      "quarter": 1,
+      "clock": "7:57",
       "possession": null
     },
     {
@@ -212,12 +104,93 @@
         "abbreviation": "IND",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
+      "status": "in_progress",
+      "homeScore": 7,
+      "awayScore": 0,
+      "quarter": 1,
+      "clock": "10:39",
       "possession": null
+    },
+    {
+      "id": "nfl-[object Object]-401772898",
+      "league": "NFL",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-12-07T18:00Z",
+      "homeTeam": {
+        "id": "5",
+        "name": "Cleveland Browns",
+        "shortName": "Browns",
+        "abbreviation": "CLE",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png"
+      },
+      "awayTeam": {
+        "id": "10",
+        "name": "Tennessee Titans",
+        "shortName": "Titans",
+        "abbreviation": "TEN",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png"
+      },
+      "status": "in_progress",
+      "homeScore": 0,
+      "awayScore": 7,
+      "quarter": 1,
+      "clock": "7:07",
+      "possession": "away"
+    },
+    {
+      "id": "nfl-[object Object]-401772899",
+      "league": "NFL",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-12-07T18:00Z",
+      "homeTeam": {
+        "id": "16",
+        "name": "Minnesota Vikings",
+        "shortName": "Vikings",
+        "abbreviation": "MIN",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png"
+      },
+      "awayTeam": {
+        "id": "28",
+        "name": "Washington Commanders",
+        "shortName": "Commanders",
+        "abbreviation": "WSH",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png"
+      },
+      "status": "in_progress",
+      "homeScore": 7,
+      "awayScore": 0,
+      "quarter": 1,
+      "clock": "7:46",
+      "possession": "away"
+    },
+    {
+      "id": "nfl-[object Object]-401772790",
+      "league": "NFL",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-12-07T18:00Z",
+      "homeTeam": {
+        "id": "20",
+        "name": "New York Jets",
+        "shortName": "Jets",
+        "abbreviation": "NYJ",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png"
+      },
+      "awayTeam": {
+        "id": "15",
+        "name": "Miami Dolphins",
+        "shortName": "Dolphins",
+        "abbreviation": "MIA",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png"
+      },
+      "status": "in_progress",
+      "homeScore": 0,
+      "awayScore": 7,
+      "quarter": 1,
+      "clock": "11:00",
+      "possession": "away"
     },
     {
       "id": "nfl-[object Object]-401772791",
@@ -239,11 +212,11 @@
         "abbreviation": "PIT",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
+      "status": "in_progress",
+      "homeScore": 3,
+      "awayScore": 0,
+      "quarter": 1,
+      "clock": "10:58",
       "possession": null
     },
     {
@@ -355,6 +328,33 @@
       "possession": null
     },
     {
+      "id": "nfl-[object Object]-401772947",
+      "league": "NFL",
+      "season": null,
+      "week": 14,
+      "startTime": "2025-12-05T01:15Z",
+      "homeTeam": {
+        "id": "8",
+        "name": "Detroit Lions",
+        "shortName": "Lions",
+        "abbreviation": "DET",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png"
+      },
+      "awayTeam": {
+        "id": "6",
+        "name": "Dallas Cowboys",
+        "shortName": "Cowboys",
+        "abbreviation": "DAL",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png"
+      },
+      "status": "final",
+      "homeScore": 44,
+      "awayScore": 30,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
       "id": "nfl-[object Object]-401772822",
       "league": "NFL",
       "season": null,
@@ -373,33 +373,6 @@
         "shortName": "Eagles",
         "abbreviation": "PHI",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401777352",
-      "league": "NCAA",
-      "season": null,
-      "week": 15,
-      "startTime": "2025-12-06T00:00Z",
-      "homeTeam": {
-        "id": "256",
-        "name": "James Madison Dukes",
-        "shortName": "James Madison",
-        "abbreviation": "JMU",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/256.png"
-      },
-      "awayTeam": {
-        "id": "2653",
-        "name": "Troy Trojans",
-        "shortName": "Troy",
-        "abbreviation": "TROY",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2653.png"
       },
       "status": "scheduled",
       "homeScore": null,
@@ -428,64 +401,37 @@
         "abbreviation": "UNT",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/249.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
+      "status": "final",
+      "homeScore": 34,
+      "awayScore": 21,
+      "quarter": 4,
       "clock": "0:00",
       "possession": null
     },
     {
-      "id": "ncaa-[object Object]-401777327",
+      "id": "ncaa-[object Object]-401777352",
       "league": "NCAA",
       "season": null,
       "week": 15,
-      "startTime": "2025-12-06T17:00Z",
+      "startTime": "2025-12-06T00:00Z",
       "homeTeam": {
-        "id": "2641",
-        "name": "Texas Tech Red Raiders",
-        "shortName": "Texas Tech",
-        "abbreviation": "TTU",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2641.png"
+        "id": "256",
+        "name": "James Madison Dukes",
+        "shortName": "James Madison",
+        "abbreviation": "JMU",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/256.png"
       },
       "awayTeam": {
-        "id": "252",
-        "name": "BYU Cougars",
-        "shortName": "BYU",
-        "abbreviation": "BYU",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png"
+        "id": "2653",
+        "name": "Troy Trojans",
+        "shortName": "Troy",
+        "abbreviation": "TROY",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2653.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
-      "clock": "0:00",
-      "possession": null
-    },
-    {
-      "id": "ncaa-[object Object]-401777351",
-      "league": "NCAA",
-      "season": null,
-      "week": 15,
-      "startTime": "2025-12-06T21:00Z",
-      "homeTeam": {
-        "id": "333",
-        "name": "Alabama Crimson Tide",
-        "shortName": "Alabama",
-        "abbreviation": "ALA",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/333.png"
-      },
-      "awayTeam": {
-        "id": "61",
-        "name": "Georgia Bulldogs",
-        "shortName": "Georgia",
-        "abbreviation": "UGA",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/61.png"
-      },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
+      "status": "final",
+      "homeScore": 31,
+      "awayScore": 14,
+      "quarter": 4,
       "clock": "0:00",
       "possession": null
     },
@@ -509,10 +455,64 @@
         "abbreviation": "IU",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/84.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
+      "status": "final",
+      "homeScore": 10,
+      "awayScore": 13,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401777351",
+      "league": "NCAA",
+      "season": null,
+      "week": 15,
+      "startTime": "2025-12-06T21:00Z",
+      "homeTeam": {
+        "id": "333",
+        "name": "Alabama Crimson Tide",
+        "shortName": "Alabama",
+        "abbreviation": "ALA",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/333.png"
+      },
+      "awayTeam": {
+        "id": "61",
+        "name": "Georgia Bulldogs",
+        "shortName": "Georgia",
+        "abbreviation": "UGA",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/61.png"
+      },
+      "status": "final",
+      "homeScore": 7,
+      "awayScore": 28,
+      "quarter": 4,
+      "clock": "0:00",
+      "possession": null
+    },
+    {
+      "id": "ncaa-[object Object]-401777327",
+      "league": "NCAA",
+      "season": null,
+      "week": 15,
+      "startTime": "2025-12-06T17:00Z",
+      "homeTeam": {
+        "id": "2641",
+        "name": "Texas Tech Red Raiders",
+        "shortName": "Texas Tech",
+        "abbreviation": "TTU",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2641.png"
+      },
+      "awayTeam": {
+        "id": "252",
+        "name": "BYU Cougars",
+        "shortName": "BYU",
+        "abbreviation": "BYU",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png"
+      },
+      "status": "final",
+      "homeScore": 34,
+      "awayScore": 7,
+      "quarter": 4,
       "clock": "0:00",
       "possession": null
     },
@@ -536,10 +536,10 @@
         "abbreviation": "DUKE",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/150.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "quarter": null,
+      "status": "final",
+      "homeScore": 20,
+      "awayScore": 27,
+      "quarter": 5,
       "clock": "0:00",
       "possession": null
     }
