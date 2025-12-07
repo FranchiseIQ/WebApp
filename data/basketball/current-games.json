@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-06T21:08:45.584Z",
+  "lastUpdated": "2025-12-07T00:57:08.197Z",
   "games": [
     {
       "id": "nba-2026-401810205",
@@ -21,11 +21,11 @@
         "abbreviation": "NO",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/no.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "final",
+      "homeScore": 119,
+      "awayScore": 101,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Barclays Center"
     },
     {
@@ -47,11 +47,11 @@
         "abbreviation": "ATL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/atl.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 41,
+      "awayScore": 54,
+      "period": 2,
+      "clock": "5:18",
       "venue": "Capital One Arena"
     },
     {
@@ -73,11 +73,11 @@
         "abbreviation": "GS",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 10,
+      "awayScore": 12,
+      "period": 1,
+      "clock": "4:40",
       "venue": "Rocket Arena"
     },
     {
@@ -99,11 +99,11 @@
         "abbreviation": "MIL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mil.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "in_progress",
+      "homeScore": 16,
+      "awayScore": 18,
+      "period": 1,
+      "clock": "4:44",
       "venue": "Little Caesars Arena"
     },
     {
