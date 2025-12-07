@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-07T03:52:55.460Z",
+  "lastUpdated": "2025-12-07T06:15:01.576Z",
   "games": [
     {
       "id": "nba-2026-401810205",
@@ -155,7 +155,7 @@
       "homeScore": 109,
       "awayScore": 106,
       "period": 4,
-      "clock": "0.0",
+      "clock": "12:00",
       "venue": "Target Center"
     },
     {
@@ -181,7 +181,7 @@
       "homeScore": 122,
       "awayScore": 109,
       "period": 4,
-      "clock": "0.0",
+      "clock": "12:00",
       "venue": "American Airlines Center"
     }
   ]
