@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-07T00:57:08.197Z",
+  "lastUpdated": "2025-12-07T03:52:55.460Z",
   "games": [
     {
       "id": "nba-2026-401810205",
@@ -47,11 +47,11 @@
         "abbreviation": "ATL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/atl.png"
       },
-      "status": "in_progress",
-      "homeScore": 41,
-      "awayScore": 54,
-      "period": 2,
-      "clock": "5:18",
+      "status": "final",
+      "homeScore": 116,
+      "awayScore": 131,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Capital One Arena"
     },
     {
@@ -73,11 +73,11 @@
         "abbreviation": "GS",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png"
       },
-      "status": "in_progress",
-      "homeScore": 10,
-      "awayScore": 12,
-      "period": 1,
-      "clock": "4:40",
+      "status": "final",
+      "homeScore": 94,
+      "awayScore": 99,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Rocket Arena"
     },
     {
@@ -99,11 +99,11 @@
         "abbreviation": "MIL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mil.png"
       },
-      "status": "in_progress",
-      "homeScore": 16,
-      "awayScore": 18,
-      "period": 1,
-      "clock": "4:44",
+      "status": "final",
+      "homeScore": 124,
+      "awayScore": 112,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Little Caesars Arena"
     },
     {
@@ -125,11 +125,11 @@
         "abbreviation": "SAC",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sac.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "final",
+      "homeScore": 111,
+      "awayScore": 127,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Kaseya Center"
     },
     {
@@ -151,10 +151,10 @@
         "abbreviation": "LAC",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lac.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
+      "status": "final",
+      "homeScore": 109,
+      "awayScore": 106,
+      "period": 4,
       "clock": "0.0",
       "venue": "Target Center"
     },
@@ -177,10 +177,10 @@
         "abbreviation": "HOU",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/hou.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
+      "status": "final",
+      "homeScore": 122,
+      "awayScore": 109,
+      "period": 4,
       "clock": "0.0",
       "venue": "American Airlines Center"
     }
