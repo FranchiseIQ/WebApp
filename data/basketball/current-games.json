@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-07T18:14:14.842Z",
+  "lastUpdated": "2025-12-07T21:08:30.413Z",
   "games": [
     {
       "id": "nba-2026-401810212",
@@ -21,11 +21,11 @@
         "abbreviation": "ORL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/orl.png"
       },
-      "status": "in_progress",
-      "homeScore": 54,
-      "awayScore": 55,
-      "period": 2,
-      "clock": "30.4",
+      "status": "final",
+      "homeScore": 106,
+      "awayScore": 100,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Madison Square Garden"
     },
     {
@@ -47,10 +47,10 @@
         "abbreviation": "BOS",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bos.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
+      "status": "in_progress",
+      "homeScore": 26,
+      "awayScore": 34,
+      "period": 1,
       "clock": "0.0",
       "venue": "Scotiabank Arena"
     },
