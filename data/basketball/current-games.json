@@ -1,188 +1,84 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-08T15:12:39.011Z",
+  "lastUpdated": "2025-12-08T18:17:23.175Z",
   "games": [
     {
-      "id": "nba-2026-401810212",
+      "id": "nba-2026-401810219",
       "league": "NBA",
       "season": 2026,
-      "startTime": "2025-12-07T17:00Z",
+      "startTime": "2025-12-09T00:00Z",
       "homeTeam": {
-        "id": "18",
-        "name": "New York Knicks",
-        "shortName": "Knicks",
-        "abbreviation": "NY",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ny.png"
+        "id": "11",
+        "name": "Indiana Pacers",
+        "shortName": "Pacers",
+        "abbreviation": "IND",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ind.png"
       },
       "awayTeam": {
-        "id": "19",
-        "name": "Orlando Magic",
-        "shortName": "Magic",
-        "abbreviation": "ORL",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/orl.png"
+        "id": "23",
+        "name": "Sacramento Kings",
+        "shortName": "Kings",
+        "abbreviation": "SAC",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sac.png"
       },
-      "status": "final",
-      "homeScore": 106,
-      "awayScore": 100,
-      "period": 4,
-      "clock": "12:00",
-      "venue": "Madison Square Garden"
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "period": null,
+      "clock": "0.0",
+      "venue": "Gainbridge Fieldhouse"
     },
     {
-      "id": "nba-2026-401810213",
+      "id": "nba-2026-401810220",
       "league": "NBA",
       "season": 2026,
-      "startTime": "2025-12-07T20:30Z",
+      "startTime": "2025-12-09T00:30Z",
       "homeTeam": {
-        "id": "28",
-        "name": "Toronto Raptors",
-        "shortName": "Raptors",
-        "abbreviation": "TOR",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/tor.png"
+        "id": "16",
+        "name": "Minnesota Timberwolves",
+        "shortName": "Timberwolves",
+        "abbreviation": "MIN",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/min.png"
       },
       "awayTeam": {
-        "id": "2",
-        "name": "Boston Celtics",
-        "shortName": "Celtics",
-        "abbreviation": "BOS",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bos.png"
+        "id": "21",
+        "name": "Phoenix Suns",
+        "shortName": "Suns",
+        "abbreviation": "PHX",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phx.png"
       },
-      "status": "final",
-      "homeScore": 113,
-      "awayScore": 121,
-      "period": 4,
-      "clock": "12:00",
-      "venue": "Scotiabank Arena"
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "period": null,
+      "clock": "0.0",
+      "venue": "Target Center"
     },
     {
-      "id": "nba-2026-401810214",
+      "id": "nba-2026-401810221",
       "league": "NBA",
       "season": 2026,
-      "startTime": "2025-12-07T23:00Z",
+      "startTime": "2025-12-09T01:00Z",
       "homeTeam": {
-        "id": "30",
-        "name": "Charlotte Hornets",
-        "shortName": "Hornets",
-        "abbreviation": "CHA",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cha.png"
+        "id": "3",
+        "name": "New Orleans Pelicans",
+        "shortName": "Pelicans",
+        "abbreviation": "NO",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/no.png"
       },
       "awayTeam": {
-        "id": "7",
-        "name": "Denver Nuggets",
-        "shortName": "Nuggets",
-        "abbreviation": "DEN",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/den.png"
+        "id": "24",
+        "name": "San Antonio Spurs",
+        "shortName": "Spurs",
+        "abbreviation": "SA",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png"
       },
-      "status": "final",
-      "homeScore": 106,
-      "awayScore": 115,
-      "period": 4,
-      "clock": "12:00",
-      "venue": "Spectrum Center"
-    },
-    {
-      "id": "nba-2026-401810215",
-      "league": "NBA",
-      "season": 2026,
-      "startTime": "2025-12-07T23:00Z",
-      "homeTeam": {
-        "id": "29",
-        "name": "Memphis Grizzlies",
-        "shortName": "Grizzlies",
-        "abbreviation": "MEM",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mem.png"
-      },
-      "awayTeam": {
-        "id": "22",
-        "name": "Portland Trail Blazers",
-        "shortName": "Trail Blazers",
-        "abbreviation": "POR",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/por.png"
-      },
-      "status": "final",
-      "homeScore": 119,
-      "awayScore": 96,
-      "period": 4,
-      "clock": "12:00",
-      "venue": "FedExForum"
-    },
-    {
-      "id": "nba-2026-401810216",
-      "league": "NBA",
-      "season": 2026,
-      "startTime": "2025-12-08T00:00Z",
-      "homeTeam": {
-        "id": "4",
-        "name": "Chicago Bulls",
-        "shortName": "Bulls",
-        "abbreviation": "CHI",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/chi.png"
-      },
-      "awayTeam": {
-        "id": "9",
-        "name": "Golden State Warriors",
-        "shortName": "Warriors",
-        "abbreviation": "GS",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png"
-      },
-      "status": "final",
-      "homeScore": 91,
-      "awayScore": 123,
-      "period": 4,
-      "clock": "12:00",
-      "venue": "United Center"
-    },
-    {
-      "id": "nba-2026-401810217",
-      "league": "NBA",
-      "season": 2026,
-      "startTime": "2025-12-08T00:30Z",
-      "homeTeam": {
-        "id": "20",
-        "name": "Philadelphia 76ers",
-        "shortName": "76ers",
-        "abbreviation": "PHI",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phi.png"
-      },
-      "awayTeam": {
-        "id": "13",
-        "name": "Los Angeles Lakers",
-        "shortName": "Lakers",
-        "abbreviation": "LAL",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png"
-      },
-      "status": "final",
-      "homeScore": 108,
-      "awayScore": 112,
-      "period": 4,
-      "clock": "12:00",
-      "venue": "Xfinity Mobile Arena"
-    },
-    {
-      "id": "nba-2026-401810218",
-      "league": "NBA",
-      "season": 2026,
-      "startTime": "2025-12-08T01:00Z",
-      "homeTeam": {
-        "id": "26",
-        "name": "Utah Jazz",
-        "shortName": "Jazz",
-        "abbreviation": "UTAH",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/utah.png"
-      },
-      "awayTeam": {
-        "id": "25",
-        "name": "Oklahoma City Thunder",
-        "shortName": "Thunder",
-        "abbreviation": "OKC",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/okc.png"
-      },
-      "status": "final",
-      "homeScore": 101,
-      "awayScore": 131,
-      "period": 4,
-      "clock": "12:00",
-      "venue": "Delta Center"
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null,
+      "period": null,
+      "clock": "0.0",
+      "venue": "Smoothie King Center"
     }
   ]
 }
