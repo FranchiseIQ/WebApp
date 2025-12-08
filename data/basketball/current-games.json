@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "lastUpdated": "2025-12-08T00:52:35.497Z",
+  "lastUpdated": "2025-12-08T03:49:50.862Z",
   "games": [
     {
       "id": "nba-2026-401810212",
@@ -73,11 +73,11 @@
         "abbreviation": "DEN",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/den.png"
       },
-      "status": "in_progress",
-      "homeScore": 81,
-      "awayScore": 92,
+      "status": "final",
+      "homeScore": 106,
+      "awayScore": 115,
       "period": 4,
-      "clock": "10:31",
+      "clock": "12:00",
       "venue": "Spectrum Center"
     },
     {
@@ -99,11 +99,11 @@
         "abbreviation": "POR",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/por.png"
       },
-      "status": "in_progress",
-      "homeScore": 83,
-      "awayScore": 73,
-      "period": 3,
-      "clock": "3:58",
+      "status": "final",
+      "homeScore": 119,
+      "awayScore": 96,
+      "period": 4,
+      "clock": "12:00",
       "venue": "FedExForum"
     },
     {
@@ -125,11 +125,11 @@
         "abbreviation": "GS",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png"
       },
-      "status": "in_progress",
-      "homeScore": 40,
-      "awayScore": 49,
-      "period": 2,
-      "clock": "4:05",
+      "status": "final",
+      "homeScore": 91,
+      "awayScore": 123,
+      "period": 4,
+      "clock": "12:00",
       "venue": "United Center"
     },
     {
@@ -151,11 +151,11 @@
         "abbreviation": "LAL",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png"
       },
-      "status": "in_progress",
-      "homeScore": 19,
-      "awayScore": 11,
-      "period": 1,
-      "clock": "5:44",
+      "status": "final",
+      "homeScore": 108,
+      "awayScore": 112,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Xfinity Mobile Arena"
     },
     {
@@ -177,11 +177,11 @@
         "abbreviation": "OKC",
         "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/okc.png"
       },
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null,
-      "period": null,
-      "clock": "0.0",
+      "status": "final",
+      "homeScore": 101,
+      "awayScore": 131,
+      "period": 4,
+      "clock": "12:00",
       "venue": "Delta Center"
     }
   ]
