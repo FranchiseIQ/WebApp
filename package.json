@@ -1,5 +1,40 @@
 {
+  "name": "franresearch-webapp",
+  "version": "1.0.0",
+  "description": "FranResearch - Franchise Stock Analysis Platform",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint src/ Website/ StockChart/ FranchiseMap/ FranchiseNews/ FootballLive/ widgets/ --ext .js",
+    "lint:fix": "eslint src/ Website/ StockChart/ FranchiseMap/ FranchiseNews/ FootballLive/ widgets/ --ext .js --fix",
+    "format": "prettier --write \"**/*.{js,css,html,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,css,html,json,md}\"",
+    "serve": "python3 -m http.server 8000",
+    "fetch:ticker": "node scripts/fetch_live_ticker_finnhub.py",
+    "fetch:news": "node scripts/fetch_franchise_news_rss.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MonroeGamble/WebApp"
+  },
+  "keywords": [
+    "franchise",
+    "stocks",
+    "financial",
+    "analysis",
+    "charts",
+    "ticker"
+  ],
+  "author": "FranResearch",
+  "license": "MIT",
   "dependencies": {
     "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
