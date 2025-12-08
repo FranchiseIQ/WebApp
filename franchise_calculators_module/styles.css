@@ -472,3 +472,33 @@ input:checked + .calc-toggle-slider {
 input:checked + .calc-toggle-slider:before {
     transform: translateX(24px);
 }
+
+/* Input Row - For side-by-side inputs */
+.calc-input-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.calc-input-row .calc-input-group {
+    margin-bottom: 0;
+}
+
+/* Highlight Best Value */
+.highlight-best {
+    background: #c8e6c9 !important;
+    font-weight: 700;
+    color: #2e7d32;
+}
+
+/* Comparison Table Styles */
+.calc-table .highlight-best {
+    background: #c8e6c9 !important;
+}
+
+@media (max-width: 768px) {
+    .calc-input-row {
+        grid-template-columns: 1fr;
+    }
+}

@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Comprehensive franchise financial calculators for ROI, investment estimation, cash flow analysis, and more">
-    <title>Franchise Financial Calculators</title>
+    <title>FranResearch - Franchise Financial Calculators</title>
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="../assets/css/global.css">
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -13,8 +16,124 @@
 
     <!-- Calculator Styles -->
     <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Reset body padding - using fixed positioning */
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        body {
+            padding-top: 170px; /* Account for fixed ticker + nav */
+            background: var(--bg-dark, #0a0a0a);
+        }
+
+        /* Global Ticker - Fixed positioning */
+        .global-ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 300;
+            background: #0a0a0a;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.16);
+            overflow: hidden;
+        }
+
+        .global-ticker iframe {
+            width: 100%;
+            height: 120px;
+            border: none;
+            display: block;
+            overflow: hidden;
+        }
+
+        /* Navigation Bar - Fixed below ticker */
+        .main-nav {
+            position: fixed;
+            top: 120px;
+            left: 0;
+            width: 100%;
+            z-index: 299;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(15, 23, 42, 0.95);
+            padding: 12px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            overflow-x: auto;
+            box-sizing: border-box;
+        }
+
+        .main-nav .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text, #fff);
+            margin-right: auto;
+        }
+
+        .main-nav .nav-brand img {
+            height: 28px;
+            width: auto;
+        }
+
+        .main-nav a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: color 0.15s, background 0.15s;
+        }
+
+        .main-nav a:hover {
+            color: var(--text, #fff);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .main-nav a.active {
+            color: var(--accent1, #667eea);
+            background: rgba(99, 102, 241, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                gap: 16px;
+                padding: 10px 15px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Global Stock Ticker -->
+    <div class="global-ticker">
+        <iframe src="../Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <a href="../index.html" class="nav-brand">
+            <img src="../logo.svg" alt="FranResearch">
+            <span>FranResearch</span>
+        </a>
+        <a href="../Website/ticker.html">Ticker</a>
+        <a href="../StockChart/chart.html">Charts</a>
+        <a href="../FranchiseMap/map.html">Map</a>
+        <a href="../FranchiseNews/news-feed.html">News</a>
+        <a href="../sports.html">Sports</a>
+        <a href="index.html" class="active">Calculators</a>
+        <a href="../about.html">About</a>
+    </nav>
+
     <!-- Main Container -->
     <div id="franchise-calculators" class="calc-container">
         <!-- Header -->
@@ -29,9 +148,14 @@
             <button class="calc-tab" data-tab="item7">Item 7 Investment</button>
             <button class="calc-tab" data-tab="royalty">Royalty Breakdown</button>
             <button class="calc-tab" data-tab="cashflow">Cash Flow</button>
+            <button class="calc-tab" data-tab="breakeven">Break-Even</button>
+            <button class="calc-tab" data-tab="grossmargin">Gross Margin</button>
             <button class="calc-tab" data-tab="uniteco">Unit Economics</button>
             <button class="calc-tab" data-tab="payback">Payback Period</button>
+            <button class="calc-tab" data-tab="employee">Employee Cost</button>
+            <button class="calc-tab" data-tab="workingcap">Working Capital</button>
             <button class="calc-tab" data-tab="scaling">Multi-Unit Scaling</button>
+            <button class="calc-tab" data-tab="compare">Franchise Compare</button>
             <button class="calc-tab" data-tab="penetration">Territory Penetration</button>
             <button class="calc-tab" data-tab="saturation">Saturation Map</button>
             <button class="calc-tab" data-tab="sba">SBA Loan Payoff</button>
@@ -67,6 +191,20 @@
                 <div id="calculator-cashflow"></div>
             </div>
 
+            <!-- Break-Even Analysis -->
+            <div id="tab-breakeven" class="calc-tab-content">
+                <h2>📍 Break-Even Analysis</h2>
+                <p class="calc-description">Calculate your break-even point in units and revenue to understand when your franchise becomes profitable.</p>
+                <div id="calculator-breakeven"></div>
+            </div>
+
+            <!-- Gross Margin Calculator -->
+            <div id="tab-grossmargin" class="calc-tab-content">
+                <h2>📊 Gross Margin Calculator</h2>
+                <p class="calc-description">Calculate gross profit margin and markup percentages for pricing decisions.</p>
+                <div id="calculator-grossmargin"></div>
+            </div>
+
             <!-- Unit Economics -->
             <div id="tab-uniteco" class="calc-tab-content">
                 <h2>📊 Unit Economics Simulator</h2>
@@ -81,11 +219,32 @@
                 <div id="calculator-payback"></div>
             </div>
 
+            <!-- Employee Cost Calculator -->
+            <div id="tab-employee" class="calc-tab-content">
+                <h2>👥 Employee Cost Calculator</h2>
+                <p class="calc-description">Calculate total labor costs including wages, benefits, taxes, and overhead per employee.</p>
+                <div id="calculator-employee"></div>
+            </div>
+
+            <!-- Working Capital Calculator -->
+            <div id="tab-workingcap" class="calc-tab-content">
+                <h2>💼 Working Capital Calculator</h2>
+                <p class="calc-description">Determine working capital needs based on operating cycle and cash conversion period.</p>
+                <div id="calculator-workingcap"></div>
+            </div>
+
             <!-- Multi-Unit Scaling -->
             <div id="tab-scaling" class="calc-tab-content">
                 <h2>🚀 Multi-Unit Scaling Model</h2>
                 <p class="calc-description">Model the financial impact of owning multiple franchise units.</p>
                 <div id="calculator-scaling"></div>
+            </div>
+
+            <!-- Franchise Comparison -->
+            <div id="tab-compare" class="calc-tab-content">
+                <h2>⚖️ Franchise Comparison Tool</h2>
+                <p class="calc-description">Compare up to 3 franchise opportunities side-by-side on key financial metrics.</p>
+                <div id="calculator-compare"></div>
             </div>
 
             <!-- Territory Penetration -->

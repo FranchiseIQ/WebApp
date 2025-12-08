@@ -156,6 +156,148 @@
             }
         }
 
+        /* Brand Filter Button */
+        .filter-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95em;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            color: #667eea;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Brand Selection Panel */
+        .brand-panel {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: rgba(15, 23, 42, 0.98);
+            border-radius: 12px;
+            padding: 16px;
+            z-index: 200;
+            max-height: 60vh;
+            overflow-y: auto;
+            width: 320px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .brand-panel.visible {
+            display: block;
+        }
+
+        .brand-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .brand-actions button {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .brand-actions .select-all {
+            background: #667eea;
+            color: white;
+        }
+
+        .brand-actions .select-all:hover {
+            background: #5a67d8;
+        }
+
+        .brand-actions .select-none {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .brand-actions .select-none:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .brand-group {
+            margin-bottom: 12px;
+        }
+
+        .brand-group-title {
+            font-size: 0.75em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 8px;
+            padding-left: 4px;
+        }
+
+        .brand-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .brand-checkbox:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .brand-checkbox input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .brand-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .brand-name {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.9);
+            flex: 1;
+        }
+
+        .brand-ticker {
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 600;
+        }
+
+        .legend-note {
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
         /* Embed mode - hide ticker and nav when loaded in iframe */
         body.embed-mode {
             padding-top: 0 !important;
@@ -223,17 +365,14 @@
                     <option value="50">50 miles</option>
                     <option value="100">100 miles</option>
                 </select>
-                <select id="brand-filter" class="filter-select" title="Filter by brand">
-                    <option value="all">All Brands</option>
-                    <option value="MCD">McDonald's</option>
-                    <option value="YUM">Yum! Brands</option>
-                    <option value="QSR">Restaurant Brands</option>
-                    <option value="WEN">Wendy's</option>
-                    <option value="DPZ">Domino's</option>
-                    <option value="SBUX">Starbucks</option>
-                </select>
+                <button id="brand-filter-btn" class="filter-btn" title="Select brands to display">
+                    Brands ▼
+                </button>
             </div>
         </div>
+
+        <!-- Brand Selection Panel -->
+        <div id="brand-checkboxes" class="brand-panel"></div>
 
         <!-- Map -->
         <div id="map"></div>
@@ -256,30 +395,47 @@
 
         <!-- Legend -->
         <div class="legend">
-            <h3>Franchise Categories</h3>
+            <h3>Brand Categories</h3>
             <div class="legend-item">
-                <span class="legend-marker" style="background: #ff6b6b;"></span>
+                <span class="legend-marker" style="background: linear-gradient(135deg, #FFC72C, #E31837);"></span>
                 <span>Quick Service (QSR)</span>
             </div>
             <div class="legend-item">
-                <span class="legend-marker" style="background: #4ecdc4;"></span>
+                <span class="legend-marker" style="background: linear-gradient(135deg, #E3242B, #007A33);"></span>
                 <span>Casual Dining</span>
             </div>
             <div class="legend-item">
-                <span class="legend-marker" style="background: #45b7d1;"></span>
+                <span class="legend-marker" style="background: linear-gradient(135deg, #003580, #1B3C34);"></span>
                 <span>Hotels & Hospitality</span>
             </div>
             <div class="legend-item">
-                <span class="legend-marker" style="background: #96ceb4;"></span>
+                <span class="legend-marker" style="background: linear-gradient(135deg, #ED1C24, #5C068C);"></span>
                 <span>Fitness & Wellness</span>
             </div>
-            <div class="legend-item">
-                <span class="legend-marker" style="background: #ffa07a;"></span>
-                <span>Business Services</span>
-            </div>
+            <p class="legend-note">Click "Brands" to filter by company</p>
         </div>
     </div>
 
     <script src="map.js"></script>
+    <script>
+        // Toggle brand panel visibility
+        document.getElementById('brand-filter-btn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            const panel = document.getElementById('brand-checkboxes');
+            const btn = this;
+            panel.classList.toggle('visible');
+            btn.classList.toggle('active');
+        });
+
+        // Close panel when clicking outside
+        document.addEventListener('click', function(e) {
+            const panel = document.getElementById('brand-checkboxes');
+            const btn = document.getElementById('brand-filter-btn');
+            if (!panel.contains(e.target) && e.target !== btn) {
+                panel.classList.remove('visible');
+                btn.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
