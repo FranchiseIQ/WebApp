@@ -810,6 +810,39 @@
             color: white;
         }
 
+        .video-placeholder .yt-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .video-placeholder .yt-btn.primary {
+            background: #ff0000;
+            color: white;
+            border: none;
+        }
+
+        .video-placeholder .yt-btn.primary:hover {
+            background: #cc0000;
+            transform: scale(1.02);
+        }
+
+        .video-placeholder .yt-btn.secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid #334155;
+        }
+
+        .video-placeholder .yt-btn.secondary:hover {
+            border-color: var(--accent1);
+            color: var(--accent1);
+            background: transparent;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sports-hero h1 {
@@ -974,7 +1007,7 @@
         let selectedTeams = new Set(); // Empty = show all teams
         let currentView = 'scores'; // 'scores' or 'highlights'
 
-        // ESPN highlight URLs by league
+        // ESPN highlight URLs by league (fallback)
         const ESPN_HIGHLIGHTS = {
             NFL: 'https://www.espn.com/nfl/scoreboard',
             NBA: 'https://www.espn.com/nba/scoreboard',
@@ -982,6 +1015,16 @@
             MLB: 'https://www.espn.com/mlb/scoreboard',
             MLS: 'https://www.espn.com/soccer/scoreboard/_/league/usa.1',
             WNBA: 'https://www.espn.com/wnba/scoreboard'
+        };
+
+        // YouTube channel IDs for official league highlights
+        const YOUTUBE_CHANNELS = {
+            NFL: 'UCDVYQ4Zhbm3S2dlz7P1GBDg',  // NFL official
+            NBA: 'UCWJ2lWNubArHWmf3FIHbfcQ',  // NBA official
+            NHL: 'UCqFMzb-4AUf6WAIbl132QKA',  // NHL official
+            MLB: 'UCoLrcjPV5PbUrUyXq5mjc_A',  // MLB official
+            MLS: 'UCSZbXT5TLLW_i-5W8FZpFsg',  // MLS official
+            WNBA: 'UCJm4Yt-5hzFqbfGH2xbIZWA'  // WNBA official
         };
 
         // Game recap templates based on score differential
@@ -1567,17 +1610,42 @@
             container.innerHTML = completedGames.map(game => buildHighlightCard(game, currentLeague)).join('');
         }
 
-        // Open highlight modal with ESPN link
+        // Generate YouTube search URL for game highlights
+        function getYouTubeSearchUrl(awayTeam, homeTeam, league) {
+            const searchQuery = `${awayTeam} vs ${homeTeam} ${league} highlights`;
+            return `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
+        }
+
+        // Generate YouTube embed search URL
+        function getYouTubeEmbedSearch(awayTeam, homeTeam, league) {
+            const searchQuery = `${awayTeam} vs ${homeTeam} ${league} highlights`;
+            // YouTube doesn't allow embedding search results, so we use their search page
+            return `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(searchQuery)}`;
+        }
+
+        // Open highlight modal with YouTube
         function openHighlightModal(awayTeam, homeTeam, league) {
             const modal = document.getElementById('video-modal');
             const container = document.getElementById('video-container');
-            const espnUrl = ESPN_HIGHLIGHTS[league] || 'https://www.espn.com';
+            const youtubeSearchUrl = getYouTubeSearchUrl(awayTeam, homeTeam, league);
+            const channelId = YOUTUBE_CHANNELS[league];
+            const channelUrl = channelId ? `https://www.youtube.com/channel/${channelId}` : 'https://www.youtube.com';
 
             container.innerHTML = `
                 <div class="video-placeholder">
                     <h3>${awayTeam} @ ${homeTeam}</h3>
-                    <p>Watch full game highlights on ESPN</p>
-                    <a href="${espnUrl}" target="_blank" rel="noopener">View on ESPN</a>
+                    <p>Watch game highlights on YouTube</p>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+                        <a href="${youtubeSearchUrl}" target="_blank" rel="noopener" class="yt-btn primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                            Search Highlights
+                        </a>
+                        <a href="${channelUrl}" target="_blank" rel="noopener" class="yt-btn secondary">
+                            ${league} Channel
+                        </a>
+                    </div>
                 </div>
             `;
 
