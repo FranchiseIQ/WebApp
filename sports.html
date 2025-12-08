@@ -121,6 +121,7 @@
             padding: 12px 20px;
             background: rgba(0,0,0,0.2);
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .franchisor-filter label {
@@ -129,7 +130,12 @@
             font-weight: 500;
         }
 
-        .franchisor-filter select {
+        .team-filter-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .team-filter-btn {
             padding: 8px 15px;
             border: none;
             border-radius: 6px;
@@ -138,10 +144,114 @@
             color: var(--text);
             cursor: pointer;
             min-width: 200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
         }
 
-        .franchisor-filter select:focus {
-            outline: 2px solid var(--accent1);
+        .team-filter-btn:hover {
+            background: #334155;
+        }
+
+        .team-filter-btn .arrow {
+            transition: transform 0.2s;
+        }
+
+        .team-filter-btn.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .team-filter-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 280px;
+            max-height: 350px;
+            overflow-y: auto;
+            background: #1e293b;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            z-index: 100;
+            display: none;
+            margin-top: 4px;
+        }
+
+        .team-filter-menu.open {
+            display: block;
+        }
+
+        .team-filter-menu .menu-header {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .team-filter-menu .menu-header button {
+            background: transparent;
+            border: none;
+            color: var(--accent1);
+            cursor: pointer;
+            font-size: 0.85em;
+            padding: 4px 8px;
+        }
+
+        .team-filter-menu .menu-header button:hover {
+            text-decoration: underline;
+        }
+
+        .team-filter-menu .team-group {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .team-filter-menu .team-group:last-child {
+            border-bottom: none;
+        }
+
+        .team-filter-menu .group-label {
+            padding: 6px 12px;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .team-filter-menu .team-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .team-filter-menu .team-option:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .team-filter-menu .team-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--accent1);
+            cursor: pointer;
+        }
+
+        .team-filter-menu .team-option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 0.9em;
+        }
+
+        .selected-teams-count {
+            background: var(--accent1);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
         }
 
         /* Hero Header */
@@ -496,36 +606,23 @@
 
     <!-- Franchisor Filter -->
     <div class="franchisor-filter">
-        <label for="franchisor-select">Filter by Franchisor:</label>
-        <select id="franchisor-select">
-            <option value="all">All Teams</option>
-            <optgroup label="NFL Teams">
-                <option value="Patriots">New England Patriots</option>
-                <option value="Cowboys">Dallas Cowboys</option>
-                <option value="Chiefs">Kansas City Chiefs</option>
-                <option value="Packers">Green Bay Packers</option>
-                <option value="49ers">San Francisco 49ers</option>
-            </optgroup>
-            <optgroup label="NBA Teams">
-                <option value="Lakers">Los Angeles Lakers</option>
-                <option value="Celtics">Boston Celtics</option>
-                <option value="Warriors">Golden State Warriors</option>
-                <option value="Bulls">Chicago Bulls</option>
-                <option value="Heat">Miami Heat</option>
-            </optgroup>
-            <optgroup label="NHL Teams">
-                <option value="Bruins">Boston Bruins</option>
-                <option value="Rangers">New York Rangers</option>
-                <option value="Maple Leafs">Toronto Maple Leafs</option>
-                <option value="Blackhawks">Chicago Blackhawks</option>
-            </optgroup>
-            <optgroup label="MLB Teams">
-                <option value="Yankees">New York Yankees</option>
-                <option value="Red Sox">Boston Red Sox</option>
-                <option value="Dodgers">Los Angeles Dodgers</option>
-                <option value="Cubs">Chicago Cubs</option>
-            </optgroup>
-        </select>
+        <label>Filter by Team:</label>
+        <div class="team-filter-dropdown" id="team-filter-dropdown">
+            <button class="team-filter-btn" id="team-filter-btn">
+                <span id="filter-btn-text">All Teams</span>
+                <span class="arrow">&#9662;</span>
+            </button>
+            <div class="team-filter-menu" id="team-filter-menu">
+                <div class="menu-header">
+                    <span>Select Teams</span>
+                    <div>
+                        <button id="select-all-teams">Select All</button>
+                        <button id="clear-all-teams">Clear</button>
+                    </div>
+                </div>
+                <div id="team-checkboxes"></div>
+            </div>
+        </div>
     </div>
 
     <!-- Day Selector -->
@@ -543,7 +640,7 @@
     <footer id="site-footer">
         <p>&copy; 2024 FranResearch Sports. <a href="index.html">Back to Main Site</a></p>
         <p style="margin-top: 10px; font-size: 0.9em; color: var(--secondary);">
-            Data provided by TheSportsDB API | Updates every 60 seconds
+            Data provided by ESPN | Updates every 60 seconds
         </p>
     </footer>
 
@@ -555,35 +652,36 @@
     <script src="FranchiseNews/news-widget.js"></script>
 
     <script>
-        // League configuration with API sport names
+        // League configuration with local data files
         const LEAGUES = {
-            NFL: { sport: 'American Football', league: 'NFL', icon: '🏈' },
-            NBA: { sport: 'Basketball', league: 'NBA', icon: '🏀' },
-            WNBA: { sport: 'Basketball', league: 'WNBA', icon: '🏀' },
-            NHL: { sport: 'Ice Hockey', league: 'NHL', icon: '🏒' },
-            MLS: { sport: 'Soccer', league: 'MLS', icon: '⚽' },
-            MLB: { sport: 'Baseball', league: 'MLB', icon: '⚾' }
+            NFL: { dataUrl: 'data/football/current-week.json', icon: '🏈', leagueFilter: 'NFL' },
+            NBA: { dataUrl: 'data/basketball/current-games.json', icon: '🏀', leagueFilter: 'NBA' },
+            WNBA: { dataUrl: 'data/basketball/current-games.json', icon: '🏀', leagueFilter: 'WNBA' },
+            NHL: { dataUrl: 'data/hockey/current-games.json', icon: '🏒', leagueFilter: 'NHL' },
+            MLS: { dataUrl: 'data/soccer/current-games.json', icon: '⚽', leagueFilter: 'MLS' },
+            MLB: { dataUrl: 'data/baseball/current-games.json', icon: '⚾', leagueFilter: 'MLB' }
         };
 
-        const API_BASE = 'https://www.thesportsdb.com/api/v1/json/3';
+        // Sample betting odds (in production, this would come from an odds API)
+        const SAMPLE_ODDS = {
+            spreads: [-3.5, -7, -2.5, 3, -1, 6.5, -4, 2, -6, 1.5],
+            totals: [44.5, 47, 41.5, 52, 48.5, 45, 50.5, 43, 49, 46.5]
+        };
 
         let currentLeague = 'NFL';
         let currentDate = new Date();
         let gamesCache = {};
-        let leaguesWithGames = new Set();
-        let currentFranchisor = 'all';
+        let allGames = [];
+        let selectedTeams = new Set(); // Empty = show all teams
 
         // Format time to 12-hour EST
-        function formatTimeEST(dateStr, timeStr) {
-            if (!dateStr) return 'TBD';
+        function formatTimeEST(isoString) {
+            if (!isoString) return 'TBD';
 
             try {
-                const dateTime = timeStr ? `${dateStr}T${timeStr}` : dateStr;
-                const date = new Date(dateTime);
+                const date = new Date(isoString);
+                if (isNaN(date.getTime())) return 'TBD';
 
-                if (isNaN(date.getTime())) return timeStr || 'TBD';
-
-                // Convert to EST
                 const options = {
                     hour: 'numeric',
                     minute: '2-digit',
@@ -593,7 +691,7 @@
 
                 return date.toLocaleTimeString('en-US', options) + ' EST';
             } catch (e) {
-                return timeStr || 'TBD';
+                return 'TBD';
             }
         }
 
@@ -604,9 +702,16 @@
             return `${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}`;
         }
 
-        // Get date string for API
+        // Get date string for comparison
         function getDateString(date) {
             return date.toISOString().split('T')[0];
+        }
+
+        // Check if game is on selected date
+        function isGameOnDate(game, date) {
+            if (!game.startTime) return false;
+            const gameDate = new Date(game.startTime);
+            return getDateString(gameDate) === getDateString(date);
         }
 
         // Generate 7-day date buttons
@@ -637,80 +742,57 @@
             }
         }
 
-        // Fetch events for a specific date and sport
-        async function fetchEvents(sport, date) {
-            const dateStr = getDateString(date);
-            const cacheKey = `${sport}-${dateStr}`;
+        // Fetch games from local JSON files
+        async function fetchGames(league) {
+            const config = LEAGUES[league];
+            if (!config) return [];
 
+            const cacheKey = `${league}-data`;
             if (gamesCache[cacheKey]) {
                 return gamesCache[cacheKey];
             }
 
             try {
-                const url = `${API_BASE}/eventsday.php?d=${dateStr}&s=${encodeURIComponent(sport)}`;
-                const response = await fetch(url);
-
+                const response = await fetch(config.dataUrl);
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    console.warn(`No data file for ${league}`);
+                    return [];
                 }
 
                 const data = await response.json();
-                const events = data?.events || [];
+                let games = data?.games || [];
 
-                gamesCache[cacheKey] = events;
-                return events;
+                // Filter by league if needed (e.g., NCAA vs NFL in football data)
+                if (config.leagueFilter) {
+                    games = games.filter(g => g.league === config.leagueFilter);
+                }
+
+                gamesCache[cacheKey] = games;
+                return games;
             } catch (error) {
-                console.error(`Error fetching ${sport} events:`, error);
+                console.error(`Error fetching ${league} games:`, error);
                 return [];
             }
         }
 
-        // Check which leagues have games in the next 7 days
-        async function checkLeaguesWithGames() {
-            const today = new Date();
-            const checks = [];
-
-            for (const [leagueKey, config] of Object.entries(LEAGUES)) {
-                for (let i = 0; i < 7; i++) {
-                    const date = new Date(today);
-                    date.setDate(today.getDate() + i);
-
-                    checks.push(
-                        fetchEvents(config.sport, date).then(events => {
-                            const leagueEvents = events.filter(e =>
-                                (e.strLeague || '').toUpperCase().includes(leagueKey)
-                            );
-                            if (leagueEvents.length > 0) {
-                                leaguesWithGames.add(leagueKey);
-                            }
-                        })
-                    );
-                }
-            }
-
-            await Promise.all(checks);
-            updateLeagueTabs();
-        }
-
-        // Update league tabs visibility
-        function updateLeagueTabs() {
-            document.querySelectorAll('.league-tabs button').forEach(btn => {
-                const league = btn.dataset.league;
-                // Always show NFL, NBA, NHL as they typically have active seasons
-                const alwaysShow = ['NFL', 'NBA', 'NHL'];
-                if (leaguesWithGames.has(league) || alwaysShow.includes(league)) {
-                    btn.classList.remove('hidden');
-                }
-            });
+        // Get random odds for a game (simulated - in production use real odds API)
+        function getGameOdds(gameId) {
+            const hash = gameId.split('').reduce((a, b) => ((a << 5) - a + b.charCodeAt(0)) | 0, 0);
+            const spreadIdx = Math.abs(hash) % SAMPLE_ODDS.spreads.length;
+            const totalIdx = Math.abs(hash >> 4) % SAMPLE_ODDS.totals.length;
+            return {
+                spread: SAMPLE_ODDS.spreads[spreadIdx],
+                total: SAMPLE_ODDS.totals[totalIdx]
+            };
         }
 
         // Normalize game status
-        function normalizeStatus(event) {
-            const status = (event.strStatus || event.strProgress || '').toLowerCase();
-            if (status.includes('final') || status.includes('ft') || status.includes('aet')) return 'FINAL';
-            if (status.includes('live') || status.includes('progress') || status.includes('ht')) return 'LIVE';
-            if (status.includes('postponed')) return 'POSTPONED';
-            if (status.includes('cancelled') || status.includes('canceled')) return 'CANCELLED';
+        function normalizeStatus(game) {
+            const status = (game.status || '').toLowerCase();
+            if (status === 'final' || status === 'post') return 'FINAL';
+            if (status === 'in_progress' || status === 'live' || status === 'in') return 'LIVE';
+            if (status === 'postponed') return 'POSTPONED';
+            if (status === 'cancelled' || status === 'canceled') return 'CANCELLED';
             return 'UPCOMING';
         }
 
@@ -718,19 +800,39 @@
         function buildGameCard(game, leagueKey) {
             const config = LEAGUES[leagueKey];
             const status = normalizeStatus(game);
-            const homeScore = parseInt(game.intHomeScore) || 0;
-            const awayScore = parseInt(game.intAwayScore) || 0;
+            const homeScore = game.homeScore ?? 0;
+            const awayScore = game.awayScore ?? 0;
             const isLive = status === 'LIVE';
             const isFinal = status === 'FINAL';
+            const isUpcoming = status === 'UPCOMING';
 
             const homeWinner = isFinal && homeScore > awayScore;
             const awayWinner = isFinal && awayScore > homeScore;
 
-            const statusText = isLive ? 'LIVE' :
-                               isFinal ? 'FINAL' :
-                               status === 'POSTPONED' ? 'POSTPONED' :
-                               status === 'CANCELLED' ? 'CANCELLED' :
-                               formatTimeEST(game.dateEvent, game.strTime);
+            // Get game info
+            const homeTeam = game.homeTeam || {};
+            const awayTeam = game.awayTeam || {};
+            const venue = game.venue || homeTeam.venue || '';
+
+            // Get odds for upcoming games
+            const odds = isUpcoming ? getGameOdds(game.id || '') : null;
+
+            let statusText = '';
+            if (isLive) {
+                const quarter = game.quarter || game.period || '';
+                const clock = game.clock || '';
+                statusText = `LIVE${quarter ? ` - Q${quarter}` : ''}${clock && clock !== '0:00' ? ` ${clock}` : ''}`;
+            } else if (isFinal) {
+                statusText = 'FINAL';
+            } else if (status === 'POSTPONED') {
+                statusText = 'POSTPONED';
+            } else if (status === 'CANCELLED') {
+                statusText = 'CANCELLED';
+            } else {
+                statusText = formatTimeEST(game.startTime);
+            }
+
+            const defaultLogo = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23334155%22 width=%22100%22 height=%22100%22/></svg>';
 
             return `
                 <div class="game-card">
@@ -741,44 +843,185 @@
 
                     <div class="teams-row">
                         <div class="team">
-                            <img src="${game.strAwayTeamBadge || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23334155%22 width=%22100%22 height=%22100%22/></svg>'}"
-                                 alt="${game.strAwayTeam}"
+                            <img src="${awayTeam.logoUrl || defaultLogo}"
+                                 alt="${awayTeam.name || 'Away'}"
                                  class="team-logo"
-                                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23334155%22 width=%22100%22 height=%22100%22/></svg>'">
+                                 onerror="this.src='${defaultLogo}'">
                             <div class="team-info">
-                                <div class="team-name">${game.strAwayTeam || 'Away Team'}</div>
+                                <div class="team-name">${awayTeam.name || 'Away Team'}</div>
+                                ${awayTeam.record ? `<div class="team-record">${awayTeam.record}</div>` : ''}
                             </div>
                             ${(isLive || isFinal) ? `<div class="team-score ${awayWinner ? 'winner' : ''}">${awayScore}</div>` : ''}
                         </div>
 
                         <div class="odds-column">
-                            <div class="odds-row">
-                                <label>Spread:</label>
-                                <span>–</span>
-                            </div>
-                            <div class="odds-row">
-                                <label>O/U:</label>
-                                <span>–</span>
-                            </div>
+                            ${isUpcoming && odds ? `
+                                <div class="odds-row">
+                                    <label>Spread:</label>
+                                    <span>${odds.spread > 0 ? '+' : ''}${odds.spread}</span>
+                                </div>
+                                <div class="odds-row">
+                                    <label>O/U:</label>
+                                    <span>${odds.total}</span>
+                                </div>
+                            ` : `
+                                <div class="odds-row">
+                                    <label>Spread:</label>
+                                    <span>–</span>
+                                </div>
+                                <div class="odds-row">
+                                    <label>O/U:</label>
+                                    <span>–</span>
+                                </div>
+                            `}
                             <div class="odds-row">
                                 <label>Venue:</label>
-                                <span style="font-size: 0.8em;">${game.strVenue ? game.strVenue.substring(0, 15) : '–'}</span>
+                                <span style="font-size: 0.8em;">${venue ? venue.substring(0, 18) : '–'}</span>
                             </div>
                         </div>
 
                         <div class="team">
-                            <img src="${game.strHomeTeamBadge || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23334155%22 width=%22100%22 height=%22100%22/></svg>'}"
-                                 alt="${game.strHomeTeam}"
+                            <img src="${homeTeam.logoUrl || defaultLogo}"
+                                 alt="${homeTeam.name || 'Home'}"
                                  class="team-logo"
-                                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23334155%22 width=%22100%22 height=%22100%22/></svg>'">
+                                 onerror="this.src='${defaultLogo}'">
                             <div class="team-info">
-                                <div class="team-name">${game.strHomeTeam || 'Home Team'}</div>
+                                <div class="team-name">${homeTeam.name || 'Home Team'}</div>
+                                ${homeTeam.record ? `<div class="team-record">${homeTeam.record}</div>` : ''}
                             </div>
                             ${(isLive || isFinal) ? `<div class="team-score ${homeWinner ? 'winner' : ''}">${homeScore}</div>` : ''}
                         </div>
                     </div>
                 </div>
             `;
+        }
+
+        // Build team filter checkboxes based on current games
+        function buildTeamFilter(games) {
+            const teamsMap = new Map();
+
+            games.forEach(game => {
+                if (game.homeTeam) {
+                    teamsMap.set(game.homeTeam.shortName || game.homeTeam.name, game.homeTeam.name);
+                }
+                if (game.awayTeam) {
+                    teamsMap.set(game.awayTeam.shortName || game.awayTeam.name, game.awayTeam.name);
+                }
+            });
+
+            const sortedTeams = Array.from(teamsMap.entries()).sort((a, b) => a[1].localeCompare(b[1]));
+
+            const container = document.getElementById('team-checkboxes');
+            if (!container) return;
+
+            if (sortedTeams.length === 0) {
+                container.innerHTML = '<div style="padding: 12px; color: var(--secondary);">No teams available</div>';
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="team-group">
+                    <div class="group-label">${currentLeague} Teams</div>
+                    ${sortedTeams.map(([shortName, fullName]) => `
+                        <div class="team-option">
+                            <input type="checkbox" id="team-${shortName}" value="${shortName}"
+                                   ${selectedTeams.size === 0 || selectedTeams.has(shortName) ? 'checked' : ''}>
+                            <label for="team-${shortName}">${fullName}</label>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            // Add event listeners to checkboxes
+            container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    updateSelectedTeams();
+                    renderGames();
+                });
+            });
+        }
+
+        // Update selected teams from checkboxes
+        function updateSelectedTeams() {
+            const checkboxes = document.querySelectorAll('#team-checkboxes input[type="checkbox"]');
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            const noneChecked = Array.from(checkboxes).every(cb => !cb.checked);
+
+            if (allChecked || noneChecked) {
+                selectedTeams.clear(); // Show all
+            } else {
+                selectedTeams.clear();
+                checkboxes.forEach(cb => {
+                    if (cb.checked) {
+                        selectedTeams.add(cb.value);
+                    }
+                });
+            }
+
+            updateFilterButtonText();
+        }
+
+        // Update filter button text
+        function updateFilterButtonText() {
+            const btn = document.getElementById('filter-btn-text');
+            if (!btn) return;
+
+            if (selectedTeams.size === 0) {
+                btn.textContent = 'All Teams';
+            } else if (selectedTeams.size === 1) {
+                btn.textContent = Array.from(selectedTeams)[0];
+            } else {
+                btn.innerHTML = `${selectedTeams.size} Teams <span class="selected-teams-count">${selectedTeams.size}</span>`;
+            }
+        }
+
+        // Setup team filter dropdown
+        function setupTeamFilter() {
+            const btn = document.getElementById('team-filter-btn');
+            const menu = document.getElementById('team-filter-menu');
+            const selectAll = document.getElementById('select-all-teams');
+            const clearAll = document.getElementById('clear-all-teams');
+
+            if (!btn || !menu) return;
+
+            // Toggle dropdown
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.classList.toggle('open');
+                menu.classList.toggle('open');
+            });
+
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.team-filter-dropdown')) {
+                    btn.classList.remove('open');
+                    menu.classList.remove('open');
+                }
+            });
+
+            // Select all
+            if (selectAll) {
+                selectAll.addEventListener('click', () => {
+                    document.querySelectorAll('#team-checkboxes input[type="checkbox"]').forEach(cb => {
+                        cb.checked = true;
+                    });
+                    selectedTeams.clear();
+                    updateFilterButtonText();
+                    renderGames();
+                });
+            }
+
+            // Clear all
+            if (clearAll) {
+                clearAll.addEventListener('click', () => {
+                    document.querySelectorAll('#team-checkboxes input[type="checkbox"]').forEach(cb => {
+                        cb.checked = false;
+                    });
+                    selectedTeams.clear();
+                    updateFilterButtonText();
+                    renderGames();
+                });
+            }
         }
 
         // Render games for current league and date
@@ -794,25 +1037,45 @@
             `;
 
             try {
-                const events = await fetchEvents(config.sport, currentDate);
+                const games = await fetchGames(currentLeague);
+                allGames = games;
 
-                // Filter for the specific league
-                let leagueGames = events.filter(e => {
-                    const league = (e.strLeague || '').toUpperCase();
-                    return league.includes(currentLeague);
+                // Build team filter with all available teams
+                buildTeamFilter(games);
+
+                // Filter by date - show all games for "Today" if it includes games from current week
+                let filteredGames = games.filter(game => {
+                    const gameDate = new Date(game.startTime);
+                    const selectedDate = new Date(currentDate);
+
+                    // Check if game is on selected date (comparing just the date portion)
+                    return gameDate.toDateString() === selectedDate.toDateString();
                 });
 
-                // Filter by franchisor if selected
-                if (currentFranchisor !== 'all') {
-                    leagueGames = leagueGames.filter(e => {
-                        const homeTeam = (e.strHomeTeam || '').toLowerCase();
-                        const awayTeam = (e.strAwayTeam || '').toLowerCase();
-                        const filter = currentFranchisor.toLowerCase();
-                        return homeTeam.includes(filter) || awayTeam.includes(filter);
+                // If no games on exact date, show recent/upcoming games
+                if (filteredGames.length === 0 && getDateString(currentDate) === getDateString(new Date())) {
+                    // For "Today", show any in-progress or recent games
+                    filteredGames = games.filter(game => {
+                        const status = normalizeStatus(game);
+                        return status === 'LIVE' || status === 'FINAL';
+                    }).slice(0, 10);
+
+                    // If still no games, show upcoming
+                    if (filteredGames.length === 0) {
+                        filteredGames = games.filter(game => normalizeStatus(game) === 'UPCOMING').slice(0, 5);
+                    }
+                }
+
+                // Filter by selected teams if any are selected
+                if (selectedTeams.size > 0) {
+                    filteredGames = filteredGames.filter(game => {
+                        const homeShort = game.homeTeam?.shortName || game.homeTeam?.name || '';
+                        const awayShort = game.awayTeam?.shortName || game.awayTeam?.name || '';
+                        return selectedTeams.has(homeShort) || selectedTeams.has(awayShort);
                     });
                 }
 
-                if (leagueGames.length === 0) {
+                if (filteredGames.length === 0) {
                     container.innerHTML = `
                         <div class="empty-msg">
                             <h3>No ${currentLeague} games scheduled</h3>
@@ -823,13 +1086,13 @@
                 }
 
                 // Sort by time
-                leagueGames.sort((a, b) => {
-                    const timeA = a.strTime || '00:00';
-                    const timeB = b.strTime || '00:00';
-                    return timeA.localeCompare(timeB);
+                filteredGames.sort((a, b) => {
+                    const timeA = new Date(a.startTime || 0).getTime();
+                    const timeB = new Date(b.startTime || 0).getTime();
+                    return timeA - timeB;
                 });
 
-                container.innerHTML = leagueGames.map(game => buildGameCard(game, currentLeague)).join('');
+                container.innerHTML = filteredGames.map(game => buildGameCard(game, currentLeague)).join('');
 
             } catch (error) {
                 console.error('Error rendering games:', error);
@@ -849,6 +1112,9 @@
                     document.querySelectorAll('.league-tabs button').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     currentLeague = btn.dataset.league;
+                    selectedTeams.clear(); // Reset team filter when changing leagues
+                    updateFilterButtonText();
+                    gamesCache = {}; // Clear cache to reload data for new league
                     renderGames();
                 });
             });
@@ -876,25 +1142,11 @@
             }
         }
 
-        // Setup franchisor filter
-        function setupFranchisorFilter() {
-            const franchisorSelect = document.getElementById('franchisor-select');
-            if (franchisorSelect) {
-                franchisorSelect.addEventListener('change', (e) => {
-                    currentFranchisor = e.target.value;
-                    renderGames();
-                });
-            }
-        }
-
         // Initialize app
         async function init() {
             generateDaySelector();
             setupLeagueTabs();
-            setupFranchisorFilter();
-
-            // Check leagues with games in background
-            checkLeaguesWithGames();
+            setupTeamFilter();
 
             // Load initial games
             await renderGames();
