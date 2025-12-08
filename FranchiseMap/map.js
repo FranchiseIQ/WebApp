@@ -210,7 +210,157 @@ const franchiseLocations = [
   { brand: 'PLNT', lat: 42.3601, lng: -71.0589, address: 'Boston, MA' },
   { brand: 'XPOF', lat: 33.6846, lng: -117.8265, address: 'Xponential HQ - Irvine, CA' },
   { brand: 'XPOF', lat: 40.7580, lng: -73.9855, address: 'CycleBar - New York, NY' },
-  { brand: 'XPOF', lat: 34.0522, lng: -118.2437, address: 'Club Pilates - LA, CA' }
+  { brand: 'XPOF', lat: 34.0522, lng: -118.2437, address: 'Club Pilates - LA, CA' },
+
+  // === EXPANDED LOCATIONS ===
+
+  // Additional McDonald's (MCD)
+  { brand: 'MCD', lat: 39.7392, lng: -104.9903, address: 'Denver, CO' },
+  { brand: 'MCD', lat: 36.1699, lng: -115.1398, address: 'Las Vegas Strip, NV' },
+  { brand: 'MCD', lat: 36.1627, lng: -86.7816, address: 'Nashville, TN' },
+  { brand: 'MCD', lat: 35.2271, lng: -80.8431, address: 'Charlotte, NC' },
+  { brand: 'MCD', lat: 30.2672, lng: -97.7431, address: 'Austin, TX' },
+  { brand: 'MCD', lat: 39.0997, lng: -94.5786, address: 'Kansas City, MO' },
+  { brand: 'MCD', lat: 44.9778, lng: -93.2650, address: 'Minneapolis, MN' },
+  { brand: 'MCD', lat: 38.9072, lng: -77.0369, address: 'Washington DC' },
+  { brand: 'MCD', lat: 45.5051, lng: -122.6750, address: 'Portland, OR' },
+  { brand: 'MCD', lat: 32.7157, lng: -117.1611, address: 'San Diego, CA' },
+
+  // Additional Starbucks (SBUX)
+  { brand: 'SBUX', lat: 39.7392, lng: -104.9903, address: 'Denver, CO' },
+  { brand: 'SBUX', lat: 36.1699, lng: -115.1398, address: 'Las Vegas, NV' },
+  { brand: 'SBUX', lat: 38.9072, lng: -77.0369, address: 'Georgetown, Washington DC' },
+  { brand: 'SBUX', lat: 45.5051, lng: -122.6750, address: 'Portland, OR' },
+  { brand: 'SBUX', lat: 32.7157, lng: -117.1611, address: 'Gaslamp Quarter, San Diego, CA' },
+  { brand: 'SBUX', lat: 36.1627, lng: -86.7816, address: 'Nashville, TN' },
+  { brand: 'SBUX', lat: 39.9612, lng: -82.9988, address: 'Columbus, OH' },
+  { brand: 'SBUX', lat: 33.4484, lng: -112.0773, address: 'Scottsdale, AZ' },
+
+  // Additional Chipotle (CMG)
+  { brand: 'CMG', lat: 38.9072, lng: -77.0369, address: 'Washington DC' },
+  { brand: 'CMG', lat: 30.2672, lng: -97.7431, address: 'Austin, TX' },
+  { brand: 'CMG', lat: 35.2271, lng: -80.8431, address: 'Charlotte, NC' },
+  { brand: 'CMG', lat: 36.1627, lng: -86.7816, address: 'Nashville, TN' },
+  { brand: 'CMG', lat: 45.5051, lng: -122.6750, address: 'Portland, OR' },
+  { brand: 'CMG', lat: 44.9778, lng: -93.2650, address: 'Minneapolis, MN' },
+
+  // Additional Domino's (DPZ)
+  { brand: 'DPZ', lat: 38.9072, lng: -77.0369, address: 'Washington DC' },
+  { brand: 'DPZ', lat: 39.7392, lng: -104.9903, address: 'Denver, CO' },
+  { brand: 'DPZ', lat: 36.1627, lng: -86.7816, address: 'Nashville, TN' },
+  { brand: 'DPZ', lat: 30.2672, lng: -97.7431, address: 'Austin, TX' },
+  { brand: 'DPZ', lat: 33.7490, lng: -84.3880, address: 'Atlanta, GA' },
+  { brand: 'DPZ', lat: 25.7617, lng: -80.1918, address: 'Miami, FL' },
+  { brand: 'DPZ', lat: 39.9526, lng: -75.1652, address: 'Philadelphia, PA' },
+
+  // Additional Wendy's (WEN)
+  { brand: 'WEN', lat: 39.7392, lng: -104.9903, address: 'Denver, CO' },
+  { brand: 'WEN', lat: 38.9072, lng: -77.0369, address: 'Washington DC' },
+  { brand: 'WEN', lat: 36.1627, lng: -86.7816, address: 'Nashville, TN' },
+  { brand: 'WEN', lat: 35.2271, lng: -80.8431, address: 'Charlotte, NC' },
+  { brand: 'WEN', lat: 44.9778, lng: -93.2650, address: 'Minneapolis, MN' },
+  { brand: 'WEN', lat: 39.9526, lng: -75.1652, address: 'Philadelphia, PA' },
+
+  // Additional Shake Shack (SHAK)
+  { brand: 'SHAK', lat: 38.9072, lng: -77.0369, address: 'Washington DC' },
+  { brand: 'SHAK', lat: 33.7490, lng: -84.3880, address: 'Atlanta, GA' },
+  { brand: 'SHAK', lat: 39.9526, lng: -75.1652, address: 'Philadelphia, PA' },
+  { brand: 'SHAK', lat: 36.1699, lng: -115.1398, address: 'Las Vegas, NV' },
+  { brand: 'SHAK', lat: 39.7392, lng: -104.9903, address: 'Denver, CO' },
+
+  // Additional Yum! Brands (YUM)
+  { brand: 'YUM', lat: 38.2527, lng: -85.7585, address: 'Yum! HQ - Louisville, KY' },
+  { brand: 'YUM', lat: 39.7392, lng: -104.9903, address: 'Taco Bell - Denver, CO' },
+  { brand: 'YUM', lat: 38.9072, lng: -77.0369, address: 'KFC - Washington DC' },
+  { brand: 'YUM', lat: 36.1627, lng: -86.7816, address: 'Pizza Hut - Nashville, TN' },
+  { brand: 'YUM', lat: 45.5051, lng: -122.6750, address: 'Taco Bell - Portland, OR' },
+  { brand: 'YUM', lat: 32.7157, lng: -117.1611, address: 'KFC - San Diego, CA' },
+
+  // Additional Restaurant Brands (QSR)
+  { brand: 'QSR', lat: 38.9072, lng: -77.0369, address: 'Burger King - Washington DC' },
+  { brand: 'QSR', lat: 39.7392, lng: -104.9903, address: 'Burger King - Denver, CO' },
+  { brand: 'QSR', lat: 36.1699, lng: -115.1398, address: 'Burger King - Las Vegas, NV' },
+  { brand: 'QSR', lat: 45.4215, lng: -75.6972, address: 'Tim Hortons - Ottawa, ON' },
+  { brand: 'QSR', lat: 49.2827, lng: -123.1207, address: 'Tim Hortons - Vancouver, BC' },
+
+  // Additional Wingstop (WING)
+  { brand: 'WING', lat: 38.9072, lng: -77.0369, address: 'Washington DC' },
+  { brand: 'WING', lat: 39.7392, lng: -104.9903, address: 'Denver, CO' },
+  { brand: 'WING', lat: 36.1627, lng: -86.7816, address: 'Nashville, TN' },
+  { brand: 'WING', lat: 35.2271, lng: -80.8431, address: 'Charlotte, NC' },
+  { brand: 'WING', lat: 39.9526, lng: -75.1652, address: 'Philadelphia, PA' },
+
+  // Additional Papa John's (PZZA)
+  { brand: 'PZZA', lat: 39.7392, lng: -104.9903, address: 'Denver, CO' },
+  { brand: 'PZZA', lat: 38.9072, lng: -77.0369, address: 'Washington DC' },
+  { brand: 'PZZA', lat: 36.1627, lng: -86.7816, address: 'Nashville, TN' },
+  { brand: 'PZZA', lat: 39.9526, lng: -75.1652, address: 'Philadelphia, PA' },
+  { brand: 'PZZA', lat: 42.3601, lng: -71.0589, address: 'Boston, MA' },
+
+  // Additional Jack in the Box (JACK)
+  { brand: 'JACK', lat: 36.1699, lng: -115.1398, address: 'Las Vegas, NV' },
+  { brand: 'JACK', lat: 34.0195, lng: -118.4912, address: 'Santa Monica, CA' },
+  { brand: 'JACK', lat: 37.7749, lng: -122.4194, address: 'San Francisco, CA' },
+  { brand: 'JACK', lat: 47.6062, lng: -122.3321, address: 'Seattle, WA' },
+  { brand: 'JACK', lat: 33.4255, lng: -111.9400, address: 'Tempe, AZ' },
+
+  // Additional Casual Dining
+  { brand: 'DRI', lat: 38.9072, lng: -77.0369, address: 'Olive Garden - Washington DC' },
+  { brand: 'DRI', lat: 39.7392, lng: -104.9903, address: 'LongHorn - Denver, CO' },
+  { brand: 'DRI', lat: 36.1627, lng: -86.7816, address: 'Olive Garden - Nashville, TN' },
+  { brand: 'TXRH', lat: 39.7392, lng: -104.9903, address: 'Denver, CO' },
+  { brand: 'TXRH', lat: 38.9072, lng: -77.0369, address: 'Washington DC' },
+  { brand: 'TXRH', lat: 36.1627, lng: -86.7816, address: 'Nashville, TN' },
+  { brand: 'TXRH', lat: 35.2271, lng: -80.8431, address: 'Charlotte, NC' },
+  { brand: 'CAKE', lat: 38.9072, lng: -77.0369, address: 'Washington DC' },
+  { brand: 'CAKE', lat: 36.1699, lng: -115.1398, address: 'Las Vegas, NV' },
+  { brand: 'CAKE', lat: 39.7392, lng: -104.9903, address: 'Denver, CO' },
+  { brand: 'DENN', lat: 39.7392, lng: -104.9903, address: 'Denver, CO' },
+  { brand: 'DENN', lat: 38.9072, lng: -77.0369, address: 'Washington DC' },
+  { brand: 'DENN', lat: 35.2271, lng: -80.8431, address: 'Charlotte, NC' },
+  { brand: 'DIN', lat: 38.9072, lng: -77.0369, address: 'IHOP - Washington DC' },
+  { brand: 'DIN', lat: 39.7392, lng: -104.9903, address: 'Applebees - Denver, CO' },
+  { brand: 'DIN', lat: 36.1627, lng: -86.7816, address: 'IHOP - Nashville, TN' },
+  { brand: 'BLMN', lat: 38.9072, lng: -77.0369, address: 'Outback - Washington DC' },
+  { brand: 'BLMN', lat: 39.7392, lng: -104.9903, address: 'Outback - Denver, CO' },
+  { brand: 'BLMN', lat: 36.1627, lng: -86.7816, address: 'Outback - Nashville, TN' },
+  { brand: 'EAT', lat: 38.9072, lng: -77.0369, address: 'Chilis - Washington DC' },
+  { brand: 'EAT', lat: 39.7392, lng: -104.9903, address: 'Chilis - Denver, CO' },
+  { brand: 'EAT', lat: 36.1627, lng: -86.7816, address: 'Chilis - Nashville, TN' },
+
+  // Additional Hotels
+  { brand: 'MAR', lat: 38.9072, lng: -77.0369, address: 'JW Marriott - Washington DC' },
+  { brand: 'MAR', lat: 39.7392, lng: -104.9903, address: 'Renaissance - Denver, CO' },
+  { brand: 'MAR', lat: 36.1627, lng: -86.7816, address: 'Marriott - Nashville, TN' },
+  { brand: 'MAR', lat: 47.6062, lng: -122.3321, address: 'W Hotel - Seattle, WA' },
+  { brand: 'MAR', lat: 32.7157, lng: -117.1611, address: 'Marriott - San Diego, CA' },
+  { brand: 'HLT', lat: 38.9072, lng: -77.0369, address: 'Hilton - Washington DC' },
+  { brand: 'HLT', lat: 39.7392, lng: -104.9903, address: 'Hilton - Denver, CO' },
+  { brand: 'HLT', lat: 36.1627, lng: -86.7816, address: 'Hilton - Nashville, TN' },
+  { brand: 'HLT', lat: 32.7157, lng: -117.1611, address: 'Hilton - San Diego, CA' },
+  { brand: 'H', lat: 38.9072, lng: -77.0369, address: 'Hyatt - Washington DC' },
+  { brand: 'H', lat: 39.7392, lng: -104.9903, address: 'Hyatt Regency - Denver, CO' },
+  { brand: 'H', lat: 36.1627, lng: -86.7816, address: 'Hyatt Place - Nashville, TN' },
+  { brand: 'IHG', lat: 38.9072, lng: -77.0369, address: 'Holiday Inn - Washington DC' },
+  { brand: 'IHG', lat: 39.7392, lng: -104.9903, address: 'Crowne Plaza - Denver, CO' },
+  { brand: 'IHG', lat: 36.1627, lng: -86.7816, address: 'Holiday Inn - Nashville, TN' },
+  { brand: 'WH', lat: 38.9072, lng: -77.0369, address: 'Wyndham - Washington DC' },
+  { brand: 'WH', lat: 39.7392, lng: -104.9903, address: 'La Quinta - Denver, CO' },
+  { brand: 'CHH', lat: 38.9072, lng: -77.0369, address: 'Comfort Inn - Washington DC' },
+  { brand: 'CHH', lat: 39.7392, lng: -104.9903, address: 'Quality Inn - Denver, CO' },
+
+  // Additional Fitness
+  { brand: 'PLNT', lat: 38.9072, lng: -77.0369, address: 'Washington DC' },
+  { brand: 'PLNT', lat: 39.7392, lng: -104.9903, address: 'Denver, CO' },
+  { brand: 'PLNT', lat: 36.1627, lng: -86.7816, address: 'Nashville, TN' },
+  { brand: 'PLNT', lat: 35.2271, lng: -80.8431, address: 'Charlotte, NC' },
+  { brand: 'PLNT', lat: 32.7767, lng: -96.7970, address: 'Dallas, TX' },
+  { brand: 'PLNT', lat: 29.7604, lng: -95.3698, address: 'Houston, TX' },
+  { brand: 'XPOF', lat: 38.9072, lng: -77.0369, address: 'Pure Barre - Washington DC' },
+  { brand: 'XPOF', lat: 39.7392, lng: -104.9903, address: 'CycleBar - Denver, CO' },
+  { brand: 'XPOF', lat: 36.1627, lng: -86.7816, address: 'Club Pilates - Nashville, TN' },
+  { brand: 'XPOF', lat: 42.3601, lng: -71.0589, address: 'StretchLab - Boston, MA' },
+  { brand: 'XPOF', lat: 41.8781, lng: -87.6298, address: 'YogaSix - Chicago, IL' }
 ];
 
 // ============================================================================
@@ -226,6 +376,17 @@ let radiusCircle = null;
 let selectedBrands = new Set(Object.keys(BRANDS));
 let currentView = 'markers'; // 'markers', 'cluster', 'heat'
 let selectedLocation = null;
+
+// New feature states
+let droppedPin = null;
+let measurementMode = false;
+let measurePoints = [];
+let measureLine = null;
+let measureMarkers = [];
+let drawMode = false;
+let drawPolygon = null;
+let drawPoints = [];
+let isFullscreen = false;
 
 // ============================================================================
 // INITIALIZATION
@@ -279,7 +440,11 @@ function initMap() {
   addMarkers();
   setupEventListeners();
   addMapControls();
+  addAdvancedControls();
   updateStats();
+
+  // Enable click-to-drop-pin for competitor analysis
+  map.on('click', handleMapClick);
 
   console.log(`✓ Interactive map initialized with ${franchiseLocations.length} locations`);
 }
@@ -854,6 +1019,644 @@ function addMapControls() {
 }
 
 // ============================================================================
+// ADVANCED CONTROLS
+// ============================================================================
+
+function addAdvancedControls() {
+  // Create toolbar container
+  const ToolbarControl = L.Control.extend({
+    options: { position: 'topleft' },
+    onAdd: function() {
+      const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control advanced-toolbar');
+      container.innerHTML = `
+        <a href="#" id="measure-tool" title="Measure Distance" class="toolbar-btn">📏</a>
+        <a href="#" id="draw-tool" title="Draw Area Selection" class="toolbar-btn">✏️</a>
+        <a href="#" id="drop-pin-tool" title="Drop Pin for Analysis" class="toolbar-btn">📌</a>
+        <a href="#" id="export-csv" title="Export to CSV" class="toolbar-btn">📥</a>
+        <a href="#" id="fullscreen-toggle" title="Toggle Fullscreen" class="toolbar-btn">⛶</a>
+      `;
+
+      // Prevent map interactions
+      L.DomEvent.disableClickPropagation(container);
+
+      return container;
+    }
+  });
+  map.addControl(new ToolbarControl());
+
+  // Set up toolbar event listeners
+  setTimeout(() => {
+    document.getElementById('measure-tool')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleMeasureMode();
+    });
+    document.getElementById('draw-tool')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleDrawMode();
+    });
+    document.getElementById('drop-pin-tool')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      enableDropPinMode();
+    });
+    document.getElementById('export-csv')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      exportToCSV();
+    });
+    document.getElementById('fullscreen-toggle')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleFullscreen();
+    });
+  }, 100);
+}
+
+// ============================================================================
+// DROP PIN FOR COMPETITOR ANALYSIS
+// ============================================================================
+
+let dropPinMode = false;
+
+function enableDropPinMode() {
+  dropPinMode = !dropPinMode;
+  const btn = document.getElementById('drop-pin-tool');
+
+  if (dropPinMode) {
+    btn?.classList.add('active');
+    map.getContainer().style.cursor = 'crosshair';
+    showNotification('Click anywhere on the map to drop a pin and analyze competitors', 'info');
+  } else {
+    btn?.classList.remove('active');
+    map.getContainer().style.cursor = '';
+    if (droppedPin) {
+      map.removeLayer(droppedPin);
+      droppedPin = null;
+    }
+  }
+}
+
+function handleMapClick(e) {
+  // Only process if in drop pin mode or measurement mode
+  if (measurementMode) {
+    addMeasurePoint(e.latlng);
+    return;
+  }
+
+  if (drawMode) {
+    addDrawPoint(e.latlng);
+    return;
+  }
+
+  if (!dropPinMode) return;
+
+  const { lat, lng } = e.latlng;
+
+  // Remove existing dropped pin
+  if (droppedPin) {
+    map.removeLayer(droppedPin);
+  }
+
+  // Create dropped pin
+  droppedPin = L.marker([lat, lng], {
+    icon: L.divIcon({
+      className: 'dropped-pin',
+      html: '<div style="background:#ff4444;width:36px;height:36px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,0.4);position:relative;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(45deg);font-size:16px;">📍</div></div>',
+      iconSize: [36, 36],
+      iconAnchor: [18, 36]
+    }),
+    draggable: true
+  }).addTo(map);
+
+  // Analyze on drop
+  analyzeDroppedPinLocation(lat, lng);
+
+  // Re-analyze when dragged
+  droppedPin.on('dragend', function() {
+    const pos = droppedPin.getLatLng();
+    analyzeDroppedPinLocation(pos.lat, pos.lng);
+  });
+}
+
+function analyzeDroppedPinLocation(lat, lng) {
+  const radiusSelect = document.getElementById('radius-filter');
+  const radiusMiles = radiusSelect?.value !== 'all' ? parseFloat(radiusSelect.value) : 5;
+
+  // Find competitors within radius
+  const competitors = [];
+  markers.forEach(({ location, brand }) => {
+    if (!selectedBrands.has(location.brand)) return;
+    const distance = getDistanceKm(lat, lng, location.lat, location.lng) * 0.621371;
+    if (distance <= radiusMiles) {
+      competitors.push({ location, brand, distance });
+    }
+  });
+  competitors.sort((a, b) => a.distance - b.distance);
+
+  // Count by category
+  const byCategory = { QSR: 0, Casual: 0, Hotel: 0, Fitness: 0 };
+  const byBrand = {};
+  competitors.forEach(c => {
+    byCategory[c.brand.type] = (byCategory[c.brand.type] || 0) + 1;
+    byBrand[c.brand.name] = (byBrand[c.brand.name] || 0) + 1;
+  });
+
+  // Show popup with analysis
+  const popupContent = `
+    <div class="popup-content">
+      <div class="popup-header">
+        <span class="popup-brand-color" style="background:#ff4444"></span>
+        <span class="popup-brand-name">Competitor Analysis</span>
+      </div>
+      <div class="popup-address">
+        ${lat.toFixed(4)}, ${lng.toFixed(4)}
+      </div>
+      <div style="margin:10px 0;padding:10px;background:rgba(255,255,255,0.1);border-radius:8px;">
+        <div style="font-size:2em;font-weight:700;color:#fff;">${competitors.length}</div>
+        <div style="font-size:0.8em;color:rgba(255,255,255,0.6);">Locations within ${radiusMiles} miles</div>
+      </div>
+      <div style="font-size:0.85em;color:rgba(255,255,255,0.8);">
+        <div>QSR: ${byCategory.QSR || 0} | Casual: ${byCategory.Casual || 0}</div>
+        <div>Hotels: ${byCategory.Hotel || 0} | Fitness: ${byCategory.Fitness || 0}</div>
+      </div>
+      <div class="popup-actions" style="margin-top:10px;">
+        <button class="popup-btn popup-btn-primary" onclick="showDetailedAnalysis(${lat}, ${lng}, ${radiusMiles})">
+          View Details
+        </button>
+        <button class="popup-btn popup-btn-secondary" onclick="clearDroppedPin()">
+          Clear Pin
+        </button>
+      </div>
+    </div>
+  `;
+
+  droppedPin.bindPopup(popupContent, { className: 'custom-popup', maxWidth: 300 }).openPopup();
+
+  // Draw radius circle
+  if (radiusCircle) map.removeLayer(radiusCircle);
+  radiusCircle = L.circle([lat, lng], {
+    radius: radiusMiles * 1609.34,
+    color: '#ff4444',
+    fillColor: '#ff4444',
+    fillOpacity: 0.08,
+    weight: 2,
+    dashArray: '8, 8'
+  }).addTo(map);
+}
+
+function showDetailedAnalysis(lat, lng, radiusMiles) {
+  const competitors = [];
+  markers.forEach(({ location, brand }) => {
+    if (!selectedBrands.has(location.brand)) return;
+    const distance = getDistanceKm(lat, lng, location.lat, location.lng) * 0.621371;
+    if (distance <= radiusMiles) {
+      competitors.push({ location, brand, distance });
+    }
+  });
+  competitors.sort((a, b) => a.distance - b.distance);
+
+  const panel = document.getElementById('info-panel');
+  const nameEl = document.getElementById('location-name');
+  const detailsEl = document.getElementById('location-details');
+
+  if (!panel || !nameEl || !detailsEl) return;
+
+  nameEl.innerHTML = `<span style="color:#ff4444">📍</span> Area Analysis`;
+
+  let brandSummary = {};
+  competitors.forEach(c => {
+    brandSummary[c.brand.name] = (brandSummary[c.brand.name] || 0) + 1;
+  });
+
+  let summaryHtml = Object.entries(brandSummary)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([name, count]) => `<div style="display:flex;justify-content:space-between;padding:4px 0;"><span>${name}</span><span style="color:rgba(255,255,255,0.5)">${count}</span></div>`)
+    .join('');
+
+  detailsEl.innerHTML = `
+    <p><strong>Coordinates:</strong> ${lat.toFixed(4)}, ${lng.toFixed(4)}</p>
+    <p><strong>Radius:</strong> ${radiusMiles} miles</p>
+    <p><strong>Total Locations:</strong> ${competitors.length}</p>
+
+    <div style="margin-top:12px;">
+      <button onclick="exportAreaToCSV(${lat}, ${lng}, ${radiusMiles})"
+              style="background:#667eea;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:600;width:100%;">
+        📥 Export Area Data
+      </button>
+    </div>
+
+    <div class="competitor-section">
+      <h4>Top Brands in Area</h4>
+      ${summaryHtml}
+    </div>
+
+    <div class="competitor-section">
+      <h4>Nearest Locations (${Math.min(competitors.length, 10)} shown)</h4>
+      <div class="competitor-list">
+        ${competitors.slice(0, 10).map(c => `
+          <div class="competitor-item" onclick="flyToLocation(${c.location.lat}, ${c.location.lng})">
+            <span class="competitor-color" style="background:${c.brand.color}"></span>
+            <span>${c.brand.name}</span>
+            <span class="competitor-distance">${c.distance.toFixed(2)} mi</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  panel.classList.add('active');
+}
+
+function clearDroppedPin() {
+  if (droppedPin) {
+    map.removeLayer(droppedPin);
+    droppedPin = null;
+  }
+  if (radiusCircle) {
+    map.removeLayer(radiusCircle);
+    radiusCircle = null;
+  }
+  dropPinMode = false;
+  document.getElementById('drop-pin-tool')?.classList.remove('active');
+  map.getContainer().style.cursor = '';
+}
+
+// ============================================================================
+// DISTANCE MEASUREMENT TOOL
+// ============================================================================
+
+function toggleMeasureMode() {
+  measurementMode = !measurementMode;
+  const btn = document.getElementById('measure-tool');
+
+  if (measurementMode) {
+    btn?.classList.add('active');
+    map.getContainer().style.cursor = 'crosshair';
+    clearMeasurements();
+    showNotification('Click points on the map to measure distance. Double-click to finish.', 'info');
+
+    // Disable other modes
+    dropPinMode = false;
+    drawMode = false;
+    document.getElementById('drop-pin-tool')?.classList.remove('active');
+    document.getElementById('draw-tool')?.classList.remove('active');
+  } else {
+    btn?.classList.remove('active');
+    map.getContainer().style.cursor = '';
+    clearMeasurements();
+  }
+}
+
+function addMeasurePoint(latlng) {
+  measurePoints.push(latlng);
+
+  // Add marker
+  const marker = L.circleMarker(latlng, {
+    radius: 6,
+    fillColor: '#667eea',
+    color: '#fff',
+    weight: 2,
+    fillOpacity: 1
+  }).addTo(map);
+  measureMarkers.push(marker);
+
+  // Update line
+  if (measureLine) map.removeLayer(measureLine);
+  if (measurePoints.length > 1) {
+    measureLine = L.polyline(measurePoints, {
+      color: '#667eea',
+      weight: 3,
+      dashArray: '10, 10'
+    }).addTo(map);
+
+    // Calculate total distance
+    let totalDistance = 0;
+    for (let i = 1; i < measurePoints.length; i++) {
+      totalDistance += getDistanceKm(
+        measurePoints[i-1].lat, measurePoints[i-1].lng,
+        measurePoints[i].lat, measurePoints[i].lng
+      );
+    }
+    const distanceMiles = totalDistance * 0.621371;
+
+    // Show distance popup on last point
+    marker.bindPopup(`
+      <div style="text-align:center;padding:5px;">
+        <div style="font-size:1.2em;font-weight:700;">${distanceMiles.toFixed(2)} mi</div>
+        <div style="font-size:0.8em;color:#666;">${totalDistance.toFixed(2)} km</div>
+        <button onclick="clearMeasurements()" style="margin-top:8px;padding:4px 12px;border:none;background:#667eea;color:#fff;border-radius:4px;cursor:pointer;">Clear</button>
+      </div>
+    `, { className: 'measurement-popup' }).openPopup();
+  }
+}
+
+function clearMeasurements() {
+  measurePoints = [];
+  measureMarkers.forEach(m => map.removeLayer(m));
+  measureMarkers = [];
+  if (measureLine) {
+    map.removeLayer(measureLine);
+    measureLine = null;
+  }
+}
+
+// ============================================================================
+// DRAW / POLYGON AREA SELECTION
+// ============================================================================
+
+function toggleDrawMode() {
+  drawMode = !drawMode;
+  const btn = document.getElementById('draw-tool');
+
+  if (drawMode) {
+    btn?.classList.add('active');
+    map.getContainer().style.cursor = 'crosshair';
+    clearDrawing();
+    showNotification('Click to add polygon points. Double-click to complete the area.', 'info');
+
+    // Disable other modes
+    measurementMode = false;
+    dropPinMode = false;
+    document.getElementById('measure-tool')?.classList.remove('active');
+    document.getElementById('drop-pin-tool')?.classList.remove('active');
+
+    // Listen for double-click to complete
+    map.once('dblclick', completeDrawing);
+  } else {
+    btn?.classList.remove('active');
+    map.getContainer().style.cursor = '';
+    clearDrawing();
+  }
+}
+
+function addDrawPoint(latlng) {
+  drawPoints.push(latlng);
+
+  // Update polygon preview
+  if (drawPolygon) map.removeLayer(drawPolygon);
+  if (drawPoints.length > 1) {
+    drawPolygon = L.polygon(drawPoints, {
+      color: '#667eea',
+      fillColor: '#667eea',
+      fillOpacity: 0.2,
+      weight: 2,
+      dashArray: '5, 5'
+    }).addTo(map);
+  }
+}
+
+function completeDrawing(e) {
+  if (drawPoints.length < 3) {
+    showNotification('Need at least 3 points to create an area', 'error');
+    clearDrawing();
+    return;
+  }
+
+  // Close the polygon
+  if (drawPolygon) map.removeLayer(drawPolygon);
+  drawPolygon = L.polygon(drawPoints, {
+    color: '#667eea',
+    fillColor: '#667eea',
+    fillOpacity: 0.15,
+    weight: 2
+  }).addTo(map);
+
+  // Find locations within polygon
+  const locationsInArea = [];
+  markers.forEach(({ location, brand }) => {
+    if (!selectedBrands.has(location.brand)) return;
+    if (drawPolygon.getBounds().contains([location.lat, location.lng])) {
+      // More precise check using ray casting
+      if (isPointInPolygon([location.lat, location.lng], drawPoints)) {
+        locationsInArea.push({ location, brand });
+      }
+    }
+  });
+
+  // Show popup
+  const center = drawPolygon.getBounds().getCenter();
+  L.popup({ className: 'custom-popup' })
+    .setLatLng(center)
+    .setContent(`
+      <div class="popup-content">
+        <div class="popup-header">
+          <span class="popup-brand-color" style="background:#667eea"></span>
+          <span class="popup-brand-name">Selected Area</span>
+        </div>
+        <div style="margin:10px 0;padding:10px;background:rgba(255,255,255,0.1);border-radius:8px;">
+          <div style="font-size:2em;font-weight:700;color:#fff;">${locationsInArea.length}</div>
+          <div style="font-size:0.8em;color:rgba(255,255,255,0.6);">Locations in area</div>
+        </div>
+        <div class="popup-actions">
+          <button class="popup-btn popup-btn-primary" onclick="exportPolygonToCSV()">
+            📥 Export
+          </button>
+          <button class="popup-btn popup-btn-secondary" onclick="clearDrawing()">
+            Clear
+          </button>
+        </div>
+      </div>
+    `)
+    .openOn(map);
+
+  drawMode = false;
+  document.getElementById('draw-tool')?.classList.remove('active');
+  map.getContainer().style.cursor = '';
+}
+
+function isPointInPolygon(point, polygon) {
+  let inside = false;
+  const [x, y] = point;
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+    const [xi, yi] = [polygon[i].lat, polygon[i].lng];
+    const [xj, yj] = [polygon[j].lat, polygon[j].lng];
+    if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) {
+      inside = !inside;
+    }
+  }
+  return inside;
+}
+
+function clearDrawing() {
+  drawPoints = [];
+  if (drawPolygon) {
+    map.removeLayer(drawPolygon);
+    drawPolygon = null;
+  }
+  map.closePopup();
+}
+
+// ============================================================================
+// EXPORT TO CSV
+// ============================================================================
+
+function exportToCSV() {
+  const visibleLocations = [];
+  const center = map.getCenter();
+  const radiusSelect = document.getElementById('radius-filter');
+  const radiusMiles = radiusSelect?.value || 'all';
+
+  markers.forEach(({ location, brand }) => {
+    if (!selectedBrands.has(location.brand)) return;
+
+    if (radiusMiles !== 'all') {
+      const radiusKm = parseFloat(radiusMiles) * 1.60934;
+      const distance = map.distance(center, [location.lat, location.lng]) / 1000;
+      if (distance > radiusKm) return;
+    }
+
+    visibleLocations.push({
+      brand: brand.name,
+      ticker: location.brand,
+      category: brand.type,
+      address: location.address,
+      lat: location.lat,
+      lng: location.lng
+    });
+  });
+
+  if (visibleLocations.length === 0) {
+    showNotification('No visible locations to export', 'error');
+    return;
+  }
+
+  downloadCSV(visibleLocations, 'franchise_locations.csv');
+  showNotification(`Exported ${visibleLocations.length} locations to CSV`, 'success');
+}
+
+function exportAreaToCSV(lat, lng, radiusMiles) {
+  const locations = [];
+  markers.forEach(({ location, brand }) => {
+    if (!selectedBrands.has(location.brand)) return;
+    const distance = getDistanceKm(lat, lng, location.lat, location.lng) * 0.621371;
+    if (distance <= radiusMiles) {
+      locations.push({
+        brand: brand.name,
+        ticker: location.brand,
+        category: brand.type,
+        address: location.address,
+        lat: location.lat,
+        lng: location.lng,
+        distance_miles: distance.toFixed(2)
+      });
+    }
+  });
+
+  if (locations.length === 0) {
+    showNotification('No locations in this area', 'error');
+    return;
+  }
+
+  downloadCSV(locations, `franchise_area_${lat.toFixed(2)}_${lng.toFixed(2)}.csv`);
+  showNotification(`Exported ${locations.length} locations`, 'success');
+}
+
+function exportPolygonToCSV() {
+  if (!drawPolygon || drawPoints.length < 3) return;
+
+  const locations = [];
+  markers.forEach(({ location, brand }) => {
+    if (!selectedBrands.has(location.brand)) return;
+    if (isPointInPolygon([location.lat, location.lng], drawPoints)) {
+      locations.push({
+        brand: brand.name,
+        ticker: location.brand,
+        category: brand.type,
+        address: location.address,
+        lat: location.lat,
+        lng: location.lng
+      });
+    }
+  });
+
+  if (locations.length === 0) {
+    showNotification('No locations in selected area', 'error');
+    return;
+  }
+
+  downloadCSV(locations, 'franchise_selected_area.csv');
+  showNotification(`Exported ${locations.length} locations`, 'success');
+  clearDrawing();
+}
+
+function downloadCSV(data, filename) {
+  const headers = Object.keys(data[0]);
+  const csvContent = [
+    headers.join(','),
+    ...data.map(row => headers.map(h => `"${row[h] || ''}"`).join(','))
+  ].join('\n');
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(link.href);
+}
+
+// ============================================================================
+// FULLSCREEN MODE
+// ============================================================================
+
+function toggleFullscreen() {
+  const container = document.querySelector('.map-container');
+  const btn = document.getElementById('fullscreen-toggle');
+
+  isFullscreen = !isFullscreen;
+
+  if (isFullscreen) {
+    if (container.requestFullscreen) {
+      container.requestFullscreen();
+    } else if (container.webkitRequestFullscreen) {
+      container.webkitRequestFullscreen();
+    } else if (container.msRequestFullscreen) {
+      container.msRequestFullscreen();
+    }
+    btn.textContent = '⛶';
+    btn.title = 'Exit Fullscreen';
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+    btn.textContent = '⛶';
+    btn.title = 'Toggle Fullscreen';
+  }
+
+  // Invalidate map size after transition
+  setTimeout(() => map.invalidateSize(), 300);
+}
+
+// Listen for fullscreen change
+document.addEventListener('fullscreenchange', () => {
+  isFullscreen = !!document.fullscreenElement;
+  setTimeout(() => map.invalidateSize(), 100);
+});
+
+// ============================================================================
+// NOTIFICATIONS
+// ============================================================================
+
+function showNotification(message, type = 'info') {
+  // Remove existing notifications
+  document.querySelectorAll('.map-notification').forEach(n => n.remove());
+
+  const notification = document.createElement('div');
+  notification.className = `map-notification map-notification-${type}`;
+  notification.innerHTML = `
+    <span>${message}</span>
+    <button onclick="this.parentElement.remove()" style="background:none;border:none;color:inherit;cursor:pointer;margin-left:10px;font-size:1.2em;">&times;</button>
+  `;
+
+  const mapEl = document.getElementById('map');
+  mapEl.parentElement.insertBefore(notification, mapEl);
+
+  // Auto-remove after 5 seconds
+  setTimeout(() => notification.remove(), 5000);
+}
+
+// ============================================================================
 // GLOBAL EXPORTS
 // ============================================================================
 
@@ -863,3 +1666,9 @@ window.selectNoBrands = selectNoBrands;
 window.analyzeCompetitors = analyzeCompetitors;
 window.zoomToLocation = zoomToLocation;
 window.flyToLocation = flyToLocation;
+window.clearMeasurements = clearMeasurements;
+window.clearDrawing = clearDrawing;
+window.clearDroppedPin = clearDroppedPin;
+window.showDetailedAnalysis = showDetailedAnalysis;
+window.exportAreaToCSV = exportAreaToCSV;
+window.exportPolygonToCSV = exportPolygonToCSV;
