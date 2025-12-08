@@ -539,6 +539,277 @@
             z-index: 999;
         }
 
+        /* View Toggle (Scores vs Highlights) */
+        .view-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(0,0,0,0.15);
+        }
+
+        .view-toggle button {
+            padding: 8px 20px;
+            border: 2px solid #334155;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent;
+            color: var(--secondary);
+        }
+
+        .view-toggle button:hover {
+            border-color: var(--accent1);
+            color: var(--text);
+        }
+
+        .view-toggle button.active {
+            background: var(--accent1);
+            border-color: var(--accent1);
+            color: white;
+        }
+
+        /* Highlights Section */
+        .highlights-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .highlight-card {
+            background: var(--card);
+            border-radius: 14px;
+            overflow: hidden;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 4px 22px rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+        }
+
+        .highlight-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .highlight-thumbnail .team-logos {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .highlight-thumbnail .team-logos img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+
+        .highlight-thumbnail .vs-text {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+
+        .highlight-thumbnail .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .highlight-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-overlay .play-btn {
+            width: 60px;
+            height: 60px;
+            background: var(--accent1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        .play-overlay .play-btn::after {
+            content: '';
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent white;
+            margin-left: 4px;
+        }
+
+        .highlight-info {
+            padding: 16px;
+        }
+
+        .highlight-matchup {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .highlight-teams {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .highlight-score {
+            font-size: 1.1em;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .highlight-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85em;
+            color: var(--secondary);
+        }
+
+        .highlight-badge {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--accent1);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .highlight-recap {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9em;
+            color: var(--secondary);
+            line-height: 1.5;
+        }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-modal.open {
+            display: flex;
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            background: #0f172a;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            padding: 5px 15px;
+        }
+
+        .video-modal-close:hover {
+            color: var(--accent1);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: var(--secondary);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .video-placeholder h3 {
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .video-placeholder a {
+            color: var(--accent1);
+            text-decoration: none;
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: 2px solid var(--accent1);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .video-placeholder a:hover {
+            background: var(--accent1);
+            color: white;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sports-hero h1 {
@@ -563,6 +834,15 @@
 
             .league-tabs {
                 justify-content: flex-start;
+            }
+
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .highlight-thumbnail .team-logos img {
+                width: 50px;
+                height: 50px;
             }
         }
     </style>
@@ -628,6 +908,12 @@
     <!-- Day Selector -->
     <div class="day-selector" id="day-selector"></div>
 
+    <!-- View Toggle -->
+    <div class="view-toggle">
+        <button id="view-scores" class="active">Scores</button>
+        <button id="view-highlights">Highlights</button>
+    </div>
+
     <!-- Game List -->
     <section id="sports-container">
         <div class="loading-state">
@@ -635,6 +921,19 @@
             <p>Loading sports data...</p>
         </div>
     </section>
+
+    <!-- Highlights Container (hidden by default) -->
+    <section id="highlights-container" class="highlights-container" style="display: none;">
+        <div class="highlights-grid" id="highlights-grid"></div>
+    </section>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="video-modal">
+        <div class="video-modal-content">
+            <button class="video-modal-close" id="modal-close">&times;</button>
+            <div class="video-container" id="video-container"></div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer id="site-footer">
@@ -673,6 +972,36 @@
         let gamesCache = {};
         let allGames = [];
         let selectedTeams = new Set(); // Empty = show all teams
+        let currentView = 'scores'; // 'scores' or 'highlights'
+
+        // ESPN highlight URLs by league
+        const ESPN_HIGHLIGHTS = {
+            NFL: 'https://www.espn.com/nfl/scoreboard',
+            NBA: 'https://www.espn.com/nba/scoreboard',
+            NHL: 'https://www.espn.com/nhl/scoreboard',
+            MLB: 'https://www.espn.com/mlb/scoreboard',
+            MLS: 'https://www.espn.com/soccer/scoreboard/_/league/usa.1',
+            WNBA: 'https://www.espn.com/wnba/scoreboard'
+        };
+
+        // Game recap templates based on score differential
+        const RECAP_TEMPLATES = {
+            blowout: [
+                '{winner} dominated {loser} in a commanding {winScore}-{loseScore} victory.',
+                '{winner} cruised to an easy win over {loser}, {winScore}-{loseScore}.',
+                'A dominant performance by {winner} as they routed {loser} {winScore}-{loseScore}.'
+            ],
+            close: [
+                '{winner} edged out {loser} in a thriller, {winScore}-{loseScore}.',
+                'A nail-biter finish as {winner} held off {loser} {winScore}-{loseScore}.',
+                '{winner} survived a close contest against {loser}, winning {winScore}-{loseScore}.'
+            ],
+            normal: [
+                '{winner} defeated {loser} {winScore}-{loseScore}.',
+                '{winner} took down {loser} with a {winScore}-{loseScore} victory.',
+                'Final: {winner} {winScore}, {loser} {loseScore}.'
+            ]
+        };
 
         // Format time to 12-hour EST
         function formatTimeEST(isoString) {
@@ -1142,11 +1471,164 @@
             }
         }
 
+        // Generate game recap text
+        function generateRecap(game) {
+            const homeScore = game.homeScore ?? 0;
+            const awayScore = game.awayScore ?? 0;
+            const homeTeam = game.homeTeam?.shortName || game.homeTeam?.name || 'Home';
+            const awayTeam = game.awayTeam?.shortName || game.awayTeam?.name || 'Away';
+
+            const winner = homeScore > awayScore ? homeTeam : awayTeam;
+            const loser = homeScore > awayScore ? awayTeam : homeTeam;
+            const winScore = Math.max(homeScore, awayScore);
+            const loseScore = Math.min(homeScore, awayScore);
+            const diff = winScore - loseScore;
+
+            let templateType = 'normal';
+            if (diff >= 14) templateType = 'blowout';
+            else if (diff <= 3) templateType = 'close';
+
+            const templates = RECAP_TEMPLATES[templateType];
+            const template = templates[Math.floor(Math.random() * templates.length)];
+
+            return template
+                .replace('{winner}', winner)
+                .replace('{loser}', loser)
+                .replace('{winScore}', winScore)
+                .replace('{loseScore}', loseScore);
+        }
+
+        // Build highlight card HTML
+        function buildHighlightCard(game, leagueKey) {
+            const homeTeam = game.homeTeam || {};
+            const awayTeam = game.awayTeam || {};
+            const homeScore = game.homeScore ?? 0;
+            const awayScore = game.awayScore ?? 0;
+            const defaultLogo = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23334155%22 width=%22100%22 height=%22100%22/></svg>';
+
+            const gameDate = new Date(game.startTime);
+            const dateStr = gameDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+            const recap = generateRecap(game);
+            const espnUrl = ESPN_HIGHLIGHTS[leagueKey] || '#';
+
+            return `
+                <div class="highlight-card" onclick="openHighlightModal('${awayTeam.shortName || awayTeam.name}', '${homeTeam.shortName || homeTeam.name}', '${leagueKey}')">
+                    <div class="highlight-thumbnail">
+                        <div class="team-logos">
+                            <img src="${awayTeam.logoUrl || defaultLogo}" alt="${awayTeam.name}" onerror="this.src='${defaultLogo}'">
+                            <span class="vs-text">@</span>
+                            <img src="${homeTeam.logoUrl || defaultLogo}" alt="${homeTeam.name}" onerror="this.src='${defaultLogo}'">
+                        </div>
+                        <div class="play-overlay">
+                            <div class="play-btn"></div>
+                        </div>
+                    </div>
+                    <div class="highlight-info">
+                        <div class="highlight-matchup">
+                            <span class="highlight-teams">${awayTeam.shortName || awayTeam.name} @ ${homeTeam.shortName || homeTeam.name}</span>
+                            <span class="highlight-score">${awayScore} - ${homeScore}</span>
+                        </div>
+                        <div class="highlight-meta">
+                            <span>${dateStr}</span>
+                            <span class="highlight-badge">FINAL</span>
+                        </div>
+                        <p class="highlight-recap">${recap}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render highlights for completed games
+        async function renderHighlights() {
+            const container = document.getElementById('highlights-grid');
+            const games = await fetchGames(currentLeague);
+
+            // Filter for completed games only
+            const completedGames = games.filter(game => normalizeStatus(game) === 'FINAL');
+
+            if (completedGames.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-msg" style="grid-column: 1 / -1;">
+                        <h3>No ${currentLeague} highlights available</h3>
+                        <p>Check back after games are completed for highlights and recaps.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort by most recent first
+            completedGames.sort((a, b) => {
+                const timeA = new Date(a.startTime || 0).getTime();
+                const timeB = new Date(b.startTime || 0).getTime();
+                return timeB - timeA;
+            });
+
+            container.innerHTML = completedGames.map(game => buildHighlightCard(game, currentLeague)).join('');
+        }
+
+        // Open highlight modal with ESPN link
+        function openHighlightModal(awayTeam, homeTeam, league) {
+            const modal = document.getElementById('video-modal');
+            const container = document.getElementById('video-container');
+            const espnUrl = ESPN_HIGHLIGHTS[league] || 'https://www.espn.com';
+
+            container.innerHTML = `
+                <div class="video-placeholder">
+                    <h3>${awayTeam} @ ${homeTeam}</h3>
+                    <p>Watch full game highlights on ESPN</p>
+                    <a href="${espnUrl}" target="_blank" rel="noopener">View on ESPN</a>
+                </div>
+            `;
+
+            modal.classList.add('open');
+        }
+
+        // Close video modal
+        function closeVideoModal() {
+            const modal = document.getElementById('video-modal');
+            const container = document.getElementById('video-container');
+            modal.classList.remove('open');
+            container.innerHTML = '';
+        }
+
+        // Setup view toggle
+        function setupViewToggle() {
+            const scoresBtn = document.getElementById('view-scores');
+            const highlightsBtn = document.getElementById('view-highlights');
+            const scoresContainer = document.getElementById('sports-container');
+            const highlightsContainer = document.getElementById('highlights-container');
+
+            scoresBtn.addEventListener('click', () => {
+                currentView = 'scores';
+                scoresBtn.classList.add('active');
+                highlightsBtn.classList.remove('active');
+                scoresContainer.style.display = 'block';
+                highlightsContainer.style.display = 'none';
+            });
+
+            highlightsBtn.addEventListener('click', async () => {
+                currentView = 'highlights';
+                highlightsBtn.classList.add('active');
+                scoresBtn.classList.remove('active');
+                scoresContainer.style.display = 'none';
+                highlightsContainer.style.display = 'block';
+                await renderHighlights();
+            });
+
+            // Setup modal close
+            document.getElementById('modal-close').addEventListener('click', closeVideoModal);
+            document.getElementById('video-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'video-modal') closeVideoModal();
+            });
+        }
+
         // Initialize app
         async function init() {
             generateDaySelector();
             setupLeagueTabs();
             setupTeamFilter();
+            setupViewToggle();
 
             // Load initial games
             await renderGames();
@@ -1157,9 +1639,16 @@
             // Refresh every 60 seconds
             setInterval(() => {
                 gamesCache = {}; // Clear cache
-                renderGames();
+                if (currentView === 'scores') {
+                    renderGames();
+                } else {
+                    renderHighlights();
+                }
             }, 60000);
         }
+
+        // Make openHighlightModal available globally
+        window.openHighlightModal = openHighlightModal;
 
         // Start
         document.addEventListener('DOMContentLoaded', init);
