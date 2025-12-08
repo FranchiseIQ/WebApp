@@ -23,7 +23,6 @@ SERV,       # Servicemaster brands (Merry Maids, etc.)
 ROL,        # Rollins (Orkin, wholly franchise division)
 
 PLNT,       # Planet Fitness
-BFT,        # F45 Training
 
 MAR,        # Marriott
 HLT,        # Hilton

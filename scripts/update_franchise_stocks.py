@@ -21,7 +21,7 @@ FRANCHISE_STOCKS = [
     "DRVN", "HRB", "MCW", "SERV", "ROL",
 
     # Fitness
-    "PLNT", "BFT", "TNL",
+    "PLNT", "TNL",
 
     # Hospitality
     "MAR", "HLT", "H", "CHH", "WH", "VAC", "TNL",

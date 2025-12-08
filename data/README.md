@@ -9,7 +9,7 @@ This directory contains CSV files for historical stock data to reduce API calls 
 **Purpose:** Pure franchisor universe we actively track
 
 Includes:
-- Core franchisor list (MCD, YUM, QSR, WEN, DPZ, JACK, WING, SHAK, DENN, DIN, DNUT, NATH, RRGB, DRVN, HRB, MCW, SERV, ROL, PLNT, BFT, MAR, HLT, H, CHH, WH, VAC, TNL, RENT, GNC, ADUS, LOPE, PLAY, ARCO, TAST)
+- Core franchisor list (MCD, YUM, QSR, WEN, DPZ, JACK, WING, SHAK, DENN, DIN, DNUT, NATH, RRGB, DRVN, HRB, MCW, SERV, ROL, PLNT, MAR, HLT, H, CHH, WH, VAC, TNL, RENT, GNC, ADUS, LOPE, PLAY, ARCO, TAST)
 - User-searched tickers (cached after first search)
 
 ### CSV Format
