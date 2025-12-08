@@ -14,10 +14,20 @@
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
 
+    <!-- Leaflet MarkerCluster CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+
     <!-- Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
+
+    <!-- Leaflet MarkerCluster Plugin -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+    <!-- Leaflet Heat Plugin -->
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 
     <link rel="stylesheet" href="map-style.css">
     <style>
@@ -298,6 +308,253 @@
             font-style: italic;
         }
 
+        /* View Toggle Buttons */
+        .view-toggles {
+            display: flex;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px;
+            border-radius: 8px;
+        }
+
+        .view-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .view-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .view-btn.active {
+            background: #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Statistics Dashboard */
+        .stats-dashboard {
+            display: flex;
+            gap: 12px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            overflow-x: auto;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 60px;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .stat-label {
+            font-size: 0.7em;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Enhanced Info Panel */
+        .info-panel.active {
+            transform: translateX(0);
+        }
+
+        .competitor-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .competitor-section h4 {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .competitor-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .competitor-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .competitor-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .competitor-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .competitor-distance {
+            margin-left: auto;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Marker Cluster Styles */
+        .marker-cluster-small {
+            background-color: rgba(102, 126, 234, 0.6);
+        }
+        .marker-cluster-small div {
+            background-color: rgba(102, 126, 234, 0.9);
+        }
+        .marker-cluster-medium {
+            background-color: rgba(118, 75, 162, 0.6);
+        }
+        .marker-cluster-medium div {
+            background-color: rgba(118, 75, 162, 0.9);
+        }
+        .marker-cluster-large {
+            background-color: rgba(234, 102, 102, 0.6);
+        }
+        .marker-cluster-large div {
+            background-color: rgba(234, 102, 102, 0.9);
+        }
+
+        .marker-cluster {
+            background-clip: padding-box;
+            border-radius: 50%;
+        }
+        .marker-cluster div {
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+            margin-top: 5px;
+            text-align: center;
+            border-radius: 50%;
+            font: 12px 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 700;
+            color: #fff;
+            line-height: 30px;
+        }
+
+        /* Popup Styles */
+        .custom-popup .leaflet-popup-content-wrapper {
+            background: rgba(15, 23, 42, 0.95);
+            color: #fff;
+            border-radius: 10px;
+            padding: 0;
+        }
+
+        .custom-popup .leaflet-popup-content {
+            margin: 0;
+            min-width: 200px;
+        }
+
+        .custom-popup .leaflet-popup-tip {
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .popup-content {
+            padding: 12px 16px;
+        }
+
+        .popup-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .popup-brand-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .popup-brand-name {
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .popup-ticker {
+            margin-left: auto;
+            background: rgba(102, 126, 234, 0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .popup-address {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .popup-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .popup-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .popup-btn-primary {
+            background: #667eea;
+            color: #fff;
+        }
+
+        .popup-btn-primary:hover {
+            background: #5a67d8;
+        }
+
+        .popup-btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .popup-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         /* Embed mode - hide ticker and nav when loaded in iframe */
         body.embed-mode {
             padding-top: 0 !important;
@@ -368,6 +625,39 @@
                 <button id="brand-filter-btn" class="filter-btn" title="Select brands to display">
                     Brands ▼
                 </button>
+                <div class="view-toggles">
+                    <button id="view-markers" class="view-btn active" title="Marker view">📍</button>
+                    <button id="view-cluster" class="view-btn" title="Cluster view">🔘</button>
+                    <button id="view-heat" class="view-btn" title="Heat map">🔥</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Dashboard -->
+        <div id="stats-dashboard" class="stats-dashboard">
+            <div class="stat-item">
+                <span class="stat-value" id="stat-visible">0</span>
+                <span class="stat-label">Visible</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="stat-brands">0</span>
+                <span class="stat-label">Brands</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="stat-qsr">0</span>
+                <span class="stat-label">QSR</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="stat-casual">0</span>
+                <span class="stat-label">Casual</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="stat-hotel">0</span>
+                <span class="stat-label">Hotels</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="stat-fitness">0</span>
+                <span class="stat-label">Fitness</span>
             </div>
         </div>
 
