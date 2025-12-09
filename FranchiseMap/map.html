@@ -15,6 +15,13 @@
 <body>
     <header class="top-bar">
         <div class="logo-area">FranchiseIQ</div>
+        <div id="stock-ticker" class="stock-ticker">
+            <div class="ticker-status">
+                <span id="market-status">Market Closed</span>
+                <span id="market-countdown">Opens in --:--</span>
+            </div>
+            <div id="ticker-tape" class="ticker-tape"></div>
+        </div>
     </header>
 
     <div id="map-container">
@@ -25,16 +32,43 @@
             <button id="btn-home" class="control-btn" title="Reset View"><i class="fa-solid fa-house"></i></button>
             <button id="btn-locate" class="control-btn" title="Near Me"><i class="fa-solid fa-location-crosshairs"></i></button>
             <button id="btn-cluster-toggle" class="control-btn active" title="Toggle Clustering"><i class="fa-solid fa-circle-nodes"></i></button>
+            <button id="btn-panel-toggle" class="control-btn" title="Toggle Panel"><i class="fa-solid fa-layer-group"></i></button>
         </div>
 
         <!-- Info Panel -->
-        <aside id="info-panel">
+        <aside id="info-panel" class="panel-expanded">
             <div class="panel-header">
                 <h2>Market Analysis</h2>
-                <button id="close-panel" class="close-btn"><i class="fa-solid fa-times"></i></button>
+                <div class="header-controls">
+                    <button id="collapse-panel" class="collapse-btn" title="Collapse"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
             </div>
             <div class="panel-content">
                 <p class="panel-intro">Select brands to visualize suitability scores.</p>
+
+                <!-- Filter Controls -->
+                <div class="filter-controls">
+                    <button id="btn-select-all" class="filter-btn">Select All</button>
+                    <button id="btn-deselect-all" class="filter-btn">Deselect All</button>
+                    <button id="btn-roark" class="filter-btn roark-btn">Roark Portfolio</button>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="category-filters">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="qsr">QSR</button>
+                    <button class="category-btn" data-category="casual">Casual</button>
+                    <button class="category-btn" data-category="hotels">Hotels</button>
+                    <button class="category-btn" data-category="services">Services</button>
+                    <button class="category-btn" data-category="private">Private</button>
+                </div>
+
+                <!-- Location Count -->
+                <div class="location-count">
+                    <span id="visible-count">0</span> locations visible
+                </div>
+
+                <!-- Brand Legend -->
                 <div id="brand-legend"></div>
             </div>
         </aside>
@@ -46,6 +80,7 @@
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="https://cdn.osmbuildings.org/classic/0.2.2b/OSMBuildings-Leaflet.js"></script>
     <script src="https://unpkg.com/osmtogeojson@3.0.0/osmtogeojson.js"></script>
+    <script src="js/ticker.js"></script>
     <script src="js/map.js"></script>
 </body>
 </html>
