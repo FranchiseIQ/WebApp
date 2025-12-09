@@ -7,25 +7,30 @@
 const BRANDS = {
   // Quick Service Restaurants
   MCD: { name: "McDonald's", color: '#FFC72C', type: 'QSR' },
+  ARCO: { name: "Arcos Dorados (McDonald's LatAm)", color: '#DA291C', type: 'QSR' },
   YUM: { name: 'Yum! Brands (KFC/Taco Bell/Pizza Hut)', color: '#E4002B', type: 'QSR' },
-  QSR: { name: 'Restaurant Brands (BK/Tim Hortons)', color: '#FF8732', type: 'QSR' },
+  QSR: { name: 'Restaurant Brands (BK/Tim Hortons/Popeyes)', color: '#FF8732', type: 'QSR' },
   WEN: { name: "Wendy's", color: '#E2203C', type: 'QSR' },
   DPZ: { name: "Domino's Pizza", color: '#006491', type: 'QSR' },
   SHAK: { name: 'Shake Shack', color: '#1F1F1F', type: 'QSR' },
   CMG: { name: 'Chipotle', color: '#441500', type: 'QSR' },
   SBUX: { name: 'Starbucks', color: '#00704A', type: 'QSR' },
-  JACK: { name: 'Jack in the Box', color: '#E31837', type: 'QSR' },
+  JACK: { name: 'Jack in the Box / Del Taco', color: '#E31837', type: 'QSR' },
   WING: { name: 'Wingstop', color: '#00503C', type: 'QSR' },
   PZZA: { name: "Papa John's", color: '#CD1126', type: 'QSR' },
+  DNUT: { name: 'Krispy Kreme / Insomnia Cookies', color: '#00A94F', type: 'QSR' },
+  NATH: { name: "Nathan's Famous", color: '#FFD700', type: 'QSR' },
 
   // Casual Dining
   DRI: { name: 'Darden (Olive Garden/LongHorn)', color: '#6B8E23', type: 'Casual' },
   EAT: { name: 'Brinker (Chilis/Maggianos)', color: '#C41E3A', type: 'Casual' },
   TXRH: { name: 'Texas Roadhouse', color: '#8B4513', type: 'Casual' },
   CAKE: { name: 'Cheesecake Factory', color: '#8B0000', type: 'Casual' },
-  DENN: { name: "Denny's", color: '#FFD700', type: 'Casual' },
+  DENN: { name: "Denny's / Keke's", color: '#FFA500', type: 'Casual' },
   DIN: { name: 'Dine Brands (IHOP/Applebees)', color: '#1E90FF', type: 'Casual' },
   BLMN: { name: 'Bloomin Brands (Outback)', color: '#CD853F', type: 'Casual' },
+  RRGB: { name: 'Red Robin', color: '#C8102E', type: 'Casual' },
+  PLAY: { name: "Dave & Buster's / Main Event", color: '#E31837', type: 'Casual' },
 
   // Hotels
   MAR: { name: 'Marriott International', color: '#B4975A', type: 'Hotel' },
@@ -34,10 +39,24 @@ const BRANDS = {
   IHG: { name: 'IHG (Holiday Inn)', color: '#007A53', type: 'Hotel' },
   WH: { name: 'Wyndham Hotels', color: '#0077C8', type: 'Hotel' },
   CHH: { name: 'Choice Hotels', color: '#1C4587', type: 'Hotel' },
+  VAC: { name: 'Marriott Vacations Worldwide', color: '#C4A052', type: 'Hotel' },
+  TNL: { name: 'Travel + Leisure (Club Wyndham)', color: '#00A5E3', type: 'Hotel' },
 
-  // Fitness & Services
+  // Fitness
   PLNT: { name: 'Planet Fitness', color: '#5C2D91', type: 'Fitness' },
-  XPOF: { name: 'Xponential Fitness', color: '#FF6B35', type: 'Fitness' }
+  XPOF: { name: 'Xponential Fitness', color: '#FF6B35', type: 'Fitness' },
+
+  // Services
+  DRVN: { name: 'Driven Brands (Take 5/Meineke/Maaco)', color: '#E31837', type: 'Services' },
+  HRB: { name: 'H&R Block', color: '#00A650', type: 'Services' },
+  MCW: { name: 'Mister Car Wash', color: '#0072CE', type: 'Services' },
+  SERV: { name: 'ServiceMaster (Merry Maids/Two Men)', color: '#E4002B', type: 'Services' },
+  ROL: { name: 'Rollins (Orkin)', color: '#003DA5', type: 'Services' },
+
+  // Other
+  RENT: { name: 'Rent the Runway', color: '#000000', type: 'Retail' },
+  ADUS: { name: 'Addus HomeCare', color: '#4A90D9', type: 'Healthcare' },
+  LOPE: { name: 'Grand Canyon Education', color: '#512888', type: 'Education' }
 };
 
 // Expanded franchise location data
@@ -360,7 +379,165 @@ const franchiseLocations = [
   { brand: 'XPOF', lat: 39.7392, lng: -104.9903, address: 'CycleBar - Denver, CO' },
   { brand: 'XPOF', lat: 36.1627, lng: -86.7816, address: 'Club Pilates - Nashville, TN' },
   { brand: 'XPOF', lat: 42.3601, lng: -71.0589, address: 'StretchLab - Boston, MA' },
-  { brand: 'XPOF', lat: 41.8781, lng: -87.6298, address: 'YogaSix - Chicago, IL' }
+  { brand: 'XPOF', lat: 41.8781, lng: -87.6298, address: 'YogaSix - Chicago, IL' },
+
+  // Krispy Kreme / Insomnia Cookies (DNUT)
+  { brand: 'DNUT', lat: 40.7580, lng: -73.9855, address: 'Krispy Kreme - Times Square, NY' },
+  { brand: 'DNUT', lat: 34.0522, lng: -118.2437, address: 'Krispy Kreme - Los Angeles, CA' },
+  { brand: 'DNUT', lat: 41.8781, lng: -87.6298, address: 'Krispy Kreme - Chicago, IL' },
+  { brand: 'DNUT', lat: 33.7490, lng: -84.3880, address: 'Krispy Kreme - Atlanta, GA' },
+  { brand: 'DNUT', lat: 36.1627, lng: -86.7816, address: 'Krispy Kreme - Nashville, TN' },
+  { brand: 'DNUT', lat: 35.2271, lng: -80.8431, address: 'Krispy Kreme HQ - Charlotte, NC' },
+  { brand: 'DNUT', lat: 39.9526, lng: -75.1652, address: 'Insomnia Cookies - Philadelphia, PA' },
+  { brand: 'DNUT', lat: 42.3601, lng: -71.0589, address: 'Insomnia Cookies - Boston, MA' },
+  { brand: 'DNUT', lat: 30.2672, lng: -97.7431, address: 'Krispy Kreme - Austin, TX' },
+  { brand: 'DNUT', lat: 32.7767, lng: -96.7970, address: 'Krispy Kreme - Dallas, TX' },
+
+  // Nathan's Famous (NATH)
+  { brand: 'NATH', lat: 40.5740, lng: -73.9712, address: "Nathan's Famous - Coney Island, NY" },
+  { brand: 'NATH', lat: 40.7580, lng: -73.9855, address: "Nathan's Famous - Times Square, NY" },
+  { brand: 'NATH', lat: 40.7484, lng: -73.9857, address: "Nathan's Famous - Herald Square, NY" },
+  { brand: 'NATH', lat: 41.8781, lng: -87.6298, address: "Nathan's Famous - Chicago, IL" },
+  { brand: 'NATH', lat: 34.0522, lng: -118.2437, address: "Nathan's Famous - Los Angeles, CA" },
+  { brand: 'NATH', lat: 36.1699, lng: -115.1398, address: "Nathan's Famous - Las Vegas, NV" },
+  { brand: 'NATH', lat: 25.7617, lng: -80.1918, address: "Nathan's Famous - Miami, FL" },
+  { brand: 'NATH', lat: 28.5383, lng: -81.3792, address: "Nathan's Famous - Orlando, FL" },
+
+  // Red Robin (RRGB)
+  { brand: 'RRGB', lat: 39.7392, lng: -104.9903, address: 'Red Robin - Denver, CO' },
+  { brand: 'RRGB', lat: 47.6062, lng: -122.3321, address: 'Red Robin - Seattle, WA' },
+  { brand: 'RRGB', lat: 45.5051, lng: -122.6750, address: 'Red Robin - Portland, OR' },
+  { brand: 'RRGB', lat: 33.4484, lng: -112.0740, address: 'Red Robin - Phoenix, AZ' },
+  { brand: 'RRGB', lat: 37.7749, lng: -122.4194, address: 'Red Robin - San Francisco, CA' },
+  { brand: 'RRGB', lat: 34.0522, lng: -118.2437, address: 'Red Robin - Los Angeles, CA' },
+  { brand: 'RRGB', lat: 32.7157, lng: -117.1611, address: 'Red Robin - San Diego, CA' },
+  { brand: 'RRGB', lat: 40.7608, lng: -111.8910, address: 'Red Robin - Salt Lake City, UT' },
+  { brand: 'RRGB', lat: 44.9778, lng: -93.2650, address: 'Red Robin - Minneapolis, MN' },
+  { brand: 'RRGB', lat: 41.8781, lng: -87.6298, address: 'Red Robin - Chicago, IL' },
+
+  // Dave & Buster's / Main Event (PLAY)
+  { brand: 'PLAY', lat: 40.7580, lng: -73.9855, address: "Dave & Buster's - Times Square, NY" },
+  { brand: 'PLAY', lat: 32.7767, lng: -96.7970, address: "Dave & Buster's HQ - Dallas, TX" },
+  { brand: 'PLAY', lat: 41.8781, lng: -87.6298, address: "Dave & Buster's - Chicago, IL" },
+  { brand: 'PLAY', lat: 34.0522, lng: -118.2437, address: "Dave & Buster's - Los Angeles, CA" },
+  { brand: 'PLAY', lat: 33.7490, lng: -84.3880, address: "Dave & Buster's - Atlanta, GA" },
+  { brand: 'PLAY', lat: 29.7604, lng: -95.3698, address: 'Main Event - Houston, TX' },
+  { brand: 'PLAY', lat: 30.2672, lng: -97.7431, address: 'Main Event - Austin, TX' },
+  { brand: 'PLAY', lat: 33.4484, lng: -112.0740, address: "Dave & Buster's - Phoenix, AZ" },
+  { brand: 'PLAY', lat: 39.7392, lng: -104.9903, address: "Dave & Buster's - Denver, CO" },
+  { brand: 'PLAY', lat: 25.7617, lng: -80.1918, address: "Dave & Buster's - Miami, FL" },
+
+  // Arcos Dorados - McDonald's Latin America (ARCO)
+  { brand: 'ARCO', lat: 19.4326, lng: -99.1332, address: "McDonald's - Mexico City, Mexico" },
+  { brand: 'ARCO', lat: -23.5505, lng: -46.6333, address: "McDonald's - Sao Paulo, Brazil" },
+  { brand: 'ARCO', lat: -34.6037, lng: -58.3816, address: "McDonald's - Buenos Aires, Argentina" },
+  { brand: 'ARCO', lat: 4.7110, lng: -74.0721, address: "McDonald's - Bogota, Colombia" },
+  { brand: 'ARCO', lat: -12.0464, lng: -77.0428, address: "McDonald's - Lima, Peru" },
+  { brand: 'ARCO', lat: -33.4489, lng: -70.6693, address: "McDonald's - Santiago, Chile" },
+  { brand: 'ARCO', lat: 18.4861, lng: -69.9312, address: "McDonald's - Santo Domingo, DR" },
+  { brand: 'ARCO', lat: 18.1096, lng: -77.2975, address: "McDonald's - Montego Bay, Jamaica" },
+
+  // Marriott Vacations (VAC)
+  { brand: 'VAC', lat: 28.3772, lng: -81.5707, address: 'Marriott Vacation Club - Orlando, FL' },
+  { brand: 'VAC', lat: 21.2769, lng: -157.8266, address: 'Marriott Vacation Club - Honolulu, HI' },
+  { brand: 'VAC', lat: 36.1699, lng: -115.1398, address: 'Marriott Vacation Club - Las Vegas, NV' },
+  { brand: 'VAC', lat: 32.7157, lng: -117.1611, address: 'Marriott Vacation Club - San Diego, CA' },
+  { brand: 'VAC', lat: 39.6403, lng: -106.3742, address: 'Marriott Vacation Club - Vail, CO' },
+  { brand: 'VAC', lat: 20.8783, lng: -156.6825, address: 'Marriott Vacation Club - Maui, HI' },
+  { brand: 'VAC', lat: 30.2672, lng: -97.7431, address: 'Hyatt Residence Club - Austin, TX' },
+  { brand: 'VAC', lat: 26.1224, lng: -80.1373, address: 'Marriott Vacation Club - Ft Lauderdale, FL' },
+
+  // Travel + Leisure / Club Wyndham (TNL)
+  { brand: 'TNL', lat: 28.3772, lng: -81.5707, address: 'Club Wyndham - Orlando, FL' },
+  { brand: 'TNL', lat: 36.1699, lng: -115.1398, address: 'Club Wyndham - Las Vegas, NV' },
+  { brand: 'TNL', lat: 35.5951, lng: -83.5070, address: 'Club Wyndham - Gatlinburg, TN' },
+  { brand: 'TNL', lat: 34.2257, lng: -77.9447, address: 'WorldMark - Myrtle Beach, SC' },
+  { brand: 'TNL', lat: 45.0267, lng: -93.2378, address: 'Margaritaville Vacation Club - Minneapolis, MN' },
+  { brand: 'TNL', lat: 21.2769, lng: -157.8266, address: 'WorldMark - Honolulu, HI' },
+  { brand: 'TNL', lat: 32.7157, lng: -117.1611, address: 'WorldMark - San Diego, CA' },
+  { brand: 'TNL', lat: 39.7392, lng: -104.9903, address: 'Club Wyndham - Denver, CO' },
+
+  // Driven Brands (DRVN) - Take 5, Meineke, Maaco, etc.
+  { brand: 'DRVN', lat: 35.2271, lng: -80.8431, address: 'Driven Brands HQ - Charlotte, NC' },
+  { brand: 'DRVN', lat: 40.7580, lng: -73.9855, address: 'Meineke - New York, NY' },
+  { brand: 'DRVN', lat: 34.0522, lng: -118.2437, address: 'Maaco - Los Angeles, CA' },
+  { brand: 'DRVN', lat: 41.8781, lng: -87.6298, address: 'Take 5 Oil Change - Chicago, IL' },
+  { brand: 'DRVN', lat: 33.7490, lng: -84.3880, address: 'Meineke - Atlanta, GA' },
+  { brand: 'DRVN', lat: 29.7604, lng: -95.3698, address: 'Take 5 Oil Change - Houston, TX' },
+  { brand: 'DRVN', lat: 32.7767, lng: -96.7970, address: 'CARSTAR - Dallas, TX' },
+  { brand: 'DRVN', lat: 33.4484, lng: -112.0740, address: 'Maaco - Phoenix, AZ' },
+  { brand: 'DRVN', lat: 39.9526, lng: -75.1652, address: 'Meineke - Philadelphia, PA' },
+  { brand: 'DRVN', lat: 42.3601, lng: -71.0589, address: 'Take 5 Car Wash - Boston, MA' },
+
+  // H&R Block (HRB)
+  { brand: 'HRB', lat: 39.0997, lng: -94.5786, address: 'H&R Block HQ - Kansas City, MO' },
+  { brand: 'HRB', lat: 40.7580, lng: -73.9855, address: 'H&R Block - New York, NY' },
+  { brand: 'HRB', lat: 34.0522, lng: -118.2437, address: 'H&R Block - Los Angeles, CA' },
+  { brand: 'HRB', lat: 41.8781, lng: -87.6298, address: 'H&R Block - Chicago, IL' },
+  { brand: 'HRB', lat: 29.7604, lng: -95.3698, address: 'H&R Block - Houston, TX' },
+  { brand: 'HRB', lat: 33.4484, lng: -112.0740, address: 'H&R Block - Phoenix, AZ' },
+  { brand: 'HRB', lat: 39.9526, lng: -75.1652, address: 'H&R Block - Philadelphia, PA' },
+  { brand: 'HRB', lat: 32.7767, lng: -96.7970, address: 'H&R Block - Dallas, TX' },
+  { brand: 'HRB', lat: 37.7749, lng: -122.4194, address: 'H&R Block - San Francisco, CA' },
+  { brand: 'HRB', lat: 25.7617, lng: -80.1918, address: 'H&R Block - Miami, FL' },
+
+  // Mister Car Wash (MCW)
+  { brand: 'MCW', lat: 32.2226, lng: -110.9747, address: 'Mister Car Wash HQ - Tucson, AZ' },
+  { brand: 'MCW', lat: 33.4484, lng: -112.0740, address: 'Mister Car Wash - Phoenix, AZ' },
+  { brand: 'MCW', lat: 32.7767, lng: -96.7970, address: 'Mister Car Wash - Dallas, TX' },
+  { brand: 'MCW', lat: 29.7604, lng: -95.3698, address: 'Mister Car Wash - Houston, TX' },
+  { brand: 'MCW', lat: 30.2672, lng: -97.7431, address: 'Mister Car Wash - Austin, TX' },
+  { brand: 'MCW', lat: 39.7392, lng: -104.9903, address: 'Mister Car Wash - Denver, CO' },
+  { brand: 'MCW', lat: 35.0844, lng: -106.6504, address: 'Mister Car Wash - Albuquerque, NM' },
+  { brand: 'MCW', lat: 36.1699, lng: -115.1398, address: 'Mister Car Wash - Las Vegas, NV' },
+  { brand: 'MCW', lat: 34.0522, lng: -118.2437, address: 'Mister Car Wash - Los Angeles, CA' },
+  { brand: 'MCW', lat: 40.7608, lng: -111.8910, address: 'Mister Car Wash - Salt Lake City, UT' },
+
+  // ServiceMaster (SERV) - Merry Maids, Two Men and a Truck, etc.
+  { brand: 'SERV', lat: 35.0526, lng: -85.3097, address: 'ServiceMaster HQ - Memphis, TN' },
+  { brand: 'SERV', lat: 40.7580, lng: -73.9855, address: 'Merry Maids - New York, NY' },
+  { brand: 'SERV', lat: 34.0522, lng: -118.2437, address: 'Two Men and a Truck - Los Angeles, CA' },
+  { brand: 'SERV', lat: 41.8781, lng: -87.6298, address: 'ServiceMaster Clean - Chicago, IL' },
+  { brand: 'SERV', lat: 33.7490, lng: -84.3880, address: 'Merry Maids - Atlanta, GA' },
+  { brand: 'SERV', lat: 32.7767, lng: -96.7970, address: 'Two Men and a Truck - Dallas, TX' },
+  { brand: 'SERV', lat: 42.3601, lng: -71.0589, address: 'ServiceMaster Restore - Boston, MA' },
+  { brand: 'SERV', lat: 39.9526, lng: -75.1652, address: 'Merry Maids - Philadelphia, PA' },
+  { brand: 'SERV', lat: 47.6062, lng: -122.3321, address: 'Two Men and a Truck - Seattle, WA' },
+  { brand: 'SERV', lat: 25.7617, lng: -80.1918, address: 'ServiceMaster Clean - Miami, FL' },
+
+  // Rollins / Orkin (ROL)
+  { brand: 'ROL', lat: 33.7490, lng: -84.3880, address: 'Orkin HQ - Atlanta, GA' },
+  { brand: 'ROL', lat: 40.7580, lng: -73.9855, address: 'Orkin - New York, NY' },
+  { brand: 'ROL', lat: 34.0522, lng: -118.2437, address: 'Orkin - Los Angeles, CA' },
+  { brand: 'ROL', lat: 41.8781, lng: -87.6298, address: 'Orkin - Chicago, IL' },
+  { brand: 'ROL', lat: 29.7604, lng: -95.3698, address: 'Orkin - Houston, TX' },
+  { brand: 'ROL', lat: 32.7767, lng: -96.7970, address: 'HomeTeam Pest Defense - Dallas, TX' },
+  { brand: 'ROL', lat: 25.7617, lng: -80.1918, address: 'Orkin - Miami, FL' },
+  { brand: 'ROL', lat: 33.4484, lng: -112.0740, address: 'Western Pest Services - Phoenix, AZ' },
+  { brand: 'ROL', lat: 47.6062, lng: -122.3321, address: 'Clark Pest Control - Seattle, WA' },
+  { brand: 'ROL', lat: 37.7749, lng: -122.4194, address: 'Orkin - San Francisco, CA' },
+
+  // Rent the Runway (RENT)
+  { brand: 'RENT', lat: 40.7580, lng: -73.9855, address: 'Rent the Runway HQ - New York, NY' },
+  { brand: 'RENT', lat: 34.0522, lng: -118.2437, address: 'Rent the Runway - Los Angeles, CA' },
+  { brand: 'RENT', lat: 41.8781, lng: -87.6298, address: 'Rent the Runway - Chicago, IL' },
+  { brand: 'RENT', lat: 37.7749, lng: -122.4194, address: 'Rent the Runway - San Francisco, CA' },
+  { brand: 'RENT', lat: 38.9072, lng: -77.0369, address: 'Rent the Runway - Washington DC' },
+
+  // Addus HomeCare (ADUS)
+  { brand: 'ADUS', lat: 41.5868, lng: -87.6456, address: 'Addus HomeCare HQ - Frisco, TX' },
+  { brand: 'ADUS', lat: 40.7580, lng: -73.9855, address: 'Addus HomeCare - New York, NY' },
+  { brand: 'ADUS', lat: 34.0522, lng: -118.2437, address: 'Addus HomeCare - Los Angeles, CA' },
+  { brand: 'ADUS', lat: 41.8781, lng: -87.6298, address: 'Addus HomeCare - Chicago, IL' },
+  { brand: 'ADUS', lat: 33.7490, lng: -84.3880, address: 'Addus HomeCare - Atlanta, GA' },
+  { brand: 'ADUS', lat: 29.7604, lng: -95.3698, address: 'Addus HomeCare - Houston, TX' },
+
+  // Grand Canyon Education (LOPE)
+  { brand: 'LOPE', lat: 33.4484, lng: -112.0740, address: 'Grand Canyon University - Phoenix, AZ' },
+  { brand: 'LOPE', lat: 34.0522, lng: -118.2437, address: 'GCE Learning Center - Los Angeles, CA' },
+  { brand: 'LOPE', lat: 32.7767, lng: -96.7970, address: 'GCE Learning Center - Dallas, TX' },
+  { brand: 'LOPE', lat: 29.7604, lng: -95.3698, address: 'GCE Learning Center - Houston, TX' },
+  { brand: 'LOPE', lat: 33.7490, lng: -84.3880, address: 'GCE Learning Center - Atlanta, GA' }
 ];
 
 // ============================================================================
@@ -374,7 +551,7 @@ let clusterLayer;
 let heatLayer;
 let radiusCircle = null;
 let selectedBrands = new Set(Object.keys(BRANDS));
-let selectedCategories = new Set(['QSR', 'Casual', 'Hotel', 'Fitness']);
+let selectedCategories = new Set(['QSR', 'Casual', 'Hotel', 'Fitness', 'Services', 'Retail', 'Healthcare', 'Education']);
 let currentView = 'cluster'; // 'markers', 'cluster', 'heat'
 let selectedLocation = null;
 
@@ -783,7 +960,7 @@ function toggleCategory(category) {
 }
 
 function updateCategoryCounts() {
-  const counts = { QSR: 0, Casual: 0, Hotel: 0, Fitness: 0 };
+  const counts = { QSR: 0, Casual: 0, Hotel: 0, Fitness: 0, Services: 0, Retail: 0, Healthcare: 0, Education: 0 };
 
   franchiseLocations.forEach(loc => {
     const brand = BRANDS[loc.brand];
@@ -796,6 +973,7 @@ function updateCategoryCounts() {
   document.getElementById('cat-casual')?.textContent = counts.Casual;
   document.getElementById('cat-hotel')?.textContent = counts.Hotel;
   document.getElementById('cat-fitness')?.textContent = counts.Fitness;
+  document.getElementById('cat-services')?.textContent = counts.Services;
 }
 
 function updateVisibleCount() {
