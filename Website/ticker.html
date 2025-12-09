@@ -12,7 +12,7 @@
     <script>
         // Detect embed mode from URL parameter
         if (new URLSearchParams(window.location.search).get('embed') === 'true') {
-            document.write('<style>body.embed-mode #header, body.embed-mode footer, body.embed-mode .site-footer { display: none !important; } body.embed-mode { min-height: auto !important; overflow: hidden !important; } body.embed-mode #ticker-container { flex: none; height: 70px; }</style>');
+            document.write('<style>body.embed-mode #header, body.embed-mode footer, body.embed-mode .site-footer { display: none !important; } body.embed-mode { min-height: auto !important; overflow: hidden !important; } body.embed-mode #ticker-container { flex: none; height: 120px; min-height: 120px; }</style>');
             document.documentElement.classList.add('embed-mode');
         }
     </script>
