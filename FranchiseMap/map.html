@@ -29,7 +29,7 @@
     <!-- Leaflet Heat Plugin -->
     <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 
-    <link rel="stylesheet" href="map-style.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
         /* Reset body padding - using fixed positioning */
         html, body {
@@ -120,6 +120,19 @@
         .map-container {
             height: calc(100vh - 170px);
             min-height: 500px;
+            position: relative;
+        }
+
+        /* Ensure map has explicit height */
+        #map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
 
         /* Search Box */
@@ -1298,6 +1311,6 @@
         </div>
     </div>
 
-    <script src="map.js"></script>
+    <script src="js/map.js"></script>
 </body>
 </html>

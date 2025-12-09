@@ -669,10 +669,14 @@ async function initMap() {
 
 async function loadExternalData() {
   try {
-    // Try loading manifest.json (from OSM data generator)
-    const manifestResponse = await fetch('data/manifest.json');
+    // Try loading manifest.json (from OSM data generator) or brands_manifest.json (fallback)
+    let manifestResponse = await fetch('data/manifest.json');
     if (!manifestResponse.ok) {
-      throw new Error('Manifest not found');
+      // Try the alternative manifest file
+      manifestResponse = await fetch('data/brands_manifest.json');
+      if (!manifestResponse.ok) {
+        throw new Error('No manifest file found');
+      }
     }
 
     const manifest = await manifestResponse.json();
