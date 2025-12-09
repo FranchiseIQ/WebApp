@@ -1,0 +1,65 @@
+name: Update Sports Highlights
+
+on:
+  schedule:
+    # Times are UTC. EST is UTC-5 (Standard) or UTC-4 (Daylight)
+
+    # Tuesday Morning (After MNF) - 9AM EST -> 14:00 UTC
+    - cron: '0 14 * * 2'
+
+    # Friday Morning (After TNF) - 9AM EST -> 14:00 UTC
+    - cron: '0 14 * * 5'
+
+    # Saturday - Every 4 hours during football season
+    - cron: '0 13,17,21 * 9-12,1 6'
+
+    # Sunday - Heavy game day coverage
+    - cron: '0 13,17,21,1 * 9-12,1 0'
+
+    # Monday - MNF and post-game
+    - cron: '0 1,5,13 * 9-12,1 1'
+
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-highlights:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./FootballLive
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch scores and highlights
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python fetch_scores.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add nfl_data.json
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update NFL scores and highlights - $(date +'%Y-%m-%d %H:%M UTC')"
+            git push
+            echo "✅ NFL data updated with highlights"
+          fi

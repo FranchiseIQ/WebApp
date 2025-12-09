@@ -1568,7 +1568,8 @@
 
             const recap = generateRecap(game);
 
-            // Use ESPN highlight if available, otherwise use YouTube search
+            // Check for video sources (priority: video_url from API > highlight > YouTube search)
+            const youtubeEmbed = game.video_url || null;  // From nfl_data.json (YouTube embed URL)
             const espnHighlight = game.highlight || null;
             const youtubeUrl = game.youtubeSearch || getYouTubeSearchUrl(
                 awayTeam.shortName || awayTeam.name,
@@ -1576,6 +1577,7 @@
                 leagueKey
             );
             const highlightTitle = game.highlightTitle || 'Game Highlights';
+            const hasVideo = youtubeEmbed || espnHighlight;
 
             // Encode data for onclick
             const gameData = encodeURIComponent(JSON.stringify({
@@ -1584,6 +1586,7 @@
                 league: leagueKey,
                 espnVideo: espnHighlight,
                 youtubeUrl: youtubeUrl,
+                youtubeEmbed: youtubeEmbed,
                 title: highlightTitle
             }));
 
@@ -1598,7 +1601,7 @@
                         <div class="play-overlay">
                             <div class="play-btn"></div>
                         </div>
-                        ${espnHighlight ? '<span class="video-badge">VIDEO</span>' : ''}
+                        ${hasVideo ? '<span class="video-badge">VIDEO</span>' : ''}
                     </div>
                     <div class="highlight-info">
                         <div class="highlight-matchup">
@@ -1649,7 +1652,7 @@
             return `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
         }
 
-        // Open highlight modal - handles both ESPN video and YouTube fallback
+        // Open highlight modal - handles embedded YouTube videos
         function openHighlightModal(encodedData) {
             const modal = document.getElementById('video-modal');
             const container = document.getElementById('video-container');
@@ -1663,13 +1666,25 @@
                 gameData = { away: encodedData, home: '', league: 'NFL' };
             }
 
-            const { away, home, league, espnVideo, youtubeUrl, title } = gameData;
+            const { away, home, league, espnVideo, youtubeUrl, youtubeEmbed, title } = gameData;
             const channelId = YOUTUBE_CHANNELS[league];
             const channelUrl = channelId ? `https://www.youtube.com/channel/${channelId}` : 'https://www.youtube.com';
             const youtubeSearchUrl = youtubeUrl || getYouTubeSearchUrl(away, home, league);
 
-            // If ESPN video is available, show embedded video player
-            if (espnVideo) {
+            // Priority: YouTube Embed URL > ESPN Video > YouTube Search Link
+            if (youtubeEmbed) {
+                // Direct YouTube embed - plays within the page!
+                container.innerHTML = `
+                    <iframe
+                        id="youtube-player"
+                        src="${youtubeEmbed}"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                `;
+            } else if (espnVideo) {
+                // ESPN video player
                 container.innerHTML = `
                     <video id="highlight-video" controls autoplay style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: #000;">
                         <source src="${espnVideo}" type="video/mp4">
@@ -1682,7 +1697,7 @@
                     </div>
                 `;
             } else {
-                // No ESPN video - show YouTube links
+                // Fallback - show YouTube search links
                 container.innerHTML = `
                     <div class="video-placeholder">
                         <h3>${away} @ ${home}</h3>
@@ -1715,6 +1730,12 @@
             if (video) {
                 video.pause();
                 video.src = '';
+            }
+
+            // Stop YouTube iframe by removing src
+            const iframe = container.querySelector('iframe');
+            if (iframe) {
+                iframe.src = '';
             }
 
             modal.classList.remove('open');
