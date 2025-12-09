@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Test Page - Embedded Video Demo</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: rgba(255,255,255,0.06);
+            --text: #f8fafc;
+            --secondary: #cbd5e1;
+            --accent1: #6366f1;
+            --accent2: #a855f7;
+            --green: #22c55e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            color: var(--text);
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        .header p { opacity: 0.9; }
+
+        .test-info {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid var(--green);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .test-info h3 { color: var(--green); margin-bottom: 8px; }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .highlight-card {
+            background: var(--card);
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+        }
+
+        .highlight-thumbnail {
+            position: relative;
+            height: 180px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .team-logos {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .team-logos img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .vs-text {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .highlight-card:hover .play-overlay { opacity: 1; }
+
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            background: var(--accent1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-btn::after {
+            content: '';
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent white;
+            margin-left: 4px;
+        }
+
+        .video-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff0000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            font-weight: 700;
+        }
+
+        .highlight-info { padding: 16px; }
+
+        .highlight-matchup {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .highlight-teams { font-weight: 600; }
+        .highlight-score { font-weight: 800; color: var(--green); }
+
+        .highlight-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            color: var(--secondary);
+        }
+
+        .highlight-badge {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--accent1);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-modal.open { display: flex; }
+
+        .video-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            background: #0f172a;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .video-modal-header {
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .video-modal-header h3 {
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: var(--accent1);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            background: var(--accent2);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Embedded Video Test Page</h1>
+        <p>Testing YouTube video embeds that play within the page</p>
+    </div>
+
+    <div class="test-info">
+        <h3>How This Works</h3>
+        <p>Click any game card below to open the embedded YouTube video. The video should play directly in the modal without leaving the site. These are sample highlight videos to demonstrate the embedding works.</p>
+    </div>
+
+    <div class="highlights-grid" id="highlights-grid"></div>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="video-modal">
+        <div class="video-modal-content">
+            <button class="video-modal-close" onclick="closeModal()">&times;</button>
+            <div class="video-modal-header">
+                <h3 id="modal-title">Game Highlights</h3>
+            </div>
+            <div class="video-container" id="video-container">
+                <iframe id="video-iframe" src="" allowfullscreen
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <a href="sports.html" class="back-link">← Back to Main Sports Page</a>
+
+    <script>
+        // Sample games with REAL YouTube embed URLs
+        // These are actual NFL highlight videos that will play in the modal
+        const sampleGames = [
+            {
+                away: { name: 'Bears', shortName: 'CHI', logo: 'https://a.espncdn.com/i/teamlogos/nfl/500/chi.png' },
+                home: { name: 'Packers', shortName: 'GB', logo: 'https://a.espncdn.com/i/teamlogos/nfl/500/gb.png' },
+                awayScore: 19,
+                homeScore: 38,
+                date: 'Sun, Dec 8',
+                // Real YouTube embed URL - NFL highlights
+                youtubeEmbed: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0'
+            },
+            {
+                away: { name: 'Lions', shortName: 'DET', logo: 'https://a.espncdn.com/i/teamlogos/nfl/500/det.png' },
+                home: { name: 'Vikings', shortName: 'MIN', logo: 'https://a.espncdn.com/i/teamlogos/nfl/500/min.png' },
+                awayScore: 24,
+                homeScore: 31,
+                date: 'Sun, Dec 8',
+                youtubeEmbed: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0'
+            },
+            {
+                away: { name: 'Cowboys', shortName: 'DAL', logo: 'https://a.espncdn.com/i/teamlogos/nfl/500/dal.png' },
+                home: { name: 'Eagles', shortName: 'PHI', logo: 'https://a.espncdn.com/i/teamlogos/nfl/500/phi.png' },
+                awayScore: 17,
+                homeScore: 34,
+                date: 'Sun, Dec 8',
+                youtubeEmbed: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0'
+            },
+            {
+                away: { name: '49ers', shortName: 'SF', logo: 'https://a.espncdn.com/i/teamlogos/nfl/500/sf.png' },
+                home: { name: 'Seahawks', shortName: 'SEA', logo: 'https://a.espncdn.com/i/teamlogos/nfl/500/sea.png' },
+                awayScore: 28,
+                homeScore: 21,
+                date: 'Thu, Dec 5',
+                youtubeEmbed: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0'
+            }
+        ];
+
+        // Render game cards
+        function renderGames() {
+            const container = document.getElementById('highlights-grid');
+
+            container.innerHTML = sampleGames.map((game, index) => {
+                const homeWin = game.homeScore > game.awayScore;
+                return `
+                    <div class="highlight-card" onclick="openModal(${index})">
+                        <div class="highlight-thumbnail">
+                            <div class="team-logos">
+                                <img src="${game.away.logo}" alt="${game.away.name}">
+                                <span class="vs-text">@</span>
+                                <img src="${game.home.logo}" alt="${game.home.name}">
+                            </div>
+                            <div class="play-overlay">
+                                <div class="play-btn"></div>
+                            </div>
+                            <span class="video-badge">EMBEDDED</span>
+                        </div>
+                        <div class="highlight-info">
+                            <div class="highlight-matchup">
+                                <span class="highlight-teams">${game.away.shortName} @ ${game.home.shortName}</span>
+                                <span class="highlight-score">${game.awayScore} - ${game.homeScore}</span>
+                            </div>
+                            <div class="highlight-meta">
+                                <span>${game.date}</span>
+                                <span class="highlight-badge">FINAL</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Open modal with embedded video
+        function openModal(gameIndex) {
+            const game = sampleGames[gameIndex];
+            const modal = document.getElementById('video-modal');
+            const iframe = document.getElementById('video-iframe');
+            const title = document.getElementById('modal-title');
+
+            // Set the title
+            title.textContent = `${game.away.name} @ ${game.home.name} Highlights`;
+
+            // Set the YouTube embed URL - THIS IS THE KEY PART
+            iframe.src = game.youtubeEmbed;
+
+            // Show modal
+            modal.classList.add('open');
+        }
+
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('video-modal');
+            const iframe = document.getElementById('video-iframe');
+
+            // Stop the video by clearing src
+            iframe.src = '';
+
+            // Hide modal
+            modal.classList.remove('open');
+        }
+
+        // Close on background click
+        document.getElementById('video-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'video-modal') closeModal();
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Initialize
+        renderGames();
+    </script>
+</body>
+</html>
