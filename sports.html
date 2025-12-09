@@ -1020,6 +1020,7 @@
         let allGames = [];
         let selectedTeams = new Set(); // Empty = show all teams
         let currentView = 'scores'; // 'scores' or 'highlights'
+        let videoUrlCache = {}; // Cache for YouTube video URLs from unified data
 
         // ESPN highlight URLs by league (fallback)
         const ESPN_HIGHLIGHTS = {
@@ -1126,6 +1127,48 @@
 
                 container.appendChild(btn);
             }
+        }
+
+        // Load video URLs from unified sports_data.json (created by GitHub Actions)
+        async function loadVideoUrls() {
+            if (Object.keys(videoUrlCache).length > 0) return; // Already loaded
+
+            try {
+                const response = await fetch(`sports_data.json?t=${Date.now()}`);
+                if (!response.ok) return;
+
+                const data = await response.json();
+                console.log('Loaded video URLs from sports_data.json:', data.last_updated);
+
+                // Build cache of video URLs by team matchup
+                ['nfl', 'nba'].forEach(league => {
+                    const leagueData = data[league];
+                    if (leagueData?.games) {
+                        leagueData.games.forEach(game => {
+                            if (game.video_url) {
+                                // Create key from team names
+                                const away = game.awayTeam?.shortName || game.awayTeam?.name || '';
+                                const home = game.homeTeam?.shortName || game.homeTeam?.name || '';
+                                if (away && home) {
+                                    const key = `${away.toLowerCase()}_${home.toLowerCase()}`;
+                                    videoUrlCache[key] = game.video_url;
+                                }
+                            }
+                        });
+                    }
+                });
+
+                console.log(`Cached ${Object.keys(videoUrlCache).length} video URLs`);
+            } catch (error) {
+                console.log('No unified video data available yet');
+            }
+        }
+
+        // Get video URL for a game from cache
+        function getVideoUrl(awayTeam, homeTeam) {
+            const away = (awayTeam?.shortName || awayTeam?.name || '').toLowerCase();
+            const home = (homeTeam?.shortName || homeTeam?.name || '').toLowerCase();
+            return videoUrlCache[`${away}_${home}`] || null;
         }
 
         // Fetch games from local JSON files
@@ -1568,8 +1611,9 @@
 
             const recap = generateRecap(game);
 
-            // Check for video sources (priority: video_url from API > highlight > YouTube search)
-            const youtubeEmbed = game.video_url || null;  // From nfl_data.json (YouTube embed URL)
+            // Check for video sources (priority: video_url from game data > cached video URL > highlight)
+            const cachedVideoUrl = getVideoUrl(awayTeam, homeTeam);
+            const youtubeEmbed = game.video_url || cachedVideoUrl || null;  // From game data or cache
             const espnHighlight = game.highlight || null;
             const youtubeUrl = game.youtubeSearch || getYouTubeSearchUrl(
                 awayTeam.shortName || awayTeam.name,
@@ -1621,6 +1665,10 @@
         // Render highlights for completed games
         async function renderHighlights() {
             const container = document.getElementById('highlights-grid');
+
+            // Load video URLs from unified data (if available)
+            await loadVideoUrls();
+
             const games = await fetchGames(currentLeague);
 
             // Filter for completed games only
