@@ -395,24 +395,32 @@ let drawPoints = [];
 let isFullscreen = false;
 let clusteringEnabled = true;
 
+// Data loading
+let allLocations = []; // Loaded from external JSON files
+let dataLoaded = false;
+
+// Non-linear radius slider steps (in miles)
+const RADIUS_STEPS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
+
 // ============================================================================
 // INITIALIZATION
 // ============================================================================
 
 document.addEventListener('DOMContentLoaded', initMap);
 
-function initMap() {
+async function initMap() {
   // Check for embed mode
   if (new URLSearchParams(window.location.search).get('embed') === 'true') {
     document.body.classList.add('embed-mode');
   }
 
-  // Create map centered on US
+  // Create map centered on US with canvas rendering for better performance
   map = L.map('map', {
     center: [39.8283, -98.5795],
     zoom: 4,
     zoomControl: true,
-    scrollWheelZoom: true
+    scrollWheelZoom: true,
+    preferCanvas: true // Better performance with many markers
   });
 
   // Create tile layers - Street (dark) and Satellite
@@ -453,6 +461,9 @@ function initMap() {
   // Add cluster layer by default (matching currentView = 'cluster')
   map.addLayer(clusterLayer);
 
+  // Try to load data from external JSON files, fall back to hardcoded data
+  await loadExternalData();
+
   // Build UI
   buildBrandPills();
   addMarkers();
@@ -463,10 +474,110 @@ function initMap() {
   updateStats();
   updateVisibleCount();
 
+  // Auto-fit bounds to show all markers
+  fitBoundsToMarkers();
+
   // Enable click-to-drop-pin for competitor analysis
   map.on('click', handleMapClick);
 
-  console.log(`✓ Interactive map initialized with ${franchiseLocations.length} locations`);
+  console.log(`✓ Interactive map initialized with ${getLocationCount()} locations (canvas mode enabled)`);
+}
+
+// ============================================================================
+// DATA LOADING FROM EXTERNAL JSON FILES
+// ============================================================================
+
+async function loadExternalData() {
+  try {
+    // First, try to load the manifest
+    const manifestResponse = await fetch('data/brands_manifest.json');
+    if (!manifestResponse.ok) {
+      console.log('No external data manifest found, using hardcoded data');
+      allLocations = franchiseLocations.map(loc => ({
+        ...loc,
+        brandId: loc.brand,
+        walkScore: null,
+        transitScore: null,
+        bikeScore: null
+      }));
+      return;
+    }
+
+    const manifest = await manifestResponse.json();
+    console.log(`Loading data from ${manifest.brands.length} brand files...`);
+
+    // Load all brand files in parallel
+    const brandPromises = manifest.brands.map(async (brand) => {
+      try {
+        const response = await fetch(`data/${brand.file}`);
+        if (!response.ok) return [];
+        const data = await response.json();
+        return data.locations.map(loc => ({
+          ...loc,
+          brand: data.brandId,
+          brandId: data.brandId
+        }));
+      } catch (err) {
+        console.warn(`Failed to load ${brand.file}:`, err);
+        return [];
+      }
+    });
+
+    const results = await Promise.all(brandPromises);
+    allLocations = results.flat();
+    dataLoaded = true;
+
+    console.log(`✓ Loaded ${allLocations.length} locations from external data files`);
+
+    // Update BRANDS config from manifest if available
+    manifest.brands.forEach(brand => {
+      if (!BRANDS[brand.id]) {
+        BRANDS[brand.id] = {
+          name: brand.name,
+          color: brand.color,
+          type: brand.category
+        };
+      }
+    });
+
+    // Update selectedBrands with all available brands
+    selectedBrands = new Set(Object.keys(BRANDS));
+
+  } catch (error) {
+    console.log('Error loading external data, using hardcoded data:', error);
+    allLocations = franchiseLocations.map(loc => ({
+      ...loc,
+      brandId: loc.brand,
+      walkScore: null,
+      transitScore: null,
+      bikeScore: null
+    }));
+  }
+}
+
+function getLocationCount() {
+  return dataLoaded ? allLocations.length : franchiseLocations.length;
+}
+
+function getLocationsData() {
+  return dataLoaded ? allLocations : franchiseLocations.map(loc => ({
+    ...loc,
+    brandId: loc.brand,
+    walkScore: null,
+    transitScore: null,
+    bikeScore: null
+  }));
+}
+
+function fitBoundsToMarkers() {
+  if (markers.length === 0) return;
+
+  const bounds = L.latLngBounds();
+  markers.forEach(({ location }) => {
+    bounds.extend([location.lat, location.lng]);
+  });
+
+  map.fitBounds(bounds, { padding: [50, 50], maxZoom: 10 });
 }
 
 // ============================================================================
@@ -476,6 +587,8 @@ function initMap() {
 function buildBrandPills() {
   const container = document.getElementById('brand-pills');
   if (!container) return;
+
+  const locations = getLocationsData();
 
   // Group brands by type for organized display
   const grouped = {};
@@ -489,7 +602,7 @@ function buildBrandPills() {
   // Add all brands as pills (grouped by category)
   Object.entries(grouped).forEach(([type, brands]) => {
     brands.forEach(brand => {
-      const count = franchiseLocations.filter(l => l.brand === brand.symbol).length;
+      const count = locations.filter(l => l.brand === brand.symbol || l.brandId === brand.symbol).length;
       const isActive = selectedBrands.has(brand.symbol);
       html += `
         <button class="brand-pill ${isActive ? 'active' : ''}"
@@ -722,11 +835,14 @@ function updateVisibleCount() {
 // ============================================================================
 
 function addMarkers() {
-  franchiseLocations.forEach((location, index) => {
-    const brand = BRANDS[location.brand];
+  const locations = getLocationsData();
+
+  locations.forEach((location, index) => {
+    const brandId = location.brand || location.brandId;
+    const brand = BRANDS[brandId];
     if (!brand) return;
 
-    // Create circle marker for regular view
+    // Create circle marker for regular view (faster with canvas)
     const circleMarker = L.circleMarker([location.lat, location.lng], {
       radius: 8,
       fillColor: brand.color,
@@ -746,10 +862,10 @@ function addMarkers() {
       })
     });
 
-    // Enhanced popup
+    // Enhanced popup with walkability scores
     const popupContent = createPopupContent(location, brand);
-    circleMarker.bindPopup(popupContent, { className: 'custom-popup', maxWidth: 280 });
-    iconMarker.bindPopup(popupContent, { className: 'custom-popup', maxWidth: 280 });
+    circleMarker.bindPopup(popupContent, { className: 'custom-popup', maxWidth: 300 });
+    iconMarker.bindPopup(popupContent, { className: 'custom-popup', maxWidth: 300 });
 
     // Click handlers
     const clickHandler = () => {
@@ -770,14 +886,14 @@ function addMarkers() {
     markers.push({
       circleMarker,
       iconMarker,
-      location,
+      location: { ...location, brand: brandId },
       brand,
       index
     });
   });
 
   // Create heat layer data
-  const heatData = franchiseLocations.map(l => [l.lat, l.lng, 0.5]);
+  const heatData = locations.map(l => [l.lat, l.lng, 0.5]);
   heatLayer = L.heatLayer(heatData, {
     radius: 25,
     blur: 15,
@@ -794,20 +910,42 @@ function addMarkers() {
 
 function createPopupContent(location, brand) {
   const nearbyCount = findNearbyCompetitors(location, 2).length;
+  const brandId = location.brand || location.brandId;
+
+  // Walkability scores section (only show if data exists)
+  let walkabilityHtml = '';
+  if (location.walkScore || location.transitScore || location.bikeScore) {
+    walkabilityHtml = `
+      <div class="popup-walkability">
+        ${location.walkScore ? `<span class="walk-badge walk-score" title="Walk Score">🚶 ${location.walkScore}</span>` : ''}
+        ${location.transitScore ? `<span class="walk-badge transit-score" title="Transit Score">🚇 ${location.transitScore}</span>` : ''}
+        ${location.bikeScore ? `<span class="walk-badge bike-score" title="Bike Score">🚴 ${location.bikeScore}</span>` : ''}
+      </div>
+    `;
+  }
 
   return `
     <div class="popup-content">
       <div class="popup-header">
         <span class="popup-brand-color" style="background:${brand.color}"></span>
         <span class="popup-brand-name">${brand.name}</span>
-        <span class="popup-ticker">${location.brand}</span>
+        <span class="popup-ticker">${brandId}</span>
       </div>
       <div class="popup-address">${location.address}</div>
+      ${walkabilityHtml}
       <div style="font-size:0.8em;color:rgba(255,255,255,0.6);margin-bottom:10px;">
         ${nearbyCount} competitors within 2 miles
       </div>
+      <div class="popup-radius-section">
+        <label style="font-size:0.75em;color:rgba(255,255,255,0.6);display:block;margin-bottom:4px;">
+          Analysis Radius: <span id="popup-radius-label">5</span> mi
+        </label>
+        <input type="range" id="popup-radius-slider" min="0" max="17" value="8"
+               style="width:100%;accent-color:#667eea;"
+               onchange="updateRadiusFromSlider(this.value, ${location.lat}, ${location.lng})">
+      </div>
       <div class="popup-actions">
-        <button class="popup-btn popup-btn-primary" onclick="analyzeCompetitors(${location.lat}, ${location.lng})">
+        <button class="popup-btn popup-btn-primary" onclick="analyzeWithRadius(${location.lat}, ${location.lng})">
           Analyze Area
         </button>
         <button class="popup-btn popup-btn-secondary" onclick="zoomToLocation(${location.lat}, ${location.lng})">
@@ -816,6 +954,53 @@ function createPopupContent(location, brand) {
       </div>
     </div>
   `;
+}
+
+// Non-linear radius slider functions
+function updateRadiusFromSlider(sliderValue, lat, lng) {
+  const radiusMiles = RADIUS_STEPS[parseInt(sliderValue)];
+  const label = document.getElementById('popup-radius-label');
+  if (label) label.textContent = radiusMiles;
+
+  // Update the radius circle preview
+  updateRadiusPreview(lat, lng, radiusMiles);
+}
+
+function updateRadiusPreview(lat, lng, radiusMiles) {
+  // Remove existing preview circle
+  if (radiusCircle) map.removeLayer(radiusCircle);
+
+  // Draw new circle
+  const radiusMeters = radiusMiles * 1609.34;
+  radiusCircle = L.circle([lat, lng], {
+    radius: radiusMeters,
+    color: '#667eea',
+    fillColor: '#667eea',
+    fillOpacity: 0.08,
+    weight: 2,
+    dashArray: '8, 8'
+  }).addTo(map);
+}
+
+function analyzeWithRadius(lat, lng) {
+  const slider = document.getElementById('popup-radius-slider');
+  const radiusMiles = slider ? RADIUS_STEPS[parseInt(slider.value)] : 5;
+
+  map.closePopup();
+  map.setView([lat, lng], getZoomForRadius(radiusMiles));
+  updateRadiusPreview(lat, lng, radiusMiles);
+  showDetailedAnalysis(lat, lng, radiusMiles);
+}
+
+function getZoomForRadius(radiusMiles) {
+  // Calculate appropriate zoom level based on radius
+  if (radiusMiles <= 1) return 15;
+  if (radiusMiles <= 2) return 14;
+  if (radiusMiles <= 5) return 13;
+  if (radiusMiles <= 10) return 12;
+  if (radiusMiles <= 25) return 11;
+  if (radiusMiles <= 50) return 10;
+  return 9;
 }
 
 // ============================================================================
@@ -1902,3 +2087,5 @@ window.switchMapStyle = switchMapStyle;
 window.toggleClustering = toggleClustering;
 window.toggleHeatMap = toggleHeatMap;
 window.toggleCategory = toggleCategory;
+window.updateRadiusFromSlider = updateRadiusFromSlider;
+window.analyzeWithRadius = analyzeWithRadius;

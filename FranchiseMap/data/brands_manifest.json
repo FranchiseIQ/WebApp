@@ -1,0 +1,62 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-12-09",
+  "brands": [
+    {
+      "id": "MCD",
+      "name": "McDonald's",
+      "color": "#FFC72C",
+      "category": "QSR",
+      "file": "brands/mcdonalds.json"
+    },
+    {
+      "id": "SBUX",
+      "name": "Starbucks",
+      "color": "#00704A",
+      "category": "QSR",
+      "file": "brands/starbucks.json"
+    },
+    {
+      "id": "CMG",
+      "name": "Chipotle",
+      "color": "#441500",
+      "category": "QSR",
+      "file": "brands/chipotle.json"
+    },
+    {
+      "id": "DPZ",
+      "name": "Domino's Pizza",
+      "color": "#006491",
+      "category": "QSR",
+      "file": "brands/dominos.json"
+    },
+    {
+      "id": "WEN",
+      "name": "Wendy's",
+      "color": "#E2203C",
+      "category": "QSR",
+      "file": "brands/wendys.json"
+    },
+    {
+      "id": "SHAK",
+      "name": "Shake Shack",
+      "color": "#1F1F1F",
+      "category": "QSR",
+      "file": "brands/shakeshack.json"
+    },
+    {
+      "id": "WING",
+      "name": "Wingstop",
+      "color": "#00503C",
+      "category": "QSR",
+      "file": "brands/wingstop.json"
+    },
+    {
+      "id": "PLNT",
+      "name": "Planet Fitness",
+      "color": "#5C2D91",
+      "category": "Fitness",
+      "file": "brands/planetfitness.json"
+    }
+  ]
+}
