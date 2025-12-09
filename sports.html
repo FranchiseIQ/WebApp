@@ -773,10 +773,23 @@
             color: var(--accent1);
         }
 
+        .video-modal-header {
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .video-modal-header h3 {
+            margin: 0;
+            font-size: 1.1em;
+            color: var(--text);
+        }
+
         .video-container {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
+            background: #000;
         }
 
         .video-container iframe {
@@ -786,6 +799,32 @@
             width: 100%;
             height: 100%;
             border: none;
+        }
+
+        /* Upcoming game card styling */
+        .highlight-card.upcoming {
+            opacity: 0.9;
+        }
+
+        .highlight-card.upcoming .highlight-thumbnail {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+
+        .game-time-display {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--accent1);
+            margin-bottom: 4px;
+        }
+
+        .network-badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.3);
+            color: var(--accent1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
         }
 
         .video-placeholder {
@@ -955,30 +994,28 @@
     <!-- Day Selector -->
     <div class="day-selector" id="day-selector"></div>
 
-    <!-- View Toggle -->
-    <div class="view-toggle">
-        <button id="view-scores" class="active">Scores</button>
-        <button id="view-highlights">Highlights</button>
-    </div>
-
-    <!-- Game List -->
-    <section id="sports-container">
-        <div class="loading-state">
-            <div class="spinner"></div>
-            <p>Loading sports data...</p>
+    <!-- Unified Games Grid (All games - completed and upcoming) -->
+    <section class="highlights-container" id="games-container">
+        <div class="highlights-grid" id="games-grid">
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading sports data...</p>
+            </div>
         </div>
     </section>
 
-    <!-- Highlights Container (hidden by default) -->
-    <section id="highlights-container" class="highlights-container" style="display: none;">
-        <div class="highlights-grid" id="highlights-grid"></div>
-    </section>
-
-    <!-- Video Modal -->
+    <!-- Video Modal - Simple iframe like test page -->
     <div class="video-modal" id="video-modal">
         <div class="video-modal-content">
-            <button class="video-modal-close" id="modal-close">&times;</button>
-            <div class="video-container" id="video-container"></div>
+            <button class="video-modal-close" onclick="closeVideoModal()">&times;</button>
+            <div class="video-modal-header">
+                <h3 id="modal-title">Game Highlights</h3>
+            </div>
+            <div class="video-container">
+                <iframe id="video-iframe" src="" allowfullscreen
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                </iframe>
+            </div>
         </div>
     </div>
 
@@ -1019,7 +1056,6 @@
         let gamesCache = {};
         let allGames = [];
         let selectedTeams = new Set(); // Empty = show all teams
-        let currentView = 'scores'; // 'scores' or 'highlights'
         let videoUrlCache = {}; // Cache for YouTube video URLs from unified data
 
         // ESPN highlight URLs by league (fallback)
@@ -1453,49 +1489,30 @@
             }
         }
 
-        // Render games for current league and date
+        // Render all games in unified card format
         async function renderGames() {
-            const container = document.getElementById('sports-container');
+            const container = document.getElementById('games-grid');
             const config = LEAGUES[currentLeague];
 
             container.innerHTML = `
-                <div class="loading-state">
+                <div class="loading-state" style="grid-column: 1 / -1;">
                     <div class="spinner"></div>
                     <p>Loading ${currentLeague} games...</p>
                 </div>
             `;
 
             try {
+                // Load video URLs from unified data
+                await loadVideoUrls();
+
                 const games = await fetchGames(currentLeague);
                 allGames = games;
 
                 // Build team filter with all available teams
                 buildTeamFilter(games);
 
-                // Filter by date - show all games for "Today" if it includes games from current week
-                let filteredGames = games.filter(game => {
-                    const gameDate = new Date(game.startTime);
-                    const selectedDate = new Date(currentDate);
-
-                    // Check if game is on selected date (comparing just the date portion)
-                    return gameDate.toDateString() === selectedDate.toDateString();
-                });
-
-                // If no games on exact date, show recent/upcoming games
-                if (filteredGames.length === 0 && getDateString(currentDate) === getDateString(new Date())) {
-                    // For "Today", show any in-progress or recent games
-                    filteredGames = games.filter(game => {
-                        const status = normalizeStatus(game);
-                        return status === 'LIVE' || status === 'FINAL';
-                    }).slice(0, 10);
-
-                    // If still no games, show upcoming
-                    if (filteredGames.length === 0) {
-                        filteredGames = games.filter(game => normalizeStatus(game) === 'UPCOMING').slice(0, 5);
-                    }
-                }
-
                 // Filter by selected teams if any are selected
+                let filteredGames = [...games];
                 if (selectedTeams.size > 0) {
                     filteredGames = filteredGames.filter(game => {
                         const homeShort = game.homeTeam?.shortName || game.homeTeam?.name || '';
@@ -1506,7 +1523,7 @@
 
                 if (filteredGames.length === 0) {
                     container.innerHTML = `
-                        <div class="empty-msg">
+                        <div class="empty-msg" style="grid-column: 1 / -1;">
                             <h3>No ${currentLeague} games scheduled</h3>
                             <p>Check back on active game days for real-time franchise scores.</p>
                         </div>
@@ -1514,24 +1531,110 @@
                     return;
                 }
 
-                // Sort by time
+                // Sort: Final games first (most recent), then upcoming by time
                 filteredGames.sort((a, b) => {
+                    const statusA = normalizeStatus(a);
+                    const statusB = normalizeStatus(b);
+
+                    // Final games first
+                    if (statusA === 'FINAL' && statusB !== 'FINAL') return -1;
+                    if (statusB === 'FINAL' && statusA !== 'FINAL') return 1;
+
+                    // Within same status, sort by time
                     const timeA = new Date(a.startTime || 0).getTime();
                     const timeB = new Date(b.startTime || 0).getTime();
-                    return timeA - timeB;
+                    return statusA === 'FINAL' ? timeB - timeA : timeA - timeB;
                 });
 
-                container.innerHTML = filteredGames.map(game => buildGameCard(game, currentLeague)).join('');
+                // Render all games in unified card format
+                container.innerHTML = filteredGames.map(game => buildUnifiedCard(game, currentLeague)).join('');
 
             } catch (error) {
                 console.error('Error rendering games:', error);
                 container.innerHTML = `
-                    <div class="empty-msg">
+                    <div class="empty-msg" style="grid-column: 1 / -1;">
                         <h3>Unable to load games</h3>
                         <p>Please try again later.</p>
                     </div>
                 `;
             }
+        }
+
+        // Build unified card for both completed and upcoming games
+        function buildUnifiedCard(game, leagueKey) {
+            const homeTeam = game.homeTeam || {};
+            const awayTeam = game.awayTeam || {};
+            const homeScore = game.homeScore ?? 0;
+            const awayScore = game.awayScore ?? 0;
+            const defaultLogo = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23334155%22 width=%22100%22 height=%22100%22/></svg>';
+
+            const gameDate = new Date(game.startTime);
+            const dateStr = gameDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+            const timeStr = gameDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+            const status = normalizeStatus(game);
+            const isFinal = status === 'FINAL';
+            const isLive = status === 'LIVE';
+            const isUpcoming = status === 'UPCOMING';
+
+            // Get video URL for completed games
+            const cachedVideoUrl = getVideoUrl(awayTeam, homeTeam);
+            const videoUrl = game.video_url || cachedVideoUrl || null;
+            const hasVideo = isFinal && videoUrl;
+
+            // Card content varies based on game status
+            let bottomContent = '';
+            let badgeContent = '';
+            let cardClass = 'highlight-card';
+
+            if (isFinal) {
+                const recap = generateRecap(game);
+                bottomContent = `<p class="highlight-recap">${recap}</p>`;
+                badgeContent = hasVideo ? '<span class="video-badge">VIDEO</span>' : '';
+            } else if (isLive) {
+                const quarter = game.quarter || game.period || '';
+                const clock = game.clock || '';
+                bottomContent = `
+                    <div class="game-time-display" style="color: var(--live);">LIVE${quarter ? ` - Q${quarter}` : ''}${clock ? ` ${clock}` : ''}</div>
+                `;
+                badgeContent = '<span class="video-badge" style="background: var(--live);">LIVE</span>';
+            } else {
+                cardClass += ' upcoming';
+                bottomContent = `
+                    <div class="game-time-display">${timeStr}</div>
+                    <span class="network-badge">${game.network || leagueKey}</span>
+                `;
+                badgeContent = '<span class="highlight-badge">UPCOMING</span>';
+            }
+
+            // Only add click handler for games with video
+            const clickHandler = hasVideo ? `onclick="openVideoModal('${videoUrl}', '${(awayTeam.shortName || awayTeam.name)} @ ${(homeTeam.shortName || homeTeam.name)}')"` : '';
+            const cursorStyle = hasVideo ? 'cursor: pointer;' : '';
+
+            return `
+                <div class="${cardClass}" ${clickHandler} style="${cursorStyle}">
+                    <div class="highlight-thumbnail">
+                        <div class="team-logos">
+                            <img src="${awayTeam.logoUrl || defaultLogo}" alt="${awayTeam.name}" onerror="this.src='${defaultLogo}'">
+                            <span class="vs-text">@</span>
+                            <img src="${homeTeam.logoUrl || defaultLogo}" alt="${homeTeam.name}" onerror="this.src='${defaultLogo}'">
+                        </div>
+                        ${hasVideo ? `<div class="play-overlay"><div class="play-btn"></div></div>` : ''}
+                        ${badgeContent}
+                    </div>
+                    <div class="highlight-info">
+                        <div class="highlight-matchup">
+                            <span class="highlight-teams">${awayTeam.shortName || awayTeam.name} @ ${homeTeam.shortName || homeTeam.name}</span>
+                            ${(isFinal || isLive) ? `<span class="highlight-score">${awayScore} - ${homeScore}</span>` : ''}
+                        </div>
+                        <div class="highlight-meta">
+                            <span>${dateStr}</span>
+                            <span class="highlight-badge">${isFinal ? 'FINAL' : (isLive ? 'LIVE' : timeStr)}</span>
+                        </div>
+                        ${bottomContent}
+                    </div>
+                </div>
+            `;
         }
 
         // Set up league tab click handlers
@@ -1700,124 +1803,60 @@
             return `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
         }
 
-        // Open highlight modal - handles embedded YouTube videos
-        function openHighlightModal(encodedData) {
+        // Simple video modal - same approach as test page
+        function openVideoModal(url, title) {
             const modal = document.getElementById('video-modal');
-            const container = document.getElementById('video-container');
+            const iframe = document.getElementById('video-iframe');
+            const titleEl = document.getElementById('modal-title');
 
-            // Parse the game data
-            let gameData;
-            try {
-                gameData = JSON.parse(decodeURIComponent(encodedData));
-            } catch (e) {
-                // Fallback for old format
-                gameData = { away: encodedData, home: '', league: 'NFL' };
+            if (url) {
+                // Set the title
+                if (titleEl) titleEl.textContent = title + ' Highlights';
+
+                // Set the video URL - this is the key part
+                iframe.src = url;
+
+                // Show modal
+                modal.classList.add('open');
             }
-
-            const { away, home, league, espnVideo, youtubeUrl, youtubeEmbed, title } = gameData;
-            const channelId = YOUTUBE_CHANNELS[league];
-            const channelUrl = channelId ? `https://www.youtube.com/channel/${channelId}` : 'https://www.youtube.com';
-            const youtubeSearchUrl = youtubeUrl || getYouTubeSearchUrl(away, home, league);
-
-            // Priority: YouTube Embed URL > ESPN Video > YouTube Search Link
-            if (youtubeEmbed) {
-                // Direct YouTube embed - plays within the page!
-                container.innerHTML = `
-                    <iframe
-                        id="youtube-player"
-                        src="${youtubeEmbed}"
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                `;
-            } else if (espnVideo) {
-                // ESPN video player
-                container.innerHTML = `
-                    <video id="highlight-video" controls autoplay style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: #000;">
-                        <source src="${espnVideo}" type="video/mp4">
-                        Your browser does not support video playback.
-                    </video>
-                    <div style="position: absolute; bottom: 10px; right: 10px; display: flex; gap: 8px;">
-                        <a href="${youtubeSearchUrl}" target="_blank" rel="noopener" class="yt-btn secondary" style="padding: 6px 12px; font-size: 0.8em;">
-                            More on YouTube
-                        </a>
-                    </div>
-                `;
-            } else {
-                // Fallback - show YouTube search links
-                container.innerHTML = `
-                    <div class="video-placeholder">
-                        <h3>${away} @ ${home}</h3>
-                        <p>Watch game highlights on YouTube</p>
-                        <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-                            <a href="${youtubeSearchUrl}" target="_blank" rel="noopener" class="yt-btn primary">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
-                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                                </svg>
-                                Search Highlights
-                            </a>
-                            <a href="${channelUrl}" target="_blank" rel="noopener" class="yt-btn secondary">
-                                ${league} Channel
-                            </a>
-                        </div>
-                    </div>
-                `;
-            }
-
-            modal.classList.add('open');
         }
 
         // Close video modal
         function closeVideoModal() {
             const modal = document.getElementById('video-modal');
-            const container = document.getElementById('video-container');
+            const iframe = document.getElementById('video-iframe');
 
-            // Stop any playing video
-            const video = container.querySelector('video');
-            if (video) {
-                video.pause();
-                video.src = '';
-            }
+            // Stop the video by clearing src
+            iframe.src = '';
 
-            // Stop YouTube iframe by removing src
-            const iframe = container.querySelector('iframe');
-            if (iframe) {
-                iframe.src = '';
-            }
-
+            // Hide modal
             modal.classList.remove('open');
-            container.innerHTML = '';
         }
 
-        // Setup view toggle
-        function setupViewToggle() {
-            const scoresBtn = document.getElementById('view-scores');
-            const highlightsBtn = document.getElementById('view-highlights');
-            const scoresContainer = document.getElementById('sports-container');
-            const highlightsContainer = document.getElementById('highlights-container');
+        // Legacy function for backwards compatibility
+        function openHighlightModal(encodedData) {
+            let gameData;
+            try {
+                gameData = JSON.parse(decodeURIComponent(encodedData));
+            } catch (e) {
+                return;
+            }
 
-            scoresBtn.addEventListener('click', () => {
-                currentView = 'scores';
-                scoresBtn.classList.add('active');
-                highlightsBtn.classList.remove('active');
-                scoresContainer.style.display = 'block';
-                highlightsContainer.style.display = 'none';
-            });
-
-            highlightsBtn.addEventListener('click', async () => {
-                currentView = 'highlights';
-                highlightsBtn.classList.add('active');
-                scoresBtn.classList.remove('active');
-                scoresContainer.style.display = 'none';
-                highlightsContainer.style.display = 'block';
-                await renderHighlights();
-            });
-
-            // Setup modal close
-            document.getElementById('modal-close').addEventListener('click', closeVideoModal);
+            const { youtubeEmbed, away, home } = gameData;
+            if (youtubeEmbed) {
+                openVideoModal(youtubeEmbed, `${away} @ ${home}`);
+            }
+        }
+        // Setup modal event listeners
+        function setupModalEvents() {
+            // Close on background click
             document.getElementById('video-modal').addEventListener('click', (e) => {
                 if (e.target.id === 'video-modal') closeVideoModal();
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeVideoModal();
             });
         }
 
@@ -1826,7 +1865,7 @@
             generateDaySelector();
             setupLeagueTabs();
             setupTeamFilter();
-            setupViewToggle();
+            setupModalEvents();
 
             // Load initial games
             await renderGames();
@@ -1837,15 +1876,14 @@
             // Refresh every 60 seconds
             setInterval(() => {
                 gamesCache = {}; // Clear cache
-                if (currentView === 'scores') {
-                    renderGames();
-                } else {
-                    renderHighlights();
-                }
+                videoUrlCache = {}; // Clear video cache
+                renderGames();
             }, 60000);
         }
 
-        // Make openHighlightModal available globally
+        // Make functions available globally
+        window.openVideoModal = openVideoModal;
+        window.closeVideoModal = closeVideoModal;
         window.openHighlightModal = openHighlightModal;
 
         // Start
