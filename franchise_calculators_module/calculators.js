@@ -85,6 +85,45 @@ function formatNumber(value, decimals = 0) {
     }).format(value);
 }
 
+/**
+ * Validates a numeric input field
+ * @param {string} value - The input value to validate
+ * @param {string} fieldName - The name of the field for error messages
+ * @param {number} min - Minimum allowed value (optional)
+ * @returns {object} - {valid: boolean, error: string}
+ */
+function validateNumberInput(value, fieldName, min = 0) {
+    const num = parseFloat(value);
+
+    if (!value || value.trim() === '') {
+        return { valid: false, error: `${fieldName} is required` };
+    }
+
+    if (isNaN(num)) {
+        return { valid: false, error: `${fieldName} must be a valid number` };
+    }
+
+    if (num < min) {
+        return { valid: false, error: `${fieldName} must be greater than ${min}` };
+    }
+
+    return { valid: true, error: null };
+}
+
+/**
+ * Displays an error message in a user-friendly way
+ * @param {string} message - The error message to display
+ * @param {string} containerId - The ID of the container to display the error in
+ */
+function showError(message, containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = `
+        <div class="calc-alert calc-alert-error">
+            ⚠️ <strong>Error:</strong> ${message}
+        </div>
+    `;
+}
+
 // ============================================================================
 // CALCULATOR 1: ROI CALCULATOR
 // ============================================================================
@@ -96,31 +135,51 @@ function renderROI() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="roi-profit">Annual Net Profit</label>
-                <input type="number" id="roi-profit" value="75000" min="0" step="1000">
+                <input type="number" id="roi-profit" value="75000" min="0" step="1000" required>
                 <span class="calc-input-hint">Expected net profit per year after all expenses</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="roi-investment">Total Initial Investment</label>
-                <input type="number" id="roi-investment" value="350000" min="0" step="1000">
+                <input type="number" id="roi-investment" value="350000" min="0" step="1000" required>
                 <span class="calc-input-hint">Total amount invested to start the franchise</span>
             </div>
 
-            <button class="calc-button" onclick="calculateROI()">Calculate ROI</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateROI()">Calculate ROI</button>
+                <button class="calc-button calc-button-secondary" onclick="resetROI()">Reset</button>
+            </div>
         </div>
 
         <div id="roi-results"></div>
     `;
 }
 
-function calculateROI() {
-    const profit = parseFloat(document.getElementById('roi-profit').value);
-    const investment = parseFloat(document.getElementById('roi-investment').value);
+function resetROI() {
+    document.getElementById('roi-profit').value = '75000';
+    document.getElementById('roi-investment').value = '350000';
+    document.getElementById('roi-results').innerHTML = '';
+}
 
-    if (!profit || !investment || investment === 0) {
-        alert('Please enter valid values for profit and investment');
+function calculateROI() {
+    const profitValue = document.getElementById('roi-profit').value;
+    const investmentValue = document.getElementById('roi-investment').value;
+
+    // Validate inputs
+    const profitValidation = validateNumberInput(profitValue, 'Annual Net Profit', 0);
+    if (!profitValidation.valid) {
+        showError(profitValidation.error, 'roi-results');
         return;
     }
+
+    const investmentValidation = validateNumberInput(investmentValue, 'Total Initial Investment', 1);
+    if (!investmentValidation.valid) {
+        showError(investmentValidation.error, 'roi-results');
+        return;
+    }
+
+    const profit = parseFloat(profitValue);
+    const investment = parseFloat(investmentValue);
 
     const roi = (profit / investment) * 100;
     const yearsToBreakeven = investment / profit;
@@ -181,23 +240,23 @@ function renderItem7() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="item7-min">Minimum Investment (Item 7)</label>
-                <input type="number" id="item7-min" value="250000" min="0" step="1000">
+                <input type="number" id="item7-min" value="250000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="item7-max">Maximum Investment (Item 7)</label>
-                <input type="number" id="item7-max" value="500000" min="0" step="1000">
+                <input type="number" id="item7-max" value="500000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="item7-working">Working Capital (3 months)</label>
-                <input type="number" id="item7-working" value="50000" min="0" step="1000">
+                <input type="number" id="item7-working" value="50000" min="0" step="1000" required>
                 <span class="calc-input-hint">Recommended: 3-6 months of operating expenses</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="item7-franchise">Franchise Fee</label>
-                <input type="number" id="item7-franchise" value="45000" min="0" step="1000">
+                <input type="number" id="item7-franchise" value="45000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
@@ -212,11 +271,23 @@ function renderItem7() {
                 </div>
             </div>
 
-            <button class="calc-button" onclick="calculateItem7()">Calculate Investment</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateItem7()">Calculate Investment</button>
+                <button class="calc-button calc-button-secondary" onclick="resetItem7()">Reset</button>
+            </div>
         </div>
 
         <div id="item7-results"></div>
     `;
+}
+
+function resetItem7() {
+    document.getElementById('item7-min').value = '250000';
+    document.getElementById('item7-max').value = '500000';
+    document.getElementById('item7-working').value = '50000';
+    document.getElementById('item7-franchise').value = '45000';
+    document.getElementById('item7-realestate').checked = false;
+    document.getElementById('item7-results').innerHTML = '';
 }
 
 function calculateItem7() {
@@ -303,35 +374,47 @@ function renderRoyalty() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="royalty-revenue">Monthly Gross Revenue</label>
-                <input type="number" id="royalty-revenue" value="100000" min="0" step="1000">
+                <input type="number" id="royalty-revenue" value="100000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="royalty-rate">Royalty Rate (%)</label>
-                <input type="number" id="royalty-rate" value="6" min="0" max="100" step="0.1">
+                <input type="number" id="royalty-rate" value="6" min="0" max="100" step="0.1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="royalty-marketing">Marketing Fund Rate (%)</label>
-                <input type="number" id="royalty-marketing" value="2" min="0" max="100" step="0.1">
+                <input type="number" id="royalty-marketing" value="2" min="0" max="100" step="0.1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="royalty-local">Local Advertising Spend</label>
-                <input type="number" id="royalty-local" value="2000" min="0" step="100">
+                <input type="number" id="royalty-local" value="2000" min="0" step="100" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="royalty-additional">Additional Franchise Fees</label>
-                <input type="number" id="royalty-additional" value="500" min="0" step="50">
+                <input type="number" id="royalty-additional" value="500" min="0" step="50" required>
                 <span class="calc-input-hint">Technology fees, training fees, etc.</span>
             </div>
 
-            <button class="calc-button" onclick="calculateRoyalty()">Calculate Fees</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateRoyalty()">Calculate Fees</button>
+                <button class="calc-button calc-button-secondary" onclick="resetRoyalty()">Reset</button>
+            </div>
         </div>
 
         <div id="royalty-results"></div>
     `;
+}
+
+function resetRoyalty() {
+    document.getElementById('royalty-revenue').value = '100000';
+    document.getElementById('royalty-rate').value = '6';
+    document.getElementById('royalty-marketing').value = '2';
+    document.getElementById('royalty-local').value = '2000';
+    document.getElementById('royalty-additional').value = '500';
+    document.getElementById('royalty-results').innerHTML = '';
 }
 
 function calculateRoyalty() {
@@ -443,44 +526,58 @@ function renderCashFlow() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="cf-revenue">Monthly Gross Revenue</label>
-                <input type="number" id="cf-revenue" value="120000" min="0" step="1000">
+                <input type="number" id="cf-revenue" value="120000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="cf-cogs">Cost of Goods Sold (%)</label>
-                <input type="number" id="cf-cogs" value="30" min="0" max="100" step="1">
+                <input type="number" id="cf-cogs" value="30" min="0" max="100" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="cf-labor">Labor Cost (%)</label>
-                <input type="number" id="cf-labor" value="25" min="0" max="100" step="1">
+                <input type="number" id="cf-labor" value="25" min="0" max="100" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="cf-rent">Monthly Rent</label>
-                <input type="number" id="cf-rent" value="5000" min="0" step="100">
+                <input type="number" id="cf-rent" value="5000" min="0" step="100" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="cf-utilities">Utilities & Services</label>
-                <input type="number" id="cf-utilities" value="1500" min="0" step="100">
+                <input type="number" id="cf-utilities" value="1500" min="0" step="100" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="cf-insurance">Insurance</label>
-                <input type="number" id="cf-insurance" value="800" min="0" step="50">
+                <input type="number" id="cf-insurance" value="800" min="0" step="50" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="cf-misc">Miscellaneous Expenses</label>
-                <input type="number" id="cf-misc" value="2000" min="0" step="100">
+                <input type="number" id="cf-misc" value="2000" min="0" step="100" required>
             </div>
 
-            <button class="calc-button" onclick="calculateCashFlow()">Calculate Cash Flow</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateCashFlow()">Calculate Cash Flow</button>
+                <button class="calc-button calc-button-secondary" onclick="resetCashFlow()">Reset</button>
+            </div>
         </div>
 
         <div id="cf-results"></div>
     `;
+}
+
+function resetCashFlow() {
+    document.getElementById('cf-revenue').value = '120000';
+    document.getElementById('cf-cogs').value = '30';
+    document.getElementById('cf-labor').value = '25';
+    document.getElementById('cf-rent').value = '5000';
+    document.getElementById('cf-utilities').value = '1500';
+    document.getElementById('cf-insurance').value = '800';
+    document.getElementById('cf-misc').value = '2000';
+    document.getElementById('cf-results').innerHTML = '';
 }
 
 function calculateCashFlow() {
@@ -608,27 +705,37 @@ function renderBreakEven() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="be-fixed">Monthly Fixed Costs</label>
-                <input type="number" id="be-fixed" value="25000" min="0" step="500">
+                <input type="number" id="be-fixed" value="25000" min="0" step="500" required>
                 <span class="calc-input-hint">Rent, salaries, insurance, utilities, etc.</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="be-price">Average Selling Price per Unit</label>
-                <input type="number" id="be-price" value="15" min="0.01" step="0.5">
+                <input type="number" id="be-price" value="15" min="0.01" step="0.5" required>
                 <span class="calc-input-hint">Average price per product/service sold</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="be-variable">Variable Cost per Unit</label>
-                <input type="number" id="be-variable" value="6" min="0" step="0.5">
+                <input type="number" id="be-variable" value="6" min="0" step="0.5" required>
                 <span class="calc-input-hint">COGS, supplies, commissions per sale</span>
             </div>
 
-            <button class="calc-button" onclick="calculateBreakEven()">Calculate Break-Even Point</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateBreakEven()">Calculate Break-Even Point</button>
+                <button class="calc-button calc-button-secondary" onclick="resetBreakEven()">Reset</button>
+            </div>
         </div>
 
         <div id="be-results"></div>
     `;
+}
+
+function resetBreakEven() {
+    document.getElementById('be-fixed').value = '25000';
+    document.getElementById('be-price').value = '15';
+    document.getElementById('be-variable').value = '6';
+    document.getElementById('be-results').innerHTML = '';
 }
 
 function calculateBreakEven() {
@@ -730,26 +837,36 @@ function renderGrossMargin() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="gm-cost">Cost of Goods/Service</label>
-                <input type="number" id="gm-cost" value="8.50" min="0" step="0.01">
+                <input type="number" id="gm-cost" value="8.50" min="0" step="0.01" required>
                 <span class="calc-input-hint">Your cost to produce/provide</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="gm-price">Selling Price</label>
-                <input type="number" id="gm-price" value="15.00" min="0.01" step="0.01">
+                <input type="number" id="gm-price" value="15.00" min="0.01" step="0.01" required>
                 <span class="calc-input-hint">Price charged to customer</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="gm-units">Monthly Units Sold</label>
-                <input type="number" id="gm-units" value="5000" min="0" step="100">
+                <input type="number" id="gm-units" value="5000" min="0" step="100" required>
             </div>
 
-            <button class="calc-button" onclick="calculateGrossMargin()">Calculate Margins</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateGrossMargin()">Calculate Margins</button>
+                <button class="calc-button calc-button-secondary" onclick="resetGrossMargin()">Reset</button>
+            </div>
         </div>
 
         <div id="gm-results"></div>
     `;
+}
+
+function resetGrossMargin() {
+    document.getElementById('gm-cost').value = '8.50';
+    document.getElementById('gm-price').value = '15.00';
+    document.getElementById('gm-units').value = '5000';
+    document.getElementById('gm-results').innerHTML = '';
 }
 
 function calculateGrossMargin() {
@@ -879,36 +996,48 @@ function renderUnitEconomics() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="ue-revenue">Revenue per Customer</label>
-                <input type="number" id="ue-revenue" value="25" min="0" step="0.5">
+                <input type="number" id="ue-revenue" value="25" min="0" step="0.5" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="ue-customers">Daily Customers</label>
-                <input type="number" id="ue-customers" value="150" min="0" step="1">
+                <input type="number" id="ue-customers" value="150" min="0" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="ue-days">Operating Days per Month</label>
-                <input type="number" id="ue-days" value="30" min="1" max="31" step="1">
+                <input type="number" id="ue-days" value="30" min="1" max="31" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="ue-fixed">Monthly Fixed Costs</label>
-                <input type="number" id="ue-fixed" value="30000" min="0" step="1000">
+                <input type="number" id="ue-fixed" value="30000" min="0" step="1000" required>
                 <span class="calc-input-hint">Rent, salaries, insurance, etc.</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="ue-variable">Variable Costs (%)</label>
-                <input type="number" id="ue-variable" value="40" min="0" max="100" step="1">
+                <input type="number" id="ue-variable" value="40" min="0" max="100" step="1" required>
                 <span class="calc-input-hint">COGS, supplies, commissions, etc.</span>
             </div>
 
-            <button class="calc-button" onclick="calculateUnitEconomics()">Calculate Unit Economics</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateUnitEconomics()">Calculate Unit Economics</button>
+                <button class="calc-button calc-button-secondary" onclick="resetUnitEconomics()">Reset</button>
+            </div>
         </div>
 
         <div id="ue-results"></div>
     `;
+}
+
+function resetUnitEconomics() {
+    document.getElementById('ue-revenue').value = '25';
+    document.getElementById('ue-customers').value = '150';
+    document.getElementById('ue-days').value = '30';
+    document.getElementById('ue-fixed').value = '30000';
+    document.getElementById('ue-variable').value = '40';
+    document.getElementById('ue-results').innerHTML = '';
 }
 
 function calculateUnitEconomics() {
@@ -1002,20 +1131,29 @@ function renderPayback() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="pb-investment">Initial Investment</label>
-                <input type="number" id="pb-investment" value="350000" min="0" step="1000">
+                <input type="number" id="pb-investment" value="350000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="pb-cashflow">Monthly Net Cash Flow</label>
-                <input type="number" id="pb-cashflow" value="15000" min="0" step="100">
+                <input type="number" id="pb-cashflow" value="15000" min="0" step="100" required>
                 <span class="calc-input-hint">Average monthly profit after all expenses</span>
             </div>
 
-            <button class="calc-button" onclick="calculatePayback()">Calculate Payback Period</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculatePayback()">Calculate Payback Period</button>
+                <button class="calc-button calc-button-secondary" onclick="resetPayback()">Reset</button>
+            </div>
         </div>
 
         <div id="pb-results"></div>
     `;
+}
+
+function resetPayback() {
+    document.getElementById('pb-investment').value = '350000';
+    document.getElementById('pb-cashflow').value = '15000';
+    document.getElementById('pb-results').innerHTML = '';
 }
 
 function calculatePayback() {
@@ -1103,48 +1241,62 @@ function renderEmployeeCost() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="emp-hourly">Hourly Wage</label>
-                <input type="number" id="emp-hourly" value="15" min="0" step="0.5">
+                <input type="number" id="emp-hourly" value="15" min="0" step="0.5" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="emp-hours">Hours per Week</label>
-                <input type="number" id="emp-hours" value="40" min="1" max="80" step="1">
+                <input type="number" id="emp-hours" value="40" min="1" max="80" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="emp-count">Number of Employees</label>
-                <input type="number" id="emp-count" value="8" min="1" step="1">
+                <input type="number" id="emp-count" value="8" min="1" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="emp-fica">Employer FICA (%)</label>
-                <input type="number" id="emp-fica" value="7.65" min="0" max="20" step="0.1">
+                <input type="number" id="emp-fica" value="7.65" min="0" max="20" step="0.1" required>
                 <span class="calc-input-hint">Social Security (6.2%) + Medicare (1.45%)</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="emp-ui">Unemployment Insurance (%)</label>
-                <input type="number" id="emp-ui" value="3" min="0" max="10" step="0.1">
+                <input type="number" id="emp-ui" value="3" min="0" max="10" step="0.1" required>
                 <span class="calc-input-hint">State + Federal unemployment taxes</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="emp-wc">Workers' Comp (%)</label>
-                <input type="number" id="emp-wc" value="2" min="0" max="15" step="0.1">
+                <input type="number" id="emp-wc" value="2" min="0" max="15" step="0.1" required>
                 <span class="calc-input-hint">Varies by state and industry</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="emp-benefits">Benefits per Employee/Month</label>
-                <input type="number" id="emp-benefits" value="400" min="0" step="50">
+                <input type="number" id="emp-benefits" value="400" min="0" step="50" required>
                 <span class="calc-input-hint">Health insurance, 401k match, etc.</span>
             </div>
 
-            <button class="calc-button" onclick="calculateEmployeeCost()">Calculate Total Labor Cost</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateEmployeeCost()">Calculate Total Labor Cost</button>
+                <button class="calc-button calc-button-secondary" onclick="resetEmployeeCost()">Reset</button>
+            </div>
         </div>
 
         <div id="emp-results"></div>
     `;
+}
+
+function resetEmployeeCost() {
+    document.getElementById('emp-hourly').value = '15';
+    document.getElementById('emp-hours').value = '40';
+    document.getElementById('emp-count').value = '8';
+    document.getElementById('emp-fica').value = '7.65';
+    document.getElementById('emp-ui').value = '3';
+    document.getElementById('emp-wc').value = '2';
+    document.getElementById('emp-benefits').value = '400';
+    document.getElementById('emp-results').innerHTML = '';
 }
 
 function calculateEmployeeCost() {
@@ -1273,44 +1425,57 @@ function renderWorkingCapital() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="wc-revenue">Monthly Revenue</label>
-                <input type="number" id="wc-revenue" value="100000" min="0" step="1000">
+                <input type="number" id="wc-revenue" value="100000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="wc-ar">Accounts Receivable Days</label>
-                <input type="number" id="wc-ar" value="30" min="0" max="180" step="1">
+                <input type="number" id="wc-ar" value="30" min="0" max="180" step="1" required>
                 <span class="calc-input-hint">Average days to collect payment</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="wc-inv">Inventory Days</label>
-                <input type="number" id="wc-inv" value="15" min="0" max="180" step="1">
+                <input type="number" id="wc-inv" value="15" min="0" max="180" step="1" required>
                 <span class="calc-input-hint">Average days inventory is held</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="wc-ap">Accounts Payable Days</label>
-                <input type="number" id="wc-ap" value="20" min="0" max="90" step="1">
+                <input type="number" id="wc-ap" value="20" min="0" max="90" step="1" required>
                 <span class="calc-input-hint">Average days to pay suppliers</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="wc-opex">Monthly Operating Expenses</label>
-                <input type="number" id="wc-opex" value="75000" min="0" step="1000">
+                <input type="number" id="wc-opex" value="75000" min="0" step="1000" required>
                 <span class="calc-input-hint">Rent, payroll, utilities, etc.</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="wc-buffer">Safety Buffer (months)</label>
-                <input type="number" id="wc-buffer" value="2" min="0" max="12" step="0.5">
+                <input type="number" id="wc-buffer" value="2" min="0" max="12" step="0.5" required>
                 <span class="calc-input-hint">Emergency cash reserve</span>
             </div>
 
-            <button class="calc-button" onclick="calculateWorkingCapital()">Calculate Working Capital</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateWorkingCapital()">Calculate Working Capital</button>
+                <button class="calc-button calc-button-secondary" onclick="resetWorkingCapital()">Reset</button>
+            </div>
         </div>
 
         <div id="wc-results"></div>
     `;
+}
+
+function resetWorkingCapital() {
+    document.getElementById('wc-revenue').value = '100000';
+    document.getElementById('wc-ar').value = '30';
+    document.getElementById('wc-inv').value = '15';
+    document.getElementById('wc-ap').value = '20';
+    document.getElementById('wc-opex').value = '75000';
+    document.getElementById('wc-buffer').value = '2';
+    document.getElementById('wc-results').innerHTML = '';
 }
 
 function calculateWorkingCapital() {
@@ -1441,36 +1606,48 @@ function renderScaling() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="sc-current">Current Units Owned</label>
-                <input type="number" id="sc-current" value="1" min="0" step="1">
+                <input type="number" id="sc-current" value="1" min="0" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="sc-planned">Planned Total Units</label>
-                <input type="number" id="sc-planned" value="5" min="1" step="1">
+                <input type="number" id="sc-planned" value="5" min="1" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="sc-revenue">Average Revenue per Unit</label>
-                <input type="number" id="sc-revenue" value="1200000" min="0" step="10000">
+                <input type="number" id="sc-revenue" value="1200000" min="0" step="10000" required>
                 <span class="calc-input-hint">Annual revenue per location</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="sc-profit">Profit Margin (%)</label>
-                <input type="number" id="sc-profit" value="15" min="0" max="100" step="1">
+                <input type="number" id="sc-profit" value="15" min="0" max="100" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="sc-overhead">Corporate Overhead per Additional Unit</label>
-                <input type="number" id="sc-overhead" value="20000" min="0" step="1000">
+                <input type="number" id="sc-overhead" value="20000" min="0" step="1000" required>
                 <span class="calc-input-hint">Extra management/admin costs per unit</span>
             </div>
 
-            <button class="calc-button" onclick="calculateScaling()">Calculate Multi-Unit Portfolio</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateScaling()">Calculate Multi-Unit Portfolio</button>
+                <button class="calc-button calc-button-secondary" onclick="resetScaling()">Reset</button>
+            </div>
         </div>
 
         <div id="sc-results"></div>
     `;
+}
+
+function resetScaling() {
+    document.getElementById('sc-current').value = '1';
+    document.getElementById('sc-planned').value = '5';
+    document.getElementById('sc-revenue').value = '1200000';
+    document.getElementById('sc-profit').value = '15';
+    document.getElementById('sc-overhead').value = '20000';
+    document.getElementById('sc-results').innerHTML = '';
 }
 
 function calculateScaling() {
@@ -1593,19 +1770,19 @@ function renderFranchiseCompare() {
                 </div>
                 <div class="calc-input-group">
                     <label for="cmp-a-investment">Total Investment</label>
-                    <input type="number" id="cmp-a-investment" value="350000" min="0" step="10000">
+                    <input type="number" id="cmp-a-investment" value="350000" min="0" step="10000" required>
                 </div>
                 <div class="calc-input-group">
                     <label for="cmp-a-royalty">Royalty %</label>
-                    <input type="number" id="cmp-a-royalty" value="6" min="0" max="20" step="0.5">
+                    <input type="number" id="cmp-a-royalty" value="6" min="0" max="20" step="0.5" required>
                 </div>
                 <div class="calc-input-group">
                     <label for="cmp-a-revenue">Est. Annual Revenue</label>
-                    <input type="number" id="cmp-a-revenue" value="800000" min="0" step="10000">
+                    <input type="number" id="cmp-a-revenue" value="800000" min="0" step="10000" required>
                 </div>
                 <div class="calc-input-group">
                     <label for="cmp-a-margin">Net Margin %</label>
-                    <input type="number" id="cmp-a-margin" value="12" min="0" max="50" step="1">
+                    <input type="number" id="cmp-a-margin" value="12" min="0" max="50" step="1" required>
                 </div>
             </div>
 
@@ -1617,19 +1794,19 @@ function renderFranchiseCompare() {
                 </div>
                 <div class="calc-input-group">
                     <label for="cmp-b-investment">Total Investment</label>
-                    <input type="number" id="cmp-b-investment" value="500000" min="0" step="10000">
+                    <input type="number" id="cmp-b-investment" value="500000" min="0" step="10000" required>
                 </div>
                 <div class="calc-input-group">
                     <label for="cmp-b-royalty">Royalty %</label>
-                    <input type="number" id="cmp-b-royalty" value="5" min="0" max="20" step="0.5">
+                    <input type="number" id="cmp-b-royalty" value="5" min="0" max="20" step="0.5" required>
                 </div>
                 <div class="calc-input-group">
                     <label for="cmp-b-revenue">Est. Annual Revenue</label>
-                    <input type="number" id="cmp-b-revenue" value="1200000" min="0" step="10000">
+                    <input type="number" id="cmp-b-revenue" value="1200000" min="0" step="10000" required>
                 </div>
                 <div class="calc-input-group">
                     <label for="cmp-b-margin">Net Margin %</label>
-                    <input type="number" id="cmp-b-margin" value="10" min="0" max="50" step="1">
+                    <input type="number" id="cmp-b-margin" value="10" min="0" max="50" step="1" required>
                 </div>
             </div>
 
@@ -1657,11 +1834,33 @@ function renderFranchiseCompare() {
                 </div>
             </div>
 
-            <button class="calc-button calc-mt-20" onclick="calculateFranchiseCompare()">Compare Franchises</button>
+            <div class="calc-button-group calc-mt-20">
+                <button class="calc-button" onclick="calculateFranchiseCompare()">Compare Franchises</button>
+                <button class="calc-button calc-button-secondary" onclick="resetFranchiseCompare()">Reset</button>
+            </div>
         </div>
 
         <div id="cmp-results"></div>
     `;
+}
+
+function resetFranchiseCompare() {
+    document.getElementById('cmp-a-name').value = 'Franchise A';
+    document.getElementById('cmp-a-investment').value = '350000';
+    document.getElementById('cmp-a-royalty').value = '6';
+    document.getElementById('cmp-a-revenue').value = '800000';
+    document.getElementById('cmp-a-margin').value = '12';
+    document.getElementById('cmp-b-name').value = 'Franchise B';
+    document.getElementById('cmp-b-investment').value = '500000';
+    document.getElementById('cmp-b-royalty').value = '5';
+    document.getElementById('cmp-b-revenue').value = '1200000';
+    document.getElementById('cmp-b-margin').value = '10';
+    document.getElementById('cmp-c-name').value = '';
+    document.getElementById('cmp-c-investment').value = '';
+    document.getElementById('cmp-c-royalty').value = '';
+    document.getElementById('cmp-c-revenue').value = '';
+    document.getElementById('cmp-c-margin').value = '';
+    document.getElementById('cmp-results').innerHTML = '';
 }
 
 function calculateFranchiseCompare() {
@@ -1850,31 +2049,42 @@ function renderPenetration() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="pen-population">Target Population</label>
-                <input type="number" id="pen-population" value="500000" min="0" step="1000">
+                <input type="number" id="pen-population" value="500000" min="0" step="1000" required>
                 <span class="calc-input-hint">Total population in target territory</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="pen-units">Units Planned</label>
-                <input type="number" id="pen-units" value="5" min="1" step="1">
+                <input type="number" id="pen-units" value="5" min="1" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="pen-benchmark">Population per Unit Benchmark</label>
-                <input type="number" id="pen-benchmark" value="100000" min="0" step="1000">
+                <input type="number" id="pen-benchmark" value="100000" min="0" step="1000" required>
                 <span class="calc-input-hint">Industry standard or franchisor guidance</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="pen-competitors">Existing Competitors in Radius</label>
-                <input type="number" id="pen-competitors" value="8" min="0" step="1">
+                <input type="number" id="pen-competitors" value="8" min="0" step="1" required>
             </div>
 
-            <button class="calc-button" onclick="calculatePenetration()">Calculate Territory Penetration</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculatePenetration()">Calculate Territory Penetration</button>
+                <button class="calc-button calc-button-secondary" onclick="resetPenetration()">Reset</button>
+            </div>
         </div>
 
         <div id="pen-results"></div>
     `;
+}
+
+function resetPenetration() {
+    document.getElementById('pen-population').value = '500000';
+    document.getElementById('pen-units').value = '5';
+    document.getElementById('pen-benchmark').value = '100000';
+    document.getElementById('pen-competitors').value = '8';
+    document.getElementById('pen-results').innerHTML = '';
 }
 
 function calculatePenetration() {
@@ -1984,25 +2194,40 @@ function renderMap() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="map-zip">ZIP Code</label>
-                <input type="text" id="map-zip" value="10001" maxlength="5" placeholder="Enter ZIP code">
+                <input type="text" id="map-zip" value="10001" maxlength="5" placeholder="Enter ZIP code" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="map-radius">Radius (miles)</label>
-                <input type="number" id="map-radius" value="10" min="1" max="100" step="1">
+                <input type="number" id="map-radius" value="10" min="1" max="100" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="map-locations">Number of Existing Locations</label>
-                <input type="number" id="map-locations" value="5" min="0" step="1">
+                <input type="number" id="map-locations" value="5" min="0" step="1" required>
             </div>
 
-            <button class="calc-button" onclick="generateSaturationMap()">Generate Map</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="generateSaturationMap()">Generate Map</button>
+                <button class="calc-button calc-button-secondary" onclick="resetMap()">Reset</button>
+            </div>
         </div>
 
         <div id="map-results"></div>
         <div id="saturation-map" class="calc-map-container" style="display: none;"></div>
     `;
+}
+
+function resetMap() {
+    document.getElementById('map-zip').value = '10001';
+    document.getElementById('map-radius').value = '10';
+    document.getElementById('map-locations').value = '5';
+    document.getElementById('map-results').innerHTML = '';
+    const mapContainer = document.getElementById('saturation-map');
+    if (mapContainer) {
+        mapContainer.style.display = 'none';
+        mapContainer.innerHTML = '';
+    }
 }
 
 function generateSaturationMap() {
@@ -2112,30 +2337,41 @@ function renderSBALoan() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="sba-amount">Loan Amount</label>
-                <input type="number" id="sba-amount" value="250000" min="0" step="1000">
+                <input type="number" id="sba-amount" value="250000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="sba-rate">Interest Rate (%)</label>
-                <input type="number" id="sba-rate" value="7.5" min="0" max="100" step="0.1">
+                <input type="number" id="sba-rate" value="7.5" min="0" max="100" step="0.1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="sba-payment">Monthly Payment</label>
-                <input type="number" id="sba-payment" value="3500" min="0" step="50">
+                <input type="number" id="sba-payment" value="3500" min="0" step="50" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="sba-extra">Extra Principal Payment (Optional)</label>
-                <input type="number" id="sba-extra" value="0" min="0" step="50">
+                <input type="number" id="sba-extra" value="0" min="0" step="50" required>
                 <span class="calc-input-hint">Additional payment toward principal each month</span>
             </div>
 
-            <button class="calc-button" onclick="calculateSBALoan()">Calculate Loan Payoff</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateSBALoan()">Calculate Loan Payoff</button>
+                <button class="calc-button calc-button-secondary" onclick="resetSBALoan()">Reset</button>
+            </div>
         </div>
 
         <div id="sba-results"></div>
     `;
+}
+
+function resetSBALoan() {
+    document.getElementById('sba-amount').value = '250000';
+    document.getElementById('sba-rate').value = '7.5';
+    document.getElementById('sba-payment').value = '3500';
+    document.getElementById('sba-extra').value = '0';
+    document.getElementById('sba-results').innerHTML = '';
 }
 
 function calculateSBALoan() {
