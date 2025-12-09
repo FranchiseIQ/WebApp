@@ -374,8 +374,14 @@ let clusterLayer;
 let heatLayer;
 let radiusCircle = null;
 let selectedBrands = new Set(Object.keys(BRANDS));
-let currentView = 'markers'; // 'markers', 'cluster', 'heat'
+let selectedCategories = new Set(['QSR', 'Casual', 'Hotel', 'Fitness']);
+let currentView = 'cluster'; // 'markers', 'cluster', 'heat'
 let selectedLocation = null;
+
+// Tile layers
+let streetLayer;
+let satelliteLayer;
+let currentMapStyle = 'street';
 
 // New feature states
 let droppedPin = null;
@@ -387,6 +393,7 @@ let drawMode = false;
 let drawPolygon = null;
 let drawPoints = [];
 let isFullscreen = false;
+let clusteringEnabled = true;
 
 // ============================================================================
 // INITIALIZATION
@@ -408,14 +415,22 @@ function initMap() {
     scrollWheelZoom: true
   });
 
-  // Add OpenStreetMap tiles with dark style option
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>',
+  // Create tile layers - Street (dark) and Satellite
+  streetLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap © CARTO',
     maxZoom: 19
-  }).addTo(map);
+  });
+
+  satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: '© Esri, Maxar, Earthstar Geographics',
+    maxZoom: 19
+  });
+
+  // Add default street layer
+  streetLayer.addTo(map);
 
   // Create layers
-  markerLayer = L.layerGroup().addTo(map);
+  markerLayer = L.layerGroup();
   clusterLayer = L.markerClusterGroup({
     chunkedLoading: true,
     maxClusterRadius: 50,
@@ -435,13 +450,18 @@ function initMap() {
     }
   });
 
+  // Add cluster layer by default (matching currentView = 'cluster')
+  map.addLayer(clusterLayer);
+
   // Build UI
-  buildBrandCheckboxes();
+  buildBrandPills();
   addMarkers();
   setupEventListeners();
+  setupControlRail();
   addMapControls();
   addAdvancedControls();
   updateStats();
+  updateVisibleCount();
 
   // Enable click-to-drop-pin for competitor analysis
   map.on('click', handleMapClick);
@@ -450,46 +470,251 @@ function initMap() {
 }
 
 // ============================================================================
-// BRAND CHECKBOX UI
+// BRAND PILLS UI - Clickable text toggles
 // ============================================================================
 
-function buildBrandCheckboxes() {
-  const container = document.getElementById('brand-checkboxes');
+function buildBrandPills() {
+  const container = document.getElementById('brand-pills');
   if (!container) return;
 
+  // Group brands by type for organized display
   const grouped = {};
   Object.entries(BRANDS).forEach(([symbol, brand]) => {
     if (!grouped[brand.type]) grouped[brand.type] = [];
     grouped[brand.type].push({ symbol, ...brand });
   });
 
-  let html = `
-    <div class="brand-actions">
-      <button type="button" class="select-all" onclick="selectAllBrands()">Select All</button>
-      <button type="button" class="select-none" onclick="selectNoBrands()">Clear All</button>
-    </div>
-  `;
+  let html = '';
 
+  // Add all brands as pills (grouped by category)
   Object.entries(grouped).forEach(([type, brands]) => {
-    html += `<div class="brand-group">
-      <div class="brand-group-title">${type}</div>`;
-
     brands.forEach(brand => {
       const count = franchiseLocations.filter(l => l.brand === brand.symbol).length;
+      const isActive = selectedBrands.has(brand.symbol);
       html += `
-        <label class="brand-checkbox">
-          <input type="checkbox" value="${brand.symbol}" checked onchange="toggleBrand('${brand.symbol}', this.checked)">
-          <span class="brand-color" style="background: ${brand.color}"></span>
-          <span class="brand-name">${brand.name}</span>
-          <span class="brand-ticker">${brand.symbol} (${count})</span>
-        </label>
+        <button class="brand-pill ${isActive ? 'active' : ''}"
+                data-brand="${brand.symbol}"
+                data-category="${brand.type}"
+                onclick="toggleBrandPill('${brand.symbol}')">
+          <span class="pill-color" style="background: ${brand.color}"></span>
+          <span class="pill-name">${brand.symbol}</span>
+          <span class="pill-count">${count}</span>
+        </button>
       `;
     });
-
-    html += '</div>';
   });
 
   container.innerHTML = html;
+}
+
+function toggleBrandPill(symbol) {
+  const pill = document.querySelector(`.brand-pill[data-brand="${symbol}"]`);
+
+  if (selectedBrands.has(symbol)) {
+    selectedBrands.delete(symbol);
+    pill?.classList.remove('active');
+  } else {
+    selectedBrands.add(symbol);
+    pill?.classList.add('active');
+  }
+
+  filterMarkers();
+  updateStats();
+  updateVisibleCount();
+  updateCategoryPillStates();
+}
+
+function updateCategoryPillStates() {
+  // Update category pill states based on whether all brands in that category are selected
+  ['QSR', 'Casual', 'Hotel', 'Fitness'].forEach(category => {
+    const brandsInCategory = Object.entries(BRANDS)
+      .filter(([_, b]) => b.type === category)
+      .map(([symbol, _]) => symbol);
+
+    const allSelected = brandsInCategory.every(b => selectedBrands.has(b));
+    const someSelected = brandsInCategory.some(b => selectedBrands.has(b));
+
+    const pill = document.querySelector(`.category-pill[data-category="${category}"]`);
+    if (pill) {
+      if (allSelected) {
+        pill.classList.add('active');
+      } else {
+        pill.classList.remove('active');
+      }
+    }
+
+    // Update selectedCategories set
+    if (someSelected) {
+      selectedCategories.add(category);
+    } else {
+      selectedCategories.delete(category);
+    }
+  });
+}
+
+// ============================================================================
+// CONTROL RAIL SETUP
+// ============================================================================
+
+function setupControlRail() {
+  // Map style buttons
+  document.getElementById('style-street')?.addEventListener('click', () => switchMapStyle('street'));
+  document.getElementById('style-satellite')?.addEventListener('click', () => switchMapStyle('satellite'));
+
+  // Display toggle buttons
+  document.getElementById('toggle-cluster')?.addEventListener('click', toggleClustering);
+  document.getElementById('toggle-heat')?.addEventListener('click', toggleHeatMap);
+
+  // Brand action buttons
+  document.getElementById('select-all-brands')?.addEventListener('click', selectAllBrands);
+  document.getElementById('select-none-brands')?.addEventListener('click', selectNoBrands);
+
+  // Category pills
+  document.querySelectorAll('.category-pill').forEach(pill => {
+    pill.addEventListener('click', () => toggleCategory(pill.dataset.category));
+  });
+
+  // Update category counts
+  updateCategoryCounts();
+}
+
+function switchMapStyle(style) {
+  currentMapStyle = style;
+
+  // Update button states
+  document.getElementById('style-street')?.classList.toggle('active', style === 'street');
+  document.getElementById('style-satellite')?.classList.toggle('active', style === 'satellite');
+
+  // Switch layers
+  if (style === 'street') {
+    map.removeLayer(satelliteLayer);
+    map.addLayer(streetLayer);
+  } else {
+    map.removeLayer(streetLayer);
+    map.addLayer(satelliteLayer);
+  }
+}
+
+function toggleClustering() {
+  const btn = document.getElementById('toggle-cluster');
+  clusteringEnabled = !clusteringEnabled;
+  btn?.classList.toggle('active', clusteringEnabled);
+
+  if (clusteringEnabled) {
+    // Switch to cluster view
+    currentView = 'cluster';
+    map.removeLayer(markerLayer);
+    if (heatLayer) map.removeLayer(heatLayer);
+    map.addLayer(clusterLayer);
+    document.getElementById('toggle-heat')?.classList.remove('active');
+  } else {
+    // Switch to markers view
+    currentView = 'markers';
+    map.removeLayer(clusterLayer);
+    if (heatLayer) map.removeLayer(heatLayer);
+    map.addLayer(markerLayer);
+    document.getElementById('toggle-heat')?.classList.remove('active');
+  }
+
+  filterMarkers();
+}
+
+function toggleHeatMap() {
+  const btn = document.getElementById('toggle-heat');
+  const isHeatActive = btn?.classList.contains('active');
+
+  if (isHeatActive) {
+    // Turn off heat map, return to cluster or markers
+    btn?.classList.remove('active');
+    if (heatLayer) map.removeLayer(heatLayer);
+
+    if (clusteringEnabled) {
+      currentView = 'cluster';
+      map.addLayer(clusterLayer);
+    } else {
+      currentView = 'markers';
+      map.addLayer(markerLayer);
+    }
+  } else {
+    // Turn on heat map
+    btn?.classList.add('active');
+    currentView = 'heat';
+    map.removeLayer(markerLayer);
+    map.removeLayer(clusterLayer);
+    if (heatLayer) map.addLayer(heatLayer);
+  }
+
+  filterMarkers();
+}
+
+function toggleCategory(category) {
+  const brandsInCategory = Object.entries(BRANDS)
+    .filter(([_, b]) => b.type === category)
+    .map(([symbol, _]) => symbol);
+
+  const pill = document.querySelector(`.category-pill[data-category="${category}"]`);
+  const isActive = pill?.classList.contains('active');
+
+  if (isActive) {
+    // Deselect all brands in this category
+    brandsInCategory.forEach(b => selectedBrands.delete(b));
+    pill?.classList.remove('active');
+  } else {
+    // Select all brands in this category
+    brandsInCategory.forEach(b => selectedBrands.add(b));
+    pill?.classList.add('active');
+  }
+
+  // Update brand pill states
+  document.querySelectorAll('.brand-pill').forEach(pillEl => {
+    const brand = pillEl.dataset.brand;
+    pillEl.classList.toggle('active', selectedBrands.has(brand));
+  });
+
+  filterMarkers();
+  updateStats();
+  updateVisibleCount();
+}
+
+function updateCategoryCounts() {
+  const counts = { QSR: 0, Casual: 0, Hotel: 0, Fitness: 0 };
+
+  franchiseLocations.forEach(loc => {
+    const brand = BRANDS[loc.brand];
+    if (brand && counts[brand.type] !== undefined) {
+      counts[brand.type]++;
+    }
+  });
+
+  document.getElementById('cat-qsr')?.textContent = counts.QSR;
+  document.getElementById('cat-casual')?.textContent = counts.Casual;
+  document.getElementById('cat-hotel')?.textContent = counts.Hotel;
+  document.getElementById('cat-fitness')?.textContent = counts.Fitness;
+}
+
+function updateVisibleCount() {
+  const center = map.getCenter();
+  const radiusSelect = document.getElementById('radius-filter');
+  const radiusMiles = radiusSelect ? radiusSelect.value : 'all';
+
+  let count = 0;
+  markers.forEach(({ location }) => {
+    if (!selectedBrands.has(location.brand)) return;
+
+    const brand = BRANDS[location.brand];
+    if (brand && !selectedCategories.has(brand.type)) return;
+
+    if (radiusMiles !== 'all') {
+      const radiusKm = parseFloat(radiusMiles) * 1.60934;
+      const distance = map.distance(center, [location.lat, location.lng]) / 1000;
+      if (distance > radiusKm) return;
+    }
+
+    count++;
+  });
+
+  const countEl = document.getElementById('visible-count');
+  if (countEl) countEl.textContent = count;
 }
 
 // ============================================================================
@@ -641,16 +866,20 @@ function toggleBrand(symbol, checked) {
 
 function selectAllBrands() {
   selectedBrands = new Set(Object.keys(BRANDS));
-  document.querySelectorAll('#brand-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = true);
+  document.querySelectorAll('.brand-pill').forEach(pill => pill.classList.add('active'));
+  document.querySelectorAll('.category-pill').forEach(pill => pill.classList.add('active'));
   filterMarkers();
   updateStats();
+  updateVisibleCount();
 }
 
 function selectNoBrands() {
   selectedBrands.clear();
-  document.querySelectorAll('#brand-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
+  document.querySelectorAll('.brand-pill').forEach(pill => pill.classList.remove('active'));
+  document.querySelectorAll('.category-pill').forEach(pill => pill.classList.remove('active'));
   filterMarkers();
   updateStats();
+  updateVisibleCount();
 }
 
 function filterMarkers() {
@@ -950,11 +1179,6 @@ function setupEventListeners() {
     radiusSelect.addEventListener('change', (e) => applyRadiusFilter(e.target.value));
   }
 
-  // View mode buttons
-  document.getElementById('view-markers')?.addEventListener('click', () => switchView('markers'));
-  document.getElementById('view-cluster')?.addEventListener('click', () => switchView('cluster'));
-  document.getElementById('view-heat')?.addEventListener('click', () => switchView('heat'));
-
   // Close panel
   document.getElementById('close-panel')?.addEventListener('click', () => {
     document.getElementById('info-panel')?.classList.remove('active');
@@ -967,6 +1191,7 @@ function setupEventListeners() {
       applyRadiusFilter(radiusSelect.value);
     }
     updateStats();
+    updateVisibleCount();
   });
 }
 
@@ -1661,6 +1886,7 @@ function showNotification(message, type = 'info') {
 // ============================================================================
 
 window.toggleBrand = toggleBrand;
+window.toggleBrandPill = toggleBrandPill;
 window.selectAllBrands = selectAllBrands;
 window.selectNoBrands = selectNoBrands;
 window.analyzeCompetitors = analyzeCompetitors;
@@ -1672,3 +1898,7 @@ window.clearDroppedPin = clearDroppedPin;
 window.showDetailedAnalysis = showDetailedAnalysis;
 window.exportAreaToCSV = exportAreaToCSV;
 window.exportPolygonToCSV = exportPolygonToCSV;
+window.switchMapStyle = switchMapStyle;
+window.toggleClustering = toggleClustering;
+window.toggleHeatMap = toggleHeatMap;
+window.toggleCategory = toggleCategory;
