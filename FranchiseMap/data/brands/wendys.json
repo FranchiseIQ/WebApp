@@ -1,0 +1,33 @@
+{
+  "brandId": "WEN",
+  "brandName": "Wendy's",
+  "color": "#E2203C",
+  "category": "QSR",
+  "locations": [
+    {"id": "wen-001", "lat": 40.0150, "lng": -83.0308, "address": "Wendy's HQ - Columbus, OH", "walkScore": 55, "transitScore": 22, "bikeScore": 45},
+    {"id": "wen-002", "lat": 40.7580, "lng": -73.9855, "address": "Times Square, New York, NY", "walkScore": 99, "transitScore": 100, "bikeScore": 89},
+    {"id": "wen-003", "lat": 41.8781, "lng": -87.6298, "address": "Chicago, IL", "walkScore": 98, "transitScore": 100, "bikeScore": 85},
+    {"id": "wen-004", "lat": 29.7604, "lng": -95.3698, "address": "Houston, TX", "walkScore": 85, "transitScore": 56, "bikeScore": 48},
+    {"id": "wen-005", "lat": 33.4484, "lng": -112.0740, "address": "Phoenix, AZ", "walkScore": 72, "transitScore": 48, "bikeScore": 62},
+    {"id": "wen-006", "lat": 42.3601, "lng": -71.0589, "address": "Boston, MA", "walkScore": 97, "transitScore": 96, "bikeScore": 89},
+    {"id": "wen-007", "lat": 34.0522, "lng": -118.2437, "address": "LA, CA", "walkScore": 91, "transitScore": 75, "bikeScore": 68},
+    {"id": "wen-008", "lat": 32.7767, "lng": -96.7970, "address": "Dallas, TX", "walkScore": 78, "transitScore": 52, "bikeScore": 45},
+    {"id": "wen-009", "lat": 39.7392, "lng": -104.9903, "address": "Denver, CO", "walkScore": 88, "transitScore": 65, "bikeScore": 82},
+    {"id": "wen-010", "lat": 38.9072, "lng": -77.0369, "address": "Washington DC", "walkScore": 94, "transitScore": 85, "bikeScore": 78},
+    {"id": "wen-011", "lat": 36.1627, "lng": -86.7816, "address": "Nashville, TN", "walkScore": 75, "transitScore": 32, "bikeScore": 55},
+    {"id": "wen-012", "lat": 35.2271, "lng": -80.8431, "address": "Charlotte, NC", "walkScore": 70, "transitScore": 28, "bikeScore": 48},
+    {"id": "wen-013", "lat": 44.9778, "lng": -93.2650, "address": "Minneapolis, MN", "walkScore": 85, "transitScore": 68, "bikeScore": 92},
+    {"id": "wen-014", "lat": 39.9526, "lng": -75.1652, "address": "Philadelphia, PA", "walkScore": 94, "transitScore": 82, "bikeScore": 75},
+    {"id": "wen-015", "lat": 33.7490, "lng": -84.3880, "address": "Atlanta, GA", "walkScore": 82, "transitScore": 55, "bikeScore": 52},
+    {"id": "wen-016", "lat": 47.6062, "lng": -122.3321, "address": "Seattle, WA", "walkScore": 96, "transitScore": 88, "bikeScore": 78},
+    {"id": "wen-017", "lat": 25.7617, "lng": -80.1918, "address": "Miami, FL", "walkScore": 89, "transitScore": 62, "bikeScore": 72},
+    {"id": "wen-018", "lat": 37.7749, "lng": -122.4194, "address": "San Francisco, CA", "walkScore": 95, "transitScore": 89, "bikeScore": 92},
+    {"id": "wen-019", "lat": 30.2672, "lng": -97.7431, "address": "Austin, TX", "walkScore": 82, "transitScore": 42, "bikeScore": 72},
+    {"id": "wen-020", "lat": 45.5051, "lng": -122.6750, "address": "Portland, OR", "walkScore": 92, "transitScore": 75, "bikeScore": 95},
+    {"id": "wen-021", "lat": 39.9612, "lng": -82.9988, "address": "Columbus, OH", "walkScore": 65, "transitScore": 32, "bikeScore": 52},
+    {"id": "wen-022", "lat": 39.1031, "lng": -84.5120, "address": "Cincinnati, OH", "walkScore": 68, "transitScore": 35, "bikeScore": 48},
+    {"id": "wen-023", "lat": 41.4993, "lng": -81.6944, "address": "Cleveland, OH", "walkScore": 72, "transitScore": 45, "bikeScore": 58},
+    {"id": "wen-024", "lat": 42.3314, "lng": -83.0458, "address": "Detroit, MI", "walkScore": 72, "transitScore": 38, "bikeScore": 55},
+    {"id": "wen-025", "lat": 38.6270, "lng": -90.1994, "address": "St. Louis, MO", "walkScore": 75, "transitScore": 42, "bikeScore": 55}
+  ]
+}

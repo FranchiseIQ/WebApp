@@ -555,6 +555,65 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
+        /* Walkability Score Badges */
+        .popup-walkability {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+        }
+
+        .walk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .walk-score {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .transit-score {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        .bike-score {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .popup-radius-section {
+            margin: 10px 0;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+        }
+
+        .popup-radius-section input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .popup-radius-section input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            border: 2px solid #fff;
+        }
+
         /* Embed mode - hide ticker and nav when loaded in iframe */
         body.embed-mode {
             padding-top: 0 !important;
@@ -694,6 +753,369 @@
                 opacity: 1;
             }
         }
+
+        /* ================================================
+           CONTROL RAIL - Fixed right side
+           ================================================ */
+        .control-rail {
+            position: absolute;
+            top: 80px;
+            right: 16px;
+            width: 200px;
+            max-height: calc(100vh - 280px);
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 12px;
+            padding: 12px;
+            z-index: 1000;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+        }
+
+        .control-rail::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .control-rail::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 2px;
+        }
+
+        .control-rail::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+
+        .rail-section {
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .rail-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .rail-section-title {
+            font-size: 0.7em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-actions-inline {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-link {
+            background: none;
+            border: none;
+            color: #667eea;
+            font-size: 0.85em;
+            cursor: pointer;
+            padding: 0;
+            font-weight: 600;
+            transition: color 0.15s;
+        }
+
+        .action-link:hover {
+            color: #8b9cf4;
+            text-decoration: underline;
+        }
+
+        /* Map Style Buttons */
+        .map-style-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .style-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 10px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .style-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .style-btn.active {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .style-icon {
+            font-size: 1.4em;
+        }
+
+        .style-label {
+            font-size: 0.7em;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        /* Display Toggle Buttons */
+        .display-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .toggle-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .toggle-btn.active {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .toggle-icon {
+            font-size: 1.1em;
+        }
+
+        .toggle-label {
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        /* Brand Pills - Clickable text toggles */
+        .brand-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .brand-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .brand-pill:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .brand-pill.active {
+            background: rgba(102, 126, 234, 0.4);
+            color: #fff;
+        }
+
+        .brand-pill .pill-color {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .brand-pill.active .pill-color {
+            box-shadow: 0 0 6px currentColor;
+        }
+
+        .brand-pill .pill-count {
+            font-size: 0.9em;
+            opacity: 0.7;
+            margin-left: 2px;
+        }
+
+        /* Category Pills */
+        .category-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .category-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-size: 0.72em;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+        }
+
+        .category-pill:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .category-pill.active {
+            background: rgba(102, 126, 234, 0.3);
+            color: #fff;
+        }
+
+        .category-pill .cat-color {
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .category-pill .cat-count {
+            font-size: 0.9em;
+            opacity: 0.6;
+            margin-left: 2px;
+        }
+
+        /* Location Count Badge */
+        .location-badge {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.9);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            z-index: 900;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .location-badge #visible-count {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        /* Info Panel - Repositioned to LEFT side */
+        .info-panel {
+            position: absolute;
+            top: 90px;
+            left: 20px;
+            right: auto;
+            width: 320px;
+            max-height: calc(100vh - 280px);
+            background: rgba(15, 23, 42, 0.98);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            z-index: 950;
+            overflow-y: auto;
+            transform: translateX(-400px);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-panel.active {
+            transform: translateX(0);
+        }
+
+        .info-panel h2 {
+            color: #fff;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            padding-right: 30px;
+        }
+
+        .info-panel #location-details {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9em;
+        }
+
+        .info-panel #location-details p {
+            margin-bottom: 8px;
+        }
+
+        .info-panel #location-details strong {
+            color: #fff;
+        }
+
+        .info-panel .close-btn {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .info-panel .close-btn:hover {
+            color: #fff;
+        }
+
+        /* Mobile Responsive - Control Rail */
+        @media (max-width: 768px) {
+            .control-rail {
+                top: auto;
+                bottom: 70px;
+                right: 10px;
+                left: 10px;
+                width: auto;
+                max-height: 50vh;
+                padding: 10px;
+            }
+
+            .brand-pills {
+                max-height: 100px;
+            }
+
+            .info-panel {
+                width: calc(100% - 40px);
+                left: 20px;
+                top: 140px;
+                max-height: calc(100vh - 300px);
+            }
+
+            .location-badge {
+                bottom: auto;
+                top: 160px;
+            }
+        }
+
+        /* Hide stats dashboard on smaller viewports when control rail is visible */
+        @media (max-width: 1200px) {
+            .stats-dashboard {
+                display: none;
+            }
+        }
     </style>
     <script>
         // Detect embed mode from URL parameter - add class before body renders
@@ -705,7 +1127,7 @@
 <body>
     <!-- Global Stock Ticker -->
     <div class="global-ticker">
-        <iframe src="../Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
+        <iframe src="../Website/ticker.html?embed=true" title="Franchise stock ticker" loading="lazy" scrolling="no"></iframe>
     </div>
 
     <!-- Navigation Bar -->
@@ -738,24 +1160,14 @@
                     <button id="search-btn" class="search-btn">Find</button>
                 </div>
                 <select id="radius-filter" class="filter-select" title="Competitor analysis radius">
-                    <option value="all">Competitor Radius</option>
+                    <option value="all">Analysis Radius</option>
                     <option value="1">1 mile</option>
                     <option value="2">2 miles</option>
                     <option value="5">5 miles</option>
                     <option value="10">10 miles</option>
-                    <option value="15">15 miles</option>
                     <option value="25">25 miles</option>
                     <option value="50">50 miles</option>
-                    <option value="100">100 miles</option>
                 </select>
-                <button id="brand-filter-btn" class="filter-btn" title="Select brands to display">
-                    Brands ▼
-                </button>
-                <div class="view-toggles">
-                    <button id="view-markers" class="view-btn active" title="Marker view">📍</button>
-                    <button id="view-cluster" class="view-btn" title="Cluster view">🔘</button>
-                    <button id="view-heat" class="view-btn" title="Heat map">🔥</button>
-                </div>
             </div>
         </div>
 
@@ -787,20 +1199,80 @@
             </div>
         </div>
 
-        <!-- Brand Selection Panel -->
-        <div id="brand-checkboxes" class="brand-panel"></div>
-
         <!-- Map -->
         <div id="map"></div>
 
-        <!-- Map Attribution -->
-        <div class="map-attribution">
-            &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>
-            &middot; <a href="https://leafletjs.com" target="_blank">Leaflet</a>
-            <span class="map-hint">Drag to pan · Scroll to zoom</span>
+        <!-- Control Rail - Fixed right side -->
+        <div id="control-rail" class="control-rail">
+            <!-- Map View Controls -->
+            <div class="rail-section">
+                <div class="rail-section-title">Map Style</div>
+                <div class="map-style-btns">
+                    <button id="style-street" class="style-btn active" title="Street View">
+                        <span class="style-icon">🗺️</span>
+                        <span class="style-label">Street</span>
+                    </button>
+                    <button id="style-satellite" class="style-btn" title="Satellite View">
+                        <span class="style-icon">🛰️</span>
+                        <span class="style-label">Satellite</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Display Controls -->
+            <div class="rail-section">
+                <div class="rail-section-title">Display</div>
+                <div class="display-btns">
+                    <button id="toggle-cluster" class="toggle-btn active" title="Toggle Clustering">
+                        <span class="toggle-icon">🔘</span>
+                        <span class="toggle-label">Clusters</span>
+                    </button>
+                    <button id="toggle-heat" class="toggle-btn" title="Toggle Heat Map">
+                        <span class="toggle-icon">🔥</span>
+                        <span class="toggle-label">Heat Map</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Brand Filters - Clickable Pills -->
+            <div class="rail-section brand-section">
+                <div class="rail-section-title">
+                    Brands
+                    <div class="brand-actions-inline">
+                        <button id="select-all-brands" class="action-link" title="Select All">All</button>
+                        <button id="select-none-brands" class="action-link" title="Clear All">None</button>
+                    </div>
+                </div>
+                <div id="brand-pills" class="brand-pills">
+                    <!-- Brand pills generated dynamically -->
+                </div>
+            </div>
+
+            <!-- Category Summary -->
+            <div class="rail-section">
+                <div class="rail-section-title">Categories</div>
+                <div class="category-pills">
+                    <button class="category-pill active" data-category="QSR">
+                        <span class="cat-color" style="background:#FFC72C"></span>
+                        QSR <span class="cat-count" id="cat-qsr">0</span>
+                    </button>
+                    <button class="category-pill active" data-category="Casual">
+                        <span class="cat-color" style="background:#E3242B"></span>
+                        Casual <span class="cat-count" id="cat-casual">0</span>
+                    </button>
+                    <button class="category-pill active" data-category="Hotel">
+                        <span class="cat-color" style="background:#003580"></span>
+                        Hotels <span class="cat-count" id="cat-hotel">0</span>
+                    </button>
+                    <button class="category-pill active" data-category="Fitness">
+                        <span class="cat-color" style="background:#5C2D91"></span>
+                        Fitness <span class="cat-count" id="cat-fitness">0</span>
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <!-- Info Panel -->
+        <!-- Info Panel - Left side to avoid control rail -->
         <div id="info-panel" class="info-panel">
             <button id="close-panel" class="close-btn">&times;</button>
             <h2 id="location-name">Explore Locations</h2>
@@ -809,49 +1281,19 @@
             </div>
         </div>
 
-        <!-- Legend -->
-        <div class="legend">
-            <h3>Brand Categories</h3>
-            <div class="legend-item">
-                <span class="legend-marker" style="background: linear-gradient(135deg, #FFC72C, #E31837);"></span>
-                <span>Quick Service (QSR)</span>
-            </div>
-            <div class="legend-item">
-                <span class="legend-marker" style="background: linear-gradient(135deg, #E3242B, #007A33);"></span>
-                <span>Casual Dining</span>
-            </div>
-            <div class="legend-item">
-                <span class="legend-marker" style="background: linear-gradient(135deg, #003580, #1B3C34);"></span>
-                <span>Hotels & Hospitality</span>
-            </div>
-            <div class="legend-item">
-                <span class="legend-marker" style="background: linear-gradient(135deg, #ED1C24, #5C068C);"></span>
-                <span>Fitness & Wellness</span>
-            </div>
-            <p class="legend-note">Click "Brands" to filter by company</p>
+        <!-- Map Attribution -->
+        <div class="map-attribution">
+            &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>
+            &middot; <a href="https://leafletjs.com" target="_blank">Leaflet</a>
+            &middot; <a href="https://www.esri.com" target="_blank">Esri</a>
+        </div>
+
+        <!-- Location Count Badge -->
+        <div id="location-badge" class="location-badge">
+            <span id="visible-count">0</span> locations
         </div>
     </div>
 
     <script src="map.js"></script>
-    <script>
-        // Toggle brand panel visibility
-        document.getElementById('brand-filter-btn').addEventListener('click', function(e) {
-            e.stopPropagation();
-            const panel = document.getElementById('brand-checkboxes');
-            const btn = this;
-            panel.classList.toggle('visible');
-            btn.classList.toggle('active');
-        });
-
-        // Close panel when clicking outside
-        document.addEventListener('click', function(e) {
-            const panel = document.getElementById('brand-checkboxes');
-            const btn = document.getElementById('brand-filter-btn');
-            if (!panel.contains(e.target) && e.target !== btn) {
-                panel.classList.remove('visible');
-                btn.classList.remove('active');
-            }
-        });
-    </script>
 </body>
 </html>

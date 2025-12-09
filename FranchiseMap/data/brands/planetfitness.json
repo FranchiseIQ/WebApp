@@ -1,0 +1,33 @@
+{
+  "brandId": "PLNT",
+  "brandName": "Planet Fitness",
+  "color": "#5C2D91",
+  "category": "Fitness",
+  "locations": [
+    {"id": "plnt-001", "lat": 40.6892, "lng": -74.0445, "address": "Planet Fitness HQ - NJ", "walkScore": 82, "transitScore": 55, "bikeScore": 52},
+    {"id": "plnt-002", "lat": 40.7580, "lng": -73.9855, "address": "Times Square, NY", "walkScore": 99, "transitScore": 100, "bikeScore": 89},
+    {"id": "plnt-003", "lat": 41.8781, "lng": -87.6298, "address": "Chicago, IL", "walkScore": 98, "transitScore": 100, "bikeScore": 85},
+    {"id": "plnt-004", "lat": 34.0522, "lng": -118.2437, "address": "LA, CA", "walkScore": 91, "transitScore": 75, "bikeScore": 68},
+    {"id": "plnt-005", "lat": 33.7490, "lng": -84.3880, "address": "Atlanta, GA", "walkScore": 82, "transitScore": 55, "bikeScore": 52},
+    {"id": "plnt-006", "lat": 39.9526, "lng": -75.1652, "address": "Philadelphia, PA", "walkScore": 94, "transitScore": 82, "bikeScore": 75},
+    {"id": "plnt-007", "lat": 42.3601, "lng": -71.0589, "address": "Boston, MA", "walkScore": 97, "transitScore": 96, "bikeScore": 89},
+    {"id": "plnt-008", "lat": 38.9072, "lng": -77.0369, "address": "Washington DC", "walkScore": 94, "transitScore": 85, "bikeScore": 78},
+    {"id": "plnt-009", "lat": 39.7392, "lng": -104.9903, "address": "Denver, CO", "walkScore": 88, "transitScore": 65, "bikeScore": 82},
+    {"id": "plnt-010", "lat": 36.1627, "lng": -86.7816, "address": "Nashville, TN", "walkScore": 75, "transitScore": 32, "bikeScore": 55},
+    {"id": "plnt-011", "lat": 35.2271, "lng": -80.8431, "address": "Charlotte, NC", "walkScore": 70, "transitScore": 28, "bikeScore": 48},
+    {"id": "plnt-012", "lat": 32.7767, "lng": -96.7970, "address": "Dallas, TX", "walkScore": 78, "transitScore": 52, "bikeScore": 45},
+    {"id": "plnt-013", "lat": 29.7604, "lng": -95.3698, "address": "Houston, TX", "walkScore": 85, "transitScore": 56, "bikeScore": 48},
+    {"id": "plnt-014", "lat": 37.7749, "lng": -122.4194, "address": "San Francisco, CA", "walkScore": 95, "transitScore": 89, "bikeScore": 92},
+    {"id": "plnt-015", "lat": 47.6062, "lng": -122.3321, "address": "Seattle, WA", "walkScore": 96, "transitScore": 88, "bikeScore": 78},
+    {"id": "plnt-016", "lat": 33.4484, "lng": -112.0740, "address": "Phoenix, AZ", "walkScore": 72, "transitScore": 48, "bikeScore": 62},
+    {"id": "plnt-017", "lat": 25.7617, "lng": -80.1918, "address": "Miami, FL", "walkScore": 89, "transitScore": 62, "bikeScore": 72},
+    {"id": "plnt-018", "lat": 44.9778, "lng": -93.2650, "address": "Minneapolis, MN", "walkScore": 85, "transitScore": 68, "bikeScore": 92},
+    {"id": "plnt-019", "lat": 45.5051, "lng": -122.6750, "address": "Portland, OR", "walkScore": 92, "transitScore": 75, "bikeScore": 95},
+    {"id": "plnt-020", "lat": 36.1699, "lng": -115.1398, "address": "Las Vegas, NV", "walkScore": 91, "transitScore": 55, "bikeScore": 42},
+    {"id": "plnt-021", "lat": 32.7157, "lng": -117.1611, "address": "San Diego, CA", "walkScore": 85, "transitScore": 52, "bikeScore": 78},
+    {"id": "plnt-022", "lat": 30.2672, "lng": -97.7431, "address": "Austin, TX", "walkScore": 82, "transitScore": 42, "bikeScore": 72},
+    {"id": "plnt-023", "lat": 40.6782, "lng": -73.9442, "address": "Brooklyn, NY", "walkScore": 95, "transitScore": 89, "bikeScore": 85},
+    {"id": "plnt-024", "lat": 42.3314, "lng": -83.0458, "address": "Detroit, MI", "walkScore": 72, "transitScore": 38, "bikeScore": 55},
+    {"id": "plnt-025", "lat": 39.9612, "lng": -82.9988, "address": "Columbus, OH", "walkScore": 65, "transitScore": 32, "bikeScore": 52}
+  ]
+}
