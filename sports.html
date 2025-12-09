@@ -998,15 +998,18 @@
     <script src="FranchiseNews/news-widget.js"></script>
 
     <script>
-        // League configuration with local data files
+        // League configuration - uses unified sports_data.json for NFL/NBA
         const LEAGUES = {
-            NFL: { dataUrl: 'data/football/current-week.json', icon: '🏈', leagueFilter: 'NFL' },
-            NBA: { dataUrl: 'data/basketball/current-games.json', icon: '🏀', leagueFilter: 'NBA' },
+            NFL: { icon: '🏈', leagueFilter: 'NFL', unified: true },
+            NBA: { icon: '🏀', leagueFilter: 'NBA', unified: true },
             WNBA: { dataUrl: 'data/basketball/current-games.json', icon: '🏀', leagueFilter: 'WNBA' },
             NHL: { dataUrl: 'data/hockey/current-games.json', icon: '🏒', leagueFilter: 'NHL' },
             MLS: { dataUrl: 'data/soccer/current-games.json', icon: '⚽', leagueFilter: 'MLS' },
             MLB: { dataUrl: 'data/baseball/current-games.json', icon: '⚾', leagueFilter: 'MLB' }
         };
+
+        // Unified sports data cache
+        let unifiedSportsData = null;
 
         // Sample betting odds (in production, this would come from an odds API)
         const SAMPLE_ODDS = {
@@ -1128,6 +1131,27 @@
             }
         }
 
+        // Fetch unified sports data (NFL, NBA)
+        async function fetchUnifiedData() {
+            if (unifiedSportsData) return unifiedSportsData;
+
+            try {
+                // Add cache buster to get fresh data
+                const response = await fetch(`sports_data.json?t=${Date.now()}`);
+                if (!response.ok) {
+                    console.warn('Unified sports data not found, falling back to legacy files');
+                    return null;
+                }
+
+                unifiedSportsData = await response.json();
+                console.log('Loaded unified sports data:', unifiedSportsData.last_updated);
+                return unifiedSportsData;
+            } catch (error) {
+                console.warn('Error loading unified data:', error);
+                return null;
+            }
+        }
+
         // Fetch games from local JSON files
         async function fetchGames(league) {
             const config = LEAGUES[league];
@@ -1139,6 +1163,32 @@
             }
 
             try {
+                // Check if this league uses unified data
+                if (config.unified) {
+                    const unifiedData = await fetchUnifiedData();
+                    if (unifiedData) {
+                        const leagueKey = league.toLowerCase();
+                        const leagueData = unifiedData[leagueKey];
+                        if (leagueData && leagueData.games) {
+                            // Transform unified format to match expected format
+                            const games = leagueData.games.map(game => ({
+                                ...game,
+                                startTime: game.date,
+                                status: game.is_final ? 'final' : (game.is_active ? 'in_progress' : 'scheduled'),
+                                quarter: game.period,
+                                league: league
+                            }));
+                            gamesCache[cacheKey] = games;
+                            return games;
+                        }
+                    }
+                    // Fallback to legacy files if unified data unavailable
+                    console.log(`Falling back to legacy data for ${league}`);
+                }
+
+                // Legacy data files
+                if (!config.dataUrl) return [];
+
                 const response = await fetch(config.dataUrl);
                 if (!response.ok) {
                     console.warn(`No data file for ${league}`);
@@ -1501,6 +1551,7 @@
                     selectedTeams.clear(); // Reset team filter when changing leagues
                     updateFilterButtonText();
                     gamesCache = {}; // Clear cache to reload data for new league
+                    // Don't clear unifiedSportsData - it contains both NFL and NBA
                     renderGames();
                 });
             });
@@ -1789,6 +1840,7 @@
             // Refresh every 60 seconds
             setInterval(() => {
                 gamesCache = {}; // Clear cache
+                unifiedSportsData = null; // Clear unified data cache
                 if (currentView === 'scores') {
                     renderGames();
                 } else {
