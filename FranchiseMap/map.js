@@ -461,8 +461,8 @@ async function initMap() {
   // Add cluster layer by default (matching currentView = 'cluster')
   map.addLayer(clusterLayer);
 
-  // Try to load data from external JSON files, fall back to hardcoded data
-  await loadExternalData();
+  // Initialize with hardcoded data first (guaranteed to work)
+  console.log(`Using ${franchiseLocations.length} hardcoded locations`);
 
   // Build UI
   buildBrandPills();
@@ -480,7 +480,10 @@ async function initMap() {
   // Enable click-to-drop-pin for competitor analysis
   map.on('click', handleMapClick);
 
-  console.log(`✓ Interactive map initialized with ${getLocationCount()} locations (canvas mode enabled)`);
+  console.log(`✓ Interactive map initialized with ${franchiseLocations.length} locations`);
+
+  // Try to load external data in the background (optional enhancement)
+  loadExternalData().catch(e => console.log('External data not available:', e.message));
 }
 
 // ============================================================================
@@ -551,24 +554,12 @@ async function loadExternalData() {
 }
 
 function getLocationCount() {
-  if (dataLoaded && allLocations.length > 0) {
-    return allLocations.length;
-  }
   return franchiseLocations.length;
 }
 
 function getLocationsData() {
-  if (dataLoaded && allLocations.length > 0) {
-    return allLocations;
-  }
-  // Fall back to hardcoded data
-  return franchiseLocations.map(loc => ({
-    ...loc,
-    brandId: loc.brand,
-    walkScore: null,
-    transitScore: null,
-    bikeScore: null
-  }));
+  // Use hardcoded data - guaranteed to work
+  return franchiseLocations;
 }
 
 function fitBoundsToMarkers() {
@@ -590,8 +581,6 @@ function buildBrandPills() {
   const container = document.getElementById('brand-pills');
   if (!container) return;
 
-  const locations = getLocationsData();
-
   // Group brands by type for organized display
   const grouped = {};
   Object.entries(BRANDS).forEach(([symbol, brand]) => {
@@ -604,18 +593,20 @@ function buildBrandPills() {
   // Add all brands as pills (grouped by category)
   Object.entries(grouped).forEach(([type, brands]) => {
     brands.forEach(brand => {
-      const count = locations.filter(l => l.brand === brand.symbol || l.brandId === brand.symbol).length;
+      const count = franchiseLocations.filter(l => l.brand === brand.symbol).length;
       const isActive = selectedBrands.has(brand.symbol);
-      html += `
-        <button class="brand-pill ${isActive ? 'active' : ''}"
-                data-brand="${brand.symbol}"
-                data-category="${brand.type}"
-                onclick="toggleBrandPill('${brand.symbol}')">
-          <span class="pill-color" style="background: ${brand.color}"></span>
-          <span class="pill-name">${brand.symbol}</span>
-          <span class="pill-count">${count}</span>
-        </button>
-      `;
+      if (count > 0) { // Only show brands that have locations
+        html += `
+          <button class="brand-pill ${isActive ? 'active' : ''}"
+                  data-brand="${brand.symbol}"
+                  data-category="${brand.type}"
+                  onclick="toggleBrandPill('${brand.symbol}')">
+            <span class="pill-color" style="background: ${brand.color}"></span>
+            <span class="pill-name">${brand.symbol}</span>
+            <span class="pill-count">${count}</span>
+          </button>
+        `;
+      }
     });
   });
 
@@ -837,11 +828,8 @@ function updateVisibleCount() {
 // ============================================================================
 
 function addMarkers() {
-  const locations = getLocationsData();
-
-  locations.forEach((location, index) => {
-    const brandId = location.brand || location.brandId;
-    const brand = BRANDS[brandId];
+  franchiseLocations.forEach((location, index) => {
+    const brand = BRANDS[location.brand];
     if (!brand) return;
 
     // Create circle marker for regular view (faster with canvas)
@@ -888,14 +876,14 @@ function addMarkers() {
     markers.push({
       circleMarker,
       iconMarker,
-      location: { ...location, brand: brandId },
+      location,
       brand,
       index
     });
   });
 
   // Create heat layer data
-  const heatData = locations.map(l => [l.lat, l.lng, 0.5]);
+  const heatData = franchiseLocations.map(l => [l.lat, l.lng, 0.5]);
   heatLayer = L.heatLayer(heatData, {
     radius: 25,
     blur: 15,
@@ -912,29 +900,15 @@ function addMarkers() {
 
 function createPopupContent(location, brand) {
   const nearbyCount = findNearbyCompetitors(location, 2).length;
-  const brandId = location.brand || location.brandId;
-
-  // Walkability scores section (only show if data exists)
-  let walkabilityHtml = '';
-  if (location.walkScore || location.transitScore || location.bikeScore) {
-    walkabilityHtml = `
-      <div class="popup-walkability">
-        ${location.walkScore ? `<span class="walk-badge walk-score" title="Walk Score">🚶 ${location.walkScore}</span>` : ''}
-        ${location.transitScore ? `<span class="walk-badge transit-score" title="Transit Score">🚇 ${location.transitScore}</span>` : ''}
-        ${location.bikeScore ? `<span class="walk-badge bike-score" title="Bike Score">🚴 ${location.bikeScore}</span>` : ''}
-      </div>
-    `;
-  }
 
   return `
     <div class="popup-content">
       <div class="popup-header">
         <span class="popup-brand-color" style="background:${brand.color}"></span>
         <span class="popup-brand-name">${brand.name}</span>
-        <span class="popup-ticker">${brandId}</span>
+        <span class="popup-ticker">${location.brand}</span>
       </div>
       <div class="popup-address">${location.address}</div>
-      ${walkabilityHtml}
       <div style="font-size:0.8em;color:rgba(255,255,255,0.6);margin-bottom:10px;">
         ${nearbyCount} competitors within 2 miles
       </div>
