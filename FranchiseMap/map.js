@@ -664,30 +664,35 @@ async function initMap() {
 }
 
 // ============================================================================
-// DATA LOADING FROM EXTERNAL JSON FILES
+// DATA LOADING FROM EXTERNAL JSON FILES (OpenStreetMap Real Data)
 // ============================================================================
 
 async function loadExternalData() {
   try {
-    // First, try to load the manifest
-    const manifestResponse = await fetch('data/brands_manifest.json');
+    // Try loading manifest.json (from OSM data generator)
+    const manifestResponse = await fetch('data/manifest.json');
     if (!manifestResponse.ok) {
       throw new Error('Manifest not found');
     }
 
     const manifest = await manifestResponse.json();
-    console.log(`Loading data from ${manifest.brands.length} brand files...`);
+    console.log(`[OSM Data] Loading ${manifest.brands.length} brand files (source: ${manifest.source || 'unknown'})`);
 
     // Load all brand files in parallel
     const brandPromises = manifest.brands.map(async (brand) => {
       try {
-        const response = await fetch(`data/${brand.file}`);
+        // Handle both 'file' path formats
+        const filePath = brand.file.startsWith('data/') ? brand.file : `data/${brand.file}`;
+        const response = await fetch(filePath);
         if (!response.ok) return [];
         const data = await response.json();
+
+        // Map locations with brand info - handle ticker or brandId
+        const brandId = brand.ticker || data.brandId || brand.id;
         return data.locations.map(loc => ({
           ...loc,
-          brand: data.brandId,
-          brandId: data.brandId
+          brand: brandId,
+          brandId: brandId
         }));
       } catch (err) {
         console.warn(`Failed to load ${brand.file}:`, err);
@@ -704,13 +709,14 @@ async function loadExternalData() {
     }
 
     dataLoaded = true;
-    console.log(`✓ Loaded ${allLocations.length} locations from external data files`);
+    console.log(`✓ Loaded ${allLocations.length} real-world locations from OpenStreetMap data`);
 
     // Update BRANDS config from manifest if available
     manifest.brands.forEach(brand => {
-      if (!BRANDS[brand.id]) {
-        BRANDS[brand.id] = {
-          name: brand.name,
+      const brandId = brand.ticker || brand.id;
+      if (brandId && !BRANDS[brandId]) {
+        BRANDS[brandId] = {
+          name: brand.name || brand.brandName,
           color: brand.color,
           type: brand.category
         };
@@ -719,6 +725,9 @@ async function loadExternalData() {
 
     // Update selectedBrands with all available brands
     selectedBrands = new Set(Object.keys(BRANDS));
+
+    // Refresh the map markers with real data
+    refreshMarkers();
 
   } catch (error) {
     console.log('Using hardcoded data:', error.message);
@@ -731,11 +740,18 @@ async function loadExternalData() {
 }
 
 function getLocationCount() {
+  // Return count from real data if loaded, otherwise hardcoded
+  if (dataLoaded && allLocations.length > 0) {
+    return allLocations.length;
+  }
   return franchiseLocations.length;
 }
 
 function getLocationsData() {
-  // Use hardcoded data - guaranteed to work
+  // Prefer real OSM data if loaded, otherwise use hardcoded data
+  if (dataLoaded && allLocations.length > 0) {
+    return allLocations;
+  }
   return franchiseLocations;
 }
 
