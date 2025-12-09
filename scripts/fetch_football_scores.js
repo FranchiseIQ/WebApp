@@ -54,6 +54,33 @@ function transformGame(espnGame, league) {
         status = 'in_progress';
     }
 
+    // Extract video highlight URL if available
+    let highlightUrl = null;
+    let highlightTitle = null;
+
+    // Check for headlines with video
+    if (competition.headlines && competition.headlines.length > 0) {
+        for (const headline of competition.headlines) {
+            if (headline.video && headline.video.length > 0) {
+                const video = headline.video[0];
+                if (video.links && video.links.source) {
+                    // Try to get the best quality source
+                    highlightUrl = video.links.source.mezzanine?.href ||
+                                   video.links.source.HD?.href ||
+                                   video.links.source.full?.href ||
+                                   video.links.source.href;
+                    highlightTitle = headline.shortLinkText || headline.description || 'Game Highlights';
+                }
+                break;
+            }
+        }
+    }
+
+    // Generate YouTube search URL as fallback for completed games
+    const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(
+        `${awayTeam.team.displayName} vs ${homeTeam.team.displayName} ${league} highlights`
+    )}`;
+
     return {
         id: `${league.toLowerCase()}-${espnGame.season}-${espnGame.id}`,
         league: league,
@@ -80,7 +107,13 @@ function transformGame(espnGame, league) {
         quarter: competition.status?.period || null,
         clock: competition.status?.displayClock || null,
         possession: competition.situation?.possession === homeTeam.team.id ? 'home' :
-                    competition.situation?.possession === awayTeam.team.id ? 'away' : null
+                    competition.situation?.possession === awayTeam.team.id ? 'away' : null,
+        // Video highlights
+        highlight: highlightUrl,
+        highlightTitle: highlightTitle,
+        youtubeSearch: youtubeSearchUrl,
+        // Venue info
+        venue: competition.venue?.fullName || null
     };
 }
 
