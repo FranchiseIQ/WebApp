@@ -1,0 +1,47 @@
+# Update Stock Ticker Every 30 Minutes During Market Hours
+name: Update Stock Ticker (30-min)
+
+on:
+  schedule:
+    # Runs every 30 mins from 13:00 to 21:00 UTC (approx 8am - 4pm ET) Mon-Fri
+    # US Market: 9:30am - 4:00pm ET = 14:30 - 21:00 UTC (DST) or 15:30 - 22:00 UTC (Standard)
+    # Using 13:00-21:00 UTC to cover both and ensure we catch market hours
+    - cron: '0,30 13-21 * * 1-5'
+  workflow_dispatch: # Allows manual run
+
+permissions:
+  contents: write
+
+jobs:
+  update-stocks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install yfinance pandas
+
+      - name: Fetch live stock data
+        env:
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+        run: |
+          python scripts/fetch_live_ticker_finnhub.py
+
+      - name: Commit and push if changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/live_ticker.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update stock ticker data [skip ci]"
+            git push
+          fi

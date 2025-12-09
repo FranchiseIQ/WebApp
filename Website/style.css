@@ -139,34 +139,35 @@ body {
 #refresh-section {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 #refresh-label {
-  font-size: 15px;
+  font-size: 13px;
   color: #999;
 }
 
 #countdown {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 13px;
   color: #667eea;
   font-variant-numeric: tabular-nums;
-  min-width: 50px;
+  min-width: 45px;
 }
 
 #last-updated-section {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 #last-updated-section span:first-child {
-  font-size: 15px;
+  font-size: 13px;
 }
 
 #last-updated {
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 13px;
 }
 
 #market-close-section {

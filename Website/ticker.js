@@ -14,8 +14,8 @@ const TICKER_SYMBOLS = [
   "PLAY", "ARCO"
 ];
 
-// Refresh interval in milliseconds (1 hour = 3600 seconds)
-const REFRESH_INTERVAL = 3600000; // 1 hour
+// Refresh interval in milliseconds (30 minutes = 1800 seconds)
+const REFRESH_INTERVAL = 1800000; // 30 minutes
 
 // Cache for last known prices (for offline fallback)
 let lastKnownData = {};
@@ -584,8 +584,31 @@ async function updateTicker() {
 // ============================================================================
 
 // Countdown tracking
-let countdownSeconds = 3600; // 1 hour
+let countdownSeconds = 1800; // 30 minutes (will be recalculated)
 let countdownInterval = null;
+
+/**
+ * Calculate seconds until next 30-minute mark (:00 or :30)
+ * @returns {number} Seconds until next update
+ */
+function getSecondsUntilNextUpdate() {
+  const now = new Date();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+
+  // Find next 30-minute mark
+  let targetMinute;
+  if (minutes < 30) {
+    targetMinute = 30;
+  } else {
+    targetMinute = 60;
+  }
+
+  const minutesUntilNext = targetMinute - minutes;
+  const secondsUntilNext = (minutesUntilNext * 60) - seconds;
+
+  return secondsUntilNext;
+}
 
 /**
  * Get current Eastern Time
@@ -868,50 +891,69 @@ function updateGiantCountdown() {
 function updateCountdown() {
   const countdownElement = document.getElementById('countdown');
   const refreshLabelElement = document.getElementById('refresh-label');
-  const marketCloseSection = document.getElementById('market-close-section');
-  const marketCloseCountdown = document.getElementById('market-close-countdown');
+  const marketStatusSection = document.getElementById('market-status-section');
   const etTime = getEasternTime();
   const marketOpen = isMarketOpen(etTime);
 
   if (!countdownElement || !refreshLabelElement) return;
 
-  if (marketOpen) {
-    // Market is open - show refresh countdown
-    refreshLabelElement.textContent = 'Next:';
-    const minutes = Math.floor(countdownSeconds / 60);
-    const seconds = countdownSeconds % 60;
-    countdownElement.textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
+  // Calculate actual seconds until next 30-minute update
+  const actualSecondsUntilUpdate = getSecondsUntilNextUpdate();
 
-    countdownSeconds--;
-    if (countdownSeconds < 0) {
-      countdownSeconds = 0;
-    }
+  // Show countdown to next data update
+  refreshLabelElement.textContent = 'Next:';
+  const minutes = Math.floor(actualSecondsUntilUpdate / 60);
+  const seconds = actualSecondsUntilUpdate % 60;
+  countdownElement.textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
 
-    // Show market close countdown
-    if (marketCloseSection && marketCloseCountdown) {
-      marketCloseSection.style.display = 'flex';
+  // Update market status section to include close/open countdown
+  if (marketStatusSection) {
+    const indicatorElement = document.getElementById('market-indicator');
+    const labelElement = document.getElementById('market-label');
+
+    if (marketOpen) {
+      // Show time until market closes
       const secondsUntilClose = getTimeUntilClose(etTime);
       const hours = Math.floor(secondsUntilClose / 3600);
-      const minutes = Math.floor((secondsUntilClose % 3600) / 60);
+      const mins = Math.floor((secondsUntilClose % 3600) / 60);
       const secs = secondsUntilClose % 60;
 
-      if (hours > 0) {
-        marketCloseCountdown.textContent = `${hours}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-      } else {
-        marketCloseCountdown.textContent = `${minutes}:${String(secs).padStart(2, '0')}`;
+      const closingSoon = isClosingSoon(etTime);
+
+      if (indicatorElement && labelElement) {
+        if (closingSoon) {
+          indicatorElement.className = 'closing-soon';
+          if (hours > 0) {
+            labelElement.textContent = `Closes in ${hours}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+          } else {
+            labelElement.textContent = `Closes in ${mins}:${String(secs).padStart(2, '0')}`;
+          }
+        } else {
+          indicatorElement.className = 'open';
+          if (hours > 0) {
+            labelElement.textContent = `Open (Closes ${hours}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')})`;
+          } else {
+            labelElement.textContent = `Open (Closes ${mins}:${String(secs).padStart(2, '0')})`;
+          }
+        }
+      }
+    } else {
+      // Show time until market opens
+      const secondsUntilOpen = getTimeUntilOpen(etTime);
+      const countdown = formatCountdown(secondsUntilOpen);
+
+      const openingSoon = isOpeningSoon(etTime);
+
+      if (indicatorElement && labelElement) {
+        if (openingSoon) {
+          indicatorElement.className = 'opening-soon';
+          labelElement.textContent = `Opens in ${countdown}`;
+        } else {
+          indicatorElement.className = 'closed';
+          labelElement.textContent = `Closed (Opens ${countdown})`;
+        }
       }
     }
-  } else {
-    // Market is closed - hide market close countdown
-    if (marketCloseSection) {
-      marketCloseSection.style.display = 'none';
-    }
-
-    // Show time until open
-    refreshLabelElement.textContent = 'Opens:';
-    const secondsUntilOpen = getTimeUntilOpen(etTime);
-    const countdown = formatCountdown(secondsUntilOpen);
-    countdownElement.textContent = countdown;
   }
 
   // Update giant countdown clock
@@ -919,13 +961,15 @@ function updateCountdown() {
 }
 
 /**
- * Reset countdown to 1 hour
+ * Reset countdown to next 30-minute mark
  */
 function resetCountdown() {
-  countdownSeconds = 3600; // 1 hour
+  countdownSeconds = getSecondsUntilNextUpdate();
   const countdownElement = document.getElementById('countdown');
   if (countdownElement) {
-    countdownElement.textContent = '60:00';
+    const minutes = Math.floor(countdownSeconds / 60);
+    const seconds = countdownSeconds % 60;
+    countdownElement.textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
   }
 }
 
