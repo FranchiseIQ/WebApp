@@ -492,15 +492,7 @@ async function loadExternalData() {
     // First, try to load the manifest
     const manifestResponse = await fetch('data/brands_manifest.json');
     if (!manifestResponse.ok) {
-      console.log('No external data manifest found, using hardcoded data');
-      allLocations = franchiseLocations.map(loc => ({
-        ...loc,
-        brandId: loc.brand,
-        walkScore: null,
-        transitScore: null,
-        bikeScore: null
-      }));
-      return;
+      throw new Error('Manifest not found');
     }
 
     const manifest = await manifestResponse.json();
@@ -525,8 +517,13 @@ async function loadExternalData() {
 
     const results = await Promise.all(brandPromises);
     allLocations = results.flat();
-    dataLoaded = true;
 
+    // If we got no locations from external files, fall back to hardcoded
+    if (allLocations.length === 0) {
+      throw new Error('No locations loaded from external files');
+    }
+
+    dataLoaded = true;
     console.log(`✓ Loaded ${allLocations.length} locations from external data files`);
 
     // Update BRANDS config from manifest if available
@@ -544,23 +541,28 @@ async function loadExternalData() {
     selectedBrands = new Set(Object.keys(BRANDS));
 
   } catch (error) {
-    console.log('Error loading external data, using hardcoded data:', error);
-    allLocations = franchiseLocations.map(loc => ({
-      ...loc,
-      brandId: loc.brand,
-      walkScore: null,
-      transitScore: null,
-      bikeScore: null
-    }));
+    console.log('Using hardcoded data:', error.message);
+    // Always fall back to hardcoded franchiseLocations
+    dataLoaded = false;
+    allLocations = [];
+    // Ensure selectedBrands includes all brands from hardcoded data
+    selectedBrands = new Set(Object.keys(BRANDS));
   }
 }
 
 function getLocationCount() {
-  return dataLoaded ? allLocations.length : franchiseLocations.length;
+  if (dataLoaded && allLocations.length > 0) {
+    return allLocations.length;
+  }
+  return franchiseLocations.length;
 }
 
 function getLocationsData() {
-  return dataLoaded ? allLocations : franchiseLocations.map(loc => ({
+  if (dataLoaded && allLocations.length > 0) {
+    return allLocations;
+  }
+  // Fall back to hardcoded data
+  return franchiseLocations.map(loc => ({
     ...loc,
     brandId: loc.brand,
     walkScore: null,
