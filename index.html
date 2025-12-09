@@ -101,18 +101,27 @@
                         <span>→</span>
                     </a>
                     <div class="hero-stats">
+                        <a href="StockChart/chart.html" class="hero-stat hero-stat-clickable">
+                            <div class="hero-stat-icon">📈</div>
+                            <div class="hero-stat-number" data-target="38" data-suffix="+">0</div>
+                            <div class="hero-stat-label">Franchise Stocks</div>
+                            <div class="hero-stat-sub">US listed chains tracked</div>
+                        </a>
+                        <a href="StockChart/chart.html" class="hero-stat hero-stat-clickable">
+                            <div class="hero-stat-icon">📊</div>
+                            <div class="hero-stat-number" data-target="76000" data-suffix="+">0</div>
+                            <div class="hero-stat-label">Price Points</div>
+                            <div class="hero-stat-sub">10 years of daily data</div>
+                        </a>
                         <div class="hero-stat">
-                            <div class="hero-stat-value">40</div>
-                            <div class="hero-stat-label">Stocks Tracked</div>
-                        </div>
-                        <div class="hero-stat">
-                            <div class="hero-stat-value">10 Years</div>
-                            <div class="hero-stat-label">Historical Data</div>
-                        </div>
-                        <div class="hero-stat">
-                            <div class="hero-stat-value">100%</div>
+                            <div class="hero-stat-icon">🔒</div>
+                            <div class="hero-stat-number" data-target="100" data-suffix="%">0</div>
                             <div class="hero-stat-label">Client-Side</div>
+                            <div class="hero-stat-sub">No login. No tracking.</div>
                         </div>
+                    </div>
+                    <div class="hero-cta-secondary">
+                        <p class="hero-cta-subtext">Built for comparing franchisor equities and long-term performance</p>
                     </div>
                 </div>
             </section>
@@ -419,6 +428,56 @@
                 console.error('Failed to initialize widgets:', error);
             }
         });
+    </script>
+
+    <!-- Hero Stats Counter Animation -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const statsSection = document.querySelector(".hero-stats");
+      if (!statsSection) return;
+
+      const counters = statsSection.querySelectorAll(".hero-stat-number");
+
+      function animateCounter(el, index) {
+        const target = parseInt(el.dataset.target, 10);
+        const suffix = el.dataset.suffix || '';
+        if (!Number.isFinite(target)) return;
+
+        const duration = 1400; // ms
+        const start = performance.now();
+        const startVal = 0;
+
+        function step(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const value = Math.floor(startVal + (target - startVal) * progress);
+          el.textContent = value.toLocaleString() + suffix;
+
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          }
+        }
+
+        // Stagger animation start by 180ms per item
+        setTimeout(() => {
+          requestAnimationFrame(step);
+        }, index * 180);
+      }
+
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              statsSection.classList.add('visible');
+              counters.forEach((counter, index) => animateCounter(counter, index));
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.4 }
+      );
+
+      observer.observe(statsSection);
+    });
     </script>
 </body>
 </html>

@@ -20,10 +20,9 @@ TICKER_SYMBOLS = [
     "DRVN", "HRB", "MCW", "SERV", "ROL",
     "PLNT",
     "MAR", "HLT", "H", "CHH", "WH", "VAC", "TNL",
-    "RENT", "GNC",
+    "RENT",
     "ADUS", "LOPE",
-    "PLAY", "ARCO",
-    "TAST"
+    "PLAY", "ARCO"
 ]
 
 # Map Yahoo symbols to Finnhub symbols (none needed for pure franchisors)

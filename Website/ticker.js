@@ -9,10 +9,9 @@ const TICKER_SYMBOLS = [
   "DRVN", "HRB", "MCW", "SERV", "ROL",
   "PLNT",
   "MAR", "HLT", "H", "CHH", "WH", "VAC", "TNL",
-  "RENT", "GNC",
+  "RENT",
   "ADUS", "LOPE",
-  "PLAY", "ARCO",
-  "TAST"
+  "PLAY", "ARCO"
 ];
 
 // Refresh interval in milliseconds (1 hour = 3600 seconds)

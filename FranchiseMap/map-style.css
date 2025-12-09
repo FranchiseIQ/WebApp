@@ -64,13 +64,20 @@ body {
     gap: 15px;
 }
 
-.logo-link {
+.logo-link-header {
     display: flex;
     align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.logo-link-header:hover {
+    opacity: 0.9;
 }
 
 .logo {
-    height: 32px;
+    height: 40px;
     width: auto;
 }
 
@@ -78,11 +85,41 @@ body {
     color: white;
     font-size: 1.6em;
     font-weight: 700;
+    margin: 0;
 }
 
 .header-controls {
     display: flex;
-    gap: 10px;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.header-nav {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.header-nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 0.95em;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.header-nav-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.header-nav-link.active {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
 }
 
 .filter-select {

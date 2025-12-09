@@ -27,7 +27,7 @@ FRANCHISE_STOCKS = [
     "MAR", "HLT", "H", "CHH", "WH", "VAC", "TNL",
 
     # Retail & Other
-    "RENT", "GNC", "ADUS", "LOPE", "PLAY", "ARCO", "TAST"
+    "RENT", "ADUS", "LOPE", "PLAY", "ARCO"
 ]
 
 CSV_FILE = "data/franchise_stocks.csv"
