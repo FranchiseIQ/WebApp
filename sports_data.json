@@ -1,182 +1,14 @@
 {
-  "last_updated": "2025-12-09 14:18:56 EST",
+  "last_updated": "2025-12-10 14:19:22 EST",
   "nfl": {
-    "week": 14,
+    "week": 15,
     "games": [
       {
-        "id": "401772947",
-        "date": "2025-12-05T01:15Z",
-        "status": "Final",
+        "id": "401772948",
+        "date": "2025-12-12T01:15Z",
+        "status": "Thu, December 11th at 8:15 PM EST",
         "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "Ford Field",
-        "homeTeam": {
-          "name": "Detroit Lions",
-          "shortName": "Lions",
-          "abbreviation": "DET",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png",
-          "record": "8-5"
-        },
-        "awayTeam": {
-          "name": "Dallas Cowboys",
-          "shortName": "Cowboys",
-          "abbreviation": "DAL",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
-          "record": "6-6-1"
-        },
-        "homeScore": "44",
-        "awayScore": "30",
-        "video_url": "https://www.youtube.com/embed/pF2H49iSZGM?autoplay=1&rel=0",
-        "league": "NFL"
-      },
-      {
-        "id": "401772900",
-        "date": "2025-12-07T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "Mercedes-Benz Stadium",
-        "homeTeam": {
-          "name": "Atlanta Falcons",
-          "shortName": "Falcons",
-          "abbreviation": "ATL",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
-          "record": "4-9"
-        },
-        "awayTeam": {
-          "name": "Seattle Seahawks",
-          "shortName": "Seahawks",
-          "abbreviation": "SEA",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png",
-          "record": "10-3"
-        },
-        "homeScore": "9",
-        "awayScore": "37",
-        "video_url": "https://www.youtube.com/embed/R7yx3CXm7lc?autoplay=1&rel=0",
-        "league": "NFL"
-      },
-      {
-        "id": "401772902",
-        "date": "2025-12-07T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "Highmark Stadium",
-        "homeTeam": {
-          "name": "Buffalo Bills",
-          "shortName": "Bills",
-          "abbreviation": "BUF",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png",
-          "record": "9-4"
-        },
-        "awayTeam": {
-          "name": "Cincinnati Bengals",
-          "shortName": "Bengals",
-          "abbreviation": "CIN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png",
-          "record": "4-9"
-        },
-        "homeScore": "39",
-        "awayScore": "34",
-        "video_url": "https://www.youtube.com/embed/7n3i-a6pJtM?autoplay=1&rel=0",
-        "league": "NFL"
-      },
-      {
-        "id": "401772898",
-        "date": "2025-12-07T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "Huntington Bank Field",
-        "homeTeam": {
-          "name": "Cleveland Browns",
-          "shortName": "Browns",
-          "abbreviation": "CLE",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png",
-          "record": "3-10"
-        },
-        "awayTeam": {
-          "name": "Tennessee Titans",
-          "shortName": "Titans",
-          "abbreviation": "TEN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png",
-          "record": "2-11"
-        },
-        "homeScore": "29",
-        "awayScore": "31",
-        "video_url": "https://www.youtube.com/embed/C2bl9_EHKmM?autoplay=1&rel=0",
-        "league": "NFL"
-      },
-      {
-        "id": "401772899",
-        "date": "2025-12-07T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "U.S. Bank Stadium",
-        "homeTeam": {
-          "name": "Minnesota Vikings",
-          "shortName": "Vikings",
-          "abbreviation": "MIN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
-          "record": "5-8"
-        },
-        "awayTeam": {
-          "name": "Washington Commanders",
-          "shortName": "Commanders",
-          "abbreviation": "WSH",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png",
-          "record": "3-10"
-        },
-        "homeScore": "31",
-        "awayScore": "0",
-        "video_url": "https://www.youtube.com/embed/ZcHTS6J-yAc?autoplay=1&rel=0",
-        "league": "NFL"
-      },
-      {
-        "id": "401772790",
-        "date": "2025-12-07T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "MetLife Stadium",
-        "homeTeam": {
-          "name": "New York Jets",
-          "shortName": "Jets",
-          "abbreviation": "NYJ",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
-          "record": "3-10"
-        },
-        "awayTeam": {
-          "name": "Miami Dolphins",
-          "shortName": "Dolphins",
-          "abbreviation": "MIA",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png",
-          "record": "6-7"
-        },
-        "homeScore": "10",
-        "awayScore": "34",
-        "video_url": "https://www.youtube.com/embed/-1lsr_QL4ys?autoplay=1&rel=0",
-        "league": "NFL"
-      },
-      {
-        "id": "401772792",
-        "date": "2025-12-07T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
+        "is_final": false,
         "clock": "",
         "period": "",
         "venue": "Raymond James Stadium",
@@ -188,163 +20,79 @@
           "record": "7-6"
         },
         "awayTeam": {
-          "name": "New Orleans Saints",
-          "shortName": "Saints",
-          "abbreviation": "NO",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png",
-          "record": "3-10"
+          "name": "Atlanta Falcons",
+          "shortName": "Falcons",
+          "abbreviation": "ATL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
+          "record": "4-9"
         },
-        "homeScore": "20",
-        "awayScore": "24",
-        "video_url": "https://www.youtube.com/embed/0gkuvC3Icoc?autoplay=1&rel=0",
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
         "league": "NFL"
       },
       {
-        "id": "401772793",
-        "date": "2025-12-07T18:00Z",
-        "status": "Final",
+        "id": "401772904",
+        "date": "2025-12-14T18:00Z",
+        "status": "Sun, December 14th at 1:00 PM EST",
         "is_active": false,
-        "is_final": true,
+        "is_final": false,
         "clock": "",
         "period": "",
-        "venue": "EverBank Stadium",
+        "venue": "Soldier Field",
         "homeTeam": {
-          "name": "Jacksonville Jaguars",
-          "shortName": "Jaguars",
-          "abbreviation": "JAX",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png",
-          "record": "9-4"
-        },
-        "awayTeam": {
-          "name": "Indianapolis Colts",
-          "shortName": "Colts",
-          "abbreviation": "IND",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png",
-          "record": "8-5"
-        },
-        "homeScore": "36",
-        "awayScore": "19",
-        "video_url": "https://www.youtube.com/embed/y6WTrDqAbNg?autoplay=1&rel=0",
-        "league": "NFL"
-      },
-      {
-        "id": "401772791",
-        "date": "2025-12-07T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "M&T Bank Stadium",
-        "homeTeam": {
-          "name": "Baltimore Ravens",
-          "shortName": "Ravens",
-          "abbreviation": "BAL",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png",
-          "record": "6-7"
-        },
-        "awayTeam": {
-          "name": "Pittsburgh Steelers",
-          "shortName": "Steelers",
-          "abbreviation": "PIT",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
-          "record": "7-6"
-        },
-        "homeScore": "22",
-        "awayScore": "27",
-        "video_url": "https://www.youtube.com/embed/JP_PjBGIS_4?autoplay=1&rel=0",
-        "league": "NFL"
-      },
-      {
-        "id": "401772794",
-        "date": "2025-12-07T21:05Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "Allegiant Stadium",
-        "homeTeam": {
-          "name": "Las Vegas Raiders",
-          "shortName": "Raiders",
-          "abbreviation": "LV",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png",
-          "record": "2-11"
-        },
-        "awayTeam": {
-          "name": "Denver Broncos",
-          "shortName": "Broncos",
-          "abbreviation": "DEN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png",
-          "record": "11-2"
-        },
-        "homeScore": "17",
-        "awayScore": "24",
-        "video_url": "https://www.youtube.com/embed/6xyeApLlPLI?autoplay=1&rel=0",
-        "league": "NFL"
-      },
-      {
-        "id": "401772897",
-        "date": "2025-12-07T21:25Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "Lambeau Field",
-        "homeTeam": {
-          "name": "Green Bay Packers",
-          "shortName": "Packers",
-          "abbreviation": "GB",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
-          "record": "9-3-1"
-        },
-        "awayTeam": {
           "name": "Chicago Bears",
           "shortName": "Bears",
           "abbreviation": "CHI",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png",
           "record": "9-4"
         },
-        "homeScore": "28",
-        "awayScore": "21",
-        "video_url": "https://www.youtube.com/embed/iJhTIvl-jBg?autoplay=1&rel=0",
-        "league": "NFL"
-      },
-      {
-        "id": "401772901",
-        "date": "2025-12-07T21:25Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "State Farm Stadium",
-        "homeTeam": {
-          "name": "Arizona Cardinals",
-          "shortName": "Cardinals",
-          "abbreviation": "ARI",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png",
+        "awayTeam": {
+          "name": "Cleveland Browns",
+          "shortName": "Browns",
+          "abbreviation": "CLE",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png",
           "record": "3-10"
         },
-        "awayTeam": {
-          "name": "Los Angeles Rams",
-          "shortName": "Rams",
-          "abbreviation": "LAR",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
-          "record": "10-3"
-        },
-        "homeScore": "17",
-        "awayScore": "45",
-        "video_url": "https://www.youtube.com/embed/su9x24PMG_Q?autoplay=1&rel=0",
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
         "league": "NFL"
       },
       {
-        "id": "401772932",
-        "date": "2025-12-08T01:20Z",
-        "status": "Final",
+        "id": "401772796",
+        "date": "2025-12-14T18:00Z",
+        "status": "Sun, December 14th at 1:00 PM EST",
         "is_active": false,
-        "is_final": true,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "Paycor Stadium",
+        "homeTeam": {
+          "name": "Cincinnati Bengals",
+          "shortName": "Bengals",
+          "abbreviation": "CIN",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png",
+          "record": "4-9"
+        },
+        "awayTeam": {
+          "name": "Baltimore Ravens",
+          "shortName": "Ravens",
+          "abbreviation": "BAL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png",
+          "record": "6-7"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772798",
+        "date": "2025-12-14T18:00Z",
+        "status": "Sun, December 14th at 1:00 PM EST",
+        "is_active": false,
+        "is_final": false,
         "clock": "",
         "period": "",
         "venue": "GEHA Field at Arrowhead Stadium",
@@ -356,43 +104,351 @@
           "record": "6-7"
         },
         "awayTeam": {
-          "name": "Houston Texans",
-          "shortName": "Texans",
-          "abbreviation": "HOU",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png",
-          "record": "8-5"
-        },
-        "homeScore": "10",
-        "awayScore": "20",
-        "video_url": "https://www.youtube.com/embed/A3Ig_Hi0xxo?autoplay=1&rel=0",
-        "league": "NFL"
-      },
-      {
-        "id": "401772822",
-        "date": "2025-12-09T01:15Z",
-        "status": "Final/OT",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "SoFi Stadium",
-        "homeTeam": {
           "name": "Los Angeles Chargers",
           "shortName": "Chargers",
           "abbreviation": "LAC",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png",
           "record": "9-4"
         },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772795",
+        "date": "2025-12-14T18:00Z",
+        "status": "Sun, December 14th at 1:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "Gillette Stadium",
+        "homeTeam": {
+          "name": "New England Patriots",
+          "shortName": "Patriots",
+          "abbreviation": "NE",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png",
+          "record": "11-2"
+        },
         "awayTeam": {
+          "name": "Buffalo Bills",
+          "shortName": "Bills",
+          "abbreviation": "BUF",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png",
+          "record": "9-4"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772905",
+        "date": "2025-12-14T18:00Z",
+        "status": "Sun, December 14th at 1:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "MetLife Stadium",
+        "homeTeam": {
+          "name": "New York Giants",
+          "shortName": "Giants",
+          "abbreviation": "NYG",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png",
+          "record": "2-11"
+        },
+        "awayTeam": {
+          "name": "Washington Commanders",
+          "shortName": "Commanders",
+          "abbreviation": "WSH",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png",
+          "record": "3-10"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772906",
+        "date": "2025-12-14T18:00Z",
+        "status": "Sun, December 14th at 1:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "Lincoln Financial Field",
+        "homeTeam": {
           "name": "Philadelphia Eagles",
           "shortName": "Eagles",
           "abbreviation": "PHI",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png",
           "record": "8-5"
         },
-        "homeScore": "22",
-        "awayScore": "19",
-        "video_url": "https://www.youtube.com/embed/Mpj2TpaVo8o?autoplay=1&rel=0",
+        "awayTeam": {
+          "name": "Las Vegas Raiders",
+          "shortName": "Raiders",
+          "abbreviation": "LV",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png",
+          "record": "2-11"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772797",
+        "date": "2025-12-14T18:00Z",
+        "status": "Sun, December 14th at 1:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "EverBank Stadium",
+        "homeTeam": {
+          "name": "Jacksonville Jaguars",
+          "shortName": "Jaguars",
+          "abbreviation": "JAX",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png",
+          "record": "9-4"
+        },
+        "awayTeam": {
+          "name": "New York Jets",
+          "shortName": "Jets",
+          "abbreviation": "NYJ",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
+          "record": "3-10"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772903",
+        "date": "2025-12-14T18:00Z",
+        "status": "Sun, December 14th at 1:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "NRG Stadium",
+        "homeTeam": {
+          "name": "Houston Texans",
+          "shortName": "Texans",
+          "abbreviation": "HOU",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png",
+          "record": "8-5"
+        },
+        "awayTeam": {
+          "name": "Arizona Cardinals",
+          "shortName": "Cardinals",
+          "abbreviation": "ARI",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png",
+          "record": "3-10"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772800",
+        "date": "2025-12-14T21:25Z",
+        "status": "Sun, December 14th at 4:25 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "Empower Field at Mile High",
+        "homeTeam": {
+          "name": "Denver Broncos",
+          "shortName": "Broncos",
+          "abbreviation": "DEN",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png",
+          "record": "11-2"
+        },
+        "awayTeam": {
+          "name": "Green Bay Packers",
+          "shortName": "Packers",
+          "abbreviation": "GB",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
+          "record": "9-3-1"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772909",
+        "date": "2025-12-14T21:25Z",
+        "status": "Sun, December 14th at 4:25 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "SoFi Stadium",
+        "homeTeam": {
+          "name": "Los Angeles Rams",
+          "shortName": "Rams",
+          "abbreviation": "LAR",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
+          "record": "10-3"
+        },
+        "awayTeam": {
+          "name": "Detroit Lions",
+          "shortName": "Lions",
+          "abbreviation": "DET",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png",
+          "record": "8-5"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772908",
+        "date": "2025-12-14T21:25Z",
+        "status": "Sun, December 14th at 4:25 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "Caesars Superdome",
+        "homeTeam": {
+          "name": "New Orleans Saints",
+          "shortName": "Saints",
+          "abbreviation": "NO",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png",
+          "record": "3-10"
+        },
+        "awayTeam": {
+          "name": "Carolina Panthers",
+          "shortName": "Panthers",
+          "abbreviation": "CAR",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png",
+          "record": "7-6"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772907",
+        "date": "2025-12-14T21:25Z",
+        "status": "Sun, December 14th at 4:25 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "Levi's Stadium",
+        "homeTeam": {
+          "name": "San Francisco 49ers",
+          "shortName": "49ers",
+          "abbreviation": "SF",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png",
+          "record": "9-4"
+        },
+        "awayTeam": {
+          "name": "Tennessee Titans",
+          "shortName": "Titans",
+          "abbreviation": "TEN",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png",
+          "record": "2-11"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772799",
+        "date": "2025-12-14T21:25Z",
+        "status": "Sun, December 14th at 4:25 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "Lumen Field",
+        "homeTeam": {
+          "name": "Seattle Seahawks",
+          "shortName": "Seahawks",
+          "abbreviation": "SEA",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png",
+          "record": "10-3"
+        },
+        "awayTeam": {
+          "name": "Indianapolis Colts",
+          "shortName": "Colts",
+          "abbreviation": "IND",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png",
+          "record": "8-5"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772933",
+        "date": "2025-12-15T01:20Z",
+        "status": "Sun, December 14th at 8:20 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "AT&T Stadium",
+        "homeTeam": {
+          "name": "Dallas Cowboys",
+          "shortName": "Cowboys",
+          "abbreviation": "DAL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
+          "record": "6-6-1"
+        },
+        "awayTeam": {
+          "name": "Minnesota Vikings",
+          "shortName": "Vikings",
+          "abbreviation": "MIN",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
+          "record": "5-8"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772823",
+        "date": "2025-12-16T01:15Z",
+        "status": "Mon, December 15th at 8:15 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "Acrisure Stadium",
+        "homeTeam": {
+          "name": "Pittsburgh Steelers",
+          "shortName": "Steelers",
+          "abbreviation": "PIT",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
+          "record": "7-6"
+        },
+        "awayTeam": {
+          "name": "Miami Dolphins",
+          "shortName": "Dolphins",
+          "abbreviation": "MIA",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png",
+          "record": "6-7"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
         "league": "NFL"
       }
     ]
@@ -400,87 +456,59 @@
   "nba": {
     "games": [
       {
-        "id": "401810219",
-        "date": "2025-12-09T00:00Z",
+        "id": "401809833",
+        "date": "2025-12-09T23:00Z",
         "status": "Final",
         "is_active": false,
         "is_final": true,
         "clock": "",
         "period": "",
-        "venue": "Gainbridge Fieldhouse",
+        "venue": "Kia Center",
         "homeTeam": {
-          "name": "Indiana Pacers",
-          "shortName": "Pacers",
-          "abbreviation": "IND",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ind.png",
-          "record": "6-18"
+          "name": "Orlando Magic",
+          "shortName": "Magic",
+          "abbreviation": "ORL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/orl.png",
+          "record": "15-10"
         },
         "awayTeam": {
-          "name": "Sacramento Kings",
-          "shortName": "Kings",
-          "abbreviation": "SAC",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sac.png",
-          "record": "6-18"
+          "name": "Miami Heat",
+          "shortName": "Heat",
+          "abbreviation": "MIA",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mia.png",
+          "record": "14-11"
         },
-        "homeScore": "116",
-        "awayScore": "105",
-        "video_url": "https://www.youtube.com/embed/vHEjWWrKhcE?autoplay=1&rel=0",
-        "league": "NBA"
-      },
-      {
-        "id": "401810220",
-        "date": "2025-12-09T00:30Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "Target Center",
-        "homeTeam": {
-          "name": "Minnesota Timberwolves",
-          "shortName": "Timberwolves",
-          "abbreviation": "MIN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/min.png",
-          "record": "15-9"
-        },
-        "awayTeam": {
-          "name": "Phoenix Suns",
-          "shortName": "Suns",
-          "abbreviation": "PHX",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phx.png",
-          "record": "14-10"
-        },
-        "homeScore": "105",
+        "homeScore": "117",
         "awayScore": "108",
-        "video_url": "https://www.youtube.com/embed/ul2WKtr5fK4?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/ZBgNYITxokE?autoplay=1&rel=0",
         "league": "NBA"
       },
       {
-        "id": "401810221",
-        "date": "2025-12-09T01:00Z",
+        "id": "401809834",
+        "date": "2025-12-10T01:30Z",
         "status": "Final",
         "is_active": false,
         "is_final": true,
         "clock": "",
         "period": "",
-        "venue": "Smoothie King Center",
+        "venue": "Scotiabank Arena",
         "homeTeam": {
-          "name": "New Orleans Pelicans",
-          "shortName": "Pelicans",
-          "abbreviation": "NO",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/no.png",
-          "record": "3-22"
+          "name": "Toronto Raptors",
+          "shortName": "Raptors",
+          "abbreviation": "TOR",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/tor.png",
+          "record": "15-11"
         },
         "awayTeam": {
-          "name": "San Antonio Spurs",
-          "shortName": "Spurs",
-          "abbreviation": "SA",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png",
-          "record": "16-7"
+          "name": "New York Knicks",
+          "shortName": "Knicks",
+          "abbreviation": "NY",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ny.png",
+          "record": "17-7"
         },
-        "homeScore": "132",
-        "awayScore": "135",
-        "video_url": "https://www.youtube.com/embed/IL2AySuK5aY?autoplay=1&rel=0",
+        "homeScore": "101",
+        "awayScore": "117",
+        "video_url": "https://www.youtube.com/embed/Etm5FNioUwQ?autoplay=1&rel=0",
         "league": "NBA"
       }
     ]
