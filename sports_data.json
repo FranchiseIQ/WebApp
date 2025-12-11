@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-11 14:19:54 EST",
+  "last_updated": "2025-12-11 23:13:24 EST",
   "nfl": {
     "week": 15,
     "games": [
@@ -455,6 +455,118 @@
   },
   "nba": {
     "games": [
+      {
+        "id": "401836746",
+        "date": "2025-12-12T01:00Z",
+        "status": "Thu, December 11th at 8:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "Toyota Center (Houston)",
+        "homeTeam": {
+          "name": "Houston Rockets",
+          "shortName": "Rockets",
+          "abbreviation": "HOU",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/hou.png",
+          "record": "15-6"
+        },
+        "awayTeam": {
+          "name": "LA Clippers",
+          "shortName": "Clippers",
+          "abbreviation": "LAC",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lac.png",
+          "record": "6-18"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NBA"
+      },
+      {
+        "id": "401836747",
+        "date": "2025-12-12T01:00Z",
+        "status": "Thu, December 11th at 8:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "Fiserv Forum",
+        "homeTeam": {
+          "name": "Milwaukee Bucks",
+          "shortName": "Bucks",
+          "abbreviation": "MIL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mil.png",
+          "record": "10-15"
+        },
+        "awayTeam": {
+          "name": "Boston Celtics",
+          "shortName": "Celtics",
+          "abbreviation": "BOS",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bos.png",
+          "record": "15-9"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NBA"
+      },
+      {
+        "id": "401836748",
+        "date": "2025-12-12T01:00Z",
+        "status": "Thu, December 11th at 8:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "Smoothie King Center",
+        "homeTeam": {
+          "name": "New Orleans Pelicans",
+          "shortName": "Pelicans",
+          "abbreviation": "NO",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/no.png",
+          "record": "3-22"
+        },
+        "awayTeam": {
+          "name": "Portland Trail Blazers",
+          "shortName": "Trail Blazers",
+          "abbreviation": "POR",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/por.png",
+          "record": "9-15"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NBA"
+      },
+      {
+        "id": "401836749",
+        "date": "2025-12-12T03:00Z",
+        "status": "Thu, December 11th at 10:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "Golden 1 Center",
+        "homeTeam": {
+          "name": "Sacramento Kings",
+          "shortName": "Kings",
+          "abbreviation": "SAC",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sac.png",
+          "record": "6-18"
+        },
+        "awayTeam": {
+          "name": "Denver Nuggets",
+          "shortName": "Nuggets",
+          "abbreviation": "DEN",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/den.png",
+          "record": "17-6"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NBA"
+      },
       {
         "id": "401809835",
         "date": "2025-12-11T00:30Z",
