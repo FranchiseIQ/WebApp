@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-10 14:19:22 EST",
+  "last_updated": "2025-12-11 14:19:54 EST",
   "nfl": {
     "week": 15,
     "games": [
@@ -456,59 +456,59 @@
   "nba": {
     "games": [
       {
-        "id": "401809833",
-        "date": "2025-12-09T23:00Z",
+        "id": "401809835",
+        "date": "2025-12-11T00:30Z",
         "status": "Final",
         "is_active": false,
         "is_final": true,
         "clock": "",
         "period": "",
-        "venue": "Kia Center",
+        "venue": "Paycom Center",
         "homeTeam": {
-          "name": "Orlando Magic",
-          "shortName": "Magic",
-          "abbreviation": "ORL",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/orl.png",
-          "record": "15-10"
+          "name": "Oklahoma City Thunder",
+          "shortName": "Thunder",
+          "abbreviation": "OKC",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/okc.png",
+          "record": "24-1"
         },
         "awayTeam": {
-          "name": "Miami Heat",
-          "shortName": "Heat",
-          "abbreviation": "MIA",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mia.png",
+          "name": "Phoenix Suns",
+          "shortName": "Suns",
+          "abbreviation": "PHX",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phx.png",
           "record": "14-11"
         },
-        "homeScore": "117",
-        "awayScore": "108",
-        "video_url": "https://www.youtube.com/embed/ZBgNYITxokE?autoplay=1&rel=0",
+        "homeScore": "138",
+        "awayScore": "89",
+        "video_url": "https://www.youtube.com/embed/mUar7vU0ZGk?autoplay=1&rel=0",
         "league": "NBA"
       },
       {
-        "id": "401809834",
-        "date": "2025-12-10T01:30Z",
+        "id": "401809836",
+        "date": "2025-12-11T03:00Z",
         "status": "Final",
         "is_active": false,
         "is_final": true,
         "clock": "",
         "period": "",
-        "venue": "Scotiabank Arena",
+        "venue": "crypto.com Arena",
         "homeTeam": {
-          "name": "Toronto Raptors",
-          "shortName": "Raptors",
-          "abbreviation": "TOR",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/tor.png",
-          "record": "15-11"
-        },
-        "awayTeam": {
-          "name": "New York Knicks",
-          "shortName": "Knicks",
-          "abbreviation": "NY",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ny.png",
+          "name": "Los Angeles Lakers",
+          "shortName": "Lakers",
+          "abbreviation": "LAL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png",
           "record": "17-7"
         },
-        "homeScore": "101",
-        "awayScore": "117",
-        "video_url": "https://www.youtube.com/embed/Etm5FNioUwQ?autoplay=1&rel=0",
+        "awayTeam": {
+          "name": "San Antonio Spurs",
+          "shortName": "Spurs",
+          "abbreviation": "SA",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png",
+          "record": "17-7"
+        },
+        "homeScore": "119",
+        "awayScore": "132",
+        "video_url": "https://www.youtube.com/embed/RmU_APuZICg?autoplay=1&rel=0",
         "league": "NBA"
       }
     ]
