@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-13 01:57:46 EST",
+  "last_updated": "2025-12-13 04:31:16 EST",
   "nfl": {
     "week": 15,
     "games": [
@@ -458,179 +458,179 @@
       {
         "id": "401836750",
         "date": "2025-12-13T00:00Z",
-        "status": "7:41 - 4th Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "7:41",
-        "period": 4,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "venue": "Spectrum Center",
         "homeTeam": {
           "name": "Charlotte Hornets",
           "shortName": "Hornets",
           "abbreviation": "CHA",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cha.png",
-          "record": "7-17"
+          "record": "7-18"
         },
         "awayTeam": {
           "name": "Chicago Bulls",
           "shortName": "Bulls",
           "abbreviation": "CHI",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/chi.png",
-          "record": "9-14"
+          "record": "10-14"
         },
-        "homeScore": "104",
-        "awayScore": "104",
-        "video_url": null,
+        "homeScore": "126",
+        "awayScore": "129",
+        "video_url": "https://www.youtube.com/embed/m3TyPJbD7oU?autoplay=1&rel=0",
         "league": "NBA"
       },
       {
         "id": "401836751",
         "date": "2025-12-13T00:00Z",
-        "status": "End of 3rd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "0.0",
-        "period": 3,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "venue": "Little Caesars Arena",
         "homeTeam": {
           "name": "Detroit Pistons",
           "shortName": "Pistons",
           "abbreviation": "DET",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/det.png",
-          "record": "19-5"
+          "record": "20-5"
         },
         "awayTeam": {
           "name": "Atlanta Hawks",
           "shortName": "Hawks",
           "abbreviation": "ATL",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/atl.png",
-          "record": "14-11"
+          "record": "14-12"
         },
-        "homeScore": "104",
-        "awayScore": "79",
-        "video_url": null,
+        "homeScore": "142",
+        "awayScore": "115",
+        "video_url": "https://www.youtube.com/embed/4Dop167quL4?autoplay=1&rel=0",
         "league": "NBA"
       },
       {
         "id": "401836752",
         "date": "2025-12-13T00:00Z",
-        "status": "11:21 - 4th Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "11:21",
-        "period": 4,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "venue": "Xfinity Mobile Arena",
         "homeTeam": {
           "name": "Philadelphia 76ers",
           "shortName": "76ers",
           "abbreviation": "PHI",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phi.png",
-          "record": "13-10"
+          "record": "14-10"
         },
         "awayTeam": {
           "name": "Indiana Pacers",
           "shortName": "Pacers",
           "abbreviation": "IND",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ind.png",
-          "record": "6-18"
+          "record": "6-19"
         },
-        "homeScore": "92",
-        "awayScore": "92",
-        "video_url": null,
+        "homeScore": "115",
+        "awayScore": "105",
+        "video_url": "https://www.youtube.com/embed/lCJMytuO4BA?autoplay=1&rel=0",
         "league": "NBA"
       },
       {
         "id": "401836753",
         "date": "2025-12-13T00:00Z",
-        "status": "5.7 - 3rd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "5.7",
-        "period": 3,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "venue": "Capital One Arena",
         "homeTeam": {
           "name": "Washington Wizards",
           "shortName": "Wizards",
           "abbreviation": "WSH",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/wsh.png",
-          "record": "3-19"
+          "record": "3-20"
         },
         "awayTeam": {
           "name": "Cleveland Cavaliers",
           "shortName": "Cavaliers",
           "abbreviation": "CLE",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cle.png",
-          "record": "14-11"
+          "record": "15-11"
         },
-        "homeScore": "100",
-        "awayScore": "85",
-        "video_url": null,
+        "homeScore": "126",
+        "awayScore": "130",
+        "video_url": "https://www.youtube.com/embed/rSHG7tzYu2U?autoplay=1&rel=0",
         "league": "NBA"
       },
       {
         "id": "401836754",
         "date": "2025-12-13T01:00Z",
-        "status": "5:27 - 2nd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "5:27",
-        "period": 2,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "venue": "FedExForum",
         "homeTeam": {
           "name": "Memphis Grizzlies",
           "shortName": "Grizzlies",
           "abbreviation": "MEM",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mem.png",
-          "record": "11-13"
+          "record": "11-14"
         },
         "awayTeam": {
           "name": "Utah Jazz",
           "shortName": "Jazz",
           "abbreviation": "UTAH",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/utah.png",
-          "record": "8-15"
+          "record": "9-15"
         },
-        "homeScore": "51",
-        "awayScore": "48",
-        "video_url": null,
+        "homeScore": "126",
+        "awayScore": "130",
+        "video_url": "https://www.youtube.com/embed/s0oWOznuytk?autoplay=1&rel=0",
         "league": "NBA"
       },
       {
         "id": "401836795",
         "date": "2025-12-13T01:30Z",
-        "status": "4:36 - 1st Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "4:36",
-        "period": 1,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "venue": "American Airlines Center",
         "homeTeam": {
           "name": "Dallas Mavericks",
           "shortName": "Mavericks",
           "abbreviation": "DAL",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/dal.png",
-          "record": "9-16"
+          "record": "10-16"
         },
         "awayTeam": {
           "name": "Brooklyn Nets",
           "shortName": "Nets",
           "abbreviation": "BKN",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bkn.png",
-          "record": "6-17"
+          "record": "6-18"
         },
-        "homeScore": "17",
-        "awayScore": "19",
-        "video_url": null,
+        "homeScore": "119",
+        "awayScore": "111",
+        "video_url": "https://www.youtube.com/embed/PrjW3tfFkXU?autoplay=1&rel=0",
         "league": "NBA"
       },
       {
         "id": "401836796",
         "date": "2025-12-13T03:00Z",
-        "status": "Fri, December 12th at 10:00 PM EST",
-        "is_active": false,
+        "status": "9:57 - 3rd Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "9:57",
+        "period": 3,
         "venue": "Chase Center",
         "homeTeam": {
           "name": "Golden State Warriors",
@@ -646,8 +646,8 @@
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/min.png",
           "record": "15-9"
         },
-        "homeScore": "0",
-        "awayScore": "0",
+        "homeScore": "63",
+        "awayScore": "67",
         "video_url": null,
         "league": "NBA"
       }
