@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-13 04:31:16 EST",
+  "last_updated": "2025-12-13 16:30:34 EST",
   "nfl": {
     "week": 15,
     "games": [
@@ -456,6 +456,62 @@
   "nba": {
     "games": [
       {
+        "id": "401809837",
+        "date": "2025-12-13T22:30Z",
+        "status": "Sat, December 13th at 5:30 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "T-Mobile Arena",
+        "homeTeam": {
+          "name": "Orlando Magic",
+          "shortName": "Magic",
+          "abbreviation": "ORL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/orl.png",
+          "record": "15-10"
+        },
+        "awayTeam": {
+          "name": "New York Knicks",
+          "shortName": "Knicks",
+          "abbreviation": "NY",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ny.png",
+          "record": "17-7"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NBA"
+      },
+      {
+        "id": "401809838",
+        "date": "2025-12-14T02:00Z",
+        "status": "Sat, December 13th at 9:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "venue": "T-Mobile Arena",
+        "homeTeam": {
+          "name": "Oklahoma City Thunder",
+          "shortName": "Thunder",
+          "abbreviation": "OKC",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/okc.png",
+          "record": "24-1"
+        },
+        "awayTeam": {
+          "name": "San Antonio Spurs",
+          "shortName": "Spurs",
+          "abbreviation": "SA",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png",
+          "record": "17-7"
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NBA"
+      },
+      {
         "id": "401836750",
         "date": "2025-12-13T00:00Z",
         "status": "Final",
@@ -626,29 +682,29 @@
       {
         "id": "401836796",
         "date": "2025-12-13T03:00Z",
-        "status": "9:57 - 3rd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "9:57",
-        "period": 3,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "venue": "Chase Center",
         "homeTeam": {
           "name": "Golden State Warriors",
           "shortName": "Warriors",
           "abbreviation": "GS",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png",
-          "record": "13-12"
+          "record": "13-13"
         },
         "awayTeam": {
           "name": "Minnesota Timberwolves",
           "shortName": "Timberwolves",
           "abbreviation": "MIN",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/min.png",
-          "record": "15-9"
+          "record": "16-9"
         },
-        "homeScore": "63",
-        "awayScore": "67",
-        "video_url": null,
+        "homeScore": "120",
+        "awayScore": "127",
+        "video_url": "https://www.youtube.com/embed/IRke0UTzNi8?autoplay=1&rel=0",
         "league": "NBA"
       }
     ]
