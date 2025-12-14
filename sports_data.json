@@ -1,16 +1,16 @@
 {
-  "last_updated": "2025-12-14 16:30:16 EST",
+  "last_updated": "2025-12-14 20:27:55 EST",
   "nfl": {
     "week": 15,
     "games": [
       {
         "id": "401772904",
         "date": "2025-12-14T18:00Z",
-        "status": "Sun, December 14th at 1:00 PM EST",
-        "is_active": false,
+        "status": "0:46 - 3rd Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "0:46",
+        "period": 3,
         "venue": "Soldier Field",
         "homeTeam": {
           "name": "Chicago Bears",
@@ -26,19 +26,19 @@
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png",
           "record": "3-10"
         },
-        "homeScore": "0",
-        "awayScore": "0",
+        "homeScore": "28",
+        "awayScore": "3",
         "video_url": null,
         "league": "NFL"
       },
       {
         "id": "401772796",
         "date": "2025-12-14T18:00Z",
-        "status": "Sun, December 14th at 1:00 PM EST",
-        "is_active": false,
+        "status": "12:14 - 4th Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "12:14",
+        "period": 4,
         "venue": "Paycor Stadium",
         "homeTeam": {
           "name": "Cincinnati Bengals",
@@ -55,18 +55,18 @@
           "record": "6-7"
         },
         "homeScore": "0",
-        "awayScore": "0",
+        "awayScore": "17",
         "video_url": null,
         "league": "NFL"
       },
       {
         "id": "401772798",
         "date": "2025-12-14T18:00Z",
-        "status": "Sun, December 14th at 1:00 PM EST",
-        "is_active": false,
+        "status": "2:51 - 3rd Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "2:51",
+        "period": 3,
         "venue": "GEHA Field at Arrowhead Stadium",
         "homeTeam": {
           "name": "Kansas City Chiefs",
@@ -82,19 +82,19 @@
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png",
           "record": "9-4"
         },
-        "homeScore": "0",
-        "awayScore": "0",
+        "homeScore": "13",
+        "awayScore": "13",
         "video_url": null,
         "league": "NFL"
       },
       {
         "id": "401772795",
         "date": "2025-12-14T18:00Z",
-        "status": "Sun, December 14th at 1:00 PM EST",
-        "is_active": false,
+        "status": "10:15 - 4th Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "10:15",
+        "period": 4,
         "venue": "Gillette Stadium",
         "homeTeam": {
           "name": "New England Patriots",
@@ -110,19 +110,19 @@
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png",
           "record": "9-4"
         },
-        "homeScore": "0",
-        "awayScore": "0",
+        "homeScore": "24",
+        "awayScore": "21",
         "video_url": null,
         "league": "NFL"
       },
       {
         "id": "401772905",
         "date": "2025-12-14T18:00Z",
-        "status": "Sun, December 14th at 1:00 PM EST",
-        "is_active": false,
+        "status": "14:55 - 4th Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "14:55",
+        "period": 4,
         "venue": "MetLife Stadium",
         "homeTeam": {
           "name": "New York Giants",
@@ -138,19 +138,19 @@
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png",
           "record": "3-10"
         },
-        "homeScore": "0",
-        "awayScore": "0",
+        "homeScore": "14",
+        "awayScore": "22",
         "video_url": null,
         "league": "NFL"
       },
       {
         "id": "401772906",
         "date": "2025-12-14T18:00Z",
-        "status": "Sun, December 14th at 1:00 PM EST",
-        "is_active": false,
+        "status": "2:00 - 4th Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "2:00",
+        "period": 4,
         "venue": "Lincoln Financial Field",
         "homeTeam": {
           "name": "Philadelphia Eagles",
@@ -166,7 +166,7 @@
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png",
           "record": "2-11"
         },
-        "homeScore": "0",
+        "homeScore": "31",
         "awayScore": "0",
         "video_url": null,
         "league": "NFL"
@@ -174,11 +174,11 @@
       {
         "id": "401772797",
         "date": "2025-12-14T18:00Z",
-        "status": "Sun, December 14th at 1:00 PM EST",
-        "is_active": false,
+        "status": "1:43 - 3rd Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "1:43",
+        "period": 3,
         "venue": "EverBank Stadium",
         "homeTeam": {
           "name": "Jacksonville Jaguars",
@@ -194,19 +194,19 @@
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
           "record": "3-10"
         },
-        "homeScore": "0",
-        "awayScore": "0",
+        "homeScore": "41",
+        "awayScore": "13",
         "video_url": null,
         "league": "NFL"
       },
       {
         "id": "401772903",
         "date": "2025-12-14T18:00Z",
-        "status": "Sun, December 14th at 1:00 PM EST",
-        "is_active": false,
+        "status": "13:34 - 4th Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "13:34",
+        "period": 4,
         "venue": "NRG Stadium",
         "homeTeam": {
           "name": "Houston Texans",
@@ -222,8 +222,8 @@
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png",
           "record": "3-10"
         },
-        "homeScore": "0",
-        "awayScore": "0",
+        "homeScore": "33",
+        "awayScore": "14",
         "video_url": null,
         "league": "NFL"
       },
@@ -458,11 +458,11 @@
       {
         "id": "401836797",
         "date": "2025-12-14T20:00Z",
-        "status": "Sun, December 14th at 3:00 PM EST",
-        "is_active": false,
+        "status": "4:53 - 1st Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "4:53",
+        "period": 1,
         "venue": "Gainbridge Fieldhouse",
         "homeTeam": {
           "name": "Indiana Pacers",
@@ -478,8 +478,8 @@
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/wsh.png",
           "record": "3-20"
         },
-        "homeScore": "0",
-        "awayScore": "0",
+        "homeScore": "15",
+        "awayScore": "20",
         "video_url": null,
         "league": "NBA"
       },
