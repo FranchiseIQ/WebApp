@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-14 02:10:46 EST",
+  "last_updated": "2025-12-14 04:39:32 EST",
   "nfl": {
     "week": 15,
     "games": [
@@ -486,11 +486,11 @@
       {
         "id": "401809838",
         "date": "2025-12-14T02:00Z",
-        "status": "Sat, December 13th at 9:00 PM EST",
-        "is_active": false,
+        "status": "3:14 - 4th Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "3:14",
+        "period": 4,
         "venue": "T-Mobile Arena",
         "homeTeam": {
           "name": "Oklahoma City Thunder",
@@ -506,8 +506,8 @@
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png",
           "record": "17-7"
         },
-        "homeScore": "0",
-        "awayScore": "0",
+        "homeScore": "98",
+        "awayScore": "100",
         "video_url": null,
         "league": "NBA"
       }
