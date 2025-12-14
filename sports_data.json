@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-13 20:27:02 EST",
+  "last_updated": "2025-12-14 02:10:46 EST",
   "nfl": {
     "week": 15,
     "games": [
@@ -458,9 +458,9 @@
       {
         "id": "401809837",
         "date": "2025-12-13T22:30Z",
-        "status": "Sat, December 13th at 5:30 PM EST",
+        "status": "Final",
         "is_active": false,
-        "is_final": false,
+        "is_final": true,
         "clock": "",
         "period": "",
         "venue": "T-Mobile Arena",
@@ -469,18 +469,18 @@
           "shortName": "Magic",
           "abbreviation": "ORL",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/orl.png",
-          "record": "15-10"
+          "record": "15-11"
         },
         "awayTeam": {
           "name": "New York Knicks",
           "shortName": "Knicks",
           "abbreviation": "NY",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ny.png",
-          "record": "17-7"
+          "record": "18-7"
         },
-        "homeScore": "0",
-        "awayScore": "0",
-        "video_url": null,
+        "homeScore": "120",
+        "awayScore": "132",
+        "video_url": "https://www.youtube.com/embed/2vlwux1H93Q?autoplay=1&rel=0",
         "league": "NBA"
       },
       {
@@ -509,202 +509,6 @@
         "homeScore": "0",
         "awayScore": "0",
         "video_url": null,
-        "league": "NBA"
-      },
-      {
-        "id": "401836750",
-        "date": "2025-12-13T00:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "Spectrum Center",
-        "homeTeam": {
-          "name": "Charlotte Hornets",
-          "shortName": "Hornets",
-          "abbreviation": "CHA",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cha.png",
-          "record": "7-18"
-        },
-        "awayTeam": {
-          "name": "Chicago Bulls",
-          "shortName": "Bulls",
-          "abbreviation": "CHI",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/chi.png",
-          "record": "10-14"
-        },
-        "homeScore": "126",
-        "awayScore": "129",
-        "video_url": "https://www.youtube.com/embed/m3TyPJbD7oU?autoplay=1&rel=0",
-        "league": "NBA"
-      },
-      {
-        "id": "401836751",
-        "date": "2025-12-13T00:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "Little Caesars Arena",
-        "homeTeam": {
-          "name": "Detroit Pistons",
-          "shortName": "Pistons",
-          "abbreviation": "DET",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/det.png",
-          "record": "20-5"
-        },
-        "awayTeam": {
-          "name": "Atlanta Hawks",
-          "shortName": "Hawks",
-          "abbreviation": "ATL",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/atl.png",
-          "record": "14-12"
-        },
-        "homeScore": "142",
-        "awayScore": "115",
-        "video_url": "https://www.youtube.com/embed/4Dop167quL4?autoplay=1&rel=0",
-        "league": "NBA"
-      },
-      {
-        "id": "401836752",
-        "date": "2025-12-13T00:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "Xfinity Mobile Arena",
-        "homeTeam": {
-          "name": "Philadelphia 76ers",
-          "shortName": "76ers",
-          "abbreviation": "PHI",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phi.png",
-          "record": "14-10"
-        },
-        "awayTeam": {
-          "name": "Indiana Pacers",
-          "shortName": "Pacers",
-          "abbreviation": "IND",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ind.png",
-          "record": "6-19"
-        },
-        "homeScore": "115",
-        "awayScore": "105",
-        "video_url": "https://www.youtube.com/embed/lCJMytuO4BA?autoplay=1&rel=0",
-        "league": "NBA"
-      },
-      {
-        "id": "401836753",
-        "date": "2025-12-13T00:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "Capital One Arena",
-        "homeTeam": {
-          "name": "Washington Wizards",
-          "shortName": "Wizards",
-          "abbreviation": "WSH",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/wsh.png",
-          "record": "3-20"
-        },
-        "awayTeam": {
-          "name": "Cleveland Cavaliers",
-          "shortName": "Cavaliers",
-          "abbreviation": "CLE",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cle.png",
-          "record": "15-11"
-        },
-        "homeScore": "126",
-        "awayScore": "130",
-        "video_url": "https://www.youtube.com/embed/rSHG7tzYu2U?autoplay=1&rel=0",
-        "league": "NBA"
-      },
-      {
-        "id": "401836754",
-        "date": "2025-12-13T01:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "FedExForum",
-        "homeTeam": {
-          "name": "Memphis Grizzlies",
-          "shortName": "Grizzlies",
-          "abbreviation": "MEM",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mem.png",
-          "record": "11-14"
-        },
-        "awayTeam": {
-          "name": "Utah Jazz",
-          "shortName": "Jazz",
-          "abbreviation": "UTAH",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/utah.png",
-          "record": "9-15"
-        },
-        "homeScore": "126",
-        "awayScore": "130",
-        "video_url": "https://www.youtube.com/embed/s0oWOznuytk?autoplay=1&rel=0",
-        "league": "NBA"
-      },
-      {
-        "id": "401836795",
-        "date": "2025-12-13T01:30Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "American Airlines Center",
-        "homeTeam": {
-          "name": "Dallas Mavericks",
-          "shortName": "Mavericks",
-          "abbreviation": "DAL",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/dal.png",
-          "record": "10-16"
-        },
-        "awayTeam": {
-          "name": "Brooklyn Nets",
-          "shortName": "Nets",
-          "abbreviation": "BKN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bkn.png",
-          "record": "6-18"
-        },
-        "homeScore": "119",
-        "awayScore": "111",
-        "video_url": "https://www.youtube.com/embed/PrjW3tfFkXU?autoplay=1&rel=0",
-        "league": "NBA"
-      },
-      {
-        "id": "401836796",
-        "date": "2025-12-13T03:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "venue": "Chase Center",
-        "homeTeam": {
-          "name": "Golden State Warriors",
-          "shortName": "Warriors",
-          "abbreviation": "GS",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png",
-          "record": "13-13"
-        },
-        "awayTeam": {
-          "name": "Minnesota Timberwolves",
-          "shortName": "Timberwolves",
-          "abbreviation": "MIN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/min.png",
-          "record": "16-9"
-        },
-        "homeScore": "120",
-        "awayScore": "127",
-        "video_url": "https://www.youtube.com/embed/IRke0UTzNi8?autoplay=1&rel=0",
         "league": "NBA"
       }
     ]
