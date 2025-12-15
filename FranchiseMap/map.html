@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FranchiseIQ Map</title>
+    <title>FranchiseIQ Map - Advanced Market Analysis</title>
     <!-- Leaflet & Utilities CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
@@ -14,7 +14,11 @@
 </head>
 <body>
     <header class="top-bar">
-        <div class="logo-area">FranchiseIQ</div>
+        <div class="logo-area">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <span>FranchiseIQ</span>
+            <span class="version-badge">v2.0</span>
+        </div>
         <div id="stock-ticker" class="stock-ticker">
             <div class="ticker-status">
                 <span id="market-status">Market Closed</span>
@@ -27,44 +31,138 @@
     <div id="map-container">
         <div id="map"></div>
 
+        <!-- Dashboard Stats Bar -->
+        <div id="dashboard-stats" class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="stat-content">
+                    <span class="stat-value" id="avg-score">--</span>
+                    <span class="stat-label">Avg Score</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon excellent"><i class="fa-solid fa-star"></i></div>
+                <div class="stat-content">
+                    <span class="stat-value" id="high-score-count">0</span>
+                    <span class="stat-label">High Performers</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-building"></i></div>
+                <div class="stat-content">
+                    <span class="stat-value" id="brands-active">0</span>
+                    <span class="stat-label">Active Brands</span>
+                </div>
+            </div>
+            <div class="stat-card distribution">
+                <div class="stat-label">Score Distribution</div>
+                <div class="distribution-bar">
+                    <div id="dist-excellent" class="dist-segment excellent" title="Excellent (80+)"></div>
+                    <div id="dist-good" class="dist-segment good" title="Good (65-79)"></div>
+                    <div id="dist-fair" class="dist-segment fair" title="Fair (50-64)"></div>
+                    <div id="dist-poor" class="dist-segment poor" title="Poor (<50)"></div>
+                </div>
+                <div class="distribution-legend">
+                    <span class="legend-item"><span class="dot excellent"></span>80+</span>
+                    <span class="legend-item"><span class="dot good"></span>65+</span>
+                    <span class="legend-item"><span class="dot fair"></span>50+</span>
+                    <span class="legend-item"><span class="dot poor"></span>&lt;50</span>
+                </div>
+            </div>
+        </div>
+
         <!-- Custom Controls Rail -->
         <div id="map-controls-rail">
-            <button id="btn-home" class="control-btn" title="Reset View"><i class="fa-solid fa-house"></i></button>
-            <button id="btn-locate" class="control-btn" title="Near Me"><i class="fa-solid fa-location-crosshairs"></i></button>
-            <button id="btn-cluster-toggle" class="control-btn active" title="Toggle Clustering"><i class="fa-solid fa-circle-nodes"></i></button>
-            <button id="btn-panel-toggle" class="control-btn" title="Toggle Panel"><i class="fa-solid fa-layer-group"></i></button>
+            <button id="btn-home" class="control-btn" title="Reset View">
+                <i class="fa-solid fa-house"></i>
+            </button>
+            <button id="btn-locate" class="control-btn" title="Near Me">
+                <i class="fa-solid fa-location-crosshairs"></i>
+            </button>
+            <div class="control-divider"></div>
+            <button id="btn-cluster-toggle" class="control-btn active" title="Toggle Clustering">
+                <i class="fa-solid fa-circle-nodes"></i>
+            </button>
+            <button id="btn-heatmap-toggle" class="control-btn" title="Toggle Heatmap">
+                <i class="fa-solid fa-fire"></i>
+            </button>
+            <div class="control-divider"></div>
+            <button id="btn-panel-toggle" class="control-btn" title="Toggle Panel">
+                <i class="fa-solid fa-layer-group"></i>
+            </button>
         </div>
 
         <!-- Info Panel -->
         <aside id="info-panel" class="panel-expanded">
             <div class="panel-header">
-                <h2>Market Analysis</h2>
+                <h2><i class="fa-solid fa-filter"></i> Market Analysis</h2>
                 <div class="header-controls">
-                    <button id="collapse-panel" class="collapse-btn" title="Collapse"><i class="fa-solid fa-chevron-right"></i></button>
+                    <button id="btn-export-all" class="header-btn" title="Export All Visible">
+                        <i class="fa-solid fa-file-export"></i>
+                    </button>
+                    <button id="collapse-panel" class="collapse-btn" title="Collapse">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
             <div class="panel-content">
-                <p class="panel-intro">Select brands to visualize suitability scores.</p>
+                <!-- Score Filter Section -->
+                <div class="filter-section">
+                    <h3><i class="fa-solid fa-sliders"></i> Score Filter</h3>
+                    <div class="score-range">
+                        <div class="range-inputs">
+                            <div class="range-input-group">
+                                <label>Min</label>
+                                <input type="range" id="score-min" min="0" max="100" value="0">
+                                <span id="score-min-label" class="range-value">0</span>
+                            </div>
+                            <div class="range-input-group">
+                                <label>Max</label>
+                                <input type="range" id="score-max" min="0" max="100" value="100">
+                                <span id="score-max-label" class="range-value">100</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Filter Controls -->
                 <div class="filter-controls">
-                    <button id="btn-select-all" class="filter-btn">Select All</button>
-                    <button id="btn-deselect-all" class="filter-btn">Deselect All</button>
-                    <button id="btn-roark" class="filter-btn roark-btn">Roark Portfolio</button>
+                    <button id="btn-select-all" class="filter-btn">
+                        <i class="fa-solid fa-check-double"></i> All
+                    </button>
+                    <button id="btn-deselect-all" class="filter-btn">
+                        <i class="fa-solid fa-xmark"></i> None
+                    </button>
+                    <button id="btn-roark" class="filter-btn roark-btn">
+                        <i class="fa-solid fa-crown"></i> Roark
+                    </button>
                 </div>
 
                 <!-- Category Filters -->
                 <div class="category-filters">
-                    <button class="category-btn active" data-category="all">All</button>
-                    <button class="category-btn" data-category="qsr">QSR</button>
-                    <button class="category-btn" data-category="casual">Casual</button>
-                    <button class="category-btn" data-category="hotels">Hotels</button>
-                    <button class="category-btn" data-category="services">Services</button>
-                    <button class="category-btn" data-category="private">Private</button>
+                    <button class="category-btn active" data-category="all">
+                        <i class="fa-solid fa-globe"></i> All
+                    </button>
+                    <button class="category-btn" data-category="qsr">
+                        <i class="fa-solid fa-burger"></i> QSR
+                    </button>
+                    <button class="category-btn" data-category="casual">
+                        <i class="fa-solid fa-utensils"></i> Casual
+                    </button>
+                    <button class="category-btn" data-category="hotels">
+                        <i class="fa-solid fa-hotel"></i> Hotels
+                    </button>
+                    <button class="category-btn" data-category="services">
+                        <i class="fa-solid fa-wrench"></i> Services
+                    </button>
+                    <button class="category-btn" data-category="private">
+                        <i class="fa-solid fa-lock"></i> Private
+                    </button>
                 </div>
 
                 <!-- Location Count -->
                 <div class="location-count">
+                    <i class="fa-solid fa-map-pin"></i>
                     <span id="visible-count">0</span> locations visible
                 </div>
 
@@ -72,12 +170,54 @@
                 <div id="brand-legend"></div>
             </div>
         </aside>
+
+        <!-- Comparison Panel -->
+        <div id="comparison-panel" class="comparison-panel">
+            <div class="comparison-header">
+                <h3><i class="fa-solid fa-code-compare"></i> Compare Locations</h3>
+                <div class="comparison-actions">
+                    <button onclick="window.exportComparison()" class="comp-action-btn" title="Export Comparison">
+                        <i class="fa-solid fa-download"></i>
+                    </button>
+                    <button onclick="window.clearComparison()" class="comp-action-btn" title="Clear All">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="comparison-cards" class="comparison-cards">
+                <div class="comparison-empty">Add locations to compare</div>
+            </div>
+        </div>
+
+        <!-- Score Legend -->
+        <div id="score-legend" class="score-legend">
+            <div class="legend-title">Site Score</div>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="legend-color excellent"></span>
+                    <span>80+ Excellent</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color good"></span>
+                    <span>65-79 Good</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color fair"></span>
+                    <span>50-64 Fair</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color poor"></span>
+                    <span>&lt;50 Poor</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
     <script src="https://cdn.osmbuildings.org/classic/0.2.2b/OSMBuildings-Leaflet.js"></script>
     <script src="https://unpkg.com/osmtogeojson@3.0.0/osmtogeojson.js"></script>
     <script src="js/ticker.js"></script>
