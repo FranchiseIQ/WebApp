@@ -25,6 +25,18 @@ ESPN_URLS = {
     "MLS": "http://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard"
 }
 
+# Championship/Finals dates for off-season fallback (approximate date ranges)
+# Format: (start_month, start_day, end_month, end_day, year_offset)
+# year_offset: 0 = current year, -1 = previous year
+CHAMPIONSHIP_DATES = {
+    "WNBA": [(10, 1, 10, 25, 0)],       # WNBA Finals: October
+    "MLB": [(10, 25, 11, 5, 0)],         # World Series: late Oct - early Nov
+    "MLS": [(12, 1, 12, 15, 0)],         # MLS Cup: early December
+    "NHL": [(6, 1, 6, 25, 0)],           # Stanley Cup Finals: June
+    "NBA": [(6, 1, 6, 25, 0)],           # NBA Finals: June
+    "NFL": [(2, 1, 2, 15, 0)],           # Super Bowl: early February
+}
+
 YOUTUBE_SEARCH_URL = "https://www.googleapis.com/youtube/v3/search"
 
 # Official YouTube channel IDs for better highlight search
@@ -185,6 +197,85 @@ def process_game(event, league, video_cache=None):
         return None
 
 
+def fetch_championship_games(league, url, video_cache=None):
+    """Fetch championship/finals games for off-season leagues."""
+    championship_dates = CHAMPIONSHIP_DATES.get(league)
+    if not championship_dates:
+        return []
+
+    all_games = []
+    seen_ids = set()
+    now = datetime.now()
+
+    for start_month, start_day, end_month, end_day, year_offset in championship_dates:
+        # Determine the year to check
+        check_year = now.year + year_offset
+
+        # If we're before the championship period this year, check last year
+        championship_start = datetime(check_year, start_month, start_day)
+        if now < championship_start:
+            check_year -= 1
+
+        # Build date range to search
+        start_date = datetime(check_year, start_month, start_day)
+        end_date = datetime(check_year, end_month, end_day)
+
+        print(f"  Checking {league} championship games from {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
+
+        # Fetch games for each day in the range (ESPN requires specific dates)
+        current_date = end_date  # Start from end to get most recent first
+        days_checked = 0
+        max_days = 20  # Limit to prevent too many API calls
+
+        while current_date >= start_date and days_checked < max_days:
+            date_str = current_date.strftime("%Y%m%d")
+            date_url = f"{url}?dates={date_str}"
+
+            try:
+                resp = requests.get(date_url, timeout=10)
+                if resp.ok:
+                    data = resp.json()
+                    events = data.get("events", [])
+
+                    for event in events:
+                        # Check if this is a playoff/championship game
+                        season_type = event.get("season", {}).get("type", 0)
+                        # Type 3 = postseason, Type 4 = offseason/exhibition
+                        # Also check event name for "Final", "Championship", "Cup", etc.
+                        event_name = event.get("name", "").lower()
+                        is_championship = (
+                            season_type == 3 or
+                            "final" in event_name or
+                            "championship" in event_name or
+                            "cup" in event_name or
+                            "world series" in event_name or
+                            "super bowl" in event_name or
+                            "stanley cup" in event_name
+                        )
+
+                        if is_championship or len(all_games) < 5:  # Get at least some games
+                            game = process_game(event, league, video_cache)
+                            if game and game["id"] not in seen_ids:
+                                game["is_championship"] = True
+                                all_games.append(game)
+                                seen_ids.add(game["id"])
+
+            except Exception as e:
+                pass  # Silently skip failed date fetches
+
+            current_date -= timedelta(days=1)
+            days_checked += 1
+
+            # Stop if we have enough games
+            if len(all_games) >= 10:
+                break
+
+    if all_games:
+        print(f"  Found {len(all_games)} {league} championship/playoff games")
+
+    return all_games
+
+
 def fetch_league(league, video_cache=None, include_yesterday=False):
     """Generic function to fetch any league's data."""
     print(f"Fetching {league} Data...")
@@ -240,9 +331,19 @@ def fetch_league(league, video_cache=None, include_yesterday=False):
             except Exception as e:
                 print(f"  Could not fetch yesterday's {league} games: {e}")
 
+        # If no games found, try to fetch championship/finals games
+        if len(all_games) == 0:
+            print(f"  No current {league} games, checking for championship results...")
+            championship_games = fetch_championship_games(league, url, video_cache)
+            all_games.extend(championship_games)
+
         result = {"games": all_games}
         if week_num is not None:
             result["week"] = week_num
+
+        # Mark if showing championship/off-season results
+        if all_games and all(g.get("is_championship") for g in all_games):
+            result["showing_championship"] = True
 
         return result
 
@@ -328,6 +429,10 @@ def save_league_data(league_key, data, output_dir="data"):
         output["season"] = 2025
         output["week"] = data.get("week", "Unknown")
 
+    # Add championship flag if applicable
+    if data.get("showing_championship"):
+        output["showing_championship"] = True
+
     # Transform games to frontend format
     for game in games:
         frontend_game = {
@@ -342,7 +447,8 @@ def save_league_data(league_key, data, output_dir="data"):
             "quarter": game.get("period", ""),
             "clock": game.get("clock", ""),
             "network": game.get("network", ""),
-            "video_url": game.get("video_url", "")
+            "video_url": game.get("video_url", ""),
+            "is_championship": game.get("is_championship", False)
         }
         output["games"].append(frontend_game)
 

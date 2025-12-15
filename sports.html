@@ -1582,6 +1582,9 @@
             const videoUrl = game.video_url || cachedVideoUrl || null;
             const hasVideo = isFinal && videoUrl;
 
+            // Check if championship/finals game
+            const isChampionship = game.is_championship || game.isChampionship;
+
             // Card content varies based on game status
             let bottomContent = '';
             let badgeContent = '';
@@ -1590,7 +1593,12 @@
             if (isFinal) {
                 const recap = generateRecap(game);
                 bottomContent = `<p class="highlight-recap">${recap}</p>`;
-                badgeContent = hasVideo ? '<span class="video-badge">VIDEO</span>' : '';
+                // Show CHAMPIONSHIP badge for playoff/finals games
+                if (isChampionship) {
+                    badgeContent = '<span class="video-badge" style="background: linear-gradient(135deg, #f59e0b, #d97706);">FINALS</span>';
+                } else {
+                    badgeContent = hasVideo ? '<span class="video-badge">VIDEO</span>' : '';
+                }
             } else if (isLive) {
                 const quarter = game.quarter || game.period || '';
                 const clock = game.clock || '';
@@ -1629,7 +1637,7 @@
                         </div>
                         <div class="highlight-meta">
                             <span>${dateStr}</span>
-                            <span class="highlight-badge">${isFinal ? 'FINAL' : (isLive ? 'LIVE' : timeStr)}</span>
+                            <span class="highlight-badge">${isFinal ? (isChampionship ? 'CHAMPIONSHIP' : 'FINAL') : (isLive ? 'LIVE' : timeStr)}</span>
                         </div>
                         ${bottomContent}
                     </div>
