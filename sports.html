@@ -1176,8 +1176,8 @@
                 const data = await response.json();
                 console.log('Loaded video URLs from sports_data.json:', data.last_updated);
 
-                // Build cache of video URLs by team matchup
-                ['nfl', 'nba'].forEach(league => {
+                // Build cache of video URLs by team matchup for ALL sports
+                ['nfl', 'nba', 'wnba', 'nhl', 'mlb', 'mls'].forEach(league => {
                     const leagueData = data[league];
                     if (leagueData?.games) {
                         leagueData.games.forEach(game => {

@@ -2,7 +2,7 @@
 """
 Unified Sports Data Fetcher
 
-Fetches NFL and NBA scores from ESPN API and finds YouTube highlights for completed games.
+Fetches scores from ESPN API for all major sports leagues and finds YouTube highlights.
 Outputs a single sports_data.json file that the frontend reads.
 """
 
@@ -16,14 +16,25 @@ DATA_FILE = "sports_data.json"
 YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY")
 
 # ESPN Endpoints (free, no key needed)
-NFL_URL = "http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard"
-NBA_URL = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"
+ESPN_URLS = {
+    "NFL": "http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
+    "NBA": "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard",
+    "WNBA": "http://site.api.espn.com/apis/site/v2/sports/basketball/wnba/scoreboard",
+    "NHL": "http://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard",
+    "MLB": "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard",
+    "MLS": "http://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard"
+}
+
 YOUTUBE_SEARCH_URL = "https://www.googleapis.com/youtube/v3/search"
 
 # Official YouTube channel IDs for better highlight search
 CHANNEL_IDS = {
     "NFL": "UCDVYQ4Zhbm3S2dlz7P1GBDg",
-    "NBA": "UCWJ2lWNubArHWmf3FIHbfcQ"
+    "NBA": "UCWJ2lWNubArHWmf3FIHbfcQ",
+    "WNBA": "UCJm4Yt-5hzFqbfGH2xbIZWA",
+    "NHL": "UCqFMzb-4AUf6WAIbl132QKA",
+    "MLB": "UCoLrcjPV5PbUrUyXq5mjc_A",
+    "MLS": "UCSZbXT5TLLW_i-5W8FZpFsg"
 }
 
 # --- HELPER FUNCTIONS ---
@@ -31,17 +42,15 @@ CHANNEL_IDS = {
 def get_youtube_highlight(query, league, existing_cache=None):
     """Finds a highlight video for a completed game using YouTube Data API."""
     if not YOUTUBE_API_KEY:
-        print(f"  No YouTube API key, skipping video search for: {query}")
         return None
 
     # Check cache first to save API quota
     cache_key = query.lower().replace(" ", "_")
     if existing_cache and cache_key in existing_cache:
-        print(f"  Using cached video for: {query}")
+        print(f"  Using cached video for: {query[:50]}...")
         return existing_cache[cache_key]
 
     try:
-        # First try: Search official channel
         params = {
             'part': 'snippet',
             'q': query,
@@ -60,16 +69,13 @@ def get_youtube_highlight(query, league, existing_cache=None):
         resp = requests.get(YOUTUBE_SEARCH_URL, params=params, timeout=10)
         data = resp.json()
 
-        # Check for API errors
         if "error" in data:
-            print(f"  YouTube API error: {data['error'].get('message', 'Unknown error')}")
+            print(f"  YouTube API error: {data['error'].get('message', 'Unknown')}")
             return None
 
         if "items" in data and len(data["items"]) > 0:
             video_id = data["items"][0]["id"]["videoId"]
-            embed_url = f"https://www.youtube.com/embed/{video_id}?autoplay=1&rel=0"
-            print(f"  Found video: {video_id}")
-            return embed_url
+            return f"https://www.youtube.com/embed/{video_id}?autoplay=1&rel=0"
 
         # Fallback: Search without channel restriction
         if channel_id:
@@ -79,27 +85,21 @@ def get_youtube_highlight(query, league, existing_cache=None):
 
             if "items" in data and len(data["items"]) > 0:
                 video_id = data["items"][0]["id"]["videoId"]
-                embed_url = f"https://www.youtube.com/embed/{video_id}?autoplay=1&rel=0"
-                print(f"  Found video (fallback): {video_id}")
-                return embed_url
+                return f"https://www.youtube.com/embed/{video_id}?autoplay=1&rel=0"
 
-        print(f"  No video found for: {query}")
         return None
 
-    except requests.exceptions.Timeout:
-        print(f"  Timeout searching YouTube for: {query}")
-        return None
     except Exception as e:
-        print(f"  Error searching YouTube for {query}: {e}")
+        print(f"  YouTube error: {e}")
         return None
 
 
-def process_game(event, sport_name, video_cache=None):
-    """Standardizes game data for both NFL and NBA."""
+def process_game(event, league, video_cache=None):
+    """Standardizes game data from ESPN API."""
     try:
         comp = event["competitions"][0]
         status_type = event["status"]["type"]
-        status_state = status_type.get("state", "pre")  # pre, in, post
+        status_state = status_type.get("state", "pre")
 
         # Teams
         home = next((t for t in comp["competitors"] if t["homeAway"] == "home"), None)
@@ -126,7 +126,7 @@ def process_game(event, sport_name, video_cache=None):
         home_record = home_records[0].get("summary", "") if home_records else ""
         away_record = away_records[0].get("summary", "") if away_records else ""
 
-        # Status details
+        # Status
         is_final = status_state == "post" or status_type.get("completed", False)
         is_active = status_state == "in"
         status_detail = status_type.get("detail", "Scheduled")
@@ -135,20 +135,22 @@ def process_game(event, sport_name, video_cache=None):
         clock = ""
         period = ""
         if is_active:
-            situation = comp.get("situation", {})
-            clock = situation.get("lastPlay", {}).get("clock", comp.get("status", {}).get("displayClock", ""))
-            period = comp.get("status", {}).get("period", "")
+            clock = event.get("status", {}).get("displayClock", "")
+            period = event.get("status", {}).get("period", "")
 
-        # Video search for completed games only
+        # Video search for completed games only (limit to save API quota)
         video_url = None
-        if is_final:
+        if is_final and YOUTUBE_API_KEY:
             game_date = datetime.fromisoformat(event["date"].replace("Z", "+00:00"))
-            query = f"{sport_name} {away_name} vs {home_name} highlights {game_date.strftime('%B %d %Y')}"
-            video_url = get_youtube_highlight(query, sport_name, video_cache)
+            query = f"{league} {away_name} vs {home_name} highlights {game_date.strftime('%B %d %Y')}"
+            video_url = get_youtube_highlight(query, league, video_cache)
 
-        # Venue
-        venue = comp.get("venue", {})
-        venue_name = venue.get("fullName", "")
+        # Broadcast info
+        broadcasts = comp.get("broadcasts", [])
+        network = ""
+        if broadcasts:
+            names = broadcasts[0].get("names", [])
+            network = names[0] if names else ""
 
         return {
             "id": event.get("id", ""),
@@ -158,7 +160,7 @@ def process_game(event, sport_name, video_cache=None):
             "is_final": is_final,
             "clock": clock,
             "period": period,
-            "venue": venue_name,
+            "network": network,
             "homeTeam": {
                 "name": home_full,
                 "shortName": home_name,
@@ -175,94 +177,81 @@ def process_game(event, sport_name, video_cache=None):
             },
             "homeScore": home_score,
             "awayScore": away_score,
-            "video_url": video_url  # YouTube embed URL
+            "video_url": video_url,
+            "league": league
         }
     except Exception as e:
         print(f"  Error processing game: {e}")
         return None
 
 
-# --- SPORT SPECIFIC FETCHERS ---
+def fetch_league(league, video_cache=None, include_yesterday=False):
+    """Generic function to fetch any league's data."""
+    print(f"Fetching {league} Data...")
+    url = ESPN_URLS.get(league)
+    if not url:
+        print(f"  No URL configured for {league}")
+        return {"games": []}
 
-def fetch_nfl(video_cache=None):
-    """Fetch NFL scores and standings."""
-    print("Fetching NFL Data...")
-    try:
-        resp = requests.get(NFL_URL, timeout=15)
-        resp.raise_for_status()
-        data = resp.json()
-
-        week_info = data.get("week", {})
-        week_num = week_info.get("number", "Unknown")
-
-        events = data.get("events", [])
-        print(f"  Found {len(events)} NFL games")
-
-        games = []
-        for event in events:
-            game = process_game(event, "NFL", video_cache)
-            if game:
-                game["league"] = "NFL"
-                games.append(game)
-
-        return {"week": week_num, "games": games}
-    except requests.exceptions.RequestException as e:
-        print(f"  NFL fetch error: {e}")
-        return {"week": "Unknown", "games": []}
-    except Exception as e:
-        print(f"  NFL processing error: {e}")
-        return {"week": "Unknown", "games": []}
-
-
-def fetch_nba(video_cache=None):
-    """Fetch NBA scores - today's games and yesterday's games for highlights."""
-    print("Fetching NBA Data...")
     all_games = []
     seen_ids = set()
 
     try:
-        # 1. Get Today's Schedule (Default Endpoint)
-        print("  Fetching today's NBA games...")
-        today_resp = requests.get(NBA_URL, timeout=15)
-        today_resp.raise_for_status()
-        today_data = today_resp.json()
+        # Fetch today's games
+        resp = requests.get(url, timeout=15)
+        resp.raise_for_status()
+        data = resp.json()
 
-        for event in today_data.get("events", []):
-            game = process_game(event, "NBA", video_cache)
+        # Get week info for NFL
+        week_num = None
+        if league == "NFL":
+            week_info = data.get("week", {})
+            week_num = week_info.get("number", "Unknown")
+
+        events = data.get("events", [])
+        print(f"  Found {len(events)} {league} games today")
+
+        for event in events:
+            game = process_game(event, league, video_cache)
             if game and game["id"] not in seen_ids:
-                game["league"] = "NBA"
                 all_games.append(game)
                 seen_ids.add(game["id"])
 
-        print(f"  Found {len(all_games)} games today")
+        # Fetch yesterday's games for highlights (for daily sports)
+        if include_yesterday:
+            yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y%m%d")
+            yst_url = f"{url}?dates={yesterday}"
 
-        # 2. Get Yesterday's Scores (For Highlights)
-        yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y%m%d")
-        yst_url = f"{NBA_URL}?dates={yesterday}"
+            try:
+                yst_resp = requests.get(yst_url, timeout=15)
+                yst_resp.raise_for_status()
+                yst_data = yst_resp.json()
 
-        print(f"  Fetching yesterday's NBA games ({yesterday})...")
-        yst_resp = requests.get(yst_url, timeout=15)
-        yst_resp.raise_for_status()
-        yst_data = yst_resp.json()
+                yesterday_count = 0
+                for event in yst_data.get("events", []):
+                    game = process_game(event, league, video_cache)
+                    if game and game["id"] not in seen_ids:
+                        all_games.append(game)
+                        seen_ids.add(game["id"])
+                        yesterday_count += 1
 
-        yesterday_count = 0
-        for event in yst_data.get("events", []):
-            game = process_game(event, "NBA", video_cache)
-            if game and game["id"] not in seen_ids:
-                game["league"] = "NBA"
-                all_games.append(game)
-                seen_ids.add(game["id"])
-                yesterday_count += 1
+                if yesterday_count > 0:
+                    print(f"  Found {yesterday_count} {league} games from yesterday")
+            except Exception as e:
+                print(f"  Could not fetch yesterday's {league} games: {e}")
 
-        print(f"  Found {yesterday_count} games from yesterday")
+        result = {"games": all_games}
+        if week_num is not None:
+            result["week"] = week_num
 
-        return {"games": all_games}
+        return result
+
     except requests.exceptions.RequestException as e:
-        print(f"  NBA fetch error: {e}")
-        return {"games": []}
+        print(f"  {league} fetch error: {e}")
+        return {"games": [], "week": "Unknown"} if league == "NFL" else {"games": []}
     except Exception as e:
-        print(f"  NBA processing error: {e}")
-        return {"games": []}
+        print(f"  {league} processing error: {e}")
+        return {"games": [], "week": "Unknown"} if league == "NFL" else {"games": []}
 
 
 def load_existing_data():
@@ -283,25 +272,16 @@ def build_video_cache(existing_data):
         return cache
 
     try:
-        # Cache NFL videos
-        nfl_games = existing_data.get("nfl", {}).get("games", [])
-        for game in nfl_games:
-            if game.get("video_url"):
-                away = game.get("awayTeam", {}).get("shortName", "")
-                home = game.get("homeTeam", {}).get("shortName", "")
-                if away and home:
-                    key = f"nfl_{away}_vs_{home}".lower().replace(" ", "_")
-                    cache[key] = game["video_url"]
-
-        # Cache NBA videos
-        nba_games = existing_data.get("nba", {}).get("games", [])
-        for game in nba_games:
-            if game.get("video_url"):
-                away = game.get("awayTeam", {}).get("shortName", "")
-                home = game.get("homeTeam", {}).get("shortName", "")
-                if away and home:
-                    key = f"nba_{away}_vs_{home}".lower().replace(" ", "_")
-                    cache[key] = game["video_url"]
+        for league in ["nfl", "nba", "wnba", "nhl", "mlb", "mls"]:
+            league_data = existing_data.get(league, {})
+            games = league_data.get("games", [])
+            for game in games:
+                if game.get("video_url"):
+                    away = game.get("awayTeam", {}).get("shortName", "")
+                    home = game.get("homeTeam", {}).get("shortName", "")
+                    if away and home:
+                        key = f"{league}_{away}_vs_{home}".lower().replace(" ", "_")
+                        cache[key] = game["video_url"]
 
         if cache:
             print(f"Loaded {len(cache)} cached video URLs")
@@ -311,11 +291,72 @@ def build_video_cache(existing_data):
     return cache
 
 
+def save_league_data(league_key, data, output_dir="data"):
+    """Save individual league data to separate files for the frontend."""
+    # Map league keys to directories
+    dir_map = {
+        "nfl": "football",
+        "nba": "basketball",
+        "wnba": "basketball",
+        "nhl": "hockey",
+        "mlb": "baseball",
+        "mls": "soccer"
+    }
+
+    subdir = dir_map.get(league_key.lower(), league_key.lower())
+    league_dir = os.path.join(output_dir, subdir)
+
+    # Create directory if needed
+    os.makedirs(league_dir, exist_ok=True)
+
+    # Determine filename
+    if league_key.lower() == "nfl":
+        filename = "current-week.json"
+    else:
+        filename = "current-games.json"
+
+    filepath = os.path.join(league_dir, filename)
+
+    # Format data for frontend
+    games = data.get("games", [])
+    output = {
+        "lastUpdated": datetime.now().isoformat() + "Z",
+        "games": []
+    }
+
+    if league_key.lower() == "nfl":
+        output["season"] = 2025
+        output["week"] = data.get("week", "Unknown")
+
+    # Transform games to frontend format
+    for game in games:
+        frontend_game = {
+            "id": f"{league_key.lower()}-{game.get('id', '')}",
+            "league": league_key.upper(),
+            "startTime": game.get("date", ""),
+            "homeTeam": game.get("homeTeam", {}),
+            "awayTeam": game.get("awayTeam", {}),
+            "homeScore": game.get("homeScore", 0),
+            "awayScore": game.get("awayScore", 0),
+            "status": "final" if game.get("is_final") else ("in_progress" if game.get("is_active") else "scheduled"),
+            "quarter": game.get("period", ""),
+            "clock": game.get("clock", ""),
+            "network": game.get("network", ""),
+            "video_url": game.get("video_url", "")
+        }
+        output["games"].append(frontend_game)
+
+    with open(filepath, "w") as f:
+        json.dump(output, f, indent=2)
+
+    print(f"  Saved {len(games)} games to {filepath}")
+
+
 # --- MAIN ---
 
 def main():
     print("=" * 50)
-    print("Sports Data Updater")
+    print("Sports Data Updater - All Leagues")
     print("=" * 50)
     print(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"YouTube API Key: {'Present' if YOUTUBE_API_KEY else 'Not set'}")
@@ -326,37 +367,51 @@ def main():
     video_cache = build_video_cache(existing_data)
 
     # Fetch all sports data
-    nfl_data = fetch_nfl(video_cache)
-    nba_data = fetch_nba(video_cache)
+    # Daily sports get yesterday's games too for highlights
+    nfl_data = fetch_league("NFL", video_cache, include_yesterday=False)
+    nba_data = fetch_league("NBA", video_cache, include_yesterday=True)
+    wnba_data = fetch_league("WNBA", video_cache, include_yesterday=True)
+    nhl_data = fetch_league("NHL", video_cache, include_yesterday=True)
+    mlb_data = fetch_league("MLB", video_cache, include_yesterday=True)
+    mls_data = fetch_league("MLS", video_cache, include_yesterday=True)
 
-    # Build final output
+    # Build final unified output
     final_data = {
         "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S EST"),
         "nfl": nfl_data,
-        "nba": nba_data
+        "nba": nba_data,
+        "wnba": wnba_data,
+        "nhl": nhl_data,
+        "mlb": mlb_data,
+        "mls": mls_data
     }
 
-    # Summary stats
-    nfl_games = len(nfl_data.get("games", []))
-    nba_games = len(nba_data.get("games", []))
-    nfl_final = len([g for g in nfl_data.get("games", []) if g.get("is_final")])
-    nba_final = len([g for g in nba_data.get("games", []) if g.get("is_final")])
-    nfl_videos = len([g for g in nfl_data.get("games", []) if g.get("video_url")])
-    nba_videos = len([g for g in nba_data.get("games", []) if g.get("video_url")])
+    # Save unified file
+    with open(DATA_FILE, "w") as f:
+        json.dump(final_data, f, indent=2)
+    print(f"\nSaved unified data to {DATA_FILE}")
 
+    # Also save individual league files for frontend compatibility
+    print("\nSaving individual league files...")
+    save_league_data("NFL", nfl_data)
+    save_league_data("NBA", nba_data)
+    save_league_data("WNBA", wnba_data)
+    save_league_data("NHL", nhl_data)
+    save_league_data("MLB", mlb_data)
+    save_league_data("MLS", mls_data)
+
+    # Summary
     print()
     print("=" * 50)
     print("Summary:")
-    print(f"  NFL: {nfl_games} games ({nfl_final} final, {nfl_videos} with video)")
-    print(f"  NBA: {nba_games} games ({nba_final} final, {nba_videos} with video)")
+    for league, data in [("NFL", nfl_data), ("NBA", nba_data), ("WNBA", wnba_data),
+                          ("NHL", nhl_data), ("MLB", mlb_data), ("MLS", mls_data)]:
+        games = data.get("games", [])
+        final_count = len([g for g in games if g.get("is_final")])
+        video_count = len([g for g in games if g.get("video_url")])
+        print(f"  {league}: {len(games)} games ({final_count} final, {video_count} with video)")
     print("=" * 50)
-
-    # Save to JSON
-    with open(DATA_FILE, "w") as f:
-        json.dump(final_data, f, indent=2)
-
-    print(f"\nSaved to {DATA_FILE}")
-    print("Done!")
+    print("\nDone!")
 
 
 if __name__ == "__main__":

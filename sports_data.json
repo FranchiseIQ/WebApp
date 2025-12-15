@@ -1,7 +1,7 @@
 {
-  "last_updated": "2025-12-09 08:00:00 EST",
+  "last_updated": "2025-12-15 12:00:00 EST",
   "nfl": {
-    "week": 14,
+    "week": 15,
     "games": [
       {
         "awayTeam": { "shortName": "Seahawks", "name": "Seattle Seahawks" },
@@ -14,73 +14,25 @@
         "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
       },
       {
-        "awayTeam": { "shortName": "Panthers", "name": "Carolina Panthers" },
-        "homeTeam": { "shortName": "Eagles", "name": "Philadelphia Eagles" },
-        "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
-      },
-      {
-        "awayTeam": { "shortName": "Browns", "name": "Cleveland Browns" },
-        "homeTeam": { "shortName": "Steelers", "name": "Pittsburgh Steelers" },
-        "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
-      },
-      {
-        "awayTeam": { "shortName": "Saints", "name": "New Orleans Saints" },
-        "homeTeam": { "shortName": "Giants", "name": "New York Giants" },
-        "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
-      },
-      {
-        "awayTeam": { "shortName": "Jets", "name": "New York Jets" },
-        "homeTeam": { "shortName": "Dolphins", "name": "Miami Dolphins" },
-        "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
-      },
-      {
-        "awayTeam": { "shortName": "Raiders", "name": "Las Vegas Raiders" },
-        "homeTeam": { "shortName": "Buccaneers", "name": "Tampa Bay Buccaneers" },
-        "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
-      },
-      {
-        "awayTeam": { "shortName": "Jaguars", "name": "Jacksonville Jaguars" },
-        "homeTeam": { "shortName": "Titans", "name": "Tennessee Titans" },
-        "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
-      },
-      {
-        "awayTeam": { "shortName": "Texans", "name": "Houston Texans" },
-        "homeTeam": { "shortName": "Chiefs", "name": "Kansas City Chiefs" },
-        "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
-      },
-      {
-        "awayTeam": { "shortName": "Bills", "name": "Buffalo Bills" },
-        "homeTeam": { "shortName": "Rams", "name": "Los Angeles Rams" },
-        "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
-      },
-      {
-        "awayTeam": { "shortName": "Cardinals", "name": "Arizona Cardinals" },
-        "homeTeam": { "shortName": "Seahawks", "name": "Seattle Seahawks" },
-        "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
-      },
-      {
         "awayTeam": { "shortName": "Bears", "name": "Chicago Bears" },
-        "homeTeam": { "shortName": "49ers", "name": "San Francisco 49ers" },
-        "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
-      },
-      {
-        "awayTeam": { "shortName": "Chargers", "name": "Los Angeles Chargers" },
-        "homeTeam": { "shortName": "Broncos", "name": "Denver Broncos" },
-        "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
-      },
-      {
-        "awayTeam": { "shortName": "Cowboys", "name": "Dallas Cowboys" },
         "homeTeam": { "shortName": "Packers", "name": "Green Bay Packers" },
-        "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
-      },
-      {
-        "awayTeam": { "shortName": "Lions", "name": "Detroit Lions" },
-        "homeTeam": { "shortName": "Vikings", "name": "Minnesota Vikings" },
         "video_url": "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&rel=0"
       }
     ]
   },
   "nba": {
+    "games": []
+  },
+  "wnba": {
+    "games": []
+  },
+  "nhl": {
+    "games": []
+  },
+  "mlb": {
+    "games": []
+  },
+  "mls": {
     "games": []
   }
 }
