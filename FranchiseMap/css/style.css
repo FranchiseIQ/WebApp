@@ -1,17 +1,37 @@
 :root {
     --primary-purple: #6b46c1;
     --primary-purple-light: #e9d8fd;
+    --roark-gold: #d4a843;
     --text-dark: #2d3748;
     --text-light: #718096;
     --bg-white: #ffffff;
     --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --market-green: #22c55e;
+    --market-red: #ef4444;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-.top-bar { height: 60px; background-color: var(--primary-purple); color: white; display: flex; align-items: center; padding: 0 20px; z-index: 1200; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+/* Top Bar */
+.top-bar { height: 60px; background-color: var(--primary-purple); color: white; display: flex; align-items: center; padding: 0 20px; z-index: 1200; box-shadow: 0 2px 4px rgba(0,0,0,0.2); justify-content: space-between; }
 .logo-area { font-weight: 700; font-size: 1.2rem; }
 
+/* Stock Ticker */
+.stock-ticker { display: flex; align-items: center; gap: 20px; flex: 1; margin-left: 30px; overflow: hidden; }
+.ticker-status { display: flex; flex-direction: column; align-items: flex-start; min-width: 140px; }
+#market-status { font-weight: 600; font-size: 0.85rem; }
+#market-status.open { color: var(--market-green); }
+#market-status.closed { color: #fbbf24; }
+#market-countdown { font-size: 0.75rem; opacity: 0.8; }
+.ticker-tape { display: flex; gap: 20px; overflow: hidden; flex: 1; }
+.ticker-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; white-space: nowrap; }
+.ticker-symbol { font-weight: 600; }
+.ticker-price { opacity: 0.9; }
+.ticker-change { font-weight: 500; }
+.ticker-change.up { color: var(--market-green); }
+.ticker-change.down { color: var(--market-red); }
+
+/* Map Container */
 #map-container { position: relative; flex: 1; width: 100%; }
 #map { height: 100%; width: 100%; z-index: 1; background: #ddd; }
 
@@ -20,34 +40,83 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
 .leaflet-control-geocoder-form input { font-size: 14px; padding: 8px; width: 260px; border: 1px solid #ccc; border-radius: 4px; }
 
 /* Rail */
-#map-controls-rail { position: absolute; right: 20px; top: 80px; display: flex; flex-direction: column; gap: 12px; z-index: 1000; }
+#map-controls-rail { position: absolute; right: 20px; top: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 1000; }
 .control-btn { width: 44px; height: 44px; background: white; border: 1px solid #ddd; border-radius: 8px; box-shadow: var(--shadow-card); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-dark); font-size: 1.2rem; transition: all 0.2s; }
 .control-btn:hover { background: #f7fafc; }
 .control-btn.active { background-color: var(--primary-purple); color: white; border-color: var(--primary-purple); }
 
 /* Panel */
-#info-panel { position: absolute; top: 20px; right: 80px; width: 360px; max-height: calc(100% - 40px); background: white; border-radius: 8px; box-shadow: var(--shadow-card); z-index: 1100; display: flex; flex-direction: column; overflow: hidden; }
+#info-panel { position: absolute; top: 20px; right: 80px; width: 360px; max-height: calc(100% - 40px); background: white; border-radius: 8px; box-shadow: var(--shadow-card); z-index: 1100; display: flex; flex-direction: column; overflow: hidden; transition: all 0.3s ease; }
+#info-panel.panel-collapsed { width: 0; padding: 0; opacity: 0; pointer-events: none; }
+#info-panel.panel-expanded { width: 360px; opacity: 1; pointer-events: auto; }
 .panel-header { padding: 16px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+.header-controls { display: flex; gap: 8px; }
+.collapse-btn { background: none; border: none; font-size: 1rem; cursor: pointer; color: var(--text-light); padding: 4px 8px; border-radius: 4px; transition: all 0.2s; }
+.collapse-btn:hover { background: #f0f0f0; color: var(--text-dark); }
 .panel-content { padding: 16px; overflow-y: auto; }
+.panel-intro { font-size: 0.9rem; color: var(--text-light); margin-bottom: 12px; }
+
+/* Filter Controls */
+.filter-controls { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.filter-btn { padding: 6px 12px; font-size: 0.75rem; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer; transition: all 0.2s; }
+.filter-btn:hover { background: #f0f0f0; }
+.filter-btn.roark-btn { border-color: var(--roark-gold); color: #8b6914; }
+.filter-btn.roark-btn:hover { background: #fef3c7; }
+.filter-btn.roark-btn.active { background: var(--roark-gold); color: white; }
+
+/* Category Filters */
+.category-filters { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+.category-btn { padding: 4px 10px; font-size: 0.7rem; border: 1px solid #e0e0e0; border-radius: 12px; background: white; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
+.category-btn:hover { background: #f0f0f0; }
+.category-btn.active { background: var(--primary-purple); color: white; border-color: var(--primary-purple); }
+
+/* Location Count */
+.location-count { font-size: 0.8rem; color: var(--text-light); margin-bottom: 12px; padding: 8px; background: #f7fafc; border-radius: 4px; text-align: center; }
+.location-count span { font-weight: 600; color: var(--primary-purple); }
 
 /* Pills */
 .brand-pill { display: flex; align-items: center; width: 100%; padding: 10px; margin-bottom: 8px; border: 1px solid transparent; border-radius: 6px; background: transparent; cursor: pointer; text-align: left; transition: all 0.2s; }
 .brand-pill:hover { background-color: #f7fafc; }
 .brand-pill.active { background-color: var(--primary-purple-light); border-color: rgba(107, 70, 193, 0.2); }
+.brand-pill.roark { border-left: 3px solid var(--roark-gold); }
 .brand-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 12px; flex-shrink: 0; }
+.brand-info { flex: 1; }
+.brand-ticker { font-weight: 600; font-size: 0.9rem; }
+.brand-name { font-size: 0.75rem; color: var(--text-light); }
+.brand-count { font-size: 0.7rem; color: var(--text-light); background: #f0f0f0; padding: 2px 6px; border-radius: 10px; }
 
 /* Score Badge */
 .score-badge { color: white; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 0.9rem; }
 
+/* Methodology Section in Popup */
+.methodology-section { margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 6px; font-size: 0.75rem; }
+.methodology-section h4 { font-size: 0.8rem; margin-bottom: 8px; color: var(--text-dark); }
+.methodology-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid #eee; }
+.methodology-row:last-child { border-bottom: none; }
+.methodology-label { color: var(--text-light); }
+.methodology-value { font-weight: 500; }
+.methodology-weight { font-size: 0.65rem; color: var(--text-light); }
+
+/* Competitor Highlight */
+.competitor-marker { animation: pulse 1.5s infinite; }
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
 /* Slider Styling */
-input[type=range] { width: 100%; margin: 10px 0; }
+input[type=range] { width: 100%; margin: 10px 0; accent-color: var(--primary-purple); }
 
 /* Close Button */
 .close-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-light); padding: 4px; }
 .close-btn:hover { color: var(--text-dark); }
 
 @media (max-width: 768px) {
-    #info-panel { top: auto; bottom: 0; right: 0; left: 0; width: 100%; max-height: 50vh; border-radius: 16px 16px 0 0; }
-    #map-controls-rail { top: auto; bottom: calc(50vh + 20px); right: 16px; }
-    .leaflet-control-geocoder { display: none; /* Hide standard search on small mobile, rely on map nav */ }
+    #info-panel { top: auto; bottom: 0; right: 0; left: 0; width: 100% !important; max-height: 50vh; border-radius: 16px 16px 0 0; }
+    #info-panel.panel-collapsed { transform: translateY(100%); opacity: 1; width: 100% !important; }
+    #map-controls-rail { top: 20px; right: 16px; }
+    .leaflet-control-geocoder { display: none; }
+    .stock-ticker { display: none; }
+    .top-bar { justify-content: center; }
 }
