@@ -1,34 +1,62 @@
 {
-  "last_updated": "2025-12-15 02:58:23 EST",
+  "last_updated": "2025-12-15 14:21:29 EST",
   "nfl": {
     "week": 15,
     "games": [
       {
-        "id": "401772933",
-        "date": "2025-12-15T01:20Z",
-        "status": "Halftime",
-        "is_active": true,
+        "id": "401772823",
+        "date": "2025-12-16T01:15Z",
+        "status": "Mon, December 15th at 8:15 PM EST",
+        "is_active": false,
         "is_final": false,
-        "clock": "0:00",
-        "period": 2,
-        "venue": "AT&T Stadium",
+        "clock": "",
+        "period": "",
+        "venue": "Acrisure Stadium",
         "homeTeam": {
-          "name": "Dallas Cowboys",
-          "shortName": "Cowboys",
-          "abbreviation": "DAL",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
-          "record": "6-6-1"
+          "name": "Pittsburgh Steelers",
+          "shortName": "Steelers",
+          "abbreviation": "PIT",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
+          "record": "7-6"
         },
         "awayTeam": {
-          "name": "Minnesota Vikings",
-          "shortName": "Vikings",
-          "abbreviation": "MIN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
-          "record": "5-8"
+          "name": "Miami Dolphins",
+          "shortName": "Dolphins",
+          "abbreviation": "MIA",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png",
+          "record": "6-7"
         },
-        "homeScore": "17",
-        "awayScore": "17",
+        "homeScore": "0",
+        "awayScore": "0",
         "video_url": null,
+        "league": "NFL"
+      },
+      {
+        "id": "401772948",
+        "date": "2025-12-12T01:15Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "venue": "Raymond James Stadium",
+        "homeTeam": {
+          "name": "Tampa Bay Buccaneers",
+          "shortName": "Buccaneers",
+          "abbreviation": "TB",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png",
+          "record": "7-7"
+        },
+        "awayTeam": {
+          "name": "Atlanta Falcons",
+          "shortName": "Falcons",
+          "abbreviation": "ATL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
+          "record": "5-9"
+        },
+        "homeScore": "28",
+        "awayScore": "29",
+        "video_url": "https://www.youtube.com/embed/kurfb90PjzQ?autoplay=1&rel=0",
         "league": "NFL"
       },
       {
@@ -396,59 +424,31 @@
         "league": "NFL"
       },
       {
-        "id": "401772948",
-        "date": "2025-12-12T01:15Z",
+        "id": "401772933",
+        "date": "2025-12-15T01:20Z",
         "status": "Final",
         "is_active": false,
         "is_final": true,
         "clock": "",
         "period": "",
-        "venue": "Raymond James Stadium",
+        "venue": "AT&T Stadium",
         "homeTeam": {
-          "name": "Tampa Bay Buccaneers",
-          "shortName": "Buccaneers",
-          "abbreviation": "TB",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png",
-          "record": "7-7"
+          "name": "Dallas Cowboys",
+          "shortName": "Cowboys",
+          "abbreviation": "DAL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
+          "record": "6-7-1"
         },
         "awayTeam": {
-          "name": "Atlanta Falcons",
-          "shortName": "Falcons",
-          "abbreviation": "ATL",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
-          "record": "5-9"
+          "name": "Minnesota Vikings",
+          "shortName": "Vikings",
+          "abbreviation": "MIN",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
+          "record": "6-8"
         },
-        "homeScore": "28",
-        "awayScore": "29",
-        "video_url": "https://www.youtube.com/embed/kurfb90PjzQ?autoplay=1&rel=0",
-        "league": "NFL"
-      },
-      {
-        "id": "401772823",
-        "date": "2025-12-16T01:15Z",
-        "status": "Mon, December 15th at 8:15 PM EST",
-        "is_active": false,
-        "is_final": false,
-        "clock": "",
-        "period": "",
-        "venue": "Acrisure Stadium",
-        "homeTeam": {
-          "name": "Pittsburgh Steelers",
-          "shortName": "Steelers",
-          "abbreviation": "PIT",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
-          "record": "7-6"
-        },
-        "awayTeam": {
-          "name": "Miami Dolphins",
-          "shortName": "Dolphins",
-          "abbreviation": "MIA",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png",
-          "record": "6-7"
-        },
-        "homeScore": "0",
-        "awayScore": "0",
-        "video_url": null,
+        "homeScore": "26",
+        "awayScore": "34",
+        "video_url": "https://www.youtube.com/embed/XUfvXIgfgYI?autoplay=1&rel=0",
         "league": "NFL"
       }
     ]
@@ -620,63 +620,63 @@
         },
         "homeScore": "104",
         "awayScore": "114",
-        "video_url": "https://www.youtube.com/embed/RoVNiLI2jeE?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/BUiR36ctMy8?autoplay=1&rel=0",
         "league": "NBA"
       },
       {
         "id": "401839699",
         "date": "2025-12-15T01:00Z",
-        "status": "2:48 - 3rd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "2:48",
-        "period": 3,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "venue": "Mortgage Matchup Center",
         "homeTeam": {
           "name": "Phoenix Suns",
           "shortName": "Suns",
           "abbreviation": "PHX",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phx.png",
-          "record": "14-11"
+          "record": "14-12"
         },
         "awayTeam": {
           "name": "Los Angeles Lakers",
           "shortName": "Lakers",
           "abbreviation": "LAL",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png",
-          "record": "17-7"
+          "record": "18-7"
         },
-        "homeScore": "77",
-        "awayScore": "75",
-        "video_url": null,
+        "homeScore": "114",
+        "awayScore": "116",
+        "video_url": "https://www.youtube.com/embed/_aAfHexW188?autoplay=1&rel=0",
         "league": "NBA"
       },
       {
         "id": "401836802",
         "date": "2025-12-15T02:00Z",
-        "status": "3:11 - 2nd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "3:11",
-        "period": 2,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "venue": "Moda Center",
         "homeTeam": {
           "name": "Portland Trail Blazers",
           "shortName": "Trail Blazers",
           "abbreviation": "POR",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/por.png",
-          "record": "9-16"
+          "record": "10-16"
         },
         "awayTeam": {
           "name": "Golden State Warriors",
           "shortName": "Warriors",
           "abbreviation": "GS",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png",
-          "record": "13-13"
+          "record": "13-14"
         },
-        "homeScore": "54",
-        "awayScore": "52",
-        "video_url": null,
+        "homeScore": "136",
+        "awayScore": "131",
+        "video_url": "https://www.youtube.com/embed/oDj1tdhuNUA?autoplay=1&rel=0",
         "league": "NBA"
       }
     ]
