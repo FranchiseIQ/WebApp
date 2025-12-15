@@ -23,9 +23,14 @@ window.initFranchiseCalculators = function() {
     renderItem7();
     renderRoyalty();
     renderCashFlow();
+    renderBreakEven();
+    renderGrossMargin();
     renderUnitEconomics();
     renderPayback();
+    renderEmployeeCost();
+    renderWorkingCapital();
     renderScaling();
+    renderFranchiseCompare();
     renderPenetration();
     renderMap();
     renderSBALoan();
@@ -80,6 +85,45 @@ function formatNumber(value, decimals = 0) {
     }).format(value);
 }
 
+/**
+ * Validates a numeric input field
+ * @param {string} value - The input value to validate
+ * @param {string} fieldName - The name of the field for error messages
+ * @param {number} min - Minimum allowed value (optional)
+ * @returns {object} - {valid: boolean, error: string}
+ */
+function validateNumberInput(value, fieldName, min = 0) {
+    const num = parseFloat(value);
+
+    if (!value || value.trim() === '') {
+        return { valid: false, error: `${fieldName} is required` };
+    }
+
+    if (isNaN(num)) {
+        return { valid: false, error: `${fieldName} must be a valid number` };
+    }
+
+    if (num < min) {
+        return { valid: false, error: `${fieldName} must be greater than ${min}` };
+    }
+
+    return { valid: true, error: null };
+}
+
+/**
+ * Displays an error message in a user-friendly way
+ * @param {string} message - The error message to display
+ * @param {string} containerId - The ID of the container to display the error in
+ */
+function showError(message, containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = `
+        <div class="calc-alert calc-alert-error">
+            ⚠️ <strong>Error:</strong> ${message}
+        </div>
+    `;
+}
+
 // ============================================================================
 // CALCULATOR 1: ROI CALCULATOR
 // ============================================================================
@@ -91,31 +135,51 @@ function renderROI() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="roi-profit">Annual Net Profit</label>
-                <input type="number" id="roi-profit" value="75000" min="0" step="1000">
+                <input type="number" id="roi-profit" value="75000" min="0" step="1000" required>
                 <span class="calc-input-hint">Expected net profit per year after all expenses</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="roi-investment">Total Initial Investment</label>
-                <input type="number" id="roi-investment" value="350000" min="0" step="1000">
+                <input type="number" id="roi-investment" value="350000" min="0" step="1000" required>
                 <span class="calc-input-hint">Total amount invested to start the franchise</span>
             </div>
 
-            <button class="calc-button" onclick="calculateROI()">Calculate ROI</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateROI()">Calculate ROI</button>
+                <button class="calc-button calc-button-secondary" onclick="resetROI()">Reset</button>
+            </div>
         </div>
 
         <div id="roi-results"></div>
     `;
 }
 
-function calculateROI() {
-    const profit = parseFloat(document.getElementById('roi-profit').value);
-    const investment = parseFloat(document.getElementById('roi-investment').value);
+function resetROI() {
+    document.getElementById('roi-profit').value = '75000';
+    document.getElementById('roi-investment').value = '350000';
+    document.getElementById('roi-results').innerHTML = '';
+}
 
-    if (!profit || !investment || investment === 0) {
-        alert('Please enter valid values for profit and investment');
+function calculateROI() {
+    const profitValue = document.getElementById('roi-profit').value;
+    const investmentValue = document.getElementById('roi-investment').value;
+
+    // Validate inputs
+    const profitValidation = validateNumberInput(profitValue, 'Annual Net Profit', 0);
+    if (!profitValidation.valid) {
+        showError(profitValidation.error, 'roi-results');
         return;
     }
+
+    const investmentValidation = validateNumberInput(investmentValue, 'Total Initial Investment', 1);
+    if (!investmentValidation.valid) {
+        showError(investmentValidation.error, 'roi-results');
+        return;
+    }
+
+    const profit = parseFloat(profitValue);
+    const investment = parseFloat(investmentValue);
 
     const roi = (profit / investment) * 100;
     const yearsToBreakeven = investment / profit;
@@ -176,23 +240,23 @@ function renderItem7() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="item7-min">Minimum Investment (Item 7)</label>
-                <input type="number" id="item7-min" value="250000" min="0" step="1000">
+                <input type="number" id="item7-min" value="250000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="item7-max">Maximum Investment (Item 7)</label>
-                <input type="number" id="item7-max" value="500000" min="0" step="1000">
+                <input type="number" id="item7-max" value="500000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="item7-working">Working Capital (3 months)</label>
-                <input type="number" id="item7-working" value="50000" min="0" step="1000">
+                <input type="number" id="item7-working" value="50000" min="0" step="1000" required>
                 <span class="calc-input-hint">Recommended: 3-6 months of operating expenses</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="item7-franchise">Franchise Fee</label>
-                <input type="number" id="item7-franchise" value="45000" min="0" step="1000">
+                <input type="number" id="item7-franchise" value="45000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
@@ -207,11 +271,23 @@ function renderItem7() {
                 </div>
             </div>
 
-            <button class="calc-button" onclick="calculateItem7()">Calculate Investment</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateItem7()">Calculate Investment</button>
+                <button class="calc-button calc-button-secondary" onclick="resetItem7()">Reset</button>
+            </div>
         </div>
 
         <div id="item7-results"></div>
     `;
+}
+
+function resetItem7() {
+    document.getElementById('item7-min').value = '250000';
+    document.getElementById('item7-max').value = '500000';
+    document.getElementById('item7-working').value = '50000';
+    document.getElementById('item7-franchise').value = '45000';
+    document.getElementById('item7-realestate').checked = false;
+    document.getElementById('item7-results').innerHTML = '';
 }
 
 function calculateItem7() {
@@ -298,35 +374,47 @@ function renderRoyalty() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="royalty-revenue">Monthly Gross Revenue</label>
-                <input type="number" id="royalty-revenue" value="100000" min="0" step="1000">
+                <input type="number" id="royalty-revenue" value="100000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="royalty-rate">Royalty Rate (%)</label>
-                <input type="number" id="royalty-rate" value="6" min="0" max="100" step="0.1">
+                <input type="number" id="royalty-rate" value="6" min="0" max="100" step="0.1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="royalty-marketing">Marketing Fund Rate (%)</label>
-                <input type="number" id="royalty-marketing" value="2" min="0" max="100" step="0.1">
+                <input type="number" id="royalty-marketing" value="2" min="0" max="100" step="0.1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="royalty-local">Local Advertising Spend</label>
-                <input type="number" id="royalty-local" value="2000" min="0" step="100">
+                <input type="number" id="royalty-local" value="2000" min="0" step="100" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="royalty-additional">Additional Franchise Fees</label>
-                <input type="number" id="royalty-additional" value="500" min="0" step="50">
+                <input type="number" id="royalty-additional" value="500" min="0" step="50" required>
                 <span class="calc-input-hint">Technology fees, training fees, etc.</span>
             </div>
 
-            <button class="calc-button" onclick="calculateRoyalty()">Calculate Fees</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateRoyalty()">Calculate Fees</button>
+                <button class="calc-button calc-button-secondary" onclick="resetRoyalty()">Reset</button>
+            </div>
         </div>
 
         <div id="royalty-results"></div>
     `;
+}
+
+function resetRoyalty() {
+    document.getElementById('royalty-revenue').value = '100000';
+    document.getElementById('royalty-rate').value = '6';
+    document.getElementById('royalty-marketing').value = '2';
+    document.getElementById('royalty-local').value = '2000';
+    document.getElementById('royalty-additional').value = '500';
+    document.getElementById('royalty-results').innerHTML = '';
 }
 
 function calculateRoyalty() {
@@ -438,44 +526,58 @@ function renderCashFlow() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="cf-revenue">Monthly Gross Revenue</label>
-                <input type="number" id="cf-revenue" value="120000" min="0" step="1000">
+                <input type="number" id="cf-revenue" value="120000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="cf-cogs">Cost of Goods Sold (%)</label>
-                <input type="number" id="cf-cogs" value="30" min="0" max="100" step="1">
+                <input type="number" id="cf-cogs" value="30" min="0" max="100" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="cf-labor">Labor Cost (%)</label>
-                <input type="number" id="cf-labor" value="25" min="0" max="100" step="1">
+                <input type="number" id="cf-labor" value="25" min="0" max="100" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="cf-rent">Monthly Rent</label>
-                <input type="number" id="cf-rent" value="5000" min="0" step="100">
+                <input type="number" id="cf-rent" value="5000" min="0" step="100" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="cf-utilities">Utilities & Services</label>
-                <input type="number" id="cf-utilities" value="1500" min="0" step="100">
+                <input type="number" id="cf-utilities" value="1500" min="0" step="100" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="cf-insurance">Insurance</label>
-                <input type="number" id="cf-insurance" value="800" min="0" step="50">
+                <input type="number" id="cf-insurance" value="800" min="0" step="50" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="cf-misc">Miscellaneous Expenses</label>
-                <input type="number" id="cf-misc" value="2000" min="0" step="100">
+                <input type="number" id="cf-misc" value="2000" min="0" step="100" required>
             </div>
 
-            <button class="calc-button" onclick="calculateCashFlow()">Calculate Cash Flow</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateCashFlow()">Calculate Cash Flow</button>
+                <button class="calc-button calc-button-secondary" onclick="resetCashFlow()">Reset</button>
+            </div>
         </div>
 
         <div id="cf-results"></div>
     `;
+}
+
+function resetCashFlow() {
+    document.getElementById('cf-revenue').value = '120000';
+    document.getElementById('cf-cogs').value = '30';
+    document.getElementById('cf-labor').value = '25';
+    document.getElementById('cf-rent').value = '5000';
+    document.getElementById('cf-utilities').value = '1500';
+    document.getElementById('cf-insurance').value = '800';
+    document.getElementById('cf-misc').value = '2000';
+    document.getElementById('cf-results').innerHTML = '';
 }
 
 function calculateCashFlow() {
@@ -592,6 +694,298 @@ function calculateCashFlow() {
 }
 
 // ============================================================================
+// CALCULATOR 4B: BREAK-EVEN ANALYSIS
+// ============================================================================
+
+function renderBreakEven() {
+    const container = document.getElementById('calculator-breakeven');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="calc-form">
+            <div class="calc-input-group">
+                <label for="be-fixed">Monthly Fixed Costs</label>
+                <input type="number" id="be-fixed" value="25000" min="0" step="500" required>
+                <span class="calc-input-hint">Rent, salaries, insurance, utilities, etc.</span>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="be-price">Average Selling Price per Unit</label>
+                <input type="number" id="be-price" value="15" min="0.01" step="0.5" required>
+                <span class="calc-input-hint">Average price per product/service sold</span>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="be-variable">Variable Cost per Unit</label>
+                <input type="number" id="be-variable" value="6" min="0" step="0.5" required>
+                <span class="calc-input-hint">COGS, supplies, commissions per sale</span>
+            </div>
+
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateBreakEven()">Calculate Break-Even Point</button>
+                <button class="calc-button calc-button-secondary" onclick="resetBreakEven()">Reset</button>
+            </div>
+        </div>
+
+        <div id="be-results"></div>
+    `;
+}
+
+function resetBreakEven() {
+    document.getElementById('be-fixed').value = '25000';
+    document.getElementById('be-price').value = '15';
+    document.getElementById('be-variable').value = '6';
+    document.getElementById('be-results').innerHTML = '';
+}
+
+function calculateBreakEven() {
+    const fixedCosts = parseFloat(document.getElementById('be-fixed').value);
+    const price = parseFloat(document.getElementById('be-price').value);
+    const variableCost = parseFloat(document.getElementById('be-variable').value);
+
+    if (price <= variableCost) {
+        alert('Selling price must be greater than variable cost per unit');
+        return;
+    }
+
+    const contributionMargin = price - variableCost;
+    const contributionMarginRatio = (contributionMargin / price) * 100;
+    const breakEvenUnits = fixedCosts / contributionMargin;
+    const breakEvenRevenue = breakEvenUnits * price;
+    const breakEvenDaily = breakEvenUnits / 30;
+
+    // Calculate profit at different volumes
+    const volume150 = breakEvenUnits * 1.5;
+    const profit150 = (volume150 * contributionMargin) - fixedCosts;
+    const volume200 = breakEvenUnits * 2;
+    const profit200 = (volume200 * contributionMargin) - fixedCosts;
+
+    const resultsContainer = document.getElementById('be-results');
+    resultsContainer.innerHTML = `
+        <div class="calc-results">
+            <h3>📍 Break-Even Analysis</h3>
+            <div class="calc-result-grid">
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Break-Even Units</div>
+                    <div class="calc-result-value neutral">
+                        ${formatNumber(breakEvenUnits, 0)}
+                    </div>
+                    <div class="calc-result-subtitle">${formatNumber(breakEvenDaily, 1)} units/day</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Break-Even Revenue</div>
+                    <div class="calc-result-value neutral">
+                        ${formatCurrency(breakEvenRevenue)}
+                    </div>
+                    <div class="calc-result-subtitle">Monthly sales needed</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Contribution Margin</div>
+                    <div class="calc-result-value positive">
+                        ${formatCurrency(contributionMargin)}
+                    </div>
+                    <div class="calc-result-subtitle">${formatPercent(contributionMarginRatio)} per unit</div>
+                </div>
+            </div>
+
+            <h3 class="calc-mt-20">📈 Profit Scenarios</h3>
+            <table class="calc-table">
+                <tr>
+                    <th>Sales Volume</th>
+                    <th>Units Sold</th>
+                    <th>Revenue</th>
+                    <th>Monthly Profit</th>
+                </tr>
+                <tr style="background: #fff3e0;">
+                    <td>Break-Even</td>
+                    <td>${formatNumber(breakEvenUnits, 0)}</td>
+                    <td>${formatCurrency(breakEvenRevenue)}</td>
+                    <td>${formatCurrency(0)}</td>
+                </tr>
+                <tr style="background: #e8f5e9;">
+                    <td>150% of Break-Even</td>
+                    <td>${formatNumber(volume150, 0)}</td>
+                    <td>${formatCurrency(volume150 * price)}</td>
+                    <td>${formatCurrency(profit150)}</td>
+                </tr>
+                <tr style="background: #c8e6c9;">
+                    <td>200% of Break-Even</td>
+                    <td>${formatNumber(volume200, 0)}</td>
+                    <td>${formatCurrency(volume200 * price)}</td>
+                    <td>${formatCurrency(profit200)}</td>
+                </tr>
+            </table>
+
+            <div class="calc-alert calc-alert-info calc-mt-20">
+                💡 <strong>Key Insight:</strong> Every unit sold above ${formatNumber(breakEvenUnits, 0)} generates ${formatCurrency(contributionMargin)} in profit.
+            </div>
+        </div>
+    `;
+}
+
+// ============================================================================
+// CALCULATOR 4C: GROSS MARGIN CALCULATOR
+// ============================================================================
+
+function renderGrossMargin() {
+    const container = document.getElementById('calculator-grossmargin');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="calc-form">
+            <div class="calc-input-group">
+                <label for="gm-cost">Cost of Goods/Service</label>
+                <input type="number" id="gm-cost" value="8.50" min="0" step="0.01" required>
+                <span class="calc-input-hint">Your cost to produce/provide</span>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="gm-price">Selling Price</label>
+                <input type="number" id="gm-price" value="15.00" min="0.01" step="0.01" required>
+                <span class="calc-input-hint">Price charged to customer</span>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="gm-units">Monthly Units Sold</label>
+                <input type="number" id="gm-units" value="5000" min="0" step="100" required>
+            </div>
+
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateGrossMargin()">Calculate Margins</button>
+                <button class="calc-button calc-button-secondary" onclick="resetGrossMargin()">Reset</button>
+            </div>
+        </div>
+
+        <div id="gm-results"></div>
+    `;
+}
+
+function resetGrossMargin() {
+    document.getElementById('gm-cost').value = '8.50';
+    document.getElementById('gm-price').value = '15.00';
+    document.getElementById('gm-units').value = '5000';
+    document.getElementById('gm-results').innerHTML = '';
+}
+
+function calculateGrossMargin() {
+    const cost = parseFloat(document.getElementById('gm-cost').value);
+    const price = parseFloat(document.getElementById('gm-price').value);
+    const units = parseFloat(document.getElementById('gm-units').value);
+
+    const grossProfit = price - cost;
+    const grossMarginPercent = (grossProfit / price) * 100;
+    const markupPercent = (grossProfit / cost) * 100;
+    const monthlyRevenue = price * units;
+    const monthlyCOGS = cost * units;
+    const monthlyGrossProfit = grossProfit * units;
+
+    let marginRating = '';
+    if (grossMarginPercent >= 60) {
+        marginRating = 'Excellent';
+    } else if (grossMarginPercent >= 40) {
+        marginRating = 'Good';
+    } else if (grossMarginPercent >= 25) {
+        marginRating = 'Average';
+    } else {
+        marginRating = 'Low';
+    }
+
+    const resultsContainer = document.getElementById('gm-results');
+    resultsContainer.innerHTML = `
+        <div class="calc-results">
+            <h3>📊 Gross Margin Analysis</h3>
+            <div class="calc-result-grid">
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Gross Margin</div>
+                    <div class="calc-result-value ${grossMarginPercent >= 40 ? 'positive' : grossMarginPercent >= 25 ? 'neutral' : 'negative'}">
+                        ${formatPercent(grossMarginPercent)}
+                    </div>
+                    <div class="calc-result-subtitle">${marginRating}</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Markup</div>
+                    <div class="calc-result-value neutral">
+                        ${formatPercent(markupPercent)}
+                    </div>
+                    <div class="calc-result-subtitle">Over cost</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Gross Profit per Unit</div>
+                    <div class="calc-result-value positive">
+                        ${formatCurrency(grossProfit)}
+                    </div>
+                    <div class="calc-result-subtitle">Revenue minus COGS</div>
+                </div>
+            </div>
+
+            <h3 class="calc-mt-20">💰 Monthly Projections</h3>
+            <div class="calc-result-grid">
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Monthly Revenue</div>
+                    <div class="calc-result-value neutral">
+                        ${formatCurrency(monthlyRevenue)}
+                    </div>
+                    <div class="calc-result-subtitle">${formatNumber(units, 0)} units</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Monthly COGS</div>
+                    <div class="calc-result-value negative">
+                        ${formatCurrency(monthlyCOGS)}
+                    </div>
+                    <div class="calc-result-subtitle">Cost of goods</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Monthly Gross Profit</div>
+                    <div class="calc-result-value positive">
+                        ${formatCurrency(monthlyGrossProfit)}
+                    </div>
+                    <div class="calc-result-subtitle">Before operating expenses</div>
+                </div>
+            </div>
+
+            <table class="calc-table calc-mt-20">
+                <tr>
+                    <th>Metric</th>
+                    <th>Per Unit</th>
+                    <th>Monthly</th>
+                    <th>Annual</th>
+                </tr>
+                <tr>
+                    <td>Revenue</td>
+                    <td>${formatCurrency(price)}</td>
+                    <td>${formatCurrency(monthlyRevenue)}</td>
+                    <td>${formatCurrency(monthlyRevenue * 12)}</td>
+                </tr>
+                <tr>
+                    <td>COGS</td>
+                    <td>${formatCurrency(cost)}</td>
+                    <td>${formatCurrency(monthlyCOGS)}</td>
+                    <td>${formatCurrency(monthlyCOGS * 12)}</td>
+                </tr>
+                <tr style="font-weight: 700; background: #e8f5e9;">
+                    <td>Gross Profit</td>
+                    <td>${formatCurrency(grossProfit)}</td>
+                    <td>${formatCurrency(monthlyGrossProfit)}</td>
+                    <td>${formatCurrency(monthlyGrossProfit * 12)}</td>
+                </tr>
+            </table>
+
+            ${grossMarginPercent < 25 ? `
+                <div class="calc-alert calc-alert-warning calc-mt-20">
+                    ⚠️ <strong>Low Margin Alert:</strong> Gross margin below 25% leaves little room for operating expenses. Consider raising prices or reducing costs.
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+// ============================================================================
 // CALCULATOR 5: UNIT ECONOMICS SIMULATOR
 // ============================================================================
 
@@ -602,36 +996,48 @@ function renderUnitEconomics() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="ue-revenue">Revenue per Customer</label>
-                <input type="number" id="ue-revenue" value="25" min="0" step="0.5">
+                <input type="number" id="ue-revenue" value="25" min="0" step="0.5" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="ue-customers">Daily Customers</label>
-                <input type="number" id="ue-customers" value="150" min="0" step="1">
+                <input type="number" id="ue-customers" value="150" min="0" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="ue-days">Operating Days per Month</label>
-                <input type="number" id="ue-days" value="30" min="1" max="31" step="1">
+                <input type="number" id="ue-days" value="30" min="1" max="31" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="ue-fixed">Monthly Fixed Costs</label>
-                <input type="number" id="ue-fixed" value="30000" min="0" step="1000">
+                <input type="number" id="ue-fixed" value="30000" min="0" step="1000" required>
                 <span class="calc-input-hint">Rent, salaries, insurance, etc.</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="ue-variable">Variable Costs (%)</label>
-                <input type="number" id="ue-variable" value="40" min="0" max="100" step="1">
+                <input type="number" id="ue-variable" value="40" min="0" max="100" step="1" required>
                 <span class="calc-input-hint">COGS, supplies, commissions, etc.</span>
             </div>
 
-            <button class="calc-button" onclick="calculateUnitEconomics()">Calculate Unit Economics</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateUnitEconomics()">Calculate Unit Economics</button>
+                <button class="calc-button calc-button-secondary" onclick="resetUnitEconomics()">Reset</button>
+            </div>
         </div>
 
         <div id="ue-results"></div>
     `;
+}
+
+function resetUnitEconomics() {
+    document.getElementById('ue-revenue').value = '25';
+    document.getElementById('ue-customers').value = '150';
+    document.getElementById('ue-days').value = '30';
+    document.getElementById('ue-fixed').value = '30000';
+    document.getElementById('ue-variable').value = '40';
+    document.getElementById('ue-results').innerHTML = '';
 }
 
 function calculateUnitEconomics() {
@@ -725,20 +1131,29 @@ function renderPayback() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="pb-investment">Initial Investment</label>
-                <input type="number" id="pb-investment" value="350000" min="0" step="1000">
+                <input type="number" id="pb-investment" value="350000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="pb-cashflow">Monthly Net Cash Flow</label>
-                <input type="number" id="pb-cashflow" value="15000" min="0" step="100">
+                <input type="number" id="pb-cashflow" value="15000" min="0" step="100" required>
                 <span class="calc-input-hint">Average monthly profit after all expenses</span>
             </div>
 
-            <button class="calc-button" onclick="calculatePayback()">Calculate Payback Period</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculatePayback()">Calculate Payback Period</button>
+                <button class="calc-button calc-button-secondary" onclick="resetPayback()">Reset</button>
+            </div>
         </div>
 
         <div id="pb-results"></div>
     `;
+}
+
+function resetPayback() {
+    document.getElementById('pb-investment').value = '350000';
+    document.getElementById('pb-cashflow').value = '15000';
+    document.getElementById('pb-results').innerHTML = '';
 }
 
 function calculatePayback() {
@@ -815,6 +1230,372 @@ function calculatePayback() {
 }
 
 // ============================================================================
+// CALCULATOR 6B: EMPLOYEE COST CALCULATOR
+// ============================================================================
+
+function renderEmployeeCost() {
+    const container = document.getElementById('calculator-employee');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="calc-form">
+            <div class="calc-input-group">
+                <label for="emp-hourly">Hourly Wage</label>
+                <input type="number" id="emp-hourly" value="15" min="0" step="0.5" required>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="emp-hours">Hours per Week</label>
+                <input type="number" id="emp-hours" value="40" min="1" max="80" step="1" required>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="emp-count">Number of Employees</label>
+                <input type="number" id="emp-count" value="8" min="1" step="1" required>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="emp-fica">Employer FICA (%)</label>
+                <input type="number" id="emp-fica" value="7.65" min="0" max="20" step="0.1" required>
+                <span class="calc-input-hint">Social Security (6.2%) + Medicare (1.45%)</span>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="emp-ui">Unemployment Insurance (%)</label>
+                <input type="number" id="emp-ui" value="3" min="0" max="10" step="0.1" required>
+                <span class="calc-input-hint">State + Federal unemployment taxes</span>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="emp-wc">Workers' Comp (%)</label>
+                <input type="number" id="emp-wc" value="2" min="0" max="15" step="0.1" required>
+                <span class="calc-input-hint">Varies by state and industry</span>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="emp-benefits">Benefits per Employee/Month</label>
+                <input type="number" id="emp-benefits" value="400" min="0" step="50" required>
+                <span class="calc-input-hint">Health insurance, 401k match, etc.</span>
+            </div>
+
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateEmployeeCost()">Calculate Total Labor Cost</button>
+                <button class="calc-button calc-button-secondary" onclick="resetEmployeeCost()">Reset</button>
+            </div>
+        </div>
+
+        <div id="emp-results"></div>
+    `;
+}
+
+function resetEmployeeCost() {
+    document.getElementById('emp-hourly').value = '15';
+    document.getElementById('emp-hours').value = '40';
+    document.getElementById('emp-count').value = '8';
+    document.getElementById('emp-fica').value = '7.65';
+    document.getElementById('emp-ui').value = '3';
+    document.getElementById('emp-wc').value = '2';
+    document.getElementById('emp-benefits').value = '400';
+    document.getElementById('emp-results').innerHTML = '';
+}
+
+function calculateEmployeeCost() {
+    const hourly = parseFloat(document.getElementById('emp-hourly').value);
+    const hours = parseFloat(document.getElementById('emp-hours').value);
+    const count = parseFloat(document.getElementById('emp-count').value);
+    const fica = parseFloat(document.getElementById('emp-fica').value);
+    const ui = parseFloat(document.getElementById('emp-ui').value);
+    const wc = parseFloat(document.getElementById('emp-wc').value);
+    const benefits = parseFloat(document.getElementById('emp-benefits').value);
+
+    const weeklyWages = hourly * hours;
+    const monthlyWages = weeklyWages * 4.33; // Average weeks per month
+    const annualWages = weeklyWages * 52;
+
+    const totalTaxRate = (fica + ui + wc) / 100;
+    const monthlyTaxes = monthlyWages * totalTaxRate;
+    const monthlyBenefits = benefits;
+
+    const totalMonthlyPerEmployee = monthlyWages + monthlyTaxes + monthlyBenefits;
+    const totalAnnualPerEmployee = totalMonthlyPerEmployee * 12;
+    const totalMonthlyAll = totalMonthlyPerEmployee * count;
+    const totalAnnualAll = totalAnnualPerEmployee * count;
+
+    const burdenRate = ((totalMonthlyPerEmployee - monthlyWages) / monthlyWages) * 100;
+
+    const resultsContainer = document.getElementById('emp-results');
+    resultsContainer.innerHTML = `
+        <div class="calc-results">
+            <h3>👥 Employee Cost Analysis</h3>
+            <div class="calc-result-grid">
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Cost per Employee</div>
+                    <div class="calc-result-value neutral">
+                        ${formatCurrency(totalMonthlyPerEmployee)}
+                    </div>
+                    <div class="calc-result-subtitle">Monthly total</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Burden Rate</div>
+                    <div class="calc-result-value neutral">
+                        ${formatPercent(burdenRate)}
+                    </div>
+                    <div class="calc-result-subtitle">Above base wages</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Total Monthly Labor</div>
+                    <div class="calc-result-value negative">
+                        ${formatCurrency(totalMonthlyAll)}
+                    </div>
+                    <div class="calc-result-subtitle">${count} employees</div>
+                </div>
+            </div>
+
+            <h3 class="calc-mt-20">💰 Cost Breakdown (per Employee)</h3>
+            <table class="calc-table">
+                <tr>
+                    <th>Component</th>
+                    <th>Monthly</th>
+                    <th>Annual</th>
+                    <th>% of Total</th>
+                </tr>
+                <tr>
+                    <td>Base Wages</td>
+                    <td>${formatCurrency(monthlyWages)}</td>
+                    <td>${formatCurrency(annualWages)}</td>
+                    <td>${((monthlyWages / totalMonthlyPerEmployee) * 100).toFixed(1)}%</td>
+                </tr>
+                <tr>
+                    <td>Employer Taxes</td>
+                    <td>${formatCurrency(monthlyTaxes)}</td>
+                    <td>${formatCurrency(monthlyTaxes * 12)}</td>
+                    <td>${((monthlyTaxes / totalMonthlyPerEmployee) * 100).toFixed(1)}%</td>
+                </tr>
+                <tr>
+                    <td>Benefits</td>
+                    <td>${formatCurrency(monthlyBenefits)}</td>
+                    <td>${formatCurrency(monthlyBenefits * 12)}</td>
+                    <td>${((monthlyBenefits / totalMonthlyPerEmployee) * 100).toFixed(1)}%</td>
+                </tr>
+                <tr style="font-weight: 700; background: #f5f5f5;">
+                    <td>Total</td>
+                    <td>${formatCurrency(totalMonthlyPerEmployee)}</td>
+                    <td>${formatCurrency(totalAnnualPerEmployee)}</td>
+                    <td>100%</td>
+                </tr>
+            </table>
+
+            <h3 class="calc-mt-20">📊 Team Summary (${count} Employees)</h3>
+            <div class="calc-result-grid">
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Monthly Payroll</div>
+                    <div class="calc-result-value negative">
+                        ${formatCurrency(totalMonthlyAll)}
+                    </div>
+                    <div class="calc-result-subtitle">All employees</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Annual Labor Cost</div>
+                    <div class="calc-result-value negative">
+                        ${formatCurrency(totalAnnualAll)}
+                    </div>
+                    <div class="calc-result-subtitle">Full year</div>
+                </div>
+            </div>
+
+            <div class="calc-alert calc-alert-info calc-mt-20">
+                💡 <strong>Tip:</strong> True employee cost is typically ${formatPercent(burdenRate)} higher than base wages due to taxes and benefits.
+            </div>
+        </div>
+    `;
+}
+
+// ============================================================================
+// CALCULATOR 6C: WORKING CAPITAL CALCULATOR
+// ============================================================================
+
+function renderWorkingCapital() {
+    const container = document.getElementById('calculator-workingcap');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="calc-form">
+            <div class="calc-input-group">
+                <label for="wc-revenue">Monthly Revenue</label>
+                <input type="number" id="wc-revenue" value="100000" min="0" step="1000" required>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="wc-ar">Accounts Receivable Days</label>
+                <input type="number" id="wc-ar" value="30" min="0" max="180" step="1" required>
+                <span class="calc-input-hint">Average days to collect payment</span>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="wc-inv">Inventory Days</label>
+                <input type="number" id="wc-inv" value="15" min="0" max="180" step="1" required>
+                <span class="calc-input-hint">Average days inventory is held</span>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="wc-ap">Accounts Payable Days</label>
+                <input type="number" id="wc-ap" value="20" min="0" max="90" step="1" required>
+                <span class="calc-input-hint">Average days to pay suppliers</span>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="wc-opex">Monthly Operating Expenses</label>
+                <input type="number" id="wc-opex" value="75000" min="0" step="1000" required>
+                <span class="calc-input-hint">Rent, payroll, utilities, etc.</span>
+            </div>
+
+            <div class="calc-input-group">
+                <label for="wc-buffer">Safety Buffer (months)</label>
+                <input type="number" id="wc-buffer" value="2" min="0" max="12" step="0.5" required>
+                <span class="calc-input-hint">Emergency cash reserve</span>
+            </div>
+
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateWorkingCapital()">Calculate Working Capital</button>
+                <button class="calc-button calc-button-secondary" onclick="resetWorkingCapital()">Reset</button>
+            </div>
+        </div>
+
+        <div id="wc-results"></div>
+    `;
+}
+
+function resetWorkingCapital() {
+    document.getElementById('wc-revenue').value = '100000';
+    document.getElementById('wc-ar').value = '30';
+    document.getElementById('wc-inv').value = '15';
+    document.getElementById('wc-ap').value = '20';
+    document.getElementById('wc-opex').value = '75000';
+    document.getElementById('wc-buffer').value = '2';
+    document.getElementById('wc-results').innerHTML = '';
+}
+
+function calculateWorkingCapital() {
+    const revenue = parseFloat(document.getElementById('wc-revenue').value);
+    const arDays = parseFloat(document.getElementById('wc-ar').value);
+    const invDays = parseFloat(document.getElementById('wc-inv').value);
+    const apDays = parseFloat(document.getElementById('wc-ap').value);
+    const opex = parseFloat(document.getElementById('wc-opex').value);
+    const buffer = parseFloat(document.getElementById('wc-buffer').value);
+
+    const dailyRevenue = revenue / 30;
+    const dailyOpex = opex / 30;
+
+    // Cash conversion cycle
+    const ccc = arDays + invDays - apDays;
+
+    // Working capital components
+    const arAmount = dailyRevenue * arDays;
+    const invAmount = dailyOpex * invDays * 0.4; // Assuming 40% COGS ratio
+    const apAmount = dailyOpex * apDays;
+
+    // Net working capital needed
+    const netWorkingCapital = arAmount + invAmount - apAmount;
+    const safetyBuffer = opex * buffer;
+    const totalCapitalNeeded = netWorkingCapital + safetyBuffer;
+
+    const resultsContainer = document.getElementById('wc-results');
+    resultsContainer.innerHTML = `
+        <div class="calc-results">
+            <h3>💼 Working Capital Analysis</h3>
+            <div class="calc-result-grid">
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Cash Conversion Cycle</div>
+                    <div class="calc-result-value ${ccc < 30 ? 'positive' : ccc < 60 ? 'neutral' : 'negative'}">
+                        ${ccc} days
+                    </div>
+                    <div class="calc-result-subtitle">${ccc < 0 ? 'Negative (good!)' : 'Days to convert'}</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Net Working Capital</div>
+                    <div class="calc-result-value neutral">
+                        ${formatCurrency(netWorkingCapital)}
+                    </div>
+                    <div class="calc-result-subtitle">Operating requirement</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Total Capital Needed</div>
+                    <div class="calc-result-value negative">
+                        ${formatCurrency(totalCapitalNeeded)}
+                    </div>
+                    <div class="calc-result-subtitle">Including ${buffer}-month buffer</div>
+                </div>
+            </div>
+
+            <h3 class="calc-mt-20">📊 Working Capital Components</h3>
+            <table class="calc-table">
+                <tr>
+                    <th>Component</th>
+                    <th>Days</th>
+                    <th>Amount</th>
+                    <th>Impact</th>
+                </tr>
+                <tr>
+                    <td>Accounts Receivable</td>
+                    <td>${arDays}</td>
+                    <td>${formatCurrency(arAmount)}</td>
+                    <td style="color: #e53935;">+ (cash tied up)</td>
+                </tr>
+                <tr>
+                    <td>Inventory</td>
+                    <td>${invDays}</td>
+                    <td>${formatCurrency(invAmount)}</td>
+                    <td style="color: #e53935;">+ (cash tied up)</td>
+                </tr>
+                <tr>
+                    <td>Accounts Payable</td>
+                    <td>${apDays}</td>
+                    <td>${formatCurrency(apAmount)}</td>
+                    <td style="color: #43a047;">- (free financing)</td>
+                </tr>
+                <tr style="font-weight: 700; background: #f5f5f5;">
+                    <td>Net Working Capital</td>
+                    <td>${ccc} days</td>
+                    <td>${formatCurrency(netWorkingCapital)}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Safety Buffer</td>
+                    <td>${buffer * 30} days</td>
+                    <td>${formatCurrency(safetyBuffer)}</td>
+                    <td style="color: #e53935;">+ (reserve)</td>
+                </tr>
+                <tr style="font-weight: 700; background: #e3f2fd;">
+                    <td>Total Required</td>
+                    <td>-</td>
+                    <td>${formatCurrency(totalCapitalNeeded)}</td>
+                    <td>-</td>
+                </tr>
+            </table>
+
+            ${ccc < 0 ? `
+                <div class="calc-alert calc-alert-success calc-mt-20">
+                    ✅ <strong>Negative CCC:</strong> Your business generates cash before needing to pay suppliers. This is excellent for cash flow!
+                </div>
+            ` : ccc > 60 ? `
+                <div class="calc-alert calc-alert-warning calc-mt-20">
+                    ⚠️ <strong>Long CCC:</strong> Consider negotiating better payment terms with suppliers or collecting receivables faster to improve cash flow.
+                </div>
+            ` : `
+                <div class="calc-alert calc-alert-info calc-mt-20">
+                    💡 <strong>Tip:</strong> Reducing your cash conversion cycle by ${Math.min(10, ccc)} days would free up approximately ${formatCurrency(dailyRevenue * Math.min(10, ccc))} in working capital.
+                </div>
+            `}
+        </div>
+    `;
+}
+
+// ============================================================================
 // CALCULATOR 7: MULTI-UNIT SCALING MODEL
 // ============================================================================
 
@@ -825,36 +1606,48 @@ function renderScaling() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="sc-current">Current Units Owned</label>
-                <input type="number" id="sc-current" value="1" min="0" step="1">
+                <input type="number" id="sc-current" value="1" min="0" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="sc-planned">Planned Total Units</label>
-                <input type="number" id="sc-planned" value="5" min="1" step="1">
+                <input type="number" id="sc-planned" value="5" min="1" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="sc-revenue">Average Revenue per Unit</label>
-                <input type="number" id="sc-revenue" value="1200000" min="0" step="10000">
+                <input type="number" id="sc-revenue" value="1200000" min="0" step="10000" required>
                 <span class="calc-input-hint">Annual revenue per location</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="sc-profit">Profit Margin (%)</label>
-                <input type="number" id="sc-profit" value="15" min="0" max="100" step="1">
+                <input type="number" id="sc-profit" value="15" min="0" max="100" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="sc-overhead">Corporate Overhead per Additional Unit</label>
-                <input type="number" id="sc-overhead" value="20000" min="0" step="1000">
+                <input type="number" id="sc-overhead" value="20000" min="0" step="1000" required>
                 <span class="calc-input-hint">Extra management/admin costs per unit</span>
             </div>
 
-            <button class="calc-button" onclick="calculateScaling()">Calculate Multi-Unit Portfolio</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateScaling()">Calculate Multi-Unit Portfolio</button>
+                <button class="calc-button calc-button-secondary" onclick="resetScaling()">Reset</button>
+            </div>
         </div>
 
         <div id="sc-results"></div>
     `;
+}
+
+function resetScaling() {
+    document.getElementById('sc-current').value = '1';
+    document.getElementById('sc-planned').value = '5';
+    document.getElementById('sc-revenue').value = '1200000';
+    document.getElementById('sc-profit').value = '15';
+    document.getElementById('sc-overhead').value = '20000';
+    document.getElementById('sc-results').innerHTML = '';
 }
 
 function calculateScaling() {
@@ -960,6 +1753,292 @@ function calculateScaling() {
 }
 
 // ============================================================================
+// CALCULATOR 7B: FRANCHISE COMPARISON TOOL
+// ============================================================================
+
+function renderFranchiseCompare() {
+    const container = document.getElementById('calculator-compare');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="calc-form">
+            <h3>Franchise A</h3>
+            <div class="calc-input-row">
+                <div class="calc-input-group">
+                    <label for="cmp-a-name">Name</label>
+                    <input type="text" id="cmp-a-name" value="Franchise A" maxlength="20">
+                </div>
+                <div class="calc-input-group">
+                    <label for="cmp-a-investment">Total Investment</label>
+                    <input type="number" id="cmp-a-investment" value="350000" min="0" step="10000" required>
+                </div>
+                <div class="calc-input-group">
+                    <label for="cmp-a-royalty">Royalty %</label>
+                    <input type="number" id="cmp-a-royalty" value="6" min="0" max="20" step="0.5" required>
+                </div>
+                <div class="calc-input-group">
+                    <label for="cmp-a-revenue">Est. Annual Revenue</label>
+                    <input type="number" id="cmp-a-revenue" value="800000" min="0" step="10000" required>
+                </div>
+                <div class="calc-input-group">
+                    <label for="cmp-a-margin">Net Margin %</label>
+                    <input type="number" id="cmp-a-margin" value="12" min="0" max="50" step="1" required>
+                </div>
+            </div>
+
+            <h3 class="calc-mt-20">Franchise B</h3>
+            <div class="calc-input-row">
+                <div class="calc-input-group">
+                    <label for="cmp-b-name">Name</label>
+                    <input type="text" id="cmp-b-name" value="Franchise B" maxlength="20">
+                </div>
+                <div class="calc-input-group">
+                    <label for="cmp-b-investment">Total Investment</label>
+                    <input type="number" id="cmp-b-investment" value="500000" min="0" step="10000" required>
+                </div>
+                <div class="calc-input-group">
+                    <label for="cmp-b-royalty">Royalty %</label>
+                    <input type="number" id="cmp-b-royalty" value="5" min="0" max="20" step="0.5" required>
+                </div>
+                <div class="calc-input-group">
+                    <label for="cmp-b-revenue">Est. Annual Revenue</label>
+                    <input type="number" id="cmp-b-revenue" value="1200000" min="0" step="10000" required>
+                </div>
+                <div class="calc-input-group">
+                    <label for="cmp-b-margin">Net Margin %</label>
+                    <input type="number" id="cmp-b-margin" value="10" min="0" max="50" step="1" required>
+                </div>
+            </div>
+
+            <h3 class="calc-mt-20">Franchise C (Optional)</h3>
+            <div class="calc-input-row">
+                <div class="calc-input-group">
+                    <label for="cmp-c-name">Name</label>
+                    <input type="text" id="cmp-c-name" value="" maxlength="20" placeholder="Leave blank to skip">
+                </div>
+                <div class="calc-input-group">
+                    <label for="cmp-c-investment">Total Investment</label>
+                    <input type="number" id="cmp-c-investment" value="" min="0" step="10000" placeholder="0">
+                </div>
+                <div class="calc-input-group">
+                    <label for="cmp-c-royalty">Royalty %</label>
+                    <input type="number" id="cmp-c-royalty" value="" min="0" max="20" step="0.5" placeholder="0">
+                </div>
+                <div class="calc-input-group">
+                    <label for="cmp-c-revenue">Est. Annual Revenue</label>
+                    <input type="number" id="cmp-c-revenue" value="" min="0" step="10000" placeholder="0">
+                </div>
+                <div class="calc-input-group">
+                    <label for="cmp-c-margin">Net Margin %</label>
+                    <input type="number" id="cmp-c-margin" value="" min="0" max="50" step="1" placeholder="0">
+                </div>
+            </div>
+
+            <div class="calc-button-group calc-mt-20">
+                <button class="calc-button" onclick="calculateFranchiseCompare()">Compare Franchises</button>
+                <button class="calc-button calc-button-secondary" onclick="resetFranchiseCompare()">Reset</button>
+            </div>
+        </div>
+
+        <div id="cmp-results"></div>
+    `;
+}
+
+function resetFranchiseCompare() {
+    document.getElementById('cmp-a-name').value = 'Franchise A';
+    document.getElementById('cmp-a-investment').value = '350000';
+    document.getElementById('cmp-a-royalty').value = '6';
+    document.getElementById('cmp-a-revenue').value = '800000';
+    document.getElementById('cmp-a-margin').value = '12';
+    document.getElementById('cmp-b-name').value = 'Franchise B';
+    document.getElementById('cmp-b-investment').value = '500000';
+    document.getElementById('cmp-b-royalty').value = '5';
+    document.getElementById('cmp-b-revenue').value = '1200000';
+    document.getElementById('cmp-b-margin').value = '10';
+    document.getElementById('cmp-c-name').value = '';
+    document.getElementById('cmp-c-investment').value = '';
+    document.getElementById('cmp-c-royalty').value = '';
+    document.getElementById('cmp-c-revenue').value = '';
+    document.getElementById('cmp-c-margin').value = '';
+    document.getElementById('cmp-results').innerHTML = '';
+}
+
+function calculateFranchiseCompare() {
+    const franchises = [];
+
+    // Franchise A
+    const aName = document.getElementById('cmp-a-name').value || 'Franchise A';
+    const aInvestment = parseFloat(document.getElementById('cmp-a-investment').value) || 0;
+    const aRoyalty = parseFloat(document.getElementById('cmp-a-royalty').value) || 0;
+    const aRevenue = parseFloat(document.getElementById('cmp-a-revenue').value) || 0;
+    const aMargin = parseFloat(document.getElementById('cmp-a-margin').value) || 0;
+
+    if (aInvestment > 0 && aRevenue > 0) {
+        const aProfit = aRevenue * (aMargin / 100);
+        const aRoyaltyAmt = aRevenue * (aRoyalty / 100);
+        const aROI = (aProfit / aInvestment) * 100;
+        const aPayback = aInvestment / aProfit;
+        franchises.push({
+            name: aName,
+            investment: aInvestment,
+            royalty: aRoyalty,
+            royaltyAmt: aRoyaltyAmt,
+            revenue: aRevenue,
+            margin: aMargin,
+            profit: aProfit,
+            roi: aROI,
+            payback: aPayback
+        });
+    }
+
+    // Franchise B
+    const bName = document.getElementById('cmp-b-name').value || 'Franchise B';
+    const bInvestment = parseFloat(document.getElementById('cmp-b-investment').value) || 0;
+    const bRoyalty = parseFloat(document.getElementById('cmp-b-royalty').value) || 0;
+    const bRevenue = parseFloat(document.getElementById('cmp-b-revenue').value) || 0;
+    const bMargin = parseFloat(document.getElementById('cmp-b-margin').value) || 0;
+
+    if (bInvestment > 0 && bRevenue > 0) {
+        const bProfit = bRevenue * (bMargin / 100);
+        const bRoyaltyAmt = bRevenue * (bRoyalty / 100);
+        const bROI = (bProfit / bInvestment) * 100;
+        const bPayback = bInvestment / bProfit;
+        franchises.push({
+            name: bName,
+            investment: bInvestment,
+            royalty: bRoyalty,
+            royaltyAmt: bRoyaltyAmt,
+            revenue: bRevenue,
+            margin: bMargin,
+            profit: bProfit,
+            roi: bROI,
+            payback: bPayback
+        });
+    }
+
+    // Franchise C (optional)
+    const cName = document.getElementById('cmp-c-name').value;
+    const cInvestment = parseFloat(document.getElementById('cmp-c-investment').value) || 0;
+    const cRoyalty = parseFloat(document.getElementById('cmp-c-royalty').value) || 0;
+    const cRevenue = parseFloat(document.getElementById('cmp-c-revenue').value) || 0;
+    const cMargin = parseFloat(document.getElementById('cmp-c-margin').value) || 0;
+
+    if (cName && cInvestment > 0 && cRevenue > 0) {
+        const cProfit = cRevenue * (cMargin / 100);
+        const cRoyaltyAmt = cRevenue * (cRoyalty / 100);
+        const cROI = (cProfit / cInvestment) * 100;
+        const cPayback = cInvestment / cProfit;
+        franchises.push({
+            name: cName,
+            investment: cInvestment,
+            royalty: cRoyalty,
+            royaltyAmt: cRoyaltyAmt,
+            revenue: cRevenue,
+            margin: cMargin,
+            profit: cProfit,
+            roi: cROI,
+            payback: cPayback
+        });
+    }
+
+    if (franchises.length < 2) {
+        alert('Please enter data for at least 2 franchises to compare');
+        return;
+    }
+
+    // Find best in each category
+    const bestROI = franchises.reduce((a, b) => a.roi > b.roi ? a : b);
+    const bestPayback = franchises.reduce((a, b) => a.payback < b.payback ? a : b);
+    const lowestInvestment = franchises.reduce((a, b) => a.investment < b.investment ? a : b);
+    const highestProfit = franchises.reduce((a, b) => a.profit > b.profit ? a : b);
+
+    const resultsContainer = document.getElementById('cmp-results');
+    resultsContainer.innerHTML = `
+        <div class="calc-results">
+            <h3>⚖️ Franchise Comparison Results</h3>
+            <table class="calc-table">
+                <tr>
+                    <th>Metric</th>
+                    ${franchises.map(f => `<th>${f.name}</th>`).join('')}
+                </tr>
+                <tr>
+                    <td>Total Investment</td>
+                    ${franchises.map(f => `<td ${f === lowestInvestment ? 'class="highlight-best"' : ''}>${formatCurrency(f.investment)}</td>`).join('')}
+                </tr>
+                <tr>
+                    <td>Annual Revenue</td>
+                    ${franchises.map(f => `<td>${formatCurrency(f.revenue)}</td>`).join('')}
+                </tr>
+                <tr>
+                    <td>Royalty Rate</td>
+                    ${franchises.map(f => `<td>${formatPercent(f.royalty)}</td>`).join('')}
+                </tr>
+                <tr>
+                    <td>Annual Royalty</td>
+                    ${franchises.map(f => `<td>${formatCurrency(f.royaltyAmt)}</td>`).join('')}
+                </tr>
+                <tr>
+                    <td>Net Margin</td>
+                    ${franchises.map(f => `<td>${formatPercent(f.margin)}</td>`).join('')}
+                </tr>
+                <tr style="font-weight: 700;">
+                    <td>Annual Profit</td>
+                    ${franchises.map(f => `<td ${f === highestProfit ? 'class="highlight-best"' : ''}>${formatCurrency(f.profit)}</td>`).join('')}
+                </tr>
+                <tr style="font-weight: 700;">
+                    <td>Annual ROI</td>
+                    ${franchises.map(f => `<td ${f === bestROI ? 'class="highlight-best"' : ''}>${formatPercent(f.roi)}</td>`).join('')}
+                </tr>
+                <tr style="font-weight: 700;">
+                    <td>Payback Period</td>
+                    ${franchises.map(f => `<td ${f === bestPayback ? 'class="highlight-best"' : ''}>${f.payback.toFixed(1)} years</td>`).join('')}
+                </tr>
+            </table>
+
+            <h3 class="calc-mt-20">🏆 Winners by Category</h3>
+            <div class="calc-result-grid">
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Best ROI</div>
+                    <div class="calc-result-value positive">
+                        ${bestROI.name}
+                    </div>
+                    <div class="calc-result-subtitle">${formatPercent(bestROI.roi)} return</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Fastest Payback</div>
+                    <div class="calc-result-value positive">
+                        ${bestPayback.name}
+                    </div>
+                    <div class="calc-result-subtitle">${bestPayback.payback.toFixed(1)} years</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Highest Profit</div>
+                    <div class="calc-result-value positive">
+                        ${highestProfit.name}
+                    </div>
+                    <div class="calc-result-subtitle">${formatCurrency(highestProfit.profit)}/year</div>
+                </div>
+
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Lowest Investment</div>
+                    <div class="calc-result-value positive">
+                        ${lowestInvestment.name}
+                    </div>
+                    <div class="calc-result-subtitle">${formatCurrency(lowestInvestment.investment)}</div>
+                </div>
+            </div>
+
+            <div class="calc-alert calc-alert-info calc-mt-20">
+                💡 <strong>Analysis:</strong> ${bestROI.name} offers the best return on investment at ${formatPercent(bestROI.roi)}.
+                ${bestROI !== highestProfit ? `However, ${highestProfit.name} generates more absolute profit (${formatCurrency(highestProfit.profit)}/year) if capital isn't limited.` : ''}
+            </div>
+        </div>
+    `;
+}
+
+// ============================================================================
 // CALCULATOR 8: TERRITORY PENETRATION ESTIMATOR
 // ============================================================================
 
@@ -970,31 +2049,42 @@ function renderPenetration() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="pen-population">Target Population</label>
-                <input type="number" id="pen-population" value="500000" min="0" step="1000">
+                <input type="number" id="pen-population" value="500000" min="0" step="1000" required>
                 <span class="calc-input-hint">Total population in target territory</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="pen-units">Units Planned</label>
-                <input type="number" id="pen-units" value="5" min="1" step="1">
+                <input type="number" id="pen-units" value="5" min="1" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="pen-benchmark">Population per Unit Benchmark</label>
-                <input type="number" id="pen-benchmark" value="100000" min="0" step="1000">
+                <input type="number" id="pen-benchmark" value="100000" min="0" step="1000" required>
                 <span class="calc-input-hint">Industry standard or franchisor guidance</span>
             </div>
 
             <div class="calc-input-group">
                 <label for="pen-competitors">Existing Competitors in Radius</label>
-                <input type="number" id="pen-competitors" value="8" min="0" step="1">
+                <input type="number" id="pen-competitors" value="8" min="0" step="1" required>
             </div>
 
-            <button class="calc-button" onclick="calculatePenetration()">Calculate Territory Penetration</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculatePenetration()">Calculate Territory Penetration</button>
+                <button class="calc-button calc-button-secondary" onclick="resetPenetration()">Reset</button>
+            </div>
         </div>
 
         <div id="pen-results"></div>
     `;
+}
+
+function resetPenetration() {
+    document.getElementById('pen-population').value = '500000';
+    document.getElementById('pen-units').value = '5';
+    document.getElementById('pen-benchmark').value = '100000';
+    document.getElementById('pen-competitors').value = '8';
+    document.getElementById('pen-results').innerHTML = '';
 }
 
 function calculatePenetration() {
@@ -1104,25 +2194,40 @@ function renderMap() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="map-zip">ZIP Code</label>
-                <input type="text" id="map-zip" value="10001" maxlength="5" placeholder="Enter ZIP code">
+                <input type="text" id="map-zip" value="10001" maxlength="5" placeholder="Enter ZIP code" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="map-radius">Radius (miles)</label>
-                <input type="number" id="map-radius" value="10" min="1" max="100" step="1">
+                <input type="number" id="map-radius" value="10" min="1" max="100" step="1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="map-locations">Number of Existing Locations</label>
-                <input type="number" id="map-locations" value="5" min="0" step="1">
+                <input type="number" id="map-locations" value="5" min="0" step="1" required>
             </div>
 
-            <button class="calc-button" onclick="generateSaturationMap()">Generate Map</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="generateSaturationMap()">Generate Map</button>
+                <button class="calc-button calc-button-secondary" onclick="resetMap()">Reset</button>
+            </div>
         </div>
 
         <div id="map-results"></div>
         <div id="saturation-map" class="calc-map-container" style="display: none;"></div>
     `;
+}
+
+function resetMap() {
+    document.getElementById('map-zip').value = '10001';
+    document.getElementById('map-radius').value = '10';
+    document.getElementById('map-locations').value = '5';
+    document.getElementById('map-results').innerHTML = '';
+    const mapContainer = document.getElementById('saturation-map');
+    if (mapContainer) {
+        mapContainer.style.display = 'none';
+        mapContainer.innerHTML = '';
+    }
 }
 
 function generateSaturationMap() {
@@ -1232,30 +2337,41 @@ function renderSBALoan() {
         <div class="calc-form">
             <div class="calc-input-group">
                 <label for="sba-amount">Loan Amount</label>
-                <input type="number" id="sba-amount" value="250000" min="0" step="1000">
+                <input type="number" id="sba-amount" value="250000" min="0" step="1000" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="sba-rate">Interest Rate (%)</label>
-                <input type="number" id="sba-rate" value="7.5" min="0" max="100" step="0.1">
+                <input type="number" id="sba-rate" value="7.5" min="0" max="100" step="0.1" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="sba-payment">Monthly Payment</label>
-                <input type="number" id="sba-payment" value="3500" min="0" step="50">
+                <input type="number" id="sba-payment" value="3500" min="0" step="50" required>
             </div>
 
             <div class="calc-input-group">
                 <label for="sba-extra">Extra Principal Payment (Optional)</label>
-                <input type="number" id="sba-extra" value="0" min="0" step="50">
+                <input type="number" id="sba-extra" value="0" min="0" step="50" required>
                 <span class="calc-input-hint">Additional payment toward principal each month</span>
             </div>
 
-            <button class="calc-button" onclick="calculateSBALoan()">Calculate Loan Payoff</button>
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="calculateSBALoan()">Calculate Loan Payoff</button>
+                <button class="calc-button calc-button-secondary" onclick="resetSBALoan()">Reset</button>
+            </div>
         </div>
 
         <div id="sba-results"></div>
     `;
+}
+
+function resetSBALoan() {
+    document.getElementById('sba-amount').value = '250000';
+    document.getElementById('sba-rate').value = '7.5';
+    document.getElementById('sba-payment').value = '3500';
+    document.getElementById('sba-extra').value = '0';
+    document.getElementById('sba-results').innerHTML = '';
 }
 
 function calculateSBALoan() {

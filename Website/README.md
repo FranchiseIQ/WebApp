@@ -35,7 +35,7 @@ MCD (McDonald's), YUM (Yum! Brands), QSR (Restaurant Brands), WEN (Wendy's), DPZ
 DRVN (Driven Brands), HRB (H&R Block), MCW (Mister Car Wash), SERV (ServiceMaster), ROL (Rollins)
 
 **Fitness & Health:**
-PLNT (Planet Fitness), BFT (F45 Training)
+PLNT (Planet Fitness)
 
 **Hospitality:**
 MAR (Marriott), HLT (Hilton), H (Hyatt), CHH (Choice Hotels), WH (Wyndham), VAC (Marriott Vacations), TNL (Travel + Leisure)

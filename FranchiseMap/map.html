@@ -3,283 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FranResearch - Interactive Franchise Map</title>
-    <meta name="description" content="Interactive map showing franchise locations across North America using OpenStreetMap">
-
-    <!-- Global Styles -->
-    <link rel="stylesheet" href="../assets/css/global.css">
-
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-          crossorigin=""/>
-
-    <!-- Leaflet JavaScript -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
-
-    <link rel="stylesheet" href="map-style.css">
-    <style>
-        /* Reset body padding - using fixed positioning */
-        html, body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        body {
-            padding-top: 170px; /* Account for fixed ticker + nav */
-        }
-
-        /* Global Ticker - Fixed positioning */
-        .global-ticker {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 300;
-            background: #0a0a0a;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.16);
-            overflow: hidden;
-        }
-
-        .global-ticker iframe {
-            width: 100%;
-            height: 120px;
-            border: none;
-            display: block;
-            overflow: hidden;
-        }
-
-        /* Navigation Bar - Fixed below ticker */
-        .main-nav {
-            position: fixed;
-            top: 120px;
-            left: 0;
-            width: 100%;
-            z-index: 299;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: rgba(15, 23, 42, 0.95);
-            padding: 12px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            backdrop-filter: blur(12px);
-            overflow-x: auto;
-            box-sizing: border-box;
-        }
-
-        .main-nav .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--text);
-            margin-right: auto;
-        }
-
-        .main-nav .nav-brand img {
-            height: 28px;
-            width: auto;
-        }
-
-        .main-nav a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            white-space: nowrap;
-            padding: 6px 10px;
-            border-radius: 6px;
-            transition: color 0.15s, background 0.15s;
-        }
-
-        .main-nav a:hover {
-            color: var(--text);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .main-nav a.active {
-            color: var(--accent1);
-            background: rgba(99, 102, 241, 0.15);
-        }
-
-        .map-container {
-            height: calc(100vh - 170px);
-            min-height: 500px;
-        }
-
-        /* Search Box */
-        .search-container {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .search-input {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 6px;
-            font-size: 0.95em;
-            width: 200px;
-            background: white;
-        }
-
-        .search-btn {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 6px;
-            font-size: 0.95em;
-            background: white;
-            cursor: pointer;
-            font-weight: 600;
-            color: #667eea;
-            transition: all 0.2s;
-        }
-
-        .search-btn:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        @media (max-width: 768px) {
-            .main-nav {
-                gap: 16px;
-                padding: 10px 15px;
-            }
-
-            .search-input {
-                width: 140px;
-            }
-        }
-
-        /* Embed mode - hide ticker and nav when loaded in iframe */
-        body.embed-mode {
-            padding-top: 0 !important;
-        }
-
-        body.embed-mode .global-ticker,
-        body.embed-mode .main-nav {
-            display: none !important;
-        }
-
-        body.embed-mode .map-container {
-            height: 100vh;
-        }
-    </style>
-    <script>
-        // Detect embed mode from URL parameter - add class before body renders
-        if (new URLSearchParams(window.location.search).get('embed') === 'true') {
-            document.write('<style>body{padding-top:0!important}.global-ticker,.main-nav{display:none!important}.map-container{height:100vh}</style>');
-        }
-    </script>
+    <title>FranchiseIQ Map</title>
+    <!-- Leaflet & Utilities CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Global Stock Ticker -->
-    <div class="global-ticker">
-        <iframe src="../Website/ticker.html" title="Franchise stock ticker" loading="lazy"></iframe>
-    </div>
-
-    <!-- Navigation Bar -->
-    <nav class="main-nav">
-        <a href="../index.html" class="nav-brand">
-            <img src="../logo.svg" alt="FranResearch">
-            <span>FranResearch</span>
-        </a>
-        <a href="../Website/ticker.html">Ticker</a>
-        <a href="../StockChart/chart.html">Charts</a>
-        <a href="map.html" class="active">Map</a>
-        <a href="../FranchiseNews/news-feed.html">News</a>
-        <a href="../sports.html">Sports</a>
-        <a href="../franchise_calculators_module/index.html">Calculators</a>
-        <a href="../about.html">About</a>
-    </nav>
-
-    <div class="map-container">
-        <!-- Header -->
-        <div class="map-header">
-            <div class="header-left">
-                <a href="../index.html" class="logo-link">
-                    <img src="../logo.svg" alt="FranResearch" class="logo">
-                </a>
-                <h1>Discover Franchise Locations</h1>
+    <header class="top-bar">
+        <div class="logo-area">FranchiseIQ</div>
+        <div id="stock-ticker" class="stock-ticker">
+            <div class="ticker-status">
+                <span id="market-status">Market Closed</span>
+                <span id="market-countdown">Opens in --:--</span>
             </div>
-            <div class="header-controls">
-                <div class="search-container">
-                    <input type="text" id="location-search" class="search-input" placeholder="Enter city or zip...">
-                    <button id="search-btn" class="search-btn">Find</button>
-                </div>
-                <select id="radius-filter" class="filter-select" title="Competitor analysis radius">
-                    <option value="all">Competitor Radius</option>
-                    <option value="1">1 mile</option>
-                    <option value="2">2 miles</option>
-                    <option value="5">5 miles</option>
-                    <option value="10">10 miles</option>
-                    <option value="15">15 miles</option>
-                    <option value="25">25 miles</option>
-                    <option value="50">50 miles</option>
-                    <option value="100">100 miles</option>
-                </select>
-                <select id="brand-filter" class="filter-select" title="Filter by brand">
-                    <option value="all">All Brands</option>
-                    <option value="MCD">McDonald's</option>
-                    <option value="YUM">Yum! Brands</option>
-                    <option value="QSR">Restaurant Brands</option>
-                    <option value="WEN">Wendy's</option>
-                    <option value="DPZ">Domino's</option>
-                    <option value="SBUX">Starbucks</option>
-                </select>
-            </div>
+            <div id="ticker-tape" class="ticker-tape"></div>
         </div>
+    </header>
 
-        <!-- Map -->
+    <div id="map-container">
         <div id="map"></div>
 
-        <!-- Map Attribution -->
-        <div class="map-attribution">
-            &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>
-            &middot; <a href="https://leafletjs.com" target="_blank">Leaflet</a>
-            <span class="map-hint">Drag to pan · Scroll to zoom</span>
+        <!-- Custom Controls Rail -->
+        <div id="map-controls-rail">
+            <button id="btn-home" class="control-btn" title="Reset View"><i class="fa-solid fa-house"></i></button>
+            <button id="btn-locate" class="control-btn" title="Near Me"><i class="fa-solid fa-location-crosshairs"></i></button>
+            <button id="btn-cluster-toggle" class="control-btn active" title="Toggle Clustering"><i class="fa-solid fa-circle-nodes"></i></button>
+            <button id="btn-panel-toggle" class="control-btn" title="Toggle Panel"><i class="fa-solid fa-layer-group"></i></button>
         </div>
 
         <!-- Info Panel -->
-        <div id="info-panel" class="info-panel">
-            <button id="close-panel" class="close-btn">&times;</button>
-            <h2 id="location-name">Explore Locations</h2>
-            <div id="location-details">
-                <p>Click any marker to see franchise details, nearby competitors, and market insights.</p>
+        <aside id="info-panel" class="panel-expanded">
+            <div class="panel-header">
+                <h2>Market Analysis</h2>
+                <div class="header-controls">
+                    <button id="collapse-panel" class="collapse-btn" title="Collapse"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
             </div>
-        </div>
+            <div class="panel-content">
+                <p class="panel-intro">Select brands to visualize suitability scores.</p>
 
-        <!-- Legend -->
-        <div class="legend">
-            <h3>Franchise Categories</h3>
-            <div class="legend-item">
-                <span class="legend-marker" style="background: #ff6b6b;"></span>
-                <span>Quick Service (QSR)</span>
+                <!-- Filter Controls -->
+                <div class="filter-controls">
+                    <button id="btn-select-all" class="filter-btn">Select All</button>
+                    <button id="btn-deselect-all" class="filter-btn">Deselect All</button>
+                    <button id="btn-roark" class="filter-btn roark-btn">Roark Portfolio</button>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="category-filters">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="qsr">QSR</button>
+                    <button class="category-btn" data-category="casual">Casual</button>
+                    <button class="category-btn" data-category="hotels">Hotels</button>
+                    <button class="category-btn" data-category="services">Services</button>
+                    <button class="category-btn" data-category="private">Private</button>
+                </div>
+
+                <!-- Location Count -->
+                <div class="location-count">
+                    <span id="visible-count">0</span> locations visible
+                </div>
+
+                <!-- Brand Legend -->
+                <div id="brand-legend"></div>
             </div>
-            <div class="legend-item">
-                <span class="legend-marker" style="background: #4ecdc4;"></span>
-                <span>Casual Dining</span>
-            </div>
-            <div class="legend-item">
-                <span class="legend-marker" style="background: #45b7d1;"></span>
-                <span>Hotels & Hospitality</span>
-            </div>
-            <div class="legend-item">
-                <span class="legend-marker" style="background: #96ceb4;"></span>
-                <span>Fitness & Wellness</span>
-            </div>
-            <div class="legend-item">
-                <span class="legend-marker" style="background: #ffa07a;"></span>
-                <span>Business Services</span>
-            </div>
-        </div>
+        </aside>
     </div>
 
-    <script src="map.js"></script>
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://cdn.osmbuildings.org/classic/0.2.2b/OSMBuildings-Leaflet.js"></script>
+    <script src="https://unpkg.com/osmtogeojson@3.0.0/osmtogeojson.js"></script>
+    <script src="js/ticker.js"></script>
+    <script src="js/map.js"></script>
 </body>
 </html>

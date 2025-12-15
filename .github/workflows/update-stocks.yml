@@ -1,0 +1,47 @@
+name: Update Stock Data
+
+on:
+  schedule:
+    # Every 30 minutes during market hours (Mon-Fri, 9:30 AM - 4:30 PM ET)
+    # GitHub Actions uses UTC, so 9:30 AM ET = 14:30 UTC (13:30 during DST)
+    - cron: '*/30 13-21 * * 1-5'
+  workflow_dispatch:  # Manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update-stocks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install yfinance pandas
+
+      - name: Fetch stock data
+        run: |
+          python FranchiseMap/scripts/fetch_stocks.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add FranchiseMap/data/stocks.json
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update stock data [skip ci]"
+            git pull --rebase origin main
+            git push
+          fi

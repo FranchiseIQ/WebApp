@@ -18,500 +18,14 @@
 
     <!-- Design System -->
     <link rel="stylesheet" href="assets/css/global.css">
-    <!-- Ticker Widget Styles (preserved for ticker component) -->
+    <!-- Layout System -->
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="assets/css/pages/home.css">
+    <!-- Ticker Widget Styles -->
     <link rel="stylesheet" href="Website/style.css">
     <!-- News Widget Styles -->
     <link rel="stylesheet" href="FranchiseNews/news-widget.css">
-
-    <style>
-        /* =================================================================
-           PAGE-SPECIFIC STYLES
-           Jobs-to-be-done: New visitors understand value, explore tools
-           ================================================================= */
-
-        body {
-            margin: 0;
-            padding: 0;
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Hide default ticker header on homepage - we have our own nav */
-        #header { display: none !important; }
-
-        /* Page wrapper */
-        .page-wrapper {
-            min-height: 100vh;
-        }
-
-        /* Shell container - consistent width */
-        .shell {
-            width: 94%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* =================================================================
-           HERO SECTION - Above the fold content
-           Cognitive Load: Clear value prop + single primary CTA
-           ================================================================= */
-
-        .hero-section {
-            text-align: center;
-            padding: 64px 20px 48px;
-        }
-
-        .hero-section .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: rgba(99, 102, 241, 0.15);
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent1);
-            margin-bottom: 24px;
-        }
-
-        .hero-section h1 {
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 800;
-            line-height: 1.15;
-            margin: 0 0 16px;
-            color: var(--text);
-        }
-
-        .hero-section .hero-subtitle {
-            font-size: clamp(16px, 2vw, 20px);
-            color: var(--text-muted);
-            max-width: 640px;
-            margin: 0 auto 32px;
-            line-height: 1.6;
-        }
-
-        /* Primary CTA - Fitts' Law: Large, prominent button */
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 16px 32px;
-            background: var(--gradient);
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 12px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .hero-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4);
-        }
-
-        /* Stats row - Gestalt: Proximity */
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 48px;
-            margin-top: 48px;
-            flex-wrap: wrap;
-        }
-
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat-value {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--text);
-        }
-
-        .hero-stat-label {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        /* =================================================================
-           EXPLORE TOOLS SECTION
-           Hick's Law: Limited, clear choices
-           Fitts' Law: Large touch targets
-           ================================================================= */
-
-        .tools-section {
-            padding: 64px 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .section-header h2 {
-            font-size: 28px;
-            font-weight: 700;
-            margin: 0 0 12px;
-        }
-
-        .section-header p {
-            font-size: 16px;
-            color: var(--text-muted);
-            max-width: 520px;
-            margin: 0 auto;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .tool-card {
-            display: flex;
-            flex-direction: column;
-            padding: 28px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            text-decoration: none;
-            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(99, 102, 241, 0.4);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .tool-card-icon {
-            font-size: 32px;
-            margin-bottom: 16px;
-        }
-
-        .tool-card-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 8px;
-        }
-
-        .tool-card-desc {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.5;
-            flex-grow: 1;
-        }
-
-        .tool-card-action {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 16px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--accent1);
-        }
-
-        .tool-card-action::after {
-            content: '→';
-            transition: transform 0.15s;
-        }
-
-        .tool-card:hover .tool-card-action::after {
-            transform: translateX(4px);
-        }
-
-        /* =================================================================
-           FEATURE PREVIEWS - Progressive disclosure
-           ================================================================= */
-
-        .preview-section {
-            padding: 48px 0;
-        }
-
-        .preview-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 32px;
-        }
-
-        .preview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .preview-header h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        .preview-header p {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin: 4px 0 0;
-        }
-
-        .preview-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 18px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text);
-            text-decoration: none;
-            transition: background 0.15s;
-        }
-
-        .preview-link:hover {
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        .preview-content {
-            position: relative;
-        }
-
-        .preview-content iframe {
-            width: 100%;
-            border: none;
-            display: block;
-        }
-
-        /* =================================================================
-           FEATURES LIST
-           Gestalt: Similarity and alignment
-           ================================================================= */
-
-        .features-section {
-            padding: 64px 0;
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        .feature-item {
-            padding: 24px;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .feature-item h4 {
-            font-size: 16px;
-            font-weight: 600;
-            margin: 0 0 8px;
-            color: var(--text);
-        }
-
-        .feature-item p {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        /* =================================================================
-           EMBED SECTION - Collapsible for progressive disclosure
-           ================================================================= */
-
-        .embed-section {
-            padding: 48px 0;
-        }
-
-        .embed-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        .embed-toggle {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 24px;
-            background: transparent;
-            border: none;
-            color: var(--text);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: left;
-        }
-
-        .embed-toggle:hover {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .embed-toggle-icon {
-            transition: transform 0.2s;
-        }
-
-        .embed-toggle.active .embed-toggle-icon {
-            transform: rotate(180deg);
-        }
-
-        .embed-content {
-            display: none;
-            padding: 0 24px 24px;
-        }
-
-        .embed-content.show {
-            display: block;
-        }
-
-        .embed-item {
-            margin-bottom: 24px;
-        }
-
-        .embed-item h4 {
-            font-size: 14px;
-            font-weight: 600;
-            margin: 0 0 8px;
-        }
-
-        .code-block {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            padding: 16px;
-            font-family: 'Monaco', 'Consolas', monospace;
-            font-size: 13px;
-            color: var(--text-secondary);
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-break: break-all;
-        }
-
-        /* =================================================================
-           FOOTER - Jakob's Law: Standard footer pattern
-           ================================================================= */
-
-        .site-footer {
-            background: rgba(0, 0, 0, 0.4);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 48px 0 32px;
-            margin-top: 64px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-section h4 {
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin: 0 0 16px;
-            color: var(--text);
-        }
-
-        .footer-section ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-section li {
-            margin-bottom: 8px;
-        }
-
-        .footer-section a {
-            font-size: 14px;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.15s;
-        }
-
-        .footer-section a:hover {
-            color: var(--text);
-        }
-
-        .footer-section p {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        /* =================================================================
-           NEWS TICKER (BOTTOM) - Fixed position, preserved from original
-           ================================================================= */
-
-        .news-ticker-fixed {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
-        }
-
-        /* Add bottom padding to account for fixed news ticker */
-        .page-wrapper {
-            padding-bottom: 80px;
-        }
-
-        /* =================================================================
-           RESPONSIVE ADJUSTMENTS
-           ================================================================= */
-
-        @media (max-width: 768px) {
-            .hero-section {
-                padding: 48px 16px 32px;
-            }
-
-            .hero-stats {
-                gap: 32px;
-            }
-
-            .hero-stat-value {
-                font-size: 28px;
-            }
-
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .preview-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-    </style>
 </head>
 <body class="has-fixed-ticker has-fixed-nav">
     <!-- Skip link for accessibility -->
@@ -588,7 +102,7 @@
                     </a>
                     <div class="hero-stats">
                         <div class="hero-stat">
-                            <div class="hero-stat-value">41</div>
+                            <div class="hero-stat-value">40</div>
                             <div class="hero-stat-label">Stocks Tracked</div>
                         </div>
                         <div class="hero-stat">
@@ -598,28 +112,6 @@
                         <div class="hero-stat">
                             <div class="hero-stat-value">100%</div>
                             <div class="hero-stat-label">Client-Side</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- S&P 500 INDEX WIDGET -->
-            <section class="preview-section" id="homepage-index-widget">
-                <div class="shell">
-                    <div class="preview-card">
-                        <header class="preview-header">
-                            <div>
-                                <h3>S&P 500 Market Overview</h3>
-                                <p>Real-time index performance with interactive charting</p>
-                            </div>
-                        </header>
-                        <div class="preview-content">
-                            <iframe
-                                src="widgets/index-market-widget/index-widget.html"
-                                height="400"
-                                loading="lazy"
-                                title="S&P 500 Index Chart Widget">
-                            </iframe>
                         </div>
                     </div>
                 </div>
@@ -690,9 +182,36 @@
                         <div class="preview-content">
                             <iframe
                                 src="widgets/stock-widget.html"
-                                height="600"
+                                style="width: 100%; height: 1100px; border: none; border-radius: 12px; overflow: hidden;"
+                                scrolling="no"
                                 loading="lazy"
                                 title="Interactive Stock Chart Widget">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MAP PREVIEW -->
+            <section class="preview-section">
+                <div class="shell">
+                    <div class="preview-card">
+                        <header class="preview-header">
+                            <div>
+                                <h3>Franchise Location Map</h3>
+                                <p>Explore franchise locations across North America</p>
+                            </div>
+                            <a href="FranchiseMap/map.html" class="preview-link" target="_blank">
+                                Open Full Screen
+                                <span>↗</span>
+                            </a>
+                        </header>
+                        <div class="preview-content">
+                            <iframe
+                                src="FranchiseMap/map.html?embed=true"
+                                height="600"
+                                loading="lazy"
+                                title="Franchise Map Preview">
                             </iframe>
                         </div>
                     </div>
@@ -730,32 +249,6 @@
                         <div class="feature-item">
                             <h4>Year Markers</h4>
                             <p>Toggle dashed lines at year boundaries for easy time navigation.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- MAP PREVIEW -->
-            <section class="preview-section">
-                <div class="shell">
-                    <div class="preview-card">
-                        <header class="preview-header">
-                            <div>
-                                <h3>Franchise Location Map</h3>
-                                <p>Explore franchise locations across North America</p>
-                            </div>
-                            <a href="FranchiseMap/map.html" class="preview-link" target="_blank">
-                                Open Full Screen
-                                <span>↗</span>
-                            </a>
-                        </header>
-                        <div class="preview-content">
-                            <iframe
-                                src="FranchiseMap/map.html?embed=true"
-                                height="500"
-                                loading="lazy"
-                                title="Franchise Map Preview">
-                            </iframe>
                         </div>
                     </div>
                 </div>
@@ -800,11 +293,6 @@
                                 <h4>Interactive Charts</h4>
                                 <div class="code-block">&lt;iframe src="https://monroegamble.github.io/WebApp/widgets/stock-widget.html"
     width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;</div>
-                            </div>
-                            <div class="embed-item">
-                                <h4>S&P 500 Index Chart</h4>
-                                <div class="code-block">&lt;iframe src="https://monroegamble.github.io/WebApp/widgets/index-market-widget/index-widget.html"
-    width="100%" height="400" frameborder="0"&gt;&lt;/iframe&gt;</div>
                             </div>
                             <div class="embed-item">
                                 <h4>Franchise Map</h4>
@@ -868,8 +356,18 @@
     <div id="news-ticker-bottom" class="news-ticker-fixed"></div>
 
     <!-- =================================================================
-         SCRIPTS - Ticker preserved exactly
+         SCRIPTS - Shared utilities and page-specific scripts
          ================================================================= -->
+    <!-- Shared Utilities (optional - loaded when needed) -->
+    <script src="src/js/config/app.config.js"></script>
+    <script src="src/js/utils/formatters.js"></script>
+    <script src="src/js/utils/dom.js"></script>
+    <script src="src/js/utils/storage.js"></script>
+    <script src="src/js/utils/market.js"></script>
+    <script src="src/js/api/dataService.js"></script>
+    <script src="src/js/utils/index.js"></script>
+
+    <!-- Page Scripts -->
     <script src="Website/ticker.js"></script>
     <script src="FranchiseNews/newsService.js"></script>
     <script src="FranchiseNews/news-widget.js"></script>
