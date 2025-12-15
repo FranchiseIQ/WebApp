@@ -20,6 +20,7 @@ window.initFranchiseCalculators = function() {
 
     // Render all calculators
     renderROI();
+    renderFinancialModel();
     renderItem7();
     renderRoyalty();
     renderCashFlow();
@@ -480,6 +481,575 @@ function calculateROI() {
         }
     ], 'Investment Recovery & Profit Timeline');
 }
+
+// ============================================================================
+// FINANCIAL MODEL BUILDER
+// ============================================================================
+
+/**
+ * Industry templates with typical metrics
+ */
+const INDUSTRY_TEMPLATES = {
+    qsr: {
+        name: 'Quick Service Restaurant',
+        icon: '🍔',
+        defaults: {
+            avgTicket: 12.50,
+            dailyTransactions: 200,
+            cogsPercent: 30,
+            laborPercent: 28,
+            rent: 6000,
+            utilities: 1200,
+            marketing: 2000,
+            insurance: 800,
+            royaltyPercent: 6,
+            initialInvestment: 350000,
+            growthRate: 5
+        }
+    },
+    fitness: {
+        name: 'Fitness Center',
+        icon: '💪',
+        defaults: {
+            avgTicket: 49.99,
+            dailyTransactions: 20,
+            cogsPercent: 10,
+            laborPercent: 35,
+            rent: 8000,
+            utilities: 2000,
+            marketing: 3000,
+            insurance: 1500,
+            royaltyPercent: 7,
+            initialInvestment: 500000,
+            growthRate: 8
+        }
+    },
+    retail: {
+        name: 'Retail Store',
+        icon: '🛍️',
+        defaults: {
+            avgTicket: 45.00,
+            dailyTransactions: 80,
+            cogsPercent: 50,
+            laborPercent: 20,
+            rent: 5000,
+            utilities: 800,
+            marketing: 1500,
+            insurance: 600,
+            royaltyPercent: 5,
+            initialInvestment: 250000,
+            growthRate: 4
+        }
+    },
+    services: {
+        name: 'Service Business',
+        icon: '🔧',
+        defaults: {
+            avgTicket: 150.00,
+            dailyTransactions: 15,
+            cogsPercent: 20,
+            laborPercent: 40,
+            rent: 3000,
+            utilities: 600,
+            marketing: 2500,
+            insurance: 1000,
+            royaltyPercent: 8,
+            initialInvestment: 150000,
+            growthRate: 6
+        }
+    }
+};
+
+function renderFinancialModel() {
+    const container = document.getElementById('calculator-financial-model');
+
+    container.innerHTML = `
+        <div class="calc-form">
+            <div class="fm-header">
+                <h3>📋 Industry Selection</h3>
+                <p style="color: #999; font-size: 14px; margin-top: 8px;">Choose an industry template to pre-fill typical values</p>
+            </div>
+
+            <div class="fm-industry-selector">
+                ${Object.entries(INDUSTRY_TEMPLATES).map(([key, template]) => `
+                    <div class="fm-industry-card" onclick="selectIndustry('${key}')">
+                        <div class="fm-industry-icon">${template.icon}</div>
+                        <div class="fm-industry-name">${template.name}</div>
+                    </div>
+                `).join('')}
+            </div>
+
+            <div class="fm-section">
+                <h3>💰 Revenue Assumptions</h3>
+                <div class="calc-input-row">
+                    <div class="calc-input-group">
+                        <label for="fm-ticket">Average Transaction ($)</label>
+                        <input type="number" id="fm-ticket" value="12.50" step="0.01" required>
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="fm-transactions">Daily Transactions</label>
+                        <input type="number" id="fm-transactions" value="200" step="1" required>
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="fm-growth">Annual Growth Rate (%)</label>
+                        <input type="number" id="fm-growth" value="5" step="0.5" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fm-section">
+                <h3>💸 Operating Expenses</h3>
+                <div class="calc-input-row">
+                    <div class="calc-input-group">
+                        <label for="fm-cogs">Cost of Goods Sold (%)</label>
+                        <input type="number" id="fm-cogs" value="30" step="0.5" required>
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="fm-labor">Labor Cost (%)</label>
+                        <input type="number" id="fm-labor" value="28" step="0.5" required>
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="fm-royalty">Royalty Fee (%)</label>
+                        <input type="number" id="fm-royalty" value="6" step="0.5" required>
+                    </div>
+                </div>
+                <div class="calc-input-row">
+                    <div class="calc-input-group">
+                        <label for="fm-rent">Monthly Rent ($)</label>
+                        <input type="number" id="fm-rent" value="6000" step="100" required>
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="fm-utilities">Monthly Utilities ($)</label>
+                        <input type="number" id="fm-utilities" value="1200" step="50" required>
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="fm-marketing">Monthly Marketing ($)</label>
+                        <input type="number" id="fm-marketing" value="2000" step="100" required>
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="fm-insurance">Monthly Insurance ($)</label>
+                        <input type="number" id="fm-insurance" value="800" step="50" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fm-section">
+                <h3>🏦 Initial Investment</h3>
+                <div class="calc-input-group">
+                    <label for="fm-investment">Total Initial Investment ($)</label>
+                    <input type="number" id="fm-investment" value="350000" step="1000" required>
+                    <span class="calc-input-hint">Total capital required to open</span>
+                </div>
+            </div>
+
+            <div class="calc-button-group">
+                <button class="calc-button" onclick="buildFinancialModel()">🚀 Build Financial Model</button>
+                <button class="calc-button calc-button-secondary" onclick="resetFinancialModel()">Reset</button>
+            </div>
+        </div>
+
+        <div id="fm-results"></div>
+    `;
+}
+
+/**
+ * Select industry template and populate form
+ */
+window.selectIndustry = function(industryKey) {
+    const template = INDUSTRY_TEMPLATES[industryKey];
+    if (!template) return;
+
+    const defaults = template.defaults;
+
+    document.getElementById('fm-ticket').value = defaults.avgTicket;
+    document.getElementById('fm-transactions').value = defaults.dailyTransactions;
+    document.getElementById('fm-growth').value = defaults.growthRate;
+    document.getElementById('fm-cogs').value = defaults.cogsPercent;
+    document.getElementById('fm-labor').value = defaults.laborPercent;
+    document.getElementById('fm-royalty').value = defaults.royaltyPercent;
+    document.getElementById('fm-rent').value = defaults.rent;
+    document.getElementById('fm-utilities').value = defaults.utilities;
+    document.getElementById('fm-marketing').value = defaults.marketing;
+    document.getElementById('fm-insurance').value = defaults.insurance;
+    document.getElementById('fm-investment').value = defaults.initialInvestment;
+
+    // Visual feedback
+    document.querySelectorAll('.fm-industry-card').forEach(card => {
+        card.style.background = 'rgba(15, 23, 42, 0.4)';
+        card.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+    });
+    event.target.closest('.fm-industry-card').style.background = 'rgba(0, 137, 123, 0.15)';
+    event.target.closest('.fm-industry-card').style.borderColor = '#00897b';
+};
+
+/**
+ * Build comprehensive 5-year financial model
+ */
+window.buildFinancialModel = function() {
+    // Get inputs
+    const avgTicket = parseFloat(document.getElementById('fm-ticket').value);
+    const dailyTransactions = parseFloat(document.getElementById('fm-transactions').value);
+    const growthRate = parseFloat(document.getElementById('fm-growth').value) / 100;
+    const cogsPercent = parseFloat(document.getElementById('fm-cogs').value) / 100;
+    const laborPercent = parseFloat(document.getElementById('fm-labor').value) / 100;
+    const royaltyPercent = parseFloat(document.getElementById('fm-royalty').value) / 100;
+    const rent = parseFloat(document.getElementById('fm-rent').value);
+    const utilities = parseFloat(document.getElementById('fm-utilities').value);
+    const marketing = parseFloat(document.getElementById('fm-marketing').value);
+    const insurance = parseFloat(document.getElementById('fm-insurance').value);
+    const initialInvestment = parseFloat(document.getElementById('fm-investment').value);
+
+    // Calculate base monthly revenue
+    const baseMonthlyRevenue = avgTicket * dailyTransactions * 30;
+
+    // Build 5-year model
+    const yearlyData = [];
+    const monthlyYear1 = [];
+
+    for (let year = 1; year <= 5; year++) {
+        const yearRevenue = baseMonthlyRevenue * 12 * Math.pow(1 + growthRate, year - 1);
+        const cogs = yearRevenue * cogsPercent;
+        const labor = yearRevenue * laborPercent;
+        const royalty = yearRevenue * royaltyPercent;
+        const fixedCosts = (rent + utilities + marketing + insurance) * 12;
+        const totalExpenses = cogs + labor + royalty + fixedCosts;
+        const ebitda = yearRevenue - totalExpenses;
+        const margin = (ebitda / yearRevenue) * 100;
+
+        yearlyData.push({
+            year,
+            revenue: yearRevenue,
+            cogs,
+            labor,
+            royalty,
+            fixedCosts,
+            totalExpenses,
+            ebitda,
+            margin
+        });
+    }
+
+    // Build Month-by-month for Year 1
+    for (let month = 1; month <= 12; month++) {
+        const monthRevenue = baseMonthlyRevenue * (1 + (growthRate / 12) * (month - 1));
+        const cogs = monthRevenue * cogsPercent;
+        const labor = monthRevenue * laborPercent;
+        const royalty = monthRevenue * royaltyPercent;
+        const fixedCosts = rent + utilities + marketing + insurance;
+        const totalExpenses = cogs + labor + royalty + fixedCosts;
+        const ebitda = monthRevenue - totalExpenses;
+
+        monthlyYear1.push({
+            month,
+            revenue: monthRevenue,
+            cogs,
+            labor,
+            royalty,
+            fixedCosts,
+            totalExpenses,
+            ebitda
+        });
+    }
+
+    // Calculate cumulative cash flow
+    let cumulativeCashFlow = -initialInvestment;
+    const cumulativeData = [cumulativeCashFlow];
+    yearlyData.forEach(year => {
+        cumulativeCashFlow += year.ebitda;
+        cumulativeData.push(cumulativeCashFlow);
+    });
+
+    // Render results
+    renderFinancialModelResults(yearlyData, monthlyYear1, cumulativeData, initialInvestment);
+};
+
+/**
+ * Render financial model results
+ */
+function renderFinancialModelResults(yearlyData, monthlyYear1, cumulativeData, initialInvestment) {
+    const container = document.getElementById('fm-results');
+
+    // Calculate key metrics
+    const year1Ebitda = yearlyData[0].ebitda;
+    const year5Ebitda = yearlyData[4].ebitda;
+    const year5Revenue = yearlyData[4].revenue;
+    const avgMargin = yearlyData.reduce((sum, y) => sum + y.margin, 0) / 5;
+    const totalProfit5Years = yearlyData.reduce((sum, y) => sum + y.ebitda, 0);
+    const breakeven = cumulativeData.findIndex(val => val > 0);
+
+    container.innerHTML = `
+        <div class="calc-results">
+            <div class="fm-export-header">
+                <h3>📊 5-Year Financial Projection</h3>
+                <button class="calc-button-small" onclick="exportFinancialModel()">
+                    📥 Export to CSV
+                </button>
+            </div>
+
+            <div class="calc-result-grid">
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Year 1 EBITDA</div>
+                    <div class="calc-result-value ${year1Ebitda > 0 ? 'positive' : 'negative'}">
+                        ${formatCurrency(year1Ebitda)}
+                    </div>
+                    <div class="calc-result-subtitle">${formatPercent(yearlyData[0].margin)} margin</div>
+                </div>
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Year 5 Revenue</div>
+                    <div class="calc-result-value positive">
+                        ${formatCurrency(year5Revenue)}
+                    </div>
+                    <div class="calc-result-subtitle">${formatCurrency(year5Ebitda)} EBITDA</div>
+                </div>
+                <div class="calc-result-card">
+                    <div class="calc-result-label">Payback Period</div>
+                    <div class="calc-result-value neutral">
+                        ${breakeven > 0 ? `Year ${breakeven}` : 'N/A'}
+                    </div>
+                    <div class="calc-result-subtitle">When investment recovered</div>
+                </div>
+                <div class="calc-result-card">
+                    <div class="calc-result-label">5-Year Total Profit</div>
+                    <div class="calc-result-value ${totalProfit5Years > initialInvestment ? 'positive' : 'neutral'}">
+                        ${formatCurrency(totalProfit5Years)}
+                    </div>
+                    <div class="calc-result-subtitle">${formatPercent((totalProfit5Years / initialInvestment) * 100)} ROI</div>
+                </div>
+            </div>
+
+            ${renderFinancialCharts(yearlyData, monthlyYear1, cumulativeData)}
+            ${renderFinancialTables(yearlyData, monthlyYear1)}
+        </div>
+    `;
+
+    // Store data globally for export
+    window.financialModelData = { yearlyData, monthlyYear1, cumulativeData, initialInvestment };
+}
+
+/**
+ * Render financial charts
+ */
+function renderFinancialCharts(yearlyData, monthlyYear1, cumulativeData) {
+    setTimeout(() => {
+        // 5-Year Revenue & Profit Chart
+        createLineChart('fm-chart-revenue',
+            ['Year 0', ...yearlyData.map(y => `Year ${y.year}`)],
+            [{
+                label: 'Revenue',
+                data: [0, ...yearlyData.map(y => y.revenue)],
+                borderColor: '#00897b',
+                backgroundColor: 'rgba(0, 137, 123, 0.1)',
+                fill: true
+            }, {
+                label: 'EBITDA',
+                data: [0, ...yearlyData.map(y => y.ebitda)],
+                borderColor: '#667eea',
+                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                fill: true
+            }],
+            '5-Year Revenue & Profitability Projection'
+        );
+
+        // Cumulative Cash Flow
+        createLineChart('fm-chart-cumulative',
+            ['Year 0', ...yearlyData.map(y => `Year ${y.year}`)],
+            [{
+                label: 'Cumulative Cash Flow',
+                data: cumulativeData,
+                borderColor: '#00897b',
+                backgroundColor: 'rgba(0, 137, 123, 0.1)',
+                fill: true
+            }, {
+                label: 'Break-Even',
+                data: new Array(6).fill(0),
+                borderColor: '#f44336',
+                backgroundColor: 'transparent',
+                borderDash: [10, 5],
+                fill: false,
+                pointRadius: 0
+            }],
+            'Cumulative Cash Flow & Investment Recovery'
+        );
+
+        // Year 1 Monthly Revenue
+        createBarChart('fm-chart-monthly',
+            monthlyYear1.map((m, i) => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i]),
+            [{
+                label: 'Revenue',
+                data: monthlyYear1.map(m => m.revenue),
+                backgroundColor: 'rgba(0, 137, 123, 0.8)'
+            }, {
+                label: 'Expenses',
+                data: monthlyYear1.map(m => m.totalExpenses),
+                backgroundColor: 'rgba(244, 67, 54, 0.8)'
+            }],
+            'Year 1 Monthly Performance'
+        );
+    }, 100);
+
+    return `
+        <div class="calc-chart-container">
+            <div class="calc-chart-header">
+                <h4>📈 5-Year Financial Performance</h4>
+                <button class="calc-button-small" onclick="downloadChart('fm-chart-revenue', 'revenue-projection')">
+                    💾 Download
+                </button>
+            </div>
+            <canvas id="fm-chart-revenue"></canvas>
+        </div>
+
+        <div class="calc-chart-container">
+            <div class="calc-chart-header">
+                <h4>💰 Investment Recovery Timeline</h4>
+                <button class="calc-button-small" onclick="downloadChart('fm-chart-cumulative', 'cash-flow-projection')">
+                    💾 Download
+                </button>
+            </div>
+            <canvas id="fm-chart-cumulative"></canvas>
+        </div>
+
+        <div class="calc-chart-container">
+            <div class="calc-chart-header">
+                <h4>📊 Year 1 Monthly Breakdown</h4>
+                <button class="calc-button-small" onclick="downloadChart('fm-chart-monthly', 'year1-monthly')">
+                    💾 Download
+                </button>
+            </div>
+            <canvas id="fm-chart-monthly"></canvas>
+        </div>
+    `;
+}
+
+/**
+ * Render financial tables
+ */
+function renderFinancialTables(yearlyData, monthlyYear1) {
+    return `
+        <h3 class="calc-mt-20">📋 5-Year Annual Summary</h3>
+        <div class="fm-table-scroll">
+            <table class="calc-table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Revenue</th>
+                        <th>COGS</th>
+                        <th>Labor</th>
+                        <th>Royalty</th>
+                        <th>Fixed Costs</th>
+                        <th>Total Expenses</th>
+                        <th>EBITDA</th>
+                        <th>Margin %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${yearlyData.map(year => `
+                        <tr>
+                            <td>Year ${year.year}</td>
+                            <td>${formatCurrency(year.revenue)}</td>
+                            <td>${formatCurrency(year.cogs)}</td>
+                            <td>${formatCurrency(year.labor)}</td>
+                            <td>${formatCurrency(year.royalty)}</td>
+                            <td>${formatCurrency(year.fixedCosts)}</td>
+                            <td>${formatCurrency(year.totalExpenses)}</td>
+                            <td class="${year.ebitda > 0 ? 'positive' : 'negative'}">${formatCurrency(year.ebitda)}</td>
+                            <td>${formatPercent(year.margin)}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="calc-mt-20">📅 Year 1 Monthly Detail</h3>
+        <div class="fm-table-scroll">
+            <table class="calc-table">
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Revenue</th>
+                        <th>COGS</th>
+                        <th>Labor</th>
+                        <th>Royalty</th>
+                        <th>Fixed Costs</th>
+                        <th>Total Expenses</th>
+                        <th>EBITDA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${monthlyYear1.map((month, i) => `
+                        <tr>
+                            <td>${['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][i]}</td>
+                            <td>${formatCurrency(month.revenue)}</td>
+                            <td>${formatCurrency(month.cogs)}</td>
+                            <td>${formatCurrency(month.labor)}</td>
+                            <td>${formatCurrency(month.royalty)}</td>
+                            <td>${formatCurrency(month.fixedCosts)}</td>
+                            <td>${formatCurrency(month.totalExpenses)}</td>
+                            <td class="${month.ebitda > 0 ? 'positive' : 'negative'}">${formatCurrency(month.ebitda)}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+/**
+ * Export financial model to CSV
+ */
+window.exportFinancialModel = function() {
+    if (!window.financialModelData) return;
+
+    const { yearlyData, monthlyYear1, initialInvestment } = window.financialModelData;
+
+    let csv = 'FRANCHISE FINANCIAL MODEL - 5 YEAR PROJECTION\n\n';
+    csv += `Initial Investment:,${formatCurrency(initialInvestment)}\n\n`;
+
+    // Annual Summary
+    csv += 'ANNUAL SUMMARY\n';
+    csv += 'Year,Revenue,COGS,Labor,Royalty,Fixed Costs,Total Expenses,EBITDA,Margin %\n';
+    yearlyData.forEach(year => {
+        csv += `${year.year},${year.revenue.toFixed(2)},${year.cogs.toFixed(2)},${year.labor.toFixed(2)},${year.royalty.toFixed(2)},${year.fixedCosts.toFixed(2)},${year.totalExpenses.toFixed(2)},${year.ebitda.toFixed(2)},${year.margin.toFixed(2)}\n`;
+    });
+
+    csv += '\n\nYEAR 1 MONTHLY DETAIL\n';
+    csv += 'Month,Revenue,COGS,Labor,Royalty,Fixed Costs,Total Expenses,EBITDA\n';
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    monthlyYear1.forEach((month, i) => {
+        csv += `${monthNames[i]},${month.revenue.toFixed(2)},${month.cogs.toFixed(2)},${month.labor.toFixed(2)},${month.royalty.toFixed(2)},${month.fixedCosts.toFixed(2)},${month.totalExpenses.toFixed(2)},${month.ebitda.toFixed(2)}\n`;
+    });
+
+    // Download CSV
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `franchise-financial-model-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+};
+
+/**
+ * Reset financial model form
+ */
+window.resetFinancialModel = function() {
+    document.getElementById('fm-ticket').value = '12.50';
+    document.getElementById('fm-transactions').value = '200';
+    document.getElementById('fm-growth').value = '5';
+    document.getElementById('fm-cogs').value = '30';
+    document.getElementById('fm-labor').value = '28';
+    document.getElementById('fm-royalty').value = '6';
+    document.getElementById('fm-rent').value = '6000';
+    document.getElementById('fm-utilities').value = '1200';
+    document.getElementById('fm-marketing').value = '2000';
+    document.getElementById('fm-insurance').value = '800';
+    document.getElementById('fm-investment').value = '350000';
+    document.getElementById('fm-results').innerHTML = '';
+
+    document.querySelectorAll('.fm-industry-card').forEach(card => {
+        card.style.background = 'rgba(15, 23, 42, 0.4)';
+        card.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+    });
+};
 
 // ============================================================================
 // CALCULATOR 2: ITEM 7 INITIAL INVESTMENT ESTIMATOR

@@ -734,3 +734,153 @@ input:checked + .calc-toggle-slider:before {
         height: 300px !important;
     }
 }
+
+/* ============================================================================
+   FINANCIAL MODEL BUILDER STYLES
+   ============================================================================ */
+
+.fm-header {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fm-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 5px 0;
+}
+
+.fm-industry-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.fm-industry-card {
+    padding: 25px;
+    background: rgba(15, 23, 42, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fm-industry-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    background: rgba(0, 137, 123, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 137, 123, 0.15);
+}
+
+.fm-industry-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.fm-industry-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.fm-section {
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.fm-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.fm-export-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fm-export-header h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+}
+
+.fm-table-scroll {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+.fm-table-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.fm-table-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.fm-table-scroll::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.fm-table-scroll .calc-table {
+    min-width: 900px;
+}
+
+.fm-table-scroll .calc-table th {
+    position: sticky;
+    top: 0;
+    background: rgba(15, 23, 42, 0.95);
+    z-index: 10;
+}
+
+/* Mobile adjustments for Financial Model */
+@media (max-width: 768px) {
+    .fm-industry-selector {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .fm-industry-card {
+        padding: 20px 15px;
+    }
+
+    .fm-industry-icon {
+        font-size: 36px;
+    }
+
+    .fm-industry-name {
+        font-size: 14px;
+    }
+
+    .fm-export-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .fm-export-header .calc-button-small {
+        width: 100%;
+    }
+
+    .fm-table-scroll .calc-table {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fm-industry-selector {
+        grid-template-columns: 1fr;
+    }
+}
