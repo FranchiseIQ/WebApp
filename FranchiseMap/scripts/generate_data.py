@@ -91,20 +91,111 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def calculate_score(attrs):
     """
-    Calculate suitability score (0-100) based on weighted attributes.
+    Calculate comprehensive suitability score (0-100) based on 12 weighted factors.
 
-    Methodology:
-    - Demographics (35%): Median income normalized to $100k baseline
-    - Competition (25%): Penalty of 15% per nearby competitor (max 6)
-    - Accessibility (25%): Traffic count normalized to 50k baseline
-    - Site Quality (15%): Visibility score (60-100 scale)
+    Enhanced Methodology with granular scoring:
+
+    MARKET POTENTIAL (40% total):
+    - Demographics (15%): Median income normalized to $100k baseline
+    - Population Density (10%): People per sq mile normalized to 5000 baseline
+    - Consumer Spending (10%): Spending index normalized to 100 baseline
+    - Growth Rate (5%): Area growth rate normalized to 5% baseline
+
+    COMPETITIVE LANDSCAPE (20% total):
+    - Competition (15%): Penalty of 12% per nearby competitor (max 8)
+    - Market Saturation (5%): Saturation index (0-100, lower is better)
+
+    ACCESSIBILITY (25% total):
+    - Traffic Volume (10%): AADT normalized to 50k baseline
+    - Walk Score (8%): Walkability normalized to 100
+    - Transit Score (7%): Public transit access normalized to 100
+
+    SITE CHARACTERISTICS (15% total):
+    - Visibility (6%): Site visibility score (0-100)
+    - Safety Index (5%): Crime index inverted (lower crime = higher score)
+    - Real Estate Value (4%): Cost efficiency ratio (moderate costs preferred)
     """
-    s_demo = min(attrs['medianIncome'] / 100000, 1.0)
-    s_comp = max(0, 1.0 - (attrs['competitors'] * 0.15))
-    s_access = min(attrs['traffic'] / 50000, 1.0)
-    s_site = attrs['visibility'] / 100
-    total = (s_demo * 0.35) + (s_comp * 0.25) + (s_access * 0.25) + (s_site * 0.15)
+    # Market Potential Factors (40%)
+    s_demo = min(attrs.get('medianIncome', 0) / 100000, 1.0)
+    s_density = min(attrs.get('populationDensity', 0) / 5000, 1.0)
+    s_spending = min(attrs.get('consumerSpending', 0) / 100, 1.0)
+    s_growth = min(attrs.get('growthRate', 0) / 5.0, 1.0)
+
+    # Competitive Landscape Factors (20%)
+    s_comp = max(0, 1.0 - (attrs.get('competitors', 0) * 0.12))
+    s_saturation = max(0, 1.0 - (attrs.get('marketSaturation', 0) / 100))
+
+    # Accessibility Factors (25%)
+    s_traffic = min(attrs.get('traffic', 0) / 50000, 1.0)
+    s_walk = attrs.get('walkScore', 0) / 100
+    s_transit = attrs.get('transitScore', 0) / 100
+
+    # Site Characteristics Factors (15%)
+    s_visibility = attrs.get('visibility', 0) / 100
+    s_safety = max(0, 1.0 - (attrs.get('crimeIndex', 0) / 100))  # Invert: lower crime = higher score
+    # Real estate: optimal around 50-70, too low or too high penalized
+    re_value = attrs.get('realEstateIndex', 50)
+    s_realestate = 1.0 - abs(re_value - 60) / 60  # Peak at 60, decline towards 0 or 120
+
+    # Calculate weighted total
+    total = (
+        # Market Potential (40%)
+        (s_demo * 0.15) +
+        (s_density * 0.10) +
+        (s_spending * 0.10) +
+        (s_growth * 0.05) +
+        # Competitive Landscape (20%)
+        (s_comp * 0.15) +
+        (s_saturation * 0.05) +
+        # Accessibility (25%)
+        (s_traffic * 0.10) +
+        (s_walk * 0.08) +
+        (s_transit * 0.07) +
+        # Site Characteristics (15%)
+        (s_visibility * 0.06) +
+        (s_safety * 0.05) +
+        (s_realestate * 0.04)
+    )
+
     return int(total * 100)
+
+
+def calculate_sub_scores(attrs):
+    """
+    Calculate individual category sub-scores for detailed breakdown.
+    Returns dict with scores for each major category (0-100 each).
+    """
+    # Market Potential (normalize to 100)
+    s_demo = min(attrs.get('medianIncome', 0) / 100000, 1.0)
+    s_density = min(attrs.get('populationDensity', 0) / 5000, 1.0)
+    s_spending = min(attrs.get('consumerSpending', 0) / 100, 1.0)
+    s_growth = min(attrs.get('growthRate', 0) / 5.0, 1.0)
+    market_score = ((s_demo * 0.375) + (s_density * 0.25) + (s_spending * 0.25) + (s_growth * 0.125)) * 100
+
+    # Competitive Landscape
+    s_comp = max(0, 1.0 - (attrs.get('competitors', 0) * 0.12))
+    s_saturation = max(0, 1.0 - (attrs.get('marketSaturation', 0) / 100))
+    competition_score = ((s_comp * 0.75) + (s_saturation * 0.25)) * 100
+
+    # Accessibility
+    s_traffic = min(attrs.get('traffic', 0) / 50000, 1.0)
+    s_walk = attrs.get('walkScore', 0) / 100
+    s_transit = attrs.get('transitScore', 0) / 100
+    accessibility_score = ((s_traffic * 0.40) + (s_walk * 0.32) + (s_transit * 0.28)) * 100
+
+    # Site Characteristics
+    s_visibility = attrs.get('visibility', 0) / 100
+    s_safety = max(0, 1.0 - (attrs.get('crimeIndex', 0) / 100))
+    re_value = attrs.get('realEstateIndex', 50)
+    s_realestate = 1.0 - abs(re_value - 60) / 60
+    site_score = ((s_visibility * 0.40) + (s_safety * 0.33) + (s_realestate * 0.27)) * 100
+
+    return {
+        "marketPotential": round(market_score, 1),
+        "competitiveLandscape": round(competition_score, 1),
+        "accessibility": round(accessibility_score, 1),
+        "siteCharacteristics": round(site_score, 1)
+    }
 
 def fetch_overpass_data(queries):
     """Query OpenStreetMap with 15-minute timeout for comprehensive data."""
@@ -167,18 +258,54 @@ def generate_real_data():
                     addr_parts.append(tags['addr:state'])
                 address = ", ".join(addr_parts) if addr_parts else f"US Location ({round(lat, 4)}, {round(lng, 4)})"
 
-                # Simulate attributes with methodology tracking
+                # Simulate comprehensive attributes with methodology tracking
+                # Generate correlated data for more realistic distributions
+                base_income = random.randint(35000, 150000)
+                income_factor = base_income / 100000  # Use for correlations
+
                 attrs = {
-                    "medianIncome": random.randint(40000, 130000),
-                    "traffic": random.randint(10000, 60000),
-                    "competitors": random.randint(0, 6),
-                    "visibility": random.randint(60, 100),
-                    "walkScore": random.randint(20, 95),
+                    # Market Potential Factors
+                    "medianIncome": base_income,
+                    "populationDensity": int(random.gauss(3000, 1500) * income_factor),
+                    "consumerSpending": min(150, max(50, int(random.gauss(85, 20) * income_factor))),
+                    "growthRate": round(random.uniform(-1.5, 8.0), 1),
+
+                    # Competitive Landscape Factors
+                    "competitors": random.randint(0, 8),
+                    "marketSaturation": random.randint(10, 85),
+
+                    # Accessibility Factors
+                    "traffic": random.randint(8000, 75000),
+                    "walkScore": random.randint(15, 98),
+                    "transitScore": random.randint(0, 95),
+
+                    # Site Characteristics Factors
+                    "visibility": random.randint(55, 100),
+                    "crimeIndex": random.randint(5, 75),
+                    "realEstateIndex": int(random.gauss(60, 25)),
+
+                    # Additional Demographic Data
+                    "avgAge": round(random.uniform(28, 52), 1),
+                    "householdSize": round(random.uniform(1.8, 3.5), 1),
+                    "educationIndex": random.randint(40, 95),  # % with college degree
+                    "employmentRate": round(random.uniform(88, 98), 1),
+
                     # Methodology notes for transparency
                     "_incomeSource": "ACS 5-Year Estimate (Simulated)",
                     "_trafficSource": "AADT Estimate (Simulated)",
-                    "_walkSource": "Walk Score API (Simulated)"
+                    "_walkSource": "Walk Score API (Simulated)",
+                    "_transitSource": "Transit Score API (Simulated)",
+                    "_crimeSource": "FBI UCR Data (Simulated)",
+                    "_realEstateSource": "Zillow ZHVI (Simulated)",
+                    "_demographicSource": "Census Bureau (Simulated)"
                 }
+
+                # Ensure valid ranges
+                attrs["populationDensity"] = max(100, min(15000, attrs["populationDensity"]))
+                attrs["realEstateIndex"] = max(10, min(120, attrs["realEstateIndex"]))
+
+                # Calculate sub-scores for UI display
+                sub_scores = calculate_sub_scores(attrs)
 
                 loc = {
                     "id": f"{ticker}_{el['id']}",
@@ -188,6 +315,7 @@ def generate_real_data():
                     "lat": round(lat, 6),
                     "lng": round(lng, 6),
                     "s": calculate_score(attrs),
+                    "ss": sub_scores,  # Sub-scores for detailed breakdown
                     "at": attrs
                 }
                 all_ticker_locs.append(loc)
