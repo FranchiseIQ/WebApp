@@ -125,6 +125,218 @@ function showError(message, containerId) {
 }
 
 // ============================================================================
+// CHART UTILITIES
+// ============================================================================
+
+/**
+ * Global chart instances to enable cleanup
+ */
+const chartInstances = {};
+
+/**
+ * Default Chart.js configuration for professional-looking charts
+ */
+const defaultChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        legend: {
+            labels: {
+                color: '#e0e0e0',
+                font: {
+                    family: 'Inter, sans-serif',
+                    size: 12,
+                    weight: 500
+                },
+                padding: 15
+            }
+        },
+        tooltip: {
+            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+            titleColor: '#fff',
+            bodyColor: '#e0e0e0',
+            borderColor: '#00897b',
+            borderWidth: 1,
+            padding: 12,
+            displayColors: true,
+            titleFont: {
+                size: 13,
+                weight: '600'
+            },
+            bodyFont: {
+                size: 12
+            },
+            callbacks: {
+                label: function(context) {
+                    let label = context.dataset.label || '';
+                    if (label) {
+                        label += ': ';
+                    }
+                    if (context.parsed.y !== null) {
+                        label += formatCurrency(context.parsed.y);
+                    }
+                    return label;
+                }
+            }
+        }
+    },
+    scales: {
+        y: {
+            beginAtZero: true,
+            ticks: {
+                color: '#999',
+                font: {
+                    size: 11
+                },
+                callback: function(value) {
+                    return formatCurrency(value);
+                }
+            },
+            grid: {
+                color: 'rgba(255, 255, 255, 0.06)',
+                drawBorder: false
+            }
+        },
+        x: {
+            ticks: {
+                color: '#999',
+                font: {
+                    size: 11
+                }
+            },
+            grid: {
+                color: 'rgba(255, 255, 255, 0.06)',
+                drawBorder: false
+            }
+        }
+    }
+};
+
+/**
+ * Creates a line chart for financial projections
+ * @param {string} canvasId - ID of the canvas element
+ * @param {Array} labels - Array of labels (e.g., years, months)
+ * @param {Array} datasets - Array of dataset objects
+ * @param {string} title - Chart title
+ * @returns {Chart} Chart instance
+ */
+function createLineChart(canvasId, labels, datasets, title) {
+    // Destroy existing chart if it exists
+    if (chartInstances[canvasId]) {
+        chartInstances[canvasId].destroy();
+    }
+
+    const ctx = document.getElementById(canvasId).getContext('2d');
+
+    chartInstances[canvasId] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: datasets.map(ds => ({
+                ...ds,
+                borderWidth: 3,
+                tension: 0.4,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                pointBackgroundColor: ds.borderColor,
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                fill: ds.fill !== undefined ? ds.fill : true,
+                backgroundColor: ds.backgroundColor || 'rgba(0, 137, 123, 0.1)'
+            }))
+        },
+        options: {
+            ...defaultChartOptions,
+            plugins: {
+                ...defaultChartOptions.plugins,
+                title: {
+                    display: true,
+                    text: title,
+                    color: '#fff',
+                    font: {
+                        size: 16,
+                        weight: '600',
+                        family: 'Inter, sans-serif'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 20
+                    }
+                }
+            }
+        }
+    });
+
+    return chartInstances[canvasId];
+}
+
+/**
+ * Creates a bar chart for comparisons
+ * @param {string} canvasId - ID of the canvas element
+ * @param {Array} labels - Array of labels
+ * @param {Array} datasets - Array of dataset objects
+ * @param {string} title - Chart title
+ * @returns {Chart} Chart instance
+ */
+function createBarChart(canvasId, labels, datasets, title) {
+    // Destroy existing chart if it exists
+    if (chartInstances[canvasId]) {
+        chartInstances[canvasId].destroy();
+    }
+
+    const ctx = document.getElementById(canvasId).getContext('2d');
+
+    chartInstances[canvasId] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: datasets.map(ds => ({
+                ...ds,
+                borderWidth: 0,
+                borderRadius: 6,
+                backgroundColor: ds.backgroundColor || 'rgba(0, 137, 123, 0.8)'
+            }))
+        },
+        options: {
+            ...defaultChartOptions,
+            plugins: {
+                ...defaultChartOptions.plugins,
+                title: {
+                    display: true,
+                    text: title,
+                    color: '#fff',
+                    font: {
+                        size: 16,
+                        weight: '600',
+                        family: 'Inter, sans-serif'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 20
+                    }
+                }
+            }
+        }
+    });
+
+    return chartInstances[canvasId];
+}
+
+/**
+ * Downloads a chart as PNG image
+ * @param {string} canvasId - ID of the canvas element
+ * @param {string} filename - Desired filename (without extension)
+ */
+function downloadChart(canvasId, filename) {
+    const canvas = document.getElementById(canvasId);
+    const url = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.download = `${filename}.png`;
+    link.href = url;
+    link.click();
+}
+
+// ============================================================================
 // CALCULATOR 1: ROI CALCULATOR
 // ============================================================================
 
@@ -186,6 +398,18 @@ function calculateROI() {
     const monthsToBreakeven = yearsToBreakeven * 12;
     const monthlyBreakeven = investment / 12;
 
+    // Generate 5-year projection data
+    const years = ['Year 0', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'];
+    const cumulativeProfit = [
+        -investment,  // Year 0 (initial investment)
+        profit - investment,  // Year 1
+        (profit * 2) - investment,  // Year 2
+        (profit * 3) - investment,  // Year 3
+        (profit * 4) - investment,  // Year 4
+        (profit * 5) - investment   // Year 5
+    ];
+    const annualProfit = [0, profit, profit, profit, profit, profit];
+
     const resultsContainer = document.getElementById('roi-results');
     resultsContainer.innerHTML = `
         <div class="calc-results">
@@ -208,11 +432,11 @@ function calculateROI() {
                 </div>
 
                 <div class="calc-result-card">
-                    <div class="calc-result-label">Monthly Profit Needed</div>
-                    <div class="calc-result-value neutral">
-                        ${formatCurrency(monthlyBreakeven)}
+                    <div class="calc-result-label">5-Year Net Profit</div>
+                    <div class="calc-result-value positive">
+                        ${formatCurrency((profit * 5) - investment)}
                     </div>
-                    <div class="calc-result-subtitle">For 1-year breakeven</div>
+                    <div class="calc-result-subtitle">Total after 5 years</div>
                 </div>
             </div>
 
@@ -225,8 +449,36 @@ function calculateROI() {
                     ✅ <strong>Excellent!</strong> ROI above 30% indicates strong profitability potential.
                 </div>
             ` : ''}
+
+            <div class="calc-chart-container">
+                <div class="calc-chart-header">
+                    <h4>📈 5-Year Profit Projection</h4>
+                    <button class="calc-button-small" onclick="downloadChart('roi-chart', 'roi-projection')">
+                        💾 Download Chart
+                    </button>
+                </div>
+                <canvas id="roi-chart"></canvas>
+            </div>
         </div>
     `;
+
+    // Create the chart
+    createLineChart('roi-chart', years, [
+        {
+            label: 'Cumulative Profit',
+            data: cumulativeProfit,
+            borderColor: '#00897b',
+            backgroundColor: 'rgba(0, 137, 123, 0.1)',
+            fill: true
+        },
+        {
+            label: 'Annual Profit',
+            data: annualProfit,
+            borderColor: '#667eea',
+            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+            fill: true
+        }
+    ], 'Investment Recovery & Profit Timeline');
 }
 
 // ============================================================================
@@ -689,8 +941,49 @@ function calculateCashFlow() {
                     ✅ <strong>Strong Performance:</strong> Cash flow margin above 20% indicates healthy profitability.
                 </div>
             ` : ''}
+
+            <div class="calc-chart-container">
+                <div class="calc-chart-header">
+                    <h4>📊 12-Month Cash Flow Projection</h4>
+                    <button class="calc-button-small" onclick="downloadChart('cashflow-chart', 'cashflow-projection')">
+                        💾 Download Chart
+                    </button>
+                </div>
+                <canvas id="cashflow-chart"></canvas>
+            </div>
         </div>
     `;
+
+    // Generate 12-month projection data
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const revenueData = new Array(12).fill(revenue);
+    const expenseData = new Array(12).fill(totalExpenses);
+    const cashFlowData = new Array(12).fill(ebitda);
+
+    // Create the chart
+    createLineChart('cashflow-chart', months, [
+        {
+            label: 'Revenue',
+            data: revenueData,
+            borderColor: '#00897b',
+            backgroundColor: 'rgba(0, 137, 123, 0.1)',
+            fill: true
+        },
+        {
+            label: 'Expenses',
+            data: expenseData,
+            borderColor: '#f44336',
+            backgroundColor: 'rgba(244, 67, 54, 0.1)',
+            fill: true
+        },
+        {
+            label: 'Net Cash Flow',
+            data: cashFlowData,
+            borderColor: '#667eea',
+            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+            fill: true
+        }
+    ], 'Monthly Financial Performance');
 }
 
 // ============================================================================
@@ -821,8 +1114,62 @@ function calculateBreakEven() {
             <div class="calc-alert calc-alert-info calc-mt-20">
                 💡 <strong>Key Insight:</strong> Every unit sold above ${formatNumber(breakEvenUnits, 0)} generates ${formatCurrency(contributionMargin)} in profit.
             </div>
+
+            <div class="calc-chart-container">
+                <div class="calc-chart-header">
+                    <h4>📊 Break-Even Analysis Chart</h4>
+                    <button class="calc-button-small" onclick="downloadChart('breakeven-chart', 'breakeven-analysis')">
+                        💾 Download Chart
+                    </button>
+                </div>
+                <canvas id="breakeven-chart"></canvas>
+            </div>
         </div>
     `;
+
+    // Generate break-even chart data
+    const volumes = [];
+    const revenueData = [];
+    const totalCostData = [];
+    const profitData = [];
+
+    // Create data points from 0 to 250% of break-even volume
+    const maxVolume = Math.ceil(breakEvenUnits * 2.5);
+    const steps = 10;
+    const stepSize = maxVolume / steps;
+
+    for (let i = 0; i <= steps; i++) {
+        const units = i * stepSize;
+        volumes.push(Math.round(units));
+        revenueData.push(units * price);
+        totalCostData.push(fixedCosts + (units * variableCost));
+        profitData.push((units * price) - (fixedCosts + (units * variableCost)));
+    }
+
+    // Create the chart
+    createLineChart('breakeven-chart', volumes, [
+        {
+            label: 'Revenue',
+            data: revenueData,
+            borderColor: '#00897b',
+            backgroundColor: 'rgba(0, 137, 123, 0.1)',
+            fill: false
+        },
+        {
+            label: 'Total Costs',
+            data: totalCostData,
+            borderColor: '#f44336',
+            backgroundColor: 'rgba(244, 67, 54, 0.1)',
+            fill: false
+        },
+        {
+            label: 'Profit/Loss',
+            data: profitData,
+            borderColor: '#667eea',
+            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+            fill: true
+        }
+    ], 'Revenue vs Costs by Volume');
 }
 
 // ============================================================================
@@ -1199,23 +1546,6 @@ function calculatePayback() {
                 </div>
             </div>
 
-            <h3 class="calc-mt-20">📈 Cumulative Cash Flow Over Time</h3>
-            <div class="calc-progress-bar">
-                <div class="calc-progress-fill" style="width: ${Math.min((12 / monthsToPayback) * 100, 100)}%">
-                    Year 1: ${formatCurrency(cashflow * 12)}
-                </div>
-            </div>
-            <div class="calc-progress-bar">
-                <div class="calc-progress-fill" style="width: ${Math.min((24 / monthsToPayback) * 100, 100)}%">
-                    Year 2: ${formatCurrency(cashflow * 24)}
-                </div>
-            </div>
-            <div class="calc-progress-bar">
-                <div class="calc-progress-fill" style="width: ${Math.min((36 / monthsToPayback) * 100, 100)}%">
-                    Year 3: ${formatCurrency(cashflow * 36)}
-                </div>
-            </div>
-
             ${yearsToPayback < 3 ? `
                 <div class="calc-alert calc-alert-success calc-mt-20">
                     ✅ <strong>Fast Payback:</strong> Payback period under 3 years is considered excellent for franchise investments.
@@ -1225,8 +1555,51 @@ function calculatePayback() {
                     ⚠️ <strong>Long Payback:</strong> Payback period over 5 years may indicate lower profitability or higher risk.
                 </div>
             ` : ''}
+
+            <div class="calc-chart-container">
+                <div class="calc-chart-header">
+                    <h4>📈 Investment Recovery Timeline</h4>
+                    <button class="calc-button-small" onclick="downloadChart('payback-chart', 'payback-period')">
+                        💾 Download Chart
+                    </button>
+                </div>
+                <canvas id="payback-chart"></canvas>
+            </div>
         </div>
     `;
+
+    // Generate payback timeline data (show up to breakeven + 2 years)
+    const totalYears = Math.ceil(yearsToPayback) + 2;
+    const years = [];
+    const cumulativeCashFlow = [];
+    const investmentLine = [];
+
+    for (let i = 0; i <= totalYears; i++) {
+        years.push(`Year ${i}`);
+        const totalCashFlow = (cashflow * 12 * i) - investment;
+        cumulativeCashFlow.push(totalCashFlow);
+        investmentLine.push(0); // Break-even line at $0
+    }
+
+    // Create the chart
+    createLineChart('payback-chart', years, [
+        {
+            label: 'Cumulative Cash Flow',
+            data: cumulativeCashFlow,
+            borderColor: '#00897b',
+            backgroundColor: 'rgba(0, 137, 123, 0.1)',
+            fill: true
+        },
+        {
+            label: 'Break-Even Point',
+            data: investmentLine,
+            borderColor: '#f44336',
+            backgroundColor: 'transparent',
+            borderDash: [10, 5],
+            fill: false,
+            pointRadius: 0
+        }
+    ], 'Cumulative Cash Flow Until Investment Recovery');
 }
 
 // ============================================================================
