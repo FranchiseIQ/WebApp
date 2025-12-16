@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2025-12-15T21:42:20.765656Z",
+  "fetchedAt": "2025-12-16T13:38:21.035863Z",
   "totalSymbols": 40,
   "successCount": 40,
   "errorCount": 0,
@@ -33,7 +33,7 @@
       "changePercent": 0.17,
       "name": "Restaurant Brands International",
       "marketCap": 32446054400,
-      "volume": 1342250
+      "volume": 2628734
     },
     "WEN": {
       "symbol": "WEN",
@@ -53,7 +53,7 @@
       "changePercent": 1.75,
       "name": "Domino's Pizza Inc",
       "marketCap": 14852652032,
-      "volume": 759754
+      "volume": 811904
     },
     "JACK": {
       "symbol": "JACK",
@@ -63,7 +63,7 @@
       "changePercent": -6.78,
       "name": "Jack In The Box Inc.",
       "marketCap": 371041440,
-      "volume": 638801
+      "volume": 672929
     },
     "WING": {
       "symbol": "WING",
@@ -93,7 +93,7 @@
       "changePercent": -0.55,
       "name": "Chipotle Mexican Grill, Inc.",
       "marketCap": 48191406080,
-      "volume": 22598813
+      "volume": 22694564
     },
     "SBUX": {
       "symbol": "SBUX",
@@ -203,7 +203,7 @@
       "changePercent": 0.1,
       "name": "Brinker International, Inc.",
       "marketCap": 6424754176,
-      "volume": 1172428
+      "volume": 1365034
     },
     "BLMN": {
       "symbol": "BLMN",
@@ -233,7 +233,7 @@
       "changePercent": 3.27,
       "name": "Marriott International",
       "marketCap": 83742023680,
-      "volume": 2162496
+      "volume": 2162625
     },
     "HLT": {
       "symbol": "HLT",
@@ -323,7 +323,7 @@
       "changePercent": 0.51,
       "name": "H&R Block, Inc.",
       "marketCap": 5566090240,
-      "volume": 1177489
+      "volume": 1653844
     },
     "MCW": {
       "symbol": "MCW",
@@ -373,7 +373,7 @@
       "changePercent": -8.19,
       "name": "Xponential Fitness, Inc.",
       "marketCap": 356532032,
-      "volume": 381622
+      "volume": 420844
     },
     "ARCO": {
       "symbol": "ARCO",
