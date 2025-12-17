@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2025-12-17T17:24:36.002639Z",
+  "fetchedAt": "2025-12-17T17:46:50.707032Z",
   "totalSymbols": 40,
   "successCount": 40,
   "errorCount": 0,
@@ -7,323 +7,323 @@
   "quotes": {
     "MCD": {
       "symbol": "MCD",
-      "price": 316.51,
+      "price": 316.01,
       "previousClose": 314.5,
-      "change": 2.01,
-      "changePercent": 0.64,
+      "change": 1.51,
+      "changePercent": 0.48,
       "name": "McDonald's Corporation",
-      "marketCap": 225862942720,
-      "volume": 1012070
+      "marketCap": 225506131968,
+      "volume": 1063644
     },
     "YUM": {
       "symbol": "YUM",
-      "price": 153.56,
+      "price": 153.16,
       "previousClose": 151.03,
-      "change": 2.53,
-      "changePercent": 1.68,
+      "change": 2.13,
+      "changePercent": 1.41,
       "name": "Yum! Brands, Inc.",
-      "marketCap": 42636369920,
-      "volume": 629194
+      "marketCap": 42526695424,
+      "volume": 697508
     },
     "QSR": {
       "symbol": "QSR",
-      "price": 70.52,
+      "price": 70.43,
       "previousClose": 70.47,
-      "change": 0.05,
-      "changePercent": 0.07,
+      "change": -0.04,
+      "changePercent": -0.06,
       "name": "Restaurant Brands International",
-      "marketCap": 32231239680,
-      "volume": 686855
+      "marketCap": 32190107648,
+      "volume": 714407
     },
     "WEN": {
       "symbol": "WEN",
-      "price": 8.56,
+      "price": 8.53,
       "previousClose": 8.35,
-      "change": 0.21,
-      "changePercent": 2.57,
+      "change": 0.18,
+      "changePercent": 2.11,
       "name": "Wendy's Company (The)",
-      "marketCap": 1632190080,
-      "volume": 1988492
+      "marketCap": 1624796288,
+      "volume": 2164724
     },
     "DPZ": {
       "symbol": "DPZ",
-      "price": 436.62,
+      "price": 435.72,
       "previousClose": 433.9,
-      "change": 2.72,
-      "changePercent": 0.63,
+      "change": 1.82,
+      "changePercent": 0.42,
       "name": "Domino's Pizza Inc",
-      "marketCap": 14822607872,
-      "volume": 114113
+      "marketCap": 14792223744,
+      "volume": 123147
     },
     "JACK": {
       "symbol": "JACK",
-      "price": 20.21,
+      "price": 20.12,
       "previousClose": 20.39,
-      "change": -0.18,
-      "changePercent": -0.88,
+      "change": -0.27,
+      "changePercent": -1.34,
       "name": "Jack In The Box Inc.",
-      "marketCap": 381615616,
-      "volume": 164182
+      "marketCap": 379869024,
+      "volume": 175898
     },
     "WING": {
       "symbol": "WING",
-      "price": 254.42,
+      "price": 252.34,
       "previousClose": 246.56,
-      "change": 7.86,
-      "changePercent": 3.19,
+      "change": 5.78,
+      "changePercent": 2.34,
       "name": "Wingstop Inc.",
-      "marketCap": 7104361472,
-      "volume": 377708
+      "marketCap": 7046140416,
+      "volume": 405048
     },
     "SHAK": {
       "symbol": "SHAK",
-      "price": 82.0,
+      "price": 81.55,
       "previousClose": 81.68,
-      "change": 0.32,
-      "changePercent": 0.39,
+      "change": -0.14,
+      "changePercent": -0.17,
       "name": "Shake Shack, Inc.",
-      "marketCap": 3500856832,
-      "volume": 830413
+      "marketCap": 3481431296,
+      "volume": 875316
     },
     "CMG": {
       "symbol": "CMG",
-      "price": 37.08,
+      "price": 36.99,
       "previousClose": 35.66,
-      "change": 1.42,
-      "changePercent": 3.97,
+      "change": 1.34,
+      "changePercent": 3.74,
       "name": "Chipotle Mexican Grill, Inc.",
-      "marketCap": 49713311744,
-      "volume": 9224586
+      "marketCap": 49606037504,
+      "volume": 10080888
     },
     "SBUX": {
       "symbol": "SBUX",
-      "price": 85.18,
+      "price": 85.05,
       "previousClose": 85.08,
-      "change": 0.1,
-      "changePercent": 0.12,
+      "change": -0.03,
+      "changePercent": -0.04,
       "name": "Starbucks Corporation",
-      "marketCap": 96857268224,
-      "volume": 2709517
+      "marketCap": 96704667648,
+      "volume": 2939811
     },
     "PZZA": {
       "symbol": "PZZA",
-      "price": 41.59,
+      "price": 41.53,
       "previousClose": 40.91,
-      "change": 0.69,
-      "changePercent": 1.67,
+      "change": 0.62,
+      "changePercent": 1.52,
       "name": "Papa John's International, Inc.",
-      "marketCap": 1363875840,
-      "volume": 196926
+      "marketCap": 1361744384,
+      "volume": 218918
     },
     "DNUT": {
       "symbol": "DNUT",
-      "price": 4.44,
+      "price": 4.42,
       "previousClose": 4.43,
-      "change": 0.01,
-      "changePercent": 0.23,
+      "change": -0.01,
+      "changePercent": -0.34,
       "name": "Krispy Kreme, Inc.",
-      "marketCap": 760572032,
-      "volume": 940858
+      "marketCap": 756289472,
+      "volume": 984134
     },
     "NATH": {
       "symbol": "NATH",
-      "price": 97.11,
+      "price": 97.28,
       "previousClose": 95.87,
-      "change": 1.24,
-      "changePercent": 1.29,
+      "change": 1.41,
+      "changePercent": 1.47,
       "name": "Nathan's Famous, Inc.",
-      "marketCap": 397132320,
-      "volume": 5742
+      "marketCap": 397827520,
+      "volume": 7154
     },
     "DENN": {
       "symbol": "DENN",
       "price": 6.22,
       "previousClose": 6.21,
       "change": 0.01,
-      "changePercent": 0.09,
+      "changePercent": 0.16,
       "name": "Denny's Corporation",
-      "marketCap": 320092000,
-      "volume": 195078
+      "marketCap": 320323744,
+      "volume": 213002
     },
     "DIN": {
       "symbol": "DIN",
-      "price": 34.23,
+      "price": 34.13,
       "previousClose": 33.86,
-      "change": 0.37,
-      "changePercent": 1.09,
+      "change": 0.27,
+      "changePercent": 0.81,
       "name": "Dine Brands Global, Inc. Common",
-      "marketCap": 526434208,
-      "volume": 118091
+      "marketCap": 524973152,
+      "volume": 127340
     },
     "RRGB": {
       "symbol": "RRGB",
-      "price": 4.02,
+      "price": 4.01,
       "previousClose": 4.03,
-      "change": -0.01,
-      "changePercent": -0.25,
+      "change": -0.02,
+      "changePercent": -0.5,
       "name": "Red Robin Gourmet Burgers, Inc.",
-      "marketCap": 72217128,
-      "volume": 70717
+      "marketCap": 72037488,
+      "volume": 81032
     },
     "TXRH": {
       "symbol": "TXRH",
-      "price": 170.59,
+      "price": 170.27,
       "previousClose": 165.79,
-      "change": 4.8,
-      "changePercent": 2.9,
+      "change": 4.48,
+      "changePercent": 2.7,
       "name": "Texas Roadhouse, Inc.",
-      "marketCap": 11335810048,
-      "volume": 460373
+      "marketCap": 11314545664,
+      "volume": 498794
     },
     "CAKE": {
       "symbol": "CAKE",
-      "price": 50.36,
+      "price": 50.13,
       "previousClose": 49.15,
-      "change": 1.21,
-      "changePercent": 2.46,
+      "change": 0.98,
+      "changePercent": 2.0,
       "name": "The Cheesecake Factory Incorpor",
-      "marketCap": 2510027520,
-      "volume": 371717
+      "marketCap": 2498812928,
+      "volume": 419726
     },
     "DRI": {
       "symbol": "DRI",
-      "price": 190.53,
+      "price": 190.07,
       "previousClose": 185.53,
-      "change": 5.0,
-      "changePercent": 2.69,
+      "change": 4.54,
+      "changePercent": 2.45,
       "name": "Darden Restaurants, Inc.",
-      "marketCap": 22214825984,
-      "volume": 793110
+      "marketCap": 22161195008,
+      "volume": 859311
     },
     "EAT": {
       "symbol": "EAT",
-      "price": 148.79,
+      "price": 148.19,
       "previousClose": 145.81,
-      "change": 2.98,
-      "changePercent": 2.05,
+      "change": 2.38,
+      "changePercent": 1.63,
       "name": "Brinker International, Inc.",
-      "marketCap": 6611142656,
-      "volume": 364293
+      "marketCap": 6584262144,
+      "volume": 445151
     },
     "BLMN": {
       "symbol": "BLMN",
-      "price": 7.06,
+      "price": 6.99,
       "previousClose": 6.81,
-      "change": 0.25,
-      "changePercent": 3.67,
+      "change": 0.18,
+      "changePercent": 2.57,
       "name": "Bloomin' Brands, Inc.",
-      "marketCap": 601632640,
-      "volume": 957458
+      "marketCap": 595241344,
+      "volume": 995482
     },
     "PLAY": {
       "symbol": "PLAY",
-      "price": 18.58,
+      "price": 18.56,
       "previousClose": 18.49,
-      "change": 0.09,
-      "changePercent": 0.49,
+      "change": 0.07,
+      "changePercent": 0.38,
       "name": "Dave & Buster's Entertainment, ",
-      "marketCap": 644359296,
-      "volume": 322288
+      "marketCap": 643665664,
+      "volume": 354451
     },
     "MAR": {
       "symbol": "MAR",
-      "price": 310.32,
+      "price": 309.25,
       "previousClose": 305.97,
-      "change": 4.35,
-      "changePercent": 1.42,
+      "change": 3.28,
+      "changePercent": 1.07,
       "name": "Marriott International",
-      "marketCap": 84238794752,
-      "volume": 587277
+      "marketCap": 83948331008,
+      "volume": 629452
     },
     "HLT": {
       "symbol": "HLT",
-      "price": 291.04,
+      "price": 290.99,
       "previousClose": 285.83,
-      "change": 5.21,
-      "changePercent": 1.82,
+      "change": 5.16,
+      "changePercent": 1.81,
       "name": "Hilton Worldwide Holdings Inc.",
-      "marketCap": 68450795520,
-      "volume": 1327187
+      "marketCap": 68439031808,
+      "volume": 1407619
     },
     "H": {
       "symbol": "H",
-      "price": 164.9,
+      "price": 164.62,
       "previousClose": 162.69,
-      "change": 2.21,
-      "changePercent": 1.36,
+      "change": 1.93,
+      "changePercent": 1.19,
       "name": "Hyatt Hotels Corporation",
-      "marketCap": 15745236992,
-      "volume": 220811
+      "marketCap": 15718738944,
+      "volume": 240971
     },
     "CHH": {
       "symbol": "CHH",
-      "price": 94.99,
+      "price": 94.38,
       "previousClose": 92.89,
-      "change": 2.1,
-      "changePercent": 2.26,
+      "change": 1.49,
+      "changePercent": 1.6,
       "name": "Choice Hotels International, In",
-      "marketCap": 4395435520,
-      "volume": 301701
+      "marketCap": 4367209472,
+      "volume": 337250
     },
     "WH": {
       "symbol": "WH",
-      "price": 80.78,
+      "price": 80.53,
       "previousClose": 78.32,
-      "change": 2.46,
-      "changePercent": 3.14,
+      "change": 2.21,
+      "changePercent": 2.82,
       "name": "Wyndham Hotels & Resorts, Inc.",
-      "marketCap": 6168057856,
-      "volume": 464466
+      "marketCap": 6148587008,
+      "volume": 509793
     },
     "IHG": {
       "symbol": "IHG",
-      "price": 142.43,
+      "price": 142.0,
       "previousClose": 140.41,
-      "change": 2.02,
-      "changePercent": 1.44,
+      "change": 1.59,
+      "changePercent": 1.13,
       "name": "Intercontinental Hotels Group",
-      "marketCap": 21364832256,
-      "volume": 167603
+      "marketCap": 21301080064,
+      "volume": 169022
     },
     "VAC": {
       "symbol": "VAC",
-      "price": 57.39,
+      "price": 57.21,
       "previousClose": 56.91,
-      "change": 0.48,
-      "changePercent": 0.84,
+      "change": 0.3,
+      "changePercent": 0.53,
       "name": "Marriott Vacations Worldwide Co",
-      "marketCap": 1986497024,
-      "volume": 189188
+      "marketCap": 1980266496,
+      "volume": 200356
     },
     "TNL": {
       "symbol": "TNL",
-      "price": 71.42,
+      "price": 71.48,
       "previousClose": 70.78,
-      "change": 0.64,
-      "changePercent": 0.91,
+      "change": 0.7,
+      "changePercent": 0.99,
       "name": "Travel   Leisure Co.",
-      "marketCap": 4643155456,
-      "volume": 166698
+      "marketCap": 4646730752,
+      "volume": 190267
     },
     "DRVN": {
       "symbol": "DRVN",
       "price": 15.36,
       "previousClose": 15.22,
       "change": 0.14,
-      "changePercent": 0.93,
+      "changePercent": 0.92,
       "name": "Driven Brands Holdings Inc.",
-      "marketCap": 2526247168,
-      "volume": 121059
+      "marketCap": 2526016768,
+      "volume": 140183
     },
     "HRB": {
       "symbol": "HRB",
-      "price": 44.21,
+      "price": 43.94,
       "previousClose": 43.53,
-      "change": 0.68,
-      "changePercent": 1.56,
+      "change": 0.41,
+      "changePercent": 0.94,
       "name": "H&R Block, Inc.",
-      "marketCap": 5653040640,
-      "volume": 377336
+      "marketCap": 5618516480,
+      "volume": 416108
     },
     "MCW": {
       "symbol": "MCW",
@@ -333,77 +333,77 @@
       "changePercent": 2.05,
       "name": "Mister Car Wash, Inc.",
       "marketCap": 1875329024,
-      "volume": 318707
+      "volume": 348428
     },
     "SERV": {
       "symbol": "SERV",
-      "price": 9.91,
+      "price": 9.96,
       "previousClose": 10.57,
-      "change": -0.66,
-      "changePercent": -6.25,
+      "change": -0.62,
+      "changePercent": -5.82,
       "name": "Serve Robotics Inc.",
-      "marketCap": 738086592,
-      "volume": 3358494
+      "marketCap": 741483008,
+      "volume": 3582973
     },
     "ROL": {
       "symbol": "ROL",
-      "price": 60.77,
+      "price": 60.59,
       "previousClose": 59.46,
-      "change": 1.31,
-      "changePercent": 2.2,
+      "change": 1.13,
+      "changePercent": 1.9,
       "name": "Rollins, Inc.",
-      "marketCap": 29238894592,
-      "volume": 1077923
+      "marketCap": 29152913408,
+      "volume": 1180531
     },
     "PLNT": {
       "symbol": "PLNT",
-      "price": 110.65,
+      "price": 110.8,
       "previousClose": 109.56,
-      "change": 1.09,
-      "changePercent": 0.99,
+      "change": 1.23,
+      "changePercent": 1.13,
       "name": "Planet Fitness, Inc.",
-      "marketCap": 9320442880,
-      "volume": 285507
+      "marketCap": 9332656128,
+      "volume": 320217
     },
     "XPOF": {
       "symbol": "XPOF",
-      "price": 7.5,
+      "price": 7.47,
       "previousClose": 7.43,
-      "change": 0.07,
-      "changePercent": 0.87,
+      "change": 0.04,
+      "changePercent": 0.54,
       "name": "Xponential Fitness, Inc.",
-      "marketCap": 366557952,
-      "volume": 80982
+      "marketCap": 365335264,
+      "volume": 90089
     },
     "ARCO": {
       "symbol": "ARCO",
-      "price": 7.25,
+      "price": 7.23,
       "previousClose": 7.26,
-      "change": -0.01,
-      "changePercent": -0.21,
+      "change": -0.03,
+      "changePercent": -0.41,
       "name": "Arcos Dorados Holdings Inc.",
-      "marketCap": 1526253824,
-      "volume": 209391
+      "marketCap": 1523093888,
+      "volume": 223733
     },
     "ADUS": {
       "symbol": "ADUS",
-      "price": 113.57,
+      "price": 113.14,
       "previousClose": 113.49,
-      "change": 0.08,
-      "changePercent": 0.07,
+      "change": -0.35,
+      "changePercent": -0.31,
       "name": "Addus HomeCare Corporation",
-      "marketCap": 2099145216,
-      "volume": 19892
+      "marketCap": 2091197440,
+      "volume": 22892
     },
     "LOPE": {
       "symbol": "LOPE",
-      "price": 165.44,
+      "price": 165.41,
       "previousClose": 165.23,
-      "change": 0.21,
-      "changePercent": 0.13,
+      "change": 0.19,
+      "changePercent": 0.11,
       "name": "Grand Canyon Education, Inc.",
-      "marketCap": 4646748672,
-      "volume": 133742
+      "marketCap": 4646046208,
+      "volume": 146091
     }
   }
 }
