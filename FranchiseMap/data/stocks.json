@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2025-12-18T21:17:51.770466Z",
+  "fetchedAt": "2025-12-18T21:39:39.501654Z",
   "totalSymbols": 40,
   "successCount": 40,
   "errorCount": 0,
@@ -33,7 +33,7 @@
       "changePercent": -0.41,
       "name": "Restaurant Brands International",
       "marketCap": 31952441344,
-      "volume": 2185734
+      "volume": 2185501
     },
     "WEN": {
       "symbol": "WEN",
@@ -43,7 +43,7 @@
       "changePercent": -0.59,
       "name": "Wendy's Company (The)",
       "marketCap": 1608369408,
-      "volume": 3848499
+      "volume": 3507773
     },
     "DPZ": {
       "symbol": "DPZ",
@@ -63,7 +63,7 @@
       "changePercent": 0.87,
       "name": "Jack In The Box Inc.",
       "marketCap": 371607936,
-      "volume": 490432
+      "volume": 489940
     },
     "WING": {
       "symbol": "WING",
@@ -92,8 +92,8 @@
       "change": 0.63,
       "changePercent": 1.7,
       "name": "Chipotle Mexican Grill, Inc.",
-      "marketCap": 50450796544,
-      "volume": 28322270
+      "marketCap": 50457501696,
+      "volume": 22022635
     },
     "SBUX": {
       "symbol": "SBUX",
