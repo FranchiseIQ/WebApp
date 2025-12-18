@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2025-12-17T21:42:21.098614Z",
+  "fetchedAt": "2025-12-18T13:36:14.776231Z",
   "totalSymbols": 40,
   "successCount": 40,
   "errorCount": 0,
@@ -13,7 +13,7 @@
       "changePercent": 1.33,
       "name": "McDonald's Corporation",
       "marketCap": 227418587136,
-      "volume": 2258026
+      "volume": 3287403
     },
     "YUM": {
       "symbol": "YUM",
@@ -33,7 +33,7 @@
       "changePercent": -0.38,
       "name": "Restaurant Brands International",
       "marketCap": 32084983808,
-      "volume": 1769299
+      "volume": 2003172
     },
     "WEN": {
       "symbol": "WEN",
@@ -53,7 +53,7 @@
       "changePercent": 1.04,
       "name": "Domino's Pizza Inc",
       "marketCap": 14883886080,
-      "volume": 576472
+      "volume": 576663
     },
     "JACK": {
       "symbol": "JACK",
@@ -83,7 +83,7 @@
       "changePercent": 0.75,
       "name": "Shake Shack, Inc.",
       "marketCap": 3513238016,
-      "volume": 1782758
+      "volume": 2110409
     },
     "CMG": {
       "symbol": "CMG",
@@ -103,7 +103,7 @@
       "changePercent": 0.15,
       "name": "Starbucks Corporation",
       "marketCap": 96892289024,
-      "volume": 7807531
+      "volume": 7937492
     },
     "PZZA": {
       "symbol": "PZZA",
@@ -213,7 +213,7 @@
       "changePercent": 3.82,
       "name": "Bloomin' Brands, Inc.",
       "marketCap": 602484800,
-      "volume": 2596014
+      "volume": 2654175
     },
     "PLAY": {
       "symbol": "PLAY",
@@ -243,7 +243,7 @@
       "changePercent": 2.51,
       "name": "Hilton Worldwide Holdings Inc.",
       "marketCap": 68911775744,
-      "volume": 3105165
+      "volume": 3666038
     },
     "H": {
       "symbol": "H",
@@ -282,7 +282,7 @@
       "change": 1.07,
       "changePercent": 0.76,
       "name": "Intercontinental Hotels Group",
-      "marketCap": 21223073792,
+      "marketCap": 21323571200,
       "volume": 232936
     },
     "VAC": {
@@ -293,7 +293,7 @@
       "changePercent": 2.13,
       "name": "Marriott Vacations Worldwide Co",
       "marketCap": 2011765120,
-      "volume": 556691
+      "volume": 688833
     },
     "TNL": {
       "symbol": "TNL",
