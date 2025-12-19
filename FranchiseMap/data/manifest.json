@@ -217,7 +217,7 @@
     "file": "brands/chipotle.json",
     "color": "#000000",
     "category": "Other",
-    "count": 1
+    "count": 35
   },
   {
     "ticker": "DOMINOS",
@@ -228,7 +228,7 @@
     "file": "brands/dominos.json",
     "color": "#000000",
     "category": "Other",
-    "count": 1
+    "count": 30
   },
   {
     "ticker": "MCDONALDS",
@@ -239,7 +239,7 @@
     "file": "brands/mcdonalds.json",
     "color": "#000000",
     "category": "Other",
-    "count": 1
+    "count": 50
   },
   {
     "ticker": "PLANETFITNESS",
@@ -250,7 +250,7 @@
     "file": "brands/planetfitness.json",
     "color": "#000000",
     "category": "Other",
-    "count": 1
+    "count": 25
   },
   {
     "ticker": "SHAKESHACK",
@@ -261,7 +261,7 @@
     "file": "brands/shakeshack.json",
     "color": "#000000",
     "category": "Other",
-    "count": 1
+    "count": 20
   },
   {
     "ticker": "STARBUCKS",
@@ -272,7 +272,7 @@
     "file": "brands/starbucks.json",
     "color": "#000000",
     "category": "Other",
-    "count": 1
+    "count": 40
   },
   {
     "ticker": "WENDYS",
@@ -283,7 +283,7 @@
     "file": "brands/wendys.json",
     "color": "#000000",
     "category": "Other",
-    "count": 1
+    "count": 25
   },
   {
     "ticker": "WINGSTOP",
@@ -294,6 +294,6 @@
     "file": "brands/wingstop.json",
     "color": "#000000",
     "category": "Other",
-    "count": 1
+    "count": 20
   }
 ]
