@@ -39,8 +39,23 @@ TICKER_QUERIES = {
     # --- ROARK CAPITAL (The Big Portfolio) ---
     "INSPIRE": ['"Arby\'s"', '"Buffalo Wild Wings"', '"Sonic Drive-In"', '"Dunkin\'"', '"Baskin-Robbins"', '"Jimmy John\'s"'],
     "FOCUS":   ['"Auntie Anne\'s"', '"Carvel"', '"Cinnabon"', '"Jamba"', '"McAlister\'s Deli"', '"Moe\'s Southwest Grill"', '"Schlotzsky\'s"'],
-    "DRIVEN":  ['"Take 5"', '"Meineke"', '"Maaco"', '"CARSTAR"', '"1-800-Radiator"', '"Auto Glass Now"'],
-    "ROARK":   ['"Massage Envy"', '"Primrose Schools"', '"Mathnasium"', '"Nothing Bundt Cakes"', '"Naf Naf Grill"', '"Jim \'N Nick\'s BBQ"', '"Culver\'s"', '"Carl\'s Jr."', '"Hardee\'s"'],
+    "DRIVEN":  ['"Take 5"', '"Meineke"', '"Maaco"', '"CARSTAR"', '"1-800-Radiator"', '"Auto Glass Now"', '"ABRA Auto Body"'],
+    "ROARK":   ['"Massage Envy"', '"Primrose Schools"', '"Mathnasium"', '"Nothing Bundt Cakes"', '"Naf Naf Grill"', '"Jim \'N Nick\'s BBQ"', '"Culver\'s"', '"Carl\'s Jr."', '"Hardee\'s"', '"Orangetheory Fitness"', '"Fitness Connection"', '"Dave\'s Hot Chicken"'],
+
+    # --- SELF ESTEEM BRANDS (Fitness & Wellness) ---
+    "SEBR":   ['"Anytime Fitness"', '"Basecamp Fitness"', '"The Bar Method"', '"Waxing the City"'],
+
+    # --- ADDITIONAL FITNESS CHAINS ---
+    "24HF":   ['"24 Hour Fitness"', '"24-Hour Fitness"'],
+
+    # --- EXPANDED SERVICES ---
+    "SVCE":   ['"ServiceMaster Clean"', '"ServiceMaster Restore"', '"AmeriSpec"', '"Furniture Medic"'],
+    "PRET":   ['"PetValu"', '"Pet Supermarket"', '"Bosley\'s"'],
+
+    # --- ADDITIONAL STANDALONE INVESTMENTS ---
+    "DHOT":   ['"Dave\'s Hot Chicken"'],
+    "MILL":   ['"Miller\'s Ale House"'],
+    "GTEX":   ['"Great Expressions Dental Centers"'],
 
     # --- PRIVATE GIANTS (The Missing Links) ---
     "SUB":   ['"Subway"'],
