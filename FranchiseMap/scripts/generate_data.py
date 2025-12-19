@@ -235,7 +235,8 @@ def generate_real_data():
 
     for ticker in keys:
         queries = TICKER_QUERIES[ticker]
-        print(f"Querying {ticker} ({queries[0].replace('\"', '')}...)...")
+        query_name = queries[0].replace('"', '')
+        print(f"Querying {ticker} ({query_name}...)...")
 
         elements = fetch_overpass_data(queries)
         all_ticker_locs = []

@@ -58,6 +58,15 @@ body {
     gap: 10px;
     font-weight: 700;
     font-size: 1.25rem;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.logo-area:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
 }
 
 .logo-area i {
