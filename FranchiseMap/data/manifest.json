@@ -209,91 +209,36 @@
     "count": 1233
   },
   {
-    "ticker": "CHIPOTLE",
+    "ticker": "CMG",
     "brands": [
-      "CHIPOTLE"
+      "Chipotle Mexican Grill"
     ],
-    "name": "CHIPOTLE",
+    "name": "Chipotle Mexican Grill",
     "file": "data/brands/chipotle.json",
-    "color": "#000000",
-    "category": "Other",
+    "color": "#6B2E1F",
+    "category": "Casual",
     "count": 35
   },
   {
-    "ticker": "DOMINOS",
+    "ticker": "SBUX",
     "brands": [
-      "DOMINOS"
+      "Starbucks"
     ],
-    "name": "DOMINOS",
-    "file": "data/brands/dominos.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 30
-  },
-  {
-    "ticker": "MCDONALDS",
-    "brands": [
-      "MCDONALDS"
-    ],
-    "name": "MCDONALDS",
-    "file": "data/brands/mcdonalds.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 50
-  },
-  {
-    "ticker": "PLANETFITNESS",
-    "brands": [
-      "PLANETFITNESS"
-    ],
-    "name": "PLANETFITNESS",
-    "file": "data/brands/planetfitness.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 25
-  },
-  {
-    "ticker": "SHAKESHACK",
-    "brands": [
-      "SHAKESHACK"
-    ],
-    "name": "SHAKESHACK",
-    "file": "data/brands/shakeshack.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 20
-  },
-  {
-    "ticker": "STARBUCKS",
-    "brands": [
-      "STARBUCKS"
-    ],
-    "name": "STARBUCKS",
+    "name": "Starbucks",
     "file": "data/brands/starbucks.json",
-    "color": "#000000",
-    "category": "Other",
+    "color": "#00704A",
+    "category": "QSR",
     "count": 40
   },
   {
-    "ticker": "WENDYS",
+    "ticker": "MCD",
     "brands": [
-      "WENDYS"
+      "McDonald's"
     ],
-    "name": "WENDYS",
-    "file": "data/brands/wendys.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 25
-  },
-  {
-    "ticker": "WINGSTOP",
-    "brands": [
-      "WINGSTOP"
-    ],
-    "name": "WINGSTOP",
-    "file": "data/brands/wingstop.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 20
+    "name": "McDonald's",
+    "file": "data/brands/mcdonalds.json",
+    "color": "#FFC72C",
+    "category": "QSR",
+    "count": 50
   }
 ]
