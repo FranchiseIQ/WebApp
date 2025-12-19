@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  issues: write
 
 jobs:
   aggregate-data:
@@ -36,6 +37,8 @@ jobs:
         working-directory: FranchiseMap/scripts
         env:
           CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+          GOV_DATA_KEY: ${{ secrets.GOV_DATA_KEY }}
+          BLS_KEY: ${{ secrets.BLS_KEY }}
         run: python3 run_data_aggregation.py
         timeout-minutes: 90
 
@@ -115,7 +118,7 @@ jobs:
 
       - name: Upload artifacts
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: aggregation-report
           path: |

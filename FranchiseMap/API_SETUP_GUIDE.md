@@ -107,52 +107,68 @@ You should see a JSON response with California income data.
 Get real FBI Uniform Crime Reporting (UCR) data - actual crime rates by county/city.
 
 ### How It Works
-**Good News**: No API key needed! FBI provides public data.
+**Requires API Key**: FBI crime data available through DATA.GOV (official U.S. government data portal).
 
-### Step-by-Step Access
+### Step-by-Step Registration
 
-#### Option A: Use Direct API (Recommended)
+#### Step 1: Visit DATA.GOV API Portal
 ```
-No registration required!
-Public API available at:
-https://crime-data-explorer.fr.cloud.gov/api/
+URL: https://api.data.gov/
 ```
 
-#### Option B: Download Raw Data Files
+#### Step 2: Sign Up for API Key
+1. Click "Get Started" or "Sign Up"
+2. Create account (email + password)
+3. Confirm email address
+4. Complete registration
+
+#### Step 3: Generate API Key
+1. Log in to dashboard
+2. Go to "API Keys" section
+3. Click "Create API Key" or similar
+4. Copy the generated key (typically ~40 characters)
+5. Save it somewhere safe
+
+#### Step 4: Set Environment Variable
+**On Mac/Linux:**
+```bash
+export GOV_DATA_KEY='your_api_key_here'
 ```
-URL: https://crime-data-explorer.fr.cloud.gov/
-Click: "Downloads" section
-Choose: "Crime by geography" or "Crime trends"
-Select: State or county level
-Download: CSV files
+
+**On Windows (cmd):**
+```cmd
+set GOV_DATA_KEY=your_api_key_here
+```
+
+**On Windows (PowerShell):**
+```powershell
+$env:GOV_DATA_KEY='your_api_key_here'
 ```
 
 ### What You Get
+- FBI Uniform Crime Reporting (UCR) data
 - Crime counts by offense type
-- Violent crime, property crime, arson, human trafficking
+- Violent crime, property crime indices
 - County and city level granularity
 - 10+ years of historical data
-- Data published with 2-year lag (e.g., 2025 has 2023 data)
+- Free tier: unlimited requests
+- Official U.S. government data source
 
-### API Examples
-
-**Get crimes for a specific agency:**
+### API Documentation
 ```
-https://crime-data-explorer.fr.cloud.gov/api/agencies/NY0010000
-```
-
-**Get national crime statistics:**
-```
-https://crime-data-explorer.fr.cloud.gov/api/crimes/national
+Base URL: https://api.data.gov/
+Documentation: https://api.data.gov/docs/
+Endpoint: FBI UCR endpoints (varies by dataset)
+Authentication: Pass GOV_DATA_KEY parameter
 ```
 
 ### Verification
-Open in browser:
+Once registered, check your dashboard at:
 ```
-https://crime-data-explorer.fr.cloud.gov/api/crimes/national
+https://api.data.gov/
 ```
 
-You should see JSON with national crime statistics.
+Your API key should be visible in your account settings.
 
 ---
 

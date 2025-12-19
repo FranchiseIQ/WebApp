@@ -31,7 +31,14 @@ from datetime import datetime
 
 # Configuration
 BLS_API_BASE = "https://api.bls.gov/publicAPI/v2"
-BLS_API_KEY = os.environ.get("BLS_API_KEY", "")
+# Try BLS_KEY first (GitHub secret), fall back to BLS_API_KEY (local env)
+BLS_API_KEY = os.environ.get("BLS_KEY", "") or os.environ.get("BLS_API_KEY", "")
+
+if not BLS_API_KEY:
+    print("⚠️  WARNING: BLS_KEY not found in environment")
+    print("   Set it as a GitHub secret or export BLS_KEY='your_key'")
+    print("   Get your key at: https://www.bls.gov/developers/")
+    print("   Script will use regional employment baselines as fallback\n")
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(script_dir, "../data")
