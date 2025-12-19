@@ -895,26 +895,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Duplicate ticker tape content for seamless scrolling animation
-    function duplicateTickerContent() {
-        const tickerTape = document.getElementById('ticker-tape');
-        if (!tickerTape) return;
-
-        // Wait for ticker to be populated by ticker.js
-        const checkAndDuplicate = () => {
-            const items = tickerTape.querySelectorAll('.ticker-item');
-            if (items.length > 0) {
-                // Items already exist, duplicate them
-                const clonedItems = Array.from(items).map(item => item.cloneNode(true));
-                clonedItems.forEach(item => tickerTape.appendChild(item));
-            } else {
-                // Try again in 100ms if items not loaded yet
-                setTimeout(checkAndDuplicate, 100);
-            }
-        };
-        checkAndDuplicate();
-    }
-
     initMap();
-    setTimeout(duplicateTickerContent, 500); // Give ticker.js time to populate
 });
