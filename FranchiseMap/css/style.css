@@ -112,7 +112,7 @@ body {
     gap: 20px;
     overflow: hidden;
     flex: 1;
-    animation: ticker-scroll 120s linear infinite;
+    animation: ticker-scroll 90s linear infinite;
     will-change: transform;
 }
 
