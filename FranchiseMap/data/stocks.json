@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2025-12-18T21:39:39.501654Z",
+  "fetchedAt": "2025-12-19T13:32:57.027042Z",
   "totalSymbols": 40,
   "successCount": 40,
   "errorCount": 0,
@@ -43,7 +43,7 @@
       "changePercent": -0.59,
       "name": "Wendy's Company (The)",
       "marketCap": 1608369408,
-      "volume": 3507773
+      "volume": 3898754
     },
     "DPZ": {
       "symbol": "DPZ",
@@ -113,7 +113,7 @@
       "changePercent": -0.49,
       "name": "Papa John's International, Inc.",
       "marketCap": 1336824448,
-      "volume": 629501
+      "volume": 780752
     },
     "DNUT": {
       "symbol": "DNUT",
@@ -183,7 +183,7 @@
       "changePercent": 2.79,
       "name": "The Cheesecake Factory Incorpor",
       "marketCap": 2574821632,
-      "volume": 1863831
+      "volume": 1983033
     },
     "DRI": {
       "symbol": "DRI",
@@ -193,7 +193,7 @@
       "changePercent": 1.77,
       "name": "Darden Restaurants, Inc.",
       "marketCap": 22488825856,
-      "volume": 4277671
+      "volume": 4731430
     },
     "EAT": {
       "symbol": "EAT",
@@ -213,7 +213,7 @@
       "changePercent": 1.56,
       "name": "Bloomin' Brands, Inc.",
       "marketCap": 611858688,
-      "volume": 2396061
+      "volume": 2447882
     },
     "PLAY": {
       "symbol": "PLAY",
@@ -223,7 +223,7 @@
       "changePercent": -2.75,
       "name": "Dave & Buster's Entertainment, ",
       "marketCap": 625285184,
-      "volume": 1147563
+      "volume": 1153110
     },
     "MAR": {
       "symbol": "MAR",
@@ -282,7 +282,7 @@
       "change": -1.02,
       "changePercent": -0.72,
       "name": "Intercontinental Hotels Group",
-      "marketCap": 21169840128,
+      "marketCap": 21167753216,
       "volume": 166520
     },
     "VAC": {
@@ -403,7 +403,7 @@
       "changePercent": -0.63,
       "name": "Grand Canyon Education, Inc.",
       "marketCap": 4629895680,
-      "volume": 271022
+      "volume": 285401
     }
   }
 }
