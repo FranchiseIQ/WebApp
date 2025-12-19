@@ -112,7 +112,7 @@ body {
     gap: 20px;
     overflow: hidden;
     flex: 1;
-    animation: ticker-scroll 60s linear infinite;
+    animation: ticker-scroll 80s linear infinite;
     will-change: transform;
 }
 
@@ -136,13 +136,13 @@ body {
 .ticker-change.up { color: var(--market-green); }
 .ticker-change.down { color: var(--market-red); }
 
-/* Continuous scrolling animation */
+/* Continuous scrolling animation - starts off-screen, scrolls through */
 @keyframes ticker-scroll {
     0% {
-        transform: translateX(0);
+        transform: translateX(100%);
     }
     100% {
-        transform: translateX(-50%);
+        transform: translateX(-100%);
     }
 }
 

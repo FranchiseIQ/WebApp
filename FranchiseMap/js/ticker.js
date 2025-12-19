@@ -62,7 +62,7 @@
             `;
         });
 
-        // Duplicate HTML for seamless scrolling animation (animates by -50%)
+        // Duplicate HTML for seamless scrolling animation
         tape.innerHTML = html + html;
     }
 
