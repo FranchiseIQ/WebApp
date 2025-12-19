@@ -1,48 +1,562 @@
-{
-  "brandId": "SBUX",
-  "brandName": "Starbucks",
-  "color": "#00704A",
-  "category": "QSR",
-  "locations": [
-    {"id": "sbux-001", "lat": 40.7580, "lng": -73.9690, "address": "Times Square, New York, NY", "walkScore": 99, "transitScore": 100, "bikeScore": 89},
-    {"id": "sbux-002", "lat": 40.7527, "lng": -73.9772, "address": "Grand Central, New York, NY", "walkScore": 100, "transitScore": 100, "bikeScore": 88},
-    {"id": "sbux-003", "lat": 40.7061, "lng": -74.0089, "address": "Wall Street, New York, NY", "walkScore": 98, "transitScore": 98, "bikeScore": 82},
-    {"id": "sbux-004", "lat": 47.6097, "lng": -122.3331, "address": "Pike Place (Original), Seattle, WA", "walkScore": 97, "transitScore": 92, "bikeScore": 85},
-    {"id": "sbux-005", "lat": 47.6062, "lng": -122.3321, "address": "Downtown Seattle, WA", "walkScore": 96, "transitScore": 88, "bikeScore": 78},
-    {"id": "sbux-006", "lat": 41.8781, "lng": -87.6298, "address": "Chicago Loop, IL", "walkScore": 98, "transitScore": 100, "bikeScore": 85},
-    {"id": "sbux-007", "lat": 34.0522, "lng": -118.2437, "address": "Downtown LA, CA", "walkScore": 91, "transitScore": 75, "bikeScore": 68},
-    {"id": "sbux-008", "lat": 37.7749, "lng": -122.4194, "address": "San Francisco, CA", "walkScore": 95, "transitScore": 89, "bikeScore": 92},
-    {"id": "sbux-009", "lat": 42.3601, "lng": -71.0589, "address": "Boston, MA", "walkScore": 97, "transitScore": 96, "bikeScore": 89},
-    {"id": "sbux-010", "lat": 33.4484, "lng": -112.0740, "address": "Phoenix, AZ", "walkScore": 72, "transitScore": 48, "bikeScore": 62},
-    {"id": "sbux-011", "lat": 39.7392, "lng": -104.9903, "address": "Denver, CO", "walkScore": 88, "transitScore": 65, "bikeScore": 82},
-    {"id": "sbux-012", "lat": 36.1699, "lng": -115.1398, "address": "Las Vegas, NV", "walkScore": 91, "transitScore": 55, "bikeScore": 42},
-    {"id": "sbux-013", "lat": 38.9072, "lng": -77.0369, "address": "Georgetown, Washington DC", "walkScore": 96, "transitScore": 82, "bikeScore": 85},
-    {"id": "sbux-014", "lat": 45.5051, "lng": -122.6750, "address": "Portland, OR", "walkScore": 92, "transitScore": 75, "bikeScore": 95},
-    {"id": "sbux-015", "lat": 32.7157, "lng": -117.1611, "address": "Gaslamp Quarter, San Diego, CA", "walkScore": 92, "transitScore": 58, "bikeScore": 82},
-    {"id": "sbux-016", "lat": 36.1627, "lng": -86.7816, "address": "Nashville, TN", "walkScore": 75, "transitScore": 32, "bikeScore": 55},
-    {"id": "sbux-017", "lat": 39.9612, "lng": -82.9988, "address": "Columbus, OH", "walkScore": 65, "transitScore": 32, "bikeScore": 52},
-    {"id": "sbux-018", "lat": 33.4484, "lng": -112.0773, "address": "Scottsdale, AZ", "walkScore": 45, "transitScore": 22, "bikeScore": 58},
-    {"id": "sbux-019", "lat": 40.7282, "lng": -73.7949, "address": "Queens, NY", "walkScore": 92, "transitScore": 85, "bikeScore": 72},
-    {"id": "sbux-020", "lat": 40.6782, "lng": -73.9442, "address": "Brooklyn, NY", "walkScore": 95, "transitScore": 89, "bikeScore": 85},
-    {"id": "sbux-021", "lat": 33.7490, "lng": -84.3880, "address": "Atlanta, GA", "walkScore": 82, "transitScore": 55, "bikeScore": 52},
-    {"id": "sbux-022", "lat": 39.9526, "lng": -75.1652, "address": "Philadelphia, PA", "walkScore": 94, "transitScore": 82, "bikeScore": 75},
-    {"id": "sbux-023", "lat": 44.9778, "lng": -93.2650, "address": "Minneapolis, MN", "walkScore": 85, "transitScore": 68, "bikeScore": 92},
-    {"id": "sbux-024", "lat": 30.2672, "lng": -97.7431, "address": "Austin, TX", "walkScore": 82, "transitScore": 42, "bikeScore": 72},
-    {"id": "sbux-025", "lat": 29.7604, "lng": -95.3698, "address": "Houston, TX", "walkScore": 85, "transitScore": 56, "bikeScore": 48},
-    {"id": "sbux-026", "lat": 32.7767, "lng": -96.7970, "address": "Dallas, TX", "walkScore": 78, "transitScore": 52, "bikeScore": 45},
-    {"id": "sbux-027", "lat": 25.7617, "lng": -80.1918, "address": "Miami, FL", "walkScore": 89, "transitScore": 62, "bikeScore": 72},
-    {"id": "sbux-028", "lat": 37.3382, "lng": -121.8863, "address": "San Jose, CA", "walkScore": 58, "transitScore": 38, "bikeScore": 72},
-    {"id": "sbux-029", "lat": 38.5816, "lng": -121.4944, "address": "Sacramento, CA", "walkScore": 65, "transitScore": 35, "bikeScore": 78},
-    {"id": "sbux-030", "lat": 40.7608, "lng": -111.8910, "address": "Salt Lake City, UT", "walkScore": 68, "transitScore": 45, "bikeScore": 75},
-    {"id": "sbux-031", "lat": 40.4406, "lng": -79.9959, "address": "Pittsburgh, PA", "walkScore": 78, "transitScore": 52, "bikeScore": 62},
-    {"id": "sbux-032", "lat": 38.6270, "lng": -90.1994, "address": "St. Louis, MO", "walkScore": 75, "transitScore": 42, "bikeScore": 55},
-    {"id": "sbux-033", "lat": 35.2271, "lng": -80.8431, "address": "Charlotte, NC", "walkScore": 70, "transitScore": 28, "bikeScore": 48},
-    {"id": "sbux-034", "lat": 35.7796, "lng": -78.6382, "address": "Raleigh, NC", "walkScore": 55, "transitScore": 18, "bikeScore": 45},
-    {"id": "sbux-035", "lat": 41.4993, "lng": -81.6944, "address": "Cleveland, OH", "walkScore": 72, "transitScore": 45, "bikeScore": 58},
-    {"id": "sbux-036", "lat": 39.1031, "lng": -84.5120, "address": "Cincinnati, OH", "walkScore": 68, "transitScore": 35, "bikeScore": 48},
-    {"id": "sbux-037", "lat": 42.3314, "lng": -83.0458, "address": "Detroit, MI", "walkScore": 72, "transitScore": 38, "bikeScore": 55},
-    {"id": "sbux-038", "lat": 29.9511, "lng": -90.0715, "address": "New Orleans, LA", "walkScore": 82, "transitScore": 48, "bikeScore": 68},
-    {"id": "sbux-039", "lat": 27.9506, "lng": -82.4572, "address": "Tampa, FL", "walkScore": 52, "transitScore": 28, "bikeScore": 55},
-    {"id": "sbux-040", "lat": 28.5383, "lng": -81.3792, "address": "Orlando, FL", "walkScore": 45, "transitScore": 22, "bikeScore": 48}
-  ]
-}
+[
+  {
+    "id": "sbux-001",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Times Square, New York, NY",
+    "lat": 40.758,
+    "lng": -73.969,
+    "s": 75,
+    "at": {
+      "walkScore": 99,
+      "transitScore": 100,
+      "bikeScore": 89
+    }
+  },
+  {
+    "id": "sbux-002",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Grand Central, New York, NY",
+    "lat": 40.7527,
+    "lng": -73.9772,
+    "s": 75,
+    "at": {
+      "walkScore": 100,
+      "transitScore": 100,
+      "bikeScore": 88
+    }
+  },
+  {
+    "id": "sbux-003",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Wall Street, New York, NY",
+    "lat": 40.7061,
+    "lng": -74.0089,
+    "s": 75,
+    "at": {
+      "walkScore": 98,
+      "transitScore": 98,
+      "bikeScore": 82
+    }
+  },
+  {
+    "id": "sbux-004",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Pike Place (Original), Seattle, WA",
+    "lat": 47.6097,
+    "lng": -122.3331,
+    "s": 75,
+    "at": {
+      "walkScore": 97,
+      "transitScore": 92,
+      "bikeScore": 85
+    }
+  },
+  {
+    "id": "sbux-005",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Downtown Seattle, WA",
+    "lat": 47.6062,
+    "lng": -122.3321,
+    "s": 75,
+    "at": {
+      "walkScore": 96,
+      "transitScore": 88,
+      "bikeScore": 78
+    }
+  },
+  {
+    "id": "sbux-006",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Chicago Loop, IL",
+    "lat": 41.8781,
+    "lng": -87.6298,
+    "s": 75,
+    "at": {
+      "walkScore": 98,
+      "transitScore": 100,
+      "bikeScore": 85
+    }
+  },
+  {
+    "id": "sbux-007",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Downtown LA, CA",
+    "lat": 34.0522,
+    "lng": -118.2437,
+    "s": 75,
+    "at": {
+      "walkScore": 91,
+      "transitScore": 75,
+      "bikeScore": 68
+    }
+  },
+  {
+    "id": "sbux-008",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "San Francisco, CA",
+    "lat": 37.7749,
+    "lng": -122.4194,
+    "s": 75,
+    "at": {
+      "walkScore": 95,
+      "transitScore": 89,
+      "bikeScore": 92
+    }
+  },
+  {
+    "id": "sbux-009",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Boston, MA",
+    "lat": 42.3601,
+    "lng": -71.0589,
+    "s": 75,
+    "at": {
+      "walkScore": 97,
+      "transitScore": 96,
+      "bikeScore": 89
+    }
+  },
+  {
+    "id": "sbux-010",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Phoenix, AZ",
+    "lat": 33.4484,
+    "lng": -112.074,
+    "s": 75,
+    "at": {
+      "walkScore": 72,
+      "transitScore": 48,
+      "bikeScore": 62
+    }
+  },
+  {
+    "id": "sbux-011",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Denver, CO",
+    "lat": 39.7392,
+    "lng": -104.9903,
+    "s": 75,
+    "at": {
+      "walkScore": 88,
+      "transitScore": 65,
+      "bikeScore": 82
+    }
+  },
+  {
+    "id": "sbux-012",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Las Vegas, NV",
+    "lat": 36.1699,
+    "lng": -115.1398,
+    "s": 75,
+    "at": {
+      "walkScore": 91,
+      "transitScore": 55,
+      "bikeScore": 42
+    }
+  },
+  {
+    "id": "sbux-013",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Georgetown, Washington DC",
+    "lat": 38.9072,
+    "lng": -77.0369,
+    "s": 75,
+    "at": {
+      "walkScore": 96,
+      "transitScore": 82,
+      "bikeScore": 85
+    }
+  },
+  {
+    "id": "sbux-014",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Portland, OR",
+    "lat": 45.5051,
+    "lng": -122.675,
+    "s": 75,
+    "at": {
+      "walkScore": 92,
+      "transitScore": 75,
+      "bikeScore": 95
+    }
+  },
+  {
+    "id": "sbux-015",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Gaslamp Quarter, San Diego, CA",
+    "lat": 32.7157,
+    "lng": -117.1611,
+    "s": 75,
+    "at": {
+      "walkScore": 92,
+      "transitScore": 58,
+      "bikeScore": 82
+    }
+  },
+  {
+    "id": "sbux-016",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Nashville, TN",
+    "lat": 36.1627,
+    "lng": -86.7816,
+    "s": 75,
+    "at": {
+      "walkScore": 75,
+      "transitScore": 32,
+      "bikeScore": 55
+    }
+  },
+  {
+    "id": "sbux-017",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Columbus, OH",
+    "lat": 39.9612,
+    "lng": -82.9988,
+    "s": 75,
+    "at": {
+      "walkScore": 65,
+      "transitScore": 32,
+      "bikeScore": 52
+    }
+  },
+  {
+    "id": "sbux-018",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Scottsdale, AZ",
+    "lat": 33.4484,
+    "lng": -112.0773,
+    "s": 75,
+    "at": {
+      "walkScore": 45,
+      "transitScore": 22,
+      "bikeScore": 58
+    }
+  },
+  {
+    "id": "sbux-019",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Queens, NY",
+    "lat": 40.7282,
+    "lng": -73.7949,
+    "s": 75,
+    "at": {
+      "walkScore": 92,
+      "transitScore": 85,
+      "bikeScore": 72
+    }
+  },
+  {
+    "id": "sbux-020",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Brooklyn, NY",
+    "lat": 40.6782,
+    "lng": -73.9442,
+    "s": 75,
+    "at": {
+      "walkScore": 95,
+      "transitScore": 89,
+      "bikeScore": 85
+    }
+  },
+  {
+    "id": "sbux-021",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Atlanta, GA",
+    "lat": 33.749,
+    "lng": -84.388,
+    "s": 75,
+    "at": {
+      "walkScore": 82,
+      "transitScore": 55,
+      "bikeScore": 52
+    }
+  },
+  {
+    "id": "sbux-022",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Philadelphia, PA",
+    "lat": 39.9526,
+    "lng": -75.1652,
+    "s": 75,
+    "at": {
+      "walkScore": 94,
+      "transitScore": 82,
+      "bikeScore": 75
+    }
+  },
+  {
+    "id": "sbux-023",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Minneapolis, MN",
+    "lat": 44.9778,
+    "lng": -93.265,
+    "s": 75,
+    "at": {
+      "walkScore": 85,
+      "transitScore": 68,
+      "bikeScore": 92
+    }
+  },
+  {
+    "id": "sbux-024",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Austin, TX",
+    "lat": 30.2672,
+    "lng": -97.7431,
+    "s": 75,
+    "at": {
+      "walkScore": 82,
+      "transitScore": 42,
+      "bikeScore": 72
+    }
+  },
+  {
+    "id": "sbux-025",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Houston, TX",
+    "lat": 29.7604,
+    "lng": -95.3698,
+    "s": 75,
+    "at": {
+      "walkScore": 85,
+      "transitScore": 56,
+      "bikeScore": 48
+    }
+  },
+  {
+    "id": "sbux-026",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Dallas, TX",
+    "lat": 32.7767,
+    "lng": -96.797,
+    "s": 75,
+    "at": {
+      "walkScore": 78,
+      "transitScore": 52,
+      "bikeScore": 45
+    }
+  },
+  {
+    "id": "sbux-027",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Miami, FL",
+    "lat": 25.7617,
+    "lng": -80.1918,
+    "s": 75,
+    "at": {
+      "walkScore": 89,
+      "transitScore": 62,
+      "bikeScore": 72
+    }
+  },
+  {
+    "id": "sbux-028",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "San Jose, CA",
+    "lat": 37.3382,
+    "lng": -121.8863,
+    "s": 75,
+    "at": {
+      "walkScore": 58,
+      "transitScore": 38,
+      "bikeScore": 72
+    }
+  },
+  {
+    "id": "sbux-029",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Sacramento, CA",
+    "lat": 38.5816,
+    "lng": -121.4944,
+    "s": 75,
+    "at": {
+      "walkScore": 65,
+      "transitScore": 35,
+      "bikeScore": 78
+    }
+  },
+  {
+    "id": "sbux-030",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Salt Lake City, UT",
+    "lat": 40.7608,
+    "lng": -111.891,
+    "s": 75,
+    "at": {
+      "walkScore": 68,
+      "transitScore": 45,
+      "bikeScore": 75
+    }
+  },
+  {
+    "id": "sbux-031",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Pittsburgh, PA",
+    "lat": 40.4406,
+    "lng": -79.9959,
+    "s": 75,
+    "at": {
+      "walkScore": 78,
+      "transitScore": 52,
+      "bikeScore": 62
+    }
+  },
+  {
+    "id": "sbux-032",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "St. Louis, MO",
+    "lat": 38.627,
+    "lng": -90.1994,
+    "s": 75,
+    "at": {
+      "walkScore": 75,
+      "transitScore": 42,
+      "bikeScore": 55
+    }
+  },
+  {
+    "id": "sbux-033",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Charlotte, NC",
+    "lat": 35.2271,
+    "lng": -80.8431,
+    "s": 75,
+    "at": {
+      "walkScore": 70,
+      "transitScore": 28,
+      "bikeScore": 48
+    }
+  },
+  {
+    "id": "sbux-034",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Raleigh, NC",
+    "lat": 35.7796,
+    "lng": -78.6382,
+    "s": 75,
+    "at": {
+      "walkScore": 55,
+      "transitScore": 18,
+      "bikeScore": 45
+    }
+  },
+  {
+    "id": "sbux-035",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Cleveland, OH",
+    "lat": 41.4993,
+    "lng": -81.6944,
+    "s": 75,
+    "at": {
+      "walkScore": 72,
+      "transitScore": 45,
+      "bikeScore": 58
+    }
+  },
+  {
+    "id": "sbux-036",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Cincinnati, OH",
+    "lat": 39.1031,
+    "lng": -84.512,
+    "s": 75,
+    "at": {
+      "walkScore": 68,
+      "transitScore": 35,
+      "bikeScore": 48
+    }
+  },
+  {
+    "id": "sbux-037",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Detroit, MI",
+    "lat": 42.3314,
+    "lng": -83.0458,
+    "s": 75,
+    "at": {
+      "walkScore": 72,
+      "transitScore": 38,
+      "bikeScore": 55
+    }
+  },
+  {
+    "id": "sbux-038",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "New Orleans, LA",
+    "lat": 29.9511,
+    "lng": -90.0715,
+    "s": 75,
+    "at": {
+      "walkScore": 82,
+      "transitScore": 48,
+      "bikeScore": 68
+    }
+  },
+  {
+    "id": "sbux-039",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Tampa, FL",
+    "lat": 27.9506,
+    "lng": -82.4572,
+    "s": 75,
+    "at": {
+      "walkScore": 52,
+      "transitScore": 28,
+      "bikeScore": 55
+    }
+  },
+  {
+    "id": "sbux-040",
+    "ticker": "SBUX",
+    "n": "Starbucks",
+    "a": "Orlando, FL",
+    "lat": 28.5383,
+    "lng": -81.3792,
+    "s": 75,
+    "at": {
+      "walkScore": 45,
+      "transitScore": 22,
+      "bikeScore": 48
+    }
+  }
+]
