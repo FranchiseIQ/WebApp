@@ -74,7 +74,7 @@
 .fiq-news-ticker-content {
   display: flex;
   white-space: nowrap;
-  animation: fiq-scroll-left 90s linear infinite;
+  animation: fiq-scroll-left 120s linear infinite;
   will-change: transform;
 }
 
