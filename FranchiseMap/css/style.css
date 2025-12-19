@@ -854,6 +854,8 @@ body {
 .popup-container {
     min-width: 320px;
     max-width: 380px;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -1274,15 +1276,18 @@ body {
 .leaflet-popup {
     touch-action: auto;
     pointer-events: auto;
+    z-index: 1001 !important;
 }
 
 .leaflet-popup-content-wrapper {
     touch-action: auto;
 }
 
+/* Ensure popup content scrolls internally and respects KPI area */
 .popup-container {
     touch-action: auto;
     overflow-y: auto;
+    max-height: calc(100vh - 140px);
 }
 
 /* Allow map zoom gestures to pass through popup overlay */
