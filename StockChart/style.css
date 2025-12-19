@@ -70,6 +70,9 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .help-btn:hover {
@@ -156,6 +159,8 @@ body {
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: 10px;
     transition: all 0.2s;
+    flex-wrap: nowrap;
+    overflow: visible;
 }
 
 .ticker-item:hover {
@@ -176,6 +181,7 @@ body {
     border-radius: 6px;
     cursor: pointer;
     transition: transform 0.2s;
+    flex-shrink: 0;
 }
 
 .color-picker:hover {
@@ -201,6 +207,8 @@ body {
     gap: 8px;
     font-size: 13px;
     color: #6B7280;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .width-slider {
@@ -228,6 +236,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .btn-remove:hover {
