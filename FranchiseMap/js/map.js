@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let colorIndex = 0;
     let comparisonLocations = [];
     let scoreFilter = { min: 0, max: 100 };
+    let proximityIndex = new ProximityIndex(0.02); // Grid-based spatial index
 
     // Predefined unique color palette - 60+ distinct colors
     const COLOR_PALETTE = [
@@ -89,7 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
         buildingsLayer = new OSMBuildings(map);
         map.on('overlayadd', e => { if(e.layer === dummy3D) loadBuildings(); });
         map.on('overlayremove', e => { if(e.layer === dummy3D) buildingsLayer.data([]); });
-        map.on('moveend', () => { if(map.hasLayer(dummy3D)) loadBuildings(); });
+        map.on('moveend', () => {
+            if(map.hasLayer(dummy3D)) loadBuildings();
+            updateVisibleStats();
+        });
+        map.on('zoomend', updateVisibleStats);
 
         setupRail();
         setupFilters();
@@ -174,6 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
             loc.s <= scoreFilter.max
         );
 
+        // Update proximity index with visible locations
+        proximityIndex.addLocations(visible);
+
         const markers = visible.map(createMarker);
 
         if (isHeatmapView) {
@@ -194,6 +202,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateLocationCount();
         updateDashboardStats();
+
+        // Update visible stats after map refresh (slight delay for rendering)
+        setTimeout(updateVisibleStats, 100);
     }
 
     function updateHeatmap(locations) {
@@ -247,6 +258,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update score distribution chart
         updateScoreDistribution(visible);
+    }
+
+    function updateVisibleStats() {
+        // Get current map bounds
+        if (!map) return;
+
+        const bounds = map.getBounds();
+        const visibleLocations = allLocations.filter(loc => {
+            // Check if location is within bounds and from active ticker
+            return activeTickers.has(loc.ticker) &&
+                   bounds.contains([loc.lat, loc.lng]) &&
+                   loc.s >= scoreFilter.min &&
+                   loc.s <= scoreFilter.max;
+        });
+
+        if (visibleLocations.length === 0) {
+            document.getElementById('avg-score').textContent = '--';
+            document.getElementById('high-score-count').textContent = '0';
+            return;
+        }
+
+        // Calculate stats for visible locations only
+        const avgScore = Math.round(visibleLocations.reduce((sum, loc) => sum + loc.s, 0) / visibleLocations.length);
+        const highScoreCount = visibleLocations.filter(loc => loc.s >= 80).length;
+
+        document.getElementById('avg-score').textContent = avgScore;
+        document.getElementById('high-score-count').textContent = highScoreCount.toLocaleString();
+
+        // Update score distribution for visible locations
+        updateScoreDistribution(visibleLocations);
     }
 
     function updateScoreDistribution(locations) {
@@ -464,21 +505,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function highlightCompetitors(centerLoc, radiusMiles, displayDiv) {
         clearCompetitorHighlights();
 
-        const radiusMeters = radiusMiles * 1609.34;
-        const centerLatLng = L.latLng(centerLoc.lat, centerLoc.lng);
-
-        const visible = allLocations.filter(loc => activeTickers.has(loc.ticker));
-        const competitors = visible.filter(loc => {
-            if (loc.id === centerLoc.id) return false;
-            const locLatLng = L.latLng(loc.lat, loc.lng);
-            return centerLatLng.distanceTo(locLatLng) <= radiusMeters;
-        });
+        // Use proximity index for efficient spatial search
+        const competitorResults = proximityIndex.findCompetitors(
+            centerLoc.lat,
+            centerLoc.lng,
+            radiusMiles,
+            activeTickers
+        );
 
         const byTicker = {};
-        competitors.forEach(c => {
-            if (!byTicker[c.ticker]) byTicker[c.ticker] = [];
-            byTicker[c.ticker].push(c);
+        Object.entries(competitorResults.byTicker).forEach(([ticker, locs]) => {
+            byTicker[ticker] = locs.map(l => l.location).filter(loc => loc.id !== centerLoc.id);
         });
+
+        // Remove center location from competitor count if present
+        const competitors = Object.values(byTicker).flat();
 
         if (competitors.length === 0) {
             displayDiv.innerHTML = '<div class="no-competitors"><i class="fa-solid fa-check-circle"></i> No competitors in radius</div>';
@@ -770,6 +811,91 @@ document.addEventListener('DOMContentLoaded', () => {
         if (exportBtn) {
             exportBtn.onclick = exportAllVisible;
         }
+
+        // High performers card click
+        const highScoreCount = document.getElementById('high-score-count');
+        if (highScoreCount) {
+            const highPerfCard = highScoreCount.closest('.stat-card');
+            if (highPerfCard) {
+                highPerfCard.style.cursor = 'pointer';
+                highPerfCard.onclick = showHighPerformers;
+            }
+        }
+
+        // Close high performers list
+        const closeBtn = document.getElementById('close-performers');
+        if (closeBtn) {
+            closeBtn.onclick = hideHighPerformers;
+        }
+
+        // Score filter slider
+        const avgScoreEl = document.getElementById('avg-score');
+        if (avgScoreEl) {
+            const avgScoreCard = avgScoreEl.closest('.stat-card');
+            if (avgScoreCard) {
+                avgScoreCard.onclick = showScoreSlider;
+            }
+        }
+
+        // Close slider modal
+        const closeSliderBtn = document.getElementById('close-slider');
+        if (closeSliderBtn) {
+            closeSliderBtn.onclick = hideScoreSlider;
+        }
+
+        // Modal background click
+        const sliderModal = document.getElementById('score-slider-modal');
+        if (sliderModal) {
+            sliderModal.onclick = function(e) {
+                if (e.target === sliderModal) hideScoreSlider();
+            };
+        }
+
+        // Slider inputs
+        const sliderMin = document.getElementById('slider-min');
+        const sliderMax = document.getElementById('slider-max');
+
+        if (sliderMin && sliderMax) {
+            sliderMin.oninput = function() {
+                const min = parseInt(this.value);
+                const max = parseInt(sliderMax.value);
+                if (min > max) {
+                    this.value = max;
+                    return;
+                }
+                updateScoreSliderDisplay();
+                applyScoreFilter();
+            };
+
+            sliderMax.oninput = function() {
+                const max = parseInt(this.value);
+                const min = parseInt(sliderMin.value);
+                if (max < min) {
+                    this.value = min;
+                    return;
+                }
+                updateScoreSliderDisplay();
+                applyScoreFilter();
+            };
+        }
+
+        // Reset slider button
+        const resetBtn = document.getElementById('reset-slider');
+        if (resetBtn) {
+            resetBtn.onclick = function() {
+                sliderMin.value = 0;
+                sliderMax.value = 100;
+                updateScoreSliderDisplay();
+                applyScoreFilter();
+            };
+        }
+
+        // Initialize slider with current values
+        if (sliderMin && sliderMax) {
+            sliderMin.value = scoreFilter.min;
+            sliderMax.value = scoreFilter.max;
+            updateScoreSliderDisplay();
+        }
     }
 
     function exportAllVisible() {
@@ -889,6 +1015,142 @@ document.addEventListener('DOMContentLoaded', () => {
                 pill.style.display = categoryTickers.includes(ticker) ? 'flex' : 'none';
             }
         });
+    }
+
+    function showHighPerformers() {
+        const visible = allLocations.filter(loc => activeTickers.has(loc.ticker));
+        const highPerformers = visible.filter(loc => loc.s >= 80)
+            .sort((a, b) => b.s - a.s);
+
+        const performersContent = document.getElementById('performers-content');
+        const performersList = document.getElementById('high-performers-list');
+
+        if (highPerformers.length === 0) {
+            performersContent.innerHTML = '<p style="padding: 12px; text-align: center; color: var(--text-light); font-size: 0.85rem;">No high performers in current selection</p>';
+            performersList.style.display = 'block';
+            return;
+        }
+
+        performersContent.innerHTML = highPerformers.map((loc, idx) => {
+            const tier = getScoreTier(loc.s);
+            const tierClass = loc.s >= 80 ? 'excellent' : 'good';
+            const address = loc.at ? (loc.at.address || loc.at.city || 'Unknown') : 'Unknown';
+
+            return `
+                <div class="performer-item" data-index="${idx}">
+                    <div class="performer-score-circle ${tierClass}">
+                        <div class="performer-score-value">${Math.round(loc.s)}</div>
+                        <div class="performer-score-label">Score</div>
+                    </div>
+                    <div class="performer-info">
+                        <div class="performer-name">${loc.name || loc.n || 'Unknown'}</div>
+                        <div class="performer-location">${address}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Add click handlers to performer items
+        performersContent.querySelectorAll('.performer-item').forEach((item, idx) => {
+            item.onclick = () => navigateToPerformer(highPerformers[idx]);
+        });
+
+        performersList.style.display = 'block';
+    }
+
+    function hideHighPerformers() {
+        const performersList = document.getElementById('high-performers-list');
+        performersList.style.display = 'none';
+    }
+
+    function navigateToPerformer(location) {
+        // Close the high performers list
+        hideHighPerformers();
+
+        // Pan to the location
+        map.setView([location.lat, location.lng], 14);
+
+        // Find and open the marker popup
+        setTimeout(() => {
+            if (clusterGroup) {
+                // Try to find the marker in the cluster group
+                let foundMarker = null;
+                clusterGroup.eachLayer(layer => {
+                    if (layer.locationData &&
+                        layer.locationData.lat === location.lat &&
+                        layer.locationData.lng === location.lng) {
+                        foundMarker = layer;
+                    }
+                });
+
+                if (foundMarker) {
+                    foundMarker.openPopup();
+                    // Highlight the marker briefly
+                    const originalStyle = foundMarker.options;
+                    foundMarker.setStyle({
+                        weight: 4,
+                        opacity: 1,
+                        fillOpacity: 1
+                    });
+                    setTimeout(() => {
+                        foundMarker.setStyle(originalStyle);
+                    }, 1500);
+                }
+            }
+        }, 300);
+    }
+
+    function showScoreSlider() {
+        const modal = document.getElementById('score-slider-modal');
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    }
+
+    function hideScoreSlider() {
+        const modal = document.getElementById('score-slider-modal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    function updateScoreSliderDisplay() {
+        const sliderMin = document.getElementById('slider-min');
+        const sliderMax = document.getElementById('slider-max');
+        const minValue = document.getElementById('slider-min-value');
+        const maxValue = document.getElementById('slider-max-value');
+
+        if (minValue) minValue.textContent = sliderMin.value;
+        if (maxValue) maxValue.textContent = sliderMax.value;
+    }
+
+    function applyScoreFilter() {
+        const sliderMin = document.getElementById('slider-min');
+        const sliderMax = document.getElementById('slider-max');
+
+        const min = parseInt(sliderMin.value);
+        const max = parseInt(sliderMax.value);
+
+        // Update the main score filter controls
+        const scoreMinSlider = document.getElementById('score-min');
+        const scoreMaxSlider = document.getElementById('score-max');
+        const scoreMinLabel = document.getElementById('score-min-label');
+        const scoreMaxLabel = document.getElementById('score-max-label');
+
+        if (scoreMinSlider) {
+            scoreMinSlider.value = min;
+            scoreFilter.min = min;
+            if (scoreMinLabel) scoreMinLabel.textContent = min;
+        }
+
+        if (scoreMaxSlider) {
+            scoreMaxSlider.value = max;
+            scoreFilter.max = max;
+            if (scoreMaxLabel) scoreMaxLabel.textContent = max;
+        }
+
+        // Refresh map with new filter
+        refreshMap();
     }
 
     initMap();

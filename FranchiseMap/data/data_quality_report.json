@@ -1,0 +1,187 @@
+{
+  "timestamp": "2025-12-19T06:37:21.629969",
+  "brands": {
+    "WEN": {
+      "count": 5758,
+      "with_attributes": 5758,
+      "with_scores": 5758,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 5758,
+      "attribute_coverage": 100.0
+    },
+    "DPZ": {
+      "count": 64,
+      "with_attributes": 64,
+      "with_scores": 64,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 64,
+      "attribute_coverage": 100.0
+    },
+    "JACK": {
+      "count": 2475,
+      "with_attributes": 2475,
+      "with_scores": 2475,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 2475,
+      "attribute_coverage": 100.0
+    },
+    "WING": {
+      "count": 1233,
+      "with_attributes": 1233,
+      "with_scores": 1233,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 1233,
+      "attribute_coverage": 100.0
+    },
+    "SHAK": {
+      "count": 325,
+      "with_attributes": 325,
+      "with_scores": 325,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 325,
+      "attribute_coverage": 100.0
+    },
+    "DENN": {
+      "count": 1402,
+      "with_attributes": 1402,
+      "with_scores": 1402,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 1402,
+      "attribute_coverage": 100.0
+    },
+    "DIN": {
+      "count": 3024,
+      "with_attributes": 3024,
+      "with_scores": 3024,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 3024,
+      "attribute_coverage": 100.0
+    },
+    "DNUT": {
+      "count": 529,
+      "with_attributes": 529,
+      "with_scores": 529,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 529,
+      "attribute_coverage": 100.0
+    },
+    "NATH": {
+      "count": 1,
+      "with_attributes": 1,
+      "with_scores": 1,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 1,
+      "attribute_coverage": 100.0
+    },
+    "RRGB": {
+      "count": 634,
+      "with_attributes": 634,
+      "with_scores": 634,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 634,
+      "attribute_coverage": 100.0
+    },
+    "HRB": {
+      "count": 2935,
+      "with_attributes": 2935,
+      "with_scores": 2935,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 2935,
+      "attribute_coverage": 100.0
+    },
+    "MCW": {
+      "count": 212,
+      "with_attributes": 212,
+      "with_scores": 212,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 212,
+      "attribute_coverage": 100.0
+    },
+    "SERV": {
+      "count": 70,
+      "with_attributes": 70,
+      "with_scores": 70,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 70,
+      "attribute_coverage": 100.0
+    },
+    "ROL": {
+      "count": 652,
+      "with_attributes": 652,
+      "with_scores": 652,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 652,
+      "attribute_coverage": 100.0
+    },
+    "PLNT": {
+      "count": 1550,
+      "with_attributes": 1550,
+      "with_scores": 1550,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 1550,
+      "attribute_coverage": 100.0
+    },
+    "H": {
+      "count": 1634,
+      "with_attributes": 1634,
+      "with_scores": 1634,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 1634,
+      "attribute_coverage": 100.0
+    },
+    "VAC": {
+      "count": 19,
+      "with_attributes": 19,
+      "with_scores": 19,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 19,
+      "attribute_coverage": 100.0
+    },
+    "TNL": {
+      "count": 24,
+      "with_attributes": 24,
+      "with_scores": 24,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 24,
+      "attribute_coverage": 100.0
+    },
+    "PLAY": {
+      "count": 234,
+      "with_attributes": 234,
+      "with_scores": 234,
+      "with_demographics": 0,
+      "with_accessibility": 0,
+      "with_traffic": 234,
+      "attribute_coverage": 100.0
+    }
+  },
+  "summary": {
+    "totalLocations": 22775,
+    "locationsWithAttributes": 22775,
+    "locationsWithScores": 22775,
+    "locationsWithDemographics": 0,
+    "locationsWithAccessibility": 0,
+    "locationsWithTraffic": 22775,
+    "demographicCoverage": 0.0,
+    "accessibilityCoverage": 0.0,
+    "trafficCoverage": 100.0
+  }
+}

@@ -49,6 +49,7 @@
             .sort((a, b) => (b.marketCap || 0) - (a.marketCap || 0))
             .slice(0, 15);
 
+        // Generate ticker items once
         sorted.forEach(quote => {
             const changeClass = quote.changePercent >= 0 ? 'up' : 'down';
             const changeSign = quote.changePercent >= 0 ? '+' : '';
@@ -61,7 +62,8 @@
             `;
         });
 
-        tape.innerHTML = html;
+        // Duplicate HTML for seamless scrolling animation (animates by -50%)
+        tape.innerHTML = html + html;
     }
 
     function updateMarketStatus() {
