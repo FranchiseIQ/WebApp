@@ -948,6 +948,73 @@ function startTimers() {
 }
 
 // ============================================================================
+// HOVER-BASED MANUAL CONTROL
+// ============================================================================
+
+/**
+ * Enable manual left/right scrubbing while hovering over ticker
+ */
+function initHoverControl() {
+  const tickerContent = document.getElementById('ticker-content');
+  const tickerContainer = document.getElementById('ticker-container');
+
+  if (!tickerContent || !tickerContainer) return;
+
+  let isHovering = false;
+  let startX = 0;
+  let currentOffset = 0;
+  let containerWidth = 0;
+
+  /**
+   * Reset ticker to auto-scroll position
+   */
+  function resetToAutoScroll() {
+    tickerContent.style.transform = '';
+    tickerContent.style.cursor = 'default';
+  }
+
+  /**
+   * Update ticker position based on mouse movement
+   */
+  function updateTickerPosition(e) {
+    if (!isHovering) return;
+
+    const deltaX = e.clientX - startX;
+    const maxScroll = containerWidth * 0.3; // Allow scrolling up to 30% of width
+    const offset = Math.max(-maxScroll, Math.min(maxScroll, deltaX));
+
+    tickerContent.style.transform = `translateX(${offset}px)`;
+    tickerContent.style.cursor = 'grab';
+  }
+
+  // Handle mouse enter (hover start)
+  tickerContent.addEventListener('mouseenter', (e) => {
+    isHovering = true;
+    startX = e.clientX;
+    currentOffset = 0;
+    containerWidth = tickerContainer.offsetWidth;
+    tickerContent.style.cursor = 'grab';
+  });
+
+  // Handle mouse move while hovering
+  tickerContent.addEventListener('mousemove', updateTickerPosition);
+
+  // Handle mouse leave (hover end)
+  tickerContent.addEventListener('mouseleave', () => {
+    isHovering = false;
+    resetToAutoScroll();
+  });
+
+  // Also reset when mouse leaves the entire ticker container
+  tickerContainer.addEventListener('mouseleave', () => {
+    if (isHovering) {
+      isHovering = false;
+      resetToAutoScroll();
+    }
+  });
+}
+
+// ============================================================================
 // INITIALIZATION
 // ============================================================================
 
@@ -960,6 +1027,9 @@ function init() {
 
   // Initial load
   updateTicker();
+
+  // Initialize hover-based manual control
+  initHoverControl();
 
   // Auto-refresh every 60 seconds (synced with countdown)
   setInterval(updateTicker, REFRESH_INTERVAL);
