@@ -90,7 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
         buildingsLayer = new OSMBuildings(map);
         map.on('overlayadd', e => { if(e.layer === dummy3D) loadBuildings(); });
         map.on('overlayremove', e => { if(e.layer === dummy3D) buildingsLayer.data([]); });
-        map.on('moveend', () => { if(map.hasLayer(dummy3D)) loadBuildings(); });
+        map.on('moveend', () => {
+            if(map.hasLayer(dummy3D)) loadBuildings();
+            updateVisibleStats();
+        });
+        map.on('zoomend', updateVisibleStats);
 
         setupRail();
         setupFilters();
@@ -198,6 +202,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateLocationCount();
         updateDashboardStats();
+
+        // Update visible stats after map refresh (slight delay for rendering)
+        setTimeout(updateVisibleStats, 100);
     }
 
     function updateHeatmap(locations) {
@@ -251,6 +258,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update score distribution chart
         updateScoreDistribution(visible);
+    }
+
+    function updateVisibleStats() {
+        // Get current map bounds
+        if (!map) return;
+
+        const bounds = map.getBounds();
+        const visibleLocations = allLocations.filter(loc => {
+            // Check if location is within bounds and from active ticker
+            return activeTickers.has(loc.ticker) &&
+                   bounds.contains([loc.lat, loc.lng]) &&
+                   loc.s >= scoreFilter.min &&
+                   loc.s <= scoreFilter.max;
+        });
+
+        if (visibleLocations.length === 0) {
+            document.getElementById('avg-score').textContent = '--';
+            document.getElementById('high-score-count').textContent = '0';
+            return;
+        }
+
+        // Calculate stats for visible locations only
+        const avgScore = Math.round(visibleLocations.reduce((sum, loc) => sum + loc.s, 0) / visibleLocations.length);
+        const highScoreCount = visibleLocations.filter(loc => loc.s >= 80).length;
+
+        document.getElementById('avg-score').textContent = avgScore;
+        document.getElementById('high-score-count').textContent = highScoreCount.toLocaleString();
+
+        // Update score distribution for visible locations
+        updateScoreDistribution(visibleLocations);
     }
 
     function updateScoreDistribution(locations) {
