@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2025-12-19T13:32:57.027042Z",
+  "fetchedAt": "2025-12-19T14:20:59.432918Z",
   "totalSymbols": 40,
   "successCount": 40,
   "errorCount": 0,
@@ -13,7 +13,7 @@
       "changePercent": 0.3,
       "name": "McDonald's Corporation",
       "marketCap": 228103651328,
-      "volume": 2477631
+      "volume": 2480678
     },
     "YUM": {
       "symbol": "YUM",
@@ -23,7 +23,7 @@
       "changePercent": 1.02,
       "name": "Yum! Brands, Inc.",
       "marketCap": 42952892416,
-      "volume": 1649345
+      "volume": 1656097
     },
     "QSR": {
       "symbol": "QSR",
@@ -33,7 +33,7 @@
       "changePercent": -0.41,
       "name": "Restaurant Brands International",
       "marketCap": 31952441344,
-      "volume": 2185501
+      "volume": 2185734
     },
     "WEN": {
       "symbol": "WEN",
@@ -62,8 +62,8 @@
       "change": 0.17,
       "changePercent": 0.87,
       "name": "Jack In The Box Inc.",
-      "marketCap": 371607936,
-      "volume": 489940
+      "marketCap": 371889504,
+      "volume": 490432
     },
     "WING": {
       "symbol": "WING",
@@ -83,7 +83,7 @@
       "changePercent": 4.96,
       "name": "Shake Shack, Inc.",
       "marketCap": 3687427072,
-      "volume": 1952620
+      "volume": 1953776
     },
     "CMG": {
       "symbol": "CMG",
@@ -93,7 +93,7 @@
       "changePercent": 1.7,
       "name": "Chipotle Mexican Grill, Inc.",
       "marketCap": 50457501696,
-      "volume": 22022635
+      "volume": 22052865
     },
     "SBUX": {
       "symbol": "SBUX",
@@ -133,7 +133,7 @@
       "changePercent": 1.22,
       "name": "Nathan's Famous, Inc.",
       "marketCap": 401262720,
-      "volume": 28181
+      "volume": 30365
     },
     "DENN": {
       "symbol": "DENN",
@@ -143,7 +143,7 @@
       "changePercent": 0.0,
       "name": "Denny's Corporation",
       "marketCap": 319808768,
-      "volume": 1148366
+      "volume": 1155275
     },
     "DIN": {
       "symbol": "DIN",
@@ -163,7 +163,7 @@
       "changePercent": 2.76,
       "name": "Red Robin Gourmet Burgers, Inc.",
       "marketCap": 73654288,
-      "volume": 139855
+      "volume": 148716
     },
     "TXRH": {
       "symbol": "TXRH",
@@ -173,7 +173,7 @@
       "changePercent": 1.6,
       "name": "Texas Roadhouse, Inc.",
       "marketCap": 11579019264,
-      "volume": 1236003
+      "volume": 1246102
     },
     "CAKE": {
       "symbol": "CAKE",
@@ -203,7 +203,7 @@
       "changePercent": 3.5,
       "name": "Brinker International, Inc.",
       "marketCap": 6691341312,
-      "volume": 1067762
+      "volume": 1071351
     },
     "BLMN": {
       "symbol": "BLMN",
@@ -253,7 +253,7 @@
       "changePercent": -1.05,
       "name": "Hyatt Hotels Corporation",
       "marketCap": 15522039808,
-      "volume": 566072
+      "volume": 566473
     },
     "CHH": {
       "symbol": "CHH",
@@ -263,7 +263,7 @@
       "changePercent": -0.25,
       "name": "Choice Hotels International, In",
       "marketCap": 4394510336,
-      "volume": 834289
+      "volume": 836480
     },
     "WH": {
       "symbol": "WH",
@@ -283,7 +283,7 @@
       "changePercent": -0.72,
       "name": "Intercontinental Hotels Group",
       "marketCap": 21167753216,
-      "volume": 166520
+      "volume": 167706
     },
     "VAC": {
       "symbol": "VAC",
@@ -293,7 +293,7 @@
       "changePercent": -0.76,
       "name": "Marriott Vacations Worldwide Co",
       "marketCap": 1996535040,
-      "volume": 327480
+      "volume": 329962
     },
     "TNL": {
       "symbol": "TNL",
@@ -313,7 +313,7 @@
       "changePercent": -0.07,
       "name": "Driven Brands Holdings Inc.",
       "marketCap": 2522727936,
-      "volume": 558309
+      "volume": 720974
     },
     "HRB": {
       "symbol": "HRB",
@@ -323,7 +323,7 @@
       "changePercent": -1.52,
       "name": "H&R Block, Inc.",
       "marketCap": 5534123520,
-      "volume": 1108666
+      "volume": 1110117
     },
     "MCW": {
       "symbol": "MCW",
@@ -333,7 +333,7 @@
       "changePercent": -0.7,
       "name": "Mister Car Wash, Inc.",
       "marketCap": 1870415488,
-      "volume": 978962
+      "volume": 1020927
     },
     "SERV": {
       "symbol": "SERV",
@@ -353,7 +353,7 @@
       "changePercent": -0.08,
       "name": "Rollins, Inc.",
       "marketCap": 28960450560,
-      "volume": 1784415
+      "volume": 1784582
     },
     "PLNT": {
       "symbol": "PLNT",
@@ -393,7 +393,7 @@
       "changePercent": -0.81,
       "name": "Addus HomeCare Corporation",
       "marketCap": 2071420288,
-      "volume": 140490
+      "volume": 145822
     },
     "LOPE": {
       "symbol": "LOPE",
