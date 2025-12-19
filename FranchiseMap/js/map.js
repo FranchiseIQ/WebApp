@@ -827,6 +827,75 @@ document.addEventListener('DOMContentLoaded', () => {
         if (closeBtn) {
             closeBtn.onclick = hideHighPerformers;
         }
+
+        // Score filter slider
+        const avgScoreEl = document.getElementById('avg-score');
+        if (avgScoreEl) {
+            const avgScoreCard = avgScoreEl.closest('.stat-card');
+            if (avgScoreCard) {
+                avgScoreCard.onclick = showScoreSlider;
+            }
+        }
+
+        // Close slider modal
+        const closeSliderBtn = document.getElementById('close-slider');
+        if (closeSliderBtn) {
+            closeSliderBtn.onclick = hideScoreSlider;
+        }
+
+        // Modal background click
+        const sliderModal = document.getElementById('score-slider-modal');
+        if (sliderModal) {
+            sliderModal.onclick = function(e) {
+                if (e.target === sliderModal) hideScoreSlider();
+            };
+        }
+
+        // Slider inputs
+        const sliderMin = document.getElementById('slider-min');
+        const sliderMax = document.getElementById('slider-max');
+
+        if (sliderMin && sliderMax) {
+            sliderMin.oninput = function() {
+                const min = parseInt(this.value);
+                const max = parseInt(sliderMax.value);
+                if (min > max) {
+                    this.value = max;
+                    return;
+                }
+                updateScoreSliderDisplay();
+                applyScoreFilter();
+            };
+
+            sliderMax.oninput = function() {
+                const max = parseInt(this.value);
+                const min = parseInt(sliderMin.value);
+                if (max < min) {
+                    this.value = min;
+                    return;
+                }
+                updateScoreSliderDisplay();
+                applyScoreFilter();
+            };
+        }
+
+        // Reset slider button
+        const resetBtn = document.getElementById('reset-slider');
+        if (resetBtn) {
+            resetBtn.onclick = function() {
+                sliderMin.value = 0;
+                sliderMax.value = 100;
+                updateScoreSliderDisplay();
+                applyScoreFilter();
+            };
+        }
+
+        // Initialize slider with current values
+        if (sliderMin && sliderMax) {
+            sliderMin.value = scoreFilter.min;
+            sliderMax.value = scoreFilter.max;
+            updateScoreSliderDisplay();
+        }
     }
 
     function exportAllVisible() {
@@ -1029,6 +1098,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }, 300);
+    }
+
+    function showScoreSlider() {
+        const modal = document.getElementById('score-slider-modal');
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    }
+
+    function hideScoreSlider() {
+        const modal = document.getElementById('score-slider-modal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    function updateScoreSliderDisplay() {
+        const sliderMin = document.getElementById('slider-min');
+        const sliderMax = document.getElementById('slider-max');
+        const minValue = document.getElementById('slider-min-value');
+        const maxValue = document.getElementById('slider-max-value');
+
+        if (minValue) minValue.textContent = sliderMin.value;
+        if (maxValue) maxValue.textContent = sliderMax.value;
+    }
+
+    function applyScoreFilter() {
+        const sliderMin = document.getElementById('slider-min');
+        const sliderMax = document.getElementById('slider-max');
+
+        const min = parseInt(sliderMin.value);
+        const max = parseInt(sliderMax.value);
+
+        // Update the main score filter controls
+        const scoreMinSlider = document.getElementById('score-min');
+        const scoreMaxSlider = document.getElementById('score-max');
+        const scoreMinLabel = document.getElementById('score-min-label');
+        const scoreMaxLabel = document.getElementById('score-max-label');
+
+        if (scoreMinSlider) {
+            scoreMinSlider.value = min;
+            scoreFilter.min = min;
+            if (scoreMinLabel) scoreMinLabel.textContent = min;
+        }
+
+        if (scoreMaxSlider) {
+            scoreMaxSlider.value = max;
+            scoreFilter.max = max;
+            if (scoreMaxLabel) scoreMaxLabel.textContent = max;
+        }
+
+        // Refresh map with new filter
+        refreshMap();
     }
 
     initMap();
