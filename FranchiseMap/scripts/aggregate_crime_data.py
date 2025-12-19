@@ -4,8 +4,9 @@ FBI Crime Data Integration Script
 Fetches real FBI Uniform Crime Reporting (UCR) data by location.
 
 Data Sources:
-- FBI Crime Data Explorer API (public, no key required)
-- https://crime-data-explorer.fr.cloud.gov/api/
+- FBI Crime Data via DATA.GOV API
+- https://api.data.gov/
+- Requires GOV_DATA_KEY from https://api.data.gov/
 
 Metrics Collected:
 - Crime rates by county
@@ -13,7 +14,7 @@ Metrics Collected:
 - Property crime index
 - Overall crime index (0-100 scale)
 
-No API key required - public data!
+API Key: Register at https://api.data.gov/ to get GOV_DATA_KEY
 """
 
 import json
@@ -25,7 +26,14 @@ from datetime import datetime
 import math
 
 # Configuration
-CRIME_API_BASE = "https://crime-data-explorer.fr.cloud.gov/api"
+CRIME_API_BASE = "https://api.data.gov/usgs/water/qwdata"
+GOV_DATA_KEY = os.environ.get("GOV_DATA_KEY", "")
+
+if not GOV_DATA_KEY:
+    print("⚠️  WARNING: GOV_DATA_KEY not found in environment")
+    print("   Set it as a GitHub secret or export GOV_DATA_KEY='your_key'")
+    print("   Get your key at: https://api.data.gov/")
+    print("   Script will use regional crime baselines as fallback\n")
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(script_dir, "../data")
