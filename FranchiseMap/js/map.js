@@ -774,6 +774,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (exportBtn) {
             exportBtn.onclick = exportAllVisible;
         }
+
+        // High performers card click
+        const highScoreCount = document.getElementById('high-score-count');
+        if (highScoreCount) {
+            const highPerfCard = highScoreCount.closest('.stat-card');
+            if (highPerfCard) {
+                highPerfCard.style.cursor = 'pointer';
+                highPerfCard.onclick = showHighPerformers;
+            }
+        }
+
+        // Close high performers list
+        const closeBtn = document.getElementById('close-performers');
+        if (closeBtn) {
+            closeBtn.onclick = hideHighPerformers;
+        }
     }
 
     function exportAllVisible() {
@@ -893,6 +909,89 @@ document.addEventListener('DOMContentLoaded', () => {
                 pill.style.display = categoryTickers.includes(ticker) ? 'flex' : 'none';
             }
         });
+    }
+
+    function showHighPerformers() {
+        const visible = allLocations.filter(loc => activeTickers.has(loc.ticker));
+        const highPerformers = visible.filter(loc => loc.s >= 80)
+            .sort((a, b) => b.s - a.s);
+
+        const performersContent = document.getElementById('performers-content');
+        const performersList = document.getElementById('high-performers-list');
+
+        if (highPerformers.length === 0) {
+            performersContent.innerHTML = '<p style="padding: 12px; text-align: center; color: var(--text-light); font-size: 0.85rem;">No high performers in current selection</p>';
+            performersList.style.display = 'block';
+            return;
+        }
+
+        performersContent.innerHTML = highPerformers.map((loc, idx) => {
+            const tier = getScoreTier(loc.s);
+            const tierClass = loc.s >= 80 ? 'excellent' : 'good';
+            const address = loc.at ? (loc.at.address || loc.at.city || 'Unknown') : 'Unknown';
+
+            return `
+                <div class="performer-item" data-index="${idx}">
+                    <div class="performer-score-circle ${tierClass}">
+                        <div class="performer-score-value">${Math.round(loc.s)}</div>
+                        <div class="performer-score-label">Score</div>
+                    </div>
+                    <div class="performer-info">
+                        <div class="performer-name">${loc.name || loc.n || 'Unknown'}</div>
+                        <div class="performer-location">${address}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Add click handlers to performer items
+        performersContent.querySelectorAll('.performer-item').forEach((item, idx) => {
+            item.onclick = () => navigateToPerformer(highPerformers[idx]);
+        });
+
+        performersList.style.display = 'block';
+    }
+
+    function hideHighPerformers() {
+        const performersList = document.getElementById('high-performers-list');
+        performersList.style.display = 'none';
+    }
+
+    function navigateToPerformer(location) {
+        // Close the high performers list
+        hideHighPerformers();
+
+        // Pan to the location
+        map.setView([location.lat, location.lng], 14);
+
+        // Find and open the marker popup
+        setTimeout(() => {
+            if (clusterGroup) {
+                // Try to find the marker in the cluster group
+                let foundMarker = null;
+                clusterGroup.eachLayer(layer => {
+                    if (layer.locationData &&
+                        layer.locationData.lat === location.lat &&
+                        layer.locationData.lng === location.lng) {
+                        foundMarker = layer;
+                    }
+                });
+
+                if (foundMarker) {
+                    foundMarker.openPopup();
+                    // Highlight the marker briefly
+                    const originalStyle = foundMarker.options;
+                    foundMarker.setStyle({
+                        weight: 4,
+                        opacity: 1,
+                        fillOpacity: 1
+                    });
+                    setTimeout(() => {
+                        foundMarker.setStyle(originalStyle);
+                    }, 1500);
+                }
+            }
+        }, 300);
     }
 
     initMap();

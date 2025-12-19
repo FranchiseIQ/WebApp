@@ -575,6 +575,141 @@ body {
     font-size: 1.1rem;
 }
 
+/* High Performers List */
+.high-performers-list {
+    margin-bottom: 16px;
+    padding: 12px;
+    background: var(--bg-gray);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--score-excellent);
+}
+
+.performers-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.performers-header h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.performers-header h3 i {
+    color: var(--score-excellent);
+}
+
+.close-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
+    color: var(--text-medium);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.close-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-dark);
+}
+
+.performers-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.performer-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: white;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid var(--border-light);
+}
+
+.performer-item:hover {
+    background: var(--bg-white);
+    box-shadow: var(--shadow-card);
+    transform: translateX(2px);
+}
+
+.performer-score-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 3px solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 700;
+}
+
+.performer-score-circle.excellent {
+    border-color: var(--score-excellent);
+    background: rgba(34, 197, 94, 0.1);
+    color: var(--score-excellent);
+}
+
+.performer-score-circle.good {
+    border-color: var(--score-good);
+    background: rgba(132, 204, 22, 0.1);
+    color: var(--score-good);
+}
+
+.performer-score-value {
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.performer-score-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.performer-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.performer-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.performer-location {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* Brand Pills */
 .brand-pill {
     display: flex;
