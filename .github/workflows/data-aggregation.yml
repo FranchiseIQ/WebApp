@@ -37,6 +37,7 @@ jobs:
         env:
           CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
           GOV_DATA_KEY: ${{ secrets.GOV_DATA_KEY }}
+          BLS_KEY: ${{ secrets.BLS_KEY }}
         run: python3 run_data_aggregation.py
         timeout-minutes: 90
 
