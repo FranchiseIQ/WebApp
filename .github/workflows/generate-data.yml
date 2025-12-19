@@ -49,8 +49,10 @@ jobs:
           else
             git commit -m "Update Franchise Data [skip ci]"
 
-            # --- THE FIX: Pull latest changes before pushing ---
-            git pull --rebase origin main
+            # --- THE FIX: Pull latest changes before pushing with rebase ---
+            git pull --rebase origin main || true
 
-            git push
+            # Push with explicit branch and set upstream
+            git push -u origin main
           fi
+
