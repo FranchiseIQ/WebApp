@@ -308,7 +308,7 @@ body {
 #ticker-content {
   display: flex;
   white-space: nowrap;
-  animation: scroll-left 60s linear infinite;
+  animation: scroll-left 90s linear infinite;
   will-change: transform;
   /* Content is duplicated in JS, so we translate by -50% to loop */
   transform-origin: 0 0;
