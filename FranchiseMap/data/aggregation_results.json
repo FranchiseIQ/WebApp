@@ -1,0 +1,42 @@
+{
+  "startTime": "2025-12-19T06:37:21.087244",
+  "stages": {
+    "structure": {
+      "status": "verified",
+      "brandsCount": 19,
+      "locationsCount": 22775,
+      "missingFiles": 0
+    },
+    "census": {
+      "status": "completed"
+    },
+    "accessibility": {
+      "status": "completed"
+    },
+    "traffic": {
+      "status": "completed"
+    },
+    "quality_report": {
+      "status": "completed",
+      "reportPath": "/home/user/WebApp/FranchiseMap/scripts/../data/data_quality_report.json",
+      "metrics": {
+        "totalLocations": 22775,
+        "locationsWithAttributes": 22775,
+        "locationsWithScores": 22775,
+        "locationsWithDemographics": 0,
+        "locationsWithAccessibility": 0,
+        "locationsWithTraffic": 22775,
+        "demographicCoverage": 0.0,
+        "accessibilityCoverage": 0.0,
+        "trafficCoverage": 100.0
+      }
+    },
+    "dataset_index": {
+      "status": "completed",
+      "indexPath": "/home/user/WebApp/FranchiseMap/scripts/../data/dataset_index.json"
+    }
+  },
+  "totalLocations": 22775,
+  "brandStats": {},
+  "endTime": "2025-12-19T06:37:21.720694"
+}

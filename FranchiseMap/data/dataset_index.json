@@ -1,0 +1,97 @@
+{
+  "version": "1.0",
+  "createdAt": "2025-12-19T06:37:21.720192",
+  "dataTypes": {
+    "locations": {
+      "description": "Franchise location data with geographic coordinates",
+      "totalLocations": 22775,
+      "brands": 19
+    },
+    "demographics": {
+      "description": "Population and income data from U.S. Census Bureau",
+      "fields": [
+        "medianIncome",
+        "populationDensity",
+        "educationIndex",
+        "employmentRate",
+        "consumerSpending",
+        "growthRate"
+      ],
+      "sources": [
+        "U.S. Census Bureau ACS 5-Year (2017-2021)",
+        "Population Density Data",
+        "Growth Estimates"
+      ]
+    },
+    "accessibility": {
+      "description": "Walkability and transit accessibility scores",
+      "fields": [
+        "walkScore",
+        "transitScore",
+        "bikingScore"
+      ],
+      "sources": [
+        "Walk Score API",
+        "Public Transit Databases (GTFS)",
+        "Street Network Analysis"
+      ]
+    },
+    "traffic": {
+      "description": "Traffic volume and road infrastructure data",
+      "fields": [
+        "traffic",
+        "visibility",
+        "roadDensity",
+        "nearestHighway",
+        "highwayDistance"
+      ],
+      "sources": [
+        "DOT AADT Estimates",
+        "OpenStreetMap Network Analysis",
+        "Historical Traffic Data"
+      ]
+    },
+    "scores": {
+      "description": "Comprehensive suitability scores for franchise locations",
+      "overallScore": "0-100 composite score",
+      "categoryScores": [
+        "marketPotential",
+        "competitiveLandscape",
+        "accessibility",
+        "siteCharacteristics"
+      ]
+    }
+  },
+  "files": {
+    "manifest": "manifest.json - List of all brands and their data files",
+    "brandData": "brands/*.json - Location data for each brand/ticker",
+    "demographicIndex": "demographic_index.json - Summary statistics by brand",
+    "qualityReport": "data_quality_report.json - Data quality metrics",
+    "datasetIndex": "dataset_index.json - This file"
+  },
+  "usage": {
+    "frontend": "Load brands/*.json files to populate map with locations and scores",
+    "analysis": "Use demographic_index.json for quick aggregated statistics",
+    "quality": "Consult data_quality_report.json to understand data completeness",
+    "mapping": "Use geographic (lat/lng) with demographic (medianIncome) for visualization"
+  },
+  "attributes": {
+    "location": {
+      "id": "Unique identifier (ticker_osm_id)",
+      "ticker": "Stock ticker symbol",
+      "n": "Location name",
+      "a": "Address",
+      "lat": "Latitude coordinate",
+      "lng": "Longitude coordinate"
+    },
+    "score": {
+      "s": "Overall suitability score (0-100)",
+      "ss": "Sub-scores by category"
+    },
+    "attributes": [
+      "Includes data source citations",
+      "All demographic, accessibility, and traffic fields",
+      "At least 20+ attributes per location"
+    ]
+  }
+}
