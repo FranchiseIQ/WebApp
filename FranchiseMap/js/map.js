@@ -104,15 +104,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadManifest() {
         fetch('data/manifest.json')
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch manifest: ${res.status} ${res.statusText}`);
+                }
+                return res.json();
+            })
             .then(data => {
+                if (!Array.isArray(data) || data.length === 0) {
+                    throw new Error('Manifest is empty or invalid');
+                }
                 manifest = data;
                 renderLegend(manifest);
                 updateDashboardStats();
             })
             .catch(e => {
-                console.log("Data not yet generated. Run GitHub Action.");
-                document.getElementById('brand-legend').innerHTML = '<p style="color:#999;font-size:0.85rem;">No data available. Run the GitHub Action to generate map data.</p>';
+                console.error("Error loading manifest data:", e);
+                const container = document.getElementById('brand-legend');
+                if (container) {
+                    container.innerHTML = `<p style="color:#f87171;font-size:0.85rem;">⚠️ Unable to load map data: ${e.message}</p>`;
+                }
             });
     }
 
@@ -156,11 +167,26 @@ document.addEventListener('DOMContentLoaded', () => {
             if (loadedTickers.has(ticker)) {
                 refreshMap();
             } else {
-                fetch(filePath).then(r => r.json()).then(data => {
-                    allLocations = allLocations.concat(data);
-                    loadedTickers.add(ticker);
-                    refreshMap();
-                });
+                fetch(filePath)
+                    .then(res => {
+                        if (!res.ok) {
+                            throw new Error(`Failed to load ${ticker}: ${res.status} ${res.statusText}`);
+                        }
+                        return res.json();
+                    })
+                    .then(data => {
+                        if (!Array.isArray(data)) {
+                            throw new Error(`Invalid data format for ${ticker}`);
+                        }
+                        allLocations = allLocations.concat(data);
+                        loadedTickers.add(ticker);
+                        refreshMap();
+                    })
+                    .catch(e => {
+                        console.error(`Error loading brand data for ${ticker}:`, e);
+                        activeTickers.delete(ticker);
+                        alert(`Unable to load ${ticker} location data: ${e.message}`);
+                    });
             }
         }
         updateLocationCount();

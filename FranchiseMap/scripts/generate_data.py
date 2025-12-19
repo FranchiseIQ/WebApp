@@ -84,9 +84,24 @@ TICKER_QUERIES = {
     "UHAL": ['"U-Haul"']
 }
 
-# Fix output path
-script_dir = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR = os.path.join(script_dir, "../data/brands")
+# Support custom output directory via --output flag
+import sys
+import argparse
+
+parser = argparse.ArgumentParser(description='Generate franchise location data')
+parser.add_argument('--output', type=str, default=None, help='Output directory for generated data')
+args, unknown = parser.parse_known_args()
+
+if args.output:
+    # Use custom output directory (for CI/CD workflows)
+    OUTPUT_DIR = os.path.join(args.output, "brands")
+    DATA_DIR = args.output
+else:
+    # Use default relative path (for local development)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    OUTPUT_DIR = os.path.join(script_dir, "../data/brands")
+    DATA_DIR = os.path.join(script_dir, "../data")
+
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def calculate_score(attrs):
@@ -340,7 +355,8 @@ def generate_real_data():
         time.sleep(2)  # Be polite to the API
 
     # Save manifest
-    with open(os.path.join(OUTPUT_DIR, "../manifest.json"), "w") as f:
+    manifest_path = os.path.join(DATA_DIR, "manifest.json")
+    with open(manifest_path, "w") as f:
         json.dump(manifest, f, indent=2)
 
     total = sum(m['count'] for m in manifest)
