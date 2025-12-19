@@ -1244,3 +1244,41 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* Touch & Gesture Handling */
+/* Allow two-finger zoom/pinch while popup is open */
+#map {
+    touch-action: manipulation;
+}
+
+.leaflet-popup {
+    touch-action: auto;
+    pointer-events: auto;
+}
+
+.leaflet-popup-content-wrapper {
+    touch-action: auto;
+}
+
+.popup-container {
+    touch-action: auto;
+    overflow-y: auto;
+}
+
+/* Allow map zoom gestures to pass through popup overlay */
+.leaflet-popup::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+/* Ensure scrollable content in popup doesn't block outer map interaction */
+.demographics-grid,
+.competitor-analysis,
+.score-breakdown {
+    touch-action: pan-x pan-y;
+}

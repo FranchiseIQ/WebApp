@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let colorIndex = 0;
     let comparisonLocations = [];
     let scoreFilter = { min: 0, max: 100 };
+    let proximityIndex = new ProximityIndex(0.02); // Grid-based spatial index
 
     // Predefined unique color palette - 60+ distinct colors
     const COLOR_PALETTE = [
@@ -173,6 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
             loc.s >= scoreFilter.min &&
             loc.s <= scoreFilter.max
         );
+
+        // Update proximity index with visible locations
+        proximityIndex.addLocations(visible);
 
         const markers = visible.map(createMarker);
 
@@ -464,21 +468,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function highlightCompetitors(centerLoc, radiusMiles, displayDiv) {
         clearCompetitorHighlights();
 
-        const radiusMeters = radiusMiles * 1609.34;
-        const centerLatLng = L.latLng(centerLoc.lat, centerLoc.lng);
-
-        const visible = allLocations.filter(loc => activeTickers.has(loc.ticker));
-        const competitors = visible.filter(loc => {
-            if (loc.id === centerLoc.id) return false;
-            const locLatLng = L.latLng(loc.lat, loc.lng);
-            return centerLatLng.distanceTo(locLatLng) <= radiusMeters;
-        });
+        // Use proximity index for efficient spatial search
+        const competitorResults = proximityIndex.findCompetitors(
+            centerLoc.lat,
+            centerLoc.lng,
+            radiusMiles,
+            activeTickers
+        );
 
         const byTicker = {};
-        competitors.forEach(c => {
-            if (!byTicker[c.ticker]) byTicker[c.ticker] = [];
-            byTicker[c.ticker].push(c);
+        Object.entries(competitorResults.byTicker).forEach(([ticker, locs]) => {
+            byTicker[ticker] = locs.map(l => l.location).filter(loc => loc.id !== centerLoc.id);
         });
+
+        // Remove center location from competitor count if present
+        const competitors = Object.values(byTicker).flat();
 
         if (competitors.length === 0) {
             displayDiv.innerHTML = '<div class="no-competitors"><i class="fa-solid fa-check-circle"></i> No competitors in radius</div>';
