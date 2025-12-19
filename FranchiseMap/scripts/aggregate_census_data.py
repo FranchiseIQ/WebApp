@@ -25,7 +25,13 @@ import time
 
 # Configuration
 CENSUS_API_BASE = "https://api.census.gov/data/2021/acs/acs5"
-CENSUS_API_KEY = os.environ.get("CENSUS_API_KEY", "")  # User must set this
+# Reads from GitHub secret or local environment variable
+CENSUS_API_KEY = os.environ.get("CENSUS_API_KEY", "")
+
+if not CENSUS_API_KEY:
+    print("⚠️  WARNING: CENSUS_API_KEY not found in environment")
+    print("   Set it as a GitHub secret or export CENSUS_API_KEY='your_key'")
+    print("   Script will use regional demographic baselines as fallback\n")
 
 # Simulated realistic data for fallback
 REGIONAL_DATA = {
