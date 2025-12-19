@@ -1,191 +1,299 @@
 [
   {
     "ticker": "DENN",
+    "brands": [
+      "DENN"
+    ],
     "name": "DENN",
     "file": "brands/DENN.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 1402
   },
   {
     "ticker": "DIN",
+    "brands": [
+      "DIN"
+    ],
     "name": "DIN",
     "file": "brands/DIN.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 3024
   },
   {
     "ticker": "DNUT",
+    "brands": [
+      "DNUT"
+    ],
     "name": "DNUT",
     "file": "brands/DNUT.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 529
   },
   {
     "ticker": "DPZ",
+    "brands": [
+      "Domino's Pizza"
+    ],
     "name": "Domino's Pizza",
     "file": "brands/DPZ.json",
     "color": "#006491",
-    "category": "QSR"
+    "category": "QSR",
+    "count": 64
   },
   {
     "ticker": "H",
+    "brands": [
+      "H"
+    ],
     "name": "H",
     "file": "brands/H.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 1634
   },
   {
     "ticker": "HRB",
+    "brands": [
+      "HRB"
+    ],
     "name": "HRB",
     "file": "brands/HRB.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 2935
   },
   {
     "ticker": "JACK",
+    "brands": [
+      "JACK"
+    ],
     "name": "JACK",
     "file": "brands/JACK.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 2475
   },
   {
     "ticker": "MCW",
+    "brands": [
+      "MCW"
+    ],
     "name": "MCW",
     "file": "brands/MCW.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 212
   },
   {
     "ticker": "NATH",
+    "brands": [
+      "NATH"
+    ],
     "name": "NATH",
     "file": "brands/NATH.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 1
   },
   {
     "ticker": "PLAY",
+    "brands": [
+      "PLAY"
+    ],
     "name": "PLAY",
     "file": "brands/PLAY.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 234
   },
   {
     "ticker": "PLNT",
+    "brands": [
+      "Planet Fitness"
+    ],
     "name": "Planet Fitness",
     "file": "brands/PLNT.json",
     "color": "#5C2D91",
-    "category": "Fitness"
+    "category": "Fitness",
+    "count": 1550
   },
   {
     "ticker": "ROL",
+    "brands": [
+      "ROL"
+    ],
     "name": "ROL",
     "file": "brands/ROL.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 652
   },
   {
     "ticker": "RRGB",
+    "brands": [
+      "RRGB"
+    ],
     "name": "RRGB",
     "file": "brands/RRGB.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 634
   },
   {
     "ticker": "SERV",
+    "brands": [
+      "SERV"
+    ],
     "name": "SERV",
     "file": "brands/SERV.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 70
   },
   {
     "ticker": "SHAK",
+    "brands": [
+      "Shake Shack"
+    ],
     "name": "Shake Shack",
     "file": "brands/SHAK.json",
     "color": "#1F1F1F",
-    "category": "QSR"
+    "category": "QSR",
+    "count": 325
   },
   {
     "ticker": "TNL",
+    "brands": [
+      "TNL"
+    ],
     "name": "TNL",
     "file": "brands/TNL.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 24
   },
   {
     "ticker": "VAC",
+    "brands": [
+      "VAC"
+    ],
     "name": "VAC",
     "file": "brands/VAC.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 19
   },
   {
     "ticker": "WEN",
+    "brands": [
+      "Wendy's"
+    ],
     "name": "Wendy's",
     "file": "brands/WEN.json",
     "color": "#E2203C",
-    "category": "QSR"
+    "category": "QSR",
+    "count": 5758
   },
   {
     "ticker": "WING",
+    "brands": [
+      "Wingstop"
+    ],
     "name": "Wingstop",
     "file": "brands/WING.json",
     "color": "#00503C",
-    "category": "QSR"
+    "category": "QSR",
+    "count": 1233
   },
   {
     "ticker": "CHIPOTLE",
+    "brands": [
+      "CHIPOTLE"
+    ],
     "name": "CHIPOTLE",
     "file": "brands/chipotle.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 35
   },
   {
     "ticker": "DOMINOS",
+    "brands": [
+      "DOMINOS"
+    ],
     "name": "DOMINOS",
     "file": "brands/dominos.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 30
   },
   {
     "ticker": "MCDONALDS",
+    "brands": [
+      "MCDONALDS"
+    ],
     "name": "MCDONALDS",
     "file": "brands/mcdonalds.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 50
   },
   {
     "ticker": "PLANETFITNESS",
+    "brands": [
+      "PLANETFITNESS"
+    ],
     "name": "PLANETFITNESS",
     "file": "brands/planetfitness.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 25
   },
   {
     "ticker": "SHAKESHACK",
+    "brands": [
+      "SHAKESHACK"
+    ],
     "name": "SHAKESHACK",
     "file": "brands/shakeshack.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 20
   },
   {
     "ticker": "STARBUCKS",
+    "brands": [
+      "STARBUCKS"
+    ],
     "name": "STARBUCKS",
     "file": "brands/starbucks.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 40
   },
   {
     "ticker": "WENDYS",
+    "brands": [
+      "WENDYS"
+    ],
     "name": "WENDYS",
     "file": "brands/wendys.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 25
   },
   {
     "ticker": "WINGSTOP",
+    "brands": [
+      "WINGSTOP"
+    ],
     "name": "WINGSTOP",
     "file": "brands/wingstop.json",
     "color": "#000000",
-    "category": "Other"
+    "category": "Other",
+    "count": 20
   }
 ]
