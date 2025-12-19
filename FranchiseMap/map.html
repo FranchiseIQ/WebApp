@@ -32,53 +32,20 @@
     <div id="map-container">
         <div id="map"></div>
 
-        <!-- Score Filter Slider Modal -->
-        <div id="score-slider-modal" class="score-slider-modal" style="display: none;">
-            <div class="slider-bubble">
-                <div class="slider-header">
-                    <h3>Filter by Score</h3>
-                    <button id="close-slider" class="close-slider-btn">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="slider-body">
-                    <div class="slider-labels">
-                        <span class="slider-label-left">Low Quality</span>
-                        <span class="slider-label-right">High Quality</span>
-                    </div>
-                    <div class="slider-container">
-                        <input type="range" id="slider-min" class="slider" min="0" max="100" value="0">
-                        <input type="range" id="slider-max" class="slider" min="0" max="100" value="100">
-                    </div>
-                    <div class="slider-values">
-                        <div class="slider-value">
-                            <span class="value-label">Min:</span>
-                            <span id="slider-min-value" class="value">0</span>
-                        </div>
-                        <div class="slider-value">
-                            <span class="value-label">Max:</span>
-                            <span id="slider-max-value" class="value">100</span>
-                        </div>
-                    </div>
-                    <button id="reset-slider" class="reset-btn">Reset to All Scores</button>
-                </div>
-            </div>
-        </div>
-
         <!-- Dashboard Stats Bar -->
         <div id="dashboard-stats" class="dashboard-stats">
             <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="stat-icon"><i class="fa-solid fa-eye"></i></div>
                 <div class="stat-content">
-                    <span class="stat-value" id="avg-score">--</span>
-                    <span class="stat-label">Avg Score</span>
+                    <span class="stat-value" id="visible-avg-score">--</span>
+                    <span class="stat-label">Visible Avg</span>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon excellent"><i class="fa-solid fa-star"></i></div>
                 <div class="stat-content">
-                    <span class="stat-value" id="high-score-count">0</span>
-                    <span class="stat-label">High Performers</span>
+                    <span class="stat-value" id="visible-excellent-count">0</span>
+                    <span class="stat-label">Excellent (80+)</span>
                 </div>
             </div>
             <div class="stat-card">
@@ -89,7 +56,7 @@
                 </div>
             </div>
             <div class="stat-card distribution">
-                <div class="stat-label">Score Distribution</div>
+                <div class="stat-label">Score Distribution (Visible)</div>
                 <div class="distribution-bar">
                     <div id="dist-excellent" class="dist-segment excellent" title="Excellent (80+)"></div>
                     <div id="dist-good" class="dist-segment good" title="Good (65-79)"></div>
