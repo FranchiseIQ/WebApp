@@ -1,1 +1,191 @@
-[]
+[
+  {
+    "ticker": "DENN",
+    "name": "DENN",
+    "file": "brands/DENN.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "DIN",
+    "name": "DIN",
+    "file": "brands/DIN.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "DNUT",
+    "name": "DNUT",
+    "file": "brands/DNUT.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "DPZ",
+    "name": "Domino's Pizza",
+    "file": "brands/DPZ.json",
+    "color": "#006491",
+    "category": "QSR"
+  },
+  {
+    "ticker": "H",
+    "name": "H",
+    "file": "brands/H.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "HRB",
+    "name": "HRB",
+    "file": "brands/HRB.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "JACK",
+    "name": "JACK",
+    "file": "brands/JACK.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "MCW",
+    "name": "MCW",
+    "file": "brands/MCW.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "NATH",
+    "name": "NATH",
+    "file": "brands/NATH.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "PLAY",
+    "name": "PLAY",
+    "file": "brands/PLAY.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "PLNT",
+    "name": "Planet Fitness",
+    "file": "brands/PLNT.json",
+    "color": "#5C2D91",
+    "category": "Fitness"
+  },
+  {
+    "ticker": "ROL",
+    "name": "ROL",
+    "file": "brands/ROL.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "RRGB",
+    "name": "RRGB",
+    "file": "brands/RRGB.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "SERV",
+    "name": "SERV",
+    "file": "brands/SERV.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "SHAK",
+    "name": "Shake Shack",
+    "file": "brands/SHAK.json",
+    "color": "#1F1F1F",
+    "category": "QSR"
+  },
+  {
+    "ticker": "TNL",
+    "name": "TNL",
+    "file": "brands/TNL.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "VAC",
+    "name": "VAC",
+    "file": "brands/VAC.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "WEN",
+    "name": "Wendy's",
+    "file": "brands/WEN.json",
+    "color": "#E2203C",
+    "category": "QSR"
+  },
+  {
+    "ticker": "WING",
+    "name": "Wingstop",
+    "file": "brands/WING.json",
+    "color": "#00503C",
+    "category": "QSR"
+  },
+  {
+    "ticker": "CHIPOTLE",
+    "name": "CHIPOTLE",
+    "file": "brands/chipotle.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "DOMINOS",
+    "name": "DOMINOS",
+    "file": "brands/dominos.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "MCDONALDS",
+    "name": "MCDONALDS",
+    "file": "brands/mcdonalds.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "PLANETFITNESS",
+    "name": "PLANETFITNESS",
+    "file": "brands/planetfitness.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "SHAKESHACK",
+    "name": "SHAKESHACK",
+    "file": "brands/shakeshack.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "STARBUCKS",
+    "name": "STARBUCKS",
+    "file": "brands/starbucks.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "WENDYS",
+    "name": "WENDYS",
+    "file": "brands/wendys.json",
+    "color": "#000000",
+    "category": "Other"
+  },
+  {
+    "ticker": "WINGSTOP",
+    "name": "WINGSTOP",
+    "file": "brands/wingstop.json",
+    "color": "#000000",
+    "category": "Other"
+  }
+]
