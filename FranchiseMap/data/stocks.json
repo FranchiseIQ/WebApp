@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2025-12-19T21:18:44.619311Z",
+  "fetchedAt": "2025-12-19T21:39:56.264073Z",
   "totalSymbols": 40,
   "successCount": 40,
   "errorCount": 0,
@@ -243,7 +243,7 @@
       "changePercent": 1.59,
       "name": "Hilton Worldwide Holdings Inc.",
       "marketCap": 68735377408,
-      "volume": 1808270
+      "volume": 1809010
     },
     "H": {
       "symbol": "H",
@@ -297,12 +297,12 @@
     },
     "TNL": {
       "symbol": "TNL",
-      "price": 72.07,
+      "price": 72.06,
       "previousClose": 71.43,
-      "change": 0.64,
-      "changePercent": 0.9,
+      "change": 0.63,
+      "changePercent": 0.88,
       "name": "Travel   Leisure Co.",
-      "marketCap": 4685085184,
+      "marketCap": 4684434944,
       "volume": 379581
     },
     "DRVN": {
@@ -323,7 +323,7 @@
       "changePercent": 0.99,
       "name": "H&R Block, Inc.",
       "marketCap": 5589106688,
-      "volume": 1247976
+      "volume": 1249491
     },
     "MCW": {
       "symbol": "MCW",
