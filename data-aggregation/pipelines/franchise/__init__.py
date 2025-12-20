@@ -1,0 +1,1 @@
+"""Franchise data pipeline package."""
