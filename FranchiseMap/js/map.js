@@ -283,11 +283,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const avgScore = Math.round(visibleLocations.reduce((sum, loc) => sum + loc.s, 0) / visibleLocations.length);
         const highScoreCount = visibleLocations.filter(loc => loc.s >= 80).length;
 
-        document.getElementById('avg-score').textContent = avgScore;
+        // Use animated score update
+        animateAvgScore(avgScore);
         document.getElementById('high-score-count').textContent = highScoreCount.toLocaleString();
 
         // Update score distribution for visible locations
         updateScoreDistribution(visibleLocations);
+
+        // Update location list if panel is open
+        if (locationPanelOpen) {
+            updateLocationList();
+        }
     }
 
     function updateScoreDistribution(locations) {
@@ -776,35 +782,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setupAdvancedControls() {
-        // Score range filter
-        const scoreMinSlider = document.getElementById('score-min');
-        const scoreMaxSlider = document.getElementById('score-max');
-        const scoreMinLabel = document.getElementById('score-min-label');
-        const scoreMaxLabel = document.getElementById('score-max-label');
-
-        if (scoreMinSlider && scoreMaxSlider) {
-            scoreMinSlider.oninput = function() {
-                const min = parseInt(this.value);
-                if (min > parseInt(scoreMaxSlider.value)) {
-                    this.value = scoreMaxSlider.value;
-                    return;
-                }
-                scoreFilter.min = min;
-                scoreMinLabel.textContent = min;
-                refreshMap();
-            };
-
-            scoreMaxSlider.oninput = function() {
-                const max = parseInt(this.value);
-                if (max < parseInt(scoreMinSlider.value)) {
-                    this.value = scoreMinSlider.value;
-                    return;
-                }
-                scoreFilter.max = max;
-                scoreMaxLabel.textContent = max;
-                refreshMap();
-            };
-        }
+        // Note: Score range filter sliders (score-min/score-max) have been moved to modal
+        // These will now be controlled via the score slider modal
+        // Keeping null checks for backward compatibility
 
         // Export all visible
         const exportBtn = document.getElementById('btn-export-all');
@@ -828,13 +808,20 @@ document.addEventListener('DOMContentLoaded', () => {
             closeBtn.onclick = hideHighPerformers;
         }
 
-        // Score filter slider
+        // Average Score card - toggle location panel
         const avgScoreEl = document.getElementById('avg-score');
         if (avgScoreEl) {
             const avgScoreCard = avgScoreEl.closest('.stat-card');
             if (avgScoreCard) {
-                avgScoreCard.onclick = showScoreSlider;
+                avgScoreCard.style.cursor = 'pointer';
+                avgScoreCard.onclick = toggleLocationPanel;
             }
+        }
+
+        // Close location panel button
+        const closeLocationPanelBtn = document.getElementById('close-location-panel');
+        if (closeLocationPanelBtn) {
+            closeLocationPanelBtn.onclick = toggleLocationPanel;
         }
 
         // Close slider modal
@@ -1128,29 +1115,172 @@ document.addEventListener('DOMContentLoaded', () => {
         const sliderMin = document.getElementById('slider-min');
         const sliderMax = document.getElementById('slider-max');
 
+        if (!sliderMin || !sliderMax) return;
+
         const min = parseInt(sliderMin.value);
         const max = parseInt(sliderMax.value);
 
-        // Update the main score filter controls
-        const scoreMinSlider = document.getElementById('score-min');
-        const scoreMaxSlider = document.getElementById('score-max');
-        const scoreMinLabel = document.getElementById('score-min-label');
-        const scoreMaxLabel = document.getElementById('score-max-label');
-
-        if (scoreMinSlider) {
-            scoreMinSlider.value = min;
-            scoreFilter.min = min;
-            if (scoreMinLabel) scoreMinLabel.textContent = min;
-        }
-
-        if (scoreMaxSlider) {
-            scoreMaxSlider.value = max;
-            scoreFilter.max = max;
-            if (scoreMaxLabel) scoreMaxLabel.textContent = max;
-        }
+        scoreFilter.min = min;
+        scoreFilter.max = max;
 
         // Refresh map with new filter
         refreshMap();
+    }
+
+    // ===== NEW LOCATION PANEL FUNCTIONS =====
+    let locationPanelOpen = true; // Default state is open
+
+    function toggleLocationPanel() {
+        const panel = document.getElementById('location-panel');
+        if (panel) {
+            locationPanelOpen = !locationPanelOpen;
+            if (locationPanelOpen) {
+                panel.classList.add('open');
+                updateLocationList();
+            } else {
+                panel.classList.remove('open');
+            }
+        }
+    }
+
+    function updateLocationList() {
+        // Get current map bounds
+        if (!map) return;
+
+        const bounds = map.getBounds();
+        const visibleLocations = allLocations.filter(loc => {
+            // Check if location is within bounds and from active ticker
+            return activeTickers.has(loc.ticker) &&
+                   bounds.contains([loc.lat, loc.lng]) &&
+                   loc.s >= scoreFilter.min &&
+                   loc.s <= scoreFilter.max;
+        });
+
+        renderLocationList(visibleLocations);
+    }
+
+    function renderLocationList(locations) {
+        const container = document.getElementById('location-list-content');
+        if (!container) return;
+
+        // Sort locations by score descending
+        const sorted = locations.sort((a, b) => b.s - a.s);
+
+        if (sorted.length === 0) {
+            container.innerHTML = `
+                <div class="location-empty-state">
+                    <div><i class="fa-solid fa-map-pin"></i></div>
+                    <div>No locations in current view</div>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = sorted.map(loc => {
+            const address = loc.at ? (loc.at.address || loc.at.city || 'Unknown location') : 'Unknown location';
+            const name = loc.name || loc.n || 'Unknown';
+            const score = Math.round(loc.s);
+            const scoreTier = getScoreTier(score);
+
+            // Determine score class
+            let scoreClass = 'excellent';
+            if (score < 80) scoreClass = score >= 65 ? 'good' : (score >= 50 ? 'fair' : 'poor');
+
+            return `
+                <div class="location-item" data-lat="${loc.lat}" data-lng="${loc.lng}">
+                    <div class="location-item-info">
+                        <div class="location-item-name">${name}</div>
+                        <div class="location-item-address">${address}</div>
+                    </div>
+                    <div class="location-item-score">
+                        <div class="location-score-circle ${scoreClass}">${score}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Add click handlers to location items
+        container.querySelectorAll('.location-item').forEach(item => {
+            item.onclick = () => {
+                const lat = parseFloat(item.dataset.lat);
+                const lng = parseFloat(item.dataset.lng);
+                navigateToLocation(lat, lng);
+            };
+        });
+    }
+
+    function navigateToLocation(lat, lng) {
+        // Pan to the location
+        map.setView([lat, lng], 14);
+
+        // Find and open the marker popup
+        setTimeout(() => {
+            let foundMarker = null;
+
+            if (clusterGroup) {
+                clusterGroup.eachLayer(layer => {
+                    if (layer.locationData &&
+                        Math.abs(layer.locationData.lat - lat) < 0.0001 &&
+                        Math.abs(layer.locationData.lng - lng) < 0.0001) {
+                        foundMarker = layer;
+                    }
+                });
+            }
+
+            if (!foundMarker && markersLayer) {
+                markersLayer.eachLayer(layer => {
+                    if (layer.locationData &&
+                        Math.abs(layer.locationData.lat - lat) < 0.0001 &&
+                        Math.abs(layer.locationData.lng - lng) < 0.0001) {
+                        foundMarker = layer;
+                    }
+                });
+            }
+
+            if (foundMarker) {
+                foundMarker.openPopup();
+                // Highlight the marker briefly
+                const originalStyle = foundMarker.options;
+                foundMarker.setStyle({
+                    weight: 4,
+                    opacity: 1,
+                    fillOpacity: 1
+                });
+                setTimeout(() => {
+                    foundMarker.setStyle(originalStyle);
+                }, 1500);
+            }
+        }, 300);
+    }
+
+    // Animated average score display
+    function animateAvgScore(newScore) {
+        const avgScoreEl = document.getElementById('avg-score');
+        if (!avgScoreEl) return;
+
+        const currentScore = parseInt(avgScoreEl.textContent) || 0;
+
+        if (currentScore === newScore) return;
+
+        const difference = newScore - currentScore;
+        const steps = 30;
+        let currentStep = 0;
+
+        const interval = setInterval(() => {
+            currentStep++;
+            const progress = currentStep / steps;
+            const easeProgress = progress < 0.5
+                ? 2 * progress * progress
+                : -1 + (4 - 2 * progress) * progress; // Ease-in-out
+
+            const currentValue = Math.round(currentScore + difference * easeProgress);
+            avgScoreEl.textContent = currentValue;
+
+            if (currentStep >= steps) {
+                clearInterval(interval);
+                avgScoreEl.textContent = newScore;
+            }
+        }, 16); // 60fps
     }
 
     initMap();

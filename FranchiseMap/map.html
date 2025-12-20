@@ -65,6 +65,20 @@
             </div>
         </div>
 
+        <!-- Left Side Location Panel (Opened by clicking Average Score) -->
+        <aside id="location-panel" class="location-panel open">
+            <div class="location-panel-header">
+                <div class="location-panel-title">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Visible Locations</span>
+                </div>
+                <button id="close-location-panel" class="close-location-panel-btn" title="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="location-list-content" class="location-list-content"></div>
+        </aside>
+
         <!-- Dashboard Stats Bar -->
         <div id="dashboard-stats" class="dashboard-stats">
             <div class="stat-card">
@@ -140,25 +154,6 @@
                 </div>
             </div>
             <div class="panel-content">
-                <!-- Score Filter Section -->
-                <div class="filter-section">
-                    <h3><i class="fa-solid fa-sliders"></i> Score Filter</h3>
-                    <div class="score-range">
-                        <div class="range-inputs">
-                            <div class="range-input-group">
-                                <label>Min</label>
-                                <input type="range" id="score-min" min="0" max="100" value="0">
-                                <span id="score-min-label" class="range-value">0</span>
-                            </div>
-                            <div class="range-input-group">
-                                <label>Max</label>
-                                <input type="range" id="score-max" min="0" max="100" value="100">
-                                <span id="score-max-label" class="range-value">100</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Filter Controls -->
                 <div class="filter-controls">
                     <button id="btn-select-all" class="filter-btn">
@@ -198,17 +193,6 @@
                 <div class="location-count">
                     <i class="fa-solid fa-map-pin"></i>
                     <span id="visible-count">0</span> locations visible
-                </div>
-
-                <!-- High Performers List (Hidden by default) -->
-                <div id="high-performers-list" class="high-performers-list" style="display: none;">
-                    <div class="performers-header">
-                        <h3><i class="fa-solid fa-star"></i> High Performers</h3>
-                        <button id="close-performers" class="close-btn" title="Close">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                    <div id="performers-content" class="performers-content"></div>
                 </div>
 
                 <!-- Brand Legend -->
