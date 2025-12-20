@@ -958,7 +958,62 @@ document.addEventListener('DOMContentLoaded', () => {
             closeBtn.onclick = hideHighPerformers;
         }
 
-        // Score filter is now in the info panel (score-range div)
+        // Score filter controls - Range inputs and reset button
+        const scoreMinSlider = document.getElementById('score-min');
+        const scoreMaxSlider = document.getElementById('score-max');
+        const scoreMinLabel = document.getElementById('score-min-label');
+        const scoreMaxLabel = document.getElementById('score-max-label');
+        const resetScoreFilterBtn = document.getElementById('reset-score-filter');
+
+        if (scoreMinSlider && scoreMaxSlider) {
+            // Min score input handler
+            scoreMinSlider.oninput = function() {
+                let min = parseInt(this.value);
+                const max = parseInt(scoreMaxSlider.value);
+
+                // Prevent min from exceeding max
+                if (min > max) {
+                    min = max;
+                    this.value = max;
+                }
+
+                scoreFilter.min = min;
+                if (scoreMinLabel) scoreMinLabel.textContent = min;
+                refreshMap();
+                updateScoresList();
+            };
+
+            // Max score input handler
+            scoreMaxSlider.oninput = function() {
+                let max = parseInt(this.value);
+                const min = parseInt(scoreMinSlider.value);
+
+                // Prevent max from going below min
+                if (max < min) {
+                    max = min;
+                    this.value = min;
+                }
+
+                scoreFilter.max = max;
+                if (scoreMaxLabel) scoreMaxLabel.textContent = max;
+                refreshMap();
+                updateScoresList();
+            };
+        }
+
+        // Reset button handler
+        if (resetScoreFilterBtn) {
+            resetScoreFilterBtn.onclick = function() {
+                scoreFilter.min = 0;
+                scoreFilter.max = 100;
+                if (scoreMinSlider) scoreMinSlider.value = 0;
+                if (scoreMaxSlider) scoreMaxSlider.value = 100;
+                if (scoreMinLabel) scoreMinLabel.textContent = '0';
+                if (scoreMaxLabel) scoreMaxLabel.textContent = '100';
+                refreshMap();
+                updateScoresList();
+            };
+        }
     }
 
     function exportAllVisible() {

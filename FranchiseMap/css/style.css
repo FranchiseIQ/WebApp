@@ -692,15 +692,103 @@ body {
     word-break: break-word;
 }
 
-/* Fix zoom control positioning */
+/* Fix zoom control positioning - above dashboard stats */
 .leaflet-control-zoom {
-    bottom: 100px !important;
+    bottom: auto !important;
+    top: 200px !important;
     border-radius: var(--radius-md) !important;
 }
 
 .leaflet-control-geocoder {
-    left: 60px !important;
+    left: 20px !important;
     top: 100px !important;
+}
+
+/* Score slider styling */
+.score-slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #ef4444 0%, #f97316 20%, #eab308 50%, #84cc16 80%, #22c55e 100%);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.score-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #666;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.score-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #666;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+.slider-label-left, .slider-label-right {
+    font-weight: 500;
+}
+
+.slider-values {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 0.8rem;
+}
+
+.slider-value {
+    display: flex;
+    gap: 4px;
+}
+
+.value-label {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.value {
+    color: var(--primary-purple);
+    font-weight: 600;
+}
+
+.reset-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 12px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    background: white;
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.reset-btn:hover {
+    background: var(--bg-light);
+    border-color: var(--primary-purple);
 }
 
 .panel-header {

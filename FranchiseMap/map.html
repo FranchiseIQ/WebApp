@@ -118,6 +118,32 @@
                 </div>
             </div>
             <div class="panel-content">
+                <!-- Score Filter Section -->
+                <div class="filter-section">
+                    <h3><i class="fa-solid fa-sliders"></i> Filter by Score</h3>
+                    <div class="score-range">
+                        <div class="slider-labels">
+                            <span class="slider-label-left">Low Quality</span>
+                            <span class="slider-label-right">High Quality</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="score-min" class="score-slider" min="0" max="100" value="0">
+                            <input type="range" id="score-max" class="score-slider" min="0" max="100" value="100">
+                        </div>
+                        <div class="slider-values">
+                            <div class="slider-value">
+                                <span class="value-label">Min:</span>
+                                <span id="score-min-label" class="value">0</span>
+                            </div>
+                            <div class="slider-value">
+                                <span class="value-label">Max:</span>
+                                <span id="score-max-label" class="value">100</span>
+                            </div>
+                        </div>
+                        <button id="reset-score-filter" class="reset-btn">Reset to All Scores</button>
+                    </div>
+                </div>
+
                 <!-- Filter Controls -->
                 <div class="filter-controls">
                     <button id="btn-select-all" class="filter-btn">
