@@ -63,8 +63,7 @@ jobs:
               print(f"- Accessibility: {summary.get('accessibilityCoverage', 0):.1f}%")
               print(f"- Traffic: {summary.get('trafficCoverage', 0):.1f}%")
             EOF
-          fi >> $GITHUB_STEP_SUMMARY
-
+            fi
       - name: Check for data changes
         id: check_changes
         run: |
