@@ -108,6 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 manifest = data;
                 renderLegend(manifest);
+                // Select all locations by default on page load
+                selectAll();
                 updateDashboardStats();
             })
             .catch(e => {
