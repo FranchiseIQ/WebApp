@@ -7,18 +7,98 @@ Centralized pipeline for generating and enriching franchise location data, with 
 This pipeline consists of multiple stages for location generation and data enrichment:
 
 ### Current Implementation
-1. **fetch_news.py** - Franchise industry news aggregation from RSS feeds
+1. **generate_locations.py** - Generate franchise locations from OpenStreetMap
+2. **fetch_news.py** - Franchise industry news aggregation from RSS feeds
 
 ### Planned Stages (Future)
-1. **generate_locations.py** - Generate franchise locations from OpenStreetMap
-2. **enrich_demographics.py** - Add census demographic data
-3. **enrich_traffic.py** - Add foot traffic and visibility scores
-4. **enrich_accessibility.py** - Add Walk Score and Transit Score
-5. **enrich_crime.py** (Optional) - Add crime statistics
-6. **enrich_employment.py** (Optional) - Add employment data
-7. **enrich_transit.py** (Optional) - Add public transit information
+1. **enrich_demographics.py** - Add census demographic data
+2. **enrich_traffic.py** - Add foot traffic and visibility scores
+3. **enrich_accessibility.py** - Add Walk Score and Transit Score
+4. **enrich_crime.py** (Optional) - Add crime statistics
+5. **enrich_employment.py** (Optional) - Add employment data
+6. **enrich_transit.py** (Optional) - Add public transit information
 
 ## Scripts
+
+### generate_locations.py
+
+**Purpose**: Generate franchise location data from OpenStreetMap
+
+**Data Source**: OpenStreetMap via Overpass API (free, no authentication required)
+
+**Output**:
+- `data/brands/*.json` - Individual franchise location files (one per ticker)
+- `data/manifest.json` - Index of all brands and their location counts
+
+**Format**: JSON array of location objects with comprehensive attributes:
+```json
+[
+  {
+    "id": "MCD_123456",
+    "ticker": "MCD",
+    "n": "McDonald's",
+    "a": "123 Main St, Springfield, IL",
+    "lat": 39.7817,
+    "lng": -89.6501,
+    "s": 72,
+    "ss": {
+      "marketPotential": 75.2,
+      "competitiveLandscape": 68.5,
+      "accessibility": 80.1,
+      "siteCharacteristics": 70.0
+    },
+    "at": {
+      "medianIncome": 85000,
+      "populationDensity": 3200,
+      "consumerSpending": 92,
+      "growthRate": 2.5,
+      "competitors": 3,
+      "marketSaturation": 45,
+      "traffic": 42000,
+      "walkScore": 72,
+      "transitScore": 45,
+      "visibility": 85,
+      "crimeIndex": 35,
+      "realEstateIndex": 65,
+      "avgAge": 38.5,
+      "householdSize": 2.8,
+      "educationIndex": 78,
+      "employmentRate": 94.2,
+      "_incomeSource": "ACS 5-Year Estimate (Simulated)",
+      "_trafficSource": "AADT Estimate (Simulated)"
+    }
+  }
+]
+```
+
+**Frequency**: Manual execution for full dataset regeneration; typically run once and then incrementally updated
+
+**Runtime**: 60-90 minutes for full US coverage (depends on Overpass API availability)
+
+**Run Locally**:
+```bash
+python3 -m data_aggregation.pipelines.franchise.generate_locations
+```
+
+**Features**:
+- Queries OpenStreetMap for 60+ franchise brands across US
+- Generates synthetic demographic and market data for each location
+- Calculates comprehensive suitability scores (0-100)
+- Supports location enrichment with real data sources
+- Handles API rate limiting and timeout gracefully
+- Generates manifest index for efficient data access
+
+**Scoring Methodology**:
+- **Market Potential (40%)**: Income, density, spending, growth
+- **Competitive Landscape (20%)**: Competitor density, market saturation
+- **Accessibility (25%)**: Traffic volume, walkability, transit access
+- **Site Characteristics (15%)**: Visibility, safety, real estate value
+
+**Note**: Current version generates synthetic demographic data for demonstration. In production, integrate:
+- Census Bureau API for real demographic data
+- Walk Score API for walkability scores
+- AADT traffic data from DOT
+- Crime statistics from FBI/local authorities
 
 ### fetch_news.py
 
@@ -83,6 +163,8 @@ None (script is self-contained)
 
 | File | Script | Frequency | Format | Usage |
 |------|--------|-----------|--------|-------|
+| `data/brands/*.json` | generate_locations | Manual | JSON | Individual franchise location data |
+| `data/manifest.json` | generate_locations | Manual | JSON | Brand index with location counts |
 | `data/franchise_news.json` | fetch_news | Daily | JSON | Latest franchise industry news |
 
 ## Future Implementation
