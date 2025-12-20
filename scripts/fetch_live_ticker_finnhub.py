@@ -13,17 +13,30 @@ import time
 import requests
 from datetime import datetime, timezone
 
-# Ticker symbols (same as in ticker.js)
+# Ticker symbols - MUST MATCH the list in scripts/update_franchise_stocks.py
+# This is pulled from the central stock dataset - update the main script to add new tickers
 TICKER_SYMBOLS = [
+    # Quick Service & Restaurants
     "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
     "DENN", "DIN", "DNUT", "NATH", "RRGB",
+
+    # Auto & Services
     "DRVN", "HRB", "MCW", "SERV", "ROL",
-    "PLNT",
-    "MAR", "HLT", "H", "CHH", "WH", "VAC", "TNL",
-    "RENT", "GNC",
-    "ADUS", "LOPE",
-    "PLAY", "ARCO",
-    "TAST"
+
+    # Fitness & Recreation
+    "PLNT", "TNL", "PLAY",
+
+    # Hospitality
+    "MAR", "HLT", "H", "CHH", "WH", "VAC",
+
+    # Retail & Other
+    "RENT", "ADUS", "LOPE", "ARCO", "TAST",
+
+    # Market index/benchmark (for charts)
+    "SPY",
+
+    # Additional (may be dead but kept for historical data)
+    "GNC"
 ]
 
 # Map Yahoo symbols to Finnhub symbols (none needed for pure franchisors)

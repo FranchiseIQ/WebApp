@@ -1,18 +1,34 @@
 // ============================================================================
 // STOCK TICKER CONFIGURATION
-// Version: 1.1 - CORS Proxy Enabled
+// Version: 2.0 - Centralized Data Pipeline
 // ============================================================================
-// Modify this array to add or remove ticker symbols
+// IMPORTANT: This list MUST MATCH scripts/update_franchise_stocks.py
+// To add new tickers:
+//   1. Update FRANCHISE_STOCKS in scripts/update_franchise_stocks.py
+//   2. Update TICKER_SYMBOLS in scripts/fetch_live_ticker_finnhub.py
+//   3. This list will automatically be synchronized
 const TICKER_SYMBOLS = [
+  // Quick Service & Restaurants
   "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
   "DENN", "DIN", "DNUT", "NATH", "RRGB",
+
+  // Auto & Services
   "DRVN", "HRB", "MCW", "SERV", "ROL",
-  "PLNT",
-  "MAR", "HLT", "H", "CHH", "WH", "VAC", "TNL",
-  "RENT", "GNC",
-  "ADUS", "LOPE",
-  "PLAY", "ARCO",
-  "TAST"
+
+  // Fitness & Recreation
+  "PLNT", "TNL", "PLAY",
+
+  // Hospitality
+  "MAR", "HLT", "H", "CHH", "WH", "VAC",
+
+  // Retail & Other
+  "RENT", "ADUS", "LOPE", "ARCO", "TAST",
+
+  // Market index/benchmark (for charts)
+  "SPY",
+
+  // Additional (may be dead but kept for historical data)
+  "GNC"
 ];
 
 // Refresh interval in milliseconds (1 hour = 3600 seconds)

@@ -11,7 +11,9 @@ from datetime import datetime, timedelta
 import os
 import sys
 
-# Franchise stock symbols (pure franchisors and system participants)
+# Comprehensive stock symbols list - includes all franchise-related and market tickers
+# This is the SINGLE SOURCE OF TRUTH for all stock data in the application
+# Update this list when adding new tickers anywhere in the app
 FRANCHISE_STOCKS = [
     # Quick Service & Restaurants
     "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
@@ -20,14 +22,20 @@ FRANCHISE_STOCKS = [
     # Auto & Services
     "DRVN", "HRB", "MCW", "SERV", "ROL",
 
-    # Fitness
-    "PLNT", "TNL",
+    # Fitness & Recreation
+    "PLNT", "TNL", "PLAY",
 
     # Hospitality
-    "MAR", "HLT", "H", "CHH", "WH", "VAC", "TNL",
+    "MAR", "HLT", "H", "CHH", "WH", "VAC",
 
     # Retail & Other
-    "RENT", "GNC", "ADUS", "LOPE", "PLAY", "ARCO", "TAST"
+    "RENT", "ADUS", "LOPE", "ARCO", "TAST",
+
+    # Market index/benchmark (used in charts)
+    "SPY",
+
+    # Additional relevant tickers (may be dead but kept for historical data)
+    "GNC"
 ]
 
 CSV_FILE = "data/franchise_stocks.csv"

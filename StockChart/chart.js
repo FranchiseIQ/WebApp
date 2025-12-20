@@ -9,8 +9,13 @@ let historicalCache = new Map();
 let customCache = {};
 
 const MAX_TICKERS = 10;
-// Default stocks: SPY (market index) in black, then 9 franchise stocks
-const DEFAULT_STOCKS = ['SPY', 'MCD', 'YUM', 'QSR', 'WEN', 'DPZ', 'JACK', 'WING', 'SHAK', 'DENN'];
+// Default stocks: SPY (market index) + 9 top franchise stocks
+// IMPORTANT: Available tickers come from data/franchise_stocks.csv (centralized dataset)
+// To add new tickers to the system, update scripts/update_franchise_stocks.py
+const DEFAULT_STOCKS = [
+    'SPY',    // Market benchmark (black)
+    'MCD', 'YUM', 'QSR', 'WEN', 'DPZ', 'JACK', 'WING', 'SHAK', 'DENN'  // Top franchise stocks
+];
 const DEFAULT_COLORS = [
     '#000000', // SPY in black (market index)
     '#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#8B5CF6',
