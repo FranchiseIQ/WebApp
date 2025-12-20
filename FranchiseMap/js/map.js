@@ -1161,12 +1161,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderLocationList(locations) {
         const container = document.getElementById('location-list-content');
-        if (!container) return;
+        const panel = document.getElementById('location-panel');
+        const indicator = document.getElementById('locations-indicator');
+        if (!container || !panel) return;
 
         // Sort locations by score descending
         const sorted = locations.sort((a, b) => b.s - a.s);
 
         if (sorted.length === 0) {
+            // No locations visible - close the panel automatically
+            if (panel.classList.contains('open')) {
+                panel.classList.remove('open');
+                locationPanelOpen = false;
+            }
+
+            // Hide the indicator
+            if (indicator) {
+                indicator.classList.remove('active');
+            }
+
             container.innerHTML = `
                 <div class="location-empty-state">
                     <div><i class="fa-solid fa-map-pin"></i></div>
@@ -1175,6 +1188,14 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             return;
         }
+
+        // Locations exist - show the indicator
+        if (indicator) {
+            indicator.classList.add('active');
+        }
+
+        // Locations exist - keep panel open if user clicked to open it
+        // (panel open state is managed by toggleLocationPanel)
 
         container.innerHTML = sorted.map(loc => {
             const address = loc.at ? (loc.at.address || loc.at.city || 'Unknown location') : 'Unknown location';
