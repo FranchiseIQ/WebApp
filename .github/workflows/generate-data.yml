@@ -50,7 +50,8 @@ jobs:
             git commit -m "Update Franchise Data [skip ci]"
 
             # --- THE FIX: Pull latest changes before pushing ---
-            git pull --rebase origin main
+            git fetch origin main && git merge -X ours origin/main
 
             git push
           fi
+Page_Down
