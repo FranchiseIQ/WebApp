@@ -66,7 +66,7 @@
         </div>
 
         <!-- Left Side Location Panel (Opened by clicking Average Score) -->
-        <aside id="location-panel" class="location-panel open">
+        <aside id="location-panel" class="location-panel">
             <div class="location-panel-header">
                 <div class="location-panel-title">
                     <i class="fa-solid fa-list"></i>
@@ -85,7 +85,10 @@
                 <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
                 <div class="stat-content">
                     <span class="stat-value" id="avg-score">--</span>
-                    <span class="stat-label">Avg Score</span>
+                    <span class="stat-label">
+                        Avg Score
+                        <span id="locations-indicator" class="locations-indicator" title="Click to see visible locations"></span>
+                    </span>
                 </div>
             </div>
             <div class="stat-card">

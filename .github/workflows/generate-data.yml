@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
       - name: Create Data Directory
         run: mkdir -p FranchiseMap/data/brands
@@ -25,7 +25,7 @@ jobs:
       - name: Run Data Generator
         run: |
           pip install requests
-          python FranchiseMap/scripts/generate_data.py
+          python -m data_aggregation.pipelines.franchise.generate_locations
 
       # --- SAFETY NET: Save data as a Zip file ---
       # If the push fails below, you can download this from the Actions Summary page!

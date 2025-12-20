@@ -1,19 +1,37 @@
 #!/usr/bin/env python3
 """
-Update Franchise Stock Data
+Update Franchise Stock Historical Data
+
 Fetches latest stock data for franchise companies and market indices.
 Updates the CSV file with new data while preserving historical records.
+
+This is the MASTER SOURCE for the FRANCHISE_STOCKS ticker list.
+All other stock scripts must synchronize their ticker lists with this file.
 """
 
 import yfinance as yf
 import pandas as pd
 from datetime import datetime, timedelta
-import os
 import sys
+from pathlib import Path
 
-# Comprehensive stock symbols list - includes all franchise-related and market tickers
-# This is the SINGLE SOURCE OF TRUTH for all stock data in the application
-# Update this list when adding new tickers anywhere in the app
+# Add repo root to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+
+from data_aggregation.config.paths_config import HISTORICAL_STOCKS_CSV
+
+# ============================================================================
+# MASTER TICKER LIST - SINGLE SOURCE OF TRUTH
+# ============================================================================
+# This is the authoritative list of all stock tickers used in the application.
+# CRITICAL: Any changes here MUST be synchronized with:
+#   - data-aggregation/pipelines/stocks/fetch_live_ticker.py
+#   - data-aggregation/pipelines/stocks/fetch_current_prices.py
+#   - Documentation: STOCK_DATA_ARCHITECTURE.md
+#
+# Run sync_tickers.py to verify synchronization after changes.
+# ============================================================================
+
 FRANCHISE_STOCKS = [
     # Quick Service & Restaurants
     "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
@@ -37,8 +55,6 @@ FRANCHISE_STOCKS = [
     # Additional relevant tickers (may be dead but kept for historical data)
     "GNC"
 ]
-
-CSV_FILE = "data/franchise_stocks.csv"
 
 
 def fetch_stock_data(symbol, start_date, end_date):
@@ -86,16 +102,16 @@ def fetch_stock_data(symbol, start_date, end_date):
 
 def main():
     print("=" * 70)
-    print("Updating Franchise Stock Data")
+    print("Updating Franchise Stock Historical Data")
     print("=" * 70)
 
     # Determine date range
     # If CSV exists, fetch data from last date + 1 day
     # Otherwise, fetch last 10 years of data
 
-    if os.path.exists(CSV_FILE):
-        print(f"\nExisting CSV found: {CSV_FILE}")
-        existing_df = pd.read_csv(CSV_FILE)
+    if HISTORICAL_STOCKS_CSV.exists():
+        print(f"\nExisting CSV found: {HISTORICAL_STOCKS_CSV}")
+        existing_df = pd.read_csv(HISTORICAL_STOCKS_CSV)
 
         # Get the latest date in the CSV
         latest_date = pd.to_datetime(existing_df['date']).max()
@@ -109,7 +125,7 @@ def main():
             print("\n✓ CSV is already up to date!")
             sys.exit(0)
     else:
-        print(f"\nNo existing CSV found. Creating new file: {CSV_FILE}")
+        print(f"\nNo existing CSV found. Creating new file: {HISTORICAL_STOCKS_CSV}")
         existing_df = None
 
         # Fetch last 10 years of data
@@ -150,13 +166,13 @@ def main():
     else:
         combined_df = new_df.sort_values(['date', 'symbol'])
 
-    # Create data directory if it doesn't exist
-    os.makedirs('data', exist_ok=True)
+    # Ensure output directory exists
+    HISTORICAL_STOCKS_CSV.parent.mkdir(parents=True, exist_ok=True)
 
     # Save to CSV
-    combined_df.to_csv(CSV_FILE, index=False)
+    combined_df.to_csv(HISTORICAL_STOCKS_CSV, index=False)
 
-    print(f"\n✓ Successfully updated {CSV_FILE}")
+    print(f"\n✓ Successfully updated {HISTORICAL_STOCKS_CSV}")
     print(f"Total records: {len(combined_df)}")
     print(f"Date range: {combined_df['date'].min()} to {combined_df['date'].max()}")
     print(f"Stocks: {combined_df['symbol'].nunique()}")

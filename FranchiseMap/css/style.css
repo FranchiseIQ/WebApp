@@ -174,15 +174,6 @@ body {
     display: flex;
     gap: 12px;
     z-index: 1000;
-    transition: left var(--transition-normal), margin-left var(--transition-normal);
-    /* Account for location panel width (360px) + gap (20px) = 380px */
-    margin-left: 0;
-}
-
-/* When location panel is open, shift dashboard stats to the right */
-.location-panel.open ~ #dashboard-stats,
-.location-panel.open + #dashboard-stats {
-    margin-left: 380px;
 }
 
 .stat-card {
@@ -456,6 +447,29 @@ body {
     color: var(--text-light);
     text-transform: uppercase;
     letter-spacing: 0.4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.locations-indicator {
+    display: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary-purple);
+    opacity: 0;
+    animation: pulse-indicator 2s ease-in-out infinite;
+}
+
+.locations-indicator.active {
+    display: inline-block;
+    opacity: 1;
+}
+
+@keyframes pulse-indicator {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.8); }
 }
 
 .distribution-bar {
@@ -579,13 +593,13 @@ body {
     margin: 4px 8px;
 }
 
-/* Left Side Location Panel */
+/* Left Side Location Panel - Positioned below dashboard stats */
 .location-panel {
     position: absolute;
-    top: 20px;
-    left: -380px;
-    width: 360px;
-    max-height: calc(100% - 40px);
+    top: 110px;
+    left: -360px;
+    width: 340px;
+    max-height: calc(100% - 130px);
     background: white;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
@@ -1764,12 +1778,6 @@ body {
 
     .stat-card.distribution {
         width: 100%;
-    }
-
-    /* Reduce margin shift on smaller screens */
-    .location-panel.open ~ #dashboard-stats,
-    .location-panel.open + #dashboard-stats {
-        margin-left: 0;
     }
 }
 

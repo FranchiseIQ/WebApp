@@ -28,7 +28,7 @@ jobs:
 
       - name: Fetch franchise news from RSS feeds
         run: |
-          python scripts/fetch_franchise_news_rss.py
+          python -m data_aggregation.pipelines.franchise.fetch_news
 
       - name: Commit and push if changed
         run: |

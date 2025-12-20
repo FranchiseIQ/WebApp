@@ -48,22 +48,11 @@ jobs:
           echo "## Data Aggregation Results" >> $GITHUB_STEP_SUMMARY
           if [ -f "FranchiseMap/data/data_quality_report.json" ]; then
             echo "✓ Data quality report generated" >> $GITHUB_STEP_SUMMARY
-            python3 << 'EOF'
-          import json
-          with open('FranchiseMap/data/data_quality_report.json', 'r') as f:
-              report = json.load(f)
-              summary = report.get('summary', {})
-              print(f"\n### Quality Metrics")
-              print(f"- Total Locations: {summary.get('totalLocations', 0):,}")
-              print(f"- With Demographics: {summary.get('locationsWithDemographics', 0):,}")
-              print(f"- With Accessibility: {summary.get('locationsWithAccessibility', 0):,}")
-              print(f"- With Traffic Data: {summary.get('locationsWithTraffic', 0):,}")
-              print(f"\n### Coverage")
-              print(f"- Demographics: {summary.get('demographicCoverage', 0):.1f}%")
-              print(f"- Accessibility: {summary.get('accessibilityCoverage', 0):.1f}%")
-              print(f"- Traffic: {summary.get('trafficCoverage', 0):.1f}%")
-            EOF
-            fi
+            python3 FranchiseMap/scripts/generate_quality_report.py >> $GITHUB_STEP_SUMMARY 2>&1
+          else
+            echo "⚠️ No quality report found" >> $GITHUB_STEP_SUMMARY
+          fi
+
       - name: Check for data changes
         id: check_changes
         run: |

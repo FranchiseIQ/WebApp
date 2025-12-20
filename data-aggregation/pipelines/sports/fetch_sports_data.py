@@ -2,17 +2,40 @@
 """
 Unified Sports Data Fetcher
 
-Fetches scores from ESPN API for all major sports leagues and finds YouTube highlights.
-Outputs a single sports_data.json file that the frontend reads.
+Fetches scores from ESPN API for all major sports leagues (NFL, NBA, WNBA, NHL, MLB, MLS)
+and optionally finds YouTube highlights for completed games.
+
+Data Sources:
+- ESPN API (free, no key required)
+- YouTube API (optional, requires YOUTUBE_API_KEY env var)
+
+Output:
+- FranchiseMap/data/sports_data.json - Unified file with all leagues
+- data/[sport]/current-week.json - NFL current week
+- data/[sport]/current-games.json - NBA, WNBA, NHL, MLB, MLS current games
 """
 
+import sys
 import json
 import requests
-import os
+from pathlib import Path
 from datetime import datetime, timedelta
+import os
+
+# Add repo root to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+
+from data_aggregation.config.paths_config import (
+    SPORTS_DATA_JSON,
+    FOOTBALL_GAMES_JSON,
+    BASKETBALL_GAMES_JSON,
+    HOCKEY_GAMES_JSON,
+    BASEBALL_GAMES_JSON,
+    SOCCER_GAMES_JSON,
+)
 
 # --- CONFIGURATION ---
-DATA_FILE = "sports_data.json"
+
 YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY")
 
 # ESPN Endpoints (free, no key needed)
@@ -358,8 +381,8 @@ def fetch_league(league, video_cache=None, include_yesterday=False):
 def load_existing_data():
     """Load existing data to preserve video cache."""
     try:
-        if os.path.exists(DATA_FILE):
-            with open(DATA_FILE, "r") as f:
+        if SPORTS_DATA_JSON.exists():
+            with open(SPORTS_DATA_JSON, "r") as f:
                 return json.load(f)
     except Exception as e:
         print(f"Could not load existing data: {e}")
@@ -392,31 +415,25 @@ def build_video_cache(existing_data):
     return cache
 
 
-def save_league_data(league_key, data, output_dir="data"):
+def save_league_data(league_key, data):
     """Save individual league data to separate files for the frontend."""
-    # Map league keys to directories
-    dir_map = {
-        "nfl": "football",
-        "nba": "basketball",
-        "wnba": "basketball",
-        "nhl": "hockey",
-        "mlb": "baseball",
-        "mls": "soccer"
+    # Map league keys to output files
+    file_map = {
+        "nfl": FOOTBALL_GAMES_JSON,
+        "nba": BASKETBALL_GAMES_JSON,
+        "wnba": BASKETBALL_GAMES_JSON,
+        "nhl": HOCKEY_GAMES_JSON,
+        "mlb": BASEBALL_GAMES_JSON,
+        "mls": SOCCER_GAMES_JSON
     }
 
-    subdir = dir_map.get(league_key.lower(), league_key.lower())
-    league_dir = os.path.join(output_dir, subdir)
+    filepath = file_map.get(league_key.lower())
+    if not filepath:
+        print(f"  No output file configured for {league_key}")
+        return
 
     # Create directory if needed
-    os.makedirs(league_dir, exist_ok=True)
-
-    # Determine filename
-    if league_key.lower() == "nfl":
-        filename = "current-week.json"
-    else:
-        filename = "current-games.json"
-
-    filepath = os.path.join(league_dir, filename)
+    filepath.parent.mkdir(parents=True, exist_ok=True)
 
     # Format data for frontend
     games = data.get("games", [])
@@ -461,9 +478,9 @@ def save_league_data(league_key, data, output_dir="data"):
 # --- MAIN ---
 
 def main():
-    print("=" * 50)
+    print("=" * 70)
     print("Sports Data Updater - All Leagues")
-    print("=" * 50)
+    print("=" * 70)
     print(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"YouTube API Key: {'Present' if YOUTUBE_API_KEY else 'Not set'}")
     print()
@@ -492,10 +509,13 @@ def main():
         "mls": mls_data
     }
 
+    # Ensure output directory exists
+    SPORTS_DATA_JSON.parent.mkdir(parents=True, exist_ok=True)
+
     # Save unified file
-    with open(DATA_FILE, "w") as f:
+    with open(SPORTS_DATA_JSON, "w") as f:
         json.dump(final_data, f, indent=2)
-    print(f"\nSaved unified data to {DATA_FILE}")
+    print(f"✓ Saved unified data to {SPORTS_DATA_JSON}")
 
     # Also save individual league files for frontend compatibility
     print("\nSaving individual league files...")
@@ -508,7 +528,7 @@ def main():
 
     # Summary
     print()
-    print("=" * 50)
+    print("=" * 70)
     print("Summary:")
     for league, data in [("NFL", nfl_data), ("NBA", nba_data), ("WNBA", wnba_data),
                           ("NHL", nhl_data), ("MLB", mlb_data), ("MLS", mls_data)]:
@@ -516,8 +536,8 @@ def main():
         final_count = len([g for g in games if g.get("is_final")])
         video_count = len([g for g in games if g.get("video_url")])
         print(f"  {league}: {len(games)} games ({final_count} final, {video_count} with video)")
-    print("=" * 50)
-    print("\nDone!")
+    print("=" * 70)
+    print("\n✓ Done!")
 
 
 if __name__ == "__main__":

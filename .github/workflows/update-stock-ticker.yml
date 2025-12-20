@@ -32,7 +32,7 @@ jobs:
         env:
           FINNHUB_API_KEY: ${{ secrets.FINNHUB }}
         run: |
-          python scripts/fetch_live_ticker_finnhub.py
+          python -m data_aggregation.pipelines.stocks.fetch_live_ticker
 
       - name: Commit and push if changed
         run: |

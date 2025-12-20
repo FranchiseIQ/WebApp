@@ -1,20 +1,38 @@
 #!/usr/bin/env python3
 """
-Fetch live stock ticker data from Finnhub API
+Fetch Live Stock Ticker Data from Finnhub API
+
 Outputs to: data/live_ticker.json
 
 This script fetches real-time stock quotes from Finnhub.io and saves them
 in a format compatible with the stock ticker widget.
+
+CRITICAL: The TICKER_SYMBOLS list below MUST be synchronized with the
+FRANCHISE_STOCKS list in update_historical_data.py. Run sync_tickers.py
+to verify synchronization after any changes.
 """
 
 import os
 import json
 import time
 import requests
-from datetime import datetime, timezone
+import sys
+from datetime import datetime, timezone, timedelta
+from pathlib import Path
 
-# Ticker symbols - MUST MATCH the list in scripts/update_franchise_stocks.py
-# This is pulled from the central stock dataset - update the main script to add new tickers
+# Add repo root to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+
+from data_aggregation.config.paths_config import LIVE_TICKER_JSON
+
+# ============================================================================
+# TICKER SYMBOLS - MUST MATCH update_historical_data.py
+# ============================================================================
+# This list is pulled from the central stock dataset.
+# To add new tickers, update the FRANCHISE_STOCKS list in update_historical_data.py
+# then run sync_tickers.py to verify synchronization.
+# ============================================================================
+
 TICKER_SYMBOLS = [
     # Quick Service & Restaurants
     "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
@@ -45,9 +63,6 @@ SYMBOL_MAP = {}
 # API Configuration
 FINNHUB_API_KEY = os.environ.get('FINNHUB_API_KEY', '')
 FINNHUB_BASE_URL = "https://finnhub.io/api/v1"
-
-# Output file
-OUTPUT_FILE = "data/live_ticker.json"
 
 # US Stock Market Holidays (2024-2026)
 # Source: NYSE/NASDAQ official holiday schedules
@@ -98,10 +113,9 @@ def is_market_holiday():
         bool: True if today is a market holiday
     """
     # Get current date in ET timezone
-    from datetime import datetime
-    import pytz
-
     try:
+        import pytz
+
         et_tz = pytz.timezone('America/New_York')
         now_et = datetime.now(et_tz)
         today = now_et.strftime('%Y-%m-%d')
@@ -254,7 +268,7 @@ def save_quotes(quotes):
         quotes: Dictionary of quotes
     """
     # Ensure data directory exists
-    os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
+    LIVE_TICKER_JSON.parent.mkdir(parents=True, exist_ok=True)
 
     # Add metadata
     output = {
@@ -265,10 +279,10 @@ def save_quotes(quotes):
     }
 
     # Write to file
-    with open(OUTPUT_FILE, 'w') as f:
+    with open(LIVE_TICKER_JSON, 'w') as f:
         json.dump(output, f, indent=2)
 
-    print(f"\n💾 Saved {len(quotes)} quotes to {OUTPUT_FILE}")
+    print(f"\n💾 Saved {len(quotes)} quotes to {LIVE_TICKER_JSON}")
 
 
 def main():

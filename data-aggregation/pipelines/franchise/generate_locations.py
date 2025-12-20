@@ -1,13 +1,41 @@
+#!/usr/bin/env python3
+"""
+Generate Franchise Location Data from OpenStreetMap
+
+Uses the Overpass API to fetch franchise locations across the United States
+and generates a comprehensive dataset with demographic and market attributes
+for suitability scoring.
+
+Data Source: OpenStreetMap via Overpass API (free, no authentication required)
+
+Output:
+- data/brands/*.json - Individual franchise location files (one per ticker)
+- data/manifest.json - Index of all brands and their location counts
+
+Runtime: 60-90 minutes for full US coverage (depending on API availability)
+
+Note: This script generates synthetic demographic data for demonstration.
+In production, integrate real data sources (Census API, Walk Score API, etc.)
+"""
+
+import sys
 import json
 import random
-import os
 import time
 import requests
+from pathlib import Path
+
+# Add repo root to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+
+from data_aggregation.config.paths_config import BRANDS_DATA_DIR, MANIFEST_JSON
 
 # --- CONFIGURATION ---
+
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 
-# EXPANDED TICKER LIST (Includes Private Equity & Private Chains)
+# Expanded ticker list with query terms
+# Maps stock ticker/company identifiers to search terms for OpenStreetMap
 TICKER_QUERIES = {
     # --- PUBLIC GIANTS ---
     "MCD":  ['"McDonald\'s"', '"McDonalds"'],
@@ -84,10 +112,6 @@ TICKER_QUERIES = {
     "UHAL": ['"U-Haul"']
 }
 
-# Fix output path
-script_dir = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR = os.path.join(script_dir, "../data/brands")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def calculate_score(attrs):
     """
@@ -132,26 +156,21 @@ def calculate_score(attrs):
 
     # Site Characteristics Factors (15%)
     s_visibility = attrs.get('visibility', 0) / 100
-    s_safety = max(0, 1.0 - (attrs.get('crimeIndex', 0) / 100))  # Invert: lower crime = higher score
-    # Real estate: optimal around 50-70, too low or too high penalized
+    s_safety = max(0, 1.0 - (attrs.get('crimeIndex', 0) / 100))
     re_value = attrs.get('realEstateIndex', 50)
-    s_realestate = 1.0 - abs(re_value - 60) / 60  # Peak at 60, decline towards 0 or 120
+    s_realestate = 1.0 - abs(re_value - 60) / 60
 
     # Calculate weighted total
     total = (
-        # Market Potential (40%)
         (s_demo * 0.15) +
         (s_density * 0.10) +
         (s_spending * 0.10) +
         (s_growth * 0.05) +
-        # Competitive Landscape (20%)
         (s_comp * 0.15) +
         (s_saturation * 0.05) +
-        # Accessibility (25%)
         (s_traffic * 0.10) +
         (s_walk * 0.08) +
         (s_transit * 0.07) +
-        # Site Characteristics (15%)
         (s_visibility * 0.06) +
         (s_safety * 0.05) +
         (s_realestate * 0.04)
@@ -161,29 +180,22 @@ def calculate_score(attrs):
 
 
 def calculate_sub_scores(attrs):
-    """
-    Calculate individual category sub-scores for detailed breakdown.
-    Returns dict with scores for each major category (0-100 each).
-    """
-    # Market Potential (normalize to 100)
+    """Calculate category sub-scores for detailed breakdown."""
     s_demo = min(attrs.get('medianIncome', 0) / 100000, 1.0)
     s_density = min(attrs.get('populationDensity', 0) / 5000, 1.0)
     s_spending = min(attrs.get('consumerSpending', 0) / 100, 1.0)
     s_growth = min(attrs.get('growthRate', 0) / 5.0, 1.0)
     market_score = ((s_demo * 0.375) + (s_density * 0.25) + (s_spending * 0.25) + (s_growth * 0.125)) * 100
 
-    # Competitive Landscape
     s_comp = max(0, 1.0 - (attrs.get('competitors', 0) * 0.12))
     s_saturation = max(0, 1.0 - (attrs.get('marketSaturation', 0) / 100))
     competition_score = ((s_comp * 0.75) + (s_saturation * 0.25)) * 100
 
-    # Accessibility
     s_traffic = min(attrs.get('traffic', 0) / 50000, 1.0)
     s_walk = attrs.get('walkScore', 0) / 100
     s_transit = attrs.get('transitScore', 0) / 100
     accessibility_score = ((s_traffic * 0.40) + (s_walk * 0.32) + (s_transit * 0.28)) * 100
 
-    # Site Characteristics
     s_visibility = attrs.get('visibility', 0) / 100
     s_safety = max(0, 1.0 - (attrs.get('crimeIndex', 0) / 100))
     re_value = attrs.get('realEstateIndex', 50)
@@ -197,8 +209,9 @@ def calculate_sub_scores(attrs):
         "siteCharacteristics": round(site_score, 1)
     }
 
+
 def fetch_overpass_data(queries):
-    """Query OpenStreetMap with 15-minute timeout for comprehensive data."""
+    """Query OpenStreetMap with timeout for comprehensive data."""
     search_terms = ""
     for q in queries:
         search_terms += f'nwr["name"~{q},i](24.39,-125.0,49.38,-66.93);'
@@ -225,10 +238,15 @@ def fetch_overpass_data(queries):
         print(f"  Error: {e}")
         return []
 
+
 def generate_real_data():
+    """Generate location data from OpenStreetMap."""
+    # Ensure output directories exist
+    BRANDS_DATA_DIR.mkdir(parents=True, exist_ok=True)
+
     manifest = []
     keys = list(TICKER_QUERIES.keys())
-    random.shuffle(keys)  # Randomize order to distribute API load
+    random.shuffle(keys)
 
     print(f"Fetching data for {len(keys)} brand groups...")
     print("This may take 60-90 minutes for full US coverage.\n")
@@ -260,9 +278,8 @@ def generate_real_data():
                 address = ", ".join(addr_parts) if addr_parts else f"US Location ({round(lat, 4)}, {round(lng, 4)})"
 
                 # Simulate comprehensive attributes with methodology tracking
-                # Generate correlated data for more realistic distributions
                 base_income = random.randint(35000, 150000)
-                income_factor = base_income / 100000  # Use for correlations
+                income_factor = base_income / 100000
 
                 attrs = {
                     # Market Potential Factors
@@ -288,7 +305,7 @@ def generate_real_data():
                     # Additional Demographic Data
                     "avgAge": round(random.uniform(28, 52), 1),
                     "householdSize": round(random.uniform(1.8, 3.5), 1),
-                    "educationIndex": random.randint(40, 95),  # % with college degree
+                    "educationIndex": random.randint(40, 95),
                     "employmentRate": round(random.uniform(88, 98), 1),
 
                     # Methodology notes for transparency
@@ -316,14 +333,15 @@ def generate_real_data():
                     "lat": round(lat, 6),
                     "lng": round(lng, 6),
                     "s": calculate_score(attrs),
-                    "ss": sub_scores,  # Sub-scores for detailed breakdown
+                    "ss": sub_scores,
                     "at": attrs
                 }
                 all_ticker_locs.append(loc)
 
         if len(all_ticker_locs) > 0:
             filename = f"{ticker}.json"
-            with open(os.path.join(OUTPUT_DIR, filename), "w") as f:
+            filepath = BRANDS_DATA_DIR / filename
+            with open(filepath, "w") as f:
                 json.dump(all_ticker_locs, f, separators=(',', ':'))
 
             print(f"  > Saved {len(all_ticker_locs)} locations")
@@ -337,16 +355,21 @@ def generate_real_data():
         else:
             print(f"  > No locations found")
 
-        time.sleep(2)  # Be polite to the API
+        time.sleep(2)
 
     # Save manifest
-    with open(os.path.join(OUTPUT_DIR, "../manifest.json"), "w") as f:
+    MANIFEST_JSON.parent.mkdir(parents=True, exist_ok=True)
+    with open(MANIFEST_JSON, "w") as f:
         json.dump(manifest, f, indent=2)
 
     total = sum(m['count'] for m in manifest)
-    print(f"\n{'='*50}")
-    print(f"Data generation complete!")
+    print(f"\n{'='*70}")
+    print(f"✓ Data generation complete!")
     print(f"Total: {total:,} locations across {len(manifest)} brand groups")
+    print(f"Output: {MANIFEST_JSON}")
+    print(f"Location files: {BRANDS_DATA_DIR}/*.json")
+    print("=" * 70)
+
 
 if __name__ == "__main__":
     generate_real_data()
