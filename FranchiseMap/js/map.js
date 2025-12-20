@@ -62,6 +62,95 @@ document.addEventListener('DOMContentLoaded', () => {
         return SCORE_TIERS.poor;
     }
 
+    // Animate number scrolling for Average Score
+    function animateScoreNumber(elementId, endValue, duration = 600) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+
+        const startValue = parseInt(el.textContent) || 0;
+        const startTime = Date.now();
+
+        function update() {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const current = Math.round(startValue + (endValue - startValue) * progress);
+            el.textContent = current;
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            }
+        }
+
+        update();
+    }
+
+    // Toggle scores panel visibility
+    function toggleScoresPanel() {
+        const panel = document.getElementById('scores-panel');
+        panel.classList.toggle('hidden');
+        if (!panel.classList.contains('hidden')) {
+            updateScoresList();
+        }
+    }
+
+    // Update the scores list with all visible locations
+    function updateScoresList() {
+        const panel = document.getElementById('scores-panel');
+        if (panel.classList.contains('hidden')) return;
+
+        const bounds = map.getBounds();
+        const visibleLocations = allLocations.filter(loc => {
+            return activeTickers.has(loc.ticker) &&
+                   bounds.contains([loc.lat, loc.lng]) &&
+                   loc.s >= scoreFilter.min &&
+                   loc.s <= scoreFilter.max;
+        });
+
+        const list = document.getElementById('scores-list');
+        list.innerHTML = '';
+
+        if (visibleLocations.length === 0) {
+            list.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-light);">No locations in view</div>';
+            return;
+        }
+
+        // Sort by score descending
+        const sorted = visibleLocations.sort((a, b) => b.s - a.s);
+
+        sorted.forEach((loc, index) => {
+            const tier = getScoreTier(loc.s);
+            const item = document.createElement('div');
+            item.className = 'score-item';
+            item.style.borderLeftColor = tier.color;
+
+            item.innerHTML = `
+                <div class="score-circle" style="background: ${tier.color};">
+                    ${loc.s}
+                </div>
+                <div class="score-item-content">
+                    <div class="score-item-brand">${loc.n}</div>
+                    <div class="score-item-address">${loc.a || 'US Location'}</div>
+                </div>
+            `;
+
+            item.onclick = () => {
+                // Pan to location
+                map.setView([loc.lat, loc.lng], 14);
+                // Open detail pane
+                showLocationDetail(loc);
+            };
+
+            list.appendChild(item);
+        });
+    }
+
+    // Show location detail (reuse existing marker popup logic)
+    function showLocationDetail(loc) {
+        const marker = createMarker(loc);
+        map.addLayer(marker);
+        marker.openPopup();
+    }
+
     function initMap() {
         const street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OSM' });
         const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Tiles © Esri' });
@@ -104,15 +193,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadManifest() {
         fetch('data/manifest.json')
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch manifest: ${res.status} ${res.statusText}`);
+                }
+                return res.json();
+            })
             .then(data => {
+                if (!Array.isArray(data) || data.length === 0) {
+                    throw new Error('Manifest is empty or invalid');
+                }
                 manifest = data;
                 renderLegend(manifest);
                 updateDashboardStats();
             })
             .catch(e => {
-                console.log("Data not yet generated. Run GitHub Action.");
-                document.getElementById('brand-legend').innerHTML = '<p style="color:#999;font-size:0.85rem;">No data available. Run the GitHub Action to generate map data.</p>';
+                console.error("Error loading manifest data:", e);
+                const container = document.getElementById('brand-legend');
+                if (container) {
+                    container.innerHTML = `<p style="color:#f87171;font-size:0.85rem;">⚠️ Unable to load map data: ${e.message}</p>`;
+                }
             });
     }
 
@@ -156,11 +256,26 @@ document.addEventListener('DOMContentLoaded', () => {
             if (loadedTickers.has(ticker)) {
                 refreshMap();
             } else {
-                fetch(filePath).then(r => r.json()).then(data => {
-                    allLocations = allLocations.concat(data);
-                    loadedTickers.add(ticker);
-                    refreshMap();
-                });
+                fetch(filePath)
+                    .then(res => {
+                        if (!res.ok) {
+                            throw new Error(`Failed to load ${ticker}: ${res.status} ${res.statusText}`);
+                        }
+                        return res.json();
+                    })
+                    .then(data => {
+                        if (!Array.isArray(data)) {
+                            throw new Error(`Invalid data format for ${ticker}`);
+                        }
+                        allLocations = allLocations.concat(data);
+                        loadedTickers.add(ticker);
+                        refreshMap();
+                    })
+                    .catch(e => {
+                        console.error(`Error loading brand data for ${ticker}:`, e);
+                        activeTickers.delete(ticker);
+                        alert(`Unable to load ${ticker} location data: ${e.message}`);
+                    });
             }
         }
         updateLocationCount();
@@ -242,18 +357,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const visible = allLocations.filter(loc => activeTickers.has(loc.ticker));
 
         if (visible.length === 0) {
-            document.getElementById('avg-score').textContent = '--';
-            document.getElementById('high-score-count').textContent = '0';
+            document.getElementById('visible-avg-score').textContent = '--';
+            document.getElementById('visible-excellent-count').textContent = '0';
             document.getElementById('brands-active').textContent = '0';
             return;
         }
 
         const avgScore = Math.round(visible.reduce((sum, loc) => sum + loc.s, 0) / visible.length);
-        const highScoreCount = visible.filter(loc => loc.s >= 80).length;
+        const excellentCount = visible.filter(loc => loc.s >= 80).length;
         const brandsActive = activeTickers.size;
 
-        document.getElementById('avg-score').textContent = avgScore;
-        document.getElementById('high-score-count').textContent = highScoreCount.toLocaleString();
+        animateScoreNumber('visible-avg-score', avgScore);
+        document.getElementById('visible-excellent-count').textContent = excellentCount.toLocaleString();
         document.getElementById('brands-active').textContent = brandsActive;
 
         // Update score distribution chart
@@ -274,26 +389,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (visibleLocations.length === 0) {
-            document.getElementById('avg-score').textContent = '--';
-            document.getElementById('high-score-count').textContent = '0';
+            document.getElementById('visible-avg-score').textContent = '--';
+            document.getElementById('visible-excellent-count').textContent = '0';
+            updateScoresList();
             return;
         }
 
         // Calculate stats for visible locations only
         const avgScore = Math.round(visibleLocations.reduce((sum, loc) => sum + loc.s, 0) / visibleLocations.length);
-        const highScoreCount = visibleLocations.filter(loc => loc.s >= 80).length;
+        const excellentCount = visibleLocations.filter(loc => loc.s >= 80).length;
 
-        // Use animated score update
-        animateAvgScore(avgScore);
-        document.getElementById('high-score-count').textContent = highScoreCount.toLocaleString();
+        animateScoreNumber('visible-avg-score', avgScore);
+        document.getElementById('visible-excellent-count').textContent = excellentCount.toLocaleString();
 
-        // Update score distribution for visible locations
+        // Update score distribution and panel
         updateScoreDistribution(visibleLocations);
-
-        // Update location list if panel is open
-        if (locationPanelOpen) {
-            updateLocationList();
-        }
+        updateScoresList();
     }
 
     function updateScoreDistribution(locations) {
@@ -782,9 +893,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setupAdvancedControls() {
-        // Note: Score range filter sliders (score-min/score-max) have been moved to modal
-        // These will now be controlled via the score slider modal
-        // Keeping null checks for backward compatibility
+        // Score range filter
+        const scoreMinSlider = document.getElementById('score-min');
+        const scoreMaxSlider = document.getElementById('score-max');
+        const scoreMinLabel = document.getElementById('score-min-label');
+        const scoreMaxLabel = document.getElementById('score-max-label');
+
+        if (scoreMinSlider && scoreMaxSlider) {
+            scoreMinSlider.oninput = function() {
+                const min = parseInt(this.value);
+                if (min > parseInt(scoreMaxSlider.value)) {
+                    this.value = scoreMaxSlider.value;
+                    return;
+                }
+                scoreFilter.min = min;
+                scoreMinLabel.textContent = min;
+                refreshMap();
+            };
+
+            scoreMaxSlider.oninput = function() {
+                const max = parseInt(this.value);
+                if (max < parseInt(scoreMinSlider.value)) {
+                    this.value = scoreMinSlider.value;
+                    return;
+                }
+                scoreFilter.max = max;
+                scoreMaxLabel.textContent = max;
+                refreshMap();
+            };
+        }
 
         // Export all visible
         const exportBtn = document.getElementById('btn-export-all');
@@ -792,14 +929,27 @@ document.addEventListener('DOMContentLoaded', () => {
             exportBtn.onclick = exportAllVisible;
         }
 
-        // High performers card click
-        const highScoreCount = document.getElementById('high-score-count');
-        if (highScoreCount) {
-            const highPerfCard = highScoreCount.closest('.stat-card');
-            if (highPerfCard) {
-                highPerfCard.style.cursor = 'pointer';
-                highPerfCard.onclick = showHighPerformers;
+        // Average Score card click - toggle scores panel
+        const avgScoreEl = document.getElementById('visible-avg-score');
+        if (avgScoreEl) {
+            const avgScoreCard = avgScoreEl.closest('.stat-card');
+            if (avgScoreCard) {
+                avgScoreCard.style.cursor = 'pointer';
+                avgScoreCard.onclick = toggleScoresPanel;
             }
+        }
+
+        // Close scores panel button
+        const closeScoresBtn = document.getElementById('close-scores');
+        if (closeScoresBtn) {
+            closeScoresBtn.onclick = toggleScoresPanel;
+        }
+
+        // Open scores panel by default
+        const scoresPanel = document.getElementById('scores-panel');
+        if (scoresPanel) {
+            scoresPanel.classList.remove('hidden');
+            updateScoresList();
         }
 
         // Close high performers list
@@ -808,80 +958,61 @@ document.addEventListener('DOMContentLoaded', () => {
             closeBtn.onclick = hideHighPerformers;
         }
 
-        // Average Score card - toggle location panel
-        const avgScoreEl = document.getElementById('avg-score');
-        if (avgScoreEl) {
-            const avgScoreCard = avgScoreEl.closest('.stat-card');
-            if (avgScoreCard) {
-                avgScoreCard.style.cursor = 'pointer';
-                avgScoreCard.onclick = toggleLocationPanel;
-            }
-        }
+        // Score filter controls - Range inputs and reset button
+        const scoreMinSlider = document.getElementById('score-min');
+        const scoreMaxSlider = document.getElementById('score-max');
+        const scoreMinLabel = document.getElementById('score-min-label');
+        const scoreMaxLabel = document.getElementById('score-max-label');
+        const resetScoreFilterBtn = document.getElementById('reset-score-filter');
 
-        // Close location panel button
-        const closeLocationPanelBtn = document.getElementById('close-location-panel');
-        if (closeLocationPanelBtn) {
-            closeLocationPanelBtn.onclick = toggleLocationPanel;
-        }
+        if (scoreMinSlider && scoreMaxSlider) {
+            // Min score input handler
+            scoreMinSlider.oninput = function() {
+                let min = parseInt(this.value);
+                const max = parseInt(scoreMaxSlider.value);
 
-        // Close slider modal
-        const closeSliderBtn = document.getElementById('close-slider');
-        if (closeSliderBtn) {
-            closeSliderBtn.onclick = hideScoreSlider;
-        }
-
-        // Modal background click
-        const sliderModal = document.getElementById('score-slider-modal');
-        if (sliderModal) {
-            sliderModal.onclick = function(e) {
-                if (e.target === sliderModal) hideScoreSlider();
-            };
-        }
-
-        // Slider inputs
-        const sliderMin = document.getElementById('slider-min');
-        const sliderMax = document.getElementById('slider-max');
-
-        if (sliderMin && sliderMax) {
-            sliderMin.oninput = function() {
-                const min = parseInt(this.value);
-                const max = parseInt(sliderMax.value);
+                // Prevent min from exceeding max
                 if (min > max) {
+                    min = max;
                     this.value = max;
-                    return;
                 }
-                updateScoreSliderDisplay();
-                applyScoreFilter();
+
+                scoreFilter.min = min;
+                if (scoreMinLabel) scoreMinLabel.textContent = min;
+                refreshMap();
+                updateScoresList();
             };
 
-            sliderMax.oninput = function() {
-                const max = parseInt(this.value);
-                const min = parseInt(sliderMin.value);
+            // Max score input handler
+            scoreMaxSlider.oninput = function() {
+                let max = parseInt(this.value);
+                const min = parseInt(scoreMinSlider.value);
+
+                // Prevent max from going below min
                 if (max < min) {
+                    max = min;
                     this.value = min;
-                    return;
                 }
-                updateScoreSliderDisplay();
-                applyScoreFilter();
+
+                scoreFilter.max = max;
+                if (scoreMaxLabel) scoreMaxLabel.textContent = max;
+                refreshMap();
+                updateScoresList();
             };
         }
 
-        // Reset slider button
-        const resetBtn = document.getElementById('reset-slider');
-        if (resetBtn) {
-            resetBtn.onclick = function() {
-                sliderMin.value = 0;
-                sliderMax.value = 100;
-                updateScoreSliderDisplay();
-                applyScoreFilter();
+        // Reset button handler
+        if (resetScoreFilterBtn) {
+            resetScoreFilterBtn.onclick = function() {
+                scoreFilter.min = 0;
+                scoreFilter.max = 100;
+                if (scoreMinSlider) scoreMinSlider.value = 0;
+                if (scoreMaxSlider) scoreMaxSlider.value = 100;
+                if (scoreMinLabel) scoreMinLabel.textContent = '0';
+                if (scoreMaxLabel) scoreMaxLabel.textContent = '100';
+                refreshMap();
+                updateScoresList();
             };
-        }
-
-        // Initialize slider with current values
-        if (sliderMin && sliderMax) {
-            sliderMin.value = scoreFilter.min;
-            sliderMax.value = scoreFilter.max;
-            updateScoreSliderDisplay();
         }
     }
 
@@ -1087,201 +1218,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     }
 
-    function showScoreSlider() {
-        const modal = document.getElementById('score-slider-modal');
-        if (modal) {
-            modal.style.display = 'flex';
-        }
-    }
-
-    function hideScoreSlider() {
-        const modal = document.getElementById('score-slider-modal');
-        if (modal) {
-            modal.style.display = 'none';
-        }
-    }
-
-    function updateScoreSliderDisplay() {
-        const sliderMin = document.getElementById('slider-min');
-        const sliderMax = document.getElementById('slider-max');
-        const minValue = document.getElementById('slider-min-value');
-        const maxValue = document.getElementById('slider-max-value');
-
-        if (minValue) minValue.textContent = sliderMin.value;
-        if (maxValue) maxValue.textContent = sliderMax.value;
-    }
-
-    function applyScoreFilter() {
-        const sliderMin = document.getElementById('slider-min');
-        const sliderMax = document.getElementById('slider-max');
-
-        if (!sliderMin || !sliderMax) return;
-
-        const min = parseInt(sliderMin.value);
-        const max = parseInt(sliderMax.value);
-
-        scoreFilter.min = min;
-        scoreFilter.max = max;
-
-        // Refresh map with new filter
-        refreshMap();
-    }
-
-    // ===== NEW LOCATION PANEL FUNCTIONS =====
-    let locationPanelOpen = true; // Default state is open
-
-    function toggleLocationPanel() {
-        const panel = document.getElementById('location-panel');
-        if (panel) {
-            locationPanelOpen = !locationPanelOpen;
-            if (locationPanelOpen) {
-                panel.classList.add('open');
-                updateLocationList();
-            } else {
-                panel.classList.remove('open');
-            }
-        }
-    }
-
-    function updateLocationList() {
-        // Get current map bounds
-        if (!map) return;
-
-        const bounds = map.getBounds();
-        const visibleLocations = allLocations.filter(loc => {
-            // Check if location is within bounds and from active ticker
-            return activeTickers.has(loc.ticker) &&
-                   bounds.contains([loc.lat, loc.lng]) &&
-                   loc.s >= scoreFilter.min &&
-                   loc.s <= scoreFilter.max;
-        });
-
-        renderLocationList(visibleLocations);
-    }
-
-    function renderLocationList(locations) {
-        const container = document.getElementById('location-list-content');
-        if (!container) return;
-
-        // Sort locations by score descending
-        const sorted = locations.sort((a, b) => b.s - a.s);
-
-        if (sorted.length === 0) {
-            container.innerHTML = `
-                <div class="location-empty-state">
-                    <div><i class="fa-solid fa-map-pin"></i></div>
-                    <div>No locations in current view</div>
-                </div>
-            `;
-            return;
-        }
-
-        container.innerHTML = sorted.map(loc => {
-            const address = loc.at ? (loc.at.address || loc.at.city || 'Unknown location') : 'Unknown location';
-            const name = loc.name || loc.n || 'Unknown';
-            const score = Math.round(loc.s);
-            const scoreTier = getScoreTier(score);
-
-            // Determine score class
-            let scoreClass = 'excellent';
-            if (score < 80) scoreClass = score >= 65 ? 'good' : (score >= 50 ? 'fair' : 'poor');
-
-            return `
-                <div class="location-item" data-lat="${loc.lat}" data-lng="${loc.lng}">
-                    <div class="location-item-info">
-                        <div class="location-item-name">${name}</div>
-                        <div class="location-item-address">${address}</div>
-                    </div>
-                    <div class="location-item-score">
-                        <div class="location-score-circle ${scoreClass}">${score}</div>
-                    </div>
-                </div>
-            `;
-        }).join('');
-
-        // Add click handlers to location items
-        container.querySelectorAll('.location-item').forEach(item => {
-            item.onclick = () => {
-                const lat = parseFloat(item.dataset.lat);
-                const lng = parseFloat(item.dataset.lng);
-                navigateToLocation(lat, lng);
-            };
-        });
-    }
-
-    function navigateToLocation(lat, lng) {
-        // Pan to the location
-        map.setView([lat, lng], 14);
-
-        // Find and open the marker popup
-        setTimeout(() => {
-            let foundMarker = null;
-
-            if (clusterGroup) {
-                clusterGroup.eachLayer(layer => {
-                    if (layer.locationData &&
-                        Math.abs(layer.locationData.lat - lat) < 0.0001 &&
-                        Math.abs(layer.locationData.lng - lng) < 0.0001) {
-                        foundMarker = layer;
-                    }
-                });
-            }
-
-            if (!foundMarker && markersLayer) {
-                markersLayer.eachLayer(layer => {
-                    if (layer.locationData &&
-                        Math.abs(layer.locationData.lat - lat) < 0.0001 &&
-                        Math.abs(layer.locationData.lng - lng) < 0.0001) {
-                        foundMarker = layer;
-                    }
-                });
-            }
-
-            if (foundMarker) {
-                foundMarker.openPopup();
-                // Highlight the marker briefly
-                const originalStyle = foundMarker.options;
-                foundMarker.setStyle({
-                    weight: 4,
-                    opacity: 1,
-                    fillOpacity: 1
-                });
-                setTimeout(() => {
-                    foundMarker.setStyle(originalStyle);
-                }, 1500);
-            }
-        }, 300);
-    }
-
-    // Animated average score display
-    function animateAvgScore(newScore) {
-        const avgScoreEl = document.getElementById('avg-score');
-        if (!avgScoreEl) return;
-
-        const currentScore = parseInt(avgScoreEl.textContent) || 0;
-
-        if (currentScore === newScore) return;
-
-        const difference = newScore - currentScore;
-        const steps = 30;
-        let currentStep = 0;
-
-        const interval = setInterval(() => {
-            currentStep++;
-            const progress = currentStep / steps;
-            const easeProgress = progress < 0.5
-                ? 2 * progress * progress
-                : -1 + (4 - 2 * progress) * progress; // Ease-in-out
-
-            const currentValue = Math.round(currentScore + difference * easeProgress);
-            avgScoreEl.textContent = currentValue;
-
-            if (currentStep >= steps) {
-                clearInterval(interval);
-                avgScoreEl.textContent = newScore;
-            }
-        }, 16); // 60fps
-    }
+    // Score filter is now handled directly in setupAdvancedControls()
+    // via scoreMinSlider.oninput and scoreMaxSlider.oninput event handlers
 
     initMap();
 });
