@@ -9,21 +9,31 @@ import os
 from datetime import datetime
 import yfinance as yf
 
-# Active franchise stock tickers (removed GNC, TAST - no longer public)
+# Ticker symbols for current price fetching
+# MUST MATCH the list in scripts/update_franchise_stocks.py (centralized dataset)
+# Note: Removed tickers like GNC, TAST (no longer public) are kept in central CSV for historical data
 TICKER_SYMBOLS = [
-    # QSR
-    "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK", "CMG", "SBUX", "PZZA",
-    "DNUT", "NATH",
-    # Casual Dining
-    "DENN", "DIN", "RRGB", "TXRH", "CAKE", "DRI", "EAT", "BLMN", "PLAY",
-    # Hotels
-    "MAR", "HLT", "H", "CHH", "WH", "IHG", "VAC", "TNL",
-    # Services (Roark public: DRVN)
+    # Quick Service & Restaurants
+    "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
+    "DENN", "DIN", "DNUT", "NATH", "RRGB",
+
+    # Auto & Services
     "DRVN", "HRB", "MCW", "SERV", "ROL",
-    # Fitness
-    "PLNT", "XPOF",
-    # Other
-    "ARCO", "ADUS", "LOPE"
+
+    # Fitness & Recreation
+    "PLNT", "TNL", "PLAY",
+
+    # Hospitality
+    "MAR", "HLT", "H", "CHH", "WH", "VAC",
+
+    # Retail & Other
+    "RENT", "ADUS", "LOPE", "ARCO", "TAST",
+
+    # Market index/benchmark (for charts)
+    "SPY",
+
+    # Additional (may be dead but kept for historical data)
+    "GNC"
 ]
 
 def fetch_stock_data():
