@@ -62,6 +62,95 @@ document.addEventListener('DOMContentLoaded', () => {
         return SCORE_TIERS.poor;
     }
 
+    // Animate number scrolling for Average Score
+    function animateScoreNumber(elementId, endValue, duration = 600) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+
+        const startValue = parseInt(el.textContent) || 0;
+        const startTime = Date.now();
+
+        function update() {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const current = Math.round(startValue + (endValue - startValue) * progress);
+            el.textContent = current;
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            }
+        }
+
+        update();
+    }
+
+    // Toggle scores panel visibility
+    function toggleScoresPanel() {
+        const panel = document.getElementById('scores-panel');
+        panel.classList.toggle('hidden');
+        if (!panel.classList.contains('hidden')) {
+            updateScoresList();
+        }
+    }
+
+    // Update the scores list with all visible locations
+    function updateScoresList() {
+        const panel = document.getElementById('scores-panel');
+        if (panel.classList.contains('hidden')) return;
+
+        const bounds = map.getBounds();
+        const visibleLocations = allLocations.filter(loc => {
+            return activeTickers.has(loc.ticker) &&
+                   bounds.contains([loc.lat, loc.lng]) &&
+                   loc.s >= scoreFilter.min &&
+                   loc.s <= scoreFilter.max;
+        });
+
+        const list = document.getElementById('scores-list');
+        list.innerHTML = '';
+
+        if (visibleLocations.length === 0) {
+            list.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-light);">No locations in view</div>';
+            return;
+        }
+
+        // Sort by score descending
+        const sorted = visibleLocations.sort((a, b) => b.s - a.s);
+
+        sorted.forEach((loc, index) => {
+            const tier = getScoreTier(loc.s);
+            const item = document.createElement('div');
+            item.className = 'score-item';
+            item.style.borderLeftColor = tier.color;
+
+            item.innerHTML = `
+                <div class="score-circle" style="background: ${tier.color};">
+                    ${loc.s}
+                </div>
+                <div class="score-item-content">
+                    <div class="score-item-brand">${loc.n}</div>
+                    <div class="score-item-address">${loc.a || 'US Location'}</div>
+                </div>
+            `;
+
+            item.onclick = () => {
+                // Pan to location
+                map.setView([loc.lat, loc.lng], 14);
+                // Open detail pane
+                showLocationDetail(loc);
+            };
+
+            list.appendChild(item);
+        });
+    }
+
+    // Show location detail (reuse existing marker popup logic)
+    function showLocationDetail(loc) {
+        const marker = createMarker(loc);
+        map.addLayer(marker);
+        marker.openPopup();
+    }
+
     function initMap() {
         const street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OSM' });
         const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Tiles © Esri' });
@@ -278,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const excellentCount = visible.filter(loc => loc.s >= 80).length;
         const brandsActive = activeTickers.size;
 
-        document.getElementById('visible-avg-score').textContent = avgScore;
+        animateScoreNumber('visible-avg-score', avgScore);
         document.getElementById('visible-excellent-count').textContent = excellentCount.toLocaleString();
         document.getElementById('brands-active').textContent = brandsActive;
 
@@ -302,6 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (visibleLocations.length === 0) {
             document.getElementById('visible-avg-score').textContent = '--';
             document.getElementById('visible-excellent-count').textContent = '0';
+            updateScoresList();
             return;
         }
 
@@ -309,11 +399,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const avgScore = Math.round(visibleLocations.reduce((sum, loc) => sum + loc.s, 0) / visibleLocations.length);
         const excellentCount = visibleLocations.filter(loc => loc.s >= 80).length;
 
-        document.getElementById('visible-avg-score').textContent = avgScore;
+        animateScoreNumber('visible-avg-score', avgScore);
         document.getElementById('visible-excellent-count').textContent = excellentCount.toLocaleString();
 
-        // Update score distribution for visible locations
+        // Update score distribution and panel
         updateScoreDistribution(visibleLocations);
+        updateScoresList();
     }
 
     function updateScoreDistribution(locations) {
@@ -838,14 +929,27 @@ document.addEventListener('DOMContentLoaded', () => {
             exportBtn.onclick = exportAllVisible;
         }
 
-        // High performers card click
-        const highScoreCount = document.getElementById('high-score-count');
-        if (highScoreCount) {
-            const highPerfCard = highScoreCount.closest('.stat-card');
-            if (highPerfCard) {
-                highPerfCard.style.cursor = 'pointer';
-                highPerfCard.onclick = showHighPerformers;
+        // Average Score card click - toggle scores panel
+        const avgScoreEl = document.getElementById('visible-avg-score');
+        if (avgScoreEl) {
+            const avgScoreCard = avgScoreEl.closest('.stat-card');
+            if (avgScoreCard) {
+                avgScoreCard.style.cursor = 'pointer';
+                avgScoreCard.onclick = toggleScoresPanel;
             }
+        }
+
+        // Close scores panel button
+        const closeScoresBtn = document.getElementById('close-scores');
+        if (closeScoresBtn) {
+            closeScoresBtn.onclick = toggleScoresPanel;
+        }
+
+        // Open scores panel by default
+        const scoresPanel = document.getElementById('scores-panel');
+        if (scoresPanel) {
+            scoresPanel.classList.remove('hidden');
+            updateScoresList();
         }
 
         // Close high performers list

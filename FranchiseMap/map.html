@@ -72,6 +72,17 @@
             </div>
         </div>
 
+        <!-- Scores in View Panel (Left Side) -->
+        <aside id="scores-panel" class="scores-panel">
+            <div class="scores-header">
+                <h2><i class="fa-solid fa-list-check"></i> Locations in View</h2>
+                <button id="close-scores" class="close-btn" title="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="scores-list" class="scores-list"></div>
+        </aside>
+
         <!-- Custom Controls Rail -->
         <div id="map-controls-rail">
             <button id="btn-home" class="control-btn" title="Reset View">
@@ -107,25 +118,6 @@
                 </div>
             </div>
             <div class="panel-content">
-                <!-- Score Filter Section -->
-                <div class="filter-section">
-                    <h3><i class="fa-solid fa-sliders"></i> Score Filter</h3>
-                    <div class="score-range">
-                        <div class="range-inputs">
-                            <div class="range-input-group">
-                                <label>Min</label>
-                                <input type="range" id="score-min" min="0" max="100" value="0">
-                                <span id="score-min-label" class="range-value">0</span>
-                            </div>
-                            <div class="range-input-group">
-                                <label>Max</label>
-                                <input type="range" id="score-max" min="0" max="100" value="100">
-                                <span id="score-max-label" class="range-value">100</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Filter Controls -->
                 <div class="filter-controls">
                     <button id="btn-select-all" class="filter-btn">
