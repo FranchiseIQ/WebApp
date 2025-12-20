@@ -39,23 +39,8 @@ TICKER_QUERIES = {
     # --- ROARK CAPITAL (The Big Portfolio) ---
     "INSPIRE": ['"Arby\'s"', '"Buffalo Wild Wings"', '"Sonic Drive-In"', '"Dunkin\'"', '"Baskin-Robbins"', '"Jimmy John\'s"'],
     "FOCUS":   ['"Auntie Anne\'s"', '"Carvel"', '"Cinnabon"', '"Jamba"', '"McAlister\'s Deli"', '"Moe\'s Southwest Grill"', '"Schlotzsky\'s"'],
-    "DRIVEN":  ['"Take 5"', '"Meineke"', '"Maaco"', '"CARSTAR"', '"1-800-Radiator"', '"Auto Glass Now"', '"ABRA Auto Body"'],
-    "ROARK":   ['"Massage Envy"', '"Primrose Schools"', '"Mathnasium"', '"Nothing Bundt Cakes"', '"Naf Naf Grill"', '"Jim \'N Nick\'s BBQ"', '"Culver\'s"', '"Carl\'s Jr."', '"Hardee\'s"', '"Orangetheory Fitness"', '"Fitness Connection"', '"Dave\'s Hot Chicken"'],
-
-    # --- SELF ESTEEM BRANDS (Fitness & Wellness) ---
-    "SEBR":   ['"Anytime Fitness"', '"Basecamp Fitness"', '"The Bar Method"', '"Waxing the City"'],
-
-    # --- ADDITIONAL FITNESS CHAINS ---
-    "24HF":   ['"24 Hour Fitness"', '"24-Hour Fitness"'],
-
-    # --- EXPANDED SERVICES ---
-    "SVCE":   ['"ServiceMaster Clean"', '"ServiceMaster Restore"', '"AmeriSpec"', '"Furniture Medic"'],
-    "PRET":   ['"PetValu"', '"Pet Supermarket"', '"Bosley\'s"'],
-
-    # --- ADDITIONAL STANDALONE INVESTMENTS ---
-    "DHOT":   ['"Dave\'s Hot Chicken"'],
-    "MILL":   ['"Miller\'s Ale House"'],
-    "GTEX":   ['"Great Expressions Dental Centers"'],
+    "DRIVEN":  ['"Take 5"', '"Meineke"', '"Maaco"', '"CARSTAR"', '"1-800-Radiator"', '"Auto Glass Now"'],
+    "ROARK":   ['"Massage Envy"', '"Primrose Schools"', '"Mathnasium"', '"Nothing Bundt Cakes"', '"Naf Naf Grill"', '"Jim \'N Nick\'s BBQ"', '"Culver\'s"', '"Carl\'s Jr."', '"Hardee\'s"'],
 
     # --- PRIVATE GIANTS (The Missing Links) ---
     "SUB":   ['"Subway"'],
@@ -99,24 +84,9 @@ TICKER_QUERIES = {
     "UHAL": ['"U-Haul"']
 }
 
-# Support custom output directory via --output flag
-import sys
-import argparse
-
-parser = argparse.ArgumentParser(description='Generate franchise location data')
-parser.add_argument('--output', type=str, default=None, help='Output directory for generated data')
-args, unknown = parser.parse_known_args()
-
-if args.output:
-    # Use custom output directory (for CI/CD workflows)
-    OUTPUT_DIR = os.path.join(args.output, "brands")
-    DATA_DIR = args.output
-else:
-    # Use default relative path (for local development)
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    OUTPUT_DIR = os.path.join(script_dir, "../data/brands")
-    DATA_DIR = os.path.join(script_dir, "../data")
-
+# Fix output path
+script_dir = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = os.path.join(script_dir, "../data/brands")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def calculate_score(attrs):
@@ -370,8 +340,7 @@ def generate_real_data():
         time.sleep(2)  # Be polite to the API
 
     # Save manifest
-    manifest_path = os.path.join(DATA_DIR, "manifest.json")
-    with open(manifest_path, "w") as f:
+    with open(os.path.join(OUTPUT_DIR, "../manifest.json"), "w") as f:
         json.dump(manifest, f, indent=2)
 
     total = sum(m['count'] for m in manifest)
