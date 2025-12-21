@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 <div class="score-hero">
                     <div class="score-circle" style="border-color:${tier.color}">
-                        <span class="score-value">${loc.s}</span>
+                        <span class="score-value">${Math.round(loc.s)}</span>
                         <span class="score-label">${tier.label}</span>
                     </div>
                     <div class="score-actions">
@@ -1083,45 +1083,44 @@ document.addEventListener('DOMContentLoaded', () => {
         const highPerformers = visible.filter(loc => loc.s >= 80)
             .sort((a, b) => b.s - a.s);
 
-        const performersContent = document.getElementById('performers-content');
-        const performersList = document.getElementById('high-performers-list');
+        const performersPanel = document.getElementById('high-performers-panel');
+        const performersContent = document.getElementById('high-performers-content');
 
         if (highPerformers.length === 0) {
             performersContent.innerHTML = '<p style="padding: 12px; text-align: center; color: var(--text-light); font-size: 0.85rem;">No high performers in current selection</p>';
-            performersList.style.display = 'block';
+            performersPanel.classList.remove('hidden');
             return;
         }
 
         performersContent.innerHTML = highPerformers.map((loc, idx) => {
             const tier = getScoreTier(loc.s);
-            const tierClass = loc.s >= 80 ? 'excellent' : 'good';
-            const address = loc.at ? (loc.at.address || loc.at.city || 'Unknown') : 'Unknown';
+            // Prefer actual address from location object, fallback to OSM default
+            const address = loc.a && loc.a !== 'US Location (OSM)' ? loc.a : 'Location data pending';
 
             return `
-                <div class="performer-item" data-index="${idx}">
-                    <div class="performer-score-circle ${tierClass}">
-                        <div class="performer-score-value">${Math.round(loc.s)}</div>
-                        <div class="performer-score-label">Score</div>
+                <div class="score-item" data-index="${idx}">
+                    <div class="score-circle" style="background: ${tier.color};">
+                        ${Math.round(loc.s)}
                     </div>
-                    <div class="performer-info">
-                        <div class="performer-name">${loc.name || loc.n || 'Unknown'}</div>
-                        <div class="performer-location">${address}</div>
+                    <div class="score-item-content">
+                        <div class="score-item-brand">${loc.n || 'Unknown'}</div>
+                        <div class="score-item-address">${address}</div>
                     </div>
                 </div>
             `;
         }).join('');
 
         // Add click handlers to performer items
-        performersContent.querySelectorAll('.performer-item').forEach((item, idx) => {
+        performersContent.querySelectorAll('.score-item').forEach((item, idx) => {
             item.onclick = () => navigateToPerformer(highPerformers[idx]);
         });
 
-        performersList.style.display = 'block';
+        performersPanel.classList.remove('hidden');
     }
 
     function hideHighPerformers() {
-        const performersList = document.getElementById('high-performers-list');
-        performersList.style.display = 'none';
+        const performersPanel = document.getElementById('high-performers-panel');
+        performersPanel.classList.add('hidden');
     }
 
     function navigateToPerformer(location) {
