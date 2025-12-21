@@ -69,15 +69,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initMap() {
-        const street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OSM' });
-        const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Tiles © Esri' });
-        const dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom: 19, attribution: '© CartoDB' });
+        // Base map layers
+        const street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        });
+
+        const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19,
+            attribution: 'Tiles © Esri'
+        });
+
+        const dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19,
+            attribution: '© CartoDB'
+        });
+
+        const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenTopoMap contributors'
+        });
 
         map = L.map('map', { zoomControl: false, preferCanvas: true, layers: [street] }).setView([39.82, -98.58], 4);
 
-        const baseMaps = { "Street": street, "Satellite": satellite, "Dark": dark };
+        // State borders overlay layer
+        const stateBorders = L.tileLayer('https://tile.openstreetmap.us/data/boundary/{z}/{x}/{y}.png', {
+            maxZoom: 12,
+            attribution: '© OpenStreetMap US',
+            opacity: 0.5,
+            tms: false
+        });
+
+        const baseMaps = {
+            "Street Map": street,
+            "Satellite": satellite,
+            "Dark": dark,
+            "Topographic": topo
+        };
+
+        // Create 3D Buildings layer placeholder
         const dummy3D = L.layerGroup();
-        L.control.layers(baseMaps, { "3D Buildings": dummy3D }, { position: 'bottomright' }).addTo(map);
+
+        const overlayMaps = {
+            "State Borders": stateBorders,
+            "3D Buildings": dummy3D
+        };
+
+        L.control.layers(baseMaps, overlayMaps, { position: 'bottomright' }).addTo(map);
         L.control.zoom({ position: 'topleft' }).addTo(map);
 
         // Replace default geocoder with custom implementation
