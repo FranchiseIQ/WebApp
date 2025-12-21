@@ -226,6 +226,48 @@
                     </button>
                 </div>
 
+                <!-- Ownership Model Filter -->
+                <div class="ownership-filters">
+                    <div class="filter-section-label">
+                        <i class="fa-solid fa-handshake"></i> Ownership Model
+                    </div>
+                    <div class="ownership-buttons">
+                        <button id="btn-ownership-all" class="ownership-btn active" data-model="all">
+                            All
+                        </button>
+                        <button id="btn-ownership-franchise" class="ownership-btn active" data-model="franchise">
+                            <i class="fa-solid fa-store"></i> Franchise
+                        </button>
+                        <button id="btn-ownership-non-franchise" class="ownership-btn active" data-model="non-franchise">
+                            <i class="fa-solid fa-building"></i> Non-Franchise
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sub-Type Filter (visible only when non-franchise is selected) -->
+                <div class="subtype-filters" id="subtype-filter-container" style="display: none;">
+                    <div class="filter-section-label">
+                        <i class="fa-solid fa-tag"></i> Non-Franchise Type
+                    </div>
+                    <div class="subtype-buttons">
+                        <button id="btn-subtype-all" class="subtype-btn active" data-subtype="all">
+                            All
+                        </button>
+                        <button id="btn-subtype-licensed" class="subtype-btn active" data-subtype="licensed">
+                            <i class="fa-solid fa-certificate"></i> Licensed
+                        </button>
+                        <button id="btn-subtype-corporate" class="subtype-btn active" data-subtype="corporate">
+                            <i class="fa-solid fa-briefcase"></i> Corporate
+                        </button>
+                        <button id="btn-subtype-independent" class="subtype-btn active" data-subtype="independent">
+                            <i class="fa-solid fa-star"></i> Independent
+                        </button>
+                        <button id="btn-subtype-unknown" class="subtype-btn active" data-subtype="unknown">
+                            <i class="fa-solid fa-question"></i> Unknown
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Location Count -->
                 <div class="location-count">
                     <i class="fa-solid fa-map-pin"></i>

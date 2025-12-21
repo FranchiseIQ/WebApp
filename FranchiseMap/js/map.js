@@ -33,6 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let proximityIndex = new ProximityIndex(0.02); // Grid-based spatial index
     let highPerformersOpen = false; // Track high performers panel state
 
+    // --- Ownership Model Filter State ---
+    let brandMetadata = null;  // Loaded from brand_metadata.json
+    let ownershipModel = new Set(['franchise', 'non-franchise']);  // Show both by default
+    let subtypes = new Set(['licensed', 'corporate', 'independent', 'unknown']);  // Show all by default
+
     // Predefined unique color palette - 60+ distinct colors
     const COLOR_PALETTE = [
         '#FFC72C', '#00704A', '#D62300', '#E2203D', '#006491', '#FF8732', '#E31837', '#00A94F',
@@ -101,7 +106,23 @@ document.addEventListener('DOMContentLoaded', () => {
         setupRail();
         setupFilters();
         setupAdvancedControls();
-        loadManifest();
+        loadBrandMetadata().then(() => {
+            loadManifest();
+        });
+    }
+
+    // Load brand metadata (ownership classifications)
+    function loadBrandMetadata() {
+        return fetch('data/brand_metadata.json')
+            .then(res => res.json())
+            .then(data => {
+                brandMetadata = data.brands;
+                console.log('✓ Loaded brand metadata for', Object.keys(brandMetadata).length, 'brands');
+            })
+            .catch(e => {
+                console.warn('⚠ Failed to load brand metadata:', e);
+                brandMetadata = {};
+            });
     }
 
     function loadManifest() {
@@ -151,6 +172,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Merge ownership metadata into location objects
+    function mergeOwnershipMetadata(locations, ticker) {
+        if (!brandMetadata || !brandMetadata[ticker]) {
+            // Fallback for unmapped tickers
+            return locations.map(loc => ({
+                ...loc,
+                ownership: 'unknown',
+                subtype: 'unknown'
+            }));
+        }
+
+        const metadata = brandMetadata[ticker];
+        return locations.map(loc => ({
+            ...loc,
+            ownership: metadata.ownership_model,
+            subtype: metadata.primary_subtype
+        }));
+    }
+
     function toggleTicker(ticker, filePath) {
         if (activeTickers.has(ticker)) {
             activeTickers.delete(ticker);
@@ -161,7 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 refreshMap();
             } else {
                 fetch(filePath).then(r => r.json()).then(data => {
-                    allLocations = allLocations.concat(data);
+                    // Merge metadata before adding to allLocations
+                    const enhancedData = mergeOwnershipMetadata(data, ticker);
+                    allLocations = allLocations.concat(enhancedData);
                     loadedTickers.add(ticker);
                     refreshMap();
                 });
@@ -176,11 +218,13 @@ document.addEventListener('DOMContentLoaded', () => {
         markersLayer.clearLayers();
         highlightedMarkers = [];
 
-        // Apply score filter
+        // Apply all filters (AND logic)
         const visible = allLocations.filter(loc =>
             activeTickers.has(loc.ticker) &&
             loc.s >= scoreFilter.min &&
-            loc.s <= scoreFilter.max
+            loc.s <= scoreFilter.max &&
+            ownershipModel.has(loc.ownership) &&
+            subtypes.has(loc.subtype)
         );
 
         // Update proximity index with visible locations
@@ -237,7 +281,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const visible = allLocations.filter(loc =>
             activeTickers.has(loc.ticker) &&
             loc.s >= scoreFilter.min &&
-            loc.s <= scoreFilter.max
+            loc.s <= scoreFilter.max &&
+            ownershipModel.has(loc.ownership) &&
+            subtypes.has(loc.subtype)
         );
         document.getElementById('visible-count').textContent = visible.length.toLocaleString();
     }
@@ -270,11 +316,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const bounds = map.getBounds();
         const visibleLocations = allLocations.filter(loc => {
-            // Check if location is within bounds and from active ticker
+            // Check if location is within bounds and passes all filters
             return activeTickers.has(loc.ticker) &&
                    bounds.contains([loc.lat, loc.lng]) &&
                    loc.s >= scoreFilter.min &&
-                   loc.s <= scoreFilter.max;
+                   loc.s <= scoreFilter.max &&
+                   ownershipModel.has(loc.ownership) &&
+                   subtypes.has(loc.subtype);
         });
 
         if (visibleLocations.length === 0) {
@@ -910,6 +958,79 @@ document.addEventListener('DOMContentLoaded', () => {
                 filterByCategory(this.dataset.category);
             };
         });
+
+        // Ownership Model Filter Buttons
+        document.querySelectorAll('.ownership-btn').forEach(btn => {
+            btn.onclick = function() {
+                const model = this.dataset.model;
+
+                if (model === 'all') {
+                    // Select all ownership models
+                    ownershipModel.clear();
+                    ownershipModel.add('franchise');
+                    ownershipModel.add('non-franchise');
+                    document.querySelectorAll('.ownership-btn').forEach(b => b.classList.add('active'));
+                    updateSubtypeButtonVisibility();
+                } else {
+                    // Toggle individual model
+                    if (ownershipModel.has(model)) {
+                        ownershipModel.delete(model);
+                        this.classList.remove('active');
+                    } else {
+                        ownershipModel.add(model);
+                        this.classList.add('active');
+                    }
+
+                    // Update "All" button state
+                    const allBtn = document.getElementById('btn-ownership-all');
+                    if (ownershipModel.size === 2) {
+                        allBtn.classList.add('active');
+                    } else {
+                        allBtn.classList.remove('active');
+                    }
+
+                    updateSubtypeButtonVisibility();
+                }
+
+                refreshMap();
+            };
+        });
+
+        // Sub-Type Filter Buttons
+        document.querySelectorAll('.subtype-btn').forEach(btn => {
+            btn.onclick = function() {
+                const subtype = this.dataset.subtype;
+
+                if (subtype === 'all') {
+                    // Select all subtypes
+                    subtypes.clear();
+                    subtypes.add('licensed');
+                    subtypes.add('corporate');
+                    subtypes.add('independent');
+                    subtypes.add('unknown');
+                    document.querySelectorAll('.subtype-btn').forEach(b => b.classList.add('active'));
+                } else {
+                    // Toggle individual subtype
+                    if (subtypes.has(subtype)) {
+                        subtypes.delete(subtype);
+                        this.classList.remove('active');
+                    } else {
+                        subtypes.add(subtype);
+                        this.classList.add('active');
+                    }
+
+                    // Update "All" button state
+                    const allBtn = document.getElementById('btn-subtype-all');
+                    if (subtypes.size === 4) {
+                        allBtn.classList.add('active');
+                    } else {
+                        allBtn.classList.remove('active');
+                    }
+                }
+
+                refreshMap();
+            };
+        });
     }
 
     function setupAdvancedControls() {
@@ -1238,7 +1359,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const visible = allLocations.filter(loc =>
             activeTickers.has(loc.ticker) &&
             loc.s >= scoreFilter.min &&
-            loc.s <= scoreFilter.max
+            loc.s <= scoreFilter.max &&
+            ownershipModel.has(loc.ownership) &&
+            subtypes.has(loc.subtype)
         );
 
         if (visible.length === 0) {
@@ -1288,7 +1411,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!loadedTickers.has(ticker)) {
                     promises.push(
                         fetch(file).then(r => r.json()).then(data => {
-                            allLocations = allLocations.concat(data);
+                            // Merge metadata before adding to allLocations
+                            const enhancedData = mergeOwnershipMetadata(data, ticker);
+                            allLocations = allLocations.concat(enhancedData);
                             loadedTickers.add(ticker);
                         })
                     );
@@ -1318,7 +1443,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!loadedTickers.has(item.ticker)) {
                     promises.push(
                         fetch(item.file).then(r => r.json()).then(data => {
-                            allLocations = allLocations.concat(data);
+                            // Merge metadata before adding to allLocations
+                            const enhancedData = mergeOwnershipMetadata(data, item.ticker);
+                            allLocations = allLocations.concat(enhancedData);
                             loadedTickers.add(item.ticker);
                         })
                     );
@@ -1353,16 +1480,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function toggleHighPerformers() {
-        const performersPanel = document.getElementById('high-performers-panel');
-        const isCurrentlyHidden = performersPanel.classList.contains('hidden');
+    // Show/hide subtype filter based on ownership selection
+    function updateSubtypeButtonVisibility() {
+        const subtypeContainer = document.getElementById('subtype-filter-container');
 
-        if (isCurrentlyHidden) {
-            // Opening - show high performers
-            showHighPerformers();
+        // Only show subtype filter if "non-franchise" is selected AND "franchise" is not
+        if (ownershipModel.has('non-franchise') && !ownershipModel.has('franchise')) {
+            subtypeContainer.style.display = 'block';
         } else {
-            // Closing
-            hideHighPerformers();
+            subtypeContainer.style.display = 'none';
+            // Reset subtypes to all if container is hidden
+            subtypes.clear();
+            subtypes.add('licensed');
+            subtypes.add('corporate');
+            subtypes.add('independent');
+            subtypes.add('unknown');
+            document.querySelectorAll('.subtype-btn').forEach(b => b.classList.add('active'));
         }
     }
 

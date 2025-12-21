@@ -1019,6 +1019,69 @@ body {
     font-size: 0.65rem;
 }
 
+/* Ownership and Sub-Type Filters */
+.filter-section-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filter-section-label i {
+    font-size: 0.75rem;
+}
+
+.ownership-filters,
+.subtype-filters {
+    margin-bottom: 16px;
+}
+
+.ownership-buttons,
+.subtype-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.ownership-btn,
+.subtype-btn {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-full);
+    background: white;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    min-width: 70px;
+    justify-content: center;
+}
+
+.ownership-btn:hover,
+.subtype-btn:hover {
+    background: var(--bg-gray);
+}
+
+.ownership-btn.active,
+.subtype-btn.active {
+    background: var(--primary-purple);
+    color: white;
+    border-color: var(--primary-purple);
+}
+
+.ownership-btn i,
+.subtype-btn i {
+    font-size: 0.65rem;
+}
+
 /* Location Count */
 .location-count {
     font-size: 0.85rem;
