@@ -820,6 +820,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Close high performers panel button
+        const closeHighPerformersBtn = document.getElementById('close-high-performers');
+        if (closeHighPerformersBtn) {
+            closeHighPerformersBtn.onclick = hideHighPerformers;
+        }
+
         // Close location panel button
         const closeLocationPanelBtn = document.getElementById('close-location-panel');
         if (closeLocationPanelBtn) {
@@ -884,6 +890,54 @@ document.addEventListener('DOMContentLoaded', () => {
             sliderMin.value = scoreFilter.min;
             sliderMax.value = scoreFilter.max;
             updateScoreSliderDisplay();
+        }
+
+        // Panel-based score filter sliders
+        const scoreMin = document.getElementById('score-min');
+        const scoreMax = document.getElementById('score-max');
+
+        if (scoreMin && scoreMax) {
+            scoreMin.oninput = function() {
+                const min = parseInt(this.value);
+                const max = parseInt(scoreMax.value);
+                if (min > max) {
+                    this.value = max;
+                    return;
+                }
+                updatePanelScoreDisplay();
+                applyScoreFilter();
+            };
+
+            scoreMax.oninput = function() {
+                const max = parseInt(this.value);
+                const min = parseInt(scoreMin.value);
+                if (max < min) {
+                    this.value = min;
+                    return;
+                }
+                updatePanelScoreDisplay();
+                applyScoreFilter();
+            };
+        }
+
+        // Reset panel score filter button
+        const resetScoreBtn = document.getElementById('reset-score-filter');
+        if (resetScoreBtn) {
+            resetScoreBtn.onclick = function() {
+                if (scoreMin && scoreMax) {
+                    scoreMin.value = 0;
+                    scoreMax.value = 100;
+                    updatePanelScoreDisplay();
+                    applyScoreFilter();
+                }
+            };
+        }
+
+        // Initialize panel sliders with current values
+        if (scoreMin && scoreMax) {
+            scoreMin.value = scoreFilter.min;
+            scoreMax.value = scoreFilter.max;
+            updatePanelScoreDisplay();
         }
     }
 
@@ -1113,6 +1167,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (maxValue) maxValue.textContent = sliderMax.value;
     }
 
+    function updatePanelScoreDisplay() {
+        const scoreMin = document.getElementById('score-min');
+        const scoreMax = document.getElementById('score-max');
+        const minLabel = document.getElementById('score-min-label');
+        const maxLabel = document.getElementById('score-max-label');
+
+        if (minLabel && scoreMin) minLabel.textContent = scoreMin.value;
+        if (maxLabel && scoreMax) maxLabel.textContent = scoreMax.value;
+    }
+
     function applyScoreFilter() {
         const sliderMin = document.getElementById('slider-min');
         const sliderMax = document.getElementById('slider-max');
@@ -1137,10 +1201,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (panel) {
             locationPanelOpen = !locationPanelOpen;
             if (locationPanelOpen) {
-                panel.classList.add('open');
+                panel.classList.remove('hidden');
                 updateLocationList();
             } else {
-                panel.classList.remove('open');
+                panel.classList.add('hidden');
             }
         }
     }
@@ -1172,8 +1236,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (sorted.length === 0) {
             // No locations visible - close the panel automatically
-            if (panel.classList.contains('open')) {
-                panel.classList.remove('open');
+            if (!panel.classList.contains('hidden')) {
+                panel.classList.add('hidden');
                 locationPanelOpen = false;
             }
 
