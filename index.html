@@ -29,6 +29,15 @@
     <link rel="stylesheet" href="FranchiseNews/news-widget.css">
 </head>
 <body class="has-fixed-ticker has-fixed-nav">
+
+        <script>
+                    // Password Protection
+                    const correctPassword = "FranchiseIQ_2026!";
+                    const password = prompt("Enter password to access FranResearch:");
+                    if (password !== correctPassword) {
+                                    document.body.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); font-family: Arial, sans-serif;"><div style="text-align: center; color: white;"><h1 style="font-size: 48px; margin-bottom: 20px;">Access Denied</h1><p style="font-size: 18px;">Invalid password. Please try again.</p><button onclick="location.reload()" style="margin-top: 30px; padding: 12px 30px; font-size: 16px; background-color: #0f3460; color: white; border: none; border-radius: 5px; cursor: pointer;">Retry</button></div></div>';
+                    }
+                        </script>
     <!-- Skip link for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
