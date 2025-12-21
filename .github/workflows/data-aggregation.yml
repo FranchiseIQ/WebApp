@@ -1,10 +1,7 @@
 name: Data Aggregation Pipeline
 
 on:
-  schedule:
-    # Run data aggregation daily at 2 AM UTC
-    - cron: '0 2 * * *'
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:  # Manual trigger only - disabled scheduled runs to reduce maintenance burden
 
 permissions:
   contents: read
