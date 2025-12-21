@@ -405,18 +405,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const siteBar = subScores.siteCharacteristics || 0;
 
         return `
-            <div class="popup-container">
-                <div class="popup-header">
+            <div class="popup-container" data-location-id="${loc.id}">
+                <div class="popup-header popup-draghandle" data-location-id="${loc.id}">
                     <div class="popup-title">
                         <h3>${loc.n}</h3>
                         <span class="popup-ticker" style="background:${color}">${loc.ticker}</span>
                     </div>
-                    <div class="popup-address">${loc.a}</div>
+                    <div class="popup-controls">
+                        <button class="popup-pin-btn" data-location-id="${loc.id}" title="Pin to compare multiple locations">
+                            <i class="fa-solid fa-thumbtack"></i>
+                        </button>
+                    </div>
                 </div>
+                <div class="popup-address">${loc.a}</div>
 
                 <div class="score-hero">
                     <div class="score-circle" style="border-color:${tier.color}">
-                        <span class="score-value">${loc.s}</span>
+                        <span class="score-value">${Math.round(loc.s)}</span>
                         <span class="score-label">${tier.label}</span>
                     </div>
                     <div class="score-actions">
@@ -538,6 +543,75 @@ document.addEventListener('DOMContentLoaded', () => {
         const slider = document.getElementById(`slider-${loc.id}`);
         const label = document.getElementById(`label-${loc.id}`);
         const competitorsDiv = document.getElementById(`competitors-${loc.id}`);
+
+        // Handle pin button
+        const pinBtn = document.querySelector(`.popup-pin-btn[data-location-id="${loc.id}"]`);
+        const popupContainer = document.querySelector(`.popup-container[data-location-id="${loc.id}"]`);
+
+        if (pinBtn && popupContainer) {
+            // Track pin state
+            let isPinned = false;
+
+            pinBtn.onclick = function(e) {
+                e.stopPropagation();
+                isPinned = !isPinned;
+                popupContainer.classList.toggle('pinned', isPinned);
+                pinBtn.classList.toggle('pinned', isPinned);
+
+                // When pinned, store pin state so popup doesn't auto-close
+                if (isPinned) {
+                    popupContainer.dataset.pinned = 'true';
+                } else {
+                    delete popupContainer.dataset.pinned;
+                }
+            };
+
+            // Handle drag functionality
+            const dragHandle = document.querySelector(`.popup-draghandle[data-location-id="${loc.id}"]`);
+            if (dragHandle) {
+                let isDragging = false;
+                let dragStartX = 0;
+                let dragStartY = 0;
+                let popupStartX = 0;
+                let popupStartY = 0;
+
+                dragHandle.addEventListener('mousedown', (e) => {
+                    if (e.target.closest('.popup-pin-btn')) return; // Don't drag when clicking pin button
+                    isDragging = true;
+                    dragStartX = e.clientX;
+                    dragStartY = e.clientY;
+
+                    // Get popup element (Leaflet popup)
+                    const leafletPopup = map._popup;
+                    if (leafletPopup && leafletPopup._container) {
+                        popupStartX = leafletPopup._container.offsetLeft;
+                        popupStartY = leafletPopup._container.offsetTop;
+                    }
+
+                    e.preventDefault();
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+
+                    const leafletPopup = map._popup;
+                    if (!leafletPopup || !leafletPopup._container) return;
+
+                    const container = leafletPopup._container;
+                    const deltaX = e.clientX - dragStartX;
+                    const deltaY = e.clientY - dragStartY;
+
+                    container.style.position = 'fixed';
+                    container.style.left = (popupStartX + deltaX) + 'px';
+                    container.style.top = (popupStartY + deltaY) + 'px';
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
+            }
+        }
+
         if(!slider) return;
 
         const updateRadius = function() {
@@ -715,6 +789,41 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('comparison-panel').classList.remove('visible');
     }
 
+    function openBrandComparisonTool() {
+        // Get all active locations
+        const activeLocations = allLocations.filter(loc => activeTickers.has(loc.ticker));
+
+        if (activeLocations.length === 0) {
+            alert('No active brands selected. Please select brands first.');
+            return;
+        }
+
+        // Show comparison panel and populate with top performers for quick selection
+        const topPerformers = activeLocations
+            .sort((a, b) => b.s - a.s)
+            .slice(0, 10);
+
+        // Clear current comparison
+        comparisonLocations = [];
+
+        // Auto-select top 3 for quick comparison
+        topPerformers.slice(0, 3).forEach(loc => {
+            comparisonLocations.push(loc);
+        });
+
+        updateComparisonPanel();
+        showComparisonPanel();
+
+        // Show toast notification
+        const msg = `Selected top 3 locations from ${activeLocations.length} active brands. Click locations on map to add/remove.`;
+        showNotification(msg);
+    }
+
+    function showNotification(message, duration = 3000) {
+        // Simple notification - could be enhanced with a toast notification system
+        console.log('Notification:', message);
+    }
+
     function updateComparisonPanel() {
         const container = document.getElementById('comparison-cards');
         container.innerHTML = '';
@@ -777,7 +886,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupRail() {
         document.getElementById('btn-home').onclick = () => map.setView([39.82, -98.58], 4);
-        document.getElementById('btn-locate').onclick = () => map.locate({setView: true, maxZoom: 14});
+
+        // Near Me button with error handling
+        const locateBtn = document.getElementById('btn-locate');
+        locateBtn.onclick = function() {
+            locateBtn.classList.add('locating');
+            map.locate({setView: true, maxZoom: 14});
+        };
+
+        // Handle geolocation success
+        map.on('locationfound', function(e) {
+            locateBtn.classList.remove('locating');
+        });
+
+        // Handle geolocation errors
+        map.on('locationerror', function(e) {
+            locateBtn.classList.remove('locating');
+            console.warn('Geolocation error:', e);
+            alert('Unable to access your location. Please ensure:\n1. Location services are enabled\n2. Browser has permission to access location\n3. You are viewing over HTTPS (if required)');
+        });
 
         document.getElementById('btn-cluster-toggle').onclick = function() {
             isClusterView = !isClusterView;
@@ -941,10 +1068,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Close high performers panel button
+        const closeHighPerformersBtn = document.getElementById('close-high-performers');
+        if (closeHighPerformersBtn) {
+            closeHighPerformersBtn.onclick = hideHighPerformers;
+        }
+
         // Close location panel button
         const closeLocationPanelBtn = document.getElementById('close-location-panel');
         if (closeLocationPanelBtn) {
             closeLocationPanelBtn.onclick = toggleLocationPanel;
+        }
+
+        // Active Brands card - open comparison tool
+        const brandsActiveEl = document.getElementById('brands-active');
+        if (brandsActiveEl) {
+            const brandsActiveCard = brandsActiveEl.closest('.stat-card');
+            if (brandsActiveCard) {
+                brandsActiveCard.style.cursor = 'pointer';
+                brandsActiveCard.onclick = openBrandComparisonTool;
+            }
         }
 
         // Close slider modal
@@ -1005,6 +1148,54 @@ document.addEventListener('DOMContentLoaded', () => {
             sliderMin.value = scoreFilter.min;
             sliderMax.value = scoreFilter.max;
             updateScoreSliderDisplay();
+        }
+
+        // Panel-based score filter sliders
+        const scoreMin = document.getElementById('score-min');
+        const scoreMax = document.getElementById('score-max');
+
+        if (scoreMin && scoreMax) {
+            scoreMin.oninput = function() {
+                const min = parseInt(this.value);
+                const max = parseInt(scoreMax.value);
+                if (min > max) {
+                    this.value = max;
+                    return;
+                }
+                updatePanelScoreDisplay();
+                applyScoreFilter();
+            };
+
+            scoreMax.oninput = function() {
+                const max = parseInt(this.value);
+                const min = parseInt(scoreMin.value);
+                if (max < min) {
+                    this.value = min;
+                    return;
+                }
+                updatePanelScoreDisplay();
+                applyScoreFilter();
+            };
+        }
+
+        // Reset panel score filter button
+        const resetScoreBtn = document.getElementById('reset-score-filter');
+        if (resetScoreBtn) {
+            resetScoreBtn.onclick = function() {
+                if (scoreMin && scoreMax) {
+                    scoreMin.value = 0;
+                    scoreMax.value = 100;
+                    updatePanelScoreDisplay();
+                    applyScoreFilter();
+                }
+            };
+        }
+
+        // Initialize panel sliders with current values
+        if (scoreMin && scoreMax) {
+            scoreMin.value = scoreFilter.min;
+            scoreMax.value = scoreFilter.max;
+            updatePanelScoreDisplay();
         }
     }
 
@@ -1157,45 +1348,44 @@ document.addEventListener('DOMContentLoaded', () => {
         const highPerformers = visible.filter(loc => loc.s >= 80)
             .sort((a, b) => b.s - a.s);
 
-        const performersContent = document.getElementById('performers-content');
-        const performersList = document.getElementById('high-performers-list');
+        const performersPanel = document.getElementById('high-performers-panel');
+        const performersContent = document.getElementById('high-performers-content');
 
         if (highPerformers.length === 0) {
             performersContent.innerHTML = '<p style="padding: 12px; text-align: center; color: var(--text-light); font-size: 0.85rem;">No high performers in current selection</p>';
-            performersList.style.display = 'block';
+            performersPanel.classList.remove('hidden');
             return;
         }
 
         performersContent.innerHTML = highPerformers.map((loc, idx) => {
             const tier = getScoreTier(loc.s);
-            const tierClass = loc.s >= 80 ? 'excellent' : 'good';
-            const address = loc.at ? (loc.at.address || loc.at.city || 'Unknown') : 'Unknown';
+            // Prefer actual address from location object, fallback to OSM default
+            const address = loc.a && loc.a !== 'US Location (OSM)' ? loc.a : 'Location data pending';
 
             return `
-                <div class="performer-item" data-index="${idx}">
-                    <div class="performer-score-circle ${tierClass}">
-                        <div class="performer-score-value">${Math.round(loc.s)}</div>
-                        <div class="performer-score-label">Score</div>
+                <div class="score-item" data-index="${idx}">
+                    <div class="score-circle" style="background: ${tier.color};">
+                        ${Math.round(loc.s)}
                     </div>
-                    <div class="performer-info">
-                        <div class="performer-name">${loc.name || loc.n || 'Unknown'}</div>
-                        <div class="performer-location">${address}</div>
+                    <div class="score-item-content">
+                        <div class="score-item-brand">${loc.n || 'Unknown'}</div>
+                        <div class="score-item-address">${address}</div>
                     </div>
                 </div>
             `;
         }).join('');
 
         // Add click handlers to performer items
-        performersContent.querySelectorAll('.performer-item').forEach((item, idx) => {
+        performersContent.querySelectorAll('.score-item').forEach((item, idx) => {
             item.onclick = () => navigateToPerformer(highPerformers[idx]);
         });
 
-        performersList.style.display = 'block';
+        performersPanel.classList.remove('hidden');
     }
 
     function hideHighPerformers() {
-        const performersList = document.getElementById('high-performers-list');
-        performersList.style.display = 'none';
+        const performersPanel = document.getElementById('high-performers-panel');
+        performersPanel.classList.add('hidden');
     }
 
     function navigateToPerformer(location) {
@@ -1259,6 +1449,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (maxValue) maxValue.textContent = sliderMax.value;
     }
 
+    function updatePanelScoreDisplay() {
+        const scoreMin = document.getElementById('score-min');
+        const scoreMax = document.getElementById('score-max');
+        const minLabel = document.getElementById('score-min-label');
+        const maxLabel = document.getElementById('score-max-label');
+
+        if (minLabel && scoreMin) minLabel.textContent = scoreMin.value;
+        if (maxLabel && scoreMax) maxLabel.textContent = scoreMax.value;
+    }
+
     function applyScoreFilter() {
         const sliderMin = document.getElementById('slider-min');
         const sliderMax = document.getElementById('slider-max');
@@ -1283,10 +1483,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (panel) {
             locationPanelOpen = !locationPanelOpen;
             if (locationPanelOpen) {
-                panel.classList.add('open');
+                panel.classList.remove('hidden');
                 updateLocationList();
             } else {
-                panel.classList.remove('open');
+                panel.classList.add('hidden');
             }
         }
     }
@@ -1318,8 +1518,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (sorted.length === 0) {
             // No locations visible - close the panel automatically
-            if (panel.classList.contains('open')) {
-                panel.classList.remove('open');
+            if (!panel.classList.contains('hidden')) {
+                panel.classList.add('hidden');
                 locationPanelOpen = false;
             }
 
