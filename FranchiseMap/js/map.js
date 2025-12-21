@@ -1077,6 +1077,70 @@ document.addEventListener('DOMContentLoaded', () => {
             scoreMax.value = scoreFilter.max;
             updatePanelScoreDisplay();
         }
+
+        // Initialize draggable panels
+        makeElementDraggable('location-panel', '.location-panel-header');
+        makeElementDraggable('high-performers-panel', '.high-performers-header');
+        makeElementDraggable('info-panel', '.panel-header');
+    }
+
+    function makeElementDraggable(elementId, headerSelector) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+
+        const header = element.querySelector(headerSelector);
+        if (!header) return;
+
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let elementStartX = 0;
+        let elementStartY = 0;
+        let hasTransform = false;
+
+        header.addEventListener('mousedown', (e) => {
+            // Don't drag if clicking on buttons within the header
+            if (e.target.closest('button') || e.target.tagName === 'BUTTON') return;
+
+            isDragging = true;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+
+            // Save the current computed position
+            const rect = element.getBoundingClientRect();
+            elementStartX = rect.left;
+            elementStartY = rect.top;
+
+            // Check if element has transform applied
+            hasTransform = element.style.transform && element.style.transform !== 'none';
+
+            header.style.cursor = 'grabbing';
+            element.style.transition = 'none';
+            element.style.transform = 'none';
+            element.style.right = 'auto';
+            element.style.left = rect.left + 'px';
+            element.style.top = rect.top + 'px';
+
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const deltaX = e.clientX - dragStartX;
+            const deltaY = e.clientY - dragStartY;
+
+            element.style.left = (elementStartX + deltaX) + 'px';
+            element.style.top = (elementStartY + deltaY) + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                header.style.cursor = 'grab';
+                element.style.transition = 'all var(--transition-normal)';
+            }
+        });
     }
 
     function exportAllVisible() {
