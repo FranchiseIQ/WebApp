@@ -22,6 +22,7 @@ import sys
 import json
 import random
 import time
+import argparse
 import requests
 from pathlib import Path
 
@@ -239,14 +240,28 @@ def fetch_overpass_data(queries):
         return []
 
 
-def generate_real_data():
-    """Generate location data from OpenStreetMap."""
+def generate_real_data(batch_tickers=None):
+    """
+    Generate location data from OpenStreetMap.
+
+    Args:
+        batch_tickers: Optional list of ticker symbols to process.
+                      If None, processes all available tickers.
+    """
     # Ensure output directories exist
     BRANDS_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     manifest = []
-    keys = list(TICKER_QUERIES.keys())
-    random.shuffle(keys)
+
+    # Use provided batch or all tickers
+    if batch_tickers:
+        keys = [t for t in batch_tickers if t in TICKER_QUERIES]
+        if not keys:
+            print(f"⚠️  No valid tickers in batch: {batch_tickers}")
+            return False
+    else:
+        keys = list(TICKER_QUERIES.keys())
+        random.shuffle(keys)
 
     print(f"Fetching data for {len(keys)} brand groups...")
     print("This may take 60-90 minutes for full US coverage.\n")
@@ -370,6 +385,33 @@ def generate_real_data():
     print(f"Location files: {BRANDS_DATA_DIR}/*.json")
     print("=" * 70)
 
+    return True
+
 
 if __name__ == "__main__":
-    generate_real_data()
+    parser = argparse.ArgumentParser(
+        description='Generate franchise location data from OpenStreetMap'
+    )
+    parser.add_argument(
+        '--batch',
+        help='Comma-separated list of ticker symbols to process (e.g., "MCD,SBUX,YUM")',
+        default=None
+    )
+    parser.add_argument(
+        '--batch-size',
+        type=int,
+        help='Maximum number of brands to process',
+        default=None
+    )
+
+    args = parser.parse_args()
+
+    # Parse batch tickers if provided
+    batch_tickers = None
+    if args.batch:
+        batch_tickers = [t.strip().upper() for t in args.batch.split(',')]
+        if args.batch_size:
+            batch_tickers = batch_tickers[:args.batch_size]
+
+    success = generate_real_data(batch_tickers)
+    sys.exit(0 if success else 1)
