@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- State ---
     let map, clusterGroup, markersLayer = L.layerGroup(), buildingsLayer, heatLayer;
     let allLocations = [], loadedTickers = new Set(), activeTickers = new Set();
-    let isClusterView = true, isHeatmapView = false, currentRadiusCircle;
+    let isClusterView = false, isHeatmapView = false, currentRadiusCircle;
     let manifest = [];
     let tickerColors = {};
     let highlightedMarkers = [];
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let comparisonLocations = [];
     let scoreFilter = { min: 0, max: 100 };
     let proximityIndex = new ProximityIndex(0.02); // Grid-based spatial index
+    let highPerformersOpen = false; // Track high performers panel state
 
     // --- Ownership Model Filter State ---
     let brandMetadata = null;  // Loaded from brand_metadata.json
@@ -70,26 +71,65 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initMap() {
-        const street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OSM' });
-        const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Tiles © Esri' });
-        const dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom: 19, attribution: '© CartoDB' });
+        // Base map layers
+        const street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        });
+
+        const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19,
+            attribution: 'Tiles © Esri'
+        });
+
+        const dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19,
+            attribution: '© CartoDB'
+        });
+
+        const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenTopoMap contributors'
+        });
 
         map = L.map('map', { zoomControl: false, preferCanvas: true, layers: [street] }).setView([39.82, -98.58], 4);
 
-        const baseMaps = { "Street": street, "Satellite": satellite, "Dark": dark };
+        // State borders overlay layer
+        const stateBorders = L.tileLayer('https://tile.openstreetmap.us/data/boundary/{z}/{x}/{y}.png', {
+            maxZoom: 12,
+            attribution: '© OpenStreetMap US',
+            opacity: 0.5,
+            tms: false
+        });
+
+        const baseMaps = {
+            "Street Map": street,
+            "Satellite": satellite,
+            "Dark": dark,
+            "Topographic": topo
+        };
+
+        // Create 3D Buildings layer placeholder
         const dummy3D = L.layerGroup();
-        L.control.layers(baseMaps, { "3D Buildings": dummy3D }, { position: 'bottomright' }).addTo(map);
+
+        const overlayMaps = {
+            "State Borders": stateBorders,
+            "3D Buildings": dummy3D
+        };
+
+        L.control.layers(baseMaps, overlayMaps, { position: 'bottomright' }).addTo(map);
         L.control.zoom({ position: 'topleft' }).addTo(map);
 
-        L.Control.geocoder({
+        // Replace default geocoder with custom implementation
+        geocoderControl = L.Control.geocoder({
             defaultMarkGeocode: false,
             placeholder: "Search city, zip, or address...",
             geocoder: L.Control.Geocoder.nominatim()
         })
         .on('markgeocode', function(e) {
             map.fitBounds(e.geocode.bbox);
-        })
-        .addTo(map);
+        });
+        // Don't add to map - we'll use custom panel instead
 
         clusterGroup = L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 40, chunkedLoading: true });
         map.addLayer(clusterGroup);
@@ -175,8 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerHTML = `
                 <span class="brand-dot" style="background-color: ${color}"></span>
                 <div class="brand-info">
-                    <div class="brand-ticker">${item.ticker}</div>
                     <div class="brand-name">${item.brands[0]}</div>
+                    <div class="brand-ticker">${item.ticker}</div>
                 </div>
                 <span class="brand-count">${item.count.toLocaleString()}</span>
             `;
@@ -425,18 +465,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const siteBar = subScores.siteCharacteristics || 0;
 
         return `
-            <div class="popup-container">
-                <div class="popup-header">
+            <div class="popup-container" data-location-id="${loc.id}">
+                <div class="popup-header popup-draghandle" data-location-id="${loc.id}">
                     <div class="popup-title">
                         <h3>${loc.n}</h3>
                         <span class="popup-ticker" style="background:${color}">${loc.ticker}</span>
                     </div>
-                    <div class="popup-address">${loc.a}</div>
+                    <div class="popup-controls">
+                        <button class="popup-pin-btn" data-location-id="${loc.id}" title="Pin to compare multiple locations">
+                            <i class="fa-solid fa-thumbtack"></i>
+                        </button>
+                    </div>
                 </div>
+                <div class="popup-address">${loc.a}</div>
 
                 <div class="score-hero">
                     <div class="score-circle" style="border-color:${tier.color}">
-                        <span class="score-value">${loc.s}</span>
+                        <span class="score-value">${Math.round(loc.s)}</span>
                         <span class="score-label">${tier.label}</span>
                     </div>
                     <div class="score-actions">
@@ -558,6 +603,75 @@ document.addEventListener('DOMContentLoaded', () => {
         const slider = document.getElementById(`slider-${loc.id}`);
         const label = document.getElementById(`label-${loc.id}`);
         const competitorsDiv = document.getElementById(`competitors-${loc.id}`);
+
+        // Handle pin button
+        const pinBtn = document.querySelector(`.popup-pin-btn[data-location-id="${loc.id}"]`);
+        const popupContainer = document.querySelector(`.popup-container[data-location-id="${loc.id}"]`);
+
+        if (pinBtn && popupContainer) {
+            // Track pin state
+            let isPinned = false;
+
+            pinBtn.onclick = function(e) {
+                e.stopPropagation();
+                isPinned = !isPinned;
+                popupContainer.classList.toggle('pinned', isPinned);
+                pinBtn.classList.toggle('pinned', isPinned);
+
+                // When pinned, store pin state so popup doesn't auto-close
+                if (isPinned) {
+                    popupContainer.dataset.pinned = 'true';
+                } else {
+                    delete popupContainer.dataset.pinned;
+                }
+            };
+
+            // Handle drag functionality
+            const dragHandle = document.querySelector(`.popup-draghandle[data-location-id="${loc.id}"]`);
+            if (dragHandle) {
+                let isDragging = false;
+                let dragStartX = 0;
+                let dragStartY = 0;
+                let popupStartX = 0;
+                let popupStartY = 0;
+
+                dragHandle.addEventListener('mousedown', (e) => {
+                    if (e.target.closest('.popup-pin-btn')) return; // Don't drag when clicking pin button
+                    isDragging = true;
+                    dragStartX = e.clientX;
+                    dragStartY = e.clientY;
+
+                    // Get popup element (Leaflet popup)
+                    const leafletPopup = map._popup;
+                    if (leafletPopup && leafletPopup._container) {
+                        popupStartX = leafletPopup._container.offsetLeft;
+                        popupStartY = leafletPopup._container.offsetTop;
+                    }
+
+                    e.preventDefault();
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+
+                    const leafletPopup = map._popup;
+                    if (!leafletPopup || !leafletPopup._container) return;
+
+                    const container = leafletPopup._container;
+                    const deltaX = e.clientX - dragStartX;
+                    const deltaY = e.clientY - dragStartY;
+
+                    container.style.position = 'fixed';
+                    container.style.left = (popupStartX + deltaX) + 'px';
+                    container.style.top = (popupStartY + deltaY) + 'px';
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
+            }
+        }
+
         if(!slider) return;
 
         const updateRadius = function() {
@@ -735,6 +849,41 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('comparison-panel').classList.remove('visible');
     }
 
+    function openBrandComparisonTool() {
+        // Get all active locations
+        const activeLocations = allLocations.filter(loc => activeTickers.has(loc.ticker));
+
+        if (activeLocations.length === 0) {
+            alert('No active brands selected. Please select brands first.');
+            return;
+        }
+
+        // Show comparison panel and populate with top performers for quick selection
+        const topPerformers = activeLocations
+            .sort((a, b) => b.s - a.s)
+            .slice(0, 10);
+
+        // Clear current comparison
+        comparisonLocations = [];
+
+        // Auto-select top 3 for quick comparison
+        topPerformers.slice(0, 3).forEach(loc => {
+            comparisonLocations.push(loc);
+        });
+
+        updateComparisonPanel();
+        showComparisonPanel();
+
+        // Show toast notification
+        const msg = `Selected top 3 locations from ${activeLocations.length} active brands. Click locations on map to add/remove.`;
+        showNotification(msg);
+    }
+
+    function showNotification(message, duration = 3000) {
+        // Simple notification - could be enhanced with a toast notification system
+        console.log('Notification:', message);
+    }
+
     function updateComparisonPanel() {
         const container = document.getElementById('comparison-cards');
         container.innerHTML = '';
@@ -797,7 +946,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupRail() {
         document.getElementById('btn-home').onclick = () => map.setView([39.82, -98.58], 4);
-        document.getElementById('btn-locate').onclick = () => map.locate({setView: true, maxZoom: 14});
+
+        // Near Me button with error handling
+        const locateBtn = document.getElementById('btn-locate');
+        locateBtn.onclick = function() {
+            locateBtn.classList.add('locating');
+            map.locate({setView: true, maxZoom: 14});
+        };
+
+        // Handle geolocation success
+        map.on('locationfound', function(e) {
+            locateBtn.classList.remove('locating');
+        });
+
+        // Handle geolocation errors
+        map.on('locationerror', function(e) {
+            locateBtn.classList.remove('locating');
+            console.warn('Geolocation error:', e);
+            alert('Unable to access your location. Please ensure:\n1. Location services are enabled\n2. Browser has permission to access location\n3. You are viewing over HTTPS (if required)');
+        });
 
         document.getElementById('btn-cluster-toggle').onclick = function() {
             isClusterView = !isClusterView;
@@ -935,13 +1102,13 @@ document.addEventListener('DOMContentLoaded', () => {
             exportBtn.onclick = exportAllVisible;
         }
 
-        // High performers card click
+        // High performers card click - toggle open/close
         const highScoreCount = document.getElementById('high-score-count');
         if (highScoreCount) {
             const highPerfCard = highScoreCount.closest('.stat-card');
             if (highPerfCard) {
                 highPerfCard.style.cursor = 'pointer';
-                highPerfCard.onclick = showHighPerformers;
+                highPerfCard.onclick = toggleHighPerformers;
             }
         }
 
@@ -961,10 +1128,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Close high performers panel button
+        const closeHighPerformersBtn = document.getElementById('close-high-performers');
+        if (closeHighPerformersBtn) {
+            closeHighPerformersBtn.onclick = hideHighPerformers;
+        }
+
         // Close location panel button
         const closeLocationPanelBtn = document.getElementById('close-location-panel');
         if (closeLocationPanelBtn) {
             closeLocationPanelBtn.onclick = toggleLocationPanel;
+        }
+
+        // Active Brands card - open comparison tool
+        const brandsActiveEl = document.getElementById('brands-active');
+        if (brandsActiveEl) {
+            const brandsActiveCard = brandsActiveEl.closest('.stat-card');
+            if (brandsActiveCard) {
+                brandsActiveCard.style.cursor = 'pointer';
+                brandsActiveCard.onclick = openBrandComparisonTool;
+            }
         }
 
         // Close slider modal
@@ -1026,6 +1209,208 @@ document.addEventListener('DOMContentLoaded', () => {
             sliderMax.value = scoreFilter.max;
             updateScoreSliderDisplay();
         }
+
+        // Panel-based score filter sliders
+        const scoreMin = document.getElementById('score-min');
+        const scoreMax = document.getElementById('score-max');
+
+        if (scoreMin && scoreMax) {
+            scoreMin.oninput = function() {
+                const min = parseInt(this.value);
+                const max = parseInt(scoreMax.value);
+                if (min > max) {
+                    this.value = max;
+                    return;
+                }
+                updatePanelScoreDisplay();
+                applyScoreFilter();
+            };
+
+            scoreMax.oninput = function() {
+                const max = parseInt(this.value);
+                const min = parseInt(scoreMin.value);
+                if (max < min) {
+                    this.value = min;
+                    return;
+                }
+                updatePanelScoreDisplay();
+                applyScoreFilter();
+            };
+        }
+
+        // Reset panel score filter button
+        const resetScoreBtn = document.getElementById('reset-score-filter');
+        if (resetScoreBtn) {
+            resetScoreBtn.onclick = function() {
+                if (scoreMin && scoreMax) {
+                    scoreMin.value = 0;
+                    scoreMax.value = 100;
+                    updatePanelScoreDisplay();
+                    applyScoreFilter();
+                }
+            };
+        }
+
+        // Initialize panel sliders with current values
+        if (scoreMin && scoreMax) {
+            scoreMin.value = scoreFilter.min;
+            scoreMax.value = scoreFilter.max;
+            updatePanelScoreDisplay();
+        }
+
+        // Initialize draggable panels
+        makeElementDraggable('location-panel', '.location-panel-header');
+        makeElementDraggable('high-performers-panel', '.high-performers-header');
+        makeElementDraggable('info-panel', '.panel-header');
+        makeElementDraggable('search-panel', '.search-panel-header');
+
+        // Search panel functionality
+        setupSearchPanel();
+    }
+
+    function setupSearchPanel() {
+        const searchPanel = document.getElementById('search-panel');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        const closeSearchBtn = document.getElementById('close-search-panel');
+        const searchToggleBtn = document.getElementById('search-toggle-btn');
+
+        if (!searchPanel || !searchInput) return;
+
+        // Toggle button
+        if (searchToggleBtn) {
+            searchToggleBtn.onclick = function() {
+                if (searchPanel.classList.contains('hidden')) {
+                    searchPanel.classList.remove('hidden');
+                    searchInput.focus();
+                } else {
+                    searchPanel.classList.add('hidden');
+                }
+            };
+        }
+
+        // Close button
+        if (closeSearchBtn) {
+            closeSearchBtn.onclick = function() {
+                searchPanel.classList.add('hidden');
+            };
+        }
+
+        // Search input handler
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                performSearch(this.value);
+            }
+        });
+
+        searchInput.addEventListener('input', function() {
+            if (this.value.length > 2) {
+                performSearch(this.value);
+            } else {
+                searchResults.innerHTML = '';
+            }
+        });
+    }
+
+    function performSearch(query) {
+        const searchResults = document.getElementById('search-results');
+        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=us`;
+
+        fetch(url)
+            .then(res => res.json())
+            .then(results => {
+                searchResults.innerHTML = '';
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<div style="padding: 8px; color: var(--text-light); font-size: 0.85rem;">No results found</div>';
+                    return;
+                }
+
+                results.forEach(result => {
+                    const resultEl = document.createElement('div');
+                    resultEl.className = 'search-result-item';
+                    resultEl.textContent = result.display_name.split(',')[0];
+                    resultEl.onclick = function() {
+                        const bbox = result.boundingbox;
+                        map.fitBounds([
+                            [parseFloat(bbox[0]), parseFloat(bbox[2])],
+                            [parseFloat(bbox[1]), parseFloat(bbox[3])]
+                        ]);
+                    };
+                    searchResults.appendChild(resultEl);
+                });
+            })
+            .catch(err => {
+                console.error('Search error:', err);
+                searchResults.innerHTML = '<div style="padding: 8px; color: red; font-size: 0.85rem;">Search error</div>';
+            });
+    }
+
+    function openSearchPanel() {
+        const searchPanel = document.getElementById('search-panel');
+        if (searchPanel) {
+            searchPanel.classList.remove('hidden');
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) searchInput.focus();
+        }
+    }
+
+    function makeElementDraggable(elementId, headerSelector) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+
+        const header = element.querySelector(headerSelector);
+        if (!header) return;
+
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let elementStartX = 0;
+        let elementStartY = 0;
+        let hasTransform = false;
+
+        header.addEventListener('mousedown', (e) => {
+            // Don't drag if clicking on buttons within the header
+            if (e.target.closest('button') || e.target.tagName === 'BUTTON') return;
+
+            isDragging = true;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+
+            // Save the current computed position
+            const rect = element.getBoundingClientRect();
+            elementStartX = rect.left;
+            elementStartY = rect.top;
+
+            // Check if element has transform applied
+            hasTransform = element.style.transform && element.style.transform !== 'none';
+
+            header.style.cursor = 'grabbing';
+            element.style.transition = 'none';
+            element.style.transform = 'none';
+            element.style.right = 'auto';
+            element.style.left = rect.left + 'px';
+            element.style.top = rect.top + 'px';
+
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const deltaX = e.clientX - dragStartX;
+            const deltaY = e.clientY - dragStartY;
+
+            element.style.left = (elementStartX + deltaX) + 'px';
+            element.style.top = (elementStartY + deltaY) + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                header.style.cursor = 'grab';
+                element.style.transition = 'all var(--transition-normal)';
+            }
+        });
     }
 
     function exportAllVisible() {
@@ -1177,45 +1562,50 @@ document.addEventListener('DOMContentLoaded', () => {
         const highPerformers = visible.filter(loc => loc.s >= 80)
             .sort((a, b) => b.s - a.s);
 
-        const performersContent = document.getElementById('performers-content');
-        const performersList = document.getElementById('high-performers-list');
+        const performersPanel = document.getElementById('high-performers-panel');
+        const performersContent = document.getElementById('high-performers-content');
+
+        // Update the stat card count
+        document.getElementById('high-score-count').textContent = highPerformers.length;
 
         if (highPerformers.length === 0) {
             performersContent.innerHTML = '<p style="padding: 12px; text-align: center; color: var(--text-light); font-size: 0.85rem;">No high performers in current selection</p>';
-            performersList.style.display = 'block';
+            performersPanel.classList.remove('hidden');
+            highPerformersOpen = true;
             return;
         }
 
         performersContent.innerHTML = highPerformers.map((loc, idx) => {
             const tier = getScoreTier(loc.s);
-            const tierClass = loc.s >= 80 ? 'excellent' : 'good';
-            const address = loc.at ? (loc.at.address || loc.at.city || 'Unknown') : 'Unknown';
+            // Prefer actual address from location object, fallback to OSM default
+            const address = loc.a && loc.a !== 'US Location (OSM)' ? loc.a : 'Location data pending';
 
             return `
-                <div class="performer-item" data-index="${idx}">
-                    <div class="performer-score-circle ${tierClass}">
-                        <div class="performer-score-value">${Math.round(loc.s)}</div>
-                        <div class="performer-score-label">Score</div>
+                <div class="score-item" data-index="${idx}">
+                    <div class="score-circle" style="background: ${tier.color};">
+                        ${Math.round(loc.s)}
                     </div>
-                    <div class="performer-info">
-                        <div class="performer-name">${loc.name || loc.n || 'Unknown'}</div>
-                        <div class="performer-location">${address}</div>
+                    <div class="score-item-content">
+                        <div class="score-item-brand">${loc.n || 'Unknown'}</div>
+                        <div class="score-item-address">${address}</div>
                     </div>
                 </div>
             `;
         }).join('');
 
         // Add click handlers to performer items
-        performersContent.querySelectorAll('.performer-item').forEach((item, idx) => {
+        performersContent.querySelectorAll('.score-item').forEach((item, idx) => {
             item.onclick = () => navigateToPerformer(highPerformers[idx]);
         });
 
-        performersList.style.display = 'block';
+        performersPanel.classList.remove('hidden');
+        highPerformersOpen = true;
     }
 
     function hideHighPerformers() {
-        const performersList = document.getElementById('high-performers-list');
-        performersList.style.display = 'none';
+        const performersPanel = document.getElementById('high-performers-panel');
+        performersPanel.classList.add('hidden');
+        highPerformersOpen = false;
     }
 
     function navigateToPerformer(location) {
@@ -1279,6 +1669,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (maxValue) maxValue.textContent = sliderMax.value;
     }
 
+    function updatePanelScoreDisplay() {
+        const scoreMin = document.getElementById('score-min');
+        const scoreMax = document.getElementById('score-max');
+        const minLabel = document.getElementById('score-min-label');
+        const maxLabel = document.getElementById('score-max-label');
+
+        if (minLabel && scoreMin) minLabel.textContent = scoreMin.value;
+        if (maxLabel && scoreMax) maxLabel.textContent = scoreMax.value;
+    }
+
     function applyScoreFilter() {
         const sliderMin = document.getElementById('slider-min');
         const sliderMax = document.getElementById('slider-max');
@@ -1303,10 +1703,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (panel) {
             locationPanelOpen = !locationPanelOpen;
             if (locationPanelOpen) {
-                panel.classList.add('open');
+                panel.classList.remove('hidden');
                 updateLocationList();
             } else {
-                panel.classList.remove('open');
+                panel.classList.add('hidden');
             }
         }
     }
@@ -1338,8 +1738,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (sorted.length === 0) {
             // No locations visible - close the panel automatically
-            if (panel.classList.contains('open')) {
-                panel.classList.remove('open');
+            if (!panel.classList.contains('hidden')) {
+                panel.classList.add('hidden');
                 locationPanelOpen = false;
             }
 
@@ -1366,7 +1766,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // (panel open state is managed by toggleLocationPanel)
 
         container.innerHTML = sorted.map(loc => {
-            const address = loc.at ? (loc.at.address || loc.at.city || 'Unknown location') : 'Unknown location';
+            // Use the main address field (loc.a), show placeholder if it's generic
+            const address = (loc.a && loc.a !== 'US Location (OSM)') ? loc.a : 'Location data pending';
             const name = loc.name || loc.n || 'Unknown';
             const score = Math.round(loc.s);
             const scoreTier = getScoreTier(score);

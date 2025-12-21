@@ -79,8 +79,42 @@
             <div id="location-list-content" class="location-list-content"></div>
         </aside>
 
+        <!-- High Performers Panel (Opened by clicking High Performers stat) -->
+        <aside id="high-performers-panel" class="high-performers-panel hidden">
+            <div class="high-performers-header">
+                <div class="high-performers-title">
+                    <i class="fa-solid fa-star"></i>
+                    <span>High Performers</span>
+                </div>
+                <button id="close-high-performers" class="close-high-performers-btn" title="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="high-performers-content" class="high-performers-content"></div>
+        </aside>
+
+        <!-- Search Panel (Collapsible) -->
+        <div id="search-panel" class="search-panel hidden">
+            <div class="search-panel-header">
+                <div class="search-panel-title">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Search</span>
+                </div>
+                <button id="close-search-panel" class="close-search-panel-btn" title="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="search-panel-content">
+                <input type="text" id="search-input" class="search-input" placeholder="City, zip, or address...">
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+
         <!-- Dashboard Stats Bar -->
         <div id="dashboard-stats" class="dashboard-stats">
+            <button id="search-toggle-btn" class="stat-card search-toggle" title="Search location or area">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
                 <div class="stat-content">
@@ -108,16 +142,16 @@
             <div class="stat-card distribution">
                 <div class="stat-label">Score Distribution</div>
                 <div class="distribution-bar">
-                    <div id="dist-excellent" class="dist-segment excellent" title="Excellent (80+)"></div>
-                    <div id="dist-good" class="dist-segment good" title="Good (65-79)"></div>
-                    <div id="dist-fair" class="dist-segment fair" title="Fair (50-64)"></div>
                     <div id="dist-poor" class="dist-segment poor" title="Poor (<50)"></div>
+                    <div id="dist-fair" class="dist-segment fair" title="Fair (50-64)"></div>
+                    <div id="dist-good" class="dist-segment good" title="Good (65-79)"></div>
+                    <div id="dist-excellent" class="dist-segment excellent" title="Excellent (80+)"></div>
                 </div>
                 <div class="distribution-legend">
-                    <span class="legend-item"><span class="dot excellent"></span>80+</span>
-                    <span class="legend-item"><span class="dot good"></span>65+</span>
-                    <span class="legend-item"><span class="dot fair"></span>50+</span>
                     <span class="legend-item"><span class="dot poor"></span>&lt;50</span>
+                    <span class="legend-item"><span class="dot fair"></span>50+</span>
+                    <span class="legend-item"><span class="dot good"></span>65+</span>
+                    <span class="legend-item"><span class="dot excellent"></span>80+</span>
                 </div>
             </div>
         </div>
@@ -131,10 +165,10 @@
                 <i class="fa-solid fa-location-crosshairs"></i>
             </button>
             <div class="control-divider"></div>
-            <button id="btn-cluster-toggle" class="control-btn active" title="Toggle Clustering">
+            <button id="btn-cluster-toggle" class="control-btn" title="Toggle Clustered View">
                 <i class="fa-solid fa-circle-nodes"></i>
             </button>
-            <button id="btn-heatmap-toggle" class="control-btn" title="Toggle Heatmap">
+            <button id="btn-heatmap-toggle" class="control-btn active" title="Toggle Ungrouped View">
                 <i class="fa-solid fa-fire"></i>
             </button>
             <div class="control-divider"></div>
