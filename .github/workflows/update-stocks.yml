@@ -1,10 +1,10 @@
-name: Update Stock Data
+name: Update Stock Data for FranchiseMap Ticker
 
 on:
   schedule:
     # Every 30 minutes during market hours (Mon-Fri, 9:30 AM - 4:30 PM ET)
     # GitHub Actions uses UTC, so 9:30 AM ET = 14:30 UTC (13:30 during DST)
-    - cron: '*/30 13-21 * * 1-5'
+    - cron: '*/30 14-21 * * 1-5'
   workflow_dispatch:  # Manual trigger
 
 permissions:
@@ -17,19 +17,29 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
-          pip install yfinance pandas
+          pip install yfinance pandas requests
 
-      - name: Fetch stock data
+      - name: Fetch stock data for FranchiseMap
         run: |
           python FranchiseMap/scripts/fetch_stocks.py
+
+      - name: Validate stock data
+        run: |
+          if [ ! -f "FranchiseMap/data/stocks.json" ]; then
+            echo "❌ Stock data file not created"
+            exit 1
+          fi
+          echo "✅ Stock data validated"
 
       - name: Commit and push changes
         run: |
@@ -39,9 +49,10 @@ jobs:
           git add FranchiseMap/data/stocks.json
 
           if git diff --staged --quiet; then
-            echo "No changes to commit."
+            echo "ℹ️  No stock data changes to commit."
           else
-            git commit -m "Update stock data [skip ci]"
-            git pull --rebase origin main
-            git push
+            git commit -m "chore: update stock ticker data for FranchiseMap [skip ci]"
+            git pull --rebase origin main || true
+            git push origin main
+            echo "✅ Stock data updated successfully"
           fi
