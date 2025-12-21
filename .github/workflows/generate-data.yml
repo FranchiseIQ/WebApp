@@ -7,55 +7,55 @@ permissions:
   contents: write
 
 jobs:
-  build-and-commit:
+  validate-and-commit:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Create Data Directory
-        run: mkdir -p FranchiseMap/data/brands
-
-      - name: Run Data Generator
+      - name: Verify data exists
         run: |
-          pip install requests
-          python -m data_aggregation.pipelines.franchise.generate_locations
+          if [ ! -d "FranchiseMap/data/brands" ]; then
+            echo "❌ Data directory missing"
+            exit 1
+          fi
 
-      - name: Generate Brand Metadata
+          manifest_count=$(cat FranchiseMap/data/manifest.json | grep -c '"ticker"')
+          echo "✅ Found manifest with $manifest_count brands"
+
+          total_files=$(ls FranchiseMap/data/brands/*.json 2>/dev/null | wc -l)
+          echo "✅ Found $total_files brand data files"
+
+      - name: Validate manifest format
         run: |
-          python -m data_aggregation.pipelines.franchise.build_brand_metadata
+          python3 << 'EOF'
+          import json
+          with open('FranchiseMap/data/manifest.json', 'r') as f:
+              data = json.load(f)
 
-      # --- SAFETY NET: Save data as a Zip file ---
-      # If the push fails below, you can download this from the Actions Summary page!
-      - name: Upload Data Artifacts
+          if not isinstance(data, list):
+              print("❌ Manifest is not a list")
+              exit(1)
+
+          for item in data:
+              required = ['ticker', 'file', 'count', 'brands', 'name']
+              missing = [k for k in required if k not in item]
+              if missing:
+                  print(f"❌ Item {item.get('ticker', '?')} missing: {missing}")
+                  exit(1)
+
+          print(f"✅ Manifest validated: {len(data)} brands")
+          EOF
+
+      - name: Upload data artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: franchise-data
+          name: franchise-data-snapshot
           path: FranchiseMap/data/
           retention-days: 7
 
-      - name: Commit and Push changes
+      - name: Summary
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add FranchiseMap/data/
-
-          # Check if there are changes
-          if git diff --staged --quiet; then
-            echo "No changes to commit."
-          else
-            git commit -m "Update Franchise Data [skip ci]"
-
-            # --- THE FIX: Pull latest changes before pushing ---
-            git fetch origin main && git merge -X ours origin/main
-
-            git push
-          fi
-Page_Down
+          echo "✅ Map data validation complete"
+          echo "Data is ready for deployment to GitHub Pages"
