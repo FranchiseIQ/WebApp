@@ -32,20 +32,70 @@
     <div id="map-container">
         <div id="map"></div>
 
+        <!-- Score Filter Slider Modal -->
+        <div id="score-slider-modal" class="score-slider-modal" style="display: none;">
+            <div class="slider-bubble">
+                <div class="slider-header">
+                    <h3>Filter by Score</h3>
+                    <button id="close-slider" class="close-slider-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="slider-body">
+                    <div class="slider-labels">
+                        <span class="slider-label-left">Low Quality</span>
+                        <span class="slider-label-right">High Quality</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" id="slider-min" class="slider" min="0" max="100" value="0">
+                        <input type="range" id="slider-max" class="slider" min="0" max="100" value="100">
+                    </div>
+                    <div class="slider-values">
+                        <div class="slider-value">
+                            <span class="value-label">Min:</span>
+                            <span id="slider-min-value" class="value">0</span>
+                        </div>
+                        <div class="slider-value">
+                            <span class="value-label">Max:</span>
+                            <span id="slider-max-value" class="value">100</span>
+                        </div>
+                    </div>
+                    <button id="reset-slider" class="reset-btn">Reset to All Scores</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left Side Location Panel (Opened by clicking Average Score) -->
+        <aside id="location-panel" class="location-panel">
+            <div class="location-panel-header">
+                <div class="location-panel-title">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Visible Locations</span>
+                </div>
+                <button id="close-location-panel" class="close-location-panel-btn" title="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="location-list-content" class="location-list-content"></div>
+        </aside>
+
         <!-- Dashboard Stats Bar -->
         <div id="dashboard-stats" class="dashboard-stats">
             <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-eye"></i></div>
+                <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
                 <div class="stat-content">
-                    <span class="stat-value" id="visible-avg-score">--</span>
-                    <span class="stat-label">Visible Avg</span>
+                    <span class="stat-value" id="avg-score">--</span>
+                    <span class="stat-label">
+                        Avg Score
+                        <span id="locations-indicator" class="locations-indicator" title="Click to see visible locations"></span>
+                    </span>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon excellent"><i class="fa-solid fa-star"></i></div>
                 <div class="stat-content">
-                    <span class="stat-value" id="visible-excellent-count">0</span>
-                    <span class="stat-label">Excellent (80+)</span>
+                    <span class="stat-value" id="high-score-count">0</span>
+                    <span class="stat-label">High Performers</span>
                 </div>
             </div>
             <div class="stat-card">
@@ -56,7 +106,7 @@
                 </div>
             </div>
             <div class="stat-card distribution">
-                <div class="stat-label">Score Distribution (Visible)</div>
+                <div class="stat-label">Score Distribution</div>
                 <div class="distribution-bar">
                     <div id="dist-excellent" class="dist-segment excellent" title="Excellent (80+)"></div>
                     <div id="dist-good" class="dist-segment good" title="Good (65-79)"></div>
@@ -71,17 +121,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Scores in View Panel (Left Side) -->
-        <aside id="scores-panel" class="scores-panel">
-            <div class="scores-header">
-                <h2><i class="fa-solid fa-list-check"></i> Locations in View</h2>
-                <button id="close-scores" class="close-btn" title="Close">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div id="scores-list" class="scores-list"></div>
-        </aside>
 
         <!-- Custom Controls Rail -->
         <div id="map-controls-rail">
@@ -118,32 +157,6 @@
                 </div>
             </div>
             <div class="panel-content">
-                <!-- Score Filter Section -->
-                <div class="filter-section">
-                    <h3><i class="fa-solid fa-sliders"></i> Filter by Score</h3>
-                    <div class="score-range">
-                        <div class="slider-labels">
-                            <span class="slider-label-left">Low Quality</span>
-                            <span class="slider-label-right">High Quality</span>
-                        </div>
-                        <div class="slider-container">
-                            <input type="range" id="score-min" class="score-slider" min="0" max="100" value="0">
-                            <input type="range" id="score-max" class="score-slider" min="0" max="100" value="100">
-                        </div>
-                        <div class="slider-values">
-                            <div class="slider-value">
-                                <span class="value-label">Min:</span>
-                                <span id="score-min-label" class="value">0</span>
-                            </div>
-                            <div class="slider-value">
-                                <span class="value-label">Max:</span>
-                                <span id="score-max-label" class="value">100</span>
-                            </div>
-                        </div>
-                        <button id="reset-score-filter" class="reset-btn">Reset to All Scores</button>
-                    </div>
-                </div>
-
                 <!-- Filter Controls -->
                 <div class="filter-controls">
                     <button id="btn-select-all" class="filter-btn">
@@ -183,17 +196,6 @@
                 <div class="location-count">
                     <i class="fa-solid fa-map-pin"></i>
                     <span id="visible-count">0</span> locations visible
-                </div>
-
-                <!-- High Performers List (Hidden by default) -->
-                <div id="high-performers-list" class="high-performers-list" style="display: none;">
-                    <div class="performers-header">
-                        <h3><i class="fa-solid fa-star"></i> High Performers</h3>
-                        <button id="close-performers" class="close-btn" title="Close">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                    <div id="performers-content" class="performers-content"></div>
                 </div>
 
                 <!-- Brand Legend -->

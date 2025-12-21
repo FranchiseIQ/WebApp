@@ -1,30 +1,68 @@
 #!/usr/bin/env python3
 """
-Fetch stock data for franchise tickers using yfinance.
-Removes dead tickers (GNC, TAST) and outputs to data/stocks.json
+Fetch Current Stock Prices for FranchiseMap Ticker Widget
+
+Fetches current prices for all franchise stock tickers and outputs to JSON.
+This lightweight script runs frequently (every 30 minutes) to keep the map
+ticker widget up-to-date with current price information.
+
+Data Source: Yahoo Finance (yfinance library)
+Output: FranchiseMap/data/stocks.json
+
+Note: Removed tickers like GNC, TAST (no longer public) are kept in
+update_historical_data.py for historical data preservation.
 """
 
+import sys
 import json
-import os
+from pathlib import Path
 from datetime import datetime
 import yfinance as yf
 
-# Active franchise stock tickers (removed GNC, TAST - no longer public)
+# Add repo root to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+
+from data_aggregation.config.paths_config import MAP_STOCKS_JSON
+
+# ============================================================================
+# TICKER SYMBOLS - MUST SYNCHRONIZE WITH MASTER LIST
+# ============================================================================
+# CRITICAL: This list MUST match FRANCHISE_STOCKS in update_historical_data.py
+# AND match TICKER_SYMBOLS in fetch_live_ticker.py
+#
+# If you update this list:
+#   1. First update FRANCHISE_STOCKS in update_historical_data.py (MASTER)
+#   2. Then copy to TICKER_SYMBOLS in fetch_live_ticker.py
+#   3. Then copy to TICKER_SYMBOLS here
+#   4. Run sync_tickers.py to verify synchronization
+#
+# Run this to verify: python3 -m data_aggregation.pipelines.stocks.sync_tickers
+# ============================================================================
+
 TICKER_SYMBOLS = [
-    # QSR
-    "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK", "CMG", "SBUX", "PZZA",
-    "DNUT", "NATH",
-    # Casual Dining
-    "DENN", "DIN", "RRGB", "TXRH", "CAKE", "DRI", "EAT", "BLMN", "PLAY",
-    # Hotels
-    "MAR", "HLT", "H", "CHH", "WH", "IHG", "VAC", "TNL",
-    # Services (Roark public: DRVN)
+    # Quick Service & Restaurants
+    "MCD", "YUM", "QSR", "WEN", "DPZ", "JACK", "WING", "SHAK",
+    "DENN", "DIN", "DNUT", "NATH", "RRGB",
+
+    # Auto & Services
     "DRVN", "HRB", "MCW", "SERV", "ROL",
-    # Fitness
-    "PLNT", "XPOF",
-    # Other
-    "ARCO", "ADUS", "LOPE"
+
+    # Fitness & Recreation
+    "PLNT", "TNL", "PLAY",
+
+    # Hospitality
+    "MAR", "HLT", "H", "CHH", "WH", "VAC",
+
+    # Retail & Other
+    "RENT", "ADUS", "LOPE", "ARCO", "TAST",
+
+    # Market index/benchmark (for charts)
+    "SPY",
+
+    # Additional relevant tickers (may be dead but kept for historical data)
+    "GNC"
 ]
+
 
 def fetch_stock_data():
     """Fetch current stock data for all tickers."""
@@ -77,7 +115,13 @@ def fetch_stock_data():
 
     return results, errors
 
+
 def main():
+    print("=" * 70)
+    print("Fetching Current Stock Prices for FranchiseMap Ticker Widget")
+    print("=" * 70)
+    print()
+
     # Fetch data
     stock_data, errors = fetch_stock_data()
 
@@ -92,19 +136,19 @@ def main():
     }
 
     # Ensure output directory exists
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    output_path = os.path.join(script_dir, "../data/stocks.json")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    MAP_STOCKS_JSON.parent.mkdir(parents=True, exist_ok=True)
 
     # Write JSON
-    with open(output_path, "w") as f:
+    with open(MAP_STOCKS_JSON, "w") as f:
         json.dump(output, f, indent=2)
 
-    print(f"\n{'='*50}")
-    print(f"Stock data saved to: {output_path}")
+    print(f"\n{'='*70}")
+    print(f"✓ Stock data saved to: {MAP_STOCKS_JSON}")
     print(f"Success: {len(stock_data)}/{len(TICKER_SYMBOLS)} tickers")
     if errors:
         print(f"Errors: {', '.join(errors)}")
+    print("=" * 70)
+
 
 if __name__ == "__main__":
     main()

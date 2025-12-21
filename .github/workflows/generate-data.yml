@@ -6,11 +6,6 @@ on:
 permissions:
   contents: write
 
-env:
-  LIVE_DATA_DIR: FranchiseMap/data
-  BUILD_DATA_DIR: FranchiseMap/data_build
-  BACKUP_DATA_DIR: FranchiseMap/data.backup
-
 jobs:
   build-and-commit:
     runs-on: ubuntu-latest
@@ -18,111 +13,45 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
-      # === RESUMABILITY: Restore cached build directory ===
-      - name: Restore cached build data
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.BUILD_DATA_DIR }}
-          key: franchise-data-build-${{ github.ref_name }}-${{ github.sha }}
-          restore-keys: |
-            franchise-data-build-${{ github.ref_name }}-
-            franchise-data-build-
-
-      - name: Create build directory
-        run: mkdir -p ${{ env.BUILD_DATA_DIR }}/brands
+      - name: Create Data Directory
+        run: mkdir -p FranchiseMap/data/brands
 
       - name: Run Data Generator
-        continue-on-error: true
         run: |
           pip install requests
-          python FranchiseMap/scripts/generate_data.py --output ${{ env.BUILD_DATA_DIR }}
+          python -m data_aggregation.pipelines.franchise.generate_locations
 
-      # === VALIDATION: Check build output before touching live data ===
-      - name: Validate generated data
-        id: validate
-        run: |
-          python FranchiseMap/scripts/validate_franchise_data.py ${{ env.BUILD_DATA_DIR }}
-          if [ $? -eq 0 ]; then
-            echo "PUBLISH_OK=true" >> $GITHUB_ENV
-            echo "✅ Data validation passed"
-          else
-            echo "PUBLISH_OK=false" >> $GITHUB_ENV
-            echo "❌ Data validation failed"
-            exit 1
-          fi
-
-      # === RESUMABILITY: Save cache even if later steps fail ===
-      - name: Save build cache
-        uses: actions/cache@v3
-        if: always()
+      # --- SAFETY NET: Save data as a Zip file ---
+      # If the push fails below, you can download this from the Actions Summary page!
+      - name: Upload Data Artifacts
+        uses: actions/upload-artifact@v4
         with:
-          path: ${{ env.BUILD_DATA_DIR }}
-          key: franchise-data-build-${{ github.ref_name }}-${{ github.sha }}
-
-      # === ATOMIC PUBLISH: Only if validation passed ===
-      - name: Publish data atomically
-        if: env.PUBLISH_OK == 'true'
-        run: |
-          # Backup current live data (if it exists)
-          if [ -d "${{ env.LIVE_DATA_DIR }}" ]; then
-            echo "📦 Backing up current live data..."
-            rm -rf ${{ env.BACKUP_DATA_DIR }}
-            mv ${{ env.LIVE_DATA_DIR }} ${{ env.BACKUP_DATA_DIR }}
-          fi
-
-          # Move build to live (atomic swap)
-          echo "🚀 Publishing new data to live directory..."
-          mv ${{ env.BUILD_DATA_DIR }} ${{ env.LIVE_DATA_DIR }}
+          name: franchise-data
+          path: FranchiseMap/data/
+          retention-days: 7
 
       - name: Commit and Push changes
-        if: env.PUBLISH_OK == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Check if there are changes to commit
-          if git diff --quiet ${{ env.LIVE_DATA_DIR }}; then
-            echo "ℹ️  No changes to commit."
-            exit 0
+          git add FranchiseMap/data/
+
+          # Check if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update Franchise Data [skip ci]"
+
+            # --- THE FIX: Pull latest changes before pushing ---
+            git fetch origin main && git merge -X ours origin/main
+
+            git push
           fi
-
-          git add ${{ env.LIVE_DATA_DIR }}
-
-          echo "📝 Committing data changes..."
-          git commit -m "Update franchise map data - $(date -u +'%Y-%m-%d %H:%M UTC')"
-
-          # Pull latest changes before pushing
-          echo "🔄 Pulling latest changes..."
-          git pull --rebase origin main || true
-
-          # Push with explicit branch
-          echo "📤 Pushing to remote..."
-          git push -u origin main
-
-          echo "✅ Data successfully published and pushed!"
-
-      # === OPTIONAL: Save artifacts for manual recovery ===
-      - name: Upload build artifacts for debugging
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: franchise-data-build
-          path: ${{ env.BUILD_DATA_DIR }}/
-          retention-days: 7
-
-      - name: Report validation failure
-        if: failure() && env.PUBLISH_OK != 'true'
-        run: |
-          echo "❌ Data validation failed - no changes published to live site"
-          echo "The live map will continue using the previously validated dataset"
-          exit 1
-
+Page_Down

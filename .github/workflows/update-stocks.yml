@@ -31,7 +31,7 @@ jobs:
 
       - name: Fetch stock data for FranchiseMap
         run: |
-          python FranchiseMap/scripts/fetch_stocks.py
+          python -m data_aggregation.pipelines.stocks.fetch_current_prices
 
       - name: Validate stock data
         run: |

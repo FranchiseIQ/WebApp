@@ -9,8 +9,13 @@ let historicalCache = new Map();
 let customCache = {};
 
 const MAX_TICKERS = 10;
-// Default stocks: SPY (market index) in black, then 9 franchise stocks
-const DEFAULT_STOCKS = ['SPY', 'MCD', 'YUM', 'QSR', 'WEN', 'DPZ', 'JACK', 'WING', 'SHAK', 'DENN'];
+// Default stocks: SPY (market index) + 9 top franchise stocks
+// IMPORTANT: Available tickers come from data/franchise_stocks.csv (centralized dataset)
+// To add new tickers to the system, update scripts/update_franchise_stocks.py
+const DEFAULT_STOCKS = [
+    'SPY',    // Market benchmark (black)
+    'MCD', 'YUM', 'QSR', 'WEN', 'DPZ', 'JACK', 'WING', 'SHAK', 'DENN'  // Top franchise stocks
+];
 const DEFAULT_COLORS = [
     '#000000', // SPY in black (market index)
     '#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#8B5CF6',
@@ -89,7 +94,14 @@ async function loadDefaultStocks() {
     for (let i = 0; i < DEFAULT_STOCKS.length; i++) {
         const symbol = DEFAULT_STOCKS[i];
         try {
-            const data = await fetchAdjustedPrices(symbol, currentRange);
+            let data = null;
+
+            // Special handling for SPY - try multiple approaches
+            if (symbol === 'SPY') {
+                data = await loadSPYData(currentRange);
+            } else {
+                data = await fetchAdjustedPrices(symbol, currentRange);
+            }
 
             if (!data || data.length === 0) {
                 console.warn(`No data available for ${symbol}`);
@@ -117,6 +129,109 @@ async function loadDefaultStocks() {
         hideEmptyState();
     } else {
         showEmptyState();
+    }
+}
+
+/**
+ * Load SPY data with multiple fallback strategies
+ */
+async function loadSPYData(range) {
+    try {
+        // First try: load from local cache/CSV
+        const cachedSeries = await getLocalSeries('SPY');
+        if (cachedSeries && cachedSeries.length) {
+            return filterDataByRange(cachedSeries, range);
+        }
+    } catch (e) {
+        console.debug('SPY not in local CSV, trying Stooq...');
+    }
+
+    try {
+        // Second try: fetch from Stooq with increased timeout
+        const remoteSeries = await Promise.race([
+            fetchFromStooq('SPY'),
+            new Promise((_, reject) =>
+                setTimeout(() => reject(new Error('Stooq fetch timeout')), 8000)
+            )
+        ]);
+
+        if (remoteSeries && remoteSeries.length) {
+            saveCustomSeries('SPY', remoteSeries);
+            return filterDataByRange(remoteSeries, range);
+        }
+    } catch (e) {
+        console.warn('Failed to fetch SPY from Stooq:', e.message);
+    }
+
+    try {
+        // Third try: Alternative source - Yahoo Finance via different method
+        const spyData = await fetchSPYFromYahoo();
+        if (spyData && spyData.length) {
+            saveCustomSeries('SPY', spyData);
+            return filterDataByRange(spyData, range);
+        }
+    } catch (e) {
+        console.warn('Failed to fetch SPY from Yahoo Finance:', e.message);
+    }
+
+    // If all else fails, return null (SPY will be skipped)
+    throw new Error('Unable to load SPY data from any source');
+}
+
+/**
+ * Alternative SPY data fetch using Yahoo Finance API
+ */
+async function fetchSPYFromYahoo() {
+    try {
+        // Use a different CORS proxy approach for Yahoo Finance
+        const url = 'https://query1.finance.yahoo.com/v8/finance/chart/SPY?interval=1d&range=10y';
+        const response = await Promise.race([
+            fetch(url, {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                }
+            }),
+            new Promise((_, reject) =>
+                setTimeout(() => reject(new Error('Fetch timeout')), 5000)
+            )
+        ]);
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const data = await response.json();
+        if (!data.chart || !data.chart.result || !data.chart.result[0]) {
+            throw new Error('Invalid Yahoo Finance response');
+        }
+
+        const result = data.chart.result[0];
+        const timestamps = result.timestamp || [];
+        const quotes = result.indicators.quote[0] || {};
+        const allData = [];
+
+        for (let i = 0; i < timestamps.length; i++) {
+            const date = new Date(timestamps[i] * 1000);
+            const close = quotes.close?.[i];
+            const open = quotes.open?.[i];
+            const high = quotes.high?.[i];
+            const low = quotes.low?.[i];
+            const volume = quotes.volume?.[i];
+
+            if (close !== undefined && close !== null && !isNaN(close)) {
+                allData.push({
+                    date: date,
+                    price: parseFloat(close),
+                    open: open ? parseFloat(open) : null,
+                    high: high ? parseFloat(high) : null,
+                    low: low ? parseFloat(low) : null,
+                    volume: volume ? parseInt(volume) : null
+                });
+            }
+        }
+
+        allData.sort((a, b) => a.date - b.date);
+        return allData.length > 0 ? allData : null;
+    } catch (error) {
+        throw error;
     }
 }
 

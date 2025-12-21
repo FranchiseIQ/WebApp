@@ -1,14 +1,30 @@
 #!/usr/bin/env python3
 """
-Fetch franchise industry news from RSS feeds and save to JSON.
-This script is designed to run via GitHub Actions every 6 hours.
+Fetch Franchise Industry News from RSS Feeds
+
+Aggregates franchise news from multiple RSS feed sources including:
+- Franchise Times
+- 1851 Franchise
+- Entrepreneur Magazine
+- Franchising.com
+
+Output: data/franchise_news.json
+
+This script is designed to run regularly via GitHub Actions.
 """
 
-import feedparser
+import sys
 import json
 import hashlib
+from pathlib import Path
 from datetime import datetime, timedelta
 from dateutil import parser as date_parser
+import feedparser
+
+# Add repo root to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+
+from data_aggregation.config.paths_config import NEWS_JSON
 
 # RSS feed URLs for franchise news sources
 # Note: Not all sites have RSS feeds, these are the ones that do
@@ -37,10 +53,12 @@ RSS_FEEDS = {
     # Many franchise sites don't have RSS, but these are good starting points
 }
 
+
 def generate_id(source_id, url):
     """Generate a unique ID for an article based on source and URL"""
     hash_input = f"{source_id}-{url}"
     return hashlib.md5(hash_input.encode()).hexdigest()[:12]
+
 
 def parse_date(date_string):
     """Parse various date formats and return ISO format (YYYY-MM-DD)"""
@@ -50,6 +68,7 @@ def parse_date(date_string):
     except:
         # If parsing fails, use today's date
         return datetime.now().strftime('%Y-%m-%d')
+
 
 def fetch_feed(source_id, feed_info):
     """Fetch and parse a single RSS feed"""
@@ -93,11 +112,13 @@ def fetch_feed(source_id, feed_info):
 
     return articles
 
+
 def main():
     """Main function to fetch all feeds and save to JSON"""
-    print("=" * 60)
+    print("=" * 70)
     print("FRANCHISE NEWS AGGREGATOR")
-    print("=" * 60)
+    print("=" * 70)
+    print()
 
     all_articles = []
 
@@ -124,21 +145,25 @@ def main():
     # Limit to top 50 articles
     final_articles = recent_articles[:50]
 
-    print("\n" + "=" * 60)
-    print(f"SUMMARY")
-    print("=" * 60)
+    print("\n" + "=" * 70)
+    print("SUMMARY")
+    print("=" * 70)
     print(f"Total articles fetched: {len(all_articles)}")
     print(f"Unique articles: {len(unique_articles)}")
     print(f"Articles from last 30 days: {len(recent_articles)}")
     print(f"Final article count: {len(final_articles)}")
+    print()
+
+    # Ensure output directory exists
+    NEWS_JSON.parent.mkdir(parents=True, exist_ok=True)
 
     # Save to JSON file
-    output_file = 'FranchiseNews/data/news.json'
-    with open(output_file, 'w', encoding='utf-8') as f:
+    with open(NEWS_JSON, 'w', encoding='utf-8') as f:
         json.dump(final_articles, f, indent=2, ensure_ascii=False)
 
-    print(f"\n✅ Saved to {output_file}")
-    print("=" * 60)
+    print(f"✅ Saved to {NEWS_JSON}")
+    print("=" * 70)
+
 
 if __name__ == '__main__':
     main()
