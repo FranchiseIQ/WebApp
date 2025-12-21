@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- State ---
     let map, clusterGroup, markersLayer = L.layerGroup(), buildingsLayer, heatLayer;
     let allLocations = [], loadedTickers = new Set(), activeTickers = new Set();
-    let isClusterView = true, isHeatmapView = false, currentRadiusCircle;
+    let isClusterView = false, isHeatmapView = false, currentRadiusCircle;
     let manifest = [];
     let tickerColors = {};
     let highlightedMarkers = [];
