@@ -1340,13 +1340,27 @@ body {
     justify-content: center;
     font-weight: 700;
     font-size: 0.9rem;
-    color: white;
+    border: 2px solid;
+    background: white;
+    color: var(--text-dark);
 }
 
-.location-score-circle.excellent { background: var(--score-excellent); }
-.location-score-circle.good { background: var(--score-good); }
-.location-score-circle.fair { background: var(--score-fair); }
-.location-score-circle.poor { background: var(--score-poor); }
+.location-score-circle.excellent {
+    border-color: var(--score-excellent);
+    color: var(--score-excellent);
+}
+.location-score-circle.good {
+    border-color: var(--score-good);
+    color: var(--score-good);
+}
+.location-score-circle.fair {
+    border-color: var(--score-fair);
+    color: var(--score-fair);
+}
+.location-score-circle.poor {
+    border-color: var(--score-poor);
+    color: var(--score-poor);
+}
 
 .location-empty-state {
     padding: 24px 16px;

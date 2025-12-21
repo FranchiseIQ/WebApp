@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let comparisonLocations = [];
     let scoreFilter = { min: 0, max: 100 };
     let proximityIndex = new ProximityIndex(0.02); // Grid-based spatial index
+    let highPerformersOpen = false; // Track high performers panel state
 
     // Predefined unique color palette - 60+ distinct colors
     const COLOR_PALETTE = [
@@ -921,13 +922,13 @@ document.addEventListener('DOMContentLoaded', () => {
             exportBtn.onclick = exportAllVisible;
         }
 
-        // High performers card click
+        // High performers card click - toggle open/close
         const highScoreCount = document.getElementById('high-score-count');
         if (highScoreCount) {
             const highPerfCard = highScoreCount.closest('.stat-card');
             if (highPerfCard) {
                 highPerfCard.style.cursor = 'pointer';
-                highPerfCard.onclick = showHighPerformers;
+                highPerfCard.onclick = toggleHighPerformers;
             }
         }
 
@@ -1197,6 +1198,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function toggleHighPerformers() {
+        const performersPanel = document.getElementById('high-performers-panel');
+        const isCurrentlyHidden = performersPanel.classList.contains('hidden');
+
+        if (isCurrentlyHidden) {
+            // Opening - show high performers
+            showHighPerformers();
+        } else {
+            // Closing
+            hideHighPerformers();
+        }
+    }
+
     function showHighPerformers() {
         const visible = allLocations.filter(loc => activeTickers.has(loc.ticker));
         const highPerformers = visible.filter(loc => loc.s >= 80)
@@ -1205,9 +1219,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const performersPanel = document.getElementById('high-performers-panel');
         const performersContent = document.getElementById('high-performers-content');
 
+        // Update the stat card count
+        document.getElementById('high-score-count').textContent = highPerformers.length;
+
         if (highPerformers.length === 0) {
             performersContent.innerHTML = '<p style="padding: 12px; text-align: center; color: var(--text-light); font-size: 0.85rem;">No high performers in current selection</p>';
             performersPanel.classList.remove('hidden');
+            highPerformersOpen = true;
             return;
         }
 
@@ -1235,11 +1253,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         performersPanel.classList.remove('hidden');
+        highPerformersOpen = true;
     }
 
     function hideHighPerformers() {
         const performersPanel = document.getElementById('high-performers-panel');
         performersPanel.classList.add('hidden');
+        highPerformersOpen = false;
     }
 
     function navigateToPerformer(location) {
@@ -1400,7 +1420,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // (panel open state is managed by toggleLocationPanel)
 
         container.innerHTML = sorted.map(loc => {
-            const address = loc.at ? (loc.at.address || loc.at.city || 'Unknown location') : 'Unknown location';
+            // Use the main address field (loc.a), show placeholder if it's generic
+            const address = (loc.a && loc.a !== 'US Location (OSM)') ? loc.a : 'Location data pending';
             const name = loc.name || loc.n || 'Unknown';
             const score = Math.round(loc.s);
             const scoreTier = getScoreTier(score);
