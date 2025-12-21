@@ -3,13 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const ROARK_TICKERS = ['INSPIRE', 'FOCUS', 'DRIVEN', 'ROARK'];
     const RADIUS_STEPS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
 
-    // Category mappings for filters
+    // Legacy category map - kept for backward compatibility, but categories are now loaded from brand_metadata.json
+    // This will be overridden by brandMetadata categories once loaded
     const CATEGORY_MAP = {
-        'qsr': ['MCD', 'SBUX', 'YUM', 'QSR', 'WEN', 'DPZ', 'CMG', 'JACK', 'WING', 'SHAK', 'PZZA', 'DNUT', 'NATH', 'INSPIRE', 'FOCUS'],
-        'casual': ['DENN', 'DIN', 'CBRL', 'TXRH', 'BLMN', 'CAKE', 'BJRI', 'CHUY', 'EAT', 'DRI', 'RRGB', 'PLAY'],
-        'hotels': ['MAR', 'HLT', 'H', 'IHG', 'WH', 'CHH', 'BW', 'G6', 'VAC', 'TNL'],
-        'services': ['MCW', 'PLNT', 'XPOF', 'HRB', 'SERV', 'ROL', 'HLE', 'CAR', 'UHAL', 'DRIVEN'],
-        'private': ['SUB', 'CFA', 'PANDA', 'DQ', 'LCE', 'JM', 'FIVE', 'CANE', 'WHATA', 'ZAX', 'BO', 'WAWA', 'SHEETZ', 'INNOUT', 'PANERA', 'DUTCH']
+        'qsr': [],
+        'casual': [],
+        'hotels': [],
+        'fitness': [],
+        'services': [],
+        'other': []
     };
 
     // Score tier configurations
@@ -109,12 +111,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Build category map from brand metadata
+    function buildCategoryMapFromMetadata() {
+        // Reset category map
+        Object.keys(CATEGORY_MAP).forEach(cat => CATEGORY_MAP[cat] = []);
+
+        // Populate from brand metadata
+        for (const [ticker, brand] of Object.entries(brandMetadata)) {
+            const category = brand.category || 'other';
+            if (!CATEGORY_MAP[category]) {
+                CATEGORY_MAP[category] = [];
+            }
+            CATEGORY_MAP[category].push(ticker);
+        }
+
+        console.log('✓ Built dynamic category map from brand metadata');
+    }
+
     // Load brand metadata (ownership classifications)
     function loadBrandMetadata() {
         return fetch('data/brand_metadata.json')
             .then(res => res.json())
             .then(data => {
                 brandMetadata = data.brands;
+                buildCategoryMapFromMetadata();
                 console.log('✓ Loaded brand metadata for', Object.keys(brandMetadata).length, 'brands');
             })
             .catch(e => {

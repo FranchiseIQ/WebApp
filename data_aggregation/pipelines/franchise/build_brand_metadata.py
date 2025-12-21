@@ -27,12 +27,12 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 from data_aggregation.config.paths_config import BRAND_METADATA_JSON, FRANCHISEMAP_DATA_DIR
 
 # ============================================================================
-# SEED LISTS: Brand ownership classification
+# SEED LISTS: Brand ownership classification with enhanced metadata
 # ============================================================================
-# These seed lists define the canonical ownership model for each ticker.
-# Maps tickers to ownership_model and primary_subtype.
+# These seed lists define ownership models, subtypes, and categories for brands.
 
-FRANCHISE_LICENSED = {
+# QSR (Quick Service Restaurant) Franchises - Licensed
+QSR_LICENSED = {
     'MCD': "McDonald's",
     'SBUX': 'Starbucks',
     'YUM': 'Yum! Brands (KFC, Taco Bell, Pizza Hut)',
@@ -50,9 +50,12 @@ FRANCHISE_LICENSED = {
     'DOMINOS': "Domino's",
     'MCDONALDS': "McDonald's",
     'STARBUCKS': 'Starbucks',
+    'WENDYS': "Wendy's",
+    'WINGSTOP': 'Wingstop',
 }
 
-FRANCHISE_INDEPENDENT = {
+# Casual Dining Franchises - Independent
+CASUAL_INDEPENDENT = {
     'DENN': "Denny's",
     'DIN': 'Dine Global (IHOP, Applebee\'s)',
     'CBRL': 'Cracker Barrel',
@@ -64,10 +67,10 @@ FRANCHISE_INDEPENDENT = {
     'EAT': "Ark Restaurants (Chili's, Maggiano's)",
     'DRI': 'Dine Global Holdings (Olive Garden, LongHorn)',
     'RRGB': 'Red Robin',
-    'PLAY': "Dave & Buster's",
 }
 
-NON_FRANCHISE_CORPORATE = {
+# QSR Non-Franchise - Corporate
+QSR_CORPORATE = {
     'SUB': 'Subway',
     'CFA': 'Chick-fil-A',
     'PANDA': 'Panda Express',
@@ -86,6 +89,7 @@ NON_FRANCHISE_CORPORATE = {
     'DUTCH': 'Dutch Bros',
 }
 
+# Hotels Franchises - Licensed
 HOTELS_LICENSED = {
     'MAR': 'Marriott',
     'HLT': 'Hilton',
@@ -99,44 +103,70 @@ HOTELS_LICENSED = {
     'TNL': 'Travel Leaders',
 }
 
-SERVICES_LICENSED = {
+# Fitness & Services Franchises - Licensed
+FITNESS_LICENSED = {
     'MCW': 'Massage Envy',
     'PLNT': 'Planet Fitness',
+    'PLANETFITNESS': 'Planet Fitness',
     'XPOF': 'Xponential',
+}
+
+SERVICES_LICENSED = {
     'HRB': 'H&R Block',
     'SERV': 'ServiceMaster',
     'ROL': 'Rollover',
-    'HLE': 'Healthylife',
     'CAR': 'Carmax',
     'UHAL': 'U-Haul',
     'DRIVEN': 'Driven',
 }
 
-# Roark Capital group (mixed ownership, but primarily franchise for mapping purposes)
+# Roark Capital group (mixed ownership, primarily franchise)
 ROARK_GROUP = {
     'INSPIRE': 'Inspire Brands',
     'FOCUS': 'Focusrite',
 }
 
-# Additional tickers (mapped from manifest)
-ADDITIONAL_TICKERS = {
-    'PLANETFITNESS': 'Planet Fitness',
+# Additional low-confidence mappings
+ADDITIONAL_MAPPINGS = {
     'SHAKESHACK': 'Shake Shack',
-    'WENDYS': "Wendy's",
-    'WINGSTOP': 'Wingstop',
 }
+
+# Category mappings for brands
+CATEGORY_CLASSIFICATIONS = {
+    'qsr': list(QSR_LICENSED.keys()) + list(QSR_CORPORATE.keys()),
+    'casual': list(CASUAL_INDEPENDENT.keys()) + ['PLAY'],  # Dave & Buster's
+    'hotels': list(HOTELS_LICENSED.keys()),
+    'fitness': list(FITNESS_LICENSED.keys()),
+    'services': list(SERVICES_LICENSED.keys()) + list(ROARK_GROUP.keys()),
+}
+
+
+def get_category_for_ticker(ticker: str) -> str:
+    """
+    Determine category for a ticker based on classification mappings.
+
+    Args:
+        ticker: Brand ticker symbol
+
+    Returns:
+        Category string (qsr, casual, hotels, fitness, services, or 'Other')
+    """
+    for category, tickers in CATEGORY_CLASSIFICATIONS.items():
+        if ticker in tickers:
+            return category
+    return 'Other'
 
 
 def build_metadata() -> Dict:
     """
-    Generate brand_metadata.json from seed lists.
+    Generate brand_metadata.json from seed lists with enhanced schema.
 
     Returns:
         Dictionary with schema_version, generated_date, and brands object
     """
 
     metadata = {
-        "schema_version": "1.0",
+        "schema_version": "2.0",
         "generated_date": datetime.utcnow().isoformat() + "Z",
         "brands": {}
     }
@@ -144,53 +174,70 @@ def build_metadata() -> Dict:
     # Combine all seed lists with their ownership/subtype classifications
     all_classifications = [
         [(ticker, name, 'franchise', 'licensed')
-         for ticker, name in FRANCHISE_LICENSED.items()],
+         for ticker, name in QSR_LICENSED.items()],
         [(ticker, name, 'franchise', 'independent')
-         for ticker, name in FRANCHISE_INDEPENDENT.items()],
+         for ticker, name in CASUAL_INDEPENDENT.items()],
         [(ticker, name, 'non-franchise', 'corporate')
-         for ticker, name in NON_FRANCHISE_CORPORATE.items()],
+         for ticker, name in QSR_CORPORATE.items()],
         [(ticker, name, 'franchise', 'licensed')
          for ticker, name in HOTELS_LICENSED.items()],
+        [(ticker, name, 'franchise', 'licensed')
+         for ticker, name in FITNESS_LICENSED.items()],
         [(ticker, name, 'franchise', 'licensed')
          for ticker, name in SERVICES_LICENSED.items()],
         [(ticker, name, 'franchise', 'licensed')
          for ticker, name in ROARK_GROUP.items()],
         [(ticker, name, 'franchise', 'licensed')
-         for ticker, name in ADDITIONAL_TICKERS.items()],
+         for ticker, name in ADDITIONAL_MAPPINGS.items()],
     ]
 
     # Load location counts from manifest
     manifest_path = FRANCHISEMAP_DATA_DIR / 'manifest.json'
     manifest_counts = {}
+    manifest_categories = {}
     if manifest_path.exists():
         try:
             with open(manifest_path, 'r') as f:
                 manifest_data = json.load(f)
-                manifest_counts = {item['ticker']: item['count'] for item in manifest_data}
+                for item in manifest_data:
+                    manifest_counts[item['ticker']] = item.get('count', 0)
+                    manifest_categories[item['ticker']] = item.get('category', 'Other')
         except (json.JSONDecodeError, KeyError, TypeError) as e:
-            print(f"⚠️  Warning: Could not read manifest counts: {e}")
+            print(f"⚠️  Warning: Could not read manifest: {e}")
 
     # Build final metadata
+    processed_tickers = set()
     for classifications in all_classifications:
         for ticker, brand_name, ownership_model, subtype in classifications:
             # Skip if already processed (prevent duplicates)
-            if ticker in metadata['brands']:
+            if ticker in processed_tickers:
                 continue
+
+            category = get_category_for_ticker(ticker)
 
             metadata['brands'][ticker] = {
                 'name': brand_name,
                 'ownership_model': ownership_model,
                 'primary_subtype': subtype,
+                'category': category,
+                'industry_category': manifest_categories.get(ticker, ''),
+                'sub_sector': '',
                 'count': manifest_counts.get(ticker, 0),
+                'needs_review': False,
                 'notes': ''
             }
+            processed_tickers.add(ticker)
 
     # Add unknown placeholder for unmapped tickers
     metadata['brands']['UNKNOWN'] = {
         'name': 'Unknown',
         'ownership_model': 'unknown',
         'primary_subtype': 'unknown',
+        'category': 'Other',
+        'industry_category': '',
+        'sub_sector': '',
         'count': 0,
+        'needs_review': True,
         'notes': 'Placeholder for unclassified brands'
     }
 
@@ -225,6 +272,7 @@ def validate_metadata(metadata: Dict) -> List[str]:
     # Validate each brand
     valid_ownership = {'franchise', 'non-franchise', 'unknown'}
     valid_subtypes = {'licensed', 'corporate', 'independent', 'unknown'}
+    valid_categories = {'qsr', 'casual', 'hotels', 'fitness', 'services', 'Other'}
 
     for ticker, brand in metadata['brands'].items():
         if not isinstance(brand, dict):
@@ -246,6 +294,14 @@ def validate_metadata(metadata: Dict) -> List[str]:
 
         if 'count' not in brand or not isinstance(brand['count'], int):
             errors.append(f"Brand {ticker} missing or invalid count")
+
+        if 'category' not in brand:
+            errors.append(f"Brand {ticker} missing category")
+        elif brand['category'] not in valid_categories:
+            errors.append(f"Brand {ticker} has invalid category: {brand['category']}")
+
+        if 'needs_review' not in brand or not isinstance(brand['needs_review'], bool):
+            errors.append(f"Brand {ticker} missing or invalid needs_review")
 
     return errors
 
@@ -282,6 +338,14 @@ def main():
     corporate_count = sum(1 for b in metadata['brands'].values() if b['primary_subtype'] == 'corporate')
     independent_count = sum(1 for b in metadata['brands'].values() if b['primary_subtype'] == 'independent')
 
+    # Category counts
+    category_counts = {}
+    for brand in metadata['brands'].values():
+        cat = brand.get('category', 'Other')
+        category_counts[cat] = category_counts.get(cat, 0) + 1
+
+    needs_review_count = sum(1 for b in metadata['brands'].values() if b.get('needs_review', False))
+
     print(f"\n✅ Generated {output_path}")
     print(f"\n📊 Brand Summary:")
     print(f"   Total brands: {len(metadata['brands'])}")
@@ -294,6 +358,11 @@ def main():
     print(f"      Corporate: {corporate_count}")
     print(f"      Independent: {independent_count}")
     print(f"      Unknown: {unknown_count}")
+    print(f"\n   Categories:")
+    for cat in sorted(category_counts.keys()):
+        print(f"      {cat.capitalize()}: {category_counts[cat]}")
+    print(f"\n   Review Status:")
+    print(f"      Needs Review: {needs_review_count}")
 
     total_locations = sum(b['count'] for b in metadata['brands'].values())
     print(f"\n   Total Locations: {total_locations:,}")
