@@ -2423,3 +2423,27 @@ body {
 .score-breakdown {
     touch-action: pan-x pan-y;
 }
+
+/* Score Filter Section in Market Analysis Panel */
+.score-filter-section {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 16px;
+}
+
+.score-filter-header {
+    margin-bottom: 12px;
+}
+
+.score-filter-header h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0 0 12px 0;
+}
+
+.score-filter-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
