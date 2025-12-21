@@ -162,14 +162,17 @@ body {
     background: #e5e7eb;
 }
 
-/* Dashboard Stats */
+/* Dashboard Stats - Left side, horizontal layout */
 .dashboard-stats {
     position: absolute;
     top: 20px;
-    left: 380px;
+    left: 20px;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 12px;
     z-index: 1000;
+    max-width: 340px;
 }
 
 .stat-card {
@@ -513,7 +516,7 @@ body {
     border-radius: var(--radius-md);
 }
 
-/* Controls Rail */
+/* Controls Rail - Right side vertical with search at top */
 #map-controls-rail {
     position: absolute;
     right: 20px;
@@ -568,13 +571,13 @@ body {
     margin: 4px 8px;
 }
 
-/* Panel */
+/* Panel - Market Analysis on right side, positioned below controls */
 #info-panel {
     position: absolute;
-    top: 20px;
+    top: 90px;
     right: 20px;
     width: 340px;
-    max-height: calc(100% - 20px);
+    max-height: calc(100% - 110px);
     background: white;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
@@ -1307,11 +1310,11 @@ body {
     flex-shrink: 0;
 }
 
-/* Right Side Location Panel */
+/* Left Side Location Panel - Below dashboard stats */
 .location-panel {
     position: absolute;
-    top: 280px;
-    right: 20px;
+    top: 160px;
+    left: 20px;
     width: 280px;
     max-height: 280px;
     background: white;
@@ -1458,11 +1461,11 @@ body {
     opacity: 0.5;
 }
 
-/* High Performers Panel */
+/* High Performers Panel - Left side below location panel */
 .high-performers-panel {
     position: absolute;
-    top: 600px;
-    right: 20px;
+    top: 460px;
+    left: 20px;
     width: 280px;
     max-height: 280px;
     background: white;
