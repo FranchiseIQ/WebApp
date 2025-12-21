@@ -741,6 +741,41 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('comparison-panel').classList.remove('visible');
     }
 
+    function openBrandComparisonTool() {
+        // Get all active locations
+        const activeLocations = allLocations.filter(loc => activeTickers.has(loc.ticker));
+
+        if (activeLocations.length === 0) {
+            alert('No active brands selected. Please select brands first.');
+            return;
+        }
+
+        // Show comparison panel and populate with top performers for quick selection
+        const topPerformers = activeLocations
+            .sort((a, b) => b.s - a.s)
+            .slice(0, 10);
+
+        // Clear current comparison
+        comparisonLocations = [];
+
+        // Auto-select top 3 for quick comparison
+        topPerformers.slice(0, 3).forEach(loc => {
+            comparisonLocations.push(loc);
+        });
+
+        updateComparisonPanel();
+        showComparisonPanel();
+
+        // Show toast notification
+        const msg = `Selected top 3 locations from ${activeLocations.length} active brands. Click locations on map to add/remove.`;
+        showNotification(msg);
+    }
+
+    function showNotification(message, duration = 3000) {
+        // Simple notification - could be enhanced with a toast notification system
+        console.log('Notification:', message);
+    }
+
     function updateComparisonPanel() {
         const container = document.getElementById('comparison-cards');
         container.innerHTML = '';
@@ -922,6 +957,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeLocationPanelBtn = document.getElementById('close-location-panel');
         if (closeLocationPanelBtn) {
             closeLocationPanelBtn.onclick = toggleLocationPanel;
+        }
+
+        // Active Brands card - open comparison tool
+        const brandsActiveEl = document.getElementById('brands-active');
+        if (brandsActiveEl) {
+            const brandsActiveCard = brandsActiveEl.closest('.stat-card');
+            if (brandsActiveCard) {
+                brandsActiveCard.style.cursor = 'pointer';
+                brandsActiveCard.onclick = openBrandComparisonTool;
+            }
         }
 
         // Close slider modal
