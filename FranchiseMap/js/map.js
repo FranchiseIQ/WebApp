@@ -729,7 +729,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupRail() {
         document.getElementById('btn-home').onclick = () => map.setView([39.82, -98.58], 4);
-        document.getElementById('btn-locate').onclick = () => map.locate({setView: true, maxZoom: 14});
+
+        // Near Me button with error handling
+        const locateBtn = document.getElementById('btn-locate');
+        locateBtn.onclick = function() {
+            locateBtn.classList.add('locating');
+            map.locate({setView: true, maxZoom: 14});
+        };
+
+        // Handle geolocation success
+        map.on('locationfound', function(e) {
+            locateBtn.classList.remove('locating');
+        });
+
+        // Handle geolocation errors
+        map.on('locationerror', function(e) {
+            locateBtn.classList.remove('locating');
+            console.warn('Geolocation error:', e);
+            alert('Unable to access your location. Please ensure:\n1. Location services are enabled\n2. Browser has permission to access location\n3. You are viewing over HTTPS (if required)');
+        });
 
         document.getElementById('btn-cluster-toggle').onclick = function() {
             isClusterView = !isClusterView;

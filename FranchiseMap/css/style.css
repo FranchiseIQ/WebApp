@@ -540,6 +540,17 @@ body {
     color: white;
 }
 
+.control-btn.locating {
+    animation: pulse 1.5s ease-in-out infinite;
+    background: var(--primary-purple);
+    color: white;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
 .control-divider {
     height: 1px;
     background: var(--border-light);
