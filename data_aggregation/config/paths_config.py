@@ -29,6 +29,7 @@ DATA_AGGREGATION_ROOT = Path(__file__).parent.parent
 
 # FranchiseMap main data directory
 FRANCHISEMAP_DATA_DIR = REPO_ROOT / "FranchiseMap" / "data"
+BRAND_METADATA_JSON = FRANCHISEMAP_DATA_DIR / 'brand_metadata.json'
 
 # Stock data directories
 STOCKS_DATA_DIR = REPO_ROOT / "data" / "stocks"
