@@ -93,8 +93,28 @@
             <div id="high-performers-content" class="high-performers-content"></div>
         </aside>
 
+        <!-- Search Panel (Collapsible) -->
+        <div id="search-panel" class="search-panel hidden">
+            <div class="search-panel-header">
+                <div class="search-panel-title">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Search</span>
+                </div>
+                <button id="close-search-panel" class="close-search-panel-btn" title="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="search-panel-content">
+                <input type="text" id="search-input" class="search-input" placeholder="City, zip, or address...">
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+
         <!-- Dashboard Stats Bar -->
         <div id="dashboard-stats" class="dashboard-stats">
+            <button id="search-toggle-btn" class="stat-card search-toggle" title="Search location or area">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
                 <div class="stat-content">

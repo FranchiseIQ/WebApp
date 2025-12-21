@@ -75,15 +75,16 @@ document.addEventListener('DOMContentLoaded', () => {
         L.control.layers(baseMaps, { "3D Buildings": dummy3D }, { position: 'bottomright' }).addTo(map);
         L.control.zoom({ position: 'topleft' }).addTo(map);
 
-        L.Control.geocoder({
+        // Replace default geocoder with custom implementation
+        geocoderControl = L.Control.geocoder({
             defaultMarkGeocode: false,
             placeholder: "Search city, zip, or address...",
             geocoder: L.Control.Geocoder.nominatim()
         })
         .on('markgeocode', function(e) {
             map.fitBounds(e.geocode.bbox);
-        })
-        .addTo(map);
+        });
+        // Don't add to map - we'll use custom panel instead
 
         clusterGroup = L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 40, chunkedLoading: true });
         map.addLayer(clusterGroup);
@@ -135,8 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerHTML = `
                 <span class="brand-dot" style="background-color: ${color}"></span>
                 <div class="brand-info">
-                    <div class="brand-ticker">${item.ticker}</div>
                     <div class="brand-name">${item.brands[0]}</div>
+                    <div class="brand-ticker">${item.ticker}</div>
                 </div>
                 <span class="brand-count">${item.count.toLocaleString()}</span>
             `;
@@ -1082,6 +1083,96 @@ document.addEventListener('DOMContentLoaded', () => {
         makeElementDraggable('location-panel', '.location-panel-header');
         makeElementDraggable('high-performers-panel', '.high-performers-header');
         makeElementDraggable('info-panel', '.panel-header');
+        makeElementDraggable('search-panel', '.search-panel-header');
+
+        // Search panel functionality
+        setupSearchPanel();
+    }
+
+    function setupSearchPanel() {
+        const searchPanel = document.getElementById('search-panel');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        const closeSearchBtn = document.getElementById('close-search-panel');
+        const searchToggleBtn = document.getElementById('search-toggle-btn');
+
+        if (!searchPanel || !searchInput) return;
+
+        // Toggle button
+        if (searchToggleBtn) {
+            searchToggleBtn.onclick = function() {
+                if (searchPanel.classList.contains('hidden')) {
+                    searchPanel.classList.remove('hidden');
+                    searchInput.focus();
+                } else {
+                    searchPanel.classList.add('hidden');
+                }
+            };
+        }
+
+        // Close button
+        if (closeSearchBtn) {
+            closeSearchBtn.onclick = function() {
+                searchPanel.classList.add('hidden');
+            };
+        }
+
+        // Search input handler
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                performSearch(this.value);
+            }
+        });
+
+        searchInput.addEventListener('input', function() {
+            if (this.value.length > 2) {
+                performSearch(this.value);
+            } else {
+                searchResults.innerHTML = '';
+            }
+        });
+    }
+
+    function performSearch(query) {
+        const searchResults = document.getElementById('search-results');
+        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=us`;
+
+        fetch(url)
+            .then(res => res.json())
+            .then(results => {
+                searchResults.innerHTML = '';
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<div style="padding: 8px; color: var(--text-light); font-size: 0.85rem;">No results found</div>';
+                    return;
+                }
+
+                results.forEach(result => {
+                    const resultEl = document.createElement('div');
+                    resultEl.className = 'search-result-item';
+                    resultEl.textContent = result.display_name.split(',')[0];
+                    resultEl.onclick = function() {
+                        const bbox = result.boundingbox;
+                        map.fitBounds([
+                            [parseFloat(bbox[0]), parseFloat(bbox[2])],
+                            [parseFloat(bbox[1]), parseFloat(bbox[3])]
+                        ]);
+                    };
+                    searchResults.appendChild(resultEl);
+                });
+            })
+            .catch(err => {
+                console.error('Search error:', err);
+                searchResults.innerHTML = '<div style="padding: 8px; color: red; font-size: 0.85rem;">Search error</div>';
+            });
+    }
+
+    function openSearchPanel() {
+        const searchPanel = document.getElementById('search-panel');
+        if (searchPanel) {
+            searchPanel.classList.remove('hidden');
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) searchInput.focus();
+        }
     }
 
     function makeElementDraggable(elementId, headerSelector) {
