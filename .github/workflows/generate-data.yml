@@ -27,6 +27,10 @@ jobs:
           pip install requests
           python -m data_aggregation.pipelines.franchise.generate_locations
 
+      - name: Generate Brand Metadata
+        run: |
+          python -m data_aggregation.pipelines.franchise.build_brand_metadata
+
       # --- SAFETY NET: Save data as a Zip file ---
       # If the push fails below, you can download this from the Actions Summary page!
       - name: Upload Data Artifacts
