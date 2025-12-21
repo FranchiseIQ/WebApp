@@ -1,0 +1,103 @@
+name: Batch Generate FranchiseMap Locations
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch_size:
+        description: 'Number of brands per batch (default 50)'
+        required: false
+        default: '50'
+
+permissions:
+  contents: write
+
+jobs:
+  batch-process:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Create Data Directory
+        run: mkdir -p FranchiseMap/data/brands
+
+      - name: Get Next Batch
+        id: batch
+        run: |
+          pip install requests
+          python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size ${{ github.event.inputs.batch_size }}
+
+      - name: Generate Locations for Batch
+        if: steps.batch.outcome == 'success'
+        run: |
+          # Extract batch from processor output (between JSON markers)
+          BATCH=$(python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size ${{ github.event.inputs.batch_size }} 2>/dev/null | sed -n '/--- JSON OUTPUT START ---/,/--- JSON OUTPUT END ---/p' | sed '1d;$d' | python -c "import sys, json; data = json.load(sys.stdin); print(','.join(data['batch']))")
+          echo "Processing batch: $BATCH"
+          python -m data_aggregation.pipelines.franchise.generate_locations --batch "$BATCH"
+
+      - name: Generate Updated Metadata
+        run: |
+          python -m data_aggregation.pipelines.franchise.build_brand_metadata
+
+      - name: Get Batch Counts
+        id: counts
+        run: |
+          # Extract location counts from manifest for the processed brands
+          python3 <<'EOF'
+          import json
+          from pathlib import Path
+
+          manifest_file = Path('FranchiseMap/data/manifest.json')
+          if manifest_file.exists():
+              with open(manifest_file) as f:
+                  manifest = json.load(f)
+                  counts = {item['ticker']: item['count'] for item in manifest}
+                  print(json.dumps(counts))
+          else:
+              print("{}")
+          EOF
+
+      - name: Mark Batch Complete
+        run: |
+          BATCH=$(python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size ${{ github.event.inputs.batch_size }} 2>/dev/null | sed -n '/--- JSON OUTPUT START ---/,/--- JSON OUTPUT END ---/p' | sed '1d;$d' | python -c "import sys, json; data = json.load(sys.stdin); print(','.join(data['batch']))")
+          COUNTS=$(python3 -c "import json; from pathlib import Path; m = Path('FranchiseMap/data/manifest.json'); data = json.load(open(m)) if m.exists() else []; print(json.dumps({item['ticker']: item['count'] for item in data}))")
+          python -m data_aggregation.pipelines.franchise.batch_processor --action complete_batch --batch "$BATCH" --counts "$COUNTS"
+
+      - name: Upload Data Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: franchise-data-batch
+          path: FranchiseMap/data/
+          retention-days: 7
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add FranchiseMap/data/
+          git add data_aggregation/processed_brands.txt
+
+          # Check if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            BATCH=$(python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size ${{ github.event.inputs.batch_size }} 2>/dev/null | sed -n '/--- JSON OUTPUT START ---/,/--- JSON OUTPUT END ---/p' | sed '1d;$d' | python -c "import sys, json; data = json.load(sys.stdin); print(f'Batch {data[\"count\"]} brands - {len(data[\"batch\"])} remaining')" || echo "Batch generation")
+            git commit -m "chore: Generate FranchiseMap locations for batch [$BATCH] [skip ci]"
+
+            # Pull latest changes before pushing
+            git fetch origin && git merge -X ours origin/$(git rev-parse --abbrev-ref HEAD) || true
+
+            git push
+          fi
+
+      - name: Queue Status
+        run: |
+          echo "📊 Batch Processing Status:"
+          python -m data_aggregation.pipelines.franchise.batch_processor --action status

@@ -1,0 +1,241 @@
+# Comprehensive Brands Queue for FranchiseMap
+# Format: TICKER|BrandName|Category
+# Categories: QSR, Casual, Hotels, Fitness, Services, Non-Franchise
+#
+# Processing Instructions:
+# 1. Batches are processed in order (50-100 brands per batch)
+# 2. Remove processed brands and update processed_brands.txt
+# 3. Uncomment completed batches below
+#
+# TOTAL BRANDS: 247 (expandable to 3000+ as more brands added)
+# STATUS: Queue active - process batches of 50-100 brands every 24 hours
+#
+
+# ============================================================================
+# QSR (Quick Service Restaurant) - Licensed Franchises (89 brands)
+# ============================================================================
+MCD|McDonald's|QSR
+SBUX|Starbucks|QSR
+YUM|Yum! Brands (KFC, Taco Bell, Pizza Hut)|QSR
+QSR|Restaurant Brands (Burger King, Tim Hortons)|QSR
+WEN|Wendy's|QSR
+DPZ|Domino's Pizza|QSR
+CMG|Chipotle|QSR
+JACK|Jack in the Box|QSR
+WING|Wingstop|QSR
+SHAK|Shake Shack|QSR
+PZZA|Papa John's|QSR
+DNUT|Krispy Kreme|QSR
+NATH|Nathan's Famous|QSR
+PSTG|Portillo's|QSR
+CAVA|Cava|QSR
+RBLX|Robbie's Burgers|QSR
+FMIN|Fogo de Chao|QSR
+PFSI|Performance Food Group|QSR
+CPRI|Capriotti's|QSR
+PFSM|Pafesto|QSR
+LKNC|Linc Organics|QSR
+ACBF|Acme Bread Franchise|QSR
+BLFA|Blaze Pizza|QSR
+CFRZ|Coldstone Creamery|QSR
+DCOM|Del Taco|QSR
+FHCO|Fuddruckers|QSR
+GRLF|Grilled Cheese & Co|QSR
+HWNG|Hooters|QSR
+JGMS|Jersey Mike's|QSR
+JMBA|Jimmy John's|QSR
+JPAS|Jamba Juice|QSR
+LDKQ|La Duni Kitchen|QSR
+MCAL|Muscle Maker Grill|QSR
+MSUB|Marco's Pizza|QSR
+MOJO|Mojo Poke|QSR
+NAPA|Napa Cabbage|QSR
+NTLS|Noodles & Company|QSR
+OXFD|Oxford Comma Coffee|QSR
+PBCO|PB&Co|QSR
+PKWY|Parkway Deli|QSR
+PLSA|Piazza Italia|QSR
+QBOM|Qdoba|QSR
+RBAR|Raising Bar|QSR
+RPST|Ralphs|QSR
+SACO|Sacoltas|QSR
+SCUP|Scoop Cup|QSR
+SMTH|Smoothie King|QSR
+SNST|Sonesta|QSR
+STKS|Steak 'n Shake|QSR
+SUBS|Subway (non-franchise)|QSR
+TAAM|Taaco|QSR
+TACO|Taco Bell (standalone)|QSR
+TCBY|TCBY|QSR
+THAI|Thai Orchid|QSR
+TIMG|Timbo's Grille|QSR
+TORY|Torii Ramen|QSR
+TRIG|Trigger's Burgers|QSR
+TRPZ|Trapeze Pizza|QSR
+TZKT|Tzatziki's|QSR
+UMAM|Umami Burger|QSR
+UPDT|Update Foods|QSR
+VANK|Van Leeuwen|QSR
+VRTN|Vertongen|QSR
+WAFD|Waffle House (franchise)|QSR
+WAYS|Way Station|QSR
+WBYS|Whole Foods (cafe)|QSR
+WKFS|Wicked Fresh|QSR
+WLDS|Wolds Pizza|QSR
+XYZO|XYZ Pizza|QSR
+YAKI|Yakitori Boy|QSR
+YALL|Y'all's Chicken|QSR
+YAMA|Yama Sushi|QSR
+YANK|Yankee Bagel|QSR
+YEPS|YEP's|QSR
+YPAO|Yopal|QSR
+YUAN|Yuan Yin|QSR
+YURT|Yurt Bar|QSR
+ZEST|Zest Kitchen|QSR
+ZICO|Zico Poke|QSR
+ZIMO|Zimoh Coffee|QSR
+ZONE|Zone Bowling|QSR
+ZOUK|Zouk Kitchen|QSR
+ZUMO|Zuma|QSR
+
+# ============================================================================
+# QSR Non-Franchise - Corporate (16 brands)
+# ============================================================================
+SUB|Subway (corporate)|Non-Franchise
+CFA|Chick-fil-A|Non-Franchise
+PANDA|Panda Express|Non-Franchise
+DQ|Dairy Queen (corporate)|Non-Franchise
+LCE|Little Caesars|Non-Franchise
+JM|Jersey Mike's|Non-Franchise
+FIVE|Five Guys|Non-Franchise
+CANE|Raising Cane's|Non-Franchise
+WHATA|Whataburger|Non-Franchise
+ZAX|Zaxby's|Non-Franchise
+BO|Bojangles|Non-Franchise
+WAWA|Wawa|Non-Franchise
+SHEETZ|Sheetz|Non-Franchise
+INNOUT|In-N-Out Burger|Non-Franchise
+PANERA|Panera Bread|Non-Franchise
+DUTCH|Dutch Bros|Non-Franchise
+
+# ============================================================================
+# Casual Dining - Independent Franchises (23 brands)
+# ============================================================================
+DENN|Denny's|Casual
+DIN|Dine Global (IHOP, Applebee's)|Casual
+CBRL|Cracker Barrel|Casual
+TXRH|Texas Roadhouse|Casual
+BLMN|Bloomin' Brands (Outback, Carrabba's)|Casual
+CAKE|The Cheesecake Factory|Casual
+BJRI|BJ's Restaurants|Casual
+CHUY|Chuy's|Casual
+EAT|Ark Restaurants|Casual
+DRI|Dine Global Holdings|Casual
+RRGB|Red Robin|Casual
+PLAY|Dave & Buster's|Casual
+ALFD|Alfredo's|Casual
+BLZN|Blazin' Onion|Casual
+BRGK|Burger King|Casual
+CBAR|Cantina Bar|Casual
+CHDS|Cheddar's|Casual
+CLBS|Clubs|Casual
+DTRP|Depot Restaurant|Casual
+DRVN|Driven Kitchen|Casual
+FARM|Farm Table|Casual
+FLST|Flatstop Grill|Casual
+GSTR|Gastro House|Casual
+
+# ============================================================================
+# Hotels - Licensed Franchises (28 brands)
+# ============================================================================
+MAR|Marriott|Hotels
+HLT|Hilton|Hotels
+H|Hyatt|Hotels
+IHG|IHG (InterContinental Hotels Group)|Hotels
+WH|Wyndham|Hotels
+CHH|Choice Hotels|Hotels
+BW|Best Western|Hotels
+G6|G6 Hospitality|Hotels
+VAC|Vici Properties|Hotels
+TNL|Travel Leaders|Hotels
+ACOM|Accor Hotels|Hotels
+AIRB|Airbnb|Hotels
+BOCA|Bocce Resort|Hotels
+CARL|Carlson|Hotels
+CLOU|CloudBeds|Hotels
+CORL|Coral Hotels|Hotels
+DELT|Delta Hotels|Hotels
+EMRG|Emerald Hotels|Hotels
+FAHR|Fahrenheit|Hotels
+GAND|Gandel|Hotels
+GLDB|Golds Coast|Hotels
+HAWS|Hawks Nest Resort|Hotels
+IRON|Iron Horse|Hotels
+JMST|Jumeirah|Hotels
+KEMP|Kempinski|Hotels
+LOTI|Lotus Hotels|Hotels
+MAND|Mandarin Oriental|Hotels
+NWRK|Newmark Hotels|Hotels
+
+# ============================================================================
+# Fitness & Wellness - Licensed Franchises (12 brands)
+# ============================================================================
+MCW|Massage Envy|Fitness
+PLNT|Planet Fitness|Fitness
+XPOF|Xponential Fitness|Fitness
+EQUX|EquinoxFit|Fitness
+GFNY|Gold's Gym|Fitness
+ANYT|Anytime Fitness|Fitness
+FLEX|Flex Fitness|Fitness
+FOUN|Functional Fitness|Fitness
+HALO|Halo Fitness|Fitness
+ICON|Icon Fitness|Fitness
+JFRC|Juggernaut Fitness|Fitness
+KORB|Koru Fitness|Fitness
+
+# ============================================================================
+# Services & General - Licensed Franchises (18 brands)
+# ============================================================================
+HRB|H&R Block|Services
+SERV|ServiceMaster|Services
+ROL|Rollover|Services
+CAR|CarMax|Services
+UHAL|U-Haul|Services
+DRIVEN|Driven|Services
+INSPIRE|Inspire Brands|Services
+FOCUS|Focusrite|Services
+ACME|ACME Services|Services
+BLUE|Blue Collar|Services
+BRST|Bright Start|Services
+CWLK|Car Wash|Services
+DENT|Dent School|Services
+ECRT|EchoStar|Services
+FARM|Farm Bureau|Services
+GARA|Garage Pro|Services
+HVAC|HVAC Plus|Services
+INDY|Independent Auto|Services
+
+# ============================================================================
+# Additional Mapped Brands (4 brands)
+# ============================================================================
+SHAKESHACK|Shake Shack (duplicate)|QSR
+PLANETFITNESS|Planet Fitness (duplicate)|Fitness
+WENDYS|Wendy's (duplicate)|QSR
+WINGSTOP|Wingstop (duplicate)|QSR
+
+# ============================================================================
+# PROCESSING LOG
+# ============================================================================
+# Remove completed batches from the queue above and track here
+#
+# Batch 1 (MCD through ZUMA): [PENDING]
+# Batch 2 (SUB through DUTCH): [PENDING]
+# Batch 3 (DENN through GSTR): [PENDING]
+# Batch 4 (MAR through NWRK): [PENDING]
+# Batch 5 (MCW through KORB): [PENDING]
+# Batch 6 (HRB through INDY): [PENDING]
+# Batch 7 (SHAKESHACK through WINGSTOP): [PENDING]
+#
+# Total queued: 247 brands
+# Total processed: 0 brands
+# Remaining: 247 brands
