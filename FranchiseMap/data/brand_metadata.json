@@ -1,509 +1,775 @@
 {
-  "schema_version": "1.0",
-  "generated_date": "2025-12-21T03:54:07.233912Z",
+  "schema_version": "2.0",
+  "generated_date": "2025-12-21T08:47:47.444595Z",
   "brands": {
     "MCD": {
       "name": "McDonald's",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
       "count": 0,
+      "needs_review": false,
       "notes": ""
     },
     "SBUX": {
       "name": "Starbucks",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
       "count": 0,
+      "needs_review": false,
       "notes": ""
     },
     "YUM": {
       "name": "Yum! Brands (KFC, Taco Bell, Pizza Hut)",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
       "count": 0,
+      "needs_review": false,
       "notes": ""
     },
     "QSR": {
       "name": "Restaurant Brands (Burger King, Tim Hortons)",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
       "count": 0,
+      "needs_review": false,
       "notes": ""
     },
     "WEN": {
       "name": "Wendy's",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "QSR",
+      "sub_sector": "",
       "count": 5758,
+      "needs_review": false,
       "notes": ""
     },
     "DPZ": {
       "name": "Domino's Pizza",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "QSR",
+      "sub_sector": "",
       "count": 64,
+      "needs_review": false,
       "notes": ""
     },
     "CMG": {
       "name": "Chipotle",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
       "count": 0,
+      "needs_review": false,
       "notes": ""
     },
     "JACK": {
       "name": "Jack in the Box",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "Other",
+      "sub_sector": "",
       "count": 2475,
+      "needs_review": false,
       "notes": ""
     },
     "WING": {
       "name": "Wingstop",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "QSR",
+      "sub_sector": "",
       "count": 1233,
+      "needs_review": false,
       "notes": ""
     },
     "SHAK": {
       "name": "Shake Shack",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "QSR",
+      "sub_sector": "",
       "count": 325,
+      "needs_review": false,
       "notes": ""
     },
     "PZZA": {
       "name": "Papa John's",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
       "count": 0,
+      "needs_review": false,
       "notes": ""
     },
     "DNUT": {
       "name": "Krispy Kreme",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "Other",
+      "sub_sector": "",
       "count": 529,
+      "needs_review": false,
       "notes": ""
     },
     "NATH": {
       "name": "Nathan's Famous",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "Other",
+      "sub_sector": "",
       "count": 1,
+      "needs_review": false,
       "notes": ""
     },
     "CHIPOTLE": {
       "name": "Chipotle",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "Other",
+      "sub_sector": "",
       "count": 35,
+      "needs_review": false,
       "notes": ""
     },
     "DOMINOS": {
       "name": "Domino's",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "Other",
+      "sub_sector": "",
       "count": 30,
+      "needs_review": false,
       "notes": ""
     },
     "MCDONALDS": {
       "name": "McDonald's",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "Other",
+      "sub_sector": "",
       "count": 50,
+      "needs_review": false,
       "notes": ""
     },
     "STARBUCKS": {
       "name": "Starbucks",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "Other",
+      "sub_sector": "",
       "count": 40,
-      "notes": ""
-    },
-    "DENN": {
-      "name": "Denny's",
-      "ownership_model": "franchise",
-      "primary_subtype": "independent",
-      "count": 1402,
-      "notes": ""
-    },
-    "DIN": {
-      "name": "Dine Global (IHOP, Applebee's)",
-      "ownership_model": "franchise",
-      "primary_subtype": "independent",
-      "count": 3024,
-      "notes": ""
-    },
-    "CBRL": {
-      "name": "Cracker Barrel",
-      "ownership_model": "franchise",
-      "primary_subtype": "independent",
-      "count": 0,
-      "notes": ""
-    },
-    "TXRH": {
-      "name": "Texas Roadhouse",
-      "ownership_model": "franchise",
-      "primary_subtype": "independent",
-      "count": 0,
-      "notes": ""
-    },
-    "BLMN": {
-      "name": "Bloomin' Brands (Outback, Carrabba's)",
-      "ownership_model": "franchise",
-      "primary_subtype": "independent",
-      "count": 0,
-      "notes": ""
-    },
-    "CAKE": {
-      "name": "The Cheesecake Factory",
-      "ownership_model": "franchise",
-      "primary_subtype": "independent",
-      "count": 0,
-      "notes": ""
-    },
-    "BJRI": {
-      "name": "BJ's Restaurants",
-      "ownership_model": "franchise",
-      "primary_subtype": "independent",
-      "count": 0,
-      "notes": ""
-    },
-    "CHUY": {
-      "name": "Chuy's",
-      "ownership_model": "franchise",
-      "primary_subtype": "independent",
-      "count": 0,
-      "notes": ""
-    },
-    "EAT": {
-      "name": "Ark Restaurants (Chili's, Maggiano's)",
-      "ownership_model": "franchise",
-      "primary_subtype": "independent",
-      "count": 0,
-      "notes": ""
-    },
-    "DRI": {
-      "name": "Dine Global Holdings (Olive Garden, LongHorn)",
-      "ownership_model": "franchise",
-      "primary_subtype": "independent",
-      "count": 0,
-      "notes": ""
-    },
-    "RRGB": {
-      "name": "Red Robin",
-      "ownership_model": "franchise",
-      "primary_subtype": "independent",
-      "count": 634,
-      "notes": ""
-    },
-    "PLAY": {
-      "name": "Dave & Buster's",
-      "ownership_model": "franchise",
-      "primary_subtype": "independent",
-      "count": 234,
-      "notes": ""
-    },
-    "SUB": {
-      "name": "Subway",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "CFA": {
-      "name": "Chick-fil-A",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "PANDA": {
-      "name": "Panda Express",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "DQ": {
-      "name": "Dairy Queen",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "LCE": {
-      "name": "Little Caesars",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "JM": {
-      "name": "Jersey Mike's",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "FIVE": {
-      "name": "Five Guys",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "CANE": {
-      "name": "Raising Cane's",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "WHATA": {
-      "name": "Whataburger",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "ZAX": {
-      "name": "Zaxby's",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "BO": {
-      "name": "Bojangles",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "WAWA": {
-      "name": "Wawa",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "SHEETZ": {
-      "name": "Sheetz",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "INNOUT": {
-      "name": "In-N-Out Burger",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "PANERA": {
-      "name": "Panera Bread",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "DUTCH": {
-      "name": "Dutch Bros",
-      "ownership_model": "non-franchise",
-      "primary_subtype": "corporate",
-      "count": 0,
-      "notes": ""
-    },
-    "MAR": {
-      "name": "Marriott",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "HLT": {
-      "name": "Hilton",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "H": {
-      "name": "Hyatt",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 1634,
-      "notes": ""
-    },
-    "IHG": {
-      "name": "IHG",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "WH": {
-      "name": "Wyndham",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "CHH": {
-      "name": "Choice Hotels",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "BW": {
-      "name": "Best Western",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "G6": {
-      "name": "G6 Hospitality",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "VAC": {
-      "name": "Vici Properties",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 19,
-      "notes": ""
-    },
-    "TNL": {
-      "name": "Travel Leaders",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 24,
-      "notes": ""
-    },
-    "MCW": {
-      "name": "Massage Envy",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 212,
-      "notes": ""
-    },
-    "PLNT": {
-      "name": "Planet Fitness",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 1550,
-      "notes": ""
-    },
-    "XPOF": {
-      "name": "Xponential",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "HRB": {
-      "name": "H&R Block",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 2935,
-      "notes": ""
-    },
-    "SERV": {
-      "name": "ServiceMaster",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 70,
-      "notes": ""
-    },
-    "ROL": {
-      "name": "Rollover",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 652,
-      "notes": ""
-    },
-    "HLE": {
-      "name": "Healthylife",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "CAR": {
-      "name": "Carmax",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "UHAL": {
-      "name": "U-Haul",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "DRIVEN": {
-      "name": "Driven",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "INSPIRE": {
-      "name": "Inspire Brands",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "FOCUS": {
-      "name": "Focusrite",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 0,
-      "notes": ""
-    },
-    "PLANETFITNESS": {
-      "name": "Planet Fitness",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 25,
-      "notes": ""
-    },
-    "SHAKESHACK": {
-      "name": "Shake Shack",
-      "ownership_model": "franchise",
-      "primary_subtype": "licensed",
-      "count": 20,
+      "needs_review": false,
       "notes": ""
     },
     "WENDYS": {
       "name": "Wendy's",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "Other",
+      "sub_sector": "",
       "count": 25,
+      "needs_review": false,
       "notes": ""
     },
     "WINGSTOP": {
       "name": "Wingstop",
       "ownership_model": "franchise",
       "primary_subtype": "licensed",
+      "category": "qsr",
+      "industry_category": "Other",
+      "sub_sector": "",
       "count": 20,
+      "needs_review": false,
+      "notes": ""
+    },
+    "DENN": {
+      "name": "Denny's",
+      "ownership_model": "franchise",
+      "primary_subtype": "independent",
+      "category": "casual",
+      "industry_category": "Other",
+      "sub_sector": "",
+      "count": 1402,
+      "needs_review": false,
+      "notes": ""
+    },
+    "DIN": {
+      "name": "Dine Global (IHOP, Applebee's)",
+      "ownership_model": "franchise",
+      "primary_subtype": "independent",
+      "category": "casual",
+      "industry_category": "Other",
+      "sub_sector": "",
+      "count": 3024,
+      "needs_review": false,
+      "notes": ""
+    },
+    "CBRL": {
+      "name": "Cracker Barrel",
+      "ownership_model": "franchise",
+      "primary_subtype": "independent",
+      "category": "casual",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "TXRH": {
+      "name": "Texas Roadhouse",
+      "ownership_model": "franchise",
+      "primary_subtype": "independent",
+      "category": "casual",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "BLMN": {
+      "name": "Bloomin' Brands (Outback, Carrabba's)",
+      "ownership_model": "franchise",
+      "primary_subtype": "independent",
+      "category": "casual",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "CAKE": {
+      "name": "The Cheesecake Factory",
+      "ownership_model": "franchise",
+      "primary_subtype": "independent",
+      "category": "casual",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "BJRI": {
+      "name": "BJ's Restaurants",
+      "ownership_model": "franchise",
+      "primary_subtype": "independent",
+      "category": "casual",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "CHUY": {
+      "name": "Chuy's",
+      "ownership_model": "franchise",
+      "primary_subtype": "independent",
+      "category": "casual",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "EAT": {
+      "name": "Ark Restaurants (Chili's, Maggiano's)",
+      "ownership_model": "franchise",
+      "primary_subtype": "independent",
+      "category": "casual",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "DRI": {
+      "name": "Dine Global Holdings (Olive Garden, LongHorn)",
+      "ownership_model": "franchise",
+      "primary_subtype": "independent",
+      "category": "casual",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "RRGB": {
+      "name": "Red Robin",
+      "ownership_model": "franchise",
+      "primary_subtype": "independent",
+      "category": "casual",
+      "industry_category": "Other",
+      "sub_sector": "",
+      "count": 634,
+      "needs_review": false,
+      "notes": ""
+    },
+    "SUB": {
+      "name": "Subway",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "CFA": {
+      "name": "Chick-fil-A",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "PANDA": {
+      "name": "Panda Express",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "DQ": {
+      "name": "Dairy Queen",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "LCE": {
+      "name": "Little Caesars",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "JM": {
+      "name": "Jersey Mike's",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "FIVE": {
+      "name": "Five Guys",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "CANE": {
+      "name": "Raising Cane's",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "WHATA": {
+      "name": "Whataburger",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "ZAX": {
+      "name": "Zaxby's",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "BO": {
+      "name": "Bojangles",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "WAWA": {
+      "name": "Wawa",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "SHEETZ": {
+      "name": "Sheetz",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "INNOUT": {
+      "name": "In-N-Out Burger",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "PANERA": {
+      "name": "Panera Bread",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "DUTCH": {
+      "name": "Dutch Bros",
+      "ownership_model": "non-franchise",
+      "primary_subtype": "corporate",
+      "category": "qsr",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "MAR": {
+      "name": "Marriott",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "hotels",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "HLT": {
+      "name": "Hilton",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "hotels",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "H": {
+      "name": "Hyatt",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "hotels",
+      "industry_category": "Other",
+      "sub_sector": "",
+      "count": 1634,
+      "needs_review": false,
+      "notes": ""
+    },
+    "IHG": {
+      "name": "IHG",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "hotels",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "WH": {
+      "name": "Wyndham",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "hotels",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "CHH": {
+      "name": "Choice Hotels",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "hotels",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "BW": {
+      "name": "Best Western",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "hotels",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "G6": {
+      "name": "G6 Hospitality",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "hotels",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "VAC": {
+      "name": "Vici Properties",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "hotels",
+      "industry_category": "Other",
+      "sub_sector": "",
+      "count": 19,
+      "needs_review": false,
+      "notes": ""
+    },
+    "TNL": {
+      "name": "Travel Leaders",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "hotels",
+      "industry_category": "Other",
+      "sub_sector": "",
+      "count": 24,
+      "needs_review": false,
+      "notes": ""
+    },
+    "MCW": {
+      "name": "Massage Envy",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "fitness",
+      "industry_category": "Other",
+      "sub_sector": "",
+      "count": 212,
+      "needs_review": false,
+      "notes": ""
+    },
+    "PLNT": {
+      "name": "Planet Fitness",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "fitness",
+      "industry_category": "Fitness",
+      "sub_sector": "",
+      "count": 1550,
+      "needs_review": false,
+      "notes": ""
+    },
+    "PLANETFITNESS": {
+      "name": "Planet Fitness",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "fitness",
+      "industry_category": "Other",
+      "sub_sector": "",
+      "count": 25,
+      "needs_review": false,
+      "notes": ""
+    },
+    "XPOF": {
+      "name": "Xponential",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "fitness",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "HRB": {
+      "name": "H&R Block",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "services",
+      "industry_category": "Other",
+      "sub_sector": "",
+      "count": 2935,
+      "needs_review": false,
+      "notes": ""
+    },
+    "SERV": {
+      "name": "ServiceMaster",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "services",
+      "industry_category": "Other",
+      "sub_sector": "",
+      "count": 70,
+      "needs_review": false,
+      "notes": ""
+    },
+    "ROL": {
+      "name": "Rollover",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "services",
+      "industry_category": "Other",
+      "sub_sector": "",
+      "count": 652,
+      "needs_review": false,
+      "notes": ""
+    },
+    "CAR": {
+      "name": "Carmax",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "services",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "UHAL": {
+      "name": "U-Haul",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "services",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "DRIVEN": {
+      "name": "Driven",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "services",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "INSPIRE": {
+      "name": "Inspire Brands",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "services",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "FOCUS": {
+      "name": "Focusrite",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "services",
+      "industry_category": "",
+      "sub_sector": "",
+      "count": 0,
+      "needs_review": false,
+      "notes": ""
+    },
+    "SHAKESHACK": {
+      "name": "Shake Shack",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "Other",
+      "industry_category": "Other",
+      "sub_sector": "",
+      "count": 20,
+      "needs_review": false,
       "notes": ""
     },
     "UNKNOWN": {
       "name": "Unknown",
       "ownership_model": "unknown",
       "primary_subtype": "unknown",
+      "category": "Other",
+      "industry_category": "",
+      "sub_sector": "",
       "count": 0,
+      "needs_review": true,
       "notes": "Placeholder for unclassified brands"
     }
   }
