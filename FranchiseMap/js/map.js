@@ -357,14 +357,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const siteBar = subScores.siteCharacteristics || 0;
 
         return `
-            <div class="popup-container">
-                <div class="popup-header">
+            <div class="popup-container" data-location-id="${loc.id}">
+                <div class="popup-header popup-draghandle" data-location-id="${loc.id}">
                     <div class="popup-title">
                         <h3>${loc.n}</h3>
                         <span class="popup-ticker" style="background:${color}">${loc.ticker}</span>
                     </div>
-                    <div class="popup-address">${loc.a}</div>
+                    <div class="popup-controls">
+                        <button class="popup-pin-btn" data-location-id="${loc.id}" title="Pin to compare multiple locations">
+                            <i class="fa-solid fa-thumbtack"></i>
+                        </button>
+                    </div>
                 </div>
+                <div class="popup-address">${loc.a}</div>
 
                 <div class="score-hero">
                     <div class="score-circle" style="border-color:${tier.color}">
@@ -490,6 +495,75 @@ document.addEventListener('DOMContentLoaded', () => {
         const slider = document.getElementById(`slider-${loc.id}`);
         const label = document.getElementById(`label-${loc.id}`);
         const competitorsDiv = document.getElementById(`competitors-${loc.id}`);
+
+        // Handle pin button
+        const pinBtn = document.querySelector(`.popup-pin-btn[data-location-id="${loc.id}"]`);
+        const popupContainer = document.querySelector(`.popup-container[data-location-id="${loc.id}"]`);
+
+        if (pinBtn && popupContainer) {
+            // Track pin state
+            let isPinned = false;
+
+            pinBtn.onclick = function(e) {
+                e.stopPropagation();
+                isPinned = !isPinned;
+                popupContainer.classList.toggle('pinned', isPinned);
+                pinBtn.classList.toggle('pinned', isPinned);
+
+                // When pinned, store pin state so popup doesn't auto-close
+                if (isPinned) {
+                    popupContainer.dataset.pinned = 'true';
+                } else {
+                    delete popupContainer.dataset.pinned;
+                }
+            };
+
+            // Handle drag functionality
+            const dragHandle = document.querySelector(`.popup-draghandle[data-location-id="${loc.id}"]`);
+            if (dragHandle) {
+                let isDragging = false;
+                let dragStartX = 0;
+                let dragStartY = 0;
+                let popupStartX = 0;
+                let popupStartY = 0;
+
+                dragHandle.addEventListener('mousedown', (e) => {
+                    if (e.target.closest('.popup-pin-btn')) return; // Don't drag when clicking pin button
+                    isDragging = true;
+                    dragStartX = e.clientX;
+                    dragStartY = e.clientY;
+
+                    // Get popup element (Leaflet popup)
+                    const leafletPopup = map._popup;
+                    if (leafletPopup && leafletPopup._container) {
+                        popupStartX = leafletPopup._container.offsetLeft;
+                        popupStartY = leafletPopup._container.offsetTop;
+                    }
+
+                    e.preventDefault();
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+
+                    const leafletPopup = map._popup;
+                    if (!leafletPopup || !leafletPopup._container) return;
+
+                    const container = leafletPopup._container;
+                    const deltaX = e.clientX - dragStartX;
+                    const deltaY = e.clientY - dragStartY;
+
+                    container.style.position = 'fixed';
+                    container.style.left = (popupStartX + deltaX) + 'px';
+                    container.style.top = (popupStartY + deltaY) + 'px';
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
+            }
+        }
+
         if(!slider) return;
 
         const updateRadius = function() {

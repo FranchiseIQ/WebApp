@@ -1708,12 +1708,32 @@ body {
     max-height: calc(100vh - 140px);
     overflow-y: auto;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    position: relative;
+}
+
+.popup-container.pinned {
+    border: 2px solid var(--primary-purple);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
 }
 
 .popup-header {
     padding: 16px;
     background: linear-gradient(135deg, var(--bg-gray) 0%, white 100%);
     border-bottom: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.popup-draghandle {
+    cursor: grab;
+    user-select: none;
+}
+
+.popup-draghandle:active {
+    cursor: grabbing;
 }
 
 .popup-title {
@@ -1721,6 +1741,7 @@ body {
     align-items: center;
     gap: 10px;
     margin-bottom: 4px;
+    flex: 1;
 }
 
 .popup-title h3 {
@@ -1739,9 +1760,41 @@ body {
     border-radius: var(--radius-full);
 }
 
+.popup-controls {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.popup-pin-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 4px 6px;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-pin-btn:hover {
+    color: var(--primary-purple);
+    background: var(--bg-gray);
+}
+
+.popup-pin-btn.pinned {
+    color: var(--primary-purple);
+    background: #e8e4f3;
+}
+
 .popup-address {
     font-size: 0.8rem;
     color: var(--text-light);
+    padding: 4px 16px 8px 16px;
+    background: white;
 }
 
 .score-hero {
