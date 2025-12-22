@@ -1464,7 +1464,7 @@ body {
     top: 600px;
     right: 20px;
     width: 280px;
-    max-height: 280px;
+    max-height: 600px;
     background: white;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
@@ -1555,8 +1555,10 @@ body {
     justify-content: center;
     font-weight: 700;
     font-size: 1rem;
-    color: white;
-    background: var(--score-excellent);
+    color: #1b5e20;
+    background: #c8e6c9;
+    border: 3px solid #2e7d32;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .score-item-content {
