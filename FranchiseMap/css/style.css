@@ -169,10 +169,11 @@ body {
     left: 20px;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 12px;
+    flex-wrap: nowrap;
+    gap: 8px;
     z-index: 1000;
-    max-width: 340px;
+    max-width: none;
+    width: fit-content;
 }
 
 .stat-card {
@@ -1280,14 +1281,26 @@ body {
 
 .performer-score-circle.excellent {
     border-color: var(--score-excellent);
-    background: rgba(34, 197, 94, 0.1);
+    background: rgba(34, 197, 94, 0.15);
     color: var(--score-excellent);
 }
 
 .performer-score-circle.good {
     border-color: var(--score-good);
-    background: rgba(132, 204, 22, 0.1);
+    background: rgba(132, 204, 22, 0.15);
     color: var(--score-good);
+}
+
+.performer-score-circle.fair {
+    border-color: var(--score-fair);
+    background: rgba(234, 179, 8, 0.15);
+    color: var(--score-fair);
+}
+
+.performer-score-circle.poor {
+    border-color: var(--score-poor);
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--score-poor);
 }
 
 .performer-score-value {
@@ -1536,13 +1549,13 @@ body {
     opacity: 0.5;
 }
 
-/* High Performers Panel - Left side below location panel */
+/* High Performers Panel - Left side below stat buttons */
 .high-performers-panel {
     position: absolute;
-    top: 460px;
+    top: 75px;
     left: 20px;
     width: 280px;
-    max-height: 600px;
+    max-height: 400px;
     background: white;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
@@ -1633,9 +1646,7 @@ body {
     justify-content: center;
     font-weight: 700;
     font-size: 1rem;
-    color: #1b5e20;
-    background: #c8e6c9;
-    border: 3px solid #2e7d32;
+    border: 3px solid;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
