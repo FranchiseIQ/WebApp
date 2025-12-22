@@ -897,6 +897,179 @@
             background: transparent;
         }
 
+        /* Game Details Drawer */
+        .game-details-drawer {
+            display: none;
+            position: fixed;
+            right: -450px;
+            top: 0;
+            width: 450px;
+            height: 100vh;
+            background: var(--bg);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            z-index: 900;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.5);
+        }
+
+        .game-details-drawer.open {
+            display: block;
+            right: 0;
+        }
+
+        .drawer-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .drawer-header h2 {
+            margin: 0;
+            font-size: 1.2em;
+            color: var(--text);
+        }
+
+        .drawer-close {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        .drawer-close:hover {
+            color: var(--accent1);
+        }
+
+        .drawer-content {
+            padding: 20px;
+        }
+
+        .detail-section {
+            margin-bottom: 24px;
+        }
+
+        .detail-section h3 {
+            font-size: 0.95em;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--secondary);
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .odds-breakdown {
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .odds-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .odds-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .odds-label {
+            color: var(--secondary);
+        }
+
+        .odds-value {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .weather-section {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent1);
+        }
+
+        .weather-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 0.9em;
+        }
+
+        .weather-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .players-list {
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .player-item {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9em;
+        }
+
+        .player-item:last-child {
+            border-bottom: none;
+        }
+
+        .player-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .player-meta {
+            color: var(--secondary);
+            font-size: 0.85em;
+        }
+
+        .live-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--live);
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+            margin-right: 6px;
+        }
+
+        .drawer-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 850;
+        }
+
+        .drawer-overlay.open {
+            display: block;
+        }
+
+        /* Make game cards clickable */
+        .game-card {
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sports-hero h1 {
@@ -1030,6 +1203,18 @@
 
     <!-- Fixed Bottom News Ticker -->
     <div id="franchise-news-ticker-bottom" class="news-ticker-bottom"></div>
+
+    <!-- Game Details Drawer -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="game-details-drawer" id="game-details-drawer">
+        <div class="drawer-header">
+            <h2 id="drawer-matchup">Game Details</h2>
+            <button class="drawer-close" onclick="closeGameDrawer()">&times;</button>
+        </div>
+        <div class="drawer-content" id="drawer-content">
+            <!-- Content populated dynamically -->
+        </div>
+    </div>
 
     <!-- News Widget Scripts -->
     <script src="FranchiseNews/newsService.js"></script>
@@ -1668,6 +1853,42 @@
             }
         }
 
+        // Generate mock weather data based on game time
+        function generateMockWeather(gameDate) {
+            const month = gameDate.getMonth();
+            let temp, condition, wind, precip;
+
+            // Simulate seasonal weather patterns
+            if (month >= 11 || month <= 2) { // Winter
+                temp = 32 + Math.random() * 25;
+                condition = Math.random() > 0.7 ? 'Snow' : (Math.random() > 0.4 ? 'Clear' : 'Cloudy');
+                wind = 8 + Math.random() * 15;
+                precip = Math.random() > 0.7 ? 30 : 5;
+            } else if (month >= 3 && month <= 5) { // Spring
+                temp = 50 + Math.random() * 20;
+                condition = Math.random() > 0.6 ? 'Rain' : (Math.random() > 0.3 ? 'Cloudy' : 'Clear');
+                wind = 6 + Math.random() * 10;
+                precip = Math.random() > 0.6 ? 40 : 10;
+            } else if (month >= 6 && month <= 8) { // Summer
+                temp = 75 + Math.random() * 15;
+                condition = Math.random() > 0.8 ? 'Clear' : (Math.random() > 0.5 ? 'Partly Cloudy' : 'Cloudy');
+                wind = 3 + Math.random() * 8;
+                precip = Math.random() > 0.9 ? 20 : 2;
+            } else { // Fall
+                temp = 55 + Math.random() * 20;
+                condition = Math.random() > 0.6 ? 'Clear' : (Math.random() > 0.3 ? 'Cloudy' : 'Rain');
+                wind = 7 + Math.random() * 12;
+                precip = Math.random() > 0.7 ? 25 : 5;
+            }
+
+            return {
+                temp: Math.round(temp),
+                condition: condition,
+                wind: Math.round(wind),
+                precip: Math.round(precip)
+            };
+        }
+
         // Build unified card for both completed and upcoming games
         function buildUnifiedCard(game, leagueKey) {
             const homeTeam = game.homeTeam || {};
@@ -1693,10 +1914,37 @@
             // Check if championship/finals game
             const isChampionship = game.is_championship || game.isChampionship;
 
+            // Get odds for this game
+            const odds = getGameOdds(game.id || '');
+
+            // Get stadium info
+            const stadium = game.venue || homeTeam.venue || 'TBD';
+
+            // Get weather
+            const weather = generateMockWeather(gameDate);
+
             // Card content varies based on game status
             let bottomContent = '';
             let badgeContent = '';
-            let cardClass = 'highlight-card';
+            let cardClass = 'game-card';
+
+            // Build metadata row with stadium and weather
+            const metadataRow = `
+                <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 8px;">
+                    <div style="margin-bottom: 4px;">${stadium}</div>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <span>${weather.temp}°F · ${weather.condition}</span>
+                        <span style="font-size: 0.8em;">Wind ${weather.wind}mph</span>
+                    </div>
+                </div>
+            `;
+
+            // Build odds summary
+            const oddsSummary = `
+                <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 6px;">
+                    Favored: ${odds.spread > 0 ? awayTeam.shortName || awayTeam.name : homeTeam.shortName || homeTeam.name} ${Math.abs(odds.spread)} · O/U ${odds.total}
+                </div>
+            `;
 
             if (isFinal) {
                 const recap = generateRecap(game);
@@ -1715,39 +1963,73 @@
                 `;
                 badgeContent = '<span class="video-badge" style="background: var(--live);">LIVE</span>';
             } else {
-                cardClass += ' upcoming';
                 bottomContent = `
                     <div class="game-time-display">${timeStr}</div>
                     <span class="network-badge">${game.network || leagueKey}</span>
+                    ${oddsSummary}
                 `;
                 badgeContent = '<span class="highlight-badge">UPCOMING</span>';
             }
 
-            // Only add click handler for games with video
-            const clickHandler = hasVideo ? `onclick="openVideoModal('${videoUrl}', '${(awayTeam.shortName || awayTeam.name)} @ ${(homeTeam.shortName || homeTeam.name)}')"` : '';
-            const cursorStyle = hasVideo ? 'cursor: pointer;' : '';
+            const clickHandler = `onclick="openGameDrawer(event, ${encodeURIComponent(JSON.stringify({ ...game, leagueKey, status }))})"`;
 
             return `
-                <div class="${cardClass}" ${clickHandler} style="${cursorStyle}">
-                    <div class="highlight-thumbnail">
-                        <div class="team-logos">
-                            <img src="${awayTeam.logoUrl || defaultLogo}" alt="${awayTeam.name}" onerror="this.src='${defaultLogo}'">
-                            <span class="vs-text">@</span>
-                            <img src="${homeTeam.logoUrl || defaultLogo}" alt="${homeTeam.name}" onerror="this.src='${defaultLogo}'">
-                        </div>
-                        ${hasVideo ? `<div class="play-overlay"><div class="play-btn"></div></div>` : ''}
-                        ${badgeContent}
+                <div class="${cardClass}" ${clickHandler}>
+                    <div class="game-status-bar">
+                        <span class="status-text ${isLive ? 'live' : ''}">${isLive ? '🔴 LIVE' : (isFinal ? 'FINAL' : formatTimeEST(game.startTime))}</span>
+                        <span class="league-tag">🏈 ${leagueKey}</span>
                     </div>
-                    <div class="highlight-info">
-                        <div class="highlight-matchup">
-                            <span class="highlight-teams">${awayTeam.shortName || awayTeam.name} @ ${homeTeam.shortName || homeTeam.name}</span>
-                            ${(isFinal || isLive) ? `<span class="highlight-score">${awayScore} - ${homeScore}</span>` : ''}
+
+                    <div class="teams-row">
+                        <div class="team">
+                            <img src="${awayTeam.logoUrl || defaultLogo}"
+                                 alt="${awayTeam.name || 'Away'}"
+                                 class="team-logo"
+                                 onerror="this.src='${defaultLogo}'">
+                            <div class="team-info">
+                                <div class="team-name">${awayTeam.name || 'Away Team'}</div>
+                                ${awayTeam.record ? `<div class="team-record">${awayTeam.record}</div>` : ''}
+                            </div>
+                            ${(isLive || isFinal) ? `<div class="team-score ${awayScore > homeScore ? 'winner' : ''}">${awayScore}</div>` : ''}
                         </div>
-                        <div class="highlight-meta">
-                            <span>${dateStr}</span>
-                            <span class="highlight-badge">${isFinal ? (isChampionship ? 'CHAMPIONSHIP' : 'FINAL') : (isLive ? 'LIVE' : timeStr)}</span>
+
+                        <div class="odds-column">
+                            ${!isUpcoming ? `
+                                <div class="odds-row">
+                                    <label>Spread:</label>
+                                    <span>–</span>
+                                </div>
+                                <div class="odds-row">
+                                    <label>O/U:</label>
+                                    <span>–</span>
+                                </div>
+                            ` : `
+                                <div class="odds-row">
+                                    <label>Spread:</label>
+                                    <span>${odds.spread > 0 ? '+' : ''}${odds.spread}</span>
+                                </div>
+                                <div class="odds-row">
+                                    <label>O/U:</label>
+                                    <span>${odds.total}</span>
+                                </div>
+                            `}
+                            <div class="odds-row">
+                                <label>Venue:</label>
+                                <span style="font-size: 0.8em;">${stadium ? stadium.substring(0, 18) : '–'}</span>
+                            </div>
                         </div>
-                        ${bottomContent}
+
+                        <div class="team">
+                            <img src="${homeTeam.logoUrl || defaultLogo}"
+                                 alt="${homeTeam.name || 'Home'}"
+                                 class="team-logo"
+                                 onerror="this.src='${defaultLogo}'">
+                            <div class="team-info">
+                                <div class="team-name">${homeTeam.name || 'Home Team'}</div>
+                                ${homeTeam.record ? `<div class="team-record">${homeTeam.record}</div>` : ''}
+                            </div>
+                            ${(isLive || isFinal) ? `<div class="team-score ${homeScore > awayScore ? 'winner' : ''}">${homeScore}</div>` : ''}
+                        </div>
                     </div>
                 </div>
             `;
@@ -1767,6 +2049,236 @@
                     renderGames();
                 });
             });
+        }
+
+        // Open game details drawer
+        function openGameDrawer(event, gameData) {
+            event.stopPropagation();
+            try {
+                const game = typeof gameData === 'string' ? JSON.parse(decodeURIComponent(gameData)) : gameData;
+                const drawer = document.getElementById('game-details-drawer');
+                const overlay = document.getElementById('drawer-overlay');
+                const content = document.getElementById('drawer-content');
+                const matchup = document.getElementById('drawer-matchup');
+
+                const homeTeam = game.homeTeam || {};
+                const awayTeam = game.awayTeam || {};
+                const weather = generateMockWeather(new Date(game.startTime));
+                const odds = getGameOdds(game.id || '');
+                const status = normalizeStatus(game);
+                const isFinal = status === 'FINAL';
+                const isLive = status === 'LIVE';
+                const isUpcoming = status === 'UPCOMING';
+
+                // Set matchup title
+                matchup.textContent = `${awayTeam.shortName || awayTeam.name} @ ${homeTeam.shortName || homeTeam.name}`;
+
+                let html = '';
+
+                if (isLive) {
+                    // LIVE game content
+                    const quarter = game.quarter || game.period || 'Q1';
+                    const clock = game.clock || '0:00';
+                    html = `
+                        <div class="detail-section">
+                            <h3><span class="live-indicator"></span>Live Game Status</h3>
+                            <div style="background: rgba(239, 68, 68, 0.1); padding: 12px; border-radius: 8px; border-left: 3px solid var(--live);">
+                                <div style="font-size: 1.2em; font-weight: 600; color: var(--text); margin-bottom: 8px;">
+                                    ${awayTeam.shortName || awayTeam.name}: ${game.awayScore ?? 0}
+                                </div>
+                                <div style="font-size: 1.2em; font-weight: 600; color: var(--text); margin-bottom: 12px;">
+                                    ${homeTeam.shortName || homeTeam.name}: ${game.homeScore ?? 0}
+                                </div>
+                                <div style="font-size: 0.95em; color: var(--secondary);">
+                                    ${quarter} - ${clock}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Game Info</h3>
+                            <div class="weather-section">
+                                <div class="weather-item">
+                                    <span>Temperature:</span>
+                                    <span>${weather.temp}°F</span>
+                                </div>
+                                <div class="weather-item">
+                                    <span>Condition:</span>
+                                    <span>${weather.condition}</span>
+                                </div>
+                                <div class="weather-item">
+                                    <span>Wind:</span>
+                                    <span>${weather.wind} mph</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Venue</h3>
+                            <div style="font-size: 0.9em; color: var(--text);">${game.venue || 'TBD'}</div>
+                        </div>
+
+                        <p style="font-size: 0.85em; color: var(--secondary); text-align: center; margin-top: 20px;">
+                            Updates every 15 seconds
+                        </p>
+                    `;
+                } else if (isUpcoming) {
+                    // UPCOMING game content
+                    const gameDate = new Date(game.startTime);
+                    const dateStr = gameDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+                    const timeStr = gameDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+                    html = `
+                        <div class="detail-section">
+                            <h3>Kickoff Information</h3>
+                            <div style="background: rgba(99, 102, 241, 0.1); padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent1);">
+                                <div style="margin-bottom: 8px;">
+                                    <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 2px;">DATE</div>
+                                    <div style="font-weight: 600; color: var(--text);">${dateStr}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 2px;">TIME</div>
+                                    <div style="font-weight: 600; color: var(--text);">${timeStr} EST</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Betting Odds</h3>
+                            <div class="odds-breakdown">
+                                <div class="odds-item">
+                                    <span class="odds-label">Spread:</span>
+                                    <span class="odds-value">${odds.spread > 0 ? '+' : ''}${odds.spread}</span>
+                                </div>
+                                <div class="odds-item">
+                                    <span class="odds-label">Over/Under:</span>
+                                    <span class="odds-value">${odds.total}</span>
+                                </div>
+                                <div class="odds-item">
+                                    <span class="odds-label">Favorite:</span>
+                                    <span class="odds-value">${odds.spread > 0 ? awayTeam.shortName || awayTeam.name : homeTeam.shortName || homeTeam.name}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Weather Forecast</h3>
+                            <div class="weather-section">
+                                <div class="weather-item">
+                                    <span>Temperature:</span>
+                                    <span>${weather.temp}°F</span>
+                                </div>
+                                <div class="weather-item">
+                                    <span>Condition:</span>
+                                    <span>${weather.condition}</span>
+                                </div>
+                                <div class="weather-item">
+                                    <span>Wind Speed:</span>
+                                    <span>${weather.wind} mph</span>
+                                </div>
+                                <div class="weather-item">
+                                    <span>Precipitation:</span>
+                                    <span>${weather.precip}%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Venue</h3>
+                            <div style="font-size: 0.9em; color: var(--text);">${game.venue || 'TBD'}</div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Players to Watch</h3>
+                            <div class="players-list">
+                                <div class="player-item">
+                                    <div class="player-name">${homeTeam.shortName || homeTeam.name}</div>
+                                    <div class="player-meta">Check back closer to game time for player matchups</div>
+                                </div>
+                                <div class="player-item">
+                                    <div class="player-name">${awayTeam.shortName || awayTeam.name}</div>
+                                    <div class="player-meta">Check back closer to game time for player matchups</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (isFinal) {
+                    // FINAL game content
+                    const recap = generateRecap(game);
+                    const cachedVideoUrl = getVideoUrl(game.awayTeam, game.homeTeam);
+                    const videoUrl = game.video_url || cachedVideoUrl || null;
+
+                    html = `
+                        <div class="detail-section">
+                            <h3>Final Score</h3>
+                            <div style="background: rgba(34, 197, 94, 0.1); padding: 12px; border-radius: 8px; border-left: 3px solid var(--green);">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <span style="font-weight: 600; color: var(--text);">${awayTeam.shortName || awayTeam.name}</span>
+                                    <span style="font-size: 1.3em; font-weight: 800; color: var(--text);">${game.awayScore ?? 0}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-weight: 600; color: var(--text);">${homeTeam.shortName || homeTeam.name}</span>
+                                    <span style="font-size: 1.3em; font-weight: 800; color: var(--text);">${game.homeScore ?? 0}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Game Recap</h3>
+                            <p style="font-size: 0.9em; line-height: 1.6; color: var(--text);">${recap}</p>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Betting Results</h3>
+                            <div class="odds-breakdown">
+                                <div class="odds-item">
+                                    <span class="odds-label">Spread ${Math.abs(odds.spread) > 0 ? '(' + (game.homeScore - game.awayScore > odds.spread ? '✓ Cover' : '✗ Miss') + ')' : ''}:</span>
+                                    <span class="odds-value">${odds.spread > 0 ? '+' : ''}${odds.spread}</span>
+                                </div>
+                                <div class="odds-item">
+                                    <span class="odds-label">Total ${(game.homeScore + game.awayScore > odds.total ? '✓ Over' : '✗ Under')}:</span>
+                                    <span class="odds-value">${odds.total}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        ${videoUrl ? `
+                        <div class="detail-section">
+                            <h3>Highlights</h3>
+                            <div style="aspect-ratio: 16/9; background: #000; border-radius: 8px; overflow: hidden;">
+                                <iframe style="width: 100%; height: 100%; border: none;" src="${videoUrl}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                            </div>
+                        </div>
+                        ` : `
+                        <div class="detail-section">
+                            <h3>Highlights</h3>
+                            <div style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px; text-align: center; color: var(--secondary);">
+                                <p style="margin: 0;">Video highlights coming soon</p>
+                            </div>
+                        </div>
+                        `}
+
+                        <div class="detail-section">
+                            <h3>Venue</h3>
+                            <div style="font-size: 0.9em; color: var(--text);">${game.venue || 'TBD'}</div>
+                        </div>
+                    `;
+                }
+
+                content.innerHTML = html;
+                drawer.classList.add('open');
+                overlay.classList.add('open');
+            } catch (e) {
+                console.error('Error opening game drawer:', e);
+            }
+        }
+
+        // Close game details drawer
+        function closeGameDrawer() {
+            const drawer = document.getElementById('game-details-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+            drawer.classList.remove('open');
+            overlay.classList.remove('open');
         }
 
         // Initialize news ticker
@@ -1966,14 +2478,23 @@
         }
         // Setup modal event listeners
         function setupModalEvents() {
-            // Close on background click
+            // Video modal - Close on background click
             document.getElementById('video-modal').addEventListener('click', (e) => {
                 if (e.target.id === 'video-modal') closeVideoModal();
             });
 
-            // Close on Escape key
+            // Drawer - Close on overlay click
+            const overlay = document.getElementById('drawer-overlay');
+            if (overlay) {
+                overlay.addEventListener('click', closeGameDrawer);
+            }
+
+            // Close modals on Escape key
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeVideoModal();
+                if (e.key === 'Escape') {
+                    closeVideoModal();
+                    closeGameDrawer();
+                }
             });
         }
 
@@ -2001,6 +2522,8 @@
         window.openVideoModal = openVideoModal;
         window.closeVideoModal = closeVideoModal;
         window.openHighlightModal = openHighlightModal;
+        window.openGameDrawer = openGameDrawer;
+        window.closeGameDrawer = closeGameDrawer;
 
         // Start
         document.addEventListener('DOMContentLoaded', init);
