@@ -36,6 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let highPerformersOpen = false; // Track high performers panel state
     let currentZoom = 4; // Track current zoom level for sizing
 
+    // --- Viewport Metrics Tracking ---
+    let prevViewportMetrics = {
+        highPerformersCount: 0,
+        activeBrandsCount: 0
+    };
+    let viewportMetricsDebounceTimer = null;
+
     // --- Ownership Model Filter State ---
     let brandMetadata = null;  // Loaded from brand_metadata.json
     let ownershipModel = new Set(['franchise', 'non-franchise']);  // Show both by default
@@ -215,6 +222,10 @@ document.addEventListener('DOMContentLoaded', () => {
         setupFilters();
         setupAdvancedControls();
         initComparisonPanelDragging();
+
+        // Initialize map view (saved view → geolocation → fallback city)
+        loadStartView();
+
         loadBrandMetadata().then(() => {
             loadManifest();
         });
@@ -555,7 +566,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (visibleLocations.length === 0) {
             document.getElementById('avg-score').textContent = '--';
-            document.getElementById('high-score-count').textContent = '0';
+            // Animate high performers count to 0
+            animateKpiNumber('high-score-count', prevViewportMetrics.highPerformersCount, 0, {
+                formatter: (v) => Math.round(v).toLocaleString()
+            });
+            // Animate active brands count to 0
+            animateKpiNumber('brands-active', prevViewportMetrics.activeBrandsCount, 0, {
+                formatter: (v) => Math.round(v).toLocaleString()
+            });
+            prevViewportMetrics.highPerformersCount = 0;
+            prevViewportMetrics.activeBrandsCount = 0;
             return;
         }
 
@@ -563,9 +583,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const avgScore = Math.round(visibleLocations.reduce((sum, loc) => sum + loc.s, 0) / visibleLocations.length);
         const highScoreCount = visibleLocations.filter(loc => loc.s >= 80).length;
 
+        // Calculate distinct active brands in viewport
+        const activeBrandSet = new Set(visibleLocations.map(loc => loc.ticker));
+        const activeBrandsCount = activeBrandSet.size;
+
         // Use animated score update
         animateAvgScore(avgScore);
-        document.getElementById('high-score-count').textContent = highScoreCount.toLocaleString();
+
+        // Animate high performers count with proper formatting
+        animateKpiNumber('high-score-count', prevViewportMetrics.highPerformersCount, highScoreCount, {
+            formatter: (v) => Math.round(v).toLocaleString()
+        });
+        prevViewportMetrics.highPerformersCount = highScoreCount;
+
+        // Animate active brands count with proper formatting
+        animateKpiNumber('brands-active', prevViewportMetrics.activeBrandsCount, activeBrandsCount, {
+            formatter: (v) => Math.round(v).toLocaleString()
+        });
+        prevViewportMetrics.activeBrandsCount = activeBrandsCount;
 
         // Update score distribution for visible locations
         updateScoreDistribution(visibleLocations);
@@ -1250,10 +1285,119 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    function setupRail() {
-        document.getElementById('btn-home').onclick = () => map.setView([39.82, -98.58], 4);
+    // Major cities for random fallback
+    const MAJOR_CITIES = [
+        { name: 'New York', lat: 40.7128, lng: -74.0060 },
+        { name: 'Los Angeles', lat: 34.0522, lng: -118.2437 },
+        { name: 'Chicago', lat: 41.8781, lng: -87.6298 },
+        { name: 'Dallas', lat: 32.7767, lng: -96.7970 },
+        { name: 'Atlanta', lat: 33.7490, lng: -84.3880 },
+        { name: 'Houston', lat: 29.7604, lng: -95.3698 },
+        { name: 'Phoenix', lat: 33.4484, lng: -112.0742 },
+        { name: 'San Francisco', lat: 37.7749, lng: -122.4194 },
+        { name: 'Seattle', lat: 47.6062, lng: -122.3321 },
+        { name: 'Miami', lat: 25.7617, lng: -80.1918 }
+    ];
 
-        // Near Me button with error handling
+    function loadStartView() {
+        // Check localStorage for saved start view
+        const savedView = localStorage.getItem('franchiseMapStartView');
+
+        if (savedView) {
+            try {
+                const view = JSON.parse(savedView);
+                map.setView([view.lat, view.lng], view.zoom);
+                return;
+            } catch (e) {
+                console.warn('Failed to load saved view:', e);
+            }
+        }
+
+        // Try geolocation with timeout
+        const geolocationTimeout = setTimeout(() => {
+            // Timeout - use fallback city
+            useRandomFallbackCity();
+        }, 4000);
+
+        map.locate({setView: false, maxZoom: 14});
+
+        map.once('locationfound', function(e) {
+            clearTimeout(geolocationTimeout);
+            map.setView([e.latitude, e.longitude], 14);
+        });
+
+        map.once('locationerror', function(e) {
+            clearTimeout(geolocationTimeout);
+            useRandomFallbackCity();
+        });
+    }
+
+    function useRandomFallbackCity() {
+        const city = MAJOR_CITIES[Math.floor(Math.random() * MAJOR_CITIES.length)];
+        map.setView([city.lat, city.lng], 12);
+        showToast(`Using view centered on ${city.name} (location unavailable)`);
+    }
+
+    function saveStartView() {
+        const center = map.getCenter();
+        const zoom = map.getZoom();
+        const view = { lat: center.lat, lng: center.lng, zoom: zoom };
+        localStorage.setItem('franchiseMapStartView', JSON.stringify(view));
+        showToast('Start view saved');
+    }
+
+    function resetStartView() {
+        localStorage.removeItem('franchiseMapStartView');
+        showToast('Saved view cleared');
+    }
+
+    function getSavedView() {
+        const savedView = localStorage.getItem('franchiseMapStartView');
+        if (savedView) {
+            try {
+                return JSON.parse(savedView);
+            } catch (e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            z-index: 9999;
+            animation: slideIn 0.3s ease-out;
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease-out';
+            setTimeout(() => toast.remove(), 300);
+        }, 2500);
+    }
+
+    function setupRail() {
+        // Home button - navigate to saved view or default US center
+        document.getElementById('btn-home').onclick = () => {
+            const savedView = getSavedView();
+            if (savedView) {
+                map.setView([savedView.lat, savedView.lng], savedView.zoom);
+            } else {
+                map.setView([39.82, -98.58], 4);
+            }
+        };
+
+        // Target Location (Locate) button with error handling
         const locateBtn = document.getElementById('btn-locate');
         locateBtn.onclick = function() {
             locateBtn.classList.add('locating');
@@ -1269,8 +1413,14 @@ document.addEventListener('DOMContentLoaded', () => {
         map.on('locationerror', function(e) {
             locateBtn.classList.remove('locating');
             console.warn('Geolocation error:', e);
-            alert('Unable to access your location. Please ensure:\n1. Location services are enabled\n2. Browser has permission to access location\n3. You are viewing over HTTPS (if required)');
+            showToast('Unable to access your location. Check browser permissions.');
         });
+
+        // Save Start View button
+        document.getElementById('btn-save-view').onclick = saveStartView;
+
+        // Reset Start View button
+        document.getElementById('btn-reset-view').onclick = resetStartView;
 
         // Toggle between Clustered and All Locations views (mutually exclusive)
         const clusterToggle = document.getElementById('btn-cluster-toggle');
@@ -2198,34 +2348,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     }
 
-    // Animated average score display
-    function animateAvgScore(newScore) {
-        const avgScoreEl = document.getElementById('avg-score');
-        if (!avgScoreEl) return;
+    // Generic KPI number animation - reusable for any KPI tile
+    function animateKpiNumber(elementId, fromValue, toValue, options = {}) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
 
-        const currentScore = parseInt(avgScoreEl.textContent) || 0;
+        const steps = options.steps || 30;
+        const updateInterval = options.updateInterval || 16; // 60fps
+        const formatter = options.formatter || ((v) => Math.round(v));
 
-        if (currentScore === newScore) return;
+        if (fromValue === toValue) {
+            element.textContent = formatter(toValue);
+            return;
+        }
 
-        const difference = newScore - currentScore;
-        const steps = 30;
+        const difference = toValue - fromValue;
         let currentStep = 0;
 
         const interval = setInterval(() => {
             currentStep++;
             const progress = currentStep / steps;
+            // Ease-in-out quadratic
             const easeProgress = progress < 0.5
                 ? 2 * progress * progress
-                : -1 + (4 - 2 * progress) * progress; // Ease-in-out
+                : -1 + (4 - 2 * progress) * progress;
 
-            const currentValue = Math.round(currentScore + difference * easeProgress);
-            avgScoreEl.textContent = currentValue;
+            const currentValue = fromValue + difference * easeProgress;
+            element.textContent = formatter(currentValue);
 
             if (currentStep >= steps) {
                 clearInterval(interval);
-                avgScoreEl.textContent = newScore;
+                element.textContent = formatter(toValue);
             }
-        }, 16); // 60fps
+        }, updateInterval);
+    }
+
+    // Animated average score display (wrapper for generic function)
+    function animateAvgScore(newScore) {
+        const avgScoreEl = document.getElementById('avg-score');
+        if (!avgScoreEl) return;
+
+        const currentScore = parseInt(avgScoreEl.textContent) || 0;
+        animateKpiNumber('avg-score', currentScore, newScore);
     }
 
     initMap();
