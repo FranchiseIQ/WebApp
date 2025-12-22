@@ -186,16 +186,6 @@ body {
     border: none;
 }
 
-.stat-card.search-toggle {
-    min-width: auto;
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    justify-content: center;
-    font-size: 1.1rem;
-    color: var(--primary-purple);
-}
-
 .stat-card:hover {
     box-shadow: var(--shadow-lg);
     transform: translateY(-1px);
