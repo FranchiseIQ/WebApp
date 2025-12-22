@@ -28,19 +28,25 @@
             .then(res => res.json())
             .then(data => {
                 stockData = data;
-                renderTicker(data.quotes);
+                // Handle both array format and quotes object format
+                const quotes = Array.isArray(data) ? data : (data.quotes || {});
+                renderTicker(quotes);
             })
             .catch(e => {
                 console.log('Stock data not available:', e);
                 const tape = document.getElementById('ticker-tape');
-                tape.innerHTML = '<span class="ticker-empty">Stock data loading...</span>';
+                tape.innerHTML = '<span class="ticker-empty">Stock data unavailable</span>';
                 tape.classList.remove('has-data');
             });
     }
 
     function renderTicker(quotes) {
         const tape = document.getElementById('ticker-tape');
-        if (!quotes || Object.keys(quotes).length === 0) {
+
+        // Handle both array and object formats
+        let quotesList = Array.isArray(quotes) ? quotes : Object.values(quotes);
+
+        if (!quotesList || quotesList.length === 0) {
             // Static placeholder for empty state - no scrolling
             tape.innerHTML = '<span class="ticker-empty">No stock data available</span>';
             tape.classList.remove('has-data');
@@ -48,21 +54,31 @@
         }
 
         let html = '';
-        // Show top 15 stocks by market cap
-        const sorted = Object.values(quotes)
-            .filter(q => q.marketCap)
-            .sort((a, b) => (b.marketCap || 0) - (a.marketCap || 0))
+        // Sort by changePercent (absolute) for most active, then by price
+        const sorted = quotesList
+            .filter(q => q.ticker && q.price !== undefined && q.changePercent !== undefined)
+            .sort((a, b) => {
+                // Sort by absolute change percent (most volatile first), then by price
+                const absA = Math.abs(b.changePercent || 0);
+                const absB = Math.abs(a.changePercent || 0);
+                if (absA !== absB) return absA - absB;
+                return (b.price || 0) - (a.price || 0);
+            })
             .slice(0, 15);
 
         // Generate ticker items once
         sorted.forEach(quote => {
             const changeClass = quote.changePercent >= 0 ? 'up' : 'down';
             const changeSign = quote.changePercent >= 0 ? '+' : '';
+            const symbol = quote.ticker || quote.symbol || 'N/A';
+            const price = quote.price || 0;
+            const changePercent = quote.changePercent || 0;
+
             html += `
                 <div class="ticker-item">
-                    <span class="ticker-symbol">${quote.symbol}</span>
-                    <span class="ticker-price">$${quote.price.toFixed(2)}</span>
-                    <span class="ticker-change ${changeClass}">${changeSign}${quote.changePercent.toFixed(2)}%</span>
+                    <span class="ticker-symbol">${symbol}</span>
+                    <span class="ticker-price">$${price.toFixed(2)}</span>
+                    <span class="ticker-change ${changeClass}">${changeSign}${changePercent.toFixed(2)}%</span>
                 </div>
             `;
         });
