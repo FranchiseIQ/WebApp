@@ -212,11 +212,14 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.dataset.ticker = item.ticker;
             btn.dataset.file = item.file;
 
+            // Format brand name with ticker if available
+            const brandName = item.brands[0] || item.ticker;
+            const displayText = `${brandName} (${item.ticker})`;
+
             btn.innerHTML = `
                 <span class="brand-dot" style="background-color: ${color}"></span>
                 <div class="brand-info">
-                    <div class="brand-name">${item.brands[0]}</div>
-                    <div class="brand-ticker">${item.ticker}</div>
+                    <div class="brand-name">${displayText}</div>
                 </div>
                 <span class="brand-count">${item.count.toLocaleString()}</span>
             `;

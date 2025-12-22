@@ -1277,14 +1277,8 @@ body {
     line-height: 1.1;
 }
 
-.brand-ticker {
-    font-weight: 500;
-    font-size: 0.7rem;
-    color: var(--text-light);
-}
-
 .brand-name {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-dark);
 }
