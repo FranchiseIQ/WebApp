@@ -1638,6 +1638,18 @@ document.addEventListener('DOMContentLoaded', () => {
         highPerformersOpen = false;
     }
 
+    function toggleHighPerformers() {
+        const panel = document.getElementById('high-performers-panel');
+        if (panel) {
+            highPerformersOpen = !highPerformersOpen;
+            if (highPerformersOpen) {
+                showHighPerformers();
+            } else {
+                hideHighPerformers();
+            }
+        }
+    }
+
     function navigateToPerformer(location) {
         // Close the high performers list
         hideHighPerformers();
