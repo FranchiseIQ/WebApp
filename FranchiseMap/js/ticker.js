@@ -10,13 +10,14 @@
     const MARKET_CLOSE_MINUTE = 0;
 
     let stockData = null;
+    let isMarketOpen = false;
 
     function init() {
         loadStockData();
         updateMarketStatus();
 
-        // Update market status every minute
-        setInterval(updateMarketStatus, 60000);
+        // Update market status every second (for countdown with seconds)
+        setInterval(updateMarketStatus, 1000);
 
         // Reload stock data every 5 minutes
         setInterval(loadStockData, 300000);
@@ -31,14 +32,18 @@
             })
             .catch(e => {
                 console.log('Stock data not available:', e);
-                document.getElementById('ticker-tape').innerHTML = '<span style="opacity:0.6;">Stock data loading...</span>';
+                const tape = document.getElementById('ticker-tape');
+                tape.innerHTML = '<span class="ticker-empty">Stock data loading...</span>';
+                tape.classList.remove('has-data');
             });
     }
 
     function renderTicker(quotes) {
         const tape = document.getElementById('ticker-tape');
         if (!quotes || Object.keys(quotes).length === 0) {
-            tape.innerHTML = '<span style="opacity:0.6;">No stock data available</span>';
+            // Static placeholder for empty state - no scrolling
+            tape.innerHTML = '<span class="ticker-empty">No stock data available</span>';
+            tape.classList.remove('has-data');
             return;
         }
 
@@ -64,6 +69,21 @@
 
         // Duplicate HTML for seamless scrolling animation
         tape.innerHTML = html + html;
+        tape.classList.add('has-data');
+
+        // Update ticker color based on market state
+        updateTickerColor();
+    }
+
+    function updateTickerColor() {
+        const tape = document.getElementById('ticker-tape');
+        if (isMarketOpen) {
+            tape.classList.remove('market-closed');
+            tape.classList.add('market-open');
+        } else {
+            tape.classList.remove('market-open');
+            tape.classList.add('market-closed');
+        }
     }
 
     function updateMarketStatus() {
@@ -124,6 +144,9 @@
             isOpen = false;
         }
 
+        // Store market state for ticker color updates
+        isMarketOpen = isOpen;
+
         // Update status display
         if (isOpen) {
             statusEl.textContent = 'Market Open';
@@ -133,17 +156,27 @@
             statusEl.className = 'closed';
         }
 
-        // Format countdown
-        const hours = Math.floor(timeToEvent / (1000 * 60 * 60));
-        const minutes = Math.floor((timeToEvent % (1000 * 60 * 60)) / (1000 * 60));
+        // Format countdown with hours, minutes, and seconds
+        const totalSeconds = Math.floor(timeToEvent / 1000);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        // Pad zeros for HH:MM:SS format
+        const paddedMinutes = String(minutes).padStart(2, '0');
+        const paddedSeconds = String(seconds).padStart(2, '0');
 
         if (hours > 24) {
             const days = Math.floor(hours / 24);
             const remainingHours = hours % 24;
-            countdownEl.textContent = `${eventLabel} in ${days}d ${remainingHours}h ${minutes}m`;
+            const paddedRemainingHours = String(remainingHours).padStart(2, '0');
+            countdownEl.textContent = `${eventLabel} in ${days}d ${paddedRemainingHours}h ${paddedMinutes}m`;
         } else {
-            countdownEl.textContent = `${eventLabel} in ${hours}h ${minutes}m`;
+            countdownEl.textContent = `${eventLabel} in ${hours}h ${paddedMinutes}m ${paddedSeconds}s`;
         }
+
+        // Update ticker color based on market state
+        updateTickerColor();
     }
 
     function getETTime(date) {
