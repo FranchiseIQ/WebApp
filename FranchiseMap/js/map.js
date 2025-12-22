@@ -214,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupRail();
         setupFilters();
         setupAdvancedControls();
+        initComparisonPanelDragging();
         loadBrandMetadata().then(() => {
             loadManifest();
         });
@@ -1056,6 +1057,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateComparisonPanel() {
         const container = document.getElementById('comparison-cards');
+        const countBadge = document.getElementById('comparison-count');
+        const exportBtn = document.getElementById('export-comparison-btn');
+        const clearBtn = document.getElementById('clear-comparison-btn');
+
+        // Update count badge
+        countBadge.textContent = comparisonLocations.length;
+
+        // Update button states
+        const hasLocations = comparisonLocations.length > 0;
+        exportBtn.disabled = !hasLocations;
+        clearBtn.disabled = !hasLocations;
+
         container.innerHTML = '';
 
         if (comparisonLocations.length === 0) {
@@ -1099,6 +1112,97 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             container.appendChild(card);
+        });
+    }
+
+    // Comparison Panel Dragging & Position Persistence
+    function initComparisonPanelDragging() {
+        const panel = document.getElementById('comparison-panel');
+        const dragHandle = document.getElementById('comparison-drag-handle');
+        const STORAGE_KEY = 'franchiseiq_comparison_panel_position';
+
+        let isDragging = false;
+        let offset = { x: 0, y: 0 };
+        let dragStart = { x: 0, y: 0 };
+
+        // Restore saved position on initialization
+        const savedPosition = localStorage.getItem(STORAGE_KEY);
+        if (savedPosition) {
+            try {
+                const pos = JSON.parse(savedPosition);
+                panel.style.top = pos.top;
+                panel.style.right = pos.right;
+                panel.style.left = pos.left;
+                panel.style.bottom = pos.bottom;
+            } catch (e) {
+                console.warn('Failed to restore comparison panel position:', e);
+            }
+        }
+
+        dragHandle.addEventListener('mousedown', (e) => {
+            // Only drag from the header area, not from buttons
+            if (e.target.closest('.comparison-actions')) return;
+
+            isDragging = true;
+            dragStart = { x: e.clientX, y: e.clientY };
+
+            // Get current position
+            const rect = panel.getBoundingClientRect();
+            offset = {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+
+            // Temporarily disable map interactions during drag
+            if (map) {
+                map.dragging.disable();
+            }
+
+            dragHandle.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const mapContainer = document.getElementById('map-container');
+            const containerRect = mapContainer.getBoundingClientRect();
+
+            // Calculate new position
+            let newX = e.clientX - containerRect.left - offset.x;
+            let newY = e.clientY - containerRect.top - offset.y;
+
+            // Constrain to container bounds
+            newX = Math.max(0, Math.min(newX, containerRect.width - panel.offsetWidth));
+            newY = Math.max(0, Math.min(newY, containerRect.height - panel.offsetHeight));
+
+            // Apply position
+            panel.style.position = 'absolute';
+            panel.style.left = newX + 'px';
+            panel.style.right = 'auto';
+            panel.style.top = newY + 'px';
+            panel.style.bottom = 'auto';
+            panel.style.transform = 'none';
+        });
+
+        document.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
+
+            isDragging = false;
+            dragHandle.style.cursor = 'grab';
+
+            // Re-enable map interactions
+            if (map) {
+                map.dragging.enable();
+            }
+
+            // Save position to localStorage
+            const position = {
+                top: panel.style.top,
+                right: panel.style.right,
+                left: panel.style.left,
+                bottom: panel.style.bottom
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(position));
         });
     }
 

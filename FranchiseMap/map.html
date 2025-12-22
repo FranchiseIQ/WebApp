@@ -309,13 +309,16 @@
 
         <!-- Comparison Panel -->
         <div id="comparison-panel" class="comparison-panel hidden">
-            <div class="comparison-header">
-                <h3><i class="fa-solid fa-code-compare"></i> Compare Locations</h3>
+            <div class="comparison-header" id="comparison-drag-handle">
+                <div class="comparison-header-title">
+                    <h3><i class="fa-solid fa-code-compare"></i> Compare Locations</h3>
+                    <span class="comparison-count" id="comparison-count">0</span>
+                </div>
                 <div class="comparison-actions">
-                    <button onclick="window.exportComparison()" class="comp-action-btn" title="Export Comparison">
+                    <button id="export-comparison-btn" onclick="window.exportComparison()" class="comp-action-btn" title="Export Comparison" disabled>
                         <i class="fa-solid fa-download"></i>
                     </button>
-                    <button onclick="window.clearComparison()" class="comp-action-btn" title="Clear All">
+                    <button id="clear-comparison-btn" onclick="window.clearComparison()" class="comp-action-btn" title="Clear All" disabled>
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </div>
