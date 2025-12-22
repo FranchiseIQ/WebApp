@@ -1,4 +1,4 @@
-https://monroegamble.github.io/WebApp/
+https://franchiseiq.github.io/WebApp/
 Publicly Traded Franchisors and Their Brands
 
 MCD, McDonald’s Corporation
