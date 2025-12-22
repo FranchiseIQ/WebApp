@@ -1461,7 +1461,7 @@ body {
 /* High Performers Panel */
 .high-performers-panel {
     position: absolute;
-    top: 600px;
+    bottom: 180px;
     right: 20px;
     width: 280px;
     max-height: 600px;
