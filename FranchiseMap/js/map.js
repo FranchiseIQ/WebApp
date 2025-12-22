@@ -1577,8 +1577,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         performersContent.innerHTML = highPerformers.map((loc, idx) => {
             const tier = getScoreTier(loc.s);
-            // Prefer actual address from location object, fallback to OSM default
-            const address = loc.a && loc.a !== 'US Location (OSM)' ? loc.a : 'Location data pending';
+            // Prefer actual address from location object, fallback to formatted coordinates
+            let address = 'Location data pending';
+            if (loc.a && loc.a !== 'US Location (OSM)') {
+                address = loc.a;
+            } else if (loc.lat !== undefined && loc.lng !== undefined) {
+                // Format coordinates as readable location hint
+                const latDir = loc.lat >= 0 ? 'N' : 'S';
+                const lngDir = loc.lng >= 0 ? 'E' : 'W';
+                address = `${Math.abs(loc.lat).toFixed(2)}° ${latDir}, ${Math.abs(loc.lng).toFixed(2)}° ${lngDir}`;
+            }
 
             return `
                 <div class="score-item" data-index="${idx}">

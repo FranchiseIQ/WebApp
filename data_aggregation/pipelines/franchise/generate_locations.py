@@ -214,7 +214,7 @@ def calculate_sub_scores(attrs):
 def generate_fallback_locations(ticker, queries, count=50):
     """
     Generate synthetic fallback locations when API is unavailable.
-    Uses realistic coordinates across major US cities.
+    Uses realistic coordinates across major US cities with proper addresses.
     """
     fallback_cities = [
         {"lat": 40.7128, "lng": -74.0060, "city": "New York", "state": "NY"},
@@ -234,11 +234,21 @@ def generate_fallback_locations(ticker, queries, count=50):
         {"lat": 40.7614, "lng": -73.9776, "city": "Midtown Manhattan", "state": "NY"},
     ]
 
+    street_names = [
+        "Main Street", "Broadway", "Fifth Avenue", "Oak Street", "Elm Street",
+        "Maple Avenue", "Park Avenue", "Market Street", "Madison Avenue",
+        "Washington Street", "Central Avenue", "Seventh Avenue", "Spring Street",
+        "Lexington Avenue", "Sunset Boulevard", "Hollywood Boulevard", "Wilshire Boulevard",
+        "Michigan Avenue", "State Street", "Van Ness Avenue"
+    ]
+
     locations = []
     brand_name = queries[0].replace('"', '')
 
     for i in range(min(count, len(fallback_cities) * 3)):
         city_info = fallback_cities[i % len(fallback_cities)]
+        street = street_names[i % len(street_names)]
+        street_number = random.randint(100, 9999)
 
         # Add slight random variation to coordinates
         lat = city_info["lat"] + random.uniform(-0.05, 0.05)
@@ -282,7 +292,7 @@ def generate_fallback_locations(ticker, queries, count=50):
             "id": f"{ticker}_{i}",
             "ticker": ticker,
             "n": brand_name,
-            "a": f"{city_info['city']}, {city_info['state']}",
+            "a": f"{street_number} {street}, {city_info['city']}, {city_info['state']}",
             "lat": round(lat, 6),
             "lng": round(lng, 6),
             "s": calculate_score(attrs),
