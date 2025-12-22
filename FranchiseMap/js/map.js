@@ -842,11 +842,24 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function showComparisonPanel() {
-        document.getElementById('comparison-panel').classList.add('visible');
+        const panel = document.getElementById('comparison-panel');
+        panel.classList.remove('hidden');
+        panel.classList.add('visible');
     }
 
     function hideComparisonPanel() {
-        document.getElementById('comparison-panel').classList.remove('visible');
+        const panel = document.getElementById('comparison-panel');
+        panel.classList.remove('visible');
+        panel.classList.add('hidden');
+    }
+
+    function toggleComparisonPanel() {
+        const panel = document.getElementById('comparison-panel');
+        if (panel.classList.contains('hidden') || !panel.classList.contains('visible')) {
+            showComparisonPanel();
+        } else {
+            hideComparisonPanel();
+        }
     }
 
     function openBrandComparisonTool() {
@@ -1138,6 +1151,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeLocationPanelBtn = document.getElementById('close-location-panel');
         if (closeLocationPanelBtn) {
             closeLocationPanelBtn.onclick = toggleLocationPanel;
+        }
+
+        // Score Distribution / Comparison Toggle button
+        const comparisonToggleBtn = document.getElementById('btn-comparison-toggle');
+        if (comparisonToggleBtn) {
+            comparisonToggleBtn.onclick = toggleComparisonPanel;
         }
 
         // Active Brands card - open comparison tool

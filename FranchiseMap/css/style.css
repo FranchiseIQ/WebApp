@@ -1704,7 +1704,13 @@ body {
     pointer-events: none;
 }
 
+.comparison-panel.hidden {
+    display: none;
+    pointer-events: none;
+}
+
 .comparison-panel.visible {
+    display: block;
     transform: translateX(-50%) translateY(0);
     opacity: 1;
     pointer-events: auto;
