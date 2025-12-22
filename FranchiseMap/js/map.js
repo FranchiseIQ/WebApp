@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- State ---
-    let map, clusterGroup, markersLayer = L.layerGroup(), buildingsLayer, heatLayer;
+    let map, clusterGroup, clusterLayer, individualLayer, markersLayer = L.layerGroup(), buildingsLayer, heatLayer;
     let allLocations = [], loadedTickers = new Set(), activeTickers = new Set();
-    let isClusterView = false, isHeatmapView = false, currentRadiusCircle;
+    let isClusterView = true, isHeatmapView = false, currentRadiusCircle;
     let manifest = [];
     let tickerColors = {};
     let highlightedMarkers = [];
@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let scoreFilter = { min: 0, max: 100 };
     let proximityIndex = new ProximityIndex(0.02); // Grid-based spatial index
     let highPerformersOpen = false; // Track high performers panel state
+    let currentZoom = 4; // Track current zoom level for sizing
 
     // --- Ownership Model Filter State ---
     let brandMetadata = null;  // Loaded from brand_metadata.json
@@ -110,6 +111,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return colorMap[hexColor] || hexColor;
     }
 
+    // Calculate marker radius based on zoom level and view mode
+    function getMarkerRadius(zoom, isIndividual = false) {
+        // National scale (zoom 0-6): very small
+        // Regional scale (zoom 7-9): small
+        // City scale (zoom 10-13): medium
+        // Neighborhood scale (zoom 14+): larger
+        const baseRadius = isIndividual ? 1 : 0.5; // Individual markers slightly larger
+
+        if (zoom <= 5) return baseRadius * 3;      // ~1.5-3px at national scale
+        if (zoom <= 7) return baseRadius * 4;      // ~2-4px
+        if (zoom <= 9) return baseRadius * 5;      // ~2.5-5px
+        if (zoom <= 11) return baseRadius * 6.5;   // ~3.25-6.5px
+        if (zoom <= 13) return baseRadius * 8;     // ~4-8px
+        return baseRadius * 10;                     // ~5-10px at city/neighborhood scale
+    }
+
     function initMap() {
         // Base map layers
         const street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -133,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         map = L.map('map', { zoomControl: false, preferCanvas: true, layers: [street] }).setView([39.82, -98.58], 4);
+        currentZoom = map.getZoom();
 
         // State borders overlay layer
         const stateBorders = L.tileLayer('https://tile.openstreetmap.us/data/boundary/{z}/{x}/{y}.png', {
@@ -171,8 +189,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         // Don't add to map - we'll use custom panel instead
 
+        // Initialize layers
         clusterGroup = L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 40, chunkedLoading: true });
-        map.addLayer(clusterGroup);
+        clusterLayer = clusterGroup;
+        individualLayer = L.layerGroup();
+
+        // Add clustered layer by default
+        map.addLayer(clusterLayer);
 
         buildingsLayer = new OSMBuildings(map);
         map.on('overlayadd', e => { if(e.layer === dummy3D) loadBuildings(); });
@@ -181,7 +204,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if(map.hasLayer(dummy3D)) loadBuildings();
             updateVisibleStats();
         });
-        map.on('zoomend', updateVisibleStats);
+        map.on('zoomend', function() {
+            currentZoom = map.getZoom();
+            updateVisibleStats();
+            // Refresh marker sizes on zoom
+            refreshMarkerSizes();
+        });
 
         setupRail();
         setupFilters();
@@ -359,8 +387,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function refreshMap() {
-        clusterGroup.clearLayers();
-        markersLayer.clearLayers();
+        clusterLayer.clearLayers();
+        individualLayer.clearLayers();
         highlightedMarkers = [];
 
         // Apply all filters (AND logic)
@@ -375,22 +403,29 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update proximity index with visible locations
         proximityIndex.addLocations(visible);
 
-        const markers = visible.map(createMarker);
+        // Create markers (without adding to map yet)
+        const clusterMarkers = visible.map(loc => createMarker(loc, false));
+        const individualMarkers = visible.map(loc => createMarker(loc, true));
 
+        // Handle heat map (optional overlay)
         if (isHeatmapView) {
             updateHeatmap(visible);
         } else if (heatLayer) {
             map.removeLayer(heatLayer);
+            heatLayer = null;
         }
 
-        if (isClusterView && !isHeatmapView) {
-            clusterGroup.addLayers(markers);
-            if (!map.hasLayer(clusterGroup)) map.addLayer(clusterGroup);
-            if (map.hasLayer(markersLayer)) map.removeLayer(markersLayer);
+        // Enforce mutually exclusive view modes
+        if (isClusterView) {
+            // Clustered view is active - add cluster markers, remove individual
+            clusterLayer.addLayers(clusterMarkers);
+            if (!map.hasLayer(clusterLayer)) map.addLayer(clusterLayer);
+            if (map.hasLayer(individualLayer)) map.removeLayer(individualLayer);
         } else {
-            markers.forEach(m => markersLayer.addLayer(m));
-            if (!map.hasLayer(markersLayer)) map.addLayer(markersLayer);
-            if (map.hasLayer(clusterGroup)) map.removeLayer(clusterGroup);
+            // All locations view is active - add individual markers, remove clusters
+            individualMarkers.forEach(m => individualLayer.addLayer(m));
+            if (!map.hasLayer(individualLayer)) map.addLayer(individualLayer);
+            if (map.hasLayer(clusterLayer)) map.removeLayer(clusterLayer);
         }
 
         updateLocationCount();
@@ -401,26 +436,59 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(updateVisibleStats, 100);
     }
 
+    function refreshMarkerSizes() {
+        // Update marker sizes when zoom changes
+        if (isClusterView) {
+            // Cluster view - no need to refresh as clusters handle their own sizing
+        } else {
+            // Individual markers - update their sizes
+            individualLayer.eachLayer(marker => {
+                if (marker.setRadius) {
+                    const radius = getMarkerRadius(currentZoom, true);
+                    marker.setRadius(radius);
+                }
+            });
+        }
+    }
+
     function updateHeatmap(locations) {
         if (heatLayer) {
             map.removeLayer(heatLayer);
+            heatLayer = null;
         }
 
         if (locations.length === 0 || typeof L.heatLayer === 'undefined') return;
 
-        const heatData = locations.map(loc => [loc.lat, loc.lng, loc.s / 100]);
+        // Use site score as weight: normalized to 0-1 where 100 = 1.0
+        // This makes "hotter" mean higher-scoring sites
+        const heatData = locations.map(loc => [
+            loc.lat,
+            loc.lng,
+            Math.min(1, loc.s / 100)  // Normalize score to 0-1 range
+        ]);
+
         heatLayer = L.heatLayer(heatData, {
             radius: 25,
             blur: 15,
             maxZoom: 17,
+            max: 1.0,
+            // Gradient: cool (blue) = low scores, hot (red) = high scores
             gradient: {
-                0.0: '#3b82f6',
-                0.25: '#22c55e',
-                0.5: '#eab308',
-                0.75: '#f97316',
-                1.0: '#ef4444'
+                0.0: '#3b82f6',    // Blue: <25 (Poor)
+                0.25: '#22c55e',   // Green: 25-50 (Fair)
+                0.5: '#eab308',    // Yellow: 50-75 (Good)
+                0.75: '#f97316',   // Orange: 75-90
+                1.0: '#ef4444'     // Red: 90-100 (Excellent)
             }
         }).addTo(map);
+
+        // Ensure heat layer is behind markers
+        if (map.hasLayer(clusterLayer)) {
+            clusterLayer.bringToFront();
+        }
+        if (map.hasLayer(individualLayer)) {
+            individualLayer.bringToFront();
+        }
     }
 
     function updateLocationCount() {
@@ -510,12 +578,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('dist-poor').style.width = `${(distribution.poor / total) * 100}%`;
     }
 
-    function createMarker(loc) {
+    function createMarker(loc, isIndividual = false) {
         const color = getColor(loc.ticker);
         const tier = getScoreTier(loc.s);
+        const radius = getMarkerRadius(currentZoom, isIndividual);
 
         const marker = L.circleMarker([loc.lat, loc.lng], {
-            radius: 7,
+            radius: radius,
             fillColor: color,
             color: tier.color,
             weight: 2,
@@ -1067,19 +1136,42 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Unable to access your location. Please ensure:\n1. Location services are enabled\n2. Browser has permission to access location\n3. You are viewing over HTTPS (if required)');
         });
 
-        document.getElementById('btn-cluster-toggle').onclick = function() {
+        // Toggle between Clustered and All Locations views (mutually exclusive)
+        const clusterToggle = document.getElementById('btn-cluster-toggle');
+        clusterToggle.onclick = function() {
             isClusterView = !isClusterView;
             this.classList.toggle('active');
+
+            // Update title based on state
+            if (isClusterView) {
+                this.setAttribute('title', 'Switch to All Locations');
+            } else {
+                this.setAttribute('title', 'Switch to Clustered View');
+            }
+
             refreshMap();
         };
 
+        // Set initial tooltip (clustered view is default and active)
+        if (isClusterView) {
+            clusterToggle.setAttribute('title', 'Switch to All Locations');
+        }
+
+        // Toggle heat map overlay (independent from cluster/all locations toggle)
         document.getElementById('btn-heatmap-toggle').onclick = function() {
             isHeatmapView = !isHeatmapView;
             this.classList.toggle('active');
+
+            // Toggle heat map legend visibility
+            const heatmapLegend = document.getElementById('heatmap-legend');
             if (isHeatmapView) {
-                document.getElementById('btn-cluster-toggle').classList.remove('active');
-                isClusterView = false;
+                heatmapLegend.classList.remove('hidden');
+                this.setAttribute('title', 'Turn off Heat Map');
+            } else {
+                heatmapLegend.classList.add('hidden');
+                this.setAttribute('title', 'Turn on Heat Map');
             }
+
             refreshMap();
         };
 
