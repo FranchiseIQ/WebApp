@@ -1,0 +1,497 @@
+[
+  {
+    "platform": "Driven Brands",
+    "brand": "AAMCO",
+    "acquisition_year": 2018,
+    "industry": "Automotive",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.aamco.com",
+    "notes": "Transmission specialists"
+  },
+  {
+    "platform": "Driven Brands",
+    "brand": "Alamo",
+    "acquisition_year": 2012,
+    "industry": "Car Rental",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.alamo.com",
+    "notes": "Regional car rental"
+  },
+  {
+    "platform": "Driven Brands",
+    "brand": "Avis",
+    "acquisition_year": 2012,
+    "industry": "Car Rental",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.avis.com",
+    "notes": "Vehicle rental service"
+  },
+  {
+    "platform": "Driven Brands",
+    "brand": "Budget",
+    "acquisition_year": 2012,
+    "industry": "Car Rental",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.budget.com",
+    "notes": "Economy vehicle rental"
+  },
+  {
+    "platform": "Driven Brands",
+    "brand": "Enterprise Rent-A-Car",
+    "acquisition_year": 2012,
+    "industry": "Car Rental",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.enterprise.com",
+    "notes": "Full-service car rental"
+  },
+  {
+    "platform": "Driven Brands",
+    "brand": "Hertz",
+    "acquisition_year": 2012,
+    "industry": "Car Rental",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.hertz.com",
+    "notes": "Car rental service"
+  },
+  {
+    "platform": "Driven Brands",
+    "brand": "Mosquito Joe",
+    "acquisition_year": 2020,
+    "industry": "Pest Control",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.mosquito-joe.com",
+    "notes": "Mosquito and pest control"
+  },
+  {
+    "platform": "Driven Brands",
+    "brand": "National",
+    "acquisition_year": 2012,
+    "industry": "Car Rental",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.nationalcar.com",
+    "notes": "Premium car rental"
+  },
+  {
+    "platform": "Driven Brands",
+    "brand": "Vanguard Car Rental",
+    "acquisition_year": 2018,
+    "industry": "Car Rental",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.vanguardcar.com",
+    "notes": "Specialty car rental"
+  },
+  {
+    "platform": "Driven Brands",
+    "brand": "Wyle Electronics",
+    "acquisition_year": 2018,
+    "industry": "Electronics Distribution",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.wyle.com",
+    "notes": "IT hardware and electronics"
+  },
+  {
+    "platform": "Driven Brands",
+    "brand": "Zipcar",
+    "acquisition_year": 2013,
+    "industry": "Car Sharing",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.zipcar.com",
+    "notes": "Car sharing platform"
+  },
+  {
+    "platform": "Focus Brands",
+    "brand": "Auntie Anne's",
+    "acquisition_year": 2013,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.auntieannes.com",
+    "notes": "Pretzel chain"
+  },
+  {
+    "platform": "Focus Brands",
+    "brand": "Carvel",
+    "acquisition_year": 2013,
+    "industry": "Dessert",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.carvel.com",
+    "notes": "Ice cream and cakes"
+  },
+  {
+    "platform": "Focus Brands",
+    "brand": "Cinnabon",
+    "acquisition_year": 2013,
+    "industry": "Dessert",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.cinnabon.com",
+    "notes": "Cinnamon roll specialty"
+  },
+  {
+    "platform": "Focus Brands",
+    "brand": "Jamba Juice",
+    "acquisition_year": 2006,
+    "industry": "Juice Bar",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.jambajuice.com",
+    "notes": "Smoothies and juices"
+  },
+  {
+    "platform": "Focus Brands",
+    "brand": "McAlister's Deli",
+    "acquisition_year": 2013,
+    "industry": "Casual Dining",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.mcalistersdeli.com",
+    "notes": "Sandwich and deli"
+  },
+  {
+    "platform": "Focus Brands",
+    "brand": "Moe's Southwest Grill",
+    "acquisition_year": 2013,
+    "industry": "Casual Dining",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.moesouthwestgrill.com",
+    "notes": "Mexican cuisine"
+  },
+  {
+    "platform": "Focus Brands",
+    "brand": "Schlotzsky's",
+    "acquisition_year": 2013,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.schlotzskys.com",
+    "notes": "Specialty sandwiches"
+  },
+  {
+    "platform": "Inspire Brands",
+    "brand": "Applebee's",
+    "acquisition_year": 2020,
+    "industry": "Casual Dining",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.applebees.com",
+    "notes": "Casual dining bar and grill"
+  },
+  {
+    "platform": "Inspire Brands",
+    "brand": "Arby's",
+    "acquisition_year": 2018,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.arbys.com",
+    "notes": "Roast beef sandwiches"
+  },
+  {
+    "platform": "Inspire Brands",
+    "brand": "Baskin-Robbins",
+    "acquisition_year": 2020,
+    "industry": "Dessert",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.baskinrobbins.com",
+    "notes": "Ice cream chain"
+  },
+  {
+    "platform": "Inspire Brands",
+    "brand": "Buffalo Wild Wings",
+    "acquisition_year": 2018,
+    "industry": "Casual Dining",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.buffalowildwings.com",
+    "notes": "Sports bar and wings"
+  },
+  {
+    "platform": "Inspire Brands",
+    "brand": "Domino's",
+    "acquisition_year": 2020,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.dominos.com",
+    "notes": "Pizza delivery"
+  },
+  {
+    "platform": "Inspire Brands",
+    "brand": "Dunkin'",
+    "acquisition_year": 2020,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.dunkindonuts.com",
+    "notes": "Coffee and donuts chain"
+  },
+  {
+    "platform": "Inspire Brands",
+    "brand": "Jack in the Box",
+    "acquisition_year": 2020,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.jackinthebox.com",
+    "notes": "Fast service burger and tacos"
+  },
+  {
+    "platform": "Inspire Brands",
+    "brand": "Jimmy John's",
+    "acquisition_year": 2019,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.jimmyjohns.com",
+    "notes": "Fast casual sandwiches"
+  },
+  {
+    "platform": "Inspire Brands",
+    "brand": "Popeyes",
+    "acquisition_year": 2019,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.popeyes.com",
+    "notes": "Chicken specialty"
+  },
+  {
+    "platform": "Inspire Brands",
+    "brand": "Sonic Drive-In",
+    "acquisition_year": 2018,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.sonicdrivein.com",
+    "notes": "Drive-in fast food"
+  },
+  {
+    "platform": "Inspire Brands",
+    "brand": "Sweet Frog",
+    "acquisition_year": 2012,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.sweetfrogfroyo.com",
+    "notes": "Frozen yogurt chain"
+  },
+  {
+    "platform": "Inspire Brands",
+    "brand": "Wendy's",
+    "acquisition_year": 2018,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.wendys.com",
+    "notes": "Fast casual burger chain"
+  },
+  {
+    "platform": "Pet Retail Brands",
+    "brand": "Pet Smart Grooming",
+    "acquisition_year": 2016,
+    "industry": "Pet Services",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.petsmart.com",
+    "notes": "Pet grooming services"
+  },
+  {
+    "platform": "Pet Retail Brands",
+    "brand": "Pet Supplies Plus",
+    "acquisition_year": 2015,
+    "industry": "Pet Retail",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.petsuppliesplus.com",
+    "notes": "Pet supply store chain"
+  },
+  {
+    "platform": "Pet Retail Brands",
+    "brand": "Petsite",
+    "acquisition_year": 2018,
+    "industry": "Pet Retail",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.petsite.com",
+    "notes": "Online pet supplies"
+  },
+  {
+    "platform": "Platform Unknown",
+    "brand": "Culver's",
+    "acquisition_year": 2021,
+    "industry": "Casual Dining",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.culvers.com",
+    "notes": "Midwest burger and custard chain"
+  },
+  {
+    "platform": "Platform Unknown",
+    "brand": "International Franchise Concepts",
+    "acquisition_year": 2019,
+    "industry": "Various",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.ifcbrands.com",
+    "notes": "Diversified franchise portfolio"
+  },
+  {
+    "platform": "Self Esteem Brands",
+    "brand": "CycleBar",
+    "acquisition_year": 2018,
+    "industry": "Fitness",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.cyclebar.com",
+    "notes": "Indoor cycling studio"
+  },
+  {
+    "platform": "Self Esteem Brands",
+    "brand": "LifeTime",
+    "acquisition_year": 2015,
+    "industry": "Fitness",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.lifetime.com",
+    "notes": "Premium fitness center"
+  },
+  {
+    "platform": "Self Esteem Brands",
+    "brand": "Orangetheory",
+    "acquisition_year": 2016,
+    "industry": "Fitness",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.orangetheory.com",
+    "notes": "Heart rate training studio"
+  },
+  {
+    "platform": "Self Esteem Brands",
+    "brand": "Sunshine Massage",
+    "acquisition_year": 2019,
+    "industry": "Wellness",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.sunshinemassage.com",
+    "notes": "Massage therapy"
+  },
+  {
+    "platform": "ServiceMaster Brands",
+    "brand": "American Home Shield",
+    "acquisition_year": 1999,
+    "industry": "Home Warranty",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.ahs.com",
+    "notes": "Home protection plan"
+  },
+  {
+    "platform": "ServiceMaster Brands",
+    "brand": "Merry Maids",
+    "acquisition_year": 1996,
+    "industry": "Residential Cleaning",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.merrymaids.com",
+    "notes": "House cleaning service"
+  },
+  {
+    "platform": "ServiceMaster Brands",
+    "brand": "ServiceMaster",
+    "acquisition_year": 1995,
+    "industry": "Facility Services",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.servicemaster.com",
+    "notes": "Professional cleaning and facility services"
+  },
+  {
+    "platform": "ServiceMaster Brands",
+    "brand": "ServiceMaster Clean",
+    "acquisition_year": 1995,
+    "industry": "Commercial Cleaning",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.servicemaster.com",
+    "notes": "Professional cleaning services"
+  },
+  {
+    "platform": "ServiceMaster Brands",
+    "brand": "ServiceMaster Restore",
+    "acquisition_year": 2000,
+    "industry": "Property Restoration",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.servicemaster-restore.com",
+    "notes": "Fire and water restoration"
+  },
+  {
+    "platform": "ServiceMaster Brands",
+    "brand": "Terminix",
+    "acquisition_year": 1994,
+    "industry": "Pest Control",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.terminix.com",
+    "notes": "Pest control services"
+  },
+  {
+    "platform": "ServiceMaster Brands",
+    "brand": "TruGreen",
+    "acquisition_year": 1993,
+    "industry": "Lawn Care",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.trugreen.com",
+    "notes": "Landscaping services"
+  },
+  {
+    "platform": "Standalone",
+    "brand": "Corner Bakery Cafe",
+    "acquisition_year": 2011,
+    "industry": "Casual Dining",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.cornerbakerycafe.com",
+    "notes": "Bakery cafe"
+  },
+  {
+    "platform": "Standalone",
+    "brand": "Firehouse Subs",
+    "acquisition_year": 2020,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.firehousesubs.com",
+    "notes": "Specialty submarine sandwiches"
+  },
+  {
+    "platform": "Standalone",
+    "brand": "MOD Pizza",
+    "acquisition_year": 2019,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.modpizza.com",
+    "notes": "Individual pizza pizzeria"
+  },
+  {
+    "platform": "Standalone",
+    "brand": "Nothing Bundt Cakes",
+    "acquisition_year": 2016,
+    "industry": "Dessert",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.nothingbundtcakes.com",
+    "notes": "Bundt cake specialist"
+  },
+  {
+    "platform": "Standalone",
+    "brand": "Subway",
+    "acquisition_year": 2014,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.subway.com",
+    "notes": "Customizable sandwich chain"
+  },
+  {
+    "platform": "Standalone",
+    "brand": "Taco Cabana",
+    "acquisition_year": 2008,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.tacocabana.com",
+    "notes": "Mexican quick service"
+  },
+  {
+    "platform": "Standalone",
+    "brand": "Torchy's Tacos",
+    "acquisition_year": 2021,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.torchys.com",
+    "notes": "Gourmet taco specialist"
+  },
+  {
+    "platform": "Standalone",
+    "brand": "Tropical Smoothie Cafe",
+    "acquisition_year": 2018,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.tropicalsmoothiecafe.com",
+    "notes": "Smoothie and food cafe"
+  },
+  {
+    "platform": "Standalone",
+    "brand": "Whataburger",
+    "acquisition_year": 2019,
+    "industry": "Quick Service Restaurant",
+    "franchise_status": "Franchise",
+    "website_url": "https://www.whataburger.com",
+    "notes": "Regional burger chain"
+  }
+]

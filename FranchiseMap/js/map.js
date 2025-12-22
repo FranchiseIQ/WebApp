@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Config ---
-    const ROARK_TICKERS = ['INSPIRE', 'FOCUS', 'DRIVEN', 'ROARK'];
+    // Roark brands are now loaded dynamically from manifest with is_roark field
     const RADIUS_STEPS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
 
     // Legacy category map - kept for backward compatibility, but categories are now loaded from brand_metadata.json
@@ -253,7 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadManifest() {
-        fetch('data/manifest.json')
+        // Try to load augmented manifest with Roark tagging, fall back to original manifest
+        fetch('data/brands_manifest.json')
             .then(res => res.json())
             .then(data => {
                 manifest = data;
@@ -263,8 +264,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateDashboardStats();
             })
             .catch(e => {
-                console.log("Data not yet generated. Run GitHub Action.");
-                document.getElementById('brand-legend').innerHTML = '<p style="color:#999;font-size:0.85rem;">No data available. Run the GitHub Action to generate map data.</p>';
+                // Fallback to original manifest if brands_manifest.json doesn't exist
+                console.log("brands_manifest.json not found, loading manifest.json");
+                fetch('data/manifest.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        manifest = data;
+                        renderLegend(manifest);
+                        selectAll();
+                        updateDashboardStats();
+                    })
+                    .catch(e2 => {
+                        console.log("Data not yet generated. Run GitHub Action.");
+                        document.getElementById('brand-legend').innerHTML = '<p style="color:#999;font-size:0.85rem;">No data available. Run the GitHub Action to generate map data.</p>';
+                    });
             });
     }
 
@@ -274,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         manifestData.forEach(item => {
             const color = getColor(item.ticker);
-            const isRoark = ROARK_TICKERS.includes(item.ticker);
+            const isRoark = item.is_roark || false;
 
             const btn = document.createElement('button');
             btn.className = 'brand-pill' + (isRoark ? ' roark' : '');
@@ -1795,7 +1808,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function selectRoark() {
         const promises = [];
 
-        manifest.filter(item => ROARK_TICKERS.includes(item.ticker)).forEach(item => {
+        manifest.filter(item => item.is_roark).forEach(item => {
             const pill = document.querySelector(`.brand-pill[data-ticker="${item.ticker}"]`);
             if (pill && !activeTickers.has(item.ticker)) {
                 activeTickers.add(item.ticker);
@@ -1818,9 +1831,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function deselectRoark() {
-        ROARK_TICKERS.forEach(ticker => {
-            activeTickers.delete(ticker);
-            const pill = document.querySelector(`.brand-pill[data-ticker="${ticker}"]`);
+        manifest.filter(item => item.is_roark).forEach(item => {
+            activeTickers.delete(item.ticker);
+            const pill = document.querySelector(`.brand-pill[data-ticker="${item.ticker}"]`);
             if (pill) pill.classList.remove('active');
         });
         refreshMap();

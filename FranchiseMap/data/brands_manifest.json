@@ -1,62 +1,306 @@
-{
-  "version": "1.0",
-  "lastUpdated": "2025-12-09",
-  "brands": [
-    {
-      "id": "MCD",
-      "name": "McDonald's",
-      "color": "#FFC72C",
-      "category": "QSR",
-      "file": "brands/mcdonalds.json"
-    },
-    {
-      "id": "SBUX",
-      "name": "Starbucks",
-      "color": "#00704A",
-      "category": "QSR",
-      "file": "brands/starbucks.json"
-    },
-    {
-      "id": "CMG",
-      "name": "Chipotle",
-      "color": "#441500",
-      "category": "QSR",
-      "file": "brands/chipotle.json"
-    },
-    {
-      "id": "DPZ",
-      "name": "Domino's Pizza",
-      "color": "#006491",
-      "category": "QSR",
-      "file": "brands/dominos.json"
-    },
-    {
-      "id": "WEN",
-      "name": "Wendy's",
-      "color": "#E2203C",
-      "category": "QSR",
-      "file": "brands/wendys.json"
-    },
-    {
-      "id": "SHAK",
-      "name": "Shake Shack",
-      "color": "#1F1F1F",
-      "category": "QSR",
-      "file": "brands/shakeshack.json"
-    },
-    {
-      "id": "WING",
-      "name": "Wingstop",
-      "color": "#00503C",
-      "category": "QSR",
-      "file": "brands/wingstop.json"
-    },
-    {
-      "id": "PLNT",
-      "name": "Planet Fitness",
-      "color": "#5C2D91",
-      "category": "Fitness",
-      "file": "brands/planetfitness.json"
-    }
-  ]
-}
+[
+  {
+    "ticker": "WEN",
+    "brands": [
+      "Wendy's"
+    ],
+    "name": "Wendy's",
+    "file": "data/brands/WEN.json",
+    "color": "#E2203C",
+    "category": "QSR",
+    "count": 5758,
+    "is_roark": true,
+    "roark_platform": "Inspire Brands",
+    "roark_acquisition_year": 2018,
+    "roark_website_url": "https://www.wendys.com",
+    "roark_notes": "Fast casual burger chain"
+  },
+  {
+    "ticker": "DIN",
+    "brands": [
+      "DIN"
+    ],
+    "name": "Applebee's",
+    "file": "data/brands/DIN.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 3024,
+    "is_roark": true,
+    "roark_platform": "Inspire Brands",
+    "roark_acquisition_year": 2020,
+    "roark_website_url": "https://www.applebees.com",
+    "roark_notes": "Casual dining bar and grill"
+  },
+  {
+    "ticker": "HRB",
+    "brands": [
+      "HRB"
+    ],
+    "name": "H&R Block",
+    "file": "data/brands/HRB.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 2935,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "JACK",
+    "brands": [
+      "JACK"
+    ],
+    "name": "Jack in the Box",
+    "file": "data/brands/JACK.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 2475,
+    "is_roark": true,
+    "roark_platform": "Inspire Brands",
+    "roark_acquisition_year": 2020,
+    "roark_website_url": "https://www.jackinthebox.com",
+    "roark_notes": "Fast service burger and tacos"
+  },
+  {
+    "ticker": "H",
+    "brands": [
+      "Hyatt"
+    ],
+    "name": "Hyatt",
+    "file": "data/brands/H.json",
+    "color": "#000000",
+    "category": "Hotels",
+    "count": 1634,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "PLNT",
+    "brands": [
+      "Planet Fitness"
+    ],
+    "name": "Planet Fitness",
+    "file": "data/brands/PLNT.json",
+    "color": "#5C2D91",
+    "category": "Fitness",
+    "count": 1550,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "DENN",
+    "brands": [
+      "DENN"
+    ],
+    "name": "Denny's",
+    "file": "data/brands/DENN.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 1402,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "WING",
+    "brands": [
+      "Wingstop"
+    ],
+    "name": "Wingstop",
+    "file": "data/brands/WING.json",
+    "color": "#00503C",
+    "category": "QSR",
+    "count": 1233,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "ROL",
+    "brands": [
+      "ROL"
+    ],
+    "name": "Orkin",
+    "file": "data/brands/ROL.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 652,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "RRGB",
+    "brands": [
+      "RRGB"
+    ],
+    "name": "Red Robin",
+    "file": "data/brands/RRGB.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 634,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "DNUT",
+    "brands": [
+      "DNUT"
+    ],
+    "name": "Krispy Kreme",
+    "file": "data/brands/DNUT.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 529,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "SHAK",
+    "brands": [
+      "Shake Shack"
+    ],
+    "name": "Shake Shack",
+    "file": "data/brands/SHAK.json",
+    "color": "#1F1F1F",
+    "category": "QSR",
+    "count": 325,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "PLAY",
+    "brands": [
+      "PLAY"
+    ],
+    "name": "Dave & Buster's",
+    "file": "data/brands/PLAY.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 234,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "MCW",
+    "brands": [
+      "MCW"
+    ],
+    "name": "Mister Car Wash",
+    "file": "data/brands/MCW.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 212,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "SERV",
+    "brands": [
+      "SERV"
+    ],
+    "name": "ServiceMaster",
+    "file": "data/brands/SERV.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 70,
+    "is_roark": true,
+    "roark_platform": "ServiceMaster Brands",
+    "roark_acquisition_year": 1995,
+    "roark_website_url": "https://www.servicemaster.com",
+    "roark_notes": "Professional cleaning and facility services"
+  },
+  {
+    "ticker": "DPZ",
+    "brands": [
+      "Domino's"
+    ],
+    "name": "Domino's",
+    "file": "data/brands/DPZ.json",
+    "color": "#006491",
+    "category": "QSR",
+    "count": 64,
+    "is_roark": true,
+    "roark_platform": "Inspire Brands",
+    "roark_acquisition_year": 2020,
+    "roark_website_url": "https://www.dominos.com",
+    "roark_notes": "Pizza delivery"
+  },
+  {
+    "ticker": "TNL",
+    "brands": [
+      "TNL"
+    ],
+    "name": "Club Wyndham",
+    "file": "data/brands/TNL.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 24,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "VAC",
+    "brands": [
+      "VAC"
+    ],
+    "name": "Marriott Vacation Club",
+    "file": "data/brands/VAC.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 19,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  },
+  {
+    "ticker": "NATH",
+    "brands": [
+      "NATH"
+    ],
+    "name": "Nathan's Famous",
+    "file": "data/brands/NATH.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 1,
+    "is_roark": false,
+    "roark_platform": null,
+    "roark_acquisition_year": null,
+    "roark_website_url": null,
+    "roark_notes": null
+  }
+]

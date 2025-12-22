@@ -15,7 +15,7 @@
     "brands": [
       "DIN"
     ],
-    "name": "DIN",
+    "name": "Applebee's",
     "file": "data/brands/DIN.json",
     "color": "#000000",
     "category": "Other",
@@ -26,7 +26,7 @@
     "brands": [
       "HRB"
     ],
-    "name": "HRB",
+    "name": "H&R Block",
     "file": "data/brands/HRB.json",
     "color": "#000000",
     "category": "Other",
@@ -37,7 +37,7 @@
     "brands": [
       "JACK"
     ],
-    "name": "JACK",
+    "name": "Jack in the Box",
     "file": "data/brands/JACK.json",
     "color": "#000000",
     "category": "Other",
@@ -46,12 +46,12 @@
   {
     "ticker": "H",
     "brands": [
-      "H"
+      "Hyatt"
     ],
-    "name": "H",
+    "name": "Hyatt",
     "file": "data/brands/H.json",
     "color": "#000000",
-    "category": "Other",
+    "category": "Hotels",
     "count": 1634
   },
   {
@@ -70,7 +70,7 @@
     "brands": [
       "DENN"
     ],
-    "name": "DENN",
+    "name": "Denny's",
     "file": "data/brands/DENN.json",
     "color": "#000000",
     "category": "Other",
@@ -92,7 +92,7 @@
     "brands": [
       "ROL"
     ],
-    "name": "ROL",
+    "name": "Orkin",
     "file": "data/brands/ROL.json",
     "color": "#000000",
     "category": "Other",
@@ -103,7 +103,7 @@
     "brands": [
       "RRGB"
     ],
-    "name": "RRGB",
+    "name": "Red Robin",
     "file": "data/brands/RRGB.json",
     "color": "#000000",
     "category": "Other",
@@ -114,7 +114,7 @@
     "brands": [
       "DNUT"
     ],
-    "name": "DNUT",
+    "name": "Krispy Kreme",
     "file": "data/brands/DNUT.json",
     "color": "#000000",
     "category": "Other",
@@ -136,7 +136,7 @@
     "brands": [
       "PLAY"
     ],
-    "name": "PLAY",
+    "name": "Dave & Buster's",
     "file": "data/brands/PLAY.json",
     "color": "#000000",
     "category": "Other",
@@ -147,7 +147,7 @@
     "brands": [
       "MCW"
     ],
-    "name": "MCW",
+    "name": "Mister Car Wash",
     "file": "data/brands/MCW.json",
     "color": "#000000",
     "category": "Other",
@@ -158,7 +158,7 @@
     "brands": [
       "SERV"
     ],
-    "name": "SERV",
+    "name": "ServiceMaster",
     "file": "data/brands/SERV.json",
     "color": "#000000",
     "category": "Other",
@@ -180,7 +180,7 @@
     "brands": [
       "TNL"
     ],
-    "name": "TNL",
+    "name": "Club Wyndham",
     "file": "data/brands/TNL.json",
     "color": "#000000",
     "category": "Other",
@@ -191,7 +191,7 @@
     "brands": [
       "VAC"
     ],
-    "name": "VAC",
+    "name": "Marriott Vacation Club",
     "file": "data/brands/VAC.json",
     "color": "#000000",
     "category": "Other",
@@ -202,7 +202,7 @@
     "brands": [
       "NATH"
     ],
-    "name": "NATH",
+    "name": "Nathan's Famous",
     "file": "data/brands/NATH.json",
     "color": "#000000",
     "category": "Other",

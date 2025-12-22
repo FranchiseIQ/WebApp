@@ -1,0 +1,337 @@
+{
+  "summary": {
+    "total_roark_brands": 55,
+    "matched_count": 5,
+    "unmatched_count": 50,
+    "match_rate": "9.1%"
+  },
+  "platform_summary": {
+    "Inspire Brands": {
+      "matched": 4,
+      "unmatched": 8
+    },
+    "ServiceMaster Brands": {
+      "matched": 1,
+      "unmatched": 6
+    },
+    "Driven Brands": {
+      "matched": 0,
+      "unmatched": 11
+    },
+    "Focus Brands": {
+      "matched": 0,
+      "unmatched": 7
+    },
+    "Pet Retail Brands": {
+      "matched": 0,
+      "unmatched": 3
+    },
+    "Platform Unknown": {
+      "matched": 0,
+      "unmatched": 2
+    },
+    "Self Esteem Brands": {
+      "matched": 0,
+      "unmatched": 4
+    },
+    "Standalone": {
+      "matched": 0,
+      "unmatched": 9
+    }
+  },
+  "matched_brands": [
+    {
+      "portfolio_brand": "Applebee's",
+      "ticker": "DIN",
+      "manifest_name": "Applebee's",
+      "platform": "Inspire Brands",
+      "acquisition_year": 2020,
+      "match_type": "exact"
+    },
+    {
+      "portfolio_brand": "Domino's",
+      "ticker": "DPZ",
+      "manifest_name": "Domino's",
+      "platform": "Inspire Brands",
+      "acquisition_year": 2020,
+      "match_type": "exact"
+    },
+    {
+      "portfolio_brand": "Jack in the Box",
+      "ticker": "JACK",
+      "manifest_name": "Jack in the Box",
+      "platform": "Inspire Brands",
+      "acquisition_year": 2020,
+      "match_type": "exact"
+    },
+    {
+      "portfolio_brand": "Wendy's",
+      "ticker": "WEN",
+      "manifest_name": "Wendy's",
+      "platform": "Inspire Brands",
+      "acquisition_year": 2018,
+      "match_type": "exact"
+    },
+    {
+      "portfolio_brand": "ServiceMaster",
+      "ticker": "SERV",
+      "manifest_name": "ServiceMaster",
+      "platform": "ServiceMaster Brands",
+      "acquisition_year": 1995,
+      "match_type": "exact"
+    }
+  ],
+  "unmatched_roark_brands": [
+    {
+      "portfolio_brand": "AAMCO",
+      "platform": "Driven Brands",
+      "notes": "Brand 'AAMCO' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Alamo",
+      "platform": "Driven Brands",
+      "notes": "Brand 'Alamo' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Avis",
+      "platform": "Driven Brands",
+      "notes": "Brand 'Avis' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Budget",
+      "platform": "Driven Brands",
+      "notes": "Brand 'Budget' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Enterprise Rent-A-Car",
+      "platform": "Driven Brands",
+      "notes": "Brand 'Enterprise Rent-A-Car' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Hertz",
+      "platform": "Driven Brands",
+      "notes": "Brand 'Hertz' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Mosquito Joe",
+      "platform": "Driven Brands",
+      "notes": "Brand 'Mosquito Joe' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "National",
+      "platform": "Driven Brands",
+      "notes": "Brand 'National' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Vanguard Car Rental",
+      "platform": "Driven Brands",
+      "notes": "Brand 'Vanguard Car Rental' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Wyle Electronics",
+      "platform": "Driven Brands",
+      "notes": "Brand 'Wyle Electronics' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Zipcar",
+      "platform": "Driven Brands",
+      "notes": "Brand 'Zipcar' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Auntie Anne's",
+      "platform": "Focus Brands",
+      "notes": "Brand 'Auntie Anne's' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Carvel",
+      "platform": "Focus Brands",
+      "notes": "Brand 'Carvel' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Cinnabon",
+      "platform": "Focus Brands",
+      "notes": "Brand 'Cinnabon' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Jamba Juice",
+      "platform": "Focus Brands",
+      "notes": "Brand 'Jamba Juice' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "McAlister's Deli",
+      "platform": "Focus Brands",
+      "notes": "Brand 'McAlister's Deli' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Moe's Southwest Grill",
+      "platform": "Focus Brands",
+      "notes": "Brand 'Moe's Southwest Grill' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Schlotzsky's",
+      "platform": "Focus Brands",
+      "notes": "Brand 'Schlotzsky's' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Arby's",
+      "platform": "Inspire Brands",
+      "notes": "Brand 'Arby's' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Baskin-Robbins",
+      "platform": "Inspire Brands",
+      "notes": "Brand 'Baskin-Robbins' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Buffalo Wild Wings",
+      "platform": "Inspire Brands",
+      "notes": "Brand 'Buffalo Wild Wings' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Dunkin'",
+      "platform": "Inspire Brands",
+      "notes": "Brand 'Dunkin'' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Jimmy John's",
+      "platform": "Inspire Brands",
+      "notes": "Brand 'Jimmy John's' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Popeyes",
+      "platform": "Inspire Brands",
+      "notes": "Brand 'Popeyes' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Sonic Drive-In",
+      "platform": "Inspire Brands",
+      "notes": "Brand 'Sonic Drive-In' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Sweet Frog",
+      "platform": "Inspire Brands",
+      "notes": "Brand 'Sweet Frog' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Pet Smart Grooming",
+      "platform": "Pet Retail Brands",
+      "notes": "Brand 'Pet Smart Grooming' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Pet Supplies Plus",
+      "platform": "Pet Retail Brands",
+      "notes": "Brand 'Pet Supplies Plus' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Petsite",
+      "platform": "Pet Retail Brands",
+      "notes": "Brand 'Petsite' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Culver's",
+      "platform": "Platform Unknown",
+      "notes": "Brand 'Culver's' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "International Franchise Concepts",
+      "platform": "Platform Unknown",
+      "notes": "Brand 'International Franchise Concepts' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "CycleBar",
+      "platform": "Self Esteem Brands",
+      "notes": "Brand 'CycleBar' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "LifeTime",
+      "platform": "Self Esteem Brands",
+      "notes": "Brand 'LifeTime' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Orangetheory",
+      "platform": "Self Esteem Brands",
+      "notes": "Brand 'Orangetheory' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Sunshine Massage",
+      "platform": "Self Esteem Brands",
+      "notes": "Brand 'Sunshine Massage' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "American Home Shield",
+      "platform": "ServiceMaster Brands",
+      "notes": "Brand 'American Home Shield' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Merry Maids",
+      "platform": "ServiceMaster Brands",
+      "notes": "Brand 'Merry Maids' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "ServiceMaster Clean",
+      "platform": "ServiceMaster Brands",
+      "notes": "Brand 'ServiceMaster Clean' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "ServiceMaster Restore",
+      "platform": "ServiceMaster Brands",
+      "notes": "Brand 'ServiceMaster Restore' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Terminix",
+      "platform": "ServiceMaster Brands",
+      "notes": "Brand 'Terminix' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "TruGreen",
+      "platform": "ServiceMaster Brands",
+      "notes": "Brand 'TruGreen' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Corner Bakery Cafe",
+      "platform": "Standalone",
+      "notes": "Brand 'Corner Bakery Cafe' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Firehouse Subs",
+      "platform": "Standalone",
+      "notes": "Brand 'Firehouse Subs' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "MOD Pizza",
+      "platform": "Standalone",
+      "notes": "Brand 'MOD Pizza' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Nothing Bundt Cakes",
+      "platform": "Standalone",
+      "notes": "Brand 'Nothing Bundt Cakes' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Subway",
+      "platform": "Standalone",
+      "notes": "Brand 'Subway' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Taco Cabana",
+      "platform": "Standalone",
+      "notes": "Brand 'Taco Cabana' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Torchy's Tacos",
+      "platform": "Standalone",
+      "notes": "Brand 'Torchy's Tacos' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Tropical Smoothie Cafe",
+      "platform": "Standalone",
+      "notes": "Brand 'Tropical Smoothie Cafe' not found in current manifest. May not have location data yet."
+    },
+    {
+      "portfolio_brand": "Whataburger",
+      "platform": "Standalone",
+      "notes": "Brand 'Whataburger' not found in current manifest. May not have location data yet."
+    }
+  ],
+  "manifest_roark_brands": 5
+}
