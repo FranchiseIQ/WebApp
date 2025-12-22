@@ -212,11 +212,14 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.dataset.ticker = item.ticker;
             btn.dataset.file = item.file;
 
+            // Format brand name with ticker if available
+            const brandName = item.brands[0] || item.ticker;
+            const displayText = `${brandName} (${item.ticker})`;
+
             btn.innerHTML = `
                 <span class="brand-dot" style="background-color: ${color}"></span>
                 <div class="brand-info">
-                    <div class="brand-name">${item.brands[0]}</div>
-                    <div class="brand-ticker">${item.ticker}</div>
+                    <div class="brand-name">${displayText}</div>
                 </div>
                 <span class="brand-count">${item.count.toLocaleString()}</span>
             `;
@@ -842,11 +845,24 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function showComparisonPanel() {
-        document.getElementById('comparison-panel').classList.add('visible');
+        const panel = document.getElementById('comparison-panel');
+        panel.classList.remove('hidden');
+        panel.classList.add('visible');
     }
 
     function hideComparisonPanel() {
-        document.getElementById('comparison-panel').classList.remove('visible');
+        const panel = document.getElementById('comparison-panel');
+        panel.classList.remove('visible');
+        panel.classList.add('hidden');
+    }
+
+    function toggleComparisonPanel() {
+        const panel = document.getElementById('comparison-panel');
+        if (panel.classList.contains('hidden') || !panel.classList.contains('visible')) {
+            showComparisonPanel();
+        } else {
+            hideComparisonPanel();
+        }
     }
 
     function openBrandComparisonTool() {
@@ -1138,6 +1154,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeLocationPanelBtn = document.getElementById('close-location-panel');
         if (closeLocationPanelBtn) {
             closeLocationPanelBtn.onclick = toggleLocationPanel;
+        }
+
+        // Score Distribution / Comparison Toggle button
+        const comparisonToggleBtn = document.getElementById('btn-comparison-toggle');
+        if (comparisonToggleBtn) {
+            comparisonToggleBtn.onclick = toggleComparisonPanel;
         }
 
         // Active Brands card - open comparison tool
@@ -1577,8 +1599,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         performersContent.innerHTML = highPerformers.map((loc, idx) => {
             const tier = getScoreTier(loc.s);
-            // Prefer actual address from location object, fallback to OSM default
-            const address = loc.a && loc.a !== 'US Location (OSM)' ? loc.a : 'Location data pending';
+            // Prefer actual address from location object, fallback to formatted coordinates
+            let address = 'Location data pending';
+            if (loc.a && loc.a !== 'US Location (OSM)') {
+                address = loc.a;
+            } else if (loc.lat !== undefined && loc.lng !== undefined) {
+                // Format coordinates as readable location hint
+                const latDir = loc.lat >= 0 ? 'N' : 'S';
+                const lngDir = loc.lng >= 0 ? 'E' : 'W';
+                address = `${Math.abs(loc.lat).toFixed(2)}° ${latDir}, ${Math.abs(loc.lng).toFixed(2)}° ${lngDir}`;
+            }
 
             return `
                 <div class="score-item" data-index="${idx}">

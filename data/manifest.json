@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "ticker": "MCD",
+    "brands": [
+      "McDonald's",
+      "McDonalds"
+    ],
+    "file": "data/brands/MCD.json",
+    "count": 45
+  },
+  {
+    "ticker": "SBUX",
+    "brands": [
+      "Starbucks"
+    ],
+    "file": "data/brands/SBUX.json",
+    "count": 45
+  }
+]

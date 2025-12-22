@@ -211,9 +211,9 @@
   {
     "ticker": "CHIPOTLE",
     "brands": [
-      "CHIPOTLE"
+      "Chipotle"
     ],
-    "name": "CHIPOTLE",
+    "name": "Chipotle",
     "file": "data/brands/chipotle.json",
     "color": "#000000",
     "category": "Other",
@@ -222,9 +222,9 @@
   {
     "ticker": "DOMINOS",
     "brands": [
-      "DOMINOS"
+      "Domino's"
     ],
-    "name": "DOMINOS",
+    "name": "Domino's",
     "file": "data/brands/dominos.json",
     "color": "#000000",
     "category": "Other",
@@ -233,9 +233,9 @@
   {
     "ticker": "MCDONALDS",
     "brands": [
-      "MCDONALDS"
+      "McDonald's"
     ],
-    "name": "MCDONALDS",
+    "name": "McDonald's",
     "file": "data/brands/mcdonalds.json",
     "color": "#000000",
     "category": "Other",
@@ -244,9 +244,9 @@
   {
     "ticker": "PLANETFITNESS",
     "brands": [
-      "PLANETFITNESS"
+      "Planet Fitness"
     ],
-    "name": "PLANETFITNESS",
+    "name": "Planet Fitness",
     "file": "data/brands/planetfitness.json",
     "color": "#000000",
     "category": "Other",
@@ -255,9 +255,9 @@
   {
     "ticker": "SHAKESHACK",
     "brands": [
-      "SHAKESHACK"
+      "Shake Shack"
     ],
-    "name": "SHAKESHACK",
+    "name": "Shake Shack",
     "file": "data/brands/shakeshack.json",
     "color": "#000000",
     "category": "Other",
@@ -266,9 +266,9 @@
   {
     "ticker": "STARBUCKS",
     "brands": [
-      "STARBUCKS"
+      "Starbucks"
     ],
-    "name": "STARBUCKS",
+    "name": "Starbucks",
     "file": "data/brands/starbucks.json",
     "color": "#000000",
     "category": "Other",
@@ -277,9 +277,9 @@
   {
     "ticker": "WENDYS",
     "brands": [
-      "WENDYS"
+      "Wendy's"
     ],
-    "name": "WENDYS",
+    "name": "Wendy's",
     "file": "data/brands/wendys.json",
     "color": "#000000",
     "category": "Other",
@@ -288,9 +288,9 @@
   {
     "ticker": "WINGSTOP",
     "brands": [
-      "WINGSTOP"
+      "Wingstop"
     ],
-    "name": "WINGSTOP",
+    "name": "Wingstop",
     "file": "data/brands/wingstop.json",
     "color": "#000000",
     "category": "Other",

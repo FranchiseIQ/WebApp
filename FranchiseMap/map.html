@@ -112,9 +112,6 @@
 
         <!-- Dashboard Stats Bar -->
         <div id="dashboard-stats" class="dashboard-stats">
-            <button id="search-toggle-btn" class="stat-card search-toggle" title="Search location or area">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
                 <div class="stat-content">
@@ -139,7 +136,7 @@
                     <span class="stat-label">Active Brands</span>
                 </div>
             </div>
-            <div class="stat-card distribution">
+            <button id="btn-comparison-toggle" class="stat-card distribution" title="Toggle Compare Locations">
                 <div class="stat-label">Score Distribution</div>
                 <div class="distribution-bar">
                     <div id="dist-poor" class="dist-segment poor" title="Poor (<50)"></div>
@@ -153,7 +150,7 @@
                     <span class="legend-item"><span class="dot good"></span>65+</span>
                     <span class="legend-item"><span class="dot excellent"></span>80+</span>
                 </div>
-            </div>
+            </button>
         </div>
 
         <!-- Custom Controls Rail -->
@@ -163,6 +160,9 @@
             </button>
             <button id="btn-locate" class="control-btn" title="Near Me">
                 <i class="fa-solid fa-location-crosshairs"></i>
+            </button>
+            <button id="search-toggle-btn" class="control-btn" title="Search location or area">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </button>
             <div class="control-divider"></div>
             <button id="btn-cluster-toggle" class="control-btn" title="Toggle Clustered View">
@@ -191,6 +191,34 @@
                 </div>
             </div>
             <div class="panel-content">
+                <!-- Score Filter Slider -->
+                <div class="score-filter-section">
+                    <div class="score-filter-header">
+                        <h3>Filter by Score</h3>
+                    </div>
+                    <div class="score-filter-body">
+                        <div class="slider-labels">
+                            <span class="slider-label-left">Low Quality</span>
+                            <span class="slider-label-right">High Quality</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="slider-min" class="slider" min="0" max="100" value="0">
+                            <input type="range" id="slider-max" class="slider" min="0" max="100" value="100">
+                        </div>
+                        <div class="slider-values">
+                            <div class="slider-value">
+                                <span class="value-label">Min:</span>
+                                <span id="slider-min-value" class="value">0</span>
+                            </div>
+                            <div class="slider-value">
+                                <span class="value-label">Max:</span>
+                                <span id="slider-max-value" class="value">100</span>
+                            </div>
+                        </div>
+                        <button id="reset-slider" class="reset-btn">Reset to All Scores</button>
+                    </div>
+                </div>
+
                 <!-- Filter Controls -->
                 <div class="filter-controls">
                     <button id="btn-select-all" class="filter-btn">
@@ -280,7 +308,7 @@
         </aside>
 
         <!-- Comparison Panel -->
-        <div id="comparison-panel" class="comparison-panel">
+        <div id="comparison-panel" class="comparison-panel hidden">
             <div class="comparison-header">
                 <h3><i class="fa-solid fa-code-compare"></i> Compare Locations</h3>
                 <div class="comparison-actions">
