@@ -771,7 +771,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         comparisonLocations.push(loc);
         updateComparisonPanel();
-        showComparisonPanel();
+        // Do not auto-show panel - user controls visibility via Score Distribution button
     };
 
     window.exportLocation = function(locId) {
@@ -899,7 +899,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         updateComparisonPanel();
-        showComparisonPanel();
+        // Do not auto-show panel - user controls visibility via Score Distribution button
 
         // Show toast notification
         const msg = `Selected top 3 locations from ${activeLocations.length} active brands. Click locations on map to add/remove.`;
