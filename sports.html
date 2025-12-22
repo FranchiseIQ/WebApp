@@ -1053,7 +1053,7 @@
         };
 
         let currentLeague = 'NFL';
-        let currentDate = new Date();
+        let currentWeek = null; // Will be set to the current week
         let gamesCache = {};
         let allGames = [];
         let selectedTeams = new Set(); // Empty = show all teams
@@ -1131,39 +1131,96 @@
             return date.toISOString().split('T')[0];
         }
 
-        // Check if game is on selected date
-        function isGameOnDate(game, date) {
-            if (!game.startTime) return false;
-            const gameDate = new Date(game.startTime);
-            return getDateString(gameDate) === getDateString(date);
+        // Determine if week is playoff based on week number
+        function isPlayoffWeek(week) {
+            return week > 18;
         }
 
-        // Generate 7-day date buttons
-        function generateDaySelector() {
+        // Get playoff week name
+        function getPlayoffWeekName(week) {
+            const playoffWeeks = {
+                19: 'Wild Card',
+                20: 'Divisional',
+                21: 'Conference',
+                22: 'Super Bowl'
+            };
+            return playoffWeeks[week] || `Week ${week}`;
+        }
+
+        // Get week label for display
+        function getWeekLabel(week) {
+            if (!week) return 'TBD';
+            if (isPlayoffWeek(week)) {
+                return getPlayoffWeekName(week);
+            }
+            return `Week ${week}`;
+        }
+
+        // Generate week selector buttons
+        function generateWeekSelector() {
             const container = document.getElementById('day-selector');
             container.innerHTML = '';
 
-            const today = new Date();
+            // Get all available weeks from games
+            const availableWeeks = new Set();
+            allGames.forEach(game => {
+                if (game.week) availableWeeks.add(game.week);
+            });
 
-            for (let i = 0; i < 7; i++) {
-                const date = new Date(today);
-                date.setDate(today.getDate() + i);
+            if (availableWeeks.size === 0) return;
 
+            // Sort weeks numerically
+            const sortedWeeks = Array.from(availableWeeks).sort((a, b) => a - b);
+
+            // Set current week to the first week if not set
+            if (currentWeek === null && sortedWeeks.length > 0) {
+                currentWeek = sortedWeeks[0];
+            }
+
+            // Separate regular season and playoff weeks
+            const regularSeasonWeeks = sortedWeeks.filter(w => !isPlayoffWeek(w));
+            const playoffWeeks = sortedWeeks.filter(w => isPlayoffWeek(w));
+
+            // Create buttons for regular season
+            regularSeasonWeeks.forEach(week => {
                 const btn = document.createElement('button');
-                btn.textContent = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : formatDateShort(date);
-                btn.dataset.date = getDateString(date);
-
-                if (i === 0) btn.classList.add('active');
+                btn.textContent = `Week ${week}`;
+                btn.dataset.week = week;
+                if (week === currentWeek) btn.classList.add('active');
 
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.day-selector button').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    currentDate = date;
+                    currentWeek = week;
                     renderGames();
                 });
 
                 container.appendChild(btn);
+            });
+
+            // Add divider if both regular season and playoffs
+            if (regularSeasonWeeks.length > 0 && playoffWeeks.length > 0) {
+                const divider = document.createElement('div');
+                divider.style.cssText = 'width: 2px; background: rgba(255,255,255,0.2); margin: 0 10px;';
+                container.appendChild(divider);
             }
+
+            // Create buttons for playoffs
+            playoffWeeks.forEach(week => {
+                const btn = document.createElement('button');
+                btn.textContent = getPlayoffWeekName(week);
+                btn.dataset.week = week;
+                if (week === currentWeek) btn.classList.add('active');
+
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.day-selector button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentWeek = week;
+                    renderGames();
+                });
+
+                container.appendChild(btn);
+            });
         }
 
         // Load video URLs from unified sports_data.json (created by GitHub Actions)
@@ -1490,7 +1547,7 @@
             }
         }
 
-        // Render all games in unified card format
+        // Render all games in unified card format grouped by week and time
         async function renderGames() {
             const container = document.getElementById('games-grid');
             const config = LEAGUES[currentLeague];
@@ -1509,11 +1566,17 @@
                 const games = await fetchGames(currentLeague);
                 allGames = games;
 
+                // Generate week selector after loading games
+                generateWeekSelector();
+
                 // Build team filter with all available teams
                 buildTeamFilter(games);
 
+                // Filter by current week
+                let weekGames = games.filter(game => game.week === currentWeek);
+
                 // Filter by selected teams if any are selected
-                let filteredGames = [...games];
+                let filteredGames = [...weekGames];
                 if (selectedTeams.size > 0) {
                     filteredGames = filteredGames.filter(game => {
                         const homeShort = game.homeTeam?.shortName || game.homeTeam?.name || '';
@@ -1525,30 +1588,74 @@
                 if (filteredGames.length === 0) {
                     container.innerHTML = `
                         <div class="empty-msg" style="grid-column: 1 / -1;">
-                            <h3>No ${currentLeague} games scheduled</h3>
+                            <h3>No ${currentLeague} games in ${getWeekLabel(currentWeek)}</h3>
                             <p>Check back on active game days for real-time franchise scores.</p>
                         </div>
                     `;
                     return;
                 }
 
-                // Sort: Final games first (most recent), then upcoming by time
-                filteredGames.sort((a, b) => {
-                    const statusA = normalizeStatus(a);
-                    const statusB = normalizeStatus(b);
+                // Group games by kickoff time
+                const gamesByTime = {};
+                filteredGames.forEach(game => {
+                    if (!game.startTime) return;
 
-                    // Final games first
-                    if (statusA === 'FINAL' && statusB !== 'FINAL') return -1;
-                    if (statusB === 'FINAL' && statusA !== 'FINAL') return 1;
+                    const gameDate = new Date(game.startTime);
+                    const timeKey = gameDate.toLocaleTimeString('en-US', {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true,
+                        timeZone: 'America/New_York'
+                    });
 
-                    // Within same status, sort by time
-                    const timeA = new Date(a.startTime || 0).getTime();
-                    const timeB = new Date(b.startTime || 0).getTime();
-                    return statusA === 'FINAL' ? timeB - timeA : timeA - timeB;
+                    if (!gamesByTime[timeKey]) {
+                        gamesByTime[timeKey] = [];
+                    }
+                    gamesByTime[timeKey].push(game);
                 });
 
-                // Render all games in unified card format
-                container.innerHTML = filteredGames.map(game => buildUnifiedCard(game, currentLeague)).join('');
+                // Sort times and games within each time slot
+                const sortedTimes = Object.keys(gamesByTime).sort((a, b) => {
+                    const timeA = new Date(`2000-01-01 ${a}`).getTime();
+                    const timeB = new Date(`2000-01-01 ${b}`).getTime();
+                    return timeA - timeB;
+                });
+
+                // Build HTML with time groups and games
+                let html = '';
+                sortedTimes.forEach(timeSlot => {
+                    const gamesAtTime = gamesByTime[timeSlot];
+
+                    // Sort games: Final first (reverse chronological), then Live, then Upcoming
+                    gamesAtTime.sort((a, b) => {
+                        const statusA = normalizeStatus(a);
+                        const statusB = normalizeStatus(b);
+
+                        // Order: FINAL, LIVE, UPCOMING, CANCELLED, POSTPONED
+                        const statusOrder = { 'FINAL': 0, 'LIVE': 1, 'UPCOMING': 2, 'CANCELLED': 3, 'POSTPONED': 4 };
+                        const orderA = statusOrder[statusA] || 5;
+                        const orderB = statusOrder[statusB] || 5;
+
+                        if (orderA !== orderB) return orderA - orderB;
+
+                        // Within same status, sort by start time (finals newest first)
+                        const timeA = new Date(a.startTime || 0).getTime();
+                        const timeB = new Date(b.startTime || 0).getTime();
+                        return statusA === 'FINAL' ? timeB - timeA : timeA - timeB;
+                    });
+
+                    // Add time header
+                    html += `<div style="grid-column: 1 / -1; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin-top: 16px;">
+                        <div style="font-size: 1.1em; font-weight: 600; color: var(--text);">Kickoff: ${timeSlot}</div>
+                    </div>`;
+
+                    // Add games for this time
+                    gamesAtTime.forEach(game => {
+                        html += buildUnifiedCard(game, currentLeague);
+                    });
+                });
+
+                container.innerHTML = html;
 
             } catch (error) {
                 console.error('Error rendering games:', error);
@@ -1653,6 +1760,7 @@
                     document.querySelectorAll('.league-tabs button').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     currentLeague = btn.dataset.league;
+                    currentWeek = null; // Reset week selector when changing leagues
                     selectedTeams.clear(); // Reset team filter when changing leagues
                     updateFilterButtonText();
                     gamesCache = {}; // Clear cache to reload data for new league
@@ -1871,12 +1979,11 @@
 
         // Initialize app
         async function init() {
-            generateDaySelector();
             setupLeagueTabs();
             setupTeamFilter();
             setupModalEvents();
 
-            // Load initial games
+            // Load initial games and generate week selector
             await renderGames();
 
             // Initialize news ticker
@@ -1884,9 +1991,9 @@
 
             // Refresh every 60 seconds
             setInterval(() => {
-                gamesCache = {}; // Clear cache
+                gamesCache = {}; // Clear cache to force fresh fetch
                 videoUrlCache = {}; // Clear video cache
-                renderGames();
+                renderGames(); // Re-render will regenerate week selector
             }, 60000);
         }
 
