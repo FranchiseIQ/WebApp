@@ -657,8 +657,8 @@ body {
 #info-panel {
     position: absolute;
     top: 20px;
-    right: 20px;
-    width: 320px;
+    right: 80px;
+    width: 300px;
     max-height: calc(100% - 40px);
     background: white;
     border-radius: var(--radius-lg);
@@ -680,7 +680,7 @@ body {
 }
 
 #info-panel.panel-expanded {
-    width: 320px;
+    width: 300px;
     opacity: 1;
     pointer-events: auto;
     transform: translateX(0);
@@ -961,15 +961,15 @@ body {
 }
 
 .panel-content {
-    padding: 16px;
+    padding: 12px;
     overflow-y: auto;
     flex: 1;
 }
 
 /* Filter Section */
 .filter-section {
-    margin-bottom: 16px;
-    padding-bottom: 16px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
     border-bottom: 1px solid var(--border-light);
 }
 
@@ -1028,7 +1028,7 @@ body {
 .filter-controls {
     display: flex;
     gap: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .filter-btn {
@@ -1071,7 +1071,7 @@ body {
 .category-filters {
     display: flex;
     gap: 6px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     flex-wrap: wrap;
 }
 
@@ -1121,7 +1121,7 @@ body {
 
 .ownership-filters,
 .subtype-filters {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
 .ownership-buttons,
@@ -1383,9 +1383,18 @@ body {
 }
 
 .brand-name {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-dark);
+    line-height: 1;
+}
+
+.brand-ticker {
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: var(--text-light);
+    margin-top: 2px;
+    line-height: 1;
 }
 
 .brand-count {
@@ -2523,24 +2532,24 @@ body {
 
 /* Score Filter Section in Market Analysis Panel */
 .score-filter-section {
-    padding: 16px 0;
+    padding: 10px 0;
     border-bottom: 1px solid var(--border-light);
-    margin-bottom: 16px;
+    margin-bottom: 10px;
 }
 
 .score-filter-header {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .score-filter-header h3 {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-dark);
-    margin: 0 0 12px 0;
+    margin: 0 0 8px 0;
 }
 
 .score-filter-body {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
