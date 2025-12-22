@@ -1,187 +1,536 @@
 {
-  "timestamp": "2025-12-19T06:37:21.629969",
-  "brands": {
-    "WEN": {
-      "count": 5758,
-      "with_attributes": 5758,
-      "with_scores": 5758,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 5758,
-      "attribute_coverage": 100.0
+  "total_brands_in_manifest": 27,
+  "duplicate_entries": [],
+  "incomplete_brands": [
+    {
+      "ticker": "DENN",
+      "name": "DENN",
+      "file": "data/brands/DENN.json",
+      "manifest_count": 1402,
+      "actual_count": 1402,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "DPZ": {
-      "count": 64,
-      "with_attributes": 64,
-      "with_scores": 64,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 64,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "DIN",
+      "name": "DIN",
+      "file": "data/brands/DIN.json",
+      "manifest_count": 3024,
+      "actual_count": 3024,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "JACK": {
-      "count": 2475,
-      "with_attributes": 2475,
-      "with_scores": 2475,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 2475,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "DNUT",
+      "name": "DNUT",
+      "file": "data/brands/DNUT.json",
+      "manifest_count": 529,
+      "actual_count": 529,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "WING": {
-      "count": 1233,
-      "with_attributes": 1233,
-      "with_scores": 1233,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 1233,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "DPZ",
+      "name": "Domino's Pizza",
+      "file": "data/brands/DPZ.json",
+      "manifest_count": 64,
+      "actual_count": 64,
+      "issues": [
+        "Suspiciously low count: 64 < 200"
+      ]
     },
-    "SHAK": {
-      "count": 325,
-      "with_attributes": 325,
-      "with_scores": 325,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 325,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "H",
+      "name": "H",
+      "file": "data/brands/H.json",
+      "manifest_count": 1634,
+      "actual_count": 1634,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "DENN": {
-      "count": 1402,
-      "with_attributes": 1402,
-      "with_scores": 1402,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 1402,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "HRB",
+      "name": "HRB",
+      "file": "data/brands/HRB.json",
+      "manifest_count": 2935,
+      "actual_count": 2935,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "DIN": {
-      "count": 3024,
-      "with_attributes": 3024,
-      "with_scores": 3024,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 3024,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "JACK",
+      "name": "JACK",
+      "file": "data/brands/JACK.json",
+      "manifest_count": 2475,
+      "actual_count": 2475,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "DNUT": {
-      "count": 529,
-      "with_attributes": 529,
-      "with_scores": 529,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 529,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "MCW",
+      "name": "MCW",
+      "file": "data/brands/MCW.json",
+      "manifest_count": 212,
+      "actual_count": 212,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "NATH": {
-      "count": 1,
-      "with_attributes": 1,
-      "with_scores": 1,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 1,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "NATH",
+      "name": "NATH",
+      "file": "data/brands/NATH.json",
+      "manifest_count": 1,
+      "actual_count": 1,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "RRGB": {
-      "count": 634,
-      "with_attributes": 634,
-      "with_scores": 634,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 634,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "PLAY",
+      "name": "PLAY",
+      "file": "data/brands/PLAY.json",
+      "manifest_count": 234,
+      "actual_count": 234,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "HRB": {
-      "count": 2935,
-      "with_attributes": 2935,
-      "with_scores": 2935,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 2935,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "ROL",
+      "name": "ROL",
+      "file": "data/brands/ROL.json",
+      "manifest_count": 652,
+      "actual_count": 652,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "MCW": {
-      "count": 212,
-      "with_attributes": 212,
-      "with_scores": 212,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 212,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "RRGB",
+      "name": "RRGB",
+      "file": "data/brands/RRGB.json",
+      "manifest_count": 634,
+      "actual_count": 634,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "SERV": {
-      "count": 70,
-      "with_attributes": 70,
-      "with_scores": 70,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 70,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "SERV",
+      "name": "SERV",
+      "file": "data/brands/SERV.json",
+      "manifest_count": 70,
+      "actual_count": 70,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "ROL": {
-      "count": 652,
-      "with_attributes": 652,
-      "with_scores": 652,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 652,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "TNL",
+      "name": "TNL",
+      "file": "data/brands/TNL.json",
+      "manifest_count": 24,
+      "actual_count": 24,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "PLNT": {
-      "count": 1550,
-      "with_attributes": 1550,
-      "with_scores": 1550,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 1550,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "VAC",
+      "name": "VAC",
+      "file": "data/brands/VAC.json",
+      "manifest_count": 19,
+      "actual_count": 19,
+      "issues": [
+        "Missing or generic display name"
+      ]
     },
-    "H": {
-      "count": 1634,
-      "with_attributes": 1634,
-      "with_scores": 1634,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 1634,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "CHIPOTLE",
+      "name": "Chipotle",
+      "file": "data/brands/chipotle.json",
+      "manifest_count": 35,
+      "actual_count": 35,
+      "issues": [
+        "Slug-based entry (should use CMG instead)"
+      ]
     },
-    "VAC": {
-      "count": 19,
-      "with_attributes": 19,
-      "with_scores": 19,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 19,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "DOMINOS",
+      "name": "Domino's",
+      "file": "data/brands/dominos.json",
+      "manifest_count": 30,
+      "actual_count": 30,
+      "issues": [
+        "Slug-based entry (should use DPZ instead)",
+        "Duplicate: Canonical DPZ also in manifest"
+      ]
     },
-    "TNL": {
-      "count": 24,
-      "with_attributes": 24,
-      "with_scores": 24,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 24,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "MCDONALDS",
+      "name": "McDonald's",
+      "file": "data/brands/mcdonalds.json",
+      "manifest_count": 50,
+      "actual_count": 50,
+      "issues": [
+        "Slug-based entry (should use MCD instead)"
+      ]
     },
-    "PLAY": {
-      "count": 234,
-      "with_attributes": 234,
-      "with_scores": 234,
-      "with_demographics": 0,
-      "with_accessibility": 0,
-      "with_traffic": 234,
-      "attribute_coverage": 100.0
+    {
+      "ticker": "PLANETFITNESS",
+      "name": "Planet Fitness",
+      "file": "data/brands/planetfitness.json",
+      "manifest_count": 25,
+      "actual_count": 25,
+      "issues": [
+        "Slug-based entry (should use PLNT instead)",
+        "Duplicate: Canonical PLNT also in manifest"
+      ]
+    },
+    {
+      "ticker": "SHAKESHACK",
+      "name": "Shake Shack",
+      "file": "data/brands/shakeshack.json",
+      "manifest_count": 20,
+      "actual_count": 20,
+      "issues": [
+        "Slug-based entry (should use SHAK instead)",
+        "Duplicate: Canonical SHAK also in manifest"
+      ]
+    },
+    {
+      "ticker": "STARBUCKS",
+      "name": "Starbucks",
+      "file": "data/brands/starbucks.json",
+      "manifest_count": 40,
+      "actual_count": 40,
+      "issues": [
+        "Slug-based entry (should use SBUX instead)"
+      ]
+    },
+    {
+      "ticker": "WENDYS",
+      "name": "Wendy's",
+      "file": "data/brands/wendys.json",
+      "manifest_count": 25,
+      "actual_count": 25,
+      "issues": [
+        "Slug-based entry (should use WEN instead)",
+        "Duplicate: Canonical WEN also in manifest"
+      ]
+    },
+    {
+      "ticker": "WINGSTOP",
+      "name": "Wingstop",
+      "file": "data/brands/wingstop.json",
+      "manifest_count": 20,
+      "actual_count": 20,
+      "issues": [
+        "Slug-based entry (should use WING instead)",
+        "Duplicate: Canonical WING also in manifest"
+      ]
     }
-  },
-  "summary": {
-    "totalLocations": 22775,
-    "locationsWithAttributes": 22775,
-    "locationsWithScores": 22775,
-    "locationsWithDemographics": 0,
-    "locationsWithAccessibility": 0,
-    "locationsWithTraffic": 22775,
-    "demographicCoverage": 0.0,
-    "accessibilityCoverage": 0.0,
-    "trafficCoverage": 100.0
-  }
+  ],
+  "missing_display_names": [
+    "DENN",
+    "DIN",
+    "DNUT",
+    "H",
+    "HRB",
+    "JACK",
+    "MCW",
+    "NATH",
+    "PLAY",
+    "ROL",
+    "RRGB",
+    "SERV",
+    "TNL",
+    "VAC"
+  ],
+  "file_path_mismatches": [],
+  "suspicious_low_counts": [
+    {
+      "ticker": "DPZ",
+      "name": "Domino's Pizza",
+      "count": 64,
+      "threshold": 200,
+      "deficit": 136
+    }
+  ],
+  "all_brands": [
+    {
+      "ticker": "DENN",
+      "name": "DENN",
+      "file": "data/brands/DENN.json",
+      "manifest_count": 1402,
+      "actual_count": 1402,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "DIN",
+      "name": "DIN",
+      "file": "data/brands/DIN.json",
+      "manifest_count": 3024,
+      "actual_count": 3024,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "DNUT",
+      "name": "DNUT",
+      "file": "data/brands/DNUT.json",
+      "manifest_count": 529,
+      "actual_count": 529,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "DPZ",
+      "name": "Domino's Pizza",
+      "file": "data/brands/DPZ.json",
+      "manifest_count": 64,
+      "actual_count": 64,
+      "issues": [
+        "Suspiciously low count: 64 < 200"
+      ]
+    },
+    {
+      "ticker": "H",
+      "name": "H",
+      "file": "data/brands/H.json",
+      "manifest_count": 1634,
+      "actual_count": 1634,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "HRB",
+      "name": "HRB",
+      "file": "data/brands/HRB.json",
+      "manifest_count": 2935,
+      "actual_count": 2935,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "JACK",
+      "name": "JACK",
+      "file": "data/brands/JACK.json",
+      "manifest_count": 2475,
+      "actual_count": 2475,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "MCW",
+      "name": "MCW",
+      "file": "data/brands/MCW.json",
+      "manifest_count": 212,
+      "actual_count": 212,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "NATH",
+      "name": "NATH",
+      "file": "data/brands/NATH.json",
+      "manifest_count": 1,
+      "actual_count": 1,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "PLAY",
+      "name": "PLAY",
+      "file": "data/brands/PLAY.json",
+      "manifest_count": 234,
+      "actual_count": 234,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "PLNT",
+      "name": "Planet Fitness",
+      "file": "data/brands/PLNT.json",
+      "manifest_count": 1550,
+      "actual_count": 1550,
+      "issues": []
+    },
+    {
+      "ticker": "ROL",
+      "name": "ROL",
+      "file": "data/brands/ROL.json",
+      "manifest_count": 652,
+      "actual_count": 652,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "RRGB",
+      "name": "RRGB",
+      "file": "data/brands/RRGB.json",
+      "manifest_count": 634,
+      "actual_count": 634,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "SERV",
+      "name": "SERV",
+      "file": "data/brands/SERV.json",
+      "manifest_count": 70,
+      "actual_count": 70,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "SHAK",
+      "name": "Shake Shack",
+      "file": "data/brands/SHAK.json",
+      "manifest_count": 325,
+      "actual_count": 325,
+      "issues": []
+    },
+    {
+      "ticker": "TNL",
+      "name": "TNL",
+      "file": "data/brands/TNL.json",
+      "manifest_count": 24,
+      "actual_count": 24,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "VAC",
+      "name": "VAC",
+      "file": "data/brands/VAC.json",
+      "manifest_count": 19,
+      "actual_count": 19,
+      "issues": [
+        "Missing or generic display name"
+      ]
+    },
+    {
+      "ticker": "WEN",
+      "name": "Wendy's",
+      "file": "data/brands/WEN.json",
+      "manifest_count": 5758,
+      "actual_count": 5758,
+      "issues": []
+    },
+    {
+      "ticker": "WING",
+      "name": "Wingstop",
+      "file": "data/brands/WING.json",
+      "manifest_count": 1233,
+      "actual_count": 1233,
+      "issues": []
+    },
+    {
+      "ticker": "CHIPOTLE",
+      "name": "Chipotle",
+      "file": "data/brands/chipotle.json",
+      "manifest_count": 35,
+      "actual_count": 35,
+      "issues": [
+        "Slug-based entry (should use CMG instead)"
+      ]
+    },
+    {
+      "ticker": "DOMINOS",
+      "name": "Domino's",
+      "file": "data/brands/dominos.json",
+      "manifest_count": 30,
+      "actual_count": 30,
+      "issues": [
+        "Slug-based entry (should use DPZ instead)",
+        "Duplicate: Canonical DPZ also in manifest"
+      ]
+    },
+    {
+      "ticker": "MCDONALDS",
+      "name": "McDonald's",
+      "file": "data/brands/mcdonalds.json",
+      "manifest_count": 50,
+      "actual_count": 50,
+      "issues": [
+        "Slug-based entry (should use MCD instead)"
+      ]
+    },
+    {
+      "ticker": "PLANETFITNESS",
+      "name": "Planet Fitness",
+      "file": "data/brands/planetfitness.json",
+      "manifest_count": 25,
+      "actual_count": 25,
+      "issues": [
+        "Slug-based entry (should use PLNT instead)",
+        "Duplicate: Canonical PLNT also in manifest"
+      ]
+    },
+    {
+      "ticker": "SHAKESHACK",
+      "name": "Shake Shack",
+      "file": "data/brands/shakeshack.json",
+      "manifest_count": 20,
+      "actual_count": 20,
+      "issues": [
+        "Slug-based entry (should use SHAK instead)",
+        "Duplicate: Canonical SHAK also in manifest"
+      ]
+    },
+    {
+      "ticker": "STARBUCKS",
+      "name": "Starbucks",
+      "file": "data/brands/starbucks.json",
+      "manifest_count": 40,
+      "actual_count": 40,
+      "issues": [
+        "Slug-based entry (should use SBUX instead)"
+      ]
+    },
+    {
+      "ticker": "WENDYS",
+      "name": "Wendy's",
+      "file": "data/brands/wendys.json",
+      "manifest_count": 25,
+      "actual_count": 25,
+      "issues": [
+        "Slug-based entry (should use WEN instead)",
+        "Duplicate: Canonical WEN also in manifest"
+      ]
+    },
+    {
+      "ticker": "WINGSTOP",
+      "name": "Wingstop",
+      "file": "data/brands/wingstop.json",
+      "manifest_count": 20,
+      "actual_count": 20,
+      "issues": [
+        "Slug-based entry (should use WING instead)",
+        "Duplicate: Canonical WING also in manifest"
+      ]
+    }
+  ]
 }
