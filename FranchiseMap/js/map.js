@@ -70,6 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
         return SCORE_TIERS.poor;
     }
 
+    // Convert hex color to lighter rgba version for background
+    function getLightBackground(hexColor) {
+        const colorMap = {
+            '#22c55e': 'rgba(34, 197, 94, 0.15)',      // excellent green
+            '#84cc16': 'rgba(132, 204, 22, 0.15)',     // good lime
+            '#eab308': 'rgba(234, 179, 8, 0.15)',      // fair yellow
+            '#ef4444': 'rgba(239, 68, 68, 0.15)'       // poor red
+        };
+        return colorMap[hexColor] || hexColor;
+    }
+
     function initMap() {
         // Base map layers
         const street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -1612,7 +1623,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return `
                 <div class="score-item" data-index="${idx}">
-                    <div class="score-circle" style="background: ${tier.color};">
+                    <div class="score-circle" style="background: ${getLightBackground(tier.color)}; border-color: ${tier.color}; color: ${tier.color};">
                         ${Math.round(loc.s)}
                     </div>
                     <div class="score-item-content">
