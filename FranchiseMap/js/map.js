@@ -648,7 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </button>
                     </div>
                 </div>
-                <div class="popup-address">${loc.a}</div>
+                <div class="popup-address">${(loc.a && loc.a !== 'US Location (OSM)') ? loc.a : '<span style="color: var(--text-light);">Address not available</span>'}</div>
 
                 <div class="score-hero">
                     <div class="score-circle" style="border-color:${tier.color}">
@@ -729,6 +729,25 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span>Safety: ${100 - (attrs.crimeIndex || 0)}</span>
                             <span>RE Index: ${attrs.realEstateIndex || 0}</span>
                         </div>
+                    </div>
+                </div>
+
+                <div class="mini-scores-row">
+                    <div class="mini-score-circle">
+                        <div class="mini-score-icon market" title="Market Potential Score">${marketBar.toFixed(0)}</div>
+                        <span class="mini-score-label">Market</span>
+                    </div>
+                    <div class="mini-score-circle">
+                        <div class="mini-score-icon competition" title="Competition Score">${compBar.toFixed(0)}</div>
+                        <span class="mini-score-label">Competition</span>
+                    </div>
+                    <div class="mini-score-circle">
+                        <div class="mini-score-icon accessibility" title="Accessibility Score">${accessBar.toFixed(0)}</div>
+                        <span class="mini-score-label">Access</span>
+                    </div>
+                    <div class="mini-score-circle">
+                        <div class="mini-score-icon site" title="Site Quality Score">${siteBar.toFixed(0)}</div>
+                        <span class="mini-score-label">Site</span>
                     </div>
                 </div>
 
