@@ -55,11 +55,40 @@ document.addEventListener('DOMContentLoaded', () => {
         '#56CFE1', '#64DFDF', '#72EFDD', '#80FFDB', '#FF9F1C', '#2EC4B6', '#CBF3F0', '#FFBF69'
     ];
 
-    function getColor(str) {
-        if (tickerColors[str]) return tickerColors[str];
-        const color = COLOR_PALETTE[colorIndex % COLOR_PALETTE.length];
-        tickerColors[str] = color;
-        colorIndex++;
+    // Non-franchise color palette - more muted/distinct from franchise colors
+    const NON_FRANCHISE_PALETTE = [
+        '#A0522D', '#8B4513', '#704214', '#696969', '#808080', '#778899', '#2F4F4F', '#4B0082',
+        '#8B008B', '#DC143C', '#FF1493', '#FF69B4', '#FFB6C1', '#DDA0DD', '#EE82EE', '#BA55D3',
+        '#9932CC', '#8A2BE2', '#4169E1', '#1E90FF', '#6495ED', '#87CEEB', '#00BFFF', '#00CED1',
+        '#20B2AA', '#3CB371', '#2E8B57', '#228B22', '#556B2F', '#6B8E23', '#9ACD32', '#DAA520'
+    ];
+
+    function getColor(ticker) {
+        if (tickerColors[ticker]) return tickerColors[ticker];
+
+        // Check if this is a non-franchise brand
+        let isNonFranchise = false;
+        if (manifest && manifest.length > 0) {
+            const brandInfo = manifest.find(item => item.ticker === ticker);
+            if (brandInfo && brandInfo.category === 'Non-Franchise') {
+                isNonFranchise = true;
+            }
+        }
+
+        // Use appropriate palette based on brand type
+        const palette = isNonFranchise ? NON_FRANCHISE_PALETTE : COLOR_PALETTE;
+        const paletteIndex = isNonFranchise ?
+            Object.keys(tickerColors).filter(t => {
+                const bi = manifest?.find(i => i.ticker === t);
+                return bi && bi.category === 'Non-Franchise';
+            }).length :
+            colorIndex;
+
+        const color = palette[paletteIndex % palette.length];
+        tickerColors[ticker] = color;
+        if (!isNonFranchise) {
+            colorIndex++;
+        }
         return color;
     }
 
@@ -285,6 +314,50 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDashboardStats();
     }
 
+    function updateScoreDistribution(visibleLocations) {
+        /**
+         * Update the score distribution display based on visible locations
+         * Calculates the proportion of locations in each score tier
+         * and updates the segment widths accordingly
+         */
+        if (!visibleLocations || visibleLocations.length === 0) {
+            // Show empty/disabled state
+            document.getElementById('dist-poor').style.width = '25%';
+            document.getElementById('dist-fair').style.width = '25%';
+            document.getElementById('dist-good').style.width = '25%';
+            document.getElementById('dist-excellent').style.width = '25%';
+            return;
+        }
+
+        // Count locations in each tier
+        const tiers = {
+            poor: 0,      // <50
+            fair: 0,      // 50-64
+            good: 0,      // 65-79
+            excellent: 0  // 80+
+        };
+
+        visibleLocations.forEach(loc => {
+            const score = loc.s || 0;
+            if (score < 50) tiers.poor++;
+            else if (score < 65) tiers.fair++;
+            else if (score < 80) tiers.good++;
+            else tiers.excellent++;
+        });
+
+        const total = visibleLocations.length;
+        const poorPct = (tiers.poor / total * 100);
+        const fairPct = (tiers.fair / total * 100);
+        const goodPct = (tiers.good / total * 100);
+        const excellentPct = (tiers.excellent / total * 100);
+
+        // Update segment widths with minimum 1% to show all segments
+        document.getElementById('dist-poor').style.width = Math.max(1, poorPct) + '%';
+        document.getElementById('dist-fair').style.width = Math.max(1, fairPct) + '%';
+        document.getElementById('dist-good').style.width = Math.max(1, goodPct) + '%';
+        document.getElementById('dist-excellent').style.width = Math.max(1, excellentPct) + '%';
+    }
+
     function refreshMap() {
         clusterGroup.clearLayers();
         markersLayer.clearLayers();
@@ -322,6 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateLocationCount();
         updateDashboardStats();
+        updateScoreDistribution(visible);
 
         // Update visible stats after map refresh (slight delay for rendering)
         setTimeout(updateVisibleStats, 100);
