@@ -22,13 +22,10 @@ const TICKER_SYMBOLS = [
   "MAR", "HLT", "H", "CHH", "WH", "VAC",
 
   // Retail & Other
-  "RENT", "ADUS", "LOPE", "ARCO", "TAST",
+  "RENT", "ADUS", "LOPE", "ARCO",
 
   // Market index/benchmark (for charts)
-  "SPY",
-
-  // Additional (may be dead but kept for historical data)
-  "GNC"
+  "SPY"
 ];
 
 // Refresh interval in milliseconds (1 hour = 3600 seconds)
