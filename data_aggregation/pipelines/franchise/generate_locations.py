@@ -469,15 +469,33 @@ def generate_real_data(batch_tickers=None):
 
         time.sleep(2)
 
-    # Save manifest
+    # Save manifest - merge with existing manifest to preserve previous batches
     MANIFEST_JSON.parent.mkdir(parents=True, exist_ok=True)
-    with open(MANIFEST_JSON, "w") as f:
-        json.dump(manifest, f, indent=2)
 
-    total = sum(m['count'] for m in manifest)
+    # Load existing manifest if it exists
+    existing_manifest = {}
+    if MANIFEST_JSON.exists():
+        try:
+            with open(MANIFEST_JSON, "r") as f:
+                existing_data = json.load(f)
+                # Convert to dict for easier merging
+                existing_manifest = {item['ticker']: item for item in existing_data}
+        except (json.JSONDecodeError, TypeError):
+            existing_manifest = {}
+
+    # Update with new batch data
+    for item in manifest:
+        existing_manifest[item['ticker']] = item
+
+    # Convert back to list and save
+    final_manifest = list(existing_manifest.values())
+    with open(MANIFEST_JSON, "w") as f:
+        json.dump(final_manifest, f, indent=2)
+
+    total = sum(m['count'] for m in final_manifest)
     print(f"\n{'='*70}")
     print(f"✓ Data generation complete!")
-    print(f"Total: {total:,} locations across {len(manifest)} brand groups")
+    print(f"Total: {total:,} locations across {len(final_manifest)} brand groups")
     print(f"Output: {MANIFEST_JSON}")
     print(f"Location files: {BRANDS_DATA_DIR}/*.json")
     print("=" * 70)

@@ -655,10 +655,10 @@ body {
 /* Panel - Market Analysis on right side, positioned below controls */
 #info-panel {
     position: absolute;
-    top: 90px;
+    top: 20px;
     right: 20px;
-    width: 340px;
-    max-height: calc(100% - 110px);
+    width: 320px;
+    max-height: calc(100% - 40px);
     background: white;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
@@ -679,7 +679,7 @@ body {
 }
 
 #info-panel.panel-expanded {
-    width: 340px;
+    width: 320px;
     opacity: 1;
     pointer-events: auto;
     transform: translateX(0);
