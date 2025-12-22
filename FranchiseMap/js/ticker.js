@@ -10,13 +10,14 @@
     const MARKET_CLOSE_MINUTE = 0;
 
     let stockData = null;
+    let isMarketOpen = false;
 
     function init() {
         loadStockData();
         updateMarketStatus();
 
-        // Update market status every minute
-        setInterval(updateMarketStatus, 60000);
+        // Update market status every second (for countdown with seconds)
+        setInterval(updateMarketStatus, 1000);
 
         // Reload stock data every 5 minutes
         setInterval(loadStockData, 300000);
@@ -27,43 +28,78 @@
             .then(res => res.json())
             .then(data => {
                 stockData = data;
-                renderTicker(data.quotes);
+                // Handle both array format and quotes object format
+                const quotes = Array.isArray(data) ? data : (data.quotes || {});
+                renderTicker(quotes);
             })
             .catch(e => {
                 console.log('Stock data not available:', e);
-                document.getElementById('ticker-tape').innerHTML = '<span style="opacity:0.6;">Stock data loading...</span>';
+                const tape = document.getElementById('ticker-tape');
+                tape.innerHTML = '<span class="ticker-empty">Stock data unavailable</span>';
+                tape.classList.remove('has-data');
             });
     }
 
     function renderTicker(quotes) {
         const tape = document.getElementById('ticker-tape');
-        if (!quotes || Object.keys(quotes).length === 0) {
-            tape.innerHTML = '<span style="opacity:0.6;">No stock data available</span>';
+
+        // Handle both array and object formats
+        let quotesList = Array.isArray(quotes) ? quotes : Object.values(quotes);
+
+        if (!quotesList || quotesList.length === 0) {
+            // Static placeholder for empty state - no scrolling
+            tape.innerHTML = '<span class="ticker-empty">No stock data available</span>';
+            tape.classList.remove('has-data');
             return;
         }
 
         let html = '';
-        // Show top 15 stocks by market cap
-        const sorted = Object.values(quotes)
-            .filter(q => q.marketCap)
-            .sort((a, b) => (b.marketCap || 0) - (a.marketCap || 0))
+        // Sort by changePercent (absolute) for most active, then by price
+        const sorted = quotesList
+            .filter(q => q.ticker && q.price !== undefined && q.changePercent !== undefined)
+            .sort((a, b) => {
+                // Sort by absolute change percent (most volatile first), then by price
+                const absA = Math.abs(b.changePercent || 0);
+                const absB = Math.abs(a.changePercent || 0);
+                if (absA !== absB) return absA - absB;
+                return (b.price || 0) - (a.price || 0);
+            })
             .slice(0, 15);
 
         // Generate ticker items once
         sorted.forEach(quote => {
             const changeClass = quote.changePercent >= 0 ? 'up' : 'down';
             const changeSign = quote.changePercent >= 0 ? '+' : '';
+            const symbol = quote.ticker || quote.symbol || 'N/A';
+            const price = quote.price || 0;
+            const changePercent = quote.changePercent || 0;
+
             html += `
                 <div class="ticker-item">
-                    <span class="ticker-symbol">${quote.symbol}</span>
-                    <span class="ticker-price">$${quote.price.toFixed(2)}</span>
-                    <span class="ticker-change ${changeClass}">${changeSign}${quote.changePercent.toFixed(2)}%</span>
+                    <span class="ticker-symbol">${symbol}</span>
+                    <span class="ticker-price">$${price.toFixed(2)}</span>
+                    <span class="ticker-change ${changeClass}">${changeSign}${changePercent.toFixed(2)}%</span>
                 </div>
             `;
         });
 
         // Duplicate HTML for seamless scrolling animation
         tape.innerHTML = html + html;
+        tape.classList.add('has-data');
+
+        // Update ticker color based on market state
+        updateTickerColor();
+    }
+
+    function updateTickerColor() {
+        const tape = document.getElementById('ticker-tape');
+        if (isMarketOpen) {
+            tape.classList.remove('market-closed');
+            tape.classList.add('market-open');
+        } else {
+            tape.classList.remove('market-open');
+            tape.classList.add('market-closed');
+        }
     }
 
     function updateMarketStatus() {
@@ -124,6 +160,9 @@
             isOpen = false;
         }
 
+        // Store market state for ticker color updates
+        isMarketOpen = isOpen;
+
         // Update status display
         if (isOpen) {
             statusEl.textContent = 'Market Open';
@@ -133,17 +172,27 @@
             statusEl.className = 'closed';
         }
 
-        // Format countdown
-        const hours = Math.floor(timeToEvent / (1000 * 60 * 60));
-        const minutes = Math.floor((timeToEvent % (1000 * 60 * 60)) / (1000 * 60));
+        // Format countdown with hours, minutes, and seconds
+        const totalSeconds = Math.floor(timeToEvent / 1000);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        // Pad zeros for HH:MM:SS format
+        const paddedMinutes = String(minutes).padStart(2, '0');
+        const paddedSeconds = String(seconds).padStart(2, '0');
 
         if (hours > 24) {
             const days = Math.floor(hours / 24);
             const remainingHours = hours % 24;
-            countdownEl.textContent = `${eventLabel} in ${days}d ${remainingHours}h ${minutes}m`;
+            const paddedRemainingHours = String(remainingHours).padStart(2, '0');
+            countdownEl.textContent = `${eventLabel} in ${days}d ${paddedRemainingHours}h ${paddedMinutes}m`;
         } else {
-            countdownEl.textContent = `${eventLabel} in ${hours}h ${minutes}m`;
+            countdownEl.textContent = `${eventLabel} in ${hours}h ${paddedMinutes}m ${paddedSeconds}s`;
         }
+
+        // Update ticker color based on market state
+        updateTickerColor();
     }
 
     function getETTime(date) {

@@ -1,65 +1,32 @@
 [
   {
-    "ticker": "DENN",
+    "ticker": "WEN",
     "brands": [
-      "DENN"
+      "Wendy's"
     ],
-    "name": "DENN",
-    "file": "data/brands/DENN.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 1402
+    "name": "Wendy's",
+    "file": "data/brands/WEN.json",
+    "color": "#E2203C",
+    "category": "QSR",
+    "count": 5758
   },
   {
     "ticker": "DIN",
     "brands": [
       "DIN"
     ],
-    "name": "DIN",
+    "name": "Applebee's",
     "file": "data/brands/DIN.json",
     "color": "#000000",
     "category": "Other",
     "count": 3024
   },
   {
-    "ticker": "DNUT",
-    "brands": [
-      "DNUT"
-    ],
-    "name": "DNUT",
-    "file": "data/brands/DNUT.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 529
-  },
-  {
-    "ticker": "DPZ",
-    "brands": [
-      "Domino's Pizza"
-    ],
-    "name": "Domino's Pizza",
-    "file": "data/brands/DPZ.json",
-    "color": "#006491",
-    "category": "QSR",
-    "count": 64
-  },
-  {
-    "ticker": "H",
-    "brands": [
-      "H"
-    ],
-    "name": "H",
-    "file": "data/brands/H.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 1634
-  },
-  {
     "ticker": "HRB",
     "brands": [
       "HRB"
     ],
-    "name": "HRB",
+    "name": "H&R Block",
     "file": "data/brands/HRB.json",
     "color": "#000000",
     "category": "Other",
@@ -70,44 +37,22 @@
     "brands": [
       "JACK"
     ],
-    "name": "JACK",
+    "name": "Jack in the Box",
     "file": "data/brands/JACK.json",
     "color": "#000000",
     "category": "Other",
     "count": 2475
   },
   {
-    "ticker": "MCW",
+    "ticker": "H",
     "brands": [
-      "MCW"
+      "Hyatt"
     ],
-    "name": "MCW",
-    "file": "data/brands/MCW.json",
+    "name": "Hyatt",
+    "file": "data/brands/H.json",
     "color": "#000000",
-    "category": "Other",
-    "count": 212
-  },
-  {
-    "ticker": "NATH",
-    "brands": [
-      "NATH"
-    ],
-    "name": "NATH",
-    "file": "data/brands/NATH.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 1
-  },
-  {
-    "ticker": "PLAY",
-    "brands": [
-      "PLAY"
-    ],
-    "name": "PLAY",
-    "file": "data/brands/PLAY.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 234
+    "category": "Hotels",
+    "count": 1634
   },
   {
     "ticker": "PLNT",
@@ -121,81 +66,15 @@
     "count": 1550
   },
   {
-    "ticker": "ROL",
+    "ticker": "DENN",
     "brands": [
-      "ROL"
+      "DENN"
     ],
-    "name": "ROL",
-    "file": "data/brands/ROL.json",
+    "name": "Denny's",
+    "file": "data/brands/DENN.json",
     "color": "#000000",
     "category": "Other",
-    "count": 652
-  },
-  {
-    "ticker": "RRGB",
-    "brands": [
-      "RRGB"
-    ],
-    "name": "RRGB",
-    "file": "data/brands/RRGB.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 634
-  },
-  {
-    "ticker": "SERV",
-    "brands": [
-      "SERV"
-    ],
-    "name": "SERV",
-    "file": "data/brands/SERV.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 70
-  },
-  {
-    "ticker": "SHAK",
-    "brands": [
-      "Shake Shack"
-    ],
-    "name": "Shake Shack",
-    "file": "data/brands/SHAK.json",
-    "color": "#1F1F1F",
-    "category": "QSR",
-    "count": 325
-  },
-  {
-    "ticker": "TNL",
-    "brands": [
-      "TNL"
-    ],
-    "name": "TNL",
-    "file": "data/brands/TNL.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 24
-  },
-  {
-    "ticker": "VAC",
-    "brands": [
-      "VAC"
-    ],
-    "name": "VAC",
-    "file": "data/brands/VAC.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 19
-  },
-  {
-    "ticker": "WEN",
-    "brands": [
-      "Wendy's"
-    ],
-    "name": "Wendy's",
-    "file": "data/brands/WEN.json",
-    "color": "#E2203C",
-    "category": "QSR",
-    "count": 5758
+    "count": 1402
   },
   {
     "ticker": "WING",
@@ -209,91 +88,124 @@
     "count": 1233
   },
   {
-    "ticker": "CHIPOTLE",
+    "ticker": "ROL",
     "brands": [
-      "Chipotle"
+      "ROL"
     ],
-    "name": "Chipotle",
-    "file": "data/brands/chipotle.json",
+    "name": "Orkin",
+    "file": "data/brands/ROL.json",
     "color": "#000000",
     "category": "Other",
-    "count": 35
+    "count": 652
   },
   {
-    "ticker": "DOMINOS",
+    "ticker": "RRGB",
     "brands": [
-      "Domino's"
+      "RRGB"
     ],
-    "name": "Domino's",
-    "file": "data/brands/dominos.json",
+    "name": "Red Robin",
+    "file": "data/brands/RRGB.json",
     "color": "#000000",
     "category": "Other",
-    "count": 30
+    "count": 634
   },
   {
-    "ticker": "MCDONALDS",
+    "ticker": "DNUT",
     "brands": [
-      "McDonald's"
+      "DNUT"
     ],
-    "name": "McDonald's",
-    "file": "data/brands/mcdonalds.json",
+    "name": "Krispy Kreme",
+    "file": "data/brands/DNUT.json",
     "color": "#000000",
     "category": "Other",
-    "count": 50
+    "count": 529
   },
   {
-    "ticker": "PLANETFITNESS",
-    "brands": [
-      "Planet Fitness"
-    ],
-    "name": "Planet Fitness",
-    "file": "data/brands/planetfitness.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 25
-  },
-  {
-    "ticker": "SHAKESHACK",
+    "ticker": "SHAK",
     "brands": [
       "Shake Shack"
     ],
     "name": "Shake Shack",
-    "file": "data/brands/shakeshack.json",
-    "color": "#000000",
-    "category": "Other",
-    "count": 20
+    "file": "data/brands/SHAK.json",
+    "color": "#1F1F1F",
+    "category": "QSR",
+    "count": 325
   },
   {
-    "ticker": "STARBUCKS",
+    "ticker": "PLAY",
     "brands": [
-      "Starbucks"
+      "PLAY"
     ],
-    "name": "Starbucks",
-    "file": "data/brands/starbucks.json",
+    "name": "Dave & Buster's",
+    "file": "data/brands/PLAY.json",
     "color": "#000000",
     "category": "Other",
-    "count": 40
+    "count": 234
   },
   {
-    "ticker": "WENDYS",
+    "ticker": "MCW",
     "brands": [
-      "Wendy's"
+      "MCW"
     ],
-    "name": "Wendy's",
-    "file": "data/brands/wendys.json",
+    "name": "Mister Car Wash",
+    "file": "data/brands/MCW.json",
     "color": "#000000",
     "category": "Other",
-    "count": 25
+    "count": 212
   },
   {
-    "ticker": "WINGSTOP",
+    "ticker": "SERV",
     "brands": [
-      "Wingstop"
+      "SERV"
     ],
-    "name": "Wingstop",
-    "file": "data/brands/wingstop.json",
+    "name": "ServiceMaster",
+    "file": "data/brands/SERV.json",
     "color": "#000000",
     "category": "Other",
-    "count": 20
+    "count": 70
+  },
+  {
+    "ticker": "DPZ",
+    "brands": [
+      "Domino's"
+    ],
+    "name": "Domino's",
+    "file": "data/brands/DPZ.json",
+    "color": "#006491",
+    "category": "QSR",
+    "count": 64
+  },
+  {
+    "ticker": "TNL",
+    "brands": [
+      "TNL"
+    ],
+    "name": "Club Wyndham",
+    "file": "data/brands/TNL.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 24
+  },
+  {
+    "ticker": "VAC",
+    "brands": [
+      "VAC"
+    ],
+    "name": "Marriott Vacation Club",
+    "file": "data/brands/VAC.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 19
+  },
+  {
+    "ticker": "NATH",
+    "brands": [
+      "NATH"
+    ],
+    "name": "Nathan's Famous",
+    "file": "data/brands/NATH.json",
+    "color": "#000000",
+    "category": "Other",
+    "count": 1
   }
 ]

@@ -331,6 +331,51 @@ def fetch_overpass_data(queries):
         return None
 
 
+def enrich_manifest_with_categories():
+    """
+    Enrich manifest with category information from brands_queue.txt
+
+    Reads brands_queue.txt to get category for each ticker and adds it to manifest.json
+    """
+    try:
+        # Load brands queue to get category mapping
+        queue_file = Path(__file__).parent.parent.parent / 'brands_queue.txt'
+        category_map = {}
+
+        if queue_file.exists():
+            with open(queue_file, 'r') as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line.startswith('#'):
+                        continue
+                    parts = line.split('|')
+                    if len(parts) >= 3:
+                        ticker = parts[0].strip()
+                        category = parts[2].strip()
+                        category_map[ticker] = category
+
+        # Load manifest and add category field
+        if MANIFEST_JSON.exists():
+            with open(MANIFEST_JSON, 'r') as f:
+                manifest = json.load(f)
+
+            # Add category to each entry
+            for item in manifest:
+                if 'category' not in item:
+                    ticker = item.get('ticker', '')
+                    item['category'] = category_map.get(ticker, 'Other')
+
+            # Save enriched manifest
+            with open(MANIFEST_JSON, 'w') as f:
+                json.dump(manifest, f, indent=2)
+
+            print(f"✓ Manifest enriched with {len([c for c in [item.get('category') for item in manifest] if c])} category mappings")
+            return True
+    except Exception as e:
+        print(f"⚠️  Could not enrich manifest with categories: {e}")
+        return False
+
+
 def generate_real_data(batch_tickers=None):
     """
     Generate location data from OpenStreetMap.
@@ -499,6 +544,9 @@ def generate_real_data(batch_tickers=None):
     print(f"Output: {MANIFEST_JSON}")
     print(f"Location files: {BRANDS_DATA_DIR}/*.json")
     print("=" * 70)
+
+    # Enrich manifest with category information
+    enrich_manifest_with_categories()
 
     return True
 

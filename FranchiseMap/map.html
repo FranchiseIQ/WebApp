@@ -155,20 +155,26 @@
 
         <!-- Custom Controls Rail -->
         <div id="map-controls-rail">
-            <button id="btn-home" class="control-btn" title="Reset View">
+            <button id="btn-home" class="control-btn" title="Home or Saved View">
                 <i class="fa-solid fa-house"></i>
             </button>
-            <button id="btn-locate" class="control-btn" title="Near Me">
+            <button id="btn-locate" class="control-btn" title="Target Location">
                 <i class="fa-solid fa-location-crosshairs"></i>
+            </button>
+            <button id="btn-save-view" class="control-btn" title="Save Current View">
+                <i class="fa-solid fa-bookmark"></i>
+            </button>
+            <button id="btn-reset-view" class="control-btn" title="Reset Saved View">
+                <i class="fa-solid fa-xmark"></i>
             </button>
             <button id="search-toggle-btn" class="control-btn" title="Search location or area">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
             <div class="control-divider"></div>
-            <button id="btn-cluster-toggle" class="control-btn" title="Toggle Clustered View">
+            <button id="btn-cluster-toggle" class="control-btn active" title="Switch to All Locations">
                 <i class="fa-solid fa-circle-nodes"></i>
             </button>
-            <button id="btn-heatmap-toggle" class="control-btn active" title="Toggle Ungrouped View">
+            <button id="btn-heatmap-toggle" class="control-btn" title="Turn on Heat Map">
                 <i class="fa-solid fa-fire"></i>
             </button>
             <div class="control-divider"></div>
@@ -309,13 +315,16 @@
 
         <!-- Comparison Panel -->
         <div id="comparison-panel" class="comparison-panel hidden">
-            <div class="comparison-header">
-                <h3><i class="fa-solid fa-code-compare"></i> Compare Locations</h3>
+            <div class="comparison-header" id="comparison-drag-handle">
+                <div class="comparison-header-title">
+                    <h3><i class="fa-solid fa-code-compare"></i> Compare Locations</h3>
+                    <span class="comparison-count" id="comparison-count">0</span>
+                </div>
                 <div class="comparison-actions">
-                    <button onclick="window.exportComparison()" class="comp-action-btn" title="Export Comparison">
+                    <button id="export-comparison-btn" onclick="window.exportComparison()" class="comp-action-btn" title="Export Comparison" disabled>
                         <i class="fa-solid fa-download"></i>
                     </button>
-                    <button onclick="window.clearComparison()" class="comp-action-btn" title="Clear All">
+                    <button id="clear-comparison-btn" onclick="window.clearComparison()" class="comp-action-btn" title="Clear All" disabled>
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </div>
@@ -345,6 +354,32 @@
                     <span class="legend-color poor"></span>
                     <span>&lt;50 Poor</span>
                 </div>
+            </div>
+        </div>
+
+        <!-- Heat Map Legend -->
+        <div id="heatmap-legend" class="heatmap-legend hidden">
+            <div class="legend-title">Heat Map (Site Score Density)</div>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="legend-color poor"></span>
+                    <span>Low (Poor Sites)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color fair"></span>
+                    <span>Fair</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color good"></span>
+                    <span>Good</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color excellent"></span>
+                    <span>High (Excellent Sites)</span>
+                </div>
+            </div>
+            <div class="legend-description">
+                Shows concentration of locations weighted by site score. Redder = higher-scoring sites in that area.
             </div>
         </div>
     </div>

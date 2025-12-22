@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Config ---
-    const ROARK_TICKERS = ['INSPIRE', 'FOCUS', 'DRIVEN', 'ROARK'];
+    // Roark brands are now loaded dynamically from manifest with is_roark field
     const RADIUS_STEPS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
 
     // Legacy category map - kept for backward compatibility, but categories are now loaded from brand_metadata.json
@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- State ---
-    let map, clusterGroup, markersLayer = L.layerGroup(), buildingsLayer, heatLayer;
+    let map, clusterGroup, clusterLayer, individualLayer, markersLayer = L.layerGroup(), buildingsLayer, heatLayer;
     let allLocations = [], loadedTickers = new Set(), activeTickers = new Set();
-    let isClusterView = false, isHeatmapView = false, currentRadiusCircle;
+    let isClusterView = true, isHeatmapView = false, currentRadiusCircle;
     let manifest = [];
     let tickerColors = {};
     let highlightedMarkers = [];
@@ -34,6 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let scoreFilter = { min: 0, max: 100 };
     let proximityIndex = new ProximityIndex(0.02); // Grid-based spatial index
     let highPerformersOpen = false; // Track high performers panel state
+    let currentZoom = 4; // Track current zoom level for sizing
+
+    // --- Viewport Metrics Tracking ---
+    let prevViewportMetrics = {
+        highPerformersCount: 0,
+        activeBrandsCount: 0
+    };
+    let viewportMetricsDebounceTimer = null;
 
     // --- Ownership Model Filter State ---
     let brandMetadata = null;  // Loaded from brand_metadata.json
@@ -55,11 +63,40 @@ document.addEventListener('DOMContentLoaded', () => {
         '#56CFE1', '#64DFDF', '#72EFDD', '#80FFDB', '#FF9F1C', '#2EC4B6', '#CBF3F0', '#FFBF69'
     ];
 
-    function getColor(str) {
-        if (tickerColors[str]) return tickerColors[str];
-        const color = COLOR_PALETTE[colorIndex % COLOR_PALETTE.length];
-        tickerColors[str] = color;
-        colorIndex++;
+    // Non-franchise color palette - more muted/distinct from franchise colors
+    const NON_FRANCHISE_PALETTE = [
+        '#A0522D', '#8B4513', '#704214', '#696969', '#808080', '#778899', '#2F4F4F', '#4B0082',
+        '#8B008B', '#DC143C', '#FF1493', '#FF69B4', '#FFB6C1', '#DDA0DD', '#EE82EE', '#BA55D3',
+        '#9932CC', '#8A2BE2', '#4169E1', '#1E90FF', '#6495ED', '#87CEEB', '#00BFFF', '#00CED1',
+        '#20B2AA', '#3CB371', '#2E8B57', '#228B22', '#556B2F', '#6B8E23', '#9ACD32', '#DAA520'
+    ];
+
+    function getColor(ticker) {
+        if (tickerColors[ticker]) return tickerColors[ticker];
+
+        // Check if this is a non-franchise brand
+        let isNonFranchise = false;
+        if (manifest && manifest.length > 0) {
+            const brandInfo = manifest.find(item => item.ticker === ticker);
+            if (brandInfo && brandInfo.category === 'Non-Franchise') {
+                isNonFranchise = true;
+            }
+        }
+
+        // Use appropriate palette based on brand type
+        const palette = isNonFranchise ? NON_FRANCHISE_PALETTE : COLOR_PALETTE;
+        const paletteIndex = isNonFranchise ?
+            Object.keys(tickerColors).filter(t => {
+                const bi = manifest?.find(i => i.ticker === t);
+                return bi && bi.category === 'Non-Franchise';
+            }).length :
+            colorIndex;
+
+        const color = palette[paletteIndex % palette.length];
+        tickerColors[ticker] = color;
+        if (!isNonFranchise) {
+            colorIndex++;
+        }
         return color;
     }
 
@@ -79,6 +116,22 @@ document.addEventListener('DOMContentLoaded', () => {
             '#ef4444': 'rgba(239, 68, 68, 0.15)'       // poor red
         };
         return colorMap[hexColor] || hexColor;
+    }
+
+    // Calculate marker radius based on zoom level and view mode
+    function getMarkerRadius(zoom, isIndividual = false) {
+        // National scale (zoom 0-6): very small
+        // Regional scale (zoom 7-9): small
+        // City scale (zoom 10-13): medium
+        // Neighborhood scale (zoom 14+): larger
+        const baseRadius = isIndividual ? 1 : 0.5; // Individual markers slightly larger
+
+        if (zoom <= 5) return baseRadius * 3;      // ~1.5-3px at national scale
+        if (zoom <= 7) return baseRadius * 4;      // ~2-4px
+        if (zoom <= 9) return baseRadius * 5;      // ~2.5-5px
+        if (zoom <= 11) return baseRadius * 6.5;   // ~3.25-6.5px
+        if (zoom <= 13) return baseRadius * 8;     // ~4-8px
+        return baseRadius * 10;                     // ~5-10px at city/neighborhood scale
     }
 
     function initMap() {
@@ -104,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         map = L.map('map', { zoomControl: false, preferCanvas: true, layers: [street] }).setView([39.82, -98.58], 4);
+        currentZoom = map.getZoom();
 
         // State borders overlay layer
         const stateBorders = L.tileLayer('https://tile.openstreetmap.us/data/boundary/{z}/{x}/{y}.png', {
@@ -142,8 +196,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         // Don't add to map - we'll use custom panel instead
 
+        // Initialize layers
         clusterGroup = L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 40, chunkedLoading: true });
-        map.addLayer(clusterGroup);
+        clusterLayer = clusterGroup;
+        individualLayer = L.layerGroup();
+
+        // Add clustered layer by default
+        map.addLayer(clusterLayer);
 
         buildingsLayer = new OSMBuildings(map);
         map.on('overlayadd', e => { if(e.layer === dummy3D) loadBuildings(); });
@@ -152,11 +211,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if(map.hasLayer(dummy3D)) loadBuildings();
             updateVisibleStats();
         });
-        map.on('zoomend', updateVisibleStats);
+        map.on('zoomend', function() {
+            currentZoom = map.getZoom();
+            updateVisibleStats();
+            // Refresh marker sizes on zoom
+            refreshMarkerSizes();
+        });
 
         setupRail();
         setupFilters();
         setupAdvancedControls();
+        initComparisonPanelDragging();
+
+        // Initialize map view (saved view → geolocation → fallback city)
+        loadStartView();
+
         loadBrandMetadata().then(() => {
             loadManifest();
         });
@@ -195,7 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadManifest() {
-        fetch('data/manifest.json')
+        // Try to load augmented manifest with Roark tagging, fall back to original manifest
+        fetch('data/brands_manifest.json')
             .then(res => res.json())
             .then(data => {
                 manifest = data;
@@ -205,8 +275,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateDashboardStats();
             })
             .catch(e => {
-                console.log("Data not yet generated. Run GitHub Action.");
-                document.getElementById('brand-legend').innerHTML = '<p style="color:#999;font-size:0.85rem;">No data available. Run the GitHub Action to generate map data.</p>';
+                // Fallback to original manifest if brands_manifest.json doesn't exist
+                console.log("brands_manifest.json not found, loading manifest.json");
+                fetch('data/manifest.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        manifest = data;
+                        renderLegend(manifest);
+                        selectAll();
+                        updateDashboardStats();
+                    })
+                    .catch(e2 => {
+                        console.log("Data not yet generated. Run GitHub Action.");
+                        document.getElementById('brand-legend').innerHTML = '<p style="color:#999;font-size:0.85rem;">No data available. Run the GitHub Action to generate map data.</p>';
+                    });
             });
     }
 
@@ -216,21 +298,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         manifestData.forEach(item => {
             const color = getColor(item.ticker);
-            const isRoark = ROARK_TICKERS.includes(item.ticker);
+            const isRoark = item.is_roark || false;
 
             const btn = document.createElement('button');
             btn.className = 'brand-pill' + (isRoark ? ' roark' : '');
             btn.dataset.ticker = item.ticker;
             btn.dataset.file = item.file;
 
-            // Format brand name with ticker if available
+            // Format brand name and ticker separately
             const brandName = item.brands[0] || item.ticker;
-            const displayText = `${brandName} (${item.ticker})`;
 
             btn.innerHTML = `
                 <span class="brand-dot" style="background-color: ${color}"></span>
                 <div class="brand-info">
-                    <div class="brand-name">${displayText}</div>
+                    <div class="brand-name">${brandName}</div>
+                    <div class="brand-ticker">${item.ticker}</div>
                 </div>
                 <span class="brand-count">${item.count.toLocaleString()}</span>
             `;
@@ -285,9 +367,53 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDashboardStats();
     }
 
+    function updateScoreDistribution(visibleLocations) {
+        /**
+         * Update the score distribution display based on visible locations
+         * Calculates the proportion of locations in each score tier
+         * and updates the segment widths accordingly
+         */
+        if (!visibleLocations || visibleLocations.length === 0) {
+            // Show empty/disabled state
+            document.getElementById('dist-poor').style.width = '25%';
+            document.getElementById('dist-fair').style.width = '25%';
+            document.getElementById('dist-good').style.width = '25%';
+            document.getElementById('dist-excellent').style.width = '25%';
+            return;
+        }
+
+        // Count locations in each tier
+        const tiers = {
+            poor: 0,      // <50
+            fair: 0,      // 50-64
+            good: 0,      // 65-79
+            excellent: 0  // 80+
+        };
+
+        visibleLocations.forEach(loc => {
+            const score = loc.s || 0;
+            if (score < 50) tiers.poor++;
+            else if (score < 65) tiers.fair++;
+            else if (score < 80) tiers.good++;
+            else tiers.excellent++;
+        });
+
+        const total = visibleLocations.length;
+        const poorPct = (tiers.poor / total * 100);
+        const fairPct = (tiers.fair / total * 100);
+        const goodPct = (tiers.good / total * 100);
+        const excellentPct = (tiers.excellent / total * 100);
+
+        // Update segment widths with minimum 1% to show all segments
+        document.getElementById('dist-poor').style.width = Math.max(1, poorPct) + '%';
+        document.getElementById('dist-fair').style.width = Math.max(1, fairPct) + '%';
+        document.getElementById('dist-good').style.width = Math.max(1, goodPct) + '%';
+        document.getElementById('dist-excellent').style.width = Math.max(1, excellentPct) + '%';
+    }
+
     function refreshMap() {
-        clusterGroup.clearLayers();
-        markersLayer.clearLayers();
+        clusterLayer.clearLayers();
+        individualLayer.clearLayers();
         highlightedMarkers = [];
 
         // Apply all filters (AND logic)
@@ -302,51 +428,92 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update proximity index with visible locations
         proximityIndex.addLocations(visible);
 
-        const markers = visible.map(createMarker);
+        // Create markers (without adding to map yet)
+        const clusterMarkers = visible.map(loc => createMarker(loc, false));
+        const individualMarkers = visible.map(loc => createMarker(loc, true));
 
+        // Handle heat map (optional overlay)
         if (isHeatmapView) {
             updateHeatmap(visible);
         } else if (heatLayer) {
             map.removeLayer(heatLayer);
+            heatLayer = null;
         }
 
-        if (isClusterView && !isHeatmapView) {
-            clusterGroup.addLayers(markers);
-            if (!map.hasLayer(clusterGroup)) map.addLayer(clusterGroup);
-            if (map.hasLayer(markersLayer)) map.removeLayer(markersLayer);
+        // Enforce mutually exclusive view modes
+        if (isClusterView) {
+            // Clustered view is active - add cluster markers, remove individual
+            clusterLayer.addLayers(clusterMarkers);
+            if (!map.hasLayer(clusterLayer)) map.addLayer(clusterLayer);
+            if (map.hasLayer(individualLayer)) map.removeLayer(individualLayer);
         } else {
-            markers.forEach(m => markersLayer.addLayer(m));
-            if (!map.hasLayer(markersLayer)) map.addLayer(markersLayer);
-            if (map.hasLayer(clusterGroup)) map.removeLayer(clusterGroup);
+            // All locations view is active - add individual markers, remove clusters
+            individualMarkers.forEach(m => individualLayer.addLayer(m));
+            if (!map.hasLayer(individualLayer)) map.addLayer(individualLayer);
+            if (map.hasLayer(clusterLayer)) map.removeLayer(clusterLayer);
         }
 
         updateLocationCount();
         updateDashboardStats();
+        updateScoreDistribution(visible);
 
         // Update visible stats after map refresh (slight delay for rendering)
         setTimeout(updateVisibleStats, 100);
     }
 
+    function refreshMarkerSizes() {
+        // Update marker sizes when zoom changes
+        if (isClusterView) {
+            // Cluster view - no need to refresh as clusters handle their own sizing
+        } else {
+            // Individual markers - update their sizes
+            individualLayer.eachLayer(marker => {
+                if (marker.setRadius) {
+                    const radius = getMarkerRadius(currentZoom, true);
+                    marker.setRadius(radius);
+                }
+            });
+        }
+    }
+
     function updateHeatmap(locations) {
         if (heatLayer) {
             map.removeLayer(heatLayer);
+            heatLayer = null;
         }
 
         if (locations.length === 0 || typeof L.heatLayer === 'undefined') return;
 
-        const heatData = locations.map(loc => [loc.lat, loc.lng, loc.s / 100]);
+        // Use site score as weight: normalized to 0-1 where 100 = 1.0
+        // This makes "hotter" mean higher-scoring sites
+        const heatData = locations.map(loc => [
+            loc.lat,
+            loc.lng,
+            Math.min(1, loc.s / 100)  // Normalize score to 0-1 range
+        ]);
+
         heatLayer = L.heatLayer(heatData, {
             radius: 25,
             blur: 15,
             maxZoom: 17,
+            max: 1.0,
+            // Gradient: cool (blue) = low scores, hot (red) = high scores
             gradient: {
-                0.0: '#3b82f6',
-                0.25: '#22c55e',
-                0.5: '#eab308',
-                0.75: '#f97316',
-                1.0: '#ef4444'
+                0.0: '#3b82f6',    // Blue: <25 (Poor)
+                0.25: '#22c55e',   // Green: 25-50 (Fair)
+                0.5: '#eab308',    // Yellow: 50-75 (Good)
+                0.75: '#f97316',   // Orange: 75-90
+                1.0: '#ef4444'     // Red: 90-100 (Excellent)
             }
         }).addTo(map);
+
+        // Ensure heat layer is behind markers
+        if (map.hasLayer(clusterLayer)) {
+            clusterLayer.bringToFront();
+        }
+        if (map.hasLayer(individualLayer)) {
+            individualLayer.bringToFront();
+        }
     }
 
     function updateLocationCount() {
@@ -399,7 +566,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (visibleLocations.length === 0) {
             document.getElementById('avg-score').textContent = '--';
-            document.getElementById('high-score-count').textContent = '0';
+            // Animate high performers count to 0
+            animateKpiNumber('high-score-count', prevViewportMetrics.highPerformersCount, 0, {
+                formatter: (v) => Math.round(v).toLocaleString()
+            });
+            // Animate active brands count to 0
+            animateKpiNumber('brands-active', prevViewportMetrics.activeBrandsCount, 0, {
+                formatter: (v) => Math.round(v).toLocaleString()
+            });
+            prevViewportMetrics.highPerformersCount = 0;
+            prevViewportMetrics.activeBrandsCount = 0;
             return;
         }
 
@@ -407,9 +583,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const avgScore = Math.round(visibleLocations.reduce((sum, loc) => sum + loc.s, 0) / visibleLocations.length);
         const highScoreCount = visibleLocations.filter(loc => loc.s >= 80).length;
 
+        // Calculate distinct active brands in viewport
+        const activeBrandSet = new Set(visibleLocations.map(loc => loc.ticker));
+        const activeBrandsCount = activeBrandSet.size;
+
         // Use animated score update
         animateAvgScore(avgScore);
-        document.getElementById('high-score-count').textContent = highScoreCount.toLocaleString();
+
+        // Animate high performers count with proper formatting
+        animateKpiNumber('high-score-count', prevViewportMetrics.highPerformersCount, highScoreCount, {
+            formatter: (v) => Math.round(v).toLocaleString()
+        });
+        prevViewportMetrics.highPerformersCount = highScoreCount;
+
+        // Animate active brands count with proper formatting
+        animateKpiNumber('brands-active', prevViewportMetrics.activeBrandsCount, activeBrandsCount, {
+            formatter: (v) => Math.round(v).toLocaleString()
+        });
+        prevViewportMetrics.activeBrandsCount = activeBrandsCount;
 
         // Update score distribution for visible locations
         updateScoreDistribution(visibleLocations);
@@ -436,12 +627,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('dist-poor').style.width = `${(distribution.poor / total) * 100}%`;
     }
 
-    function createMarker(loc) {
+    function createMarker(loc, isIndividual = false) {
         const color = getColor(loc.ticker);
         const tier = getScoreTier(loc.s);
+        const radius = getMarkerRadius(currentZoom, isIndividual);
 
         const marker = L.circleMarker([loc.lat, loc.lng], {
-            radius: 7,
+            radius: radius,
             fillColor: color,
             color: tier.color,
             weight: 2,
@@ -491,7 +683,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </button>
                     </div>
                 </div>
-                <div class="popup-address">${loc.a}</div>
+                <div class="popup-address">${(loc.a && loc.a !== 'US Location (OSM)') ? loc.a : '<span style="color: var(--text-light);">Address not available</span>'}</div>
 
                 <div class="score-hero">
                     <div class="score-circle" style="border-color:${tier.color}">
@@ -572,6 +764,25 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span>Safety: ${100 - (attrs.crimeIndex || 0)}</span>
                             <span>RE Index: ${attrs.realEstateIndex || 0}</span>
                         </div>
+                    </div>
+                </div>
+
+                <div class="mini-scores-row">
+                    <div class="mini-score-circle">
+                        <div class="mini-score-icon market" title="Market Potential Score">${marketBar.toFixed(0)}</div>
+                        <span class="mini-score-label">Market</span>
+                    </div>
+                    <div class="mini-score-circle">
+                        <div class="mini-score-icon competition" title="Competition Score">${compBar.toFixed(0)}</div>
+                        <span class="mini-score-label">Competition</span>
+                    </div>
+                    <div class="mini-score-circle">
+                        <div class="mini-score-icon accessibility" title="Accessibility Score">${accessBar.toFixed(0)}</div>
+                        <span class="mini-score-label">Access</span>
+                    </div>
+                    <div class="mini-score-circle">
+                        <div class="mini-score-icon site" title="Site Quality Score">${siteBar.toFixed(0)}</div>
+                        <span class="mini-score-label">Site</span>
                     </div>
                 </div>
 
@@ -771,7 +982,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         comparisonLocations.push(loc);
         updateComparisonPanel();
-        showComparisonPanel();
+        // Do not auto-show panel - user controls visibility via Score Distribution button
     };
 
     window.exportLocation = function(locId) {
@@ -899,7 +1110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         updateComparisonPanel();
-        showComparisonPanel();
+        // Do not auto-show panel - user controls visibility via Score Distribution button
 
         // Show toast notification
         const msg = `Selected top 3 locations from ${activeLocations.length} active brands. Click locations on map to add/remove.`;
@@ -913,6 +1124,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateComparisonPanel() {
         const container = document.getElementById('comparison-cards');
+        const countBadge = document.getElementById('comparison-count');
+        const exportBtn = document.getElementById('export-comparison-btn');
+        const clearBtn = document.getElementById('clear-comparison-btn');
+
+        // Update count badge
+        countBadge.textContent = comparisonLocations.length;
+
+        // Update button states
+        const hasLocations = comparisonLocations.length > 0;
+        exportBtn.disabled = !hasLocations;
+        clearBtn.disabled = !hasLocations;
+
         container.innerHTML = '';
 
         if (comparisonLocations.length === 0) {
@@ -959,6 +1182,97 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Comparison Panel Dragging & Position Persistence
+    function initComparisonPanelDragging() {
+        const panel = document.getElementById('comparison-panel');
+        const dragHandle = document.getElementById('comparison-drag-handle');
+        const STORAGE_KEY = 'franchiseiq_comparison_panel_position';
+
+        let isDragging = false;
+        let offset = { x: 0, y: 0 };
+        let dragStart = { x: 0, y: 0 };
+
+        // Restore saved position on initialization
+        const savedPosition = localStorage.getItem(STORAGE_KEY);
+        if (savedPosition) {
+            try {
+                const pos = JSON.parse(savedPosition);
+                panel.style.top = pos.top;
+                panel.style.right = pos.right;
+                panel.style.left = pos.left;
+                panel.style.bottom = pos.bottom;
+            } catch (e) {
+                console.warn('Failed to restore comparison panel position:', e);
+            }
+        }
+
+        dragHandle.addEventListener('mousedown', (e) => {
+            // Only drag from the header area, not from buttons
+            if (e.target.closest('.comparison-actions')) return;
+
+            isDragging = true;
+            dragStart = { x: e.clientX, y: e.clientY };
+
+            // Get current position
+            const rect = panel.getBoundingClientRect();
+            offset = {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+
+            // Temporarily disable map interactions during drag
+            if (map) {
+                map.dragging.disable();
+            }
+
+            dragHandle.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const mapContainer = document.getElementById('map-container');
+            const containerRect = mapContainer.getBoundingClientRect();
+
+            // Calculate new position
+            let newX = e.clientX - containerRect.left - offset.x;
+            let newY = e.clientY - containerRect.top - offset.y;
+
+            // Constrain to container bounds
+            newX = Math.max(0, Math.min(newX, containerRect.width - panel.offsetWidth));
+            newY = Math.max(0, Math.min(newY, containerRect.height - panel.offsetHeight));
+
+            // Apply position
+            panel.style.position = 'absolute';
+            panel.style.left = newX + 'px';
+            panel.style.right = 'auto';
+            panel.style.top = newY + 'px';
+            panel.style.bottom = 'auto';
+            panel.style.transform = 'none';
+        });
+
+        document.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
+
+            isDragging = false;
+            dragHandle.style.cursor = 'grab';
+
+            // Re-enable map interactions
+            if (map) {
+                map.dragging.enable();
+            }
+
+            // Save position to localStorage
+            const position = {
+                top: panel.style.top,
+                right: panel.style.right,
+                left: panel.style.left,
+                bottom: panel.style.bottom
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(position));
+        });
+    }
+
     function loadBuildings() {
         if(map.getZoom() < 15) return;
         const b = map.getBounds();
@@ -971,10 +1285,119 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    function setupRail() {
-        document.getElementById('btn-home').onclick = () => map.setView([39.82, -98.58], 4);
+    // Major cities for random fallback
+    const MAJOR_CITIES = [
+        { name: 'New York', lat: 40.7128, lng: -74.0060 },
+        { name: 'Los Angeles', lat: 34.0522, lng: -118.2437 },
+        { name: 'Chicago', lat: 41.8781, lng: -87.6298 },
+        { name: 'Dallas', lat: 32.7767, lng: -96.7970 },
+        { name: 'Atlanta', lat: 33.7490, lng: -84.3880 },
+        { name: 'Houston', lat: 29.7604, lng: -95.3698 },
+        { name: 'Phoenix', lat: 33.4484, lng: -112.0742 },
+        { name: 'San Francisco', lat: 37.7749, lng: -122.4194 },
+        { name: 'Seattle', lat: 47.6062, lng: -122.3321 },
+        { name: 'Miami', lat: 25.7617, lng: -80.1918 }
+    ];
 
-        // Near Me button with error handling
+    function loadStartView() {
+        // Check localStorage for saved start view
+        const savedView = localStorage.getItem('franchiseMapStartView');
+
+        if (savedView) {
+            try {
+                const view = JSON.parse(savedView);
+                map.setView([view.lat, view.lng], view.zoom);
+                return;
+            } catch (e) {
+                console.warn('Failed to load saved view:', e);
+            }
+        }
+
+        // Try geolocation with timeout
+        const geolocationTimeout = setTimeout(() => {
+            // Timeout - use fallback city
+            useRandomFallbackCity();
+        }, 4000);
+
+        map.locate({setView: false, maxZoom: 14});
+
+        map.once('locationfound', function(e) {
+            clearTimeout(geolocationTimeout);
+            map.setView([e.latitude, e.longitude], 14);
+        });
+
+        map.once('locationerror', function(e) {
+            clearTimeout(geolocationTimeout);
+            useRandomFallbackCity();
+        });
+    }
+
+    function useRandomFallbackCity() {
+        const city = MAJOR_CITIES[Math.floor(Math.random() * MAJOR_CITIES.length)];
+        map.setView([city.lat, city.lng], 12);
+        showToast(`Using view centered on ${city.name} (location unavailable)`);
+    }
+
+    function saveStartView() {
+        const center = map.getCenter();
+        const zoom = map.getZoom();
+        const view = { lat: center.lat, lng: center.lng, zoom: zoom };
+        localStorage.setItem('franchiseMapStartView', JSON.stringify(view));
+        showToast('Start view saved');
+    }
+
+    function resetStartView() {
+        localStorage.removeItem('franchiseMapStartView');
+        showToast('Saved view cleared');
+    }
+
+    function getSavedView() {
+        const savedView = localStorage.getItem('franchiseMapStartView');
+        if (savedView) {
+            try {
+                return JSON.parse(savedView);
+            } catch (e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            z-index: 9999;
+            animation: slideIn 0.3s ease-out;
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease-out';
+            setTimeout(() => toast.remove(), 300);
+        }, 2500);
+    }
+
+    function setupRail() {
+        // Home button - navigate to saved view or default US center
+        document.getElementById('btn-home').onclick = () => {
+            const savedView = getSavedView();
+            if (savedView) {
+                map.setView([savedView.lat, savedView.lng], savedView.zoom);
+            } else {
+                map.setView([39.82, -98.58], 4);
+            }
+        };
+
+        // Target Location (Locate) button with error handling
         const locateBtn = document.getElementById('btn-locate');
         locateBtn.onclick = function() {
             locateBtn.classList.add('locating');
@@ -990,22 +1413,51 @@ document.addEventListener('DOMContentLoaded', () => {
         map.on('locationerror', function(e) {
             locateBtn.classList.remove('locating');
             console.warn('Geolocation error:', e);
-            alert('Unable to access your location. Please ensure:\n1. Location services are enabled\n2. Browser has permission to access location\n3. You are viewing over HTTPS (if required)');
+            showToast('Unable to access your location. Check browser permissions.');
         });
 
-        document.getElementById('btn-cluster-toggle').onclick = function() {
+        // Save Start View button
+        document.getElementById('btn-save-view').onclick = saveStartView;
+
+        // Reset Start View button
+        document.getElementById('btn-reset-view').onclick = resetStartView;
+
+        // Toggle between Clustered and All Locations views (mutually exclusive)
+        const clusterToggle = document.getElementById('btn-cluster-toggle');
+        clusterToggle.onclick = function() {
             isClusterView = !isClusterView;
             this.classList.toggle('active');
+
+            // Update title based on state
+            if (isClusterView) {
+                this.setAttribute('title', 'Switch to All Locations');
+            } else {
+                this.setAttribute('title', 'Switch to Clustered View');
+            }
+
             refreshMap();
         };
 
+        // Set initial tooltip (clustered view is default and active)
+        if (isClusterView) {
+            clusterToggle.setAttribute('title', 'Switch to All Locations');
+        }
+
+        // Toggle heat map overlay (independent from cluster/all locations toggle)
         document.getElementById('btn-heatmap-toggle').onclick = function() {
             isHeatmapView = !isHeatmapView;
             this.classList.toggle('active');
+
+            // Toggle heat map legend visibility
+            const heatmapLegend = document.getElementById('heatmap-legend');
             if (isHeatmapView) {
-                document.getElementById('btn-cluster-toggle').classList.remove('active');
-                isClusterView = false;
+                heatmapLegend.classList.remove('hidden');
+                this.setAttribute('title', 'Turn off Heat Map');
+            } else {
+                heatmapLegend.classList.add('hidden');
+                this.setAttribute('title', 'Turn on Heat Map');
             }
+
             refreshMap();
         };
 
@@ -1525,7 +1977,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function selectRoark() {
         const promises = [];
 
-        manifest.filter(item => ROARK_TICKERS.includes(item.ticker)).forEach(item => {
+        manifest.filter(item => item.is_roark).forEach(item => {
             const pill = document.querySelector(`.brand-pill[data-ticker="${item.ticker}"]`);
             if (pill && !activeTickers.has(item.ticker)) {
                 activeTickers.add(item.ticker);
@@ -1548,9 +2000,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function deselectRoark() {
-        ROARK_TICKERS.forEach(ticker => {
-            activeTickers.delete(ticker);
-            const pill = document.querySelector(`.brand-pill[data-ticker="${ticker}"]`);
+        manifest.filter(item => item.is_roark).forEach(item => {
+            activeTickers.delete(item.ticker);
+            const pill = document.querySelector(`.brand-pill[data-ticker="${item.ticker}"]`);
             if (pill) pill.classList.remove('active');
         });
         refreshMap();
@@ -1896,34 +2348,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     }
 
-    // Animated average score display
-    function animateAvgScore(newScore) {
-        const avgScoreEl = document.getElementById('avg-score');
-        if (!avgScoreEl) return;
+    // Generic KPI number animation - reusable for any KPI tile
+    function animateKpiNumber(elementId, fromValue, toValue, options = {}) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
 
-        const currentScore = parseInt(avgScoreEl.textContent) || 0;
+        const steps = options.steps || 30;
+        const updateInterval = options.updateInterval || 16; // 60fps
+        const formatter = options.formatter || ((v) => Math.round(v));
 
-        if (currentScore === newScore) return;
+        if (fromValue === toValue) {
+            element.textContent = formatter(toValue);
+            return;
+        }
 
-        const difference = newScore - currentScore;
-        const steps = 30;
+        const difference = toValue - fromValue;
         let currentStep = 0;
 
         const interval = setInterval(() => {
             currentStep++;
             const progress = currentStep / steps;
+            // Ease-in-out quadratic
             const easeProgress = progress < 0.5
                 ? 2 * progress * progress
-                : -1 + (4 - 2 * progress) * progress; // Ease-in-out
+                : -1 + (4 - 2 * progress) * progress;
 
-            const currentValue = Math.round(currentScore + difference * easeProgress);
-            avgScoreEl.textContent = currentValue;
+            const currentValue = fromValue + difference * easeProgress;
+            element.textContent = formatter(currentValue);
 
             if (currentStep >= steps) {
                 clearInterval(interval);
-                avgScoreEl.textContent = newScore;
+                element.textContent = formatter(toValue);
             }
-        }, 16); // 60fps
+        }, updateInterval);
+    }
+
+    // Animated average score display (wrapper for generic function)
+    function animateAvgScore(newScore) {
+        const avgScoreEl = document.getElementById('avg-score');
+        if (!avgScoreEl) return;
+
+        const currentScore = parseInt(avgScoreEl.textContent) || 0;
+        animateKpiNumber('avg-score', currentScore, newScore);
     }
 
     initMap();
