@@ -1152,6 +1152,35 @@ document.addEventListener('DOMContentLoaded', () => {
             const tier = getScoreTier(loc.s);
             const color = getColor(loc.ticker);
             const subScores = loc.ss || {};
+            const address = (loc.a && loc.a !== 'US Location (OSM)') ? loc.a : '';
+
+            // Build score bars for non-zero values
+            let scoreBarsHtml = '';
+            const scoreFields = [
+                { key: 'marketPotential', label: 'Market', color: '#3b82f6' },
+                { key: 'competitiveLandscape', label: 'Competition', color: '#22c55e' },
+                { key: 'accessibility', label: 'Access', color: '#eab308' },
+                { key: 'siteCharacteristics', label: 'Site', color: '#8b5cf6' }
+            ];
+
+            scoreFields.forEach(field => {
+                const value = subScores[field.key] || 0;
+                // Show field if it has a value > 0
+                if (value > 0) {
+                    scoreBarsHtml += `
+                        <div class="comp-bar-row">
+                            <span>${field.label}</span>
+                            <div class="comp-bar"><div style="width:${value}%;background:${field.color}"></div></div>
+                            <span class="comp-value">${value.toFixed(0)}</span>
+                        </div>
+                    `;
+                }
+            });
+
+            // Fallback: if no sub-scores, show message
+            if (!scoreBarsHtml) {
+                scoreBarsHtml = '<p style="font-size: 0.75rem; opacity: 0.6; margin: 8px 0;">No detailed scores available</p>';
+            }
 
             const card = document.createElement('div');
             card.className = 'comparison-card';
@@ -1163,24 +1192,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     </button>
                 </div>
                 <div class="comp-name">${loc.n}</div>
-                <div class="comp-score" style="color:${tier.color}">${loc.s}</div>
+                ${address ? `<div class="comp-address">${address}</div>` : ''}
+                <div class="comp-score" style="color:${tier.color}; margin: 8px 0;">${Math.round(loc.s)}</div>
                 <div class="comp-bars">
-                    <div class="comp-bar-row">
-                        <span>Market</span>
-                        <div class="comp-bar"><div style="width:${subScores.marketPotential || 0}%;background:#3b82f6"></div></div>
-                    </div>
-                    <div class="comp-bar-row">
-                        <span>Comp</span>
-                        <div class="comp-bar"><div style="width:${subScores.competitiveLandscape || 0}%;background:#22c55e"></div></div>
-                    </div>
-                    <div class="comp-bar-row">
-                        <span>Access</span>
-                        <div class="comp-bar"><div style="width:${subScores.accessibility || 0}%;background:#eab308"></div></div>
-                    </div>
-                    <div class="comp-bar-row">
-                        <span>Site</span>
-                        <div class="comp-bar"><div style="width:${subScores.siteCharacteristics || 0}%;background:#8b5cf6"></div></div>
-                    </div>
+                    ${scoreBarsHtml}
                 </div>
             `;
             container.appendChild(card);
@@ -2047,6 +2062,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function getLocationAddress(location) {
+        // Return existing address if available and not generic
+        if (location.a && location.a !== 'US Location (OSM)') {
+            return location.a;
+        }
+
+        // If no address, attempt reverse geocoding
+        if (location.lat === undefined || location.lng === undefined) {
+            return 'Location data pending';
+        }
+
+        try {
+            // Use Nominatim reverse geocoding API
+            const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${location.lat}&lon=${location.lng}`,
+                { signal: AbortSignal.timeout(5000) }
+            );
+            const data = await response.json();
+
+            if (data.address) {
+                const addr = data.address;
+                // Format as City, State (or fallback to available fields)
+                const city = addr.city || addr.town || addr.village || '';
+                const state = addr.state || '';
+                if (city && state) {
+                    return `${city}, ${state}`;
+                } else if (city) {
+                    return city;
+                } else if (state) {
+                    return state;
+                }
+            }
+        } catch (e) {
+            // Silently fail and use fallback
+            console.log('Reverse geocoding failed for location', location.id);
+        }
+
+        // Fallback: Show nothing or generic message
+        return 'Address not available';
+    }
+
     function showHighPerformers() {
         const visible = allLocations.filter(loc => activeTickers.has(loc.ticker));
         const highPerformers = visible.filter(loc => loc.s >= 80)
@@ -2065,21 +2121,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // First render the items (with placeholder addresses)
         performersContent.innerHTML = highPerformers.map((loc, idx) => {
             const tier = getScoreTier(loc.s);
-            // Prefer actual address from location object, fallback to formatted coordinates
-            let address = 'Location data pending';
-            if (loc.a && loc.a !== 'US Location (OSM)') {
-                address = loc.a;
-            } else if (loc.lat !== undefined && loc.lng !== undefined) {
-                // Format coordinates as readable location hint
-                const latDir = loc.lat >= 0 ? 'N' : 'S';
-                const lngDir = loc.lng >= 0 ? 'E' : 'W';
-                address = `${Math.abs(loc.lat).toFixed(2)}° ${latDir}, ${Math.abs(loc.lng).toFixed(2)}° ${lngDir}`;
-            }
+            // Use existing address or placeholder for now
+            const address = (loc.a && loc.a !== 'US Location (OSM)') ? loc.a : 'Loading location...';
 
             return `
-                <div class="score-item" data-index="${idx}">
+                <div class="score-item" data-index="${idx}" data-location-id="${loc.id}">
                     <div class="score-circle" style="background: ${getLightBackground(tier.color)}; border-color: ${tier.color}; color: ${tier.color};">
                         ${Math.round(loc.s)}
                     </div>
@@ -2094,6 +2143,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add click handlers to performer items
         performersContent.querySelectorAll('.score-item').forEach((item, idx) => {
             item.onclick = () => navigateToPerformer(highPerformers[idx]);
+        });
+
+        // Perform reverse geocoding for locations without addresses
+        highPerformers.forEach(async (loc, idx) => {
+            if (!loc.a || loc.a === 'US Location (OSM)') {
+                const address = await getLocationAddress(loc);
+                const itemEl = performersContent.querySelector(`[data-location-id="${loc.id}"] .score-item-address`);
+                if (itemEl) {
+                    itemEl.textContent = address;
+                }
+            }
         });
 
         performersPanel.classList.remove('hidden');
