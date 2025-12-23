@@ -1222,13 +1222,62 @@
             MLB: { dataUrl: 'data/baseball/current-games.json', icon: '⚾', leagueFilter: 'MLB' }
         };
 
-        // Sample betting odds (in production, this would come from an odds API)
+        // Betting odds configuration (supports The Odds API, API-Sports, etc.)
+        const ODDS_CONFIG = {
+            apiKey: null, // Set this to your API key for real odds (from The Odds API, API-Sports, etc.)
+            provider: 'the-odds-api', // Options: 'the-odds-api', 'api-sports'
+            cache: {}  // Cache odds by game ID to reduce API calls
+        };
+
+        // Sample betting odds (fallback when real API not available)
         const SAMPLE_ODDS = {
             spreads: [-3.5, -7, -2.5, 3, -1, 6.5, -4, 2, -6, 1.5],
             totals: [44.5, 47, 41.5, 52, 48.5, 45, 50.5, 43, 49, 46.5]
         };
 
-        let currentLeague = 'NFL';
+        // NFL Stadium coordinates for weather API integration
+        const NFL_STADIUMS = {
+            'Arrowhead Stadium': { lat: 39.0489, lon: -94.4840, city: 'Kansas City' },
+            'Acrisure Stadium': { lat: 40.4465, lon: -80.0157, city: 'Pittsburgh' },
+            'Allegiant Stadium': { lat: 36.0897, lon: -115.1813, city: 'Las Vegas' },
+            'Caesars Superdome': { lat: 29.9510, lon: -90.0810, city: 'New Orleans' },
+            'Cleveland Browns Stadium': { lat: 41.5061, lon: -81.6996, city: 'Cleveland' },
+            'Empower Field at Mile High': { lat: 39.7439, lon: -104.9009, city: 'Denver' },
+            'Gillette Stadium': { lat: 42.0909, lon: -71.2643, city: 'Foxborough' },
+            'Hard Rock Stadium': { lat: 26.0618, lon: -80.2389, city: 'Miami Gardens' },
+            'Highmark Stadium': { lat: 42.7736, lon: -78.7870, city: 'Orchard Park' },
+            'Huntington Bank Field': { lat: 41.5061, lon: -81.6996, city: 'Cleveland' },
+            'Levi\'s Stadium': { lat: 37.4049, lon: -122.0574, city: 'Santa Clara' },
+            'Lucas Oil Stadium': { lat: 39.7605, lon: -86.1643, city: 'Indianapolis' },
+            'MetLife Stadium': { lat: 40.8134, lon: -74.0747, city: 'East Rutherford' },
+            'Mercedes-Benz Superdome': { lat: 29.9510, lon: -90.0810, city: 'New Orleans' },
+            'Paycor Stadium': { lat: 39.0957, lon: -84.5164, city: 'Cincinnati' },
+            'SoFi Stadium': { lat: 33.9536, lon: -118.3391, city: 'Inglewood' },
+            'Soldier Field': { lat: 41.8623, lon: -87.6167, city: 'Chicago' },
+            'State Farm Stadium': { lat: 33.7574, lon: -112.2627, city: 'Glendale' },
+            'Arrowhead Stadium': { lat: 39.0489, lon: -94.4840, city: 'Kansas City' },
+            'FedEx Forum': { lat: 35.1382, lon: -90.0065, city: 'Memphis' },
+            'Lamp Field': { lat: 42.0909, lon: -71.2643, city: 'Foxborough' },
+            'Lincoln Financial Field': { lat: 39.9012, lon: -75.1673, city: 'Philadelphia' },
+            'Lambeau Field': { lat: 44.5013, lon: -88.0622, city: 'Green Bay' },
+            'AT&T Stadium': { lat: 32.7479, lon: -97.0939, city: 'Arlington' },
+            'Lumen Field': { lat: 47.5951, lon: -122.3316, city: 'Seattle' },
+            'Raymond James Stadium': { lat: 27.9759, lon: -82.5033, city: 'Tampa' },
+            'Nissan Stadium': { lat: 36.1627, lon: -86.7816, city: 'Nashville' },
+            'U.S. Bank Stadium': { lat: 44.9745, lon: -93.2618, city: 'Minneapolis' },
+            'Caesars Superdome': { lat: 29.9510, lon: -90.0810, city: 'New Orleans' },
+            'FedExForum': { lat: 35.1382, lon: -90.0065, city: 'Memphis' },
+            'Acrisure Stadium': { lat: 40.4465, lon: -80.0157, city: 'Pittsburgh' },
+            'Lumen Field': { lat: 47.5951, lon: -122.3316, city: 'Seattle' },
+            'SoFi Stadium': { lat: 33.9536, lon: -118.3391, city: 'Inglewood' },
+            'Arrowhead Stadium': { lat: 39.0489, lon: -94.4840, city: 'Kansas City' },
+            'M&T Bank Stadium': { lat: 39.2782, lon: -76.6225, city: 'Baltimore' },
+            'Washington Commanders Stadium': { lat: 38.9076, lon: -77.1007, city: 'Landover' },
+            'FedExForum': { lat: 35.1382, lon: -90.0065, city: 'Memphis' }
+        };
+
+        // Weather cache to avoid repeated API calls
+        let weatherCache = {};
         let currentWeek = null; // Will be set to the current week
         let gamesCache = {};
         let allGames = [];
@@ -1508,14 +1557,62 @@
         }
 
         // Get random odds for a game (simulated - in production use real odds API)
-        function getGameOdds(gameId) {
-            const hash = gameId.split('').reduce((a, b) => ((a << 5) - a + b.charCodeAt(0)) | 0, 0);
-            const spreadIdx = Math.abs(hash) % SAMPLE_ODDS.spreads.length;
-            const totalIdx = Math.abs(hash >> 4) % SAMPLE_ODDS.totals.length;
-            return {
-                spread: SAMPLE_ODDS.spreads[spreadIdx],
-                total: SAMPLE_ODDS.totals[totalIdx]
-            };
+        // Fetch real odds from API (if configured) or use sample odds
+        async function getGameOdds(gameId, awayTeamName, homeTeamName) {
+            // Check cache first
+            if (ODDS_CONFIG.cache[gameId]) {
+                return ODDS_CONFIG.cache[gameId];
+            }
+
+            let odds = null;
+
+            // Try real API if configured
+            if (ODDS_CONFIG.apiKey && ODDS_CONFIG.provider === 'the-odds-api') {
+                try {
+                    // The Odds API endpoint for upcoming games
+                    const response = await fetch(
+                        `https://api.the-odds-api.com/v4/sports/americanfootball_nfl/events?apiKey=${ODDS_CONFIG.apiKey}`,
+                        { timeout: 5000 }
+                    );
+                    if (response.ok) {
+                        const data = await response.json();
+                        // Find matching game
+                        const game = data.data?.find(g =>
+                            g.name.includes(awayTeamName) && g.name.includes(homeTeamName)
+                        );
+                        if (game && game.bookmakers && game.bookmakers.length > 0) {
+                            // Get spreads from first available bookmaker
+                            const markets = game.bookmakers[0].markets || [];
+                            const spreadMarket = markets.find(m => m.key === 'spreads');
+                            const totalMarket = markets.find(m => m.key === 'totals');
+
+                            if (spreadMarket && totalMarket) {
+                                odds = {
+                                    spread: parseFloat(spreadMarket.outcomes[0]?.point || -3),
+                                    total: parseFloat(totalMarket.outcomes[0]?.point || 45)
+                                };
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.log('Odds API fetch failed, using sample odds:', error.message);
+                }
+            }
+
+            // Fall back to sample odds
+            if (!odds) {
+                const hash = gameId.split('').reduce((a, b) => ((a << 5) - a + b.charCodeAt(0)) | 0, 0);
+                const spreadIdx = Math.abs(hash) % SAMPLE_ODDS.spreads.length;
+                const totalIdx = Math.abs(hash >> 4) % SAMPLE_ODDS.totals.length;
+                odds = {
+                    spread: SAMPLE_ODDS.spreads[spreadIdx],
+                    total: SAMPLE_ODDS.totals[totalIdx]
+                };
+            }
+
+            // Cache the result
+            ODDS_CONFIG.cache[gameId] = odds;
+            return odds;
         }
 
         // Normalize game status - uses multiple data points for accuracy
@@ -1913,6 +2010,80 @@
             }
         }
 
+        // Fetch real weather from NOAA API
+        async function getWeatherFromNOAA(venueName, gameDate) {
+            try {
+                // Check cache first
+                const cacheKey = `${venueName}_${gameDate.toDateString()}`;
+                if (weatherCache[cacheKey]) {
+                    return weatherCache[cacheKey];
+                }
+
+                // Get stadium coordinates
+                const stadium = NFL_STADIUMS[venueName];
+                if (!stadium) return null;
+
+                // Fetch points endpoint from NOAA (no API key required)
+                const pointsResponse = await fetch(
+                    `https://api.weather.gov/points/${stadium.lat.toFixed(4)},${stadium.lon.toFixed(4)}`,
+                    { timeout: 5000 }
+                );
+
+                if (!pointsResponse.ok) return null;
+                const pointsData = await pointsResponse.json();
+                const forecastUrl = pointsData.properties?.forecast;
+
+                if (!forecastUrl) return null;
+
+                // Fetch forecast
+                const forecastResponse = await fetch(forecastUrl, { timeout: 5000 });
+                if (!forecastResponse.ok) return null;
+                const forecastData = await forecastResponse.json();
+
+                // Find the period closest to game time
+                const periods = forecastData.properties?.periods || [];
+                let closestPeriod = null;
+                let minDiff = Infinity;
+
+                periods.forEach(period => {
+                    const periodTime = new Date(period.startTime).getTime();
+                    const diff = Math.abs(periodTime - gameDate.getTime());
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        closestPeriod = period;
+                    }
+                });
+
+                if (!closestPeriod) return null;
+
+                // Parse weather data
+                const weather = {
+                    temp: closestPeriod.temperature || 70,
+                    condition: closestPeriod.shortForecast || 'Unknown',
+                    wind: parseInt(closestPeriod.windSpeed?.match(/\d+/)?.[0] || '10'),
+                    precip: closestPeriod.probabilityOfPrecipitation?.value || 0
+                };
+
+                // Cache the result
+                weatherCache[cacheKey] = weather;
+                return weather;
+            } catch (error) {
+                console.log(`Real weather fetch failed for ${venueName}, falling back to mock`);
+                return null;
+            }
+        }
+
+        // Get weather data - tries real API first, falls back to mock
+        async function getWeather(venueName, gameDate) {
+            // Try real weather API first
+            const realWeather = await getWeatherFromNOAA(venueName, gameDate);
+            if (realWeather) {
+                return realWeather;
+            }
+            // Fall back to mock weather
+            return generateMockWeather(gameDate);
+        }
+
         // Generate mock weather data based on game time
         function generateMockWeather(gameDate) {
             const month = gameDate.getMonth();
@@ -1974,14 +2145,13 @@
             // Check if championship/finals game
             const isChampionship = game.is_championship || game.isChampionship;
 
-            // Get odds for this game
-            const odds = getGameOdds(game.id || '');
+            // Get odds for this game (with real API if configured)
+            const odds = await getGameOdds(game.id || '',
+                awayTeam.shortName || awayTeam.name || '',
+                homeTeam.shortName || homeTeam.name || '');
 
             // Get stadium info
             const stadium = game.venue || homeTeam.venue || 'TBD';
-
-            // Get weather
-            const weather = generateMockWeather(gameDate);
 
             // Build recap summary
             const recap = generateRecap(game);
@@ -2068,7 +2238,7 @@
         }
 
         // Open game details drawer
-        function openGameDrawer(event, gameData) {
+        async function openGameDrawer(event, gameData) {
             event.stopPropagation();
             try {
                 const game = typeof gameData === 'string' ? JSON.parse(decodeURIComponent(gameData)) : gameData;
@@ -2079,8 +2249,10 @@
 
                 const homeTeam = game.homeTeam || {};
                 const awayTeam = game.awayTeam || {};
-                const weather = generateMockWeather(new Date(game.startTime));
-                const odds = getGameOdds(game.id || '');
+                const weather = await getWeather(game.venue, new Date(game.startTime));
+                const odds = await getGameOdds(game.id || '',
+                    awayTeam.shortName || awayTeam.name || '',
+                    homeTeam.shortName || homeTeam.name || '');
                 const status = normalizeStatus(game);
                 const isFinal = status === 'FINAL';
                 const isLive = status === 'LIVE';
@@ -2133,6 +2305,13 @@
                             <h3>Venue</h3>
                             <div style="font-size: 0.9em; color: var(--text);">${game.venue || 'TBD'}</div>
                         </div>
+
+                        ${game.network ? `
+                        <div class="detail-section">
+                            <h3>Broadcast</h3>
+                            <div style="font-size: 0.9em; color: var(--text);">${game.network}</div>
+                        </div>
+                        ` : ''}
 
                         <p style="font-size: 0.85em; color: var(--secondary); text-align: center; margin-top: 20px;">
                             Updates every 15 seconds
@@ -2204,16 +2383,44 @@
                             <div style="font-size: 0.9em; color: var(--text);">${game.venue || 'TBD'}</div>
                         </div>
 
+                        ${game.network ? `
                         <div class="detail-section">
-                            <h3>Players to Watch</h3>
+                            <h3>Broadcast</h3>
+                            <div style="font-size: 0.9em; color: var(--text);">${game.network}</div>
+                        </div>
+                        ` : ''}
+
+                        <div class="detail-section">
+                            <h3>Matchup Info</h3>
                             <div class="players-list">
                                 <div class="player-item">
-                                    <div class="player-name">${homeTeam.shortName || homeTeam.name}</div>
-                                    <div class="player-meta">Check back closer to game time for player matchups</div>
+                                    <div class="player-name">${awayTeam.shortName || awayTeam.name}</div>
+                                    <div class="player-meta">
+                                        ${awayTeam.record ? `Record: ${awayTeam.record}` : 'Record: TBD'}
+                                    </div>
                                 </div>
                                 <div class="player-item">
-                                    <div class="player-name">${awayTeam.shortName || awayTeam.name}</div>
-                                    <div class="player-meta">Check back closer to game time for player matchups</div>
+                                    <div class="player-name">${homeTeam.shortName || homeTeam.name}</div>
+                                    <div class="player-meta">
+                                        ${homeTeam.record ? `Record: ${homeTeam.record}` : 'Record: TBD'} (Home)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Key Stats</h3>
+                            <div style="font-size: 0.9em; color: var(--secondary); line-height: 1.8;">
+                                <div style="margin-bottom: 8px;">
+                                    <strong>Spread:</strong> ${odds.spread > 0 ? '+' : ''}${odds.spread}
+                                    (${Math.abs(odds.spread) > 2.5 ? 'Favored Matchup' : 'Close Game'})
+                                </div>
+                                <div style="margin-bottom: 8px;">
+                                    <strong>Total:</strong> ${odds.total} points
+                                </div>
+                                <div style="font-size: 0.85em; color: var(--secondary); margin-top: 12px;">
+                                    For detailed player matchups and injury reports, check team social media
+                                    and official league sources.
                                 </div>
                             </div>
                         </div>
@@ -2242,6 +2449,28 @@
                         <div class="detail-section">
                             <h3>Game Recap</h3>
                             <p style="font-size: 0.9em; line-height: 1.6; color: var(--text);">${recap}</p>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Game Details</h3>
+                            <div style="font-size: 0.9em; color: var(--secondary); display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                <div>
+                                    <div style="color: var(--text); font-weight: 600; margin-bottom: 4px;">Point Differential</div>
+                                    <div>${Math.abs(game.homeScore - game.awayScore)} points</div>
+                                </div>
+                                <div>
+                                    <div style="color: var(--text); font-weight: 600; margin-bottom: 4px;">Total Score</div>
+                                    <div>${game.homeScore + game.awayScore} points</div>
+                                </div>
+                                <div>
+                                    <div style="color: var(--text); font-weight: 600; margin-bottom: 4px;">Location</div>
+                                    <div>${game.venue || 'TBD'}</div>
+                                </div>
+                                <div>
+                                    <div style="color: var(--text); font-weight: 600; margin-bottom: 4px;">Game Type</div>
+                                    <div>${game.period ? 'Complete' : 'Postponed'}</div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="detail-section">
@@ -2278,6 +2507,13 @@
                             <h3>Venue</h3>
                             <div style="font-size: 0.9em; color: var(--text);">${game.venue || 'TBD'}</div>
                         </div>
+
+                        ${game.network ? `
+                        <div class="detail-section">
+                            <h3>Broadcast</h3>
+                            <div style="font-size: 0.9em; color: var(--text);">${game.network}</div>
+                        </div>
+                        ` : ''}
                     `;
                 }
 
