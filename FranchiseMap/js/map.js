@@ -120,18 +120,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Calculate marker radius based on zoom level and view mode
     function getMarkerRadius(zoom, isIndividual = false) {
-        // National scale (zoom 0-6): very small
-        // Regional scale (zoom 7-9): small
-        // City scale (zoom 10-13): medium
-        // Neighborhood scale (zoom 14+): larger
-        const baseRadius = isIndividual ? 1 : 0.5; // Individual markers slightly larger
+        // Zoom-dependent sizing: circles grow as user zooms in
+        // This ensures visibility and clickability at all zoom levels
+        // Low zoom (national/regional): small but visible
+        // High zoom (city/street): large and easily clickable
 
-        if (zoom <= 5) return baseRadius * 3;      // ~1.5-3px at national scale
-        if (zoom <= 7) return baseRadius * 4;      // ~2-4px
-        if (zoom <= 9) return baseRadius * 5;      // ~2.5-5px
-        if (zoom <= 11) return baseRadius * 6.5;   // ~3.25-6.5px
-        if (zoom <= 13) return baseRadius * 8;     // ~4-8px
-        return baseRadius * 10;                     // ~5-10px at city/neighborhood scale
+        // Use linear scaling: radius = baseRadius + (zoom * zoomFactor)
+        // This ensures smooth, proportional growth
+        const baseRadius = isIndividual ? 5 : 4;   // Minimum size at zoom 0
+        const zoomFactor = isIndividual ? 1.5 : 1.2;  // Growth rate per zoom level
+
+        return baseRadius + (zoom * zoomFactor);
     }
 
     function initMap() {
@@ -464,9 +463,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function refreshMarkerSizes() {
         // Update marker sizes when zoom changes
         if (isClusterView) {
-            // Cluster view - no need to refresh as clusters handle their own sizing
+            // Cluster view - update sizes of individual markers within clusters
+            clusterLayer.eachLayer(marker => {
+                if (marker.setRadius) {
+                    const radius = getMarkerRadius(currentZoom, false);
+                    marker.setRadius(radius);
+                }
+            });
         } else {
-            // Individual markers - update their sizes
+            // Individual view - update sizes of individual markers
             individualLayer.eachLayer(marker => {
                 if (marker.setRadius) {
                     const radius = getMarkerRadius(currentZoom, true);
