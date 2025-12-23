@@ -1,51 +1,51 @@
 [
   {
     "ticker": "CMG",
-    "price": 37.34,
-    "change": -0.64,
-    "changePercent": -1.7,
-    "timestamp": "2025-12-23T15:21:50.438199"
+    "price": 37.37,
+    "change": -0.61,
+    "changePercent": -1.62,
+    "timestamp": "2025-12-23T15:44:43.477501"
   },
   {
     "ticker": "SBUX",
-    "price": 84.32,
-    "change": -1.68,
-    "changePercent": -1.95,
-    "timestamp": "2025-12-23T15:21:50.582757"
+    "price": 84.34,
+    "change": -1.66,
+    "changePercent": -1.93,
+    "timestamp": "2025-12-23T15:44:43.641952"
   },
   {
     "ticker": "MCD",
-    "price": 312.92,
-    "change": 0.82,
-    "changePercent": 0.26,
-    "timestamp": "2025-12-23T15:21:50.842256"
+    "price": 314.04,
+    "change": 1.94,
+    "changePercent": 0.62,
+    "timestamp": "2025-12-23T15:44:43.894042"
   },
   {
     "ticker": "WEN",
     "price": 8.27,
     "change": 0.01,
-    "changePercent": 0.06,
-    "timestamp": "2025-12-23T15:21:51.004400"
+    "changePercent": 0.18,
+    "timestamp": "2025-12-23T15:44:44.042773"
   },
   {
     "ticker": "WING",
-    "price": 249.22,
-    "change": -3.86,
-    "changePercent": -1.53,
-    "timestamp": "2025-12-23T15:21:51.177457"
+    "price": 249.94,
+    "change": -3.14,
+    "changePercent": -1.24,
+    "timestamp": "2025-12-23T15:44:44.203662"
   },
   {
     "ticker": "SHAK",
-    "price": 82.76,
-    "change": -0.99,
-    "changePercent": -1.18,
-    "timestamp": "2025-12-23T15:21:51.265480"
+    "price": 83.97,
+    "change": 0.22,
+    "changePercent": 0.26,
+    "timestamp": "2025-12-23T15:44:44.291628"
   },
   {
     "ticker": "DPZ",
-    "price": 431.24,
-    "change": 4.52,
-    "changePercent": 1.06,
-    "timestamp": "2025-12-23T15:21:51.474899"
+    "price": 430.3,
+    "change": 3.58,
+    "changePercent": 0.84,
+    "timestamp": "2025-12-23T15:44:44.432596"
   }
 ]
