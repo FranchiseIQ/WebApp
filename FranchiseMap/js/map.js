@@ -2074,7 +2074,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // Use Nominatim reverse geocoding API
+            // Use Nominatim reverse geocoding API with modest rate limiting
+            // Add small delay to respect API rate limits
+            await new Promise(resolve => setTimeout(resolve, 100));
+
             const response = await fetch(
                 `https://nominatim.openstreetmap.org/reverse?format=json&lat=${location.lat}&lon=${location.lng}`,
                 { signal: AbortSignal.timeout(5000) }

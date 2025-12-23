@@ -2662,6 +2662,24 @@ body {
     .stat-card.distribution {
         width: 100%;
     }
+
+    .ticker-company {
+        display: none;
+    }
+
+    .ticker-symbol {
+        font-size: 0.75rem;
+    }
+
+    .stock-ticker {
+        max-width: calc(100% - 180px);
+        margin-left: 15px;
+        gap: 15px;
+    }
+
+    .ticker-tape.has-data {
+        animation: ticker-scroll 50s linear infinite;
+    }
 }
 
 @media (max-width: 768px) {
