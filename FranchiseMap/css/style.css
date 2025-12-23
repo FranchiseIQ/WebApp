@@ -89,8 +89,9 @@ body {
     flex: 1;
     margin-left: 30px;
     min-width: 0;
-    max-width: calc(100% - 200px);
+    max-width: calc(100% - 220px);
     overflow: hidden;
+    flex-wrap: nowrap;
 }
 
 .ticker-status {
@@ -128,7 +129,7 @@ body {
 }
 
 .ticker-tape.has-data {
-    animation: ticker-scroll 90s linear infinite;
+    animation: ticker-scroll 60s linear infinite;
     will-change: transform;
     overflow: hidden;
 }
@@ -157,16 +158,40 @@ body {
 .ticker-item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     font-size: 0.8rem;
     white-space: nowrap;
     flex-shrink: 0;
     padding: 0 10px;
 }
 
-.ticker-symbol { font-weight: 600; }
-.ticker-price { opacity: 0.9; }
-.ticker-change { font-weight: 500; }
+.ticker-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    align-items: flex-start;
+}
+
+.ticker-symbol {
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.ticker-company {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+.ticker-price {
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+.ticker-change {
+    font-weight: 500;
+    min-width: 50px;
+    text-align: right;
+}
 .ticker-change.up { color: #4ade80; }
 .ticker-change.down { color: #f87171; }
 
@@ -1989,7 +2014,16 @@ body {
 .comp-name {
     font-size: 0.75rem;
     color: var(--text-medium);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.comp-address {
+    font-size: 0.65rem;
+    color: var(--text-light);
+    margin-bottom: 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2025,6 +2059,12 @@ body {
     background: var(--border-light);
     border-radius: var(--radius-full);
     overflow: hidden;
+}
+
+.comp-value {
+    min-width: 25px;
+    text-align: right;
+    color: var(--text-light);
 }
 
 .comp-bar div {
