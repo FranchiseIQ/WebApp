@@ -599,6 +599,7 @@
         .highlight-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+            cursor: pointer;
         }
 
         .highlight-thumbnail {
@@ -1059,16 +1060,6 @@
             display: block;
         }
 
-        /* Make game cards clickable */
-        .game-card {
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .game-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.35);
-        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -1341,10 +1332,15 @@
             return `Week ${week}`;
         }
 
-        // Generate week selector buttons
+        // Generate week selector buttons (NFL only, other sports don't use weeks)
         function generateWeekSelector() {
             const container = document.getElementById('day-selector');
             container.innerHTML = '';
+
+            // Only NFL uses weeks - other sports show all games
+            if (currentLeague !== 'NFL') {
+                return;
+            }
 
             // Get all available weeks from games
             const availableWeeks = new Set();
@@ -1757,8 +1753,11 @@
                 // Build team filter with all available teams
                 buildTeamFilter(games);
 
-                // Filter by current week
-                let weekGames = games.filter(game => game.week === currentWeek);
+                // Filter by current week (NFL only - other sports show all games)
+                let weekGames = games;
+                if (currentLeague === 'NFL' && currentWeek !== null) {
+                    weekGames = games.filter(game => game.week === currentWeek);
+                }
 
                 // Filter by selected teams if any are selected
                 let filteredGames = [...weekGames];
@@ -1773,7 +1772,7 @@
                 if (filteredGames.length === 0) {
                     container.innerHTML = `
                         <div class="empty-msg" style="grid-column: 1 / -1;">
-                            <h3>No ${currentLeague} games in ${getWeekLabel(currentWeek)}</h3>
+                            <h3>No ${currentLeague} games ${currentLeague === 'NFL' && currentWeek ? `in ${getWeekLabel(currentWeek)}` : 'scheduled'}</h3>
                             <p>Check back on active game days for real-time franchise scores.</p>
                         </div>
                     `;
@@ -1923,113 +1922,69 @@
             // Get weather
             const weather = generateMockWeather(gameDate);
 
-            // Card content varies based on game status
-            let bottomContent = '';
+            // Build recap summary
+            const recap = generateRecap(game);
+
+            // Determine badge content
             let badgeContent = '';
-            let cardClass = 'game-card';
-
-            // Build metadata row with stadium and weather
-            const metadataRow = `
-                <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 8px;">
-                    <div style="margin-bottom: 4px;">${stadium}</div>
-                    <div style="display: flex; gap: 12px; align-items: center;">
-                        <span>${weather.temp}°F · ${weather.condition}</span>
-                        <span style="font-size: 0.8em;">Wind ${weather.wind}mph</span>
-                    </div>
-                </div>
-            `;
-
-            // Build odds summary
-            const oddsSummary = `
-                <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 6px;">
-                    Favored: ${odds.spread > 0 ? awayTeam.shortName || awayTeam.name : homeTeam.shortName || homeTeam.name} ${Math.abs(odds.spread)} · O/U ${odds.total}
-                </div>
-            `;
-
             if (isFinal) {
-                const recap = generateRecap(game);
-                bottomContent = `<p class="highlight-recap">${recap}</p>`;
-                // Show CHAMPIONSHIP badge for playoff/finals games
                 if (isChampionship) {
                     badgeContent = '<span class="video-badge" style="background: linear-gradient(135deg, #f59e0b, #d97706);">FINALS</span>';
                 } else {
                     badgeContent = hasVideo ? '<span class="video-badge">VIDEO</span>' : '';
                 }
             } else if (isLive) {
-                const quarter = game.quarter || game.period || '';
-                const clock = game.clock || '';
-                bottomContent = `
-                    <div class="game-time-display" style="color: var(--live);">LIVE${quarter ? ` - Q${quarter}` : ''}${clock ? ` ${clock}` : ''}</div>
-                `;
                 badgeContent = '<span class="video-badge" style="background: var(--live);">LIVE</span>';
             } else {
-                bottomContent = `
-                    <div class="game-time-display">${timeStr}</div>
-                    <span class="network-badge">${game.network || leagueKey}</span>
-                    ${oddsSummary}
-                `;
                 badgeContent = '<span class="highlight-badge">UPCOMING</span>';
             }
 
-            const clickHandler = `onclick="openGameDrawer(event, ${encodeURIComponent(JSON.stringify({ ...game, leagueKey, status }))})"`;
+            // Build metadata section
+            let metadataHTML = `
+                <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <div style="margin-bottom: 6px;">
+                        <strong>${stadium}</strong>
+                    </div>
+                    <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+                        <span>${weather.temp}°F · ${weather.condition}</span>
+                        <span style="font-size: 0.8em;">Wind ${weather.wind} mph</span>
+                    </div>
+                </div>
+            `;
+
+            // Add odds line for upcoming games
+            if (isUpcoming) {
+                metadataHTML += `
+                    <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 10px; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 6px;">
+                        <strong>Spread:</strong> ${odds.spread > 0 ? '+' : ''}${odds.spread} | <strong>O/U:</strong> ${odds.total}
+                    </div>
+                `;
+            }
+
+            const clickHandler = `onclick="openGameDrawer(event, '${encodeURIComponent(JSON.stringify({ ...game, leagueKey, status }))}')"`;
 
             return `
-                <div class="${cardClass}" ${clickHandler}>
-                    <div class="game-status-bar">
-                        <span class="status-text ${isLive ? 'live' : ''}">${isLive ? '🔴 LIVE' : (isFinal ? 'FINAL' : formatTimeEST(game.startTime))}</span>
-                        <span class="league-tag">🏈 ${leagueKey}</span>
+                <div class="highlight-card" ${clickHandler} style="cursor: pointer;">
+                    <div class="highlight-thumbnail">
+                        <div class="team-logos">
+                            <img src="${awayTeam.logoUrl || defaultLogo}" alt="${awayTeam.name}" onerror="this.src='${defaultLogo}'">
+                            <span class="vs-text">@</span>
+                            <img src="${homeTeam.logoUrl || defaultLogo}" alt="${homeTeam.name}" onerror="this.src='${defaultLogo}'">
+                        </div>
+                        ${hasVideo ? `<div class="play-overlay"><div class="play-btn"></div></div>` : ''}
+                        ${badgeContent}
                     </div>
-
-                    <div class="teams-row">
-                        <div class="team">
-                            <img src="${awayTeam.logoUrl || defaultLogo}"
-                                 alt="${awayTeam.name || 'Away'}"
-                                 class="team-logo"
-                                 onerror="this.src='${defaultLogo}'">
-                            <div class="team-info">
-                                <div class="team-name">${awayTeam.name || 'Away Team'}</div>
-                                ${awayTeam.record ? `<div class="team-record">${awayTeam.record}</div>` : ''}
-                            </div>
-                            ${(isLive || isFinal) ? `<div class="team-score ${awayScore > homeScore ? 'winner' : ''}">${awayScore}</div>` : ''}
+                    <div class="highlight-info">
+                        <div class="highlight-matchup">
+                            <span class="highlight-teams">${awayTeam.shortName || awayTeam.name} @ ${homeTeam.shortName || homeTeam.name}</span>
+                            ${(isFinal || isLive) ? `<span class="highlight-score">${awayScore} - ${homeScore}</span>` : ''}
                         </div>
-
-                        <div class="odds-column">
-                            ${!isUpcoming ? `
-                                <div class="odds-row">
-                                    <label>Spread:</label>
-                                    <span>–</span>
-                                </div>
-                                <div class="odds-row">
-                                    <label>O/U:</label>
-                                    <span>–</span>
-                                </div>
-                            ` : `
-                                <div class="odds-row">
-                                    <label>Spread:</label>
-                                    <span>${odds.spread > 0 ? '+' : ''}${odds.spread}</span>
-                                </div>
-                                <div class="odds-row">
-                                    <label>O/U:</label>
-                                    <span>${odds.total}</span>
-                                </div>
-                            `}
-                            <div class="odds-row">
-                                <label>Venue:</label>
-                                <span style="font-size: 0.8em;">${stadium ? stadium.substring(0, 18) : '–'}</span>
-                            </div>
+                        <div class="highlight-meta">
+                            <span>${dateStr}</span>
+                            <span class="highlight-badge">${isFinal ? (isChampionship ? 'CHAMPIONSHIP' : 'FINAL') : (isLive ? 'LIVE' : timeStr)}</span>
                         </div>
-
-                        <div class="team">
-                            <img src="${homeTeam.logoUrl || defaultLogo}"
-                                 alt="${homeTeam.name || 'Home'}"
-                                 class="team-logo"
-                                 onerror="this.src='${defaultLogo}'">
-                            <div class="team-info">
-                                <div class="team-name">${homeTeam.name || 'Home Team'}</div>
-                                ${homeTeam.record ? `<div class="team-record">${homeTeam.record}</div>` : ''}
-                            </div>
-                            ${(isLive || isFinal) ? `<div class="team-score ${homeScore > awayScore ? 'winner' : ''}">${homeScore}</div>` : ''}
-                        </div>
+                        ${metadataHTML}
+                        ${isFinal ? `<p class="highlight-recap">${recap}</p>` : ''}
                     </div>
                 </div>
             `;
