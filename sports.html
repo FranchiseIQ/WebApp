@@ -1348,56 +1348,71 @@
                 if (game.week) availableWeeks.add(game.week);
             });
 
-            if (availableWeeks.size === 0) return;
+            // For NFL, show all 18 regular season weeks + playoffs
+            // Even if some weeks don't have data yet
+            const allRegularSeasonWeeks = Array.from({length: 18}, (_, i) => i + 1);
+            const allPlayoffWeeks = [19, 20, 21, 22]; // Wild Card, Divisional, Conference, Super Bowl
 
-            // Sort weeks numerically
-            const sortedWeeks = Array.from(availableWeeks).sort((a, b) => a - b);
-
-            // Set current week to the first week if not set
-            if (currentWeek === null && sortedWeeks.length > 0) {
-                currentWeek = sortedWeeks[0];
+            // Set current week to the latest available week if not set
+            if (currentWeek === null) {
+                const sortedWeeks = Array.from(availableWeeks).sort((a, b) => a - b);
+                currentWeek = sortedWeeks.length > 0 ? sortedWeeks[sortedWeeks.length - 1] : 1;
             }
 
-            // Separate regular season and playoff weeks
-            const regularSeasonWeeks = sortedWeeks.filter(w => !isPlayoffWeek(w));
-            const playoffWeeks = sortedWeeks.filter(w => isPlayoffWeek(w));
-
-            // Create buttons for regular season
-            regularSeasonWeeks.forEach(week => {
+            // Create buttons for all regular season weeks
+            allRegularSeasonWeeks.forEach(week => {
                 const btn = document.createElement('button');
                 btn.textContent = `Week ${week}`;
                 btn.dataset.week = week;
                 if (week === currentWeek) btn.classList.add('active');
 
+                // Disable weeks with no data (show different style)
+                if (!availableWeeks.has(week)) {
+                    btn.style.opacity = '0.5';
+                    btn.style.cursor = 'not-allowed';
+                    btn.disabled = true;
+                }
+
                 btn.addEventListener('click', () => {
-                    document.querySelectorAll('.day-selector button').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentWeek = week;
-                    renderGames();
+                    if (!btn.disabled) {
+                        document.querySelectorAll('.day-selector button').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        currentWeek = week;
+                        renderGames();
+                    }
                 });
 
                 container.appendChild(btn);
             });
 
             // Add divider if both regular season and playoffs
-            if (regularSeasonWeeks.length > 0 && playoffWeeks.length > 0) {
+            if (availableWeeks.size > 0) {
                 const divider = document.createElement('div');
                 divider.style.cssText = 'width: 2px; background: rgba(255,255,255,0.2); margin: 0 10px;';
                 container.appendChild(divider);
             }
 
-            // Create buttons for playoffs
-            playoffWeeks.forEach(week => {
+            // Create buttons for playoff weeks
+            allPlayoffWeeks.forEach(week => {
                 const btn = document.createElement('button');
                 btn.textContent = getPlayoffWeekName(week);
                 btn.dataset.week = week;
                 if (week === currentWeek) btn.classList.add('active');
 
+                // Disable playoff weeks with no data
+                if (!availableWeeks.has(week)) {
+                    btn.style.opacity = '0.5';
+                    btn.style.cursor = 'not-allowed';
+                    btn.disabled = true;
+                }
+
                 btn.addEventListener('click', () => {
-                    document.querySelectorAll('.day-selector button').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentWeek = week;
-                    renderGames();
+                    if (!btn.disabled) {
+                        document.querySelectorAll('.day-selector button').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        currentWeek = week;
+                        renderGames();
+                    }
                 });
 
                 container.appendChild(btn);
@@ -1490,13 +1505,46 @@
             };
         }
 
-        // Normalize game status
+        // Normalize game status - uses multiple data points for accuracy
         function normalizeStatus(game) {
             const status = (game.status || '').toLowerCase();
+            const now = new Date();
+            const gameTime = new Date(game.startTime || '');
+
+            // Check explicit final flags first
+            if (game.is_final === true) return 'FINAL';
             if (status === 'final' || status === 'post') return 'FINAL';
-            if (status === 'in_progress' || status === 'live' || status === 'in') return 'LIVE';
+
+            // Check if explicitly marked as cancelled/postponed
             if (status === 'postponed') return 'POSTPONED';
             if (status === 'cancelled' || status === 'canceled') return 'CANCELLED';
+
+            // Check if actively in progress
+            if (game.is_active === true) return 'LIVE';
+            if (status === 'live' || status === 'in') return 'LIVE';
+
+            // Smart detection: if game time is past and has scores, it's likely final
+            if (gameTime < now && (game.homeScore > 0 || game.awayScore > 0)) {
+                // Check if not just starting (within 5 minutes)
+                const minutesSinceStart = (now - gameTime) / (1000 * 60);
+                if (minutesSinceStart > 5) {
+                    return 'FINAL';
+                }
+            }
+
+            // If start time is in the past but no scores, check for explicit in-progress
+            if (status === 'in_progress') {
+                // This is likely stale data if game time is way in past
+                if (gameTime < new Date(Date.now() - 24*60*60*1000)) { // More than 24 hours ago
+                    return 'FINAL';
+                }
+                return 'LIVE';
+            }
+
+            // If game time hasn't passed, it's upcoming
+            if (gameTime > now) return 'UPCOMING';
+
+            // Default fallback
             return 'UPCOMING';
         }
 
