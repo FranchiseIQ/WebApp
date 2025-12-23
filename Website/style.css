@@ -2,6 +2,9 @@
    STOCK TICKER WIDGET STYLES
    ============================================================================ */
 
+/* Import system fonts - matches global design system */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 /* Reset and base styles */
 * {
   margin: 0;
@@ -10,7 +13,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #1a1a1a;
@@ -49,12 +52,14 @@ body {
     justify-content: space-between;
     align-items: center;
     background: #0f0f0f;
-    padding: 12px 24px;
+    padding: 10px 24px;
     border-bottom: 1px solid #333;
     color: #e0e0e0;
     font-size: 18px;
     flex-shrink: 0;
     height: 50px;
+    min-height: 50px;
+    box-sizing: border-box;
 }
 
 #closing-message {
@@ -296,12 +301,15 @@ body {
 #ticker-container {
   width: 100%;
   flex: 1;
+  min-height: 70px;
+  height: 70px;
   background: linear-gradient(90deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
   overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #333;
+  box-sizing: border-box;
 }
 
 /* Ticker content wrapper */
@@ -344,8 +352,9 @@ body {
   color: #ffffff;
   border-right: 1px solid #333;
   min-width: 300px;
-  height: 100%;
+  height: 70px;
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 /* Ticker symbol */
@@ -601,15 +610,25 @@ body {
    EMBEDDED IFRAME OPTIMIZATION
    ============================================================================ */
 
-/* When embedded in an iframe with fixed height (includes status bar now) */
-@media (max-height: 120px) {
+/* When embedded in an iframe with exact 120px height */
+@media (max-height: 125px) {
+  body.embed-mode {
+    height: 120px;
+  }
+
   #status-bar {
-    height: 35px;
-    padding: 6px 15px;
-    font-size: 11px;
+    height: 50px;
+    min-height: 50px;
+    padding: 10px 24px;
+    font-size: 13px;
   }
 
   #clock {
+    font-size: 14px;
+    min-width: 100px;
+  }
+
+  #timezone {
     font-size: 12px;
   }
 
@@ -618,80 +637,45 @@ body {
     height: 8px;
   }
 
-  #market-label,
-  #countdown {
-    font-size: 11px;
-  }
-
-  .ticker-item {
-    padding: 0 20px;
-    gap: 10px;
-    font-size: 14px;
-  }
-
-  .ticker-symbol {
-    font-size: 13px;
-  }
-
-  .ticker-price {
-    font-size: 14px;
-  }
-
-  .ticker-change {
-    font-size: 12px;
-  }
-}
-
-@media (max-height: 100px) {
-  #status-bar {
-    height: 30px;
-    padding: 5px 12px;
-    font-size: 10px;
-  }
-
-  #clock {
-    font-size: 11px;
-    min-width: 85px;
-  }
-
-  #timezone {
-    font-size: 9px;
-  }
-
-  #market-indicator {
-    width: 7px;
-    height: 7px;
-  }
-
   #market-label {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   #refresh-label {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   #countdown {
-    font-size: 10px;
+    font-size: 12px;
+  }
+
+  #ticker-container {
+    height: 70px;
+    min-height: 70px;
   }
 
   .ticker-item {
-    padding: 0 15px;
-    gap: 8px;
-    font-size: 12px;
+    padding: 0 25px;
+    gap: 15px;
+    font-size: 18px;
+    height: 70px;
   }
 
   .ticker-symbol {
-    font-size: 11px;
+    font-size: 16px;
   }
 
   .ticker-price {
-    font-size: 12px;
+    font-size: 18px;
   }
 
   .ticker-change {
-    font-size: 11px;
-    padding: 2px 6px;
+    font-size: 14px;
+    padding: 4px 8px;
+  }
+
+  #ticker-content {
+    animation-duration: 80s;
   }
 }
 
