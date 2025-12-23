@@ -1461,6 +1461,19 @@
             return videoUrlCache[`${away}_${home}`] || null;
         }
 
+        // Enrich games with video URLs from cache
+        function enrichGamesWithVideoUrls(games) {
+            return games.map(game => {
+                if (!game.video_url) {
+                    const cachedUrl = getVideoUrl(game.awayTeam, game.homeTeam);
+                    if (cachedUrl) {
+                        game.video_url = cachedUrl;
+                    }
+                }
+                return game;
+            });
+        }
+
         // Fetch games from local JSON files
         async function fetchGames(league) {
             const config = LEAGUES[league];
@@ -1793,7 +1806,7 @@
                 await loadVideoUrls();
 
                 const games = await fetchGames(currentLeague);
-                allGames = games;
+                allGames = enrichGamesWithVideoUrls(games);
 
                 // Generate week selector after loading games
                 generateWeekSelector();
@@ -2404,7 +2417,7 @@
             // Load video URLs from unified data (if available)
             await loadVideoUrls();
 
-            const games = await fetchGames(currentLeague);
+            const games = enrichGamesWithVideoUrls(await fetchGames(currentLeague));
 
             // Filter for completed games only
             const completedGames = games.filter(game => normalizeStatus(game) === 'FINAL');

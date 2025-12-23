@@ -39,7 +39,7 @@ MAP_STOCKS_JSON = FRANCHISEMAP_DATA_DIR / "stocks.json"
 
 # Sports data directories
 SPORTS_DATA_DIR = REPO_ROOT / "data" / "sports"
-SPORTS_DATA_JSON = FRANCHISEMAP_DATA_DIR / "sports_data.json"
+SPORTS_DATA_JSON = REPO_ROOT / "sports_data.json"
 
 # Sports league-specific directories
 FOOTBALL_DATA_DIR = SPORTS_DATA_DIR / "football"
