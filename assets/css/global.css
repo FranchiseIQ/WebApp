@@ -333,7 +333,7 @@ button:hover,
   z-index: var(--z-fixed);
   background: #0a0a0a;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden; /* Prevent any scrollbars */
+  overflow: visible; /* Prevent any scrollbars */
 }
 
 .global-ticker iframe {
