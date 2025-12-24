@@ -3511,6 +3511,37 @@
             container.innerHTML = html;
         }
 
+        // Check if there are any live games
+        function hasLiveGames() {
+            for (const games of Object.values(gamesCache)) {
+                if (games.some(game => normalizeStatus(game) === 'LIVE')) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Setup adaptive refresh intervals (faster for live games)
+        function setupAdaptiveRefresh() {
+            let lastRefreshTime = Date.now();
+            const fastInterval = 5000;  // 5 seconds for live games
+            const slowInterval = 60000; // 60 seconds for completed/upcoming games
+
+            setInterval(async () => {
+                const isLive = hasLiveGames();
+                const timeSinceLastRefresh = Date.now() - lastRefreshTime;
+                const minInterval = isLive ? fastInterval : slowInterval;
+
+                if (timeSinceLastRefresh >= minInterval) {
+                    gamesCache = {}; // Clear cache to force fresh fetch
+                    videoUrlCache = {}; // Clear video cache
+                    await renderGames(); // Re-render will regenerate week selector
+                    updateSportsTicker(); // Update ticker with new data
+                    lastRefreshTime = Date.now();
+                }
+            }, 2000); // Check every 2 seconds if we need to refresh
+        }
+
         async function init() {
             setupLeagueTabs();
             setupTeamFilter();
@@ -3525,12 +3556,8 @@
             // Initialize news ticker
             initNewsTicker();
 
-            // Refresh every 60 seconds
-            setInterval(() => {
-                gamesCache = {}; // Clear cache to force fresh fetch
-                videoUrlCache = {}; // Clear video cache
-                renderGames(); // Re-render will regenerate week selector
-            }, 60000);
+            // Setup adaptive refresh based on live games
+            setupAdaptiveRefresh();
         }
 
         // Make functions available globally
