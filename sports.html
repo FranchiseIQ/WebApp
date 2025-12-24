@@ -1062,6 +1062,204 @@
 
 
         /* Responsive */
+        /* ========== RESPONSIVE DESIGN ========== */
+
+        /* Mobile First: Styles for screens 480px and below */
+        @media (max-width: 480px) {
+            /* Adjust padding for smaller screens */
+            body {
+                padding-top: 160px; /* Reduced from 170px */
+                padding-bottom: 80px; /* Reduced from 100px */
+            }
+
+            /* Navigation adjustments */
+            .main-nav {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+
+            .nav-brand img {
+                height: 24px;
+            }
+
+            /* Game grid - single column on mobile */
+            .highlights-grid {
+                grid-template-columns: 1fr;
+                padding: 12px;
+                gap: 12px;
+            }
+
+            /* Game cards compact */
+            .highlight-card {
+                border-radius: 8px;
+            }
+
+            .highlight-info {
+                padding: 10px;
+            }
+
+            .highlight-teams {
+                font-size: 0.9em;
+            }
+
+            .highlight-meta {
+                font-size: 0.8em;
+                gap: 8px;
+            }
+
+            /* Drawer optimizations for mobile */
+            .game-details-drawer {
+                width: 100%;
+                height: 90vh;
+                top: auto;
+                bottom: 0;
+                border-radius: 12px 12px 0 0;
+                max-height: 90vh;
+                animation: slideUpMobile 0.3s ease-out forwards;
+            }
+
+            .game-details-drawer.open {
+                bottom: 0;
+            }
+
+            @keyframes slideUpMobile {
+                from {
+                    transform: translateY(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            .drawer-content {
+                max-height: calc(90vh - 60px);
+                overflow-y: auto;
+                padding: 16px 12px;
+            }
+
+            /* Ticker adjustments */
+            .sports-ticker {
+                height: 50px;
+                padding: 0;
+            }
+
+            .ticker-item {
+                font-size: 0.75em;
+                padding: 4px 8px;
+                gap: 8px;
+            }
+
+            .ticker-item-teams {
+                flex-direction: column;
+                gap: 2px;
+            }
+
+            .ticker-item-score {
+                margin: 0 4px;
+            }
+
+            /* Hide secondary info on very small screens */
+            .highlight-meta span:last-child {
+                display: none;
+            }
+
+            /* Adjust league tabs */
+            .league-tabs {
+                overflow-x: auto;
+                padding: 8px;
+                gap: 4px;
+                justify-content: flex-start;
+            }
+
+            .league-tabs button {
+                padding: 6px 12px;
+                font-size: 0.85em;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            /* Team filter adjustments */
+            .filter-button {
+                padding: 8px 12px;
+                font-size: 0.85em;
+            }
+
+            /* Detail section responsiveness */
+            .detail-section h3 {
+                font-size: 1em;
+                margin-bottom: 12px;
+            }
+
+            .weather-item {
+                padding: 8px 0;
+                font-size: 0.85em;
+            }
+
+            /* Prediction panel - stack vertically on mobile */
+            .prediction-section {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Team comparison - vertical layout on mobile */
+            .team-comparison-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Tablet: Styles for screens 481px - 768px */
+        @media (min-width: 481px) and (max-width: 768px) {
+            body {
+                padding-top: 165px;
+                padding-bottom: 90px;
+            }
+
+            .highlights-grid {
+                grid-template-columns: 1fr;
+                padding: 16px;
+                gap: 14px;
+            }
+
+            .game-details-drawer {
+                width: 100%;
+                height: 85vh;
+                top: auto;
+                bottom: 0;
+                border-radius: 12px 12px 0 0;
+                animation: slideUpMobile 0.3s ease-out forwards;
+            }
+
+            .drawer-content {
+                max-height: calc(85vh - 60px);
+                padding: 16px;
+            }
+
+            .sports-ticker {
+                height: 55px;
+            }
+
+            .league-tabs {
+                padding: 10px;
+                gap: 6px;
+            }
+
+            .league-tabs button {
+                padding: 7px 14px;
+                font-size: 0.9em;
+            }
+
+            /* Better use of tablet width */
+            .team-comparison-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .prediction-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Original 768px media query - keep for backwards compatibility */
         @media (max-width: 768px) {
             .sports-hero h1 {
                 font-size: 1.8em;
@@ -1087,13 +1285,112 @@
                 justify-content: flex-start;
             }
 
-            .highlights-grid {
-                grid-template-columns: 1fr;
-            }
-
             .highlight-thumbnail .team-logos img {
                 width: 50px;
                 height: 50px;
+            }
+        }
+
+        /* Desktop: Styles for screens 769px and above */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            /* Tablet landscape - 2 columns */
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            /* Drawer positioning for desktop */
+            .game-details-drawer {
+                width: 420px;
+                height: auto;
+                max-height: 85vh;
+                top: 50%;
+                right: 20px;
+                bottom: auto;
+                transform: translateY(-50%);
+                border-radius: 12px;
+            }
+
+            .game-details-drawer.open {
+                right: 20px;
+            }
+        }
+
+        /* Large Desktop: 1025px and above */
+        @media (min-width: 1025px) {
+            /* 3-column grid on desktop */
+            .highlights-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            /* Drawer on the right */
+            .game-details-drawer {
+                width: 450px;
+                height: auto;
+                max-height: 90vh;
+                top: 50%;
+                right: 30px;
+                bottom: auto;
+                transform: translateY(-50%);
+                border-radius: 12px;
+            }
+
+            .game-details-drawer.open {
+                right: 30px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            /* Increase touch target sizes */
+            button, .league-tabs button, .filter-button {
+                min-height: 44px;
+                min-width: 44px;
+                padding: 10px 16px;
+            }
+
+            /* Remove hover effects on touch devices */
+            .league-tabs button:hover {
+                border-color: inherit;
+                color: inherit;
+            }
+
+            /* Improve card tap targets */
+            .highlight-card {
+                cursor: pointer;
+                -webkit-tap-highlight-color: rgba(99, 102, 241, 0.2);
+            }
+
+            /* Better touch scrolling */
+            .drawer-content {
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .sports-ticker-container {
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        /* Landscape orientation adjustments */
+        @media (orientation: landscape) and (max-height: 600px) {
+            body {
+                padding-top: 130px;
+                padding-bottom: 60px;
+            }
+
+            .game-details-drawer {
+                max-height: 85vh;
+            }
+
+            .sports-ticker {
+                height: 45px;
+            }
+
+            .main-nav {
+                padding: 8px 12px;
             }
         }
 
@@ -3253,6 +3550,104 @@
         }
 
         // Close game details drawer
+        // Touch event handling for mobile drawers
+        let touchStartY = 0;
+        let touchStartX = 0;
+        let isSwiping = false;
+
+        function setupTouchHandlers() {
+            const drawer = document.getElementById('game-details-drawer');
+            const drawerHeader = document.querySelector('.drawer-header');
+
+            if (!drawer) return;
+
+            // Touch start - record initial position
+            drawer.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+                touchStartX = e.touches[0].clientX;
+                isSwiping = true;
+            }, false);
+
+            // Touch move - detect swipe direction
+            drawer.addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+                const touch = e.touches[0];
+                const diffY = touch.clientY - touchStartY;
+                const diffX = Math.abs(touch.clientX - touchStartX);
+
+                // Only consider vertical swipes (not horizontal scrolling)
+                if (diffX < 50 && diffY > 20) {
+                    // Swiping down on mobile drawer
+                    if (window.innerWidth <= 768) {
+                        drawer.style.transform = `translateY(${Math.max(0, diffY)}px)`;
+                    }
+                }
+            }, false);
+
+            // Touch end - close if swiped far enough
+            drawer.addEventListener('touchend', (e) => {
+                const touch = e.changedTouches[0];
+                const diffY = touch.clientY - touchStartY;
+
+                // Close drawer if swiped down more than 100px on mobile
+                if (window.innerWidth <= 768 && diffY > 100) {
+                    closeGameDrawer();
+                } else {
+                    // Reset position
+                    drawer.style.transform = 'translateY(0)';
+                }
+
+                isSwiping = false;
+            }, false);
+
+            // Close on header tap for mobile
+            if (drawerHeader) {
+                drawerHeader.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('drawer-close')) {
+                        closeGameDrawer();
+                    }
+                });
+            }
+        }
+
+        // Optimize drawer positioning for viewport
+        function optimizeDrawerPosition() {
+            const drawer = document.getElementById('game-details-drawer');
+            if (!drawer || !drawer.classList.contains('open')) return;
+
+            const viewportHeight = window.innerHeight;
+            const viewportWidth = window.innerWidth;
+
+            // Mobile: bottom sheet
+            if (viewportWidth <= 768) {
+                drawer.style.position = 'fixed';
+                drawer.style.width = '100%';
+                drawer.style.height = 'auto';
+                drawer.style.top = 'auto';
+                drawer.style.right = 'auto';
+                drawer.style.left = '0';
+                drawer.style.bottom = '0';
+                drawer.style.borderRadius = '12px 12px 0 0';
+                drawer.style.maxHeight = '90vh';
+            }
+            // Desktop: side drawer
+            else {
+                drawer.style.position = 'fixed';
+                drawer.style.width = viewportWidth > 1024 ? '450px' : '420px';
+                drawer.style.height = 'auto';
+                drawer.style.top = '50%';
+                drawer.style.right = viewportWidth > 1024 ? '30px' : '20px';
+                drawer.style.left = 'auto';
+                drawer.style.bottom = 'auto';
+                drawer.style.transform = 'translateY(-50%)';
+                drawer.style.borderRadius = '12px';
+                drawer.style.maxHeight = '90vh';
+            }
+        }
+
+        // Handle viewport changes
+        window.addEventListener('resize', optimizeDrawerPosition);
+
         function closeGameDrawer() {
             const drawer = document.getElementById('game-details-drawer');
             const overlay = document.getElementById('drawer-overlay');
@@ -3468,6 +3863,9 @@
                 overlay.addEventListener('click', closeGameDrawer);
             }
 
+            // Setup touch handlers for mobile drawer
+            setupTouchHandlers();
+
             // Close modals on Escape key
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
@@ -3475,6 +3873,13 @@
                     closeGameDrawer();
                 }
             });
+
+            // Optimize drawer position on modal open
+            const originalOpenGameDrawer = window.openGameDrawer;
+            window.openGameDrawer = async function(event, gameData) {
+                await originalOpenGameDrawer(event, gameData);
+                setTimeout(() => optimizeDrawerPosition(), 100);
+            };
         }
 
         // Initialize app
