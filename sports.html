@@ -1965,6 +1965,11 @@
 
                 // Build HTML with time groups and games
                 let html = '';
+
+                // Build all card promises for all games
+                const cardPromises = [];
+                const cardMappings = []; // Track which card belongs to which time slot
+
                 sortedTimes.forEach(timeSlot => {
                     const gamesAtTime = gamesByTime[timeSlot];
 
@@ -1986,15 +1991,30 @@
                         return statusA === 'FINAL' ? timeB - timeA : timeA - timeB;
                     });
 
-                    // Add time header
-                    html += `<div style="grid-column: 1 / -1; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin-top: 16px;">
-                        <div style="font-size: 1.1em; font-weight: 600; color: var(--text);">Kickoff: ${timeSlot}</div>
-                    </div>`;
-
-                    // Add games for this time
+                    // Collect promises and track mapping
                     gamesAtTime.forEach(game => {
-                        html += buildUnifiedCard(game, currentLeague);
+                        cardPromises.push(buildUnifiedCard(game, currentLeague));
+                        cardMappings.push(timeSlot);
                     });
+                });
+
+                // Await all card builds
+                const builtCards = await Promise.all(cardPromises);
+
+                // Build final HTML with time headers and cards
+                let currentTimeSlot = null;
+                builtCards.forEach((cardHTML, idx) => {
+                    const timeSlot = cardMappings[idx];
+
+                    // Add time header if new time slot
+                    if (timeSlot !== currentTimeSlot) {
+                        html += `<div style="grid-column: 1 / -1; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin-top: 16px;">
+                            <div style="font-size: 1.1em; font-weight: 600; color: var(--text);">Kickoff: ${timeSlot}</div>
+                        </div>`;
+                        currentTimeSlot = timeSlot;
+                    }
+
+                    html += cardHTML;
                 });
 
                 container.innerHTML = html;
@@ -2121,7 +2141,7 @@
         }
 
         // Build unified card for both completed and upcoming games
-        function buildUnifiedCard(game, leagueKey) {
+        async function buildUnifiedCard(game, leagueKey) {
             const homeTeam = game.homeTeam || {};
             const awayTeam = game.awayTeam || {};
             const homeScore = game.homeScore ?? 0;
