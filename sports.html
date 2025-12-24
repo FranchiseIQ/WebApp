@@ -2817,6 +2817,113 @@
             return prediction;
         }
 
+        // User Preferences Manager - Handles localStorage for user settings
+        class PreferencesManager {
+            constructor(storageKey = 'sports_widget_preferences') {
+                this.storageKey = storageKey;
+                this.defaults = {
+                    favoriteTeams: [],
+                    favoriteLeagues: ['NFL'],
+                    preferredView: 'cards',
+                    refreshInterval: 'adaptive',
+                    hideCompletedGames: false,
+                    theme: 'dark',
+                    timeZone: 'America/New_York',
+                    lastViewed: { league: 'NFL', week: null },
+                    notificationsEnabled: false,
+                    notificationSound: true,
+                    quietHoursStart: 22,
+                    quietHoursEnd: 8
+                };
+                this.prefs = this.load();
+            }
+
+            /**
+             * Load preferences from localStorage
+             */
+            load() {
+                try {
+                    const stored = localStorage.getItem(this.storageKey);
+                    if (stored) {
+                        return { ...this.defaults, ...JSON.parse(stored) };
+                    }
+                } catch (e) {
+                    console.warn('Could not load preferences:', e);
+                }
+                return { ...this.defaults };
+            }
+
+            /**
+             * Save preferences to localStorage
+             */
+            save() {
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(this.prefs));
+                    return true;
+                } catch (e) {
+                    console.error('Could not save preferences:', e);
+                    return false;
+                }
+            }
+
+            /**
+             * Get a preference value
+             */
+            get(key, defaultValue = null) {
+                return this.prefs.hasOwnProperty(key) ? this.prefs[key] : defaultValue;
+            }
+
+            /**
+             * Set a preference value
+             */
+            set(key, value) {
+                this.prefs[key] = value;
+                this.save();
+            }
+
+            /**
+             * Toggle array preference (for favorite teams, leagues)
+             */
+            toggleArrayItem(key, item) {
+                const arr = this.prefs[key] || [];
+                const index = arr.indexOf(item);
+                if (index > -1) {
+                    arr.splice(index, 1);
+                } else {
+                    arr.push(item);
+                }
+                this.prefs[key] = arr;
+                this.save();
+                return arr;
+            }
+
+            /**
+             * Check if item is in array preference
+             */
+            hasItem(key, item) {
+                const arr = this.prefs[key] || [];
+                return arr.includes(item);
+            }
+
+            /**
+             * Reset all preferences to defaults
+             */
+            reset() {
+                this.prefs = { ...this.defaults };
+                localStorage.removeItem(this.storageKey);
+            }
+
+            /**
+             * Get all preferences
+             */
+            getAll() {
+                return { ...this.prefs };
+            }
+        }
+
+        // Create global preferences instance
+        const preferences = new PreferencesManager();
+
         // Build unified card for both completed and upcoming games
         async function buildUnifiedCard(game, leagueKey) {
             const homeTeam = game.homeTeam || {};
