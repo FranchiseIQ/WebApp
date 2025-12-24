@@ -34,11 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let scoreFilter = { min: 0, max: 100 };
     let proximityIndex = new ProximityIndex(0.02); // Grid-based spatial index
     let highPerformersOpen = false; // Track high performers panel state
+    let competitorAnalysisOpen = false; // Track competitor analysis panel state
     let currentZoom = 4; // Track current zoom level for sizing
 
     // --- Viewport Metrics Tracking ---
     let prevViewportMetrics = {
         highPerformersCount: 0,
+        competitorCount: 0,
         activeBrandsCount: 0
     };
     let viewportMetricsDebounceTimer = null;
@@ -550,16 +552,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (visible.length === 0) {
             document.getElementById('avg-score').textContent = '--';
             document.getElementById('high-score-count').textContent = '0';
+            document.getElementById('competitor-count').textContent = '0';
             document.getElementById('brands-active').textContent = '0';
             return;
         }
 
         const avgScore = Math.round(visible.reduce((sum, loc) => sum + loc.s, 0) / visible.length);
         const highScoreCount = visible.filter(loc => loc.s >= 80).length;
+        const competitorCount = visible.length;
         const brandsActive = activeTickers.size;
 
         document.getElementById('avg-score').textContent = avgScore;
         document.getElementById('high-score-count').textContent = highScoreCount.toLocaleString();
+        document.getElementById('competitor-count').textContent = competitorCount.toLocaleString();
         document.getElementById('brands-active').textContent = brandsActive;
 
         // Update score distribution chart
@@ -587,11 +592,16 @@ document.addEventListener('DOMContentLoaded', () => {
             animateKpiNumber('high-score-count', prevViewportMetrics.highPerformersCount, 0, {
                 formatter: (v) => Math.round(v).toLocaleString()
             });
+            // Animate competitor count to 0
+            animateKpiNumber('competitor-count', prevViewportMetrics.competitorCount, 0, {
+                formatter: (v) => Math.round(v).toLocaleString()
+            });
             // Animate active brands count to 0
             animateKpiNumber('brands-active', prevViewportMetrics.activeBrandsCount, 0, {
                 formatter: (v) => Math.round(v).toLocaleString()
             });
             prevViewportMetrics.highPerformersCount = 0;
+            prevViewportMetrics.competitorCount = 0;
             prevViewportMetrics.activeBrandsCount = 0;
             return;
         }
@@ -599,6 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Calculate stats for visible locations only
         const avgScore = Math.round(visibleLocations.reduce((sum, loc) => sum + loc.s, 0) / visibleLocations.length);
         const highScoreCount = visibleLocations.filter(loc => loc.s >= 80).length;
+        const competitorCount = visibleLocations.length;
 
         // Calculate distinct active brands in viewport
         const activeBrandSet = new Set(visibleLocations.map(loc => loc.ticker));
@@ -612,6 +623,12 @@ document.addEventListener('DOMContentLoaded', () => {
             formatter: (v) => Math.round(v).toLocaleString()
         });
         prevViewportMetrics.highPerformersCount = highScoreCount;
+
+        // Animate competitor count with proper formatting
+        animateKpiNumber('competitor-count', prevViewportMetrics.competitorCount, competitorCount, {
+            formatter: (v) => Math.round(v).toLocaleString()
+        });
+        prevViewportMetrics.competitorCount = competitorCount;
 
         // Animate active brands count with proper formatting
         animateKpiNumber('brands-active', prevViewportMetrics.activeBrandsCount, activeBrandsCount, {
@@ -1670,6 +1687,22 @@ document.addEventListener('DOMContentLoaded', () => {
             closeLocationPanelBtn.onclick = toggleLocationPanel;
         }
 
+        // Competitor Analysis card click - toggle open/close
+        const competitorCount = document.getElementById('competitor-count');
+        if (competitorCount) {
+            const competitorCard = competitorCount.closest('.stat-card');
+            if (competitorCard) {
+                competitorCard.style.cursor = 'pointer';
+                competitorCard.onclick = toggleCompetitorAnalysis;
+            }
+        }
+
+        // Close competitor analysis panel button
+        const closeCompetitorBtn = document.getElementById('close-competitor-analysis');
+        if (closeCompetitorBtn) {
+            closeCompetitorBtn.onclick = hideCompetitorAnalysis;
+        }
+
         // Score Distribution / Comparison Toggle button
         const comparisonToggleBtn = document.getElementById('btn-comparison-toggle');
         if (comparisonToggleBtn) {
@@ -2212,9 +2245,95 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function navigateToPerformer(location) {
-        // Close the high performers list
-        hideHighPerformers();
+    function showCompetitorAnalysis() {
+        const visible = allLocations.filter(loc => activeTickers.has(loc.ticker));
+
+        // Extract all unique competitors (locations from other brands)
+        const competitors = [];
+        const seenIds = new Set();
+
+        visible.forEach(loc => {
+            if (!seenIds.has(loc.id)) {
+                competitors.push(loc);
+                seenIds.add(loc.id);
+            }
+        });
+
+        // Sort by score descending
+        competitors.sort((a, b) => b.s - a.s);
+
+        const panel = document.getElementById('competitor-analysis-panel');
+        const content = document.getElementById('competitor-analysis-content');
+
+        // Update stat card count
+        document.getElementById('competitor-count').textContent = competitors.length;
+
+        if (competitors.length === 0) {
+            content.innerHTML = '<p style="padding: 12px; text-align: center; color: var(--text-light); font-size: 0.85rem;">No competitors in visible area</p>';
+            panel.classList.remove('hidden');
+            competitorAnalysisOpen = true;
+            return;
+        }
+
+        // Render competitor list
+        content.innerHTML = competitors.map((loc, idx) => {
+            const tier = getScoreTier(loc.s);
+            const address = (loc.a && loc.a !== 'US Location (OSM)') ? loc.a : 'Loading location...';
+
+            return `
+                <div class="score-item" data-index="${idx}" data-location-id="${loc.id}">
+                    <div class="score-circle" style="background: ${getLightBackground(tier.color)}; border-color: ${tier.color}; color: ${tier.color};">
+                        ${Math.round(loc.s)}
+                    </div>
+                    <div class="score-item-content">
+                        <div class="score-item-brand">${loc.n || 'Unknown'}</div>
+                        <div class="score-item-address">${address}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Add click handlers
+        content.querySelectorAll('.score-item').forEach((item, idx) => {
+            item.onclick = () => navigateToCompetitor(competitors[idx]);
+        });
+
+        // Perform reverse geocoding for locations without addresses
+        competitors.forEach(async (loc, idx) => {
+            if (!loc.a || loc.a === 'US Location (OSM)') {
+                const address = await getLocationAddress(loc);
+                const itemEl = content.querySelector(`[data-location-id="${loc.id}"] .score-item-address`);
+                if (itemEl) {
+                    itemEl.textContent = address;
+                }
+            }
+        });
+
+        panel.classList.remove('hidden');
+        competitorAnalysisOpen = true;
+    }
+
+    function hideCompetitorAnalysis() {
+        const panel = document.getElementById('competitor-analysis-panel');
+        panel.classList.add('hidden');
+        competitorAnalysisOpen = false;
+    }
+
+    function toggleCompetitorAnalysis() {
+        const panel = document.getElementById('competitor-analysis-panel');
+        if (panel) {
+            competitorAnalysisOpen = !competitorAnalysisOpen;
+            if (competitorAnalysisOpen) {
+                showCompetitorAnalysis();
+            } else {
+                hideCompetitorAnalysis();
+            }
+        }
+    }
+
+    function navigateToCompetitor(location) {
+        // Close the competitor list
+        hideCompetitorAnalysis();
 
         // Pan to the location
         map.setView([location.lat, location.lng], 14);
