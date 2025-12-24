@@ -793,6 +793,78 @@
 }
 
 /* ============================================================================
+   METRICS DASHBOARD
+   ============================================================================ */
+
+.opportunity-summary {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.summary-gauge {
+  width: 140px;
+  height: 140px;
+}
+
+.summary-interpretation h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+
+.summary-interpretation p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.summary-components {
+  grid-column: 1 / -1;
+  margin-top: 24px;
+}
+
+.quick-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.metric-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.metric-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.metric-card-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.metric-card-unit {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ============================================================================
    COMPARISON MODAL
    ============================================================================ */
 

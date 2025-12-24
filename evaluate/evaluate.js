@@ -475,6 +475,7 @@ class EvaluationPage {
     const labelDisplay = document.getElementById('opportunity-label');
     const descDisplay = document.getElementById('opportunity-description');
     const insightsList = document.getElementById('insights-list');
+    const decisionCard = document.querySelector('.decision-card');
 
     if (!scoreResult.isValid) {
       scoreDisplay.textContent = '--';
@@ -484,7 +485,7 @@ class EvaluationPage {
       return;
     }
 
-    // Display score
+    // Display score with enhanced visualization
     scoreDisplay.textContent = scoreResult.score;
     scoreDisplay.className = `score-number ${scoreResult.interpretation.cssClass}`;
 
@@ -493,17 +494,41 @@ class EvaluationPage {
     labelDisplay.className = `interpretation-label ${scoreResult.interpretation.cssClass}`;
     descDisplay.textContent = scoreResult.interpretation.description;
 
-    // Display insights
+    // Display insights with enhanced visuals
     const insights = ScoringModule.generateInsights(inputs, scoreResult);
     insightsList.innerHTML = insights
       .map(insight => {
         let className = '';
-        if (insight.type === 'positive') className = '';
-        if (insight.type === 'warning') className = ' warning';
-        if (insight.type === 'danger') className = ' danger';
-        return `<li${className}>${insight.text}</li>`;
+        let icon = '○';
+        if (insight.type === 'positive') {
+          className = '';
+          icon = '✓';
+        }
+        if (insight.type === 'warning') {
+          className = ' warning';
+          icon = '⚠';
+        }
+        if (insight.type === 'danger') {
+          className = ' danger';
+          icon = '✕';
+        }
+        return `<li${className}><span style="margin-right: 8px;">${icon}</span>${insight.text}</li>`;
       })
       .join('');
+
+    // Add metrics summary below score
+    if (decisionCard && MetricsDashboard) {
+      const summaryHtml = MetricsDashboard.createOpportunitySummary(
+        scoreResult.score,
+        scoreResult.interpretation,
+        scoreResult.components
+      );
+      // Insert after decision insights
+      const insightsDiv = decisionCard.querySelector('.decision-insights');
+      if (insightsDiv && !decisionCard.querySelector('.opportunity-summary')) {
+        insightsDiv.insertAdjacentHTML('afterend', summaryHtml);
+      }
+    }
   }
 
   updateOverviewTab(scoringInput, marketMetrics) {
