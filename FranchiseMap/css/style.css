@@ -89,8 +89,9 @@ body {
     flex: 1;
     margin-left: 30px;
     min-width: 0;
-    max-width: calc(100% - 200px);
+    max-width: calc(100% - 220px);
     overflow: hidden;
+    flex-wrap: nowrap;
 }
 
 .ticker-status {
@@ -128,7 +129,7 @@ body {
 }
 
 .ticker-tape.has-data {
-    animation: ticker-scroll 90s linear infinite;
+    animation: ticker-scroll 60s linear infinite;
     will-change: transform;
     overflow: hidden;
 }
@@ -157,16 +158,28 @@ body {
 .ticker-item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     font-size: 0.8rem;
     white-space: nowrap;
     flex-shrink: 0;
     padding: 0 10px;
 }
 
-.ticker-symbol { font-weight: 600; }
-.ticker-price { opacity: 0.9; }
-.ticker-change { font-weight: 500; }
+.ticker-symbol {
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.ticker-price {
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+.ticker-change {
+    font-weight: 500;
+    min-width: 50px;
+    text-align: right;
+}
 .ticker-change.up { color: #4ade80; }
 .ticker-change.down { color: #f87171; }
 
@@ -713,28 +726,70 @@ body {
     color: white;
 }
 
-/* Toggle View Button - Active/Saved State */
-#btn-toggle-view.view-saved {
-    background: var(--roark-gold);
-    color: var(--text-dark);
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(212, 168, 67, 0.3);
+/* Cluster toggle button: prominent with glow effect */
+#btn-cluster-toggle {
+    animation: cluster-glow 2.5s ease-in-out infinite;
 }
 
-#btn-toggle-view.view-saved:hover {
-    background: #c9933c;
-    color: var(--text-dark);
-    box-shadow: 0 6px 16px rgba(212, 168, 67, 0.4);
+#btn-cluster-toggle:hover {
+    animation: cluster-glow-hover 0.3s ease-out forwards;
 }
 
-#btn-toggle-view.view-saved:focus-visible {
-    outline: 2px solid var(--roark-gold);
-    outline-offset: 2px;
+#btn-cluster-toggle.active {
+    background: linear-gradient(135deg, var(--primary-purple) 0%, #7c3aed 100%);
+    box-shadow: 0 0 20px rgba(107, 70, 193, 0.5), var(--shadow-card);
 }
 
+/* Save view button: state indication */
+#btn-save-view {
+    position: relative;
+}
+
+#btn-save-view.saved {
+    background: #fbbf24;
+    color: #78350f;
+}
+
+#btn-save-view.saved::after {
+    content: '✓';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #dc2626;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* Animations */
 @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.6; }
+}
+
+@keyframes cluster-glow {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(107, 70, 193, 0.4), var(--shadow-card);
+    }
+    50% {
+        box-shadow: 0 0 16px rgba(107, 70, 193, 0.7), var(--shadow-card);
+    }
+}
+
+@keyframes cluster-glow-hover {
+    0% {
+        box-shadow: 0 0 12px rgba(107, 70, 193, 0.5), var(--shadow-card);
+    }
+    100% {
+        box-shadow: 0 0 24px rgba(107, 70, 193, 0.8), var(--shadow-card);
+        transform: translateY(-2px);
+    }
 }
 
 .control-divider {
@@ -2144,7 +2199,16 @@ body {
 .comp-name {
     font-size: 0.75rem;
     color: var(--text-medium);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.comp-address {
+    font-size: 0.65rem;
+    color: var(--text-light);
+    margin-bottom: 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2180,6 +2244,12 @@ body {
     background: var(--border-light);
     border-radius: var(--radius-full);
     overflow: hidden;
+}
+
+.comp-value {
+    min-width: 25px;
+    text-align: right;
+    color: var(--text-light);
 }
 
 .comp-bar div {
@@ -2776,6 +2846,20 @@ body {
 
     .stat-card.distribution {
         width: 100%;
+    }
+
+    .ticker-symbol {
+        font-size: 0.75rem;
+    }
+
+    .stock-ticker {
+        max-width: calc(100% - 180px);
+        margin-left: 15px;
+        gap: 15px;
+    }
+
+    .ticker-tape.has-data {
+        animation: ticker-scroll 50s linear infinite;
     }
 }
 

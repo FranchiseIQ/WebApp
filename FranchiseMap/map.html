@@ -93,6 +93,20 @@
             <div id="high-performers-content" class="high-performers-content"></div>
         </aside>
 
+        <!-- Competitor Analysis Panel (Opened by clicking Competitor Analysis stat) -->
+        <aside id="competitor-analysis-panel" class="high-performers-panel hidden">
+            <div class="high-performers-header">
+                <div class="high-performers-title">
+                    <i class="fa-solid fa-radar"></i>
+                    <span>Competitors in Visible Area</span>
+                </div>
+                <button id="close-competitor-analysis" class="close-high-performers-btn" title="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="competitor-analysis-content" class="high-performers-content"></div>
+        </aside>
+
         <!-- Search Panel (Collapsible) -->
         <div id="search-panel" class="search-panel hidden">
             <div class="search-panel-header">
@@ -127,6 +141,13 @@
                 <div class="stat-content">
                     <span class="stat-value" id="high-score-count">0</span>
                     <span class="stat-label">High Performers</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-radar"></i></div>
+                <div class="stat-content">
+                    <span class="stat-value" id="competitor-count">0</span>
+                    <span class="stat-label">Competitors</span>
                 </div>
             </div>
             <div class="stat-card">

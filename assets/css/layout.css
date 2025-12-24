@@ -276,6 +276,7 @@
    Responsive Layout
    ============================================================================ */
 
+/* Tablet screens: adjust spacing for reduced nav height */
 @media (max-width: 768px) {
   .global-nav {
     padding: 10px 0;
@@ -301,6 +302,15 @@
     font-size: 13px;
   }
 
+  /* Adjust body padding on tablet - nav is more compact */
+  .has-fixed-ticker {
+    padding-top: 110px;
+  }
+
+  .has-fixed-ticker.has-fixed-nav {
+    padding-top: 160px;
+  }
+
   .page-container {
     padding: 24px 16px;
   }
@@ -318,5 +328,17 @@
 
   .footer-col {
     min-width: 100%;
+  }
+}
+
+/* Mobile screens: further reduce padding for compact nav */
+@media (max-width: 480px) {
+  /* On very small screens, nav and ticker may be more compact */
+  .has-fixed-ticker {
+    padding-top: 100px;
+  }
+
+  .has-fixed-ticker.has-fixed-nav {
+    padding-top: 145px;
   }
 }
