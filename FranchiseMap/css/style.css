@@ -688,6 +688,18 @@ body {
     color: white;
 }
 
+/* Toggle View Button - Active/Saved State */
+#btn-toggle-view.view-saved {
+    background: var(--roark-gold);
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+#btn-toggle-view.view-saved:hover {
+    background: #c9933c;
+    color: var(--text-dark);
+}
+
 @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.6; }
