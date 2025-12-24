@@ -1096,6 +1096,100 @@
                 height: 50px;
             }
         }
+
+        /* Sports Headlines Ticker */
+        .sports-ticker {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(90deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            border-top: 2px solid var(--accent1);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        }
+
+        .sports-ticker-container {
+            display: flex;
+            gap: 30px;
+            padding: 8px 20px;
+            animation: scrollRight 30s linear infinite;
+            white-space: nowrap;
+            will-change: transform;
+        }
+
+        .sports-ticker-container:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollRight {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100vw);
+            }
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            font-size: 0.85em;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            flex-shrink: 0;
+        }
+
+        .ticker-item-teams {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .ticker-item-score {
+            font-weight: 700;
+            color: var(--accent1);
+            margin: 0 6px;
+        }
+
+        .ticker-item-status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 6px;
+        }
+
+        .ticker-status-live {
+            background: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            animation: pulse-red 1.5s ease-in-out infinite;
+        }
+
+        .ticker-status-final {
+            background: rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        .ticker-status-upcoming {
+            background: rgba(99, 102, 241, 0.3);
+            color: #6366f1;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
     </style>
 </head>
 <body>
@@ -1194,6 +1288,13 @@
 
     <!-- Fixed Bottom News Ticker -->
     <div id="franchise-news-ticker-bottom" class="news-ticker-bottom"></div>
+
+    <!-- Sports Headlines Ticker -->
+    <div class="sports-ticker" id="sports-ticker">
+        <div class="sports-ticker-container" id="sports-ticker-container">
+            <!-- Game items will be populated here -->
+        </div>
+    </div>
 
     <!-- Game Details Drawer -->
     <div class="drawer-overlay" id="drawer-overlay"></div>
@@ -2019,6 +2120,9 @@
 
                 container.innerHTML = html;
 
+                // Update sports ticker with latest games
+                updateSportsTicker();
+
             } catch (error) {
                 console.error('Error rendering games:', error);
                 container.innerHTML = `
@@ -2140,6 +2244,255 @@
             };
         }
 
+        // Prediction Engine - AI-like win probability calculator with weighted factors
+        class PredictionEngine {
+            constructor() {
+                this.weights = {
+                    odds: 0.45,        // Betting odds (professional consensus)
+                    record: 0.25,      // Team win-loss record
+                    players: 0.20,     // Player injuries/availability
+                    weather: 0.10      // Game conditions
+                };
+
+                // Position-based injury impact multipliers
+                this.injuryImpactByPosition = {
+                    'QB': 0.08,      // Quarterback: 8% team strength
+                    'RB': 0.05,      // Running back: 5%
+                    'WR': 0.04,      // Wide receiver: 4%
+                    'TE': 0.03,      // Tight end: 3%
+                    'OL': 0.06,      // Offensive line: 6%
+                    'DL': 0.05,      // Defensive line: 5%
+                    'LB': 0.04,      // Linebacker: 4%
+                    'DB': 0.03,      // Defensive back: 3%
+                    'PG': 0.06,      // Basketball point guard: 6%
+                    'SG': 0.04,      // Shooting guard: 4%
+                    'SF': 0.04,      // Small forward: 4%
+                    'PF': 0.05,      // Power forward: 5%
+                    'C': 0.07,       // Center: 7%
+                    'P': 0.08,       // Pitcher: 8%
+                    'C': 0.06,       // Catcher: 6%
+                    'F': 0.05,       // Forward: 5%
+                    'D': 0.04        // Defenseman/Defender: 4%
+                };
+
+                // Status-based injury severity multipliers
+                this.statusMultiplier = {
+                    'Out': 1.0,
+                    'Doubtful': 0.8,
+                    'Questionable': 0.5,
+                    'Probable': 0.2
+                };
+            }
+
+            /**
+             * Convert American moneyline odds to implied probability
+             * @param {number} moneyline - Moneyline odds (e.g., -165 or +145)
+             * @returns {number} - Probability 0.0-1.0
+             */
+            getMoneylineProb(moneyline) {
+                if (!moneyline || moneyline === 0) return 0.5;
+
+                const ml = parseInt(moneyline);
+                if (ml < 0) {
+                    // Negative odds: -165 means 165/(165+100) = 0.6226
+                    return Math.abs(ml) / (Math.abs(ml) + 100);
+                } else {
+                    // Positive odds: +145 means 100/(145+100) = 0.4082
+                    return 100 / (ml + 100);
+                }
+            }
+
+            /**
+             * Extract win percentage from record string
+             * @param {string} record - Record string like "12-3" or "8-5-0"
+             * @returns {number} - Win percentage 0.0-1.0
+             */
+            getWinPercentage(record) {
+                if (!record) return 0.5;
+
+                const match = record.match(/(\d+)-(\d+)/);
+                if (!match) return 0.5;
+
+                const wins = parseInt(match[1]);
+                const losses = parseInt(match[2]);
+                const total = wins + losses;
+
+                return total > 0 ? wins / total : 0.5;
+            }
+
+            /**
+             * Calculate injury impact factor for team
+             * @param {Object} team - Team object with injuries array
+             * @returns {number} - Impact factor 0.75-1.0 (max 25% reduction)
+             */
+            getInjuryFactor(team) {
+                if (!team || !team.injuries || team.injuries.length === 0) {
+                    return 1.0;
+                }
+
+                let totalImpact = 0;
+
+                for (const injury of team.injuries) {
+                    const position = injury.position || 'D';
+                    const status = injury.status || 'Out';
+
+                    // Get base impact for position
+                    let positionImpact = this.injuryImpactByPosition[position] || 0.04;
+
+                    // Multiply by status severity
+                    const statusMult = this.statusMultiplier[status] || 1.0;
+                    const injuryImpact = positionImpact * statusMult;
+
+                    totalImpact += injuryImpact;
+                }
+
+                // Cap maximum impact at 0.25 (75% of team strength minimum)
+                const cappedImpact = Math.min(totalImpact, 0.25);
+                return 1.0 - cappedImpact;
+            }
+
+            /**
+             * Calculate weather impact on game probability
+             * @param {Object} weather - Weather object {temp, condition, wind}
+             * @param {string} venueType - 'indoor' or 'outdoor'
+             * @returns {number} - Weather factor 0.85-1.15
+             */
+            getWeatherFactor(weather, venueType = 'outdoor') {
+                if (!weather || venueType === 'indoor') {
+                    return 1.0;
+                }
+
+                let factor = 1.0;
+
+                // Wind impact (stronger wind favors passing teams less)
+                if (weather.wind && weather.wind > 15) {
+                    factor *= 0.98; // Slight reduction for high wind
+                }
+
+                // Temperature impact (extreme cold or heat)
+                if (weather.temp) {
+                    if (weather.temp < 20) {
+                        factor *= 0.99; // Cold affects performance slightly
+                    } else if (weather.temp > 90) {
+                        factor *= 0.99; // Heat affects performance
+                    }
+                }
+
+                // Precipitation impact (rain/snow favors rushing teams)
+                if (weather.condition && (weather.condition.includes('Rain') || weather.condition.includes('Snow'))) {
+                    factor *= 0.98;
+                }
+
+                return Math.max(0.85, Math.min(1.15, factor));
+            }
+
+            /**
+             * Calculate win probability for a team
+             * @param {Object} team - Team object
+             * @param {Object} opponent - Opponent team object
+             * @param {Object} odds - Odds object {moneyline, spread}
+             * @param {Object} weather - Weather object
+             * @returns {number} - Win probability 0.0-1.0
+             */
+            calculateWinProbability(team, opponent, odds, weather = {}) {
+                // Get odds-based probability (most important)
+                const oddsProb = this.getMoneylineProb(odds.moneyline);
+
+                // Get record-based probability
+                const recordProb = this.getWinPercentage(team.record);
+
+                // Get injury factor
+                const injuryFactor = this.getInjuryFactor(team);
+
+                // Get weather factor
+                const weatherFactor = this.getWeatherFactor(weather, team.venueType);
+
+                // Weighted combination
+                let prob = (
+                    oddsProb * this.weights.odds +
+                    recordProb * this.weights.record +
+                    injuryFactor * this.weights.players +
+                    weatherFactor * this.weights.weather
+                );
+
+                // Normalize
+                const totalWeight = this.weights.odds + this.weights.record + this.weights.players + this.weights.weather;
+                prob = prob / totalWeight;
+
+                return Math.max(0, Math.min(1, prob));
+            }
+
+            /**
+             * Calculate spread coverage probability
+             * @param {number} teamWinProb - Team win probability
+             * @param {number} spread - Spread value (positive favors away, negative favors home)
+             * @returns {number} - Spread coverage probability
+             */
+            calculateSpreadCoverage(teamWinProb, spread) {
+                // If spread is 0, use direct win probability
+                if (spread === 0) return teamWinProb;
+
+                // Adjust probability based on spread
+                // More confident wins = better spread coverage
+                // Tighter games = closer to 50%
+                const confidenceLevel = Math.abs(teamWinProb - 0.5) * 2; // 0-1 scale
+
+                // If team is favored and confident, higher spread coverage
+                // If team is underdog, lower spread coverage expectation
+                const adjustment = Math.sign(spread) * (confidenceLevel * 0.1);
+
+                let spreadCoverage = teamWinProb + adjustment;
+                return Math.max(0.05, Math.min(0.95, spreadCoverage));
+            }
+
+            /**
+             * Get full prediction for a matchup
+             * @param {Object} homeTeam - Home team
+             * @param {Object} awayTeam - Away team
+             * @param {Object} odds - Odds object
+             * @param {Object} weather - Weather object
+             * @returns {Object} - Complete prediction
+             */
+            getPrediction(homeTeam, awayTeam, odds = {}, weather = {}) {
+                const homeOdds = odds.homeMoneyline || odds.moneyline;
+                const awayOdds = odds.awayMoneyline || (odds.moneyline ? -Math.abs(odds.moneyline) : 0);
+                const spread = odds.spread || 0;
+
+                // Calculate win probabilities
+                const homeWinProb = this.calculateWinProbability(
+                    homeTeam,
+                    awayTeam,
+                    { moneyline: homeOdds, spread: spread },
+                    weather
+                );
+
+                const awayWinProb = 1.0 - homeWinProb;
+
+                // Calculate spread coverage
+                const homeSpreadProb = this.calculateSpreadCoverage(homeWinProb, -Math.abs(spread));
+                const awaySpreadProb = this.calculateSpreadCoverage(awayWinProb, Math.abs(spread));
+
+                // Determine favored team
+                const favored = homeWinProb > 0.5 ? 'home' : 'away';
+
+                // Calculate confidence (how confident are we in the prediction)
+                const confidence = Math.abs(homeWinProb - 0.5) * 2; // 0-1 scale
+
+                return {
+                    homeWinProb: homeWinProb,
+                    awayWinProb: awayWinProb,
+                    homeSpreadProb: homeSpreadProb,
+                    awaySpreadProb: awaySpreadProb,
+                    favored: favored,
+                    confidence: confidence,
+                    spread: spread
+                };
+            }
+        }
+
+        // Create global prediction engine instance
+        const predictionEngine = new PredictionEngine();
+
         // Build unified card for both completed and upcoming games
         async function buildUnifiedCard(game, leagueKey) {
             const homeTeam = game.homeTeam || {};
@@ -2172,6 +2525,30 @@
 
             // Get stadium info
             const stadium = game.venue || homeTeam.venue || 'TBD';
+
+            // Get weather data
+            const weather = await getWeather(stadium, gameDate);
+
+            // Calculate prediction for upcoming games
+            let prediction = null;
+            if (isUpcoming) {
+                // Prepare team data for prediction engine
+                const homeTeamData = {
+                    name: homeTeam.name,
+                    record: game.homeTeamRecord || '0-0',
+                    injuries: game.homeTeamInjuries || [],
+                    venueType: 'outdoor' // Default to outdoor
+                };
+
+                const awayTeamData = {
+                    name: awayTeam.name,
+                    record: game.awayTeamRecord || '0-0',
+                    injuries: game.awayTeamInjuries || [],
+                    venueType: 'outdoor'
+                };
+
+                prediction = predictionEngine.getPrediction(homeTeamData, awayTeamData, odds, weather);
+            }
 
             // Build recap summary
             const recap = generateRecap(game);
@@ -2210,9 +2587,43 @@
                         <strong>Spread:</strong> ${odds.spread > 0 ? '+' : ''}${odds.spread} | <strong>O/U:</strong> ${odds.total}
                     </div>
                 `;
+
+                // Add prediction panel for upcoming games
+                if (prediction) {
+                    const homeWinPercent = Math.round(prediction.homeWinProb * 100);
+                    const awayWinPercent = Math.round(prediction.awayWinProb * 100);
+                    const homeSpreadPercent = Math.round(prediction.homeSpreadProb * 100);
+                    const awaySpreadPercent = Math.round(prediction.awaySpreadProb * 100);
+
+                    metadataHTML += `
+                        <div style="font-size: 0.85em; margin-top: 10px; padding: 10px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1)); border-radius: 8px; border-left: 3px solid var(--accent1);">
+                            <div style="font-weight: 600; color: var(--accent1); margin-bottom: 8px; font-size: 0.9em;">PREDICTION</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                <div style="text-align: center;">
+                                    <div style="color: var(--secondary); font-size: 0.75em; margin-bottom: 3px;">Win Prob</div>
+                                    <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(99, 102, 241, 0)); padding: 6px; border-radius: 6px; color: #6366f1; font-weight: 600;">
+                                        ${awayTeam.shortName || awayTeam.name}: <span style="font-size: 1.1em;">${awayWinPercent}%</span>
+                                    </div>
+                                    <div style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(168, 85, 247, 0)); padding: 6px; border-radius: 6px; color: #a855f7; font-weight: 600; margin-top: 4px;">
+                                        ${homeTeam.shortName || homeTeam.name}: <span style="font-size: 1.1em;">${homeWinPercent}%</span>
+                                    </div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="color: var(--secondary); font-size: 0.75em; margin-bottom: 3px;">Cover Prob</div>
+                                    <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(99, 102, 241, 0)); padding: 6px; border-radius: 6px; color: #6366f1; font-weight: 600;">
+                                        Away: <span style="font-size: 1.1em;">${awaySpreadPercent}%</span>
+                                    </div>
+                                    <div style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(168, 85, 247, 0)); padding: 6px; border-radius: 6px; color: #a855f7; font-weight: 600; margin-top: 4px;">
+                                        Home: <span style="font-size: 1.1em;">${homeSpreadPercent}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
             }
 
-            const clickHandler = `onclick="openGameDrawer(event, '${encodeURIComponent(JSON.stringify({ ...game, leagueKey, status }))}')"`;
+            const clickHandler = `onclick="openGameDrawer(event, '${encodeURIComponent(JSON.stringify({ ...game, leagueKey, status, prediction }))}')"`;
 
             return `
                 <div class="highlight-card" ${clickHandler} style="cursor: pointer;">
@@ -2375,6 +2786,42 @@
                                 </div>
                             </div>
                         </div>
+
+                        ${game.prediction ? `
+                        <div class="detail-section">
+                            <h3>Game Prediction</h3>
+                            <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1)); padding: 16px; border-radius: 8px; border-left: 3px solid var(--accent1);">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 12px;">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 8px; text-transform: uppercase; font-weight: 600;">Win Probability</div>
+                                        <div style="background: rgba(99, 102, 241, 0.2); padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+                                            <div style="color: #6366f1; font-size: 0.9em; margin-bottom: 4px;">${awayTeam.shortName || awayTeam.name}</div>
+                                            <div style="color: #6366f1; font-weight: 700; font-size: 1.4em;">${Math.round(game.prediction.awayWinProb * 100)}%</div>
+                                        </div>
+                                        <div style="background: rgba(168, 85, 247, 0.2); padding: 12px; border-radius: 8px;">
+                                            <div style="color: #a855f7; font-size: 0.9em; margin-bottom: 4px;">${homeTeam.shortName || homeTeam.name}</div>
+                                            <div style="color: #a855f7; font-weight: 700; font-size: 1.4em;">${Math.round(game.prediction.homeWinProb * 100)}%</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 8px; text-transform: uppercase; font-weight: 600;">Spread Coverage</div>
+                                        <div style="background: rgba(99, 102, 241, 0.2); padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+                                            <div style="color: #6366f1; font-size: 0.9em; margin-bottom: 4px;">${awayTeam.shortName || awayTeam.name}</div>
+                                            <div style="color: #6366f1; font-weight: 700; font-size: 1.4em;">${Math.round(game.prediction.awaySpreadProb * 100)}%</div>
+                                        </div>
+                                        <div style="background: rgba(168, 85, 247, 0.2); padding: 12px; border-radius: 8px;">
+                                            <div style="color: #a855f7; font-size: 0.9em; margin-bottom: 4px;">${homeTeam.shortName || homeTeam.name}</div>
+                                            <div style="color: #a855f7; font-weight: 700; font-size: 1.4em;">${Math.round(game.prediction.homeSpreadProb * 100)}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; text-align: center;">
+                                    <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 6px;">Confidence Level</div>
+                                    <div style="font-weight: 600; color: var(--text); font-size: 1.1em;">${(game.prediction.confidence * 100).toFixed(0)}%</div>
+                                </div>
+                            </div>
+                        </div>
+                        ` : ''}
 
                         <div class="detail-section">
                             <h3>Weather Forecast</h3>
@@ -2771,6 +3218,67 @@
         }
 
         // Initialize app
+        // Populate sports headlines ticker
+        function updateSportsTicker() {
+            const container = document.getElementById('sports-ticker-container');
+            if (!container) return;
+
+            // Get all games from cache
+            let allGames = [];
+            for (const games of Object.values(gamesCache)) {
+                allGames = allGames.concat(games);
+            }
+
+            // Sort by start time
+            allGames.sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
+
+            // Create ticker items
+            const html = allGames.map(game => {
+                const homeTeam = game.homeTeam || {};
+                const awayTeam = game.awayTeam || {};
+                const status = normalizeStatus(game);
+                const isFinal = status === 'FINAL';
+                const isLive = status === 'LIVE';
+                const isUpcoming = status === 'UPCOMING';
+
+                let statusClass = 'ticker-status-upcoming';
+                let statusText = 'UPCOMING';
+
+                if (isFinal) {
+                    statusClass = 'ticker-status-final';
+                    statusText = 'FINAL';
+                } else if (isLive) {
+                    statusClass = 'ticker-status-live';
+                    statusText = 'LIVE';
+                }
+
+                const homeScore = game.homeScore ?? 0;
+                const awayScore = game.awayScore ?? 0;
+                const gameTime = new Date(game.startTime).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+                let scoreHTML = '';
+                if (isFinal || isLive) {
+                    scoreHTML = `<span class="ticker-item-score">${awayScore}-${homeScore}</span>`;
+                } else {
+                    scoreHTML = `<span class="ticker-item-score">${gameTime}</span>`;
+                }
+
+                return `
+                    <div class="ticker-item">
+                        <div class="ticker-item-teams">
+                            ${awayTeam.shortName || awayTeam.name || 'TBA'}
+                            <span style="color: var(--secondary); margin: 0 4px;">@</span>
+                            ${homeTeam.shortName || homeTeam.name || 'TBA'}
+                        </div>
+                        ${scoreHTML}
+                        <span class="ticker-item-status ${statusClass}">${statusText}</span>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = html;
+        }
+
         async function init() {
             setupLeagueTabs();
             setupTeamFilter();
@@ -2778,6 +3286,9 @@
 
             // Load initial games and generate week selector
             await renderGames();
+
+            // Update sports ticker
+            updateSportsTicker();
 
             // Initialize news ticker
             initNewsTicker();
