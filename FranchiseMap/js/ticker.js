@@ -91,16 +91,12 @@
             const changeClass = quote.changePercent >= 0 ? 'up' : 'down';
             const changeSign = quote.changePercent >= 0 ? '+' : '';
             const symbol = quote.ticker || quote.symbol || 'N/A';
-            const companyName = getCompanyName(symbol);
             const price = quote.price || 0;
             const changePercent = quote.changePercent || 0;
 
             html += `
                 <div class="ticker-item">
-                    <div class="ticker-info">
-                        <span class="ticker-symbol">${symbol}</span>
-                        <span class="ticker-company">${companyName}</span>
-                    </div>
+                    <span class="ticker-symbol">${symbol}</span>
                     <span class="ticker-price">$${price.toFixed(2)}</span>
                     <span class="ticker-change ${changeClass}">${changeSign}${changePercent.toFixed(2)}%</span>
                 </div>

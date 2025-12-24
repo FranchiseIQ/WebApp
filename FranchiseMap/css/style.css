@@ -165,21 +165,9 @@ body {
     padding: 0 10px;
 }
 
-.ticker-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    align-items: flex-start;
-}
-
 .ticker-symbol {
     font-weight: 700;
     font-size: 0.85rem;
-}
-
-.ticker-company {
-    font-size: 0.7rem;
-    opacity: 0.8;
 }
 
 .ticker-price {
@@ -2722,10 +2710,6 @@ body {
 
     .stat-card.distribution {
         width: 100%;
-    }
-
-    .ticker-company {
-        display: none;
     }
 
     .ticker-symbol {
