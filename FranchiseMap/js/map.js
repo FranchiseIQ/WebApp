@@ -34,11 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let scoreFilter = { min: 0, max: 100 };
     let proximityIndex = new ProximityIndex(0.02); // Grid-based spatial index
     let highPerformersOpen = false; // Track high performers panel state
+    let competitorAnalysisOpen = false; // Track competitor analysis panel state
     let currentZoom = 4; // Track current zoom level for sizing
 
     // --- Viewport Metrics Tracking ---
     let prevViewportMetrics = {
         highPerformersCount: 0,
+        competitorCount: 0,
         activeBrandsCount: 0
     };
     let viewportMetricsDebounceTimer = null;
@@ -120,17 +122,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Calculate marker radius based on zoom level and view mode
     function getMarkerRadius(zoom, isIndividual = false) {
-        // Zoom-dependent sizing: circles grow as user zooms in
-        // This ensures visibility and clickability at all zoom levels
-        // Low zoom (national/regional): small but visible
-        // High zoom (city/street): large and easily clickable
+        // Visual hierarchy: individual circles are always smaller than clusters
+        // Individual: 4-26px (zoom 0-14)
+        // Clusters: 8-36px (zoom 0-14)
+        // Difference grows with zoom for clarity at all scales
 
-        // Use linear scaling: radius = baseRadius + (zoom * zoomFactor)
-        // This ensures smooth, proportional growth
-        const baseRadius = isIndividual ? 5 : 4;   // Minimum size at zoom 0
-        const zoomFactor = isIndividual ? 1.5 : 1.2;  // Growth rate per zoom level
-
-        return baseRadius + (zoom * zoomFactor);
+        if (isIndividual) {
+            // Individual location circles: smaller and more subtle
+            const baseRadius = 4;           // ~4px at zoom 0
+            const zoomFactor = 1.5;         // +1.5px per zoom level
+            return baseRadius + (zoom * zoomFactor);
+        } else {
+            // Cluster circles: larger and more prominent
+            const baseRadius = 8;           // ~8px at zoom 0 (2x individual)
+            const zoomFactor = 2.0;         // +2px per zoom level (faster growth)
+            return baseRadius + (zoom * zoomFactor);
+        }
     }
 
     function initMap() {
@@ -196,7 +203,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Don't add to map - we'll use custom panel instead
 
         // Initialize layers
-        clusterGroup = L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 40, chunkedLoading: true });
+        // maxClusterRadius: 30 (reduced from 40) ensures clusters break apart earlier as users zoom
+        // Combined with smaller individual circles, this improves clarity at all zoom levels
+        clusterGroup = L.markerClusterGroup({
+            showCoverageOnHover: false,
+            maxClusterRadius: 30,
+            chunkedLoading: true,
+            disableClusteringAtZoom: 16  // Break clusters into individual markers at zoom 16+
+        });
         clusterLayer = clusterGroup;
         individualLayer = L.layerGroup();
 
@@ -538,16 +552,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (visible.length === 0) {
             document.getElementById('avg-score').textContent = '--';
             document.getElementById('high-score-count').textContent = '0';
+            document.getElementById('competitor-count').textContent = '0';
             document.getElementById('brands-active').textContent = '0';
             return;
         }
 
         const avgScore = Math.round(visible.reduce((sum, loc) => sum + loc.s, 0) / visible.length);
         const highScoreCount = visible.filter(loc => loc.s >= 80).length;
+        const competitorCount = visible.length;
         const brandsActive = activeTickers.size;
 
         document.getElementById('avg-score').textContent = avgScore;
         document.getElementById('high-score-count').textContent = highScoreCount.toLocaleString();
+        document.getElementById('competitor-count').textContent = competitorCount.toLocaleString();
         document.getElementById('brands-active').textContent = brandsActive;
 
         // Update score distribution chart
@@ -575,11 +592,16 @@ document.addEventListener('DOMContentLoaded', () => {
             animateKpiNumber('high-score-count', prevViewportMetrics.highPerformersCount, 0, {
                 formatter: (v) => Math.round(v).toLocaleString()
             });
+            // Animate competitor count to 0
+            animateKpiNumber('competitor-count', prevViewportMetrics.competitorCount, 0, {
+                formatter: (v) => Math.round(v).toLocaleString()
+            });
             // Animate active brands count to 0
             animateKpiNumber('brands-active', prevViewportMetrics.activeBrandsCount, 0, {
                 formatter: (v) => Math.round(v).toLocaleString()
             });
             prevViewportMetrics.highPerformersCount = 0;
+            prevViewportMetrics.competitorCount = 0;
             prevViewportMetrics.activeBrandsCount = 0;
             return;
         }
@@ -587,6 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Calculate stats for visible locations only
         const avgScore = Math.round(visibleLocations.reduce((sum, loc) => sum + loc.s, 0) / visibleLocations.length);
         const highScoreCount = visibleLocations.filter(loc => loc.s >= 80).length;
+        const competitorCount = visibleLocations.length;
 
         // Calculate distinct active brands in viewport
         const activeBrandSet = new Set(visibleLocations.map(loc => loc.ticker));
@@ -600,6 +623,12 @@ document.addEventListener('DOMContentLoaded', () => {
             formatter: (v) => Math.round(v).toLocaleString()
         });
         prevViewportMetrics.highPerformersCount = highScoreCount;
+
+        // Animate competitor count with proper formatting
+        animateKpiNumber('competitor-count', prevViewportMetrics.competitorCount, competitorCount, {
+            formatter: (v) => Math.round(v).toLocaleString()
+        });
+        prevViewportMetrics.competitorCount = competitorCount;
 
         // Animate active brands count with proper formatting
         animateKpiNumber('brands-active', prevViewportMetrics.activeBrandsCount, activeBrandsCount, {
@@ -1152,6 +1181,35 @@ document.addEventListener('DOMContentLoaded', () => {
             const tier = getScoreTier(loc.s);
             const color = getColor(loc.ticker);
             const subScores = loc.ss || {};
+            const address = (loc.a && loc.a !== 'US Location (OSM)') ? loc.a : '';
+
+            // Build score bars for non-zero values
+            let scoreBarsHtml = '';
+            const scoreFields = [
+                { key: 'marketPotential', label: 'Market', color: '#3b82f6' },
+                { key: 'competitiveLandscape', label: 'Competition', color: '#22c55e' },
+                { key: 'accessibility', label: 'Access', color: '#eab308' },
+                { key: 'siteCharacteristics', label: 'Site', color: '#8b5cf6' }
+            ];
+
+            scoreFields.forEach(field => {
+                const value = subScores[field.key] || 0;
+                // Show field if it has a value > 0
+                if (value > 0) {
+                    scoreBarsHtml += `
+                        <div class="comp-bar-row">
+                            <span>${field.label}</span>
+                            <div class="comp-bar"><div style="width:${value}%;background:${field.color}"></div></div>
+                            <span class="comp-value">${value.toFixed(0)}</span>
+                        </div>
+                    `;
+                }
+            });
+
+            // Fallback: if no sub-scores, show message
+            if (!scoreBarsHtml) {
+                scoreBarsHtml = '<p style="font-size: 0.75rem; opacity: 0.6; margin: 8px 0;">No detailed scores available</p>';
+            }
 
             const card = document.createElement('div');
             card.className = 'comparison-card';
@@ -1163,24 +1221,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     </button>
                 </div>
                 <div class="comp-name">${loc.n}</div>
-                <div class="comp-score" style="color:${tier.color}">${loc.s}</div>
+                ${address ? `<div class="comp-address">${address}</div>` : ''}
+                <div class="comp-score" style="color:${tier.color}; margin: 8px 0;">${Math.round(loc.s)}</div>
                 <div class="comp-bars">
-                    <div class="comp-bar-row">
-                        <span>Market</span>
-                        <div class="comp-bar"><div style="width:${subScores.marketPotential || 0}%;background:#3b82f6"></div></div>
-                    </div>
-                    <div class="comp-bar-row">
-                        <span>Comp</span>
-                        <div class="comp-bar"><div style="width:${subScores.competitiveLandscape || 0}%;background:#22c55e"></div></div>
-                    </div>
-                    <div class="comp-bar-row">
-                        <span>Access</span>
-                        <div class="comp-bar"><div style="width:${subScores.accessibility || 0}%;background:#eab308"></div></div>
-                    </div>
-                    <div class="comp-bar-row">
-                        <span>Site</span>
-                        <div class="comp-bar"><div style="width:${subScores.siteCharacteristics || 0}%;background:#8b5cf6"></div></div>
-                    </div>
+                    ${scoreBarsHtml}
                 </div>
             `;
             container.appendChild(card);
@@ -1343,16 +1387,32 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast(`Using view centered on ${city.name} (location unavailable)`);
     }
 
+    function updateSaveButtonState() {
+        const btn = document.getElementById('btn-save-view');
+        if (!btn) return;
+
+        const hasSavedView = getSavedView() !== null;
+        if (hasSavedView) {
+            btn.classList.add('saved');
+            btn.setAttribute('title', 'View saved • Click to update');
+        } else {
+            btn.classList.remove('saved');
+            btn.setAttribute('title', 'Save current view');
+        }
+    }
+
     function saveStartView() {
         const center = map.getCenter();
         const zoom = map.getZoom();
         const view = { lat: center.lat, lng: center.lng, zoom: zoom };
         localStorage.setItem('franchiseMapStartView', JSON.stringify(view));
+        updateSaveButtonState();
         showToast('Start view saved');
     }
 
     function resetStartView() {
         localStorage.removeItem('franchiseMapStartView');
+        updateSaveButtonState();
         showToast('Saved view cleared');
     }
 
@@ -1426,6 +1486,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Reset Start View button
         document.getElementById('btn-reset-view').onclick = resetStartView;
+
+        // Initialize save button state on page load
+        updateSaveButtonState();
 
         // Toggle between Clustered and All Locations views (mutually exclusive)
         const clusterToggle = document.getElementById('btn-cluster-toggle');
@@ -1622,6 +1685,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeLocationPanelBtn = document.getElementById('close-location-panel');
         if (closeLocationPanelBtn) {
             closeLocationPanelBtn.onclick = toggleLocationPanel;
+        }
+
+        // Competitor Analysis card click - toggle open/close
+        const competitorCount = document.getElementById('competitor-count');
+        if (competitorCount) {
+            const competitorCard = competitorCount.closest('.stat-card');
+            if (competitorCard) {
+                competitorCard.style.cursor = 'pointer';
+                competitorCard.onclick = toggleCompetitorAnalysis;
+            }
+        }
+
+        // Close competitor analysis panel button
+        const closeCompetitorBtn = document.getElementById('close-competitor-analysis');
+        if (closeCompetitorBtn) {
+            closeCompetitorBtn.onclick = hideCompetitorAnalysis;
         }
 
         // Score Distribution / Comparison Toggle button
@@ -2047,6 +2126,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function getLocationAddress(location) {
+        // Return existing address if available and not generic
+        if (location.a && location.a !== 'US Location (OSM)') {
+            return location.a;
+        }
+
+        // If no address, attempt reverse geocoding
+        if (location.lat === undefined || location.lng === undefined) {
+            return 'Location data pending';
+        }
+
+        try {
+            // Use Nominatim reverse geocoding API with modest rate limiting
+            // Add small delay to respect API rate limits
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${location.lat}&lon=${location.lng}`,
+                { signal: AbortSignal.timeout(5000) }
+            );
+            const data = await response.json();
+
+            if (data.address) {
+                const addr = data.address;
+                // Format as City, State (or fallback to available fields)
+                const city = addr.city || addr.town || addr.village || '';
+                const state = addr.state || '';
+                if (city && state) {
+                    return `${city}, ${state}`;
+                } else if (city) {
+                    return city;
+                } else if (state) {
+                    return state;
+                }
+            }
+        } catch (e) {
+            // Silently fail and use fallback
+            console.log('Reverse geocoding failed for location', location.id);
+        }
+
+        // Fallback: Show nothing or generic message
+        return 'Address not available';
+    }
+
     function showHighPerformers() {
         const visible = allLocations.filter(loc => activeTickers.has(loc.ticker));
         const highPerformers = visible.filter(loc => loc.s >= 80)
@@ -2065,21 +2188,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // First render the items (with placeholder addresses)
         performersContent.innerHTML = highPerformers.map((loc, idx) => {
             const tier = getScoreTier(loc.s);
-            // Prefer actual address from location object, fallback to formatted coordinates
-            let address = 'Location data pending';
-            if (loc.a && loc.a !== 'US Location (OSM)') {
-                address = loc.a;
-            } else if (loc.lat !== undefined && loc.lng !== undefined) {
-                // Format coordinates as readable location hint
-                const latDir = loc.lat >= 0 ? 'N' : 'S';
-                const lngDir = loc.lng >= 0 ? 'E' : 'W';
-                address = `${Math.abs(loc.lat).toFixed(2)}° ${latDir}, ${Math.abs(loc.lng).toFixed(2)}° ${lngDir}`;
-            }
+            // Use existing address or placeholder for now
+            const address = (loc.a && loc.a !== 'US Location (OSM)') ? loc.a : 'Loading location...';
 
             return `
-                <div class="score-item" data-index="${idx}">
+                <div class="score-item" data-index="${idx}" data-location-id="${loc.id}">
                     <div class="score-circle" style="background: ${getLightBackground(tier.color)}; border-color: ${tier.color}; color: ${tier.color};">
                         ${Math.round(loc.s)}
                     </div>
@@ -2094,6 +2210,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add click handlers to performer items
         performersContent.querySelectorAll('.score-item').forEach((item, idx) => {
             item.onclick = () => navigateToPerformer(highPerformers[idx]);
+        });
+
+        // Perform reverse geocoding for locations without addresses
+        highPerformers.forEach(async (loc, idx) => {
+            if (!loc.a || loc.a === 'US Location (OSM)') {
+                const address = await getLocationAddress(loc);
+                const itemEl = performersContent.querySelector(`[data-location-id="${loc.id}"] .score-item-address`);
+                if (itemEl) {
+                    itemEl.textContent = address;
+                }
+            }
         });
 
         performersPanel.classList.remove('hidden');
@@ -2118,9 +2245,95 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function navigateToPerformer(location) {
-        // Close the high performers list
-        hideHighPerformers();
+    function showCompetitorAnalysis() {
+        const visible = allLocations.filter(loc => activeTickers.has(loc.ticker));
+
+        // Extract all unique competitors (locations from other brands)
+        const competitors = [];
+        const seenIds = new Set();
+
+        visible.forEach(loc => {
+            if (!seenIds.has(loc.id)) {
+                competitors.push(loc);
+                seenIds.add(loc.id);
+            }
+        });
+
+        // Sort by score descending
+        competitors.sort((a, b) => b.s - a.s);
+
+        const panel = document.getElementById('competitor-analysis-panel');
+        const content = document.getElementById('competitor-analysis-content');
+
+        // Update stat card count
+        document.getElementById('competitor-count').textContent = competitors.length;
+
+        if (competitors.length === 0) {
+            content.innerHTML = '<p style="padding: 12px; text-align: center; color: var(--text-light); font-size: 0.85rem;">No competitors in visible area</p>';
+            panel.classList.remove('hidden');
+            competitorAnalysisOpen = true;
+            return;
+        }
+
+        // Render competitor list
+        content.innerHTML = competitors.map((loc, idx) => {
+            const tier = getScoreTier(loc.s);
+            const address = (loc.a && loc.a !== 'US Location (OSM)') ? loc.a : 'Loading location...';
+
+            return `
+                <div class="score-item" data-index="${idx}" data-location-id="${loc.id}">
+                    <div class="score-circle" style="background: ${getLightBackground(tier.color)}; border-color: ${tier.color}; color: ${tier.color};">
+                        ${Math.round(loc.s)}
+                    </div>
+                    <div class="score-item-content">
+                        <div class="score-item-brand">${loc.n || 'Unknown'}</div>
+                        <div class="score-item-address">${address}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Add click handlers
+        content.querySelectorAll('.score-item').forEach((item, idx) => {
+            item.onclick = () => navigateToCompetitor(competitors[idx]);
+        });
+
+        // Perform reverse geocoding for locations without addresses
+        competitors.forEach(async (loc, idx) => {
+            if (!loc.a || loc.a === 'US Location (OSM)') {
+                const address = await getLocationAddress(loc);
+                const itemEl = content.querySelector(`[data-location-id="${loc.id}"] .score-item-address`);
+                if (itemEl) {
+                    itemEl.textContent = address;
+                }
+            }
+        });
+
+        panel.classList.remove('hidden');
+        competitorAnalysisOpen = true;
+    }
+
+    function hideCompetitorAnalysis() {
+        const panel = document.getElementById('competitor-analysis-panel');
+        panel.classList.add('hidden');
+        competitorAnalysisOpen = false;
+    }
+
+    function toggleCompetitorAnalysis() {
+        const panel = document.getElementById('competitor-analysis-panel');
+        if (panel) {
+            competitorAnalysisOpen = !competitorAnalysisOpen;
+            if (competitorAnalysisOpen) {
+                showCompetitorAnalysis();
+            } else {
+                hideCompetitorAnalysis();
+            }
+        }
+    }
+
+    function navigateToCompetitor(location) {
+        // Close the competitor list
+        hideCompetitorAnalysis();
 
         // Pan to the location
         map.setView([location.lat, location.lng], 14);
