@@ -99,8 +99,13 @@ class EvaluationPage {
     });
 
     document.getElementById('compare-btn').addEventListener('click', () => {
-      // Placeholder for comparison feature
-      alert('Comparison feature coming soon. For now, try different brands from the dropdown.');
+      if (!this.currentMarket) {
+        alert('Please select a market first');
+        return;
+      }
+      // Get popular brands to compare
+      const populars = ['MCD', 'YUM', 'SBUX', 'DPZ', 'QSR'];
+      ComparisonModule.showComparisonModal(populars, this.currentMarket);
     });
   }
 
