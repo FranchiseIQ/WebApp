@@ -10,9 +10,11 @@
     const MARKET_CLOSE_MINUTE = 0;
 
     let stockData = null;
+    let manifestData = null;
     let isMarketOpen = false;
 
     function init() {
+        loadManifest();
         loadStockData();
         updateMarketStatus();
 
@@ -21,6 +23,18 @@
 
         // Reload stock data every 5 minutes
         setInterval(loadStockData, 300000);
+    }
+
+    function loadManifest() {
+        fetch('data/brands_manifest.json')
+            .then(res => res.json())
+            .then(data => {
+                manifestData = data;
+            })
+            .catch(e => {
+                console.log('Manifest not available:', e);
+                manifestData = [];
+            });
     }
 
     function loadStockData() {
@@ -38,6 +52,12 @@
                 tape.innerHTML = '<span class="ticker-empty">Stock data unavailable</span>';
                 tape.classList.remove('has-data');
             });
+    }
+
+    function getCompanyName(ticker) {
+        if (!manifestData) return ticker;
+        const brand = manifestData.find(b => b.ticker === ticker);
+        return brand ? brand.name : ticker;
     }
 
     function renderTicker(quotes) {
@@ -64,19 +84,23 @@
                 if (absA !== absB) return absA - absB;
                 return (b.price || 0) - (a.price || 0);
             })
-            .slice(0, 15);
+            .slice(0, 20);
 
         // Generate ticker items once
         sorted.forEach(quote => {
             const changeClass = quote.changePercent >= 0 ? 'up' : 'down';
             const changeSign = quote.changePercent >= 0 ? '+' : '';
             const symbol = quote.ticker || quote.symbol || 'N/A';
+            const companyName = getCompanyName(symbol);
             const price = quote.price || 0;
             const changePercent = quote.changePercent || 0;
 
             html += `
                 <div class="ticker-item">
-                    <span class="ticker-symbol">${symbol}</span>
+                    <div class="ticker-info">
+                        <span class="ticker-symbol">${symbol}</span>
+                        <span class="ticker-company">${companyName}</span>
+                    </div>
                     <span class="ticker-price">$${price.toFixed(2)}</span>
                     <span class="ticker-change ${changeClass}">${changeSign}${changePercent.toFixed(2)}%</span>
                 </div>
