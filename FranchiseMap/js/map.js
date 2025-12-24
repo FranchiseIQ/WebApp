@@ -122,20 +122,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Calculate marker radius based on zoom level and view mode
     function getMarkerRadius(zoom, isIndividual = false) {
-        // Visual hierarchy: individual circles are always smaller than clusters
-        // Individual: 4-26px (zoom 0-14)
-        // Clusters: 8-36px (zoom 0-14)
-        // Difference grows with zoom for clarity at all scales
+        // Visual hierarchy: individual circles are MUCH smaller than clusters
+        // Individual: 8-12px (zoom 0-14) - tiny dots, essentially no zoom scaling
+        // Clusters: 14-32px (zoom 0-14) - prominent markers, 2.5-3x larger than individual
+        // Individual circles should be subtle indicators, not prominent markers
 
         if (isIndividual) {
-            // Individual location circles: smaller and more subtle
-            const baseRadius = 4;           // ~4px at zoom 0
-            const zoomFactor = 1.5;         // +1.5px per zoom level
-            return baseRadius + (zoom * zoomFactor);
+            // Individual location circles: tiny dots, minimal scaling with zoom
+            const baseRadius = 8;           // 8px at zoom 0 (small but visible)
+            const zoomFactor = 0.25;        // +0.25px per zoom level (minimal growth)
+            return Math.min(baseRadius + (zoom * zoomFactor), 12);  // Cap at 12px max
         } else {
-            // Cluster circles: larger and more prominent
-            const baseRadius = 8;           // ~8px at zoom 0 (2x individual)
-            const zoomFactor = 2.0;         // +2px per zoom level (faster growth)
+            // Cluster circles: much larger and more prominent
+            const baseRadius = 14;          // 14px at zoom 0 (1.75x individual)
+            const zoomFactor = 1.3;         // +1.3px per zoom level (faster growth)
             return baseRadius + (zoom * zoomFactor);
         }
     }
