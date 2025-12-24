@@ -2598,23 +2598,47 @@
                     metadataHTML += `
                         <div style="font-size: 0.85em; margin-top: 10px; padding: 10px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1)); border-radius: 8px; border-left: 3px solid var(--accent1);">
                             <div style="font-weight: 600; color: var(--accent1); margin-bottom: 8px; font-size: 0.9em;">PREDICTION</div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                                <div style="text-align: center;">
-                                    <div style="color: var(--secondary); font-size: 0.75em; margin-bottom: 3px;">Win Prob</div>
-                                    <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(99, 102, 241, 0)); padding: 6px; border-radius: 6px; color: #6366f1; font-weight: 600;">
-                                        ${awayTeam.shortName || awayTeam.name}: <span style="font-size: 1.1em;">${awayWinPercent}%</span>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                <div>
+                                    <div style="color: var(--secondary); font-size: 0.75em; margin-bottom: 6px; text-transform: uppercase; font-weight: 600;">Win Probability</div>
+                                    <div style="margin-bottom: 10px;">
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.8em;">
+                                            <span style="color: #6366f1; font-weight: 500;">${awayTeam.shortName || awayTeam.name}</span>
+                                            <span style="color: #6366f1; font-weight: 600;">${awayWinPercent}%</span>
+                                        </div>
+                                        <div style="width: 100%; height: 6px; background: rgba(99, 102, 241, 0.2); border-radius: 3px; overflow: hidden;">
+                                            <div style="height: 100%; width: ${awayWinPercent}%; background: linear-gradient(90deg, #6366f1, #6366f1dd); border-radius: 3px; transition: width 0.3s ease;"></div>
+                                        </div>
                                     </div>
-                                    <div style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(168, 85, 247, 0)); padding: 6px; border-radius: 6px; color: #a855f7; font-weight: 600; margin-top: 4px;">
-                                        ${homeTeam.shortName || homeTeam.name}: <span style="font-size: 1.1em;">${homeWinPercent}%</span>
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.8em;">
+                                            <span style="color: #a855f7; font-weight: 500;">${homeTeam.shortName || homeTeam.name}</span>
+                                            <span style="color: #a855f7; font-weight: 600;">${homeWinPercent}%</span>
+                                        </div>
+                                        <div style="width: 100%; height: 6px; background: rgba(168, 85, 247, 0.2); border-radius: 3px; overflow: hidden;">
+                                            <div style="height: 100%; width: ${homeWinPercent}%; background: linear-gradient(90deg, #a855f7, #a855f7dd); border-radius: 3px; transition: width 0.3s ease;"></div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div style="text-align: center;">
-                                    <div style="color: var(--secondary); font-size: 0.75em; margin-bottom: 3px;">Cover Prob</div>
-                                    <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(99, 102, 241, 0)); padding: 6px; border-radius: 6px; color: #6366f1; font-weight: 600;">
-                                        Away: <span style="font-size: 1.1em;">${awaySpreadPercent}%</span>
+                                <div>
+                                    <div style="color: var(--secondary); font-size: 0.75em; margin-bottom: 6px; text-transform: uppercase; font-weight: 600;">Spread Coverage</div>
+                                    <div style="margin-bottom: 10px;">
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.8em;">
+                                            <span style="color: #6366f1; font-weight: 500;">Away</span>
+                                            <span style="color: #6366f1; font-weight: 600;">${awaySpreadPercent}%</span>
+                                        </div>
+                                        <div style="width: 100%; height: 6px; background: rgba(99, 102, 241, 0.2); border-radius: 3px; overflow: hidden;">
+                                            <div style="height: 100%; width: ${awaySpreadPercent}%; background: linear-gradient(90deg, #6366f1, #6366f1dd); border-radius: 3px; transition: width 0.3s ease;"></div>
+                                        </div>
                                     </div>
-                                    <div style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(168, 85, 247, 0)); padding: 6px; border-radius: 6px; color: #a855f7; font-weight: 600; margin-top: 4px;">
-                                        Home: <span style="font-size: 1.1em;">${homeSpreadPercent}%</span>
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.8em;">
+                                            <span style="color: #a855f7; font-weight: 500;">Home</span>
+                                            <span style="color: #a855f7; font-weight: 600;">${homeSpreadPercent}%</span>
+                                        </div>
+                                        <div style="width: 100%; height: 6px; background: rgba(168, 85, 247, 0.2); border-radius: 3px; overflow: hidden;">
+                                            <div style="height: 100%; width: ${homeSpreadPercent}%; background: linear-gradient(90deg, #a855f7, #a855f7dd); border-radius: 3px; transition: width 0.3s ease;"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2675,6 +2699,40 @@
                     renderGames();
                 });
             });
+        }
+
+        // Generate prediction factor breakdown visualization
+        function generatePredictionBreakdown(prediction) {
+            if (!prediction) return '';
+
+            // Calculate individual factor contributions (based on weights: odds 45%, record 25%, players 20%, weather 10%)
+            const factors = [
+                { name: 'Betting Odds', weight: 45, color: '#f59e0b' },
+                { name: 'Team Record', weight: 25, color: '#10b981' },
+                { name: 'Player Health', weight: 20, color: '#8b5cf6' },
+                { name: 'Weather Impact', weight: 10, color: '#3b82f6' }
+            ];
+
+            return `
+                <div style="margin-top: 16px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                    <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 12px; text-transform: uppercase; font-weight: 600;">
+                        Prediction Factors
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        ${factors.map(factor => `
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.85em;">
+                                    <span style="color: var(--secondary);">${factor.name}</span>
+                                    <span style="color: ${factor.color}; font-weight: 600;">${factor.weight}%</span>
+                                </div>
+                                <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+                                    <div style="height: 100%; width: ${factor.weight}%; background: linear-gradient(90deg, ${factor.color}, ${factor.color}aa); border-radius: 3px;"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
         }
 
         // Open game details drawer
@@ -2828,6 +2886,7 @@
                                     <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 6px;">Confidence Level</div>
                                     <div style="font-weight: 600; color: var(--text); font-size: 1.1em;">${(game.prediction.confidence * 100).toFixed(0)}%</div>
                                 </div>
+                                ${generatePredictionBreakdown(game.prediction)}
                             </div>
                         </div>
                         ` : ''}
