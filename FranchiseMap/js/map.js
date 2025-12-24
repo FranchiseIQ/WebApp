@@ -313,29 +313,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const color = getColor(item.ticker);
             const isRoark = item.is_roark || false;
 
-            const btn = document.createElement('button');
-            btn.className = 'brand-pill' + (isRoark ? ' roark' : '');
-            btn.dataset.ticker = item.ticker;
-            btn.dataset.file = item.file;
+            // Handle multi-brand companies (like DIN with IHOP, Applebee's, Fuzzy's Taco Shop)
+            // Create separate buttons for each brand, but all reference the same ticker
+            const brands = item.brands || [item.name || item.ticker];
 
-            // Format brand name and ticker separately
-            const brandName = item.brands[0] || item.ticker;
+            brands.forEach(brandName => {
+                const btn = document.createElement('button');
+                btn.className = 'brand-pill' + (isRoark ? ' roark' : '');
+                btn.dataset.ticker = item.ticker;
+                btn.dataset.file = item.file;
+                btn.dataset.brand = brandName; // Track individual brand name
 
-            btn.innerHTML = `
-                <span class="brand-dot" style="background-color: ${color}"></span>
-                <div class="brand-info">
-                    <div class="brand-name">${brandName}</div>
-                    <div class="brand-ticker">${item.ticker}</div>
-                </div>
-                <span class="brand-count">${item.count.toLocaleString()}</span>
-            `;
+                // For multi-brand entries like DIN, show the brand name with ticker in parentheses
+                const displayName = brands.length > 1
+                    ? `${brandName} (${item.ticker})`
+                    : brandName;
 
-            btn.onclick = () => {
-                toggleTicker(item.ticker, item.file);
-                btn.classList.toggle('active');
-            };
+                btn.innerHTML = `
+                    <span class="brand-dot" style="background-color: ${color}"></span>
+                    <div class="brand-info">
+                        <div class="brand-name">${displayName}</div>
+                        <div class="brand-ticker">${item.ticker}</div>
+                    </div>
+                    <span class="brand-count">${item.count.toLocaleString()}</span>
+                `;
 
-            container.appendChild(btn);
+                btn.onclick = () => {
+                    toggleTicker(item.ticker, item.file);
+                    btn.classList.toggle('active');
+                };
+
+                container.appendChild(btn);
+            });
         });
     }
 
