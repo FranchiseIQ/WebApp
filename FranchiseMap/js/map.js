@@ -1451,6 +1451,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2500);
     }
 
+    /**
+     * Update toggle view button state, styling, and title
+     * @param {boolean} isSaved - Whether a view is currently saved
+     */
+    function updateToggleViewButton(isSaved) {
+        const btn = document.getElementById('btn-toggle-view');
+        if (!btn) return;
+
+        if (isSaved) {
+            // View is saved - show "Reset View" state (gold/yellow)
+            btn.classList.add('view-saved');
+            btn.setAttribute('title', 'Reset View');
+        } else {
+            // View is not saved - show "Save View" state (white)
+            btn.classList.remove('view-saved');
+            btn.setAttribute('title', 'Save Current View');
+        }
+    }
+
+    /**
+     * Toggle between saving and resetting the current map view
+     */
+    function toggleSavedView() {
+        const isSavedViewActive = getSavedView() !== null;
+
+        if (isSavedViewActive) {
+            // View is currently saved - reset it
+            resetStartView();
+            updateToggleViewButton(false);
+        } else {
+            // View is not saved - save it
+            saveStartView();
+            updateToggleViewButton(true);
+        }
+    }
+
     function setupRail() {
         // Home button - navigate to saved view or default US center
         document.getElementById('btn-home').onclick = () => {
@@ -1481,11 +1517,14 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Unable to access your location. Check browser permissions.');
         });
 
-        // Save Start View button
-        document.getElementById('btn-save-view').onclick = saveStartView;
-
-        // Reset Start View button
-        document.getElementById('btn-reset-view').onclick = resetStartView;
+        // Toggle View button - combines save and reset functionality
+        const toggleViewBtn = document.getElementById('btn-toggle-view');
+        if (toggleViewBtn) {
+            toggleViewBtn.onclick = toggleSavedView;
+            // Initialize button state based on whether a view is already saved
+            const isSaved = getSavedView() !== null;
+            updateToggleViewButton(isSaved);
+        }
 
         // Initialize save button state on page load
         updateSaveButtonState();
