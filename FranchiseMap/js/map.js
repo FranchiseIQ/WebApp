@@ -120,17 +120,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Calculate marker radius based on zoom level and view mode
     function getMarkerRadius(zoom, isIndividual = false) {
-        // Zoom-dependent sizing: circles grow as user zooms in
-        // This ensures visibility and clickability at all zoom levels
-        // Low zoom (national/regional): small but visible
-        // High zoom (city/street): large and easily clickable
+        // Visual hierarchy: individual circles are always smaller than clusters
+        // Individual: 4-26px (zoom 0-14)
+        // Clusters: 8-36px (zoom 0-14)
+        // Difference grows with zoom for clarity at all scales
 
-        // Use linear scaling: radius = baseRadius + (zoom * zoomFactor)
-        // This ensures smooth, proportional growth
-        const baseRadius = isIndividual ? 5 : 4;   // Minimum size at zoom 0
-        const zoomFactor = isIndividual ? 1.5 : 1.2;  // Growth rate per zoom level
-
-        return baseRadius + (zoom * zoomFactor);
+        if (isIndividual) {
+            // Individual location circles: smaller and more subtle
+            const baseRadius = 4;           // ~4px at zoom 0
+            const zoomFactor = 1.5;         // +1.5px per zoom level
+            return baseRadius + (zoom * zoomFactor);
+        } else {
+            // Cluster circles: larger and more prominent
+            const baseRadius = 8;           // ~8px at zoom 0 (2x individual)
+            const zoomFactor = 2.0;         // +2px per zoom level (faster growth)
+            return baseRadius + (zoom * zoomFactor);
+        }
     }
 
     function initMap() {
@@ -196,7 +201,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Don't add to map - we'll use custom panel instead
 
         // Initialize layers
-        clusterGroup = L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 40, chunkedLoading: true });
+        // maxClusterRadius: 30 (reduced from 40) ensures clusters break apart earlier as users zoom
+        // Combined with smaller individual circles, this improves clarity at all zoom levels
+        clusterGroup = L.markerClusterGroup({
+            showCoverageOnHover: false,
+            maxClusterRadius: 30,
+            chunkedLoading: true,
+            disableClusteringAtZoom: 16  // Break clusters into individual markers at zoom 16+
+        });
         clusterLayer = clusterGroup;
         individualLayer = L.layerGroup();
 
@@ -1358,16 +1370,32 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast(`Using view centered on ${city.name} (location unavailable)`);
     }
 
+    function updateSaveButtonState() {
+        const btn = document.getElementById('btn-save-view');
+        if (!btn) return;
+
+        const hasSavedView = getSavedView() !== null;
+        if (hasSavedView) {
+            btn.classList.add('saved');
+            btn.setAttribute('title', 'View saved • Click to update');
+        } else {
+            btn.classList.remove('saved');
+            btn.setAttribute('title', 'Save current view');
+        }
+    }
+
     function saveStartView() {
         const center = map.getCenter();
         const zoom = map.getZoom();
         const view = { lat: center.lat, lng: center.lng, zoom: zoom };
         localStorage.setItem('franchiseMapStartView', JSON.stringify(view));
+        updateSaveButtonState();
         showToast('Start view saved');
     }
 
     function resetStartView() {
         localStorage.removeItem('franchiseMapStartView');
+        updateSaveButtonState();
         showToast('Saved view cleared');
     }
 
@@ -1441,6 +1469,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Reset Start View button
         document.getElementById('btn-reset-view').onclick = resetStartView;
+
+        // Initialize save button state on page load
+        updateSaveButtonState();
 
         // Toggle between Clustered and All Locations views (mutually exclusive)
         const clusterToggle = document.getElementById('btn-cluster-toggle');
