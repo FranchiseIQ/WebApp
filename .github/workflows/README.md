@@ -56,34 +56,67 @@ This directory contains automated workflows that keep your website data up-to-da
 
 ### 4. Batch Generate Locations (`batch-generate-locations.yml`)
 
-**Purpose**: On-demand manual processing of franchise location batches.
+**Purpose**: Automatically and continuously generates franchise location data in batches.
 
-**Trigger**: Manual only (one-time batch generation)
+**Schedule**: Daily at 2:00 AM UTC (⚙️ Automatic)
+
+**Trigger**: Automatic daily + Manual override available
 
 **What it does**:
-1. Gets next batch of brands to process
+1. Gets next batch of unprocessed brands
 2. Generates location data for brands in batch
-3. Builds/updates brand metadata
-4. Uploads data artifacts
-5. Commits results with count summary
+3. Enriches locations with full address data via reverse geocoding
+4. Collects store hours, contact info, and other available details
+5. Validates data completeness
+6. Builds/updates brand metadata
+7. Uploads data artifacts and completion report
+8. Commits results with batch summary
+9. Automatically queues next batch when complete
 
 **Manual Trigger**: Go to Actions tab → "Batch Generate FranchiseMap Locations" → "Run workflow"
 
 **Optional Inputs**:
 - `batch_size`: Number of brands per batch (default: 50)
 
+**Data Enrichment**: Each location now includes:
+- ✅ Full address (City, State, Postal Code)
+- ✅ Coordinates (latitude, longitude)
+- ✅ Location name
+- ✅ Store hours (when available)
+- ✅ Contact information (when available)
+- ✅ Country code
+
+**Continuity**: Runs every day to process remaining brands until all locations are generated
+
 ### 5. Generate Data (`generate-data.yml`)
 
-**Purpose**: On-demand full FranchiseMap location data generation.
+**Purpose**: Automatically generates and validates all FranchiseMap location data and metadata daily.
 
-**Trigger**: Manual only (full generation)
+**Schedule**: Daily at 3:00 AM UTC (⚙️ Automatic) - runs after batch processing
+
+**Trigger**: Automatic daily + Manual override available
 
 **What it does**:
-1. Generates all FranchiseMap locations and metadata
-2. Uploads complete data package as artifact
-3. Commits generated data to repository
+1. Generates all FranchiseMap locations with full data enrichment
+2. Enriches all locations with complete address data via reverse geocoding
+3. Validates data completeness across all brands and locations
+4. Generates comprehensive metadata with brand information
+5. Uploads complete data package and validation report as artifacts
+6. Produces detailed completeness report showing:
+   - Total brands and locations processed
+   - Address coverage percentage
+   - Coordinate and name coverage
+   - Brand completion status
+7. Commits consolidated data to repository
 
 **Manual Trigger**: Go to Actions tab → "Generate FranchiseMap Locations & Metadata" → "Run workflow"
+
+**Data Validation**: Reports on:
+- ✅ Total locations with addresses
+- ✅ Geocoding success rate
+- ✅ Coordinate coverage
+- ✅ Name coverage
+- ✅ Brand completion percentage
 
 ### 6. Data Aggregation Pipeline (`data-aggregation.yml`)
 
@@ -157,29 +190,51 @@ This directory contains automated workflows that keep your website data up-to-da
 
 ## 📊 Data Files Updated by Workflows
 
-| Workflow | Data File | Schedule |
-|----------|-----------|----------|
-| Update Stock Data | `FranchiseMap/data/stocks.json` | Every 30 min during market hours |
-| Batch Process Scheduler | `FranchiseMap/data/brands/*` | Every 4 hours (24/7) |
-| Deploy to Pages | All files | On push to main branch |
+| Workflow | Data File(s) | Schedule | Update Type |
+|----------|-----------|----------|------------|
+| Update Stock Data | `FranchiseMap/data/stocks.json` | Every 30 min (market hours) | Real-time pricing |
+| Batch Process Scheduler | `FranchiseMap/data/brands/*` | Every 4 hours (24/7) | Live data enrichment |
+| **Batch Generate Locations** | **`FranchiseMap/data/brands/*.json`** | **Daily at 2 AM UTC** | **New locations + addresses** |
+| **Generate Data** | **`FranchiseMap/data/manifest.json`** | **Daily at 3 AM UTC** | **Complete dataset + validation** |
+| Deploy to Pages | All files | On push to main | Deployment |
+
+### Location Data Structure
+
+Each location now includes:
+```json
+{
+  "name": "Store Name",
+  "lat": 40.7128,
+  "lng": -74.0060,
+  "address": "New York, NY 10001",
+  "display_name": "Full address string",
+  "country": "United States",
+  "hours": "9 AM - 5 PM",
+  "phone": "+1-XXX-XXX-XXXX",
+  "website": "https://..."
+}
+```
 
 These files are automatically committed by the workflows and deployed via GitHub Pages.
 
 ## 🔄 Workflow Schedule Summary
 
-| Workflow | Schedule | Type |
-|----------|----------|------|
-| Update Stock Data | Mon-Fri, 2:30 PM - 9:30 PM UTC | Automatic (30 min intervals) |
-| Deploy to GitHub Pages | On push to main | Automatic |
-| Batch Process Scheduler | Every 4 hours | Automatic |
-| Batch Generate Locations | Manual trigger | On-demand |
-| Generate Data | Manual trigger | On-demand |
-| Data Aggregation | Manual trigger | On-demand |
+| Workflow | Schedule | Type | Next Run Time |
+|----------|----------|------|---------------|
+| Update Stock Data | Mon-Fri, every 30 min (2:30 PM - 9:30 PM UTC) | ⚙️ Automatic | During market hours |
+| Deploy to GitHub Pages | On push to main branch | ⚙️ Automatic | On commit to main |
+| Batch Process Scheduler | Every 4 hours (24/7) | ⚙️ Automatic | Every 4 hours |
+| **Batch Generate Locations** | **Daily at 2:00 AM UTC** | **⚙️ Automatic** | **Tomorrow 2:00 AM UTC** |
+| **Generate Data** | **Daily at 3:00 AM UTC** | **⚙️ Automatic** | **Tomorrow 3:00 AM UTC** |
+| Data Aggregation | Manual trigger (on-demand) | 🎯 Manual | When triggered |
 
 ## 🚀 Benefits
 
 ✅ Stock prices update every 30 minutes during market hours
-✅ Batch processing runs continuously (24/7) for location data
+✅ **Franchise locations generated continuously (new batches processed daily)**
+✅ **All locations enriched with complete addresses via geocoding**
+✅ **Daily data validation and completeness reports**
+✅ Batch processing runs continuously (24/7) for real-time updates
 ✅ Deployment to GitHub Pages is automatic on main branch push
 ✅ All workflows are fault-tolerant with automatic retries
 ✅ Manual triggers available for on-demand processing
