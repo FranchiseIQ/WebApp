@@ -336,6 +336,14 @@ button:hover,
   overflow: visible; /* Prevent any scrollbars */
 }
 
+/* Fix banner message being cut off at top of viewport */
+#closing-message {
+     padding-top: 4px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+
 .global-ticker iframe {
   width: 100%;
   height: 120px;
