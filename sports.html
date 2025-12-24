@@ -2493,6 +2493,33 @@
         // Create global prediction engine instance
         const predictionEngine = new PredictionEngine();
 
+        // Prediction cache to avoid recalculation
+        const predictionCache = new Map();
+        const PREDICTION_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+        // Get cached prediction or calculate new one
+        function getCachedPrediction(gameId, homeTeam, awayTeam, odds, weather) {
+            const cacheKey = `${gameId}_${Date.now() / PREDICTION_CACHE_TTL | 0}`; // Key changes every 5 minutes
+
+            if (predictionCache.has(cacheKey)) {
+                return predictionCache.get(cacheKey);
+            }
+
+            const prediction = predictionEngine.getPrediction(homeTeam, awayTeam, odds, weather);
+            predictionCache.set(cacheKey, prediction);
+
+            // Cleanup old cache entries (keep only recent ones)
+            if (predictionCache.size > 500) {
+                const entriesToDelete = Array.from(predictionCache.entries())
+                    .sort((a, b) => (b[1].calculatedAt || 0) - (a[1].calculatedAt || 0))
+                    .slice(250) // Keep only the 250 most recent
+                    .map(([key]) => key);
+                entriesToDelete.forEach(key => predictionCache.delete(key));
+            }
+
+            return prediction;
+        }
+
         // Build unified card for both completed and upcoming games
         async function buildUnifiedCard(game, leagueKey) {
             const homeTeam = game.homeTeam || {};
@@ -2547,7 +2574,8 @@
                     venueType: 'outdoor'
                 };
 
-                prediction = predictionEngine.getPrediction(homeTeamData, awayTeamData, odds, weather);
+                // Use cached prediction to improve performance
+                prediction = getCachedPrediction(game.id || '', homeTeamData, awayTeamData, odds, weather);
             }
 
             // Build recap summary
