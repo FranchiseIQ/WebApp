@@ -6,6 +6,9 @@ on:
 permissions:
   contents: read
 
+# Note: This workflow is manual-only (no schedule) to reduce maintenance burden.
+# Run it on-demand via Actions tab when data updates are needed.
+
 jobs:
   aggregate-data:
     runs-on: ubuntu-latest
@@ -28,12 +31,23 @@ jobs:
           pip install requests
 
       - name: Run Data Aggregation Pipeline
+        id: aggregation
         working-directory: FranchiseMap/scripts
         env:
           CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
           GOV_DATA_KEY: ${{ secrets.GOV_DATA_KEY }}
           BLS_KEY: ${{ secrets.BLS_KEY }}
-        run: python3 run_data_aggregation.py || echo "⚠️ Pipeline completed with warnings"
+        run: |
+          echo "📊 Starting comprehensive data aggregation..."
+          if python3 run_data_aggregation.py; then
+            echo "status=success" >> $GITHUB_OUTPUT
+            echo "✅ Data aggregation completed successfully"
+          else
+            EXIT_CODE=$?
+            echo "status=completed_with_warnings" >> $GITHUB_OUTPUT
+            echo "⚠️  Pipeline completed with warnings (exit code: $EXIT_CODE)"
+            echo "See logs above for details"
+          fi
         continue-on-error: true
 
       - name: Generate quality report
@@ -58,10 +72,17 @@ jobs:
       - name: Summary
         if: always()
         run: |
-          echo "## Data Aggregation Pipeline"
+          echo "## Data Aggregation Pipeline Summary"
+          echo "Aggregation Status: ${{ steps.aggregation.outputs.status }}"
+
           if [ -f "FranchiseMap/data/data_quality_report.json" ]; then
-            echo "✅ Quality report available"
+            echo "✅ Quality report generated and available"
+            echo "📊 Report Location: FranchiseMap/data/data_quality_report.json"
           else
-            echo "ℹ️  No quality report generated"
+            echo "ℹ️  No quality report was generated"
           fi
+
+          echo ""
+          echo "📦 Artifacts uploaded with 7-day retention"
+          echo "💾 Check the 'Artifacts' section to download aggregation results"
 

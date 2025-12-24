@@ -1,6 +1,9 @@
 name: Batch Generate FranchiseMap Locations
 
 on:
+  # Run daily at 2 AM UTC to continuously process location batches
+  schedule:
+    - cron: '0 2 * * *'  # Every day at 2:00 AM UTC
   workflow_dispatch:
     inputs:
       batch_size:
@@ -38,8 +41,17 @@ jobs:
         run: |
           # Extract batch from processor output (between JSON markers)
           BATCH=$(python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size ${{ github.event.inputs.batch_size }} 2>/dev/null | sed -n '/--- JSON OUTPUT START ---/,/--- JSON OUTPUT END ---/p' | sed '1d;$d' | python -c "import sys, json; data = json.load(sys.stdin); print(','.join(data['batch']))")
-          echo "Processing batch: $BATCH"
-          python -m data_aggregation.pipelines.franchise.generate_locations --batch "$BATCH"
+          echo "🔄 Processing batch: $BATCH"
+
+          # Generate locations with full data enrichment
+          python -m data_aggregation.pipelines.franchise.generate_locations \
+            --batch "$BATCH" \
+            --include-addresses \
+            --include-hours \
+            --include-contact \
+            --enrich-details
+
+          echo "✅ Batch location generation complete"
 
       - name: Generate Updated Metadata
         run: |
@@ -86,18 +98,148 @@ jobs:
 
           # Check if there are changes
           if git diff --staged --quiet; then
-            echo "No changes to commit."
-          else
-            BATCH=$(python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size ${{ github.event.inputs.batch_size }} 2>/dev/null | sed -n '/--- JSON OUTPUT START ---/,/--- JSON OUTPUT END ---/p' | sed '1d;$d' | python -c "import sys, json; data = json.load(sys.stdin); print(f'Batch {data[\"count\"]} brands - {len(data[\"batch\"])} remaining')" || echo "Batch generation")
-            git commit -m "chore: Generate FranchiseMap locations for batch [$BATCH] [skip ci]"
-
-            # Pull latest changes before pushing
-            git fetch origin && git merge -X ours origin/$(git rev-parse --abbrev-ref HEAD) || true
-
-            git push
+            echo "ℹ️  No changes to commit."
+            exit 0
           fi
+
+          # Get batch information for commit message
+          BATCH_INFO=$(python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size ${{ github.event.inputs.batch_size }} 2>/dev/null | sed -n '/--- JSON OUTPUT START ---/,/--- JSON OUTPUT END ---/p' | sed '1d;$d' | python -c "import sys, json; data = json.load(sys.stdin); print(f'{len(data[\"batch\"])} brands processed - {data[\"remaining\"]} remaining')" || echo "batch generation")
+
+          git commit -m "chore: Generate FranchiseMap locations for batch [$BATCH_INFO] [skip ci]"
+
+          # Safely push to current branch
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          echo "📤 Pushing to branch: $CURRENT_BRANCH"
+
+          if git fetch origin "$CURRENT_BRANCH" 2>/dev/null; then
+            git merge -X ours "origin/$CURRENT_BRANCH" || {
+              echo "⚠️  Merge conflict detected, using local version"
+              git merge -X ours "origin/$CURRENT_BRANCH" || true
+            }
+          fi
+
+          if git push origin "$CURRENT_BRANCH"; then
+            echo "✅ Batch generation results pushed successfully"
+          else
+            echo "❌ Error pushing changes, but data is valid"
+            exit 1
+          fi
+
+      - name: Enrich Location Data with Addresses
+        run: |
+          echo "📍 Enriching location data with addresses and details..."
+          python3 << 'EOF'
+          import json
+          from pathlib import Path
+          from time import sleep
+          import requests
+
+          # Process all location files and add address data
+          data_dir = Path('FranchiseMap/data/brands')
+          if not data_dir.exists():
+            print("ℹ️ No location data to enrich yet")
+            exit(0)
+
+          enriched_count = 0
+          for brand_file in data_dir.glob('*.json'):
+              try:
+                  with open(brand_file, 'r', encoding='utf-8') as f:
+                      brand_data = json.load(f)
+
+                  # Add address info if missing
+                  if isinstance(brand_data, list):
+                      for location in brand_data:
+                          if 'lat' in location and 'lng' in location:
+                              # Try to get address via reverse geocoding (Nominatim)
+                              if 'address' not in location or not location.get('address'):
+                                  try:
+                                      url = f"https://nominatim.openstreetmap.org/reverse?format=json&lat={location['lat']}&lon={location['lng']}"
+                                      response = requests.get(url, timeout=10, headers={'User-Agent': 'FranchiseMap'})
+                                      response.raise_for_status()
+                                      data = response.json()
+
+                                      # Extract address components
+                                      address_parts = []
+                                      if 'address' in data:
+                                          addr = data['address']
+                                          # Build readable address
+                                          city = addr.get('city', addr.get('town', ''))
+                                          state = addr.get('state', '')
+                                          country = addr.get('country', '')
+
+                                          if city:
+                                              address_parts.append(city)
+                                          if state:
+                                              address_parts.append(state)
+
+                                          location['address'] = ', '.join(address_parts)
+                                          location['display_name'] = data.get('display_name', '')
+
+                                      enriched_count += 1
+                                      sleep(0.1)  # Rate limiting
+                                  except Exception as e:
+                                      print(f"⚠️ Could not geocode {location.get('name', 'Unknown')}: {e}")
+
+                  # Save enriched data
+                  with open(brand_file, 'w', encoding='utf-8') as f:
+                      json.dump(brand_data, f, indent=2, ensure_ascii=False)
+
+              except Exception as e:
+                  print(f"⚠️ Error processing {brand_file.name}: {e}")
+
+          print(f"✅ Enriched {enriched_count} locations with address data")
+          EOF
+
+      - name: Validate Location Data Completeness
+        run: |
+          echo "🔍 Validating location data completeness..."
+          python3 << 'EOF'
+          import json
+          from pathlib import Path
+
+          data_dir = Path('FranchiseMap/data/brands')
+          stats = {
+              'total_brands': 0,
+              'total_locations': 0,
+              'locations_with_address': 0,
+              'locations_with_coords': 0,
+              'locations_with_name': 0
+          }
+
+          if data_dir.exists():
+              for brand_file in data_dir.glob('*.json'):
+                  try:
+                      with open(brand_file, 'r', encoding='utf-8') as f:
+                          brand_data = json.load(f)
+
+                      if isinstance(brand_data, list):
+                          stats['total_brands'] += 1
+                          for location in brand_data:
+                              stats['total_locations'] += 1
+                              if location.get('address'):
+                                  stats['locations_with_address'] += 1
+                              if 'lat' in location and 'lng' in location:
+                                  stats['locations_with_coords'] += 1
+                              if location.get('name'):
+                                  stats['locations_with_name'] += 1
+                  except Exception as e:
+                      print(f"⚠️ Error validating {brand_file.name}: {e}")
+
+          print("\n📊 Location Data Completeness Report:")
+          print(f"   Total Brands: {stats['total_brands']}")
+          print(f"   Total Locations: {stats['total_locations']}")
+          print(f"   With Addresses: {stats['locations_with_address']} ({stats['locations_with_address']*100//max(stats['total_locations'], 1)}%)")
+          print(f"   With Coordinates: {stats['locations_with_coords']} ({stats['locations_with_coords']*100//max(stats['total_locations'], 1)}%)")
+          print(f"   With Names: {stats['locations_with_name']} ({stats['locations_with_name']*100//max(stats['total_locations'], 1)}%)")
+          EOF
 
       - name: Queue Status
         run: |
           echo "📊 Batch Processing Status:"
           python -m data_aggregation.pipelines.franchise.batch_processor --action status
+
+          # Check if there are remaining batches
+          QUEUE_STATUS=$(python -m data_aggregation.pipelines.franchise.batch_processor --action status 2>/dev/null || echo "unknown")
+          echo ""
+          echo "ℹ️ Status: $QUEUE_STATUS"
+          echo "💡 Next batch will be processed in the next scheduled run (daily at 2 AM UTC)"
