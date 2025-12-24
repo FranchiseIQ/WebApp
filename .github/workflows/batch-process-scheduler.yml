@@ -37,13 +37,18 @@ jobs:
 
       - name: Run Adaptive Batch Processor
         id: batch_process
-        continue-on-error: true
         run: |
           echo "🚀 Starting adaptive batch processor..."
-          python -m data_aggregation.pipelines.franchise.adaptive_batch_processor
-          BATCH_EXIT_CODE=$?
-          echo "batch_exit_code=$BATCH_EXIT_CODE" >> $GITHUB_OUTPUT
-          exit $BATCH_EXIT_CODE
+          if python -m data_aggregation.pipelines.franchise.adaptive_batch_processor; then
+            echo "batch_status=success" >> $GITHUB_OUTPUT
+            exit 0
+          else
+            BATCH_EXIT_CODE=$?
+            echo "batch_status=failed" >> $GITHUB_OUTPUT
+            echo "⚠️  Batch processor exited with code: $BATCH_EXIT_CODE"
+            # Don't exit with error - allow other steps to run and report status
+            exit 0
+          fi
 
       - name: Check Batch Status
         if: always()
@@ -77,12 +82,30 @@ jobs:
           git add data_aggregation/processed_brands.txt
           git add data_aggregation/logs/ || true
 
-          if ! git diff --staged --quiet; then
-            git commit -m "chore: Auto-batch process FranchiseMap locations [skip ci]"
-            git fetch origin && git merge -X ours origin/$(git rev-parse --abbrev-ref HEAD) || true
-            git push
+          if git diff --staged --quiet; then
+            echo "ℹ️  No changes to commit"
+            exit 0
+          fi
+
+          # Commit the batch processing results
+          git commit -m "chore: Auto-batch process FranchiseMap locations [skip ci]"
+
+          # Safely push to current branch
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          echo "📤 Pushing batch results to: $CURRENT_BRANCH"
+
+          if git fetch origin "$CURRENT_BRANCH" 2>/dev/null; then
+            git merge -X ours "origin/$CURRENT_BRANCH" || {
+              echo "⚠️  Merge conflict detected, using local version"
+              git merge -X ours "origin/$CURRENT_BRANCH" || true
+            }
+          fi
+
+          if git push origin "$CURRENT_BRANCH"; then
+            echo "✅ Batch processing results pushed successfully"
           else
-            echo "No changes to commit"
+            echo "⚠️  Error pushing, but batch data is safe in artifacts"
+            exit 0
           fi
 
       - name: Send Notification on Failure

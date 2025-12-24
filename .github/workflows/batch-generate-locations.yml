@@ -86,15 +86,31 @@ jobs:
 
           # Check if there are changes
           if git diff --staged --quiet; then
-            echo "No changes to commit."
+            echo "ℹ️  No changes to commit."
+            exit 0
+          fi
+
+          # Get batch information for commit message
+          BATCH_INFO=$(python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size ${{ github.event.inputs.batch_size }} 2>/dev/null | sed -n '/--- JSON OUTPUT START ---/,/--- JSON OUTPUT END ---/p' | sed '1d;$d' | python -c "import sys, json; data = json.load(sys.stdin); print(f'{len(data[\"batch\"])} brands processed - {data[\"remaining\"]} remaining')" || echo "batch generation")
+
+          git commit -m "chore: Generate FranchiseMap locations for batch [$BATCH_INFO] [skip ci]"
+
+          # Safely push to current branch
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          echo "📤 Pushing to branch: $CURRENT_BRANCH"
+
+          if git fetch origin "$CURRENT_BRANCH" 2>/dev/null; then
+            git merge -X ours "origin/$CURRENT_BRANCH" || {
+              echo "⚠️  Merge conflict detected, using local version"
+              git merge -X ours "origin/$CURRENT_BRANCH" || true
+            }
+          fi
+
+          if git push origin "$CURRENT_BRANCH"; then
+            echo "✅ Batch generation results pushed successfully"
           else
-            BATCH=$(python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size ${{ github.event.inputs.batch_size }} 2>/dev/null | sed -n '/--- JSON OUTPUT START ---/,/--- JSON OUTPUT END ---/p' | sed '1d;$d' | python -c "import sys, json; data = json.load(sys.stdin); print(f'Batch {data[\"count\"]} brands - {len(data[\"batch\"])} remaining')" || echo "Batch generation")
-            git commit -m "chore: Generate FranchiseMap locations for batch [$BATCH] [skip ci]"
-
-            # Pull latest changes before pushing
-            git fetch origin && git merge -X ours origin/$(git rev-parse --abbrev-ref HEAD) || true
-
-            git push
+            echo "❌ Error pushing changes, but data is valid"
+            exit 1
           fi
 
       - name: Queue Status

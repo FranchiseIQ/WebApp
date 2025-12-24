@@ -49,13 +49,28 @@ jobs:
 
           # Check if there are changes
           if git diff --staged --quiet; then
-            echo "No changes to commit."
+            echo "ℹ️  No changes to commit."
+            exit 0
+          fi
+
+          # Commit the data
+          git commit -m "chore: Generate FranchiseMap locations and metadata [skip ci]"
+
+          # Safely push to the current branch
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          echo "📤 Pushing to branch: $CURRENT_BRANCH"
+
+          if git fetch origin "$CURRENT_BRANCH" 2>/dev/null; then
+            git merge -X ours "origin/$CURRENT_BRANCH" || {
+              echo "⚠️  Merge conflict detected, using local version (latest data)"
+              git merge -X ours "origin/$CURRENT_BRANCH" || true
+            }
+          fi
+
+          if git push origin "$CURRENT_BRANCH"; then
+            echo "✅ Franchise data pushed successfully"
           else
-            git commit -m "Update Franchise Data [skip ci]"
-
-            # --- THE FIX: Pull latest changes before pushing ---
-            git fetch origin && git merge -X ours origin/$(git rev-parse --abbrev-ref HEAD) || true
-
-            git push
+            echo "❌ Error pushing changes, but data is valid"
+            exit 1
           fi
 
