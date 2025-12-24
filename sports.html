@@ -11,6 +11,7 @@
 
     <!-- Global Styles -->
     <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
 
     <style>
         :root {
@@ -35,7 +36,6 @@
             background: var(--bg);
             min-height: 100vh;
             color: var(--text);
-            padding-top: 170px; /* Account for fixed ticker + nav */
             padding-bottom: 100px;
         }
 
@@ -1107,7 +1107,7 @@
         }
     </style>
 </head>
-<body>
+<body class="has-fixed-ticker has-fixed-nav">
     <!-- Global Stock Ticker -->
     <div class="global-ticker">
         <iframe src="Website/ticker.html?embed=true" title="Franchise stock ticker" loading="lazy" scrolling="no"></iframe>
