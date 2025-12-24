@@ -2623,7 +2623,16 @@
                 }
             }
 
-            const clickHandler = `onclick="openGameDrawer(event, '${encodeURIComponent(JSON.stringify({ ...game, leagueKey, status, prediction }))}')"`;
+            const clickHandler = `onclick="openGameDrawer(event, '${encodeURIComponent(JSON.stringify({
+                ...game,
+                leagueKey,
+                status,
+                prediction,
+                awayTeamPlayers: game.awayTeamPlayers || [],
+                homeTeamPlayers: game.homeTeamPlayers || [],
+                awayTeamInjuries: game.awayTeamInjuries || [],
+                homeTeamInjuries: game.homeTeamInjuries || []
+            }))')"`;
 
             return `
                 <div class="highlight-card" ${clickHandler} style="cursor: pointer;">
@@ -2819,6 +2828,170 @@
                                     <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 6px;">Confidence Level</div>
                                     <div style="font-weight: 600; color: var(--text); font-size: 1.1em;">${(game.prediction.confidence * 100).toFixed(0)}%</div>
                                 </div>
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        <div class="detail-section">
+                            <h3>Team Comparison</h3>
+                            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center;">
+                                <!-- Away Team Column -->
+                                <div style="text-align: right;">
+                                    <div style="font-weight: 600; color: #6366f1; margin-bottom: 8px;">${awayTeam.shortName || awayTeam.name}</div>
+                                    <div style="font-size: 0.85em; line-height: 1.6;">
+                                        <div style="margin-bottom: 4px;">
+                                            <span style="color: var(--secondary);">Record:</span>
+                                            <span style="color: var(--text); font-weight: 500;">${awayTeam.record || 'TBD'}</span>
+                                        </div>
+                                        <div style="margin-bottom: 4px;">
+                                            <span style="color: var(--secondary);">Rank:</span>
+                                            <span style="color: var(--text); font-weight: 500;">#${awayTeam.rank || '–'}</span>
+                                        </div>
+                                        ${awayTeam.record ? `
+                                        <div>
+                                            <span style="color: var(--secondary);">Win %:</span>
+                                            <span style="color: var(--text); font-weight: 500;">${(() => {
+                                                const match = (awayTeam.record || '').match(/(\d+)-(\d+)/);
+                                                if (match) {
+                                                    const wins = parseInt(match[1]);
+                                                    const losses = parseInt(match[2]);
+                                                    const total = wins + losses;
+                                                    return total > 0 ? ((wins / total) * 100).toFixed(1) + '%' : 'N/A';
+                                                }
+                                                return 'N/A';
+                                            })()}</span>
+                                        </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+
+                                <!-- Middle Column (spacer) -->
+                                <div style="width: 20px; text-align: center; color: var(--secondary); font-weight: 600;">VS</div>
+
+                                <!-- Home Team Column -->
+                                <div style="text-align: left;">
+                                    <div style="font-weight: 600; color: #a855f7; margin-bottom: 8px;">${homeTeam.shortName || homeTeam.name}</div>
+                                    <div style="font-size: 0.85em; line-height: 1.6;">
+                                        <div style="margin-bottom: 4px;">
+                                            <span style="color: var(--secondary);">Record:</span>
+                                            <span style="color: var(--text); font-weight: 500;">${homeTeam.record || 'TBD'}</span>
+                                        </div>
+                                        <div style="margin-bottom: 4px;">
+                                            <span style="color: var(--secondary);">Rank:</span>
+                                            <span style="color: var(--text); font-weight: 500;">#${homeTeam.rank || '–'}</span>
+                                        </div>
+                                        ${homeTeam.record ? `
+                                        <div>
+                                            <span style="color: var(--secondary);">Win %:</span>
+                                            <span style="color: var(--text); font-weight: 500;">${(() => {
+                                                const match = (homeTeam.record || '').match(/(\d+)-(\d+)/);
+                                                if (match) {
+                                                    const wins = parseInt(match[1]);
+                                                    const losses = parseInt(match[2]);
+                                                    const total = wins + losses;
+                                                    return total > 0 ? ((wins / total) * 100).toFixed(1) + '%' : 'N/A';
+                                                }
+                                                return 'N/A';
+                                            })()}</span>
+                                        </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        ${(game.homeTeamInjuries && game.homeTeamInjuries.length > 0) || (game.awayTeamInjuries && game.awayTeamInjuries.length > 0) ? `
+                        <div class="detail-section">
+                            <h3>Injury Report</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                ${(game.awayTeamInjuries && game.awayTeamInjuries.length > 0) ? `
+                                <div>
+                                    <div style="font-weight: 600; color: #6366f1; margin-bottom: 8px; font-size: 0.9em;">${awayTeam.shortName || awayTeam.name} Injuries</div>
+                                    <div style="font-size: 0.85em;">
+                                        ${game.awayTeamInjuries.map(injury => `
+                                            <div style="padding: 8px; background: rgba(99, 102, 241, 0.1); border-radius: 6px; margin-bottom: 6px;">
+                                                <div style="font-weight: 500; color: var(--text); margin-bottom: 2px;">${injury.playerName}</div>
+                                                <div style="color: var(--secondary); font-size: 0.8em;">
+                                                    ${injury.position} · <span style="padding: 2px 6px; background: rgba(239, 68, 68, 0.2); border-radius: 4px; color: #ef4444; font-weight: 600;">${injury.status}</span>
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                ` : '<div style="color: var(--secondary); font-size: 0.9em;">No injuries reported</div>'}
+
+                                ${(game.homeTeamInjuries && game.homeTeamInjuries.length > 0) ? `
+                                <div>
+                                    <div style="font-weight: 600; color: #a855f7; margin-bottom: 8px; font-size: 0.9em;">${homeTeam.shortName || homeTeam.name} Injuries</div>
+                                    <div style="font-size: 0.85em;">
+                                        ${game.homeTeamInjuries.map(injury => `
+                                            <div style="padding: 8px; background: rgba(168, 85, 247, 0.1); border-radius: 6px; margin-bottom: 6px;">
+                                                <div style="font-weight: 500; color: var(--text); margin-bottom: 2px;">${injury.playerName}</div>
+                                                <div style="color: var(--secondary); font-size: 0.8em;">
+                                                    ${injury.position} · <span style="padding: 2px 6px; background: rgba(239, 68, 68, 0.2); border-radius: 4px; color: #ef4444; font-weight: 600;">${injury.status}</span>
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                ` : '<div style="color: var(--secondary); font-size: 0.9em;">No injuries reported</div>'}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        ${game.awayTeamPlayers || game.homeTeamPlayers ? `
+                        <div class="detail-section">
+                            <h3>Top Performers</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                ${game.awayTeamPlayers && game.awayTeamPlayers.length > 0 ? `
+                                <div>
+                                    <div style="font-weight: 600; color: #6366f1; margin-bottom: 8px; font-size: 0.9em;">${awayTeam.shortName || awayTeam.name}</div>
+                                    <div style="font-size: 0.8em;">
+                                        ${game.awayTeamPlayers.slice(0, 5).map(player => `
+                                            <div style="padding: 8px; background: rgba(99, 102, 241, 0.08); border-radius: 6px; margin-bottom: 6px;">
+                                                <div style="font-weight: 500; color: var(--text); margin-bottom: 2px;">
+                                                    #${player.jersey || '?'} ${player.name}
+                                                </div>
+                                                <div style="color: var(--secondary); font-size: 0.75em; margin-bottom: 3px;">
+                                                    ${player.position || 'N/A'}
+                                                </div>
+                                                ${player.stats && Object.keys(player.stats).length > 0 ? `
+                                                <div style="color: #6366f1; font-size: 0.75em; font-weight: 500;">
+                                                    ${Object.entries(player.stats).slice(0, 2).map(([key, val]) =>
+                                                        \`\${key}: \${val}\`
+                                                    ).join(' · ')}
+                                                </div>
+                                                ` : ''}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                ` : ''}
+
+                                ${game.homeTeamPlayers && game.homeTeamPlayers.length > 0 ? `
+                                <div>
+                                    <div style="font-weight: 600; color: #a855f7; margin-bottom: 8px; font-size: 0.9em;">${homeTeam.shortName || homeTeam.name}</div>
+                                    <div style="font-size: 0.8em;">
+                                        ${game.homeTeamPlayers.slice(0, 5).map(player => `
+                                            <div style="padding: 8px; background: rgba(168, 85, 247, 0.08); border-radius: 6px; margin-bottom: 6px;">
+                                                <div style="font-weight: 500; color: var(--text); margin-bottom: 2px;">
+                                                    #${player.jersey || '?'} ${player.name}
+                                                </div>
+                                                <div style="color: var(--secondary); font-size: 0.75em; margin-bottom: 3px;">
+                                                    ${player.position || 'N/A'}
+                                                </div>
+                                                ${player.stats && Object.keys(player.stats).length > 0 ? `
+                                                <div style="color: #a855f7; font-size: 0.75em; font-weight: 500;">
+                                                    ${Object.entries(player.stats).slice(0, 2).map(([key, val]) =>
+                                                        \`\${key}: \${val}\`
+                                                    ).join(' · ')}
+                                                </div>
+                                                ` : ''}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                ` : ''}
                             </div>
                         </div>
                         ` : ''}
