@@ -50,6 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let ownershipModel = new Set(['franchise', 'non-franchise']);  // Show both by default
     let subtypes = new Set(['licensed', 'corporate', 'independent', 'unknown']);  // Show all by default
 
+    // --- Data Refresh Status Tracking ---
+    let dataLastUpdated = null;  // Track when location data was last loaded
+    let manifestLastUpdated = null;  // Track when manifest was last loaded
+
     // --- Notification System (Toast Messages) ---
     const NotificationManager = {
         queue: [],
@@ -194,6 +198,128 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.processBatch();
                 }
             }
+        }
+    };
+
+    // --- Data Status Manager ---
+    const DataStatusManager = {
+        init() {
+            // Initialize status display in dashboard
+            this.createStatusElement();
+            this.updateDisplay();
+        },
+        createStatusElement() {
+            // Inject data status info into dashboard (top right area)
+            const statusHTML = `
+                <div id="data-status-badge" style="
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: rgba(59, 130, 246, 0.9);
+                    color: white;
+                    padding: 12px 16px;
+                    border-radius: 8px;
+                    font-size: 12px;
+                    z-index: 1000;
+                    cursor: pointer;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255,255,255,0.2);
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    transition: all 0.3s ease;
+                ">
+                    <span id="data-status-indicator" style="
+                        width: 8px;
+                        height: 8px;
+                        background: #10b981;
+                        border-radius: 50%;
+                        animation: pulse 2s infinite;
+                    "></span>
+                    <div id="data-status-text" style="display: flex; flex-direction: column; gap: 2px;">
+                        <div style="font-weight: 600; font-size: 11px;">Data Loaded</div>
+                        <div id="data-status-time" style="font-size: 10px; opacity: 0.9;">Just now</div>
+                    </div>
+                    <button id="data-refresh-btn" onclick="DataStatusManager.refresh()" style="
+                        background: rgba(255,255,255,0.2);
+                        border: none;
+                        color: white;
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 11px;
+                        font-weight: 600;
+                        transition: background 0.2s;
+                        margin-left: auto;
+                    ">
+                        ↻ Refresh
+                    </button>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', statusHTML);
+
+            // Add hover effect
+            const badge = document.getElementById('data-status-badge');
+            badge.addEventListener('mouseenter', () => {
+                badge.style.background = 'rgba(59, 130, 246, 1)';
+                badge.style.transform = 'translateY(-4px)';
+            });
+            badge.addEventListener('mouseleave', () => {
+                badge.style.background = 'rgba(59, 130, 246, 0.9)';
+                badge.style.transform = 'translateY(0)';
+            });
+
+            // Add CSS for pulse animation
+            if (!document.getElementById('status-animation-styles')) {
+                const style = document.createElement('style');
+                style.id = 'status-animation-styles';
+                style.textContent = `
+                    @keyframes pulse {
+                        0%, 100% { opacity: 1; }
+                        50% { opacity: 0.5; }
+                    }
+                    #data-refresh-btn:hover {
+                        background: rgba(255,255,255,0.3) !important;
+                        transform: rotate(180deg);
+                        transition: all 0.3s ease;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        },
+        updateDisplay() {
+            const timeEl = document.getElementById('data-status-time');
+            if (!timeEl || !dataLastUpdated) return;
+
+            const now = new Date();
+            const diffMs = now - dataLastUpdated;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMins / 60);
+            const diffDays = Math.floor(diffHours / 24);
+
+            let timeStr = 'Just now';
+            if (diffMins < 1) timeStr = 'Just now';
+            else if (diffMins < 60) timeStr = `${diffMins}m ago`;
+            else if (diffHours < 24) timeStr = `${diffHours}h ago`;
+            else timeStr = `${diffDays}d ago`;
+
+            timeEl.textContent = timeStr;
+        },
+        setUpdated() {
+            dataLastUpdated = new Date();
+            this.updateDisplay();
+            NotificationManager.success('Data refreshed');
+        },
+        refresh() {
+            NotificationManager.loading('Reloading manifest and brand data...');
+            // Clear loaded data
+            allLocations = [];
+            loadedTickers.clear();
+            activeTickers.clear();
+            // Reload manifest and reselect all
+            loadManifest();
+            this.setUpdated();
         }
     };
 
@@ -433,6 +559,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Select all locations by default on page load
                 selectAll();
                 updateDashboardStats();
+                // Track when data was loaded
+                DataStatusManager.setUpdated();
             })
             .catch(e => {
                 // Fallback to original manifest if brands_manifest.json doesn't exist
@@ -444,6 +572,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         renderLegend(manifest);
                         selectAll();
                         updateDashboardStats();
+                        // Track when data was loaded
+                        DataStatusManager.setUpdated();
                     })
                     .catch(e2 => {
                         console.log("Data not yet generated. Run GitHub Action.");
@@ -2883,4 +3013,5 @@ Ctrl+Shift+L  Use Geolocation
 
     initMap();
     KeyboardShortcuts.init();
+    DataStatusManager.init();
 });
