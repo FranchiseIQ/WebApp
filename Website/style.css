@@ -316,7 +316,7 @@ body {
 #ticker-content {
   display: flex;
   white-space: nowrap;
-  animation: scroll-left 90s linear infinite;
+  animation: scroll-left 45s linear infinite;
   will-change: transform;
   /* Content is duplicated in JS, so we translate by -50% to loop */
   transform-origin: 0 0;
@@ -675,7 +675,7 @@ body {
   }
 
   #ticker-content {
-    animation-duration: 80s;
+    animation-duration: 40s;
   }
 }
 
@@ -686,7 +686,7 @@ body {
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   #ticker-content {
-    animation-duration: 180s;
+    animation-duration: 90s;
   }
 }
 
