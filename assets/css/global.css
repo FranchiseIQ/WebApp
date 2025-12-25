@@ -330,6 +330,7 @@ button:hover,
   top: 0;
   left: 0;
   width: 100%;
+  height: 120px;
   z-index: var(--z-fixed);
   background: #0a0a0a;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -352,24 +353,59 @@ button:hover,
   overflow: hidden;
 }
 
-/* Body padding when ticker is fixed - apply via class */
+/* ============================================================================
+   BODY PADDING - Offset for fixed ticker and navigation
+   ============================================================================ */
+
+/* Default: Add padding for fixed ticker */
+body {
+  padding-top: 120px;
+}
+
+/* When page has fixed navigation below ticker, add navigation height */
+body.has-fixed-ticker.has-fixed-nav {
+  padding-top: 170px;
+}
+
+/* Legacy: Support .has-fixed-ticker class */
 .has-fixed-ticker {
   padding-top: 120px;
 }
 
-/* Navigation below fixed ticker */
+.has-fixed-ticker.has-fixed-nav {
+  padding-top: 170px;
+}
+
+/* ============================================================================
+   NAVIGATION POSITIONING - Fixed below ticker
+   ============================================================================ */
+
+/* Main navigation that sits below fixed ticker */
+.main-nav {
+  position: fixed;
+  top: 120px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 50px;
+  z-index: calc(var(--z-fixed) - 1);
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  box-sizing: border-box;
+  backdrop-filter: blur(12px);
+}
+
 .site-nav.below-ticker,
 .main-nav.below-ticker {
   position: fixed;
   top: 120px;
   left: 0;
+  right: 0;
   width: 100%;
   z-index: calc(var(--z-fixed) - 1);
-}
-
-/* Body padding when both ticker and nav are fixed */
-.has-fixed-ticker.has-fixed-nav {
-  padding-top: 170px;
 }
 
 /* ============================================================================
