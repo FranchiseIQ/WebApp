@@ -250,6 +250,19 @@ const UnitEconomicsCalculator = (() => {
 
     resultsDiv.innerHTML = html;
     resultsDiv.style.display = 'block';
+
+    // Initialize financial visualizations if module is available
+    if (typeof FinancialVisualizations !== 'undefined') {
+      const tabElement = document.getElementById('tab-economics');
+      if (tabElement) {
+        // Remove any existing visualizations section
+        const existingViz = document.getElementById('financial-visualizations');
+        if (existingViz) existingViz.remove();
+
+        // Initialize visualizations
+        FinancialVisualizations.initializeVisualizations(tabElement, results);
+      }
+    }
   }
 
   /**
