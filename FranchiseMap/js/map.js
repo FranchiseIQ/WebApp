@@ -1132,6 +1132,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button class="popup-pin-btn" data-location-id="${loc.id}" title="Pin to compare multiple locations">
                             <i class="fa-solid fa-thumbtack"></i>
                         </button>
+                        <button class="popup-save-btn" data-location-id="${loc.id}" title="Save location">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="popup-address">${(loc.a && loc.a !== 'US Location (OSM)') ? loc.a : '<span style="color: var(--text-light);">Address not available</span>'}</div>
@@ -1366,6 +1369,159 @@ document.addEventListener('DOMContentLoaded', () => {
 
         slider.oninput = updateRadius;
         updateRadius();
+
+        // Handle save button
+        const saveBtn = document.querySelector(`.popup-save-btn[data-location-id="${loc.id}"]`);
+        if (saveBtn) {
+            // Check if location is already saved
+            const savedLocations = getSavedLocations();
+            const isSaved = savedLocations.some(sl => sl.id === loc.id);
+
+            if (isSaved) {
+                saveBtn.classList.add('saved');
+                saveBtn.querySelector('i').classList.remove('fa-regular');
+                saveBtn.querySelector('i').classList.add('fa-solid');
+            }
+
+            saveBtn.onclick = function(e) {
+                e.stopPropagation();
+                const locationData = {
+                    id: loc.id,
+                    name: loc.n,
+                    ticker: loc.ticker,
+                    address: loc.a,
+                    lat: loc.lat,
+                    lng: loc.lng,
+                    score: loc.s,
+                    savedAt: new Date().toISOString()
+                };
+
+                if (isSaved) {
+                    removeFromSavedLocations(loc.id);
+                    saveBtn.classList.remove('saved');
+                    saveBtn.querySelector('i').classList.remove('fa-solid');
+                    saveBtn.querySelector('i').classList.add('fa-regular');
+                    showToast(`Removed "${loc.n}" from saved locations`, 'info');
+                } else {
+                    addToSavedLocations(locationData);
+                    saveBtn.classList.add('saved');
+                    saveBtn.querySelector('i').classList.add('fa-solid');
+                    saveBtn.querySelector('i').classList.remove('fa-regular');
+                    showToast(`Saved "${loc.n}" to your collection`, 'success');
+                }
+                updateSavedLocationsPanel();
+            };
+        }
+    }
+
+    function getSavedLocations() {
+        const saved = localStorage.getItem('franchiseiq_saved_locations');
+        return saved ? JSON.parse(saved) : [];
+    }
+
+    function addToSavedLocations(locationData) {
+        const saved = getSavedLocations();
+        if (!saved.some(l => l.id === locationData.id)) {
+            saved.push(locationData);
+            localStorage.setItem('franchiseiq_saved_locations', JSON.stringify(saved));
+        }
+    }
+
+    function removeFromSavedLocations(locationId) {
+        const saved = getSavedLocations();
+        const filtered = saved.filter(l => l.id !== locationId);
+        localStorage.setItem('franchiseiq_saved_locations', JSON.stringify(filtered));
+    }
+
+    function updateSavedLocationsPanel() {
+        const saved = getSavedLocations();
+        const panel = document.getElementById('saved-locations-panel');
+        const content = document.getElementById('saved-locations-content');
+        const countBadge = document.getElementById('saved-count');
+
+        if (!content) return;
+
+        countBadge.textContent = saved.length;
+
+        if (saved.length === 0) {
+            content.innerHTML = `
+                <div class="empty-state">
+                    <i class="fa-regular fa-bookmark"></i>
+                    <p>No saved locations yet. Click the bookmark icon on a location popup to save it.</p>
+                </div>
+            `;
+        } else {
+            // Sort by saved date (newest first)
+            const sorted = [...saved].sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt));
+            let html = '';
+
+            sorted.forEach(loc => {
+                const color = getColor(loc.ticker);
+                html += `
+                    <div class="saved-location-item" data-location-id="${loc.id}">
+                        <div class="saved-location-header">
+                            <h4>${loc.name}</h4>
+                            <span class="saved-ticker" style="background: ${color}">${loc.ticker}</span>
+                        </div>
+                        <div class="saved-location-details">
+                            <div class="saved-detail">
+                                <i class="fa-solid fa-map-pin"></i>
+                                <span>${loc.address && loc.address !== 'US Location (OSM)' ? loc.address : 'Address not available'}</span>
+                            </div>
+                            <div class="saved-detail">
+                                <i class="fa-solid fa-star"></i>
+                                <span>Score: ${Math.round(loc.score)}</span>
+                            </div>
+                            <div class="saved-detail">
+                                <i class="fa-solid fa-calendar"></i>
+                                <span>${new Date(loc.savedAt).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                        <div class="saved-location-actions">
+                            <button class="saved-location-btn view-btn" data-location-id="${loc.id}" title="Center map on location">
+                                <i class="fa-solid fa-map"></i> View
+                            </button>
+                            <button class="saved-location-btn remove-btn" data-location-id="${loc.id}" title="Remove from saved">
+                                <i class="fa-solid fa-trash"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            content.innerHTML = html;
+
+            // Add event listeners to view and remove buttons
+            content.querySelectorAll('.view-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    const locId = this.dataset.locationId;
+                    const savedLoc = saved.find(l => l.id === locId);
+                    if (savedLoc && map) {
+                        map.setView([savedLoc.lat, savedLoc.lng], 14);
+                    }
+                };
+            });
+
+            content.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    const locId = this.dataset.locationId;
+                    const savedLoc = saved.find(l => l.id === locId);
+                    removeFromSavedLocations(locId);
+                    showToast(`Removed "${savedLoc.name}" from saved locations`, 'info');
+                    updateSavedLocationsPanel();
+
+                    // Update bookmark button if popup is open
+                    const saveBtn = document.querySelector(`.popup-save-btn[data-location-id="${locId}"]`);
+                    if (saveBtn) {
+                        saveBtn.classList.remove('saved');
+                        saveBtn.querySelector('i').classList.remove('fa-solid');
+                        saveBtn.querySelector('i').classList.add('fa-regular');
+                    }
+                };
+            });
+        }
     }
 
     function highlightCompetitors(centerLoc, radiusMiles, displayDiv) {
@@ -2159,6 +2315,17 @@ document.addEventListener('DOMContentLoaded', () => {
             closeCompetitorBtn.onclick = hideCompetitorAnalysis;
         }
 
+        // Close saved locations panel button
+        const closeSavedLocationsBtn = document.getElementById('close-saved-locations');
+        if (closeSavedLocationsBtn) {
+            closeSavedLocationsBtn.onclick = function() {
+                const panel = document.getElementById('saved-locations-panel');
+                if (panel) {
+                    panel.classList.add('hidden');
+                }
+            };
+        }
+
         // Score Distribution / Comparison Toggle button
         const comparisonToggleBtn = document.getElementById('btn-comparison-toggle');
         if (comparisonToggleBtn) {
@@ -2394,6 +2561,23 @@ document.addEventListener('DOMContentLoaded', () => {
         searchResults.addEventListener('scroll', () => {
             updateScrollIndicators(searchResults);
         });
+    }
+
+    // Setup saved locations toggle button
+    {
+        const savedLocationsToggleBtn = document.getElementById('saved-locations-toggle-btn');
+        const savedLocationsPanel = document.getElementById('saved-locations-panel');
+
+        if (savedLocationsToggleBtn && savedLocationsPanel) {
+            savedLocationsToggleBtn.onclick = function() {
+                updateSavedLocationsPanel();
+                if (savedLocationsPanel.classList.contains('hidden')) {
+                    savedLocationsPanel.classList.remove('hidden');
+                } else {
+                    savedLocationsPanel.classList.add('hidden');
+                }
+            };
+        }
     }
 
     function updateScrollIndicators(element) {

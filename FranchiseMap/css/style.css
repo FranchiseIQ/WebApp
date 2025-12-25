@@ -2539,6 +2539,123 @@ body {
     background: #e8e4f3;
 }
 
+.popup-save-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 4px 6px;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-save-btn:hover {
+    color: var(--roark-gold);
+    background: var(--bg-gray);
+}
+
+.popup-save-btn.saved {
+    color: var(--roark-gold);
+    background: #fef3c7;
+}
+
+/* Saved Locations Styles */
+.saved-location-item {
+    padding: 12px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    margin-bottom: 8px;
+    background: white;
+    transition: all var(--transition-fast);
+}
+
+.saved-location-item:hover {
+    box-shadow: var(--shadow-card);
+    transform: translateY(-1px);
+}
+
+.saved-location-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.saved-location-header h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.saved-ticker {
+    font-size: 0.75rem;
+    color: white;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+}
+
+.saved-location-details {
+    margin-bottom: 8px;
+}
+
+.saved-detail {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.saved-detail i {
+    color: var(--primary-purple);
+    width: 14px;
+}
+
+.saved-location-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.saved-location-btn {
+    flex: 1;
+    padding: 6px 8px;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.view-btn {
+    background: var(--primary-purple);
+    color: white;
+}
+
+.view-btn:hover {
+    background: var(--primary-purple-dark);
+}
+
+.remove-btn {
+    background: var(--bg-gray);
+    color: var(--text-medium);
+}
+
+.remove-btn:hover {
+    background: #e2e8f0;
+    color: var(--market-red);
+}
+
 .popup-address {
     font-size: 0.8rem;
     color: var(--text-light);

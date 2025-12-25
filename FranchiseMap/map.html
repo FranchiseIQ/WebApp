@@ -107,6 +107,26 @@
             <div id="competitor-analysis-content" class="high-performers-content"></div>
         </aside>
 
+        <!-- Saved Locations Panel -->
+        <aside id="saved-locations-panel" class="high-performers-panel hidden">
+            <div class="high-performers-header">
+                <div class="high-performers-title">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span>Saved Locations</span>
+                    <span id="saved-count" class="search-result-count">0</span>
+                </div>
+                <button id="close-saved-locations" class="close-high-performers-btn" title="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="saved-locations-content" class="high-performers-content">
+                <div class="empty-state">
+                    <i class="fa-regular fa-bookmark"></i>
+                    <p>No saved locations yet. Click the bookmark icon on a location popup to save it.</p>
+                </div>
+            </div>
+        </aside>
+
         <!-- Search Panel (Collapsible) -->
         <div id="search-panel" class="search-panel hidden">
             <div class="search-panel-header">
@@ -190,6 +210,9 @@
             </button>
             <button id="search-toggle-btn" class="control-btn" title="Search location or area">
                 <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <button id="saved-locations-toggle-btn" class="control-btn" title="View saved locations">
+                <i class="fa-solid fa-bookmark"></i>
             </button>
             <div class="control-divider"></div>
             <button id="btn-cluster-toggle" class="control-btn active" title="Switch to All Locations">
