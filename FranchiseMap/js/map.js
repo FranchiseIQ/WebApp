@@ -215,13 +215,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 for (const item of batch) {
-                    // Rate limiting: wait 150ms between requests
-                    await new Promise(r => setTimeout(r, 150));
+                    // Rate limiting: wait 1.5 seconds between requests to comply with Nominatim ToS
+                    // Nominatim requires maximum 1 request per second per IP per guidelines
+                    await new Promise(r => setTimeout(r, 1500));
 
                     try {
                         const response = await fetch(
                             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${item.lat}&lon=${item.lng}`,
-                            { signal: AbortSignal.timeout(4000) }
+                            {
+                                signal: AbortSignal.timeout(4000),
+                                headers: {
+                                    'User-Agent': 'FranchiseIQ-MapApp/1.0 (Location Analysis Tool)'
+                                }
+                            }
                         );
                         const data = await response.json();
 
@@ -2929,7 +2935,11 @@ document.addEventListener('DOMContentLoaded', () => {
         searchResults.innerHTML = '<div class="search-empty-state"><i class="fa-solid fa-hourglass-end"></i><div class="search-empty-state-title">Searching...</div></div>';
         if (resultCount) resultCount.style.display = 'none';
 
-        fetch(url)
+        fetch(url, {
+            headers: {
+                'User-Agent': 'FranchiseIQ-MapApp/1.0 (Location Analysis Tool)'
+            }
+        })
             .then(res => res.json())
             .then(results => {
                 searchResults.innerHTML = '';
