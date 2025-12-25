@@ -24,6 +24,16 @@
             --green: #22c55e;
         }
 
+        /* Light theme */
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --card: rgba(0,0,0,0.05);
+            --text: #0f172a;
+            --secondary: #475569;
+            --accent1: #4f46e5;
+            --accent2: #9333ea;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -2000,6 +2010,16 @@
                             <option value="UTC">UTC</option>
                         </select>
                     </div>
+                    <div class="settings-item">
+                        <label class="settings-label">Theme</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="theme-toggle" data-theme-toggle>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span style="font-size: 0.85em; color: var(--secondary); margin-left: 8px;">
+                            <span id="theme-label">Dark</span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="settings-footer">
@@ -2080,6 +2100,7 @@
 
         // Weather cache to avoid repeated API calls
         let weatherCache = {};
+        let currentLeague = 'NFL'; // Current league being viewed
         let currentWeek = null; // Will be set to the current week
         let gamesCache = {};
         let allGames = [];
@@ -2560,6 +2581,27 @@
             `;
         }
 
+        // Load favorite teams from preferences and apply to filter
+        function applyFavoriteTeamsToFilter() {
+            const prefs = preferences.getAll();
+            const favoriteTeams = prefs.favoriteTeams || [];
+
+            if (favoriteTeams.length > 0) {
+                selectedTeams.clear();
+                favoriteTeams.forEach(team => {
+                    selectedTeams.add(team);
+                });
+
+                // Update checkboxes to match selected teams
+                const checkboxes = document.querySelectorAll('#team-checkboxes input[type="checkbox"]');
+                checkboxes.forEach(cb => {
+                    cb.checked = selectedTeams.has(cb.value);
+                });
+
+                updateFilterButtonText();
+            }
+        }
+
         // Build team filter checkboxes based on current games
         function buildTeamFilter(games) {
             const teamsMap = new Map();
@@ -2603,6 +2645,9 @@
                     renderGames();
                 });
             });
+
+            // Apply favorite teams to filter
+            applyFavoriteTeamsToFilter();
         }
 
         // Update selected teams from checkboxes
@@ -3521,8 +3566,34 @@
             `;
         }
 
+        // Initialize current league from user preferences
+        function initializeCurrentLeague() {
+            const prefs = preferences.getAll();
+            const favoriteLeagues = prefs.favoriteLeagues && prefs.favoriteLeagues.length > 0
+                ? prefs.favoriteLeagues
+                : ['NFL'];
+
+            // Set currentLeague to first favorite league
+            currentLeague = favoriteLeagues[0];
+
+            // Mark favorite leagues in tabs
+            const leagueTabs = document.querySelectorAll('.league-tabs button');
+            leagueTabs.forEach(tab => {
+                const league = tab.dataset.league;
+                if (favoriteLeagues.includes(league)) {
+                    tab.style.fontWeight = '600';
+                    tab.style.opacity = '1';
+                } else {
+                    tab.style.opacity = '0.6';
+                }
+            });
+        }
+
         // Set up league tab click handlers
         function setupLeagueTabs() {
+            // Initialize current league from preferences
+            initializeCurrentLeague();
+
             document.querySelectorAll('.league-tabs button').forEach(btn => {
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.league-tabs button').forEach(b => b.classList.remove('active'));
@@ -3535,6 +3606,12 @@
                     renderGames();
                 });
             });
+
+            // Set active tab to currentLeague
+            const activeBtn = document.querySelector(`.league-tabs button[data-league="${currentLeague}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
         }
 
         // Generate prediction factor breakdown visualization
@@ -4166,6 +4243,39 @@
             overlay.classList.remove('open');
         }
 
+        // Apply theme from preferences
+        function applyTheme(theme) {
+            const htmlElement = document.documentElement;
+            if (theme === 'light') {
+                htmlElement.setAttribute('data-theme', 'light');
+            } else {
+                htmlElement.removeAttribute('data-theme');
+            }
+        }
+
+        // Initialize theme from preferences
+        function initializeTheme() {
+            const prefs = preferences.getAll();
+            const theme = prefs.theme || 'dark';
+            applyTheme(theme);
+
+            // If there's a dark/light toggle in settings, update it
+            const themeToggle = document.querySelector('[data-theme-toggle]');
+            if (themeToggle) {
+                themeToggle.checked = theme === 'light';
+            }
+        }
+
+        // Toggle theme
+        function toggleTheme() {
+            const htmlElement = document.documentElement;
+            const currentTheme = htmlElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            applyTheme(newTheme);
+            preferences.set('theme', newTheme);
+        }
+
         // Settings modal functions
         function openSettings() {
             const modal = document.getElementById('settings-modal');
@@ -4214,6 +4324,25 @@
             document.getElementById('quiet-end').innerHTML = Array.from({ length: 24 }, (_, i) => `
                 <option value="${i}" ${i === prefs.quietHoursEnd ? 'selected' : ''}>${i.toString().padStart(2, '0')}:00</option>
             `).join('');
+
+            // Load theme preference
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeLabel = document.getElementById('theme-label');
+            const currentTheme = prefs.theme || 'dark';
+            themeToggle.checked = currentTheme === 'light';
+            themeLabel.textContent = currentTheme === 'light' ? 'Light' : 'Dark';
+
+            // Add theme toggle change listener
+            themeToggle.removeEventListener('change', onThemeToggleChange);
+            themeToggle.addEventListener('change', onThemeToggleChange);
+        }
+
+        // Theme toggle change handler
+        function onThemeToggleChange(e) {
+            const newTheme = e.target.checked ? 'light' : 'dark';
+            const themeLabel = document.getElementById('theme-label');
+            themeLabel.textContent = newTheme === 'light' ? 'Light' : 'Dark';
+            applyTheme(newTheme);
         }
 
         // Save settings to preferences
@@ -4239,6 +4368,11 @@
             preferences.set('quietHoursEnd', parseInt(document.getElementById('quiet-end').value));
             preferences.set('timeZone', document.getElementById('timezone-select').value);
 
+            // Save theme preference
+            const themeToggle = document.getElementById('theme-toggle');
+            const newTheme = themeToggle.checked ? 'light' : 'dark';
+            preferences.set('theme', newTheme);
+
             // Show success message
             showToast('Preferences saved successfully', 'success');
             closeSettings();
@@ -4249,6 +4383,7 @@
             if (confirm('Are you sure you want to reset all preferences to defaults?')) {
                 preferences.reset();
                 loadSettingsUI();
+                initializeTheme();
                 showToast('Preferences reset to defaults', 'info');
             }
         }
@@ -4609,6 +4744,9 @@
         }
 
         async function init() {
+            // Initialize theme and preferences
+            initializeTheme();
+
             setupLeagueTabs();
             setupTeamFilter();
             setupModalEvents();
