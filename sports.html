@@ -2290,6 +2290,9 @@
             🔔
             <span class="notification-badge" id="notification-badge" style="display: none;">0</span>
         </button>
+        <button class="notification-btn-nav" id="analytics-btn" onclick="openAnalyticsDashboard()" title="Analytics">
+            📊
+        </button>
         <button class="settings-btn-nav" onclick="openSettings()" title="Preferences">⚙️</button>
     </nav>
 
@@ -2562,6 +2565,22 @@
         </div>
         <div class="notification-list" id="notification-list">
             <div class="notification-empty">No notifications yet</div>
+        </div>
+    </div>
+
+    <!-- Analytics Dashboard Panel -->
+    <div class="notification-center" id="analytics-dashboard">
+        <div class="notification-center-header">
+            <h2>Analytics</h2>
+            <button class="notification-center-close" onclick="closeAnalyticsDashboard()">✕</button>
+        </div>
+        <div class="notification-center-actions">
+            <button class="notification-clear-btn" onclick="clearAnalyticsHistory()">Clear History</button>
+        </div>
+        <div style="padding: 16px; overflow-y: auto; flex: 1;">
+            <div id="analytics-content">
+                <div class="notification-empty">Loading analytics...</div>
+            </div>
         </div>
     </div>
 
@@ -4389,6 +4408,212 @@
 
         const notificationManager = new NotificationManager();
 
+        // Analytics Manager Class
+        class AnalyticsManager {
+            constructor() {
+                this.gameHistory = JSON.parse(localStorage.getItem('game_history') || '[]');
+                this.predictions = JSON.parse(localStorage.getItem('game_predictions') || '[]');
+                this.teamStats = {};
+                this.seasonStats = {};
+                this.buildStats();
+            }
+
+            recordGame(game) {
+                const gameId = `${game.homeTeam?.shortName || game.homeTeam?.name}-${game.awayTeam?.shortName || game.awayTeam?.name}-${game.startTime}`;
+
+                // Check if game already recorded
+                if (this.gameHistory.find(g => g.id === gameId)) {
+                    return; // Game already recorded
+                }
+
+                const finalGame = {
+                    id: gameId,
+                    league: game.league || 'UNKNOWN',
+                    date: new Date(game.startTime).toISOString().split('T')[0],
+                    homeTeam: game.homeTeam?.shortName || game.homeTeam?.name,
+                    awayTeam: game.awayTeam?.shortName || game.awayTeam?.name,
+                    homeScore: game.homeScore ?? 0,
+                    awayScore: game.awayScore ?? 0,
+                    status: normalizeStatus(game),
+                    recordedAt: new Date().toISOString()
+                };
+
+                if (finalGame.status === 'FINAL') {
+                    this.gameHistory.unshift(finalGame);
+                    if (this.gameHistory.length > 500) {
+                        this.gameHistory.pop(); // Keep last 500 games
+                    }
+                    this.save();
+                    this.buildStats();
+                }
+            }
+
+            recordPrediction(game, prediction) {
+                const predictionRecord = {
+                    id: `${game.homeTeam?.shortName}-${game.awayTeam?.shortName}-${game.startTime}`,
+                    league: game.league || 'UNKNOWN',
+                    date: new Date(game.startTime).toISOString().split('T')[0],
+                    homeTeam: game.homeTeam?.shortName || game.homeTeam?.name,
+                    awayTeam: game.awayTeam?.shortName || game.awayTeam?.name,
+                    prediction: prediction, // 'HOME', 'AWAY', 'OVER', 'UNDER'
+                    homeScore: game.homeScore,
+                    awayScore: game.awayScore,
+                    status: normalizeStatus(game),
+                    correct: null,
+                    recordedAt: new Date().toISOString()
+                };
+
+                // Check if prediction already recorded
+                const existing = this.predictions.find(p => p.id === predictionRecord.id);
+                if (!existing) {
+                    this.predictions.unshift(predictionRecord);
+                    if (this.predictions.length > 500) {
+                        this.predictions.pop();
+                    }
+                    this.save();
+                }
+            }
+
+            buildStats() {
+                this.teamStats = {};
+                this.seasonStats = {};
+
+                this.gameHistory.forEach(game => {
+                    if (game.status !== 'FINAL') return;
+
+                    // Initialize team stats if not exists
+                    if (!this.teamStats[game.homeTeam]) {
+                        this.teamStats[game.homeTeam] = {
+                            team: game.homeTeam,
+                            wins: 0,
+                            losses: 0,
+                            ties: 0,
+                            pointsFor: 0,
+                            pointsAgainst: 0,
+                            games: []
+                        };
+                    }
+                    if (!this.teamStats[game.awayTeam]) {
+                        this.teamStats[game.awayTeam] = {
+                            team: game.awayTeam,
+                            wins: 0,
+                            losses: 0,
+                            ties: 0,
+                            pointsFor: 0,
+                            pointsAgainst: 0,
+                            games: []
+                        };
+                    }
+
+                    // Update league season stats
+                    if (!this.seasonStats[game.league]) {
+                        this.seasonStats[game.league] = {
+                            league: game.league,
+                            totalGames: 0,
+                            teamRecords: {}
+                        };
+                    }
+                    this.seasonStats[game.league].totalGames++;
+
+                    // Record game and update stats
+                    const homeStats = this.teamStats[game.homeTeam];
+                    const awayStats = this.teamStats[game.awayTeam];
+
+                    homeStats.pointsFor += game.homeScore;
+                    homeStats.pointsAgainst += game.awayScore;
+                    awayStats.pointsFor += game.awayScore;
+                    awayStats.pointsAgainst += game.homeScore;
+
+                    homeStats.games.push({
+                        opponent: game.awayTeam,
+                        pointsFor: game.homeScore,
+                        pointsAgainst: game.awayScore,
+                        result: game.homeScore > game.awayScore ? 'W' : game.homeScore < game.awayScore ? 'L' : 'T',
+                        date: game.date
+                    });
+                    awayStats.games.push({
+                        opponent: game.homeTeam,
+                        pointsFor: game.awayScore,
+                        pointsAgainst: game.homeScore,
+                        result: game.awayScore > game.homeScore ? 'W' : game.awayScore < game.homeScore ? 'L' : 'T',
+                        date: game.date
+                    });
+
+                    // Update wins/losses
+                    if (game.homeScore > game.awayScore) {
+                        homeStats.wins++;
+                        awayStats.losses++;
+                    } else if (game.awayScore > game.homeScore) {
+                        awayStats.wins++;
+                        homeStats.losses++;
+                    } else {
+                        homeStats.ties++;
+                        awayStats.ties++;
+                    }
+                });
+            }
+
+            getTeamStats(team) {
+                return this.teamStats[team] || null;
+            }
+
+            getLeagueStats(league) {
+                return this.seasonStats[league] || null;
+            }
+
+            getAllTeamStats() {
+                return Object.values(this.teamStats)
+                    .sort((a, b) => {
+                        const aWinPct = a.wins / (a.wins + a.losses + a.ties) || 0;
+                        const bWinPct = b.wins / (b.wins + b.losses + b.ties) || 0;
+                        return bWinPct - aWinPct;
+                    });
+            }
+
+            getPredictionAccuracy() {
+                if (this.predictions.length === 0) return { correct: 0, total: 0, accuracy: 0 };
+
+                let correct = 0;
+                let total = 0;
+
+                this.predictions.forEach(pred => {
+                    if (pred.status === 'FINAL') {
+                        total++;
+                        if (pred.prediction === 'HOME' && pred.homeScore > pred.awayScore) {
+                            correct++;
+                        } else if (pred.prediction === 'AWAY' && pred.awayScore > pred.homeScore) {
+                            correct++;
+                        }
+                    }
+                });
+
+                return {
+                    correct,
+                    total,
+                    accuracy: total > 0 ? Math.round((correct / total) * 100) : 0
+                };
+            }
+
+            getRecentGames(count = 10) {
+                return this.gameHistory.slice(0, count);
+            }
+
+            save() {
+                localStorage.setItem('game_history', JSON.stringify(this.gameHistory));
+                localStorage.setItem('game_predictions', JSON.stringify(this.predictions));
+            }
+
+            clearHistory() {
+                this.gameHistory = [];
+                this.predictions = [];
+                this.teamStats = {};
+                this.seasonStats = {};
+                this.save();
+            }
+        }
+
+        const analyticsManager = new AnalyticsManager();
+
         // Build unified card for both completed and upcoming games
         async function buildUnifiedCard(game, leagueKey) {
             const homeTeam = game.homeTeam || {};
@@ -5326,6 +5551,69 @@
             }
         }
 
+        // Analytics Dashboard Functions
+        function openAnalyticsDashboard() {
+            const dashboard = document.getElementById('analytics-dashboard');
+            dashboard.classList.add('open');
+            displayAnalyticsContent();
+        }
+
+        function closeAnalyticsDashboard() {
+            const dashboard = document.getElementById('analytics-dashboard');
+            dashboard.classList.remove('open');
+        }
+
+        function displayAnalyticsContent() {
+            const content = document.getElementById('analytics-content');
+            const accuracy = analyticsManager.getPredictionAccuracy();
+            const teamStats = analyticsManager.getAllTeamStats();
+            const recentGames = analyticsManager.getRecentGames(5);
+
+            let html = `
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 12px 0; color: var(--text); font-size: 1em;">Prediction Accuracy</h3>
+                    <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid var(--accent1); padding: 12px; border-radius: 6px;">
+                        <div style="font-size: 2em; font-weight: 700; color: var(--accent1);">${accuracy.accuracy}%</div>
+                        <div style="font-size: 0.85em; color: var(--secondary); margin-top: 4px;">${accuracy.correct} correct out of ${accuracy.total} predictions</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 12px 0; color: var(--text); font-size: 1em;">Team Standings</h3>
+                    <div style="font-size: 0.85em;">
+                        ${teamStats.slice(0, 5).map(stat => `
+                            <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <span style="color: var(--text); font-weight: 600;">${stat.team}</span>
+                                <span style="color: var(--secondary);">${stat.wins}-${stat.losses}${stat.ties ? `-${stat.ties}` : ''}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="margin: 0 0 12px 0; color: var(--text); font-size: 1em;">Recent Games</h3>
+                    <div style="font-size: 0.8em;">
+                        ${recentGames.length === 0 ? '<div style="color: var(--secondary); text-align: center; padding: 16px;">No games recorded yet</div>' : recentGames.map(game => `
+                            <div style="padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div style="color: var(--text); font-weight: 600; margin-bottom: 4px;">${game.awayTeam} @ ${game.homeTeam}</div>
+                                <div style="color: var(--secondary);">${game.awayScore} - ${game.homeScore} <span style="margin-left: 8px; font-size: 0.75em;">${game.date}</span></div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            content.innerHTML = html;
+        }
+
+        function clearAnalyticsHistory() {
+            if (confirm('Clear all analytics history? This cannot be undone.')) {
+                analyticsManager.clearHistory();
+                displayAnalyticsContent();
+                showToast('Analytics history cleared', 'info');
+            }
+        }
+
         // Load settings UI from preferences
         function loadSettingsUI() {
             const prefs = preferences.getAll();
@@ -5817,6 +6105,10 @@
         window.closeNotificationCenter = closeNotificationCenter;
         window.removeNotification = removeNotification;
         window.clearAllNotifications = clearAllNotifications;
+        window.openAnalyticsDashboard = openAnalyticsDashboard;
+        window.closeAnalyticsDashboard = closeAnalyticsDashboard;
+        window.displayAnalyticsContent = displayAnalyticsContent;
+        window.clearAnalyticsHistory = clearAnalyticsHistory;
 
         // Start
         document.addEventListener('DOMContentLoaded', init);
