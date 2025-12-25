@@ -560,6 +560,21 @@ class EvaluationPage {
         interpretation: scoreResult.interpretation.label
       });
     }
+
+    // Initialize export functionality with complete evaluation data
+    if (typeof ExportReports !== 'undefined') {
+      const marketMetrics = this.calculateMarketMetrics();
+      const evaluation = {
+        brand: this.currentBrand,
+        market: this.currentMarket,
+        score: scoreResult.score,
+        interpretation: scoreResult.interpretation,
+        components: scoreResult.components,
+        metrics: marketMetrics,
+        timestamp: Date.now()
+      };
+      ExportReports.initializeExport(evaluation);
+    }
   }
 
   getBrandName(ticker) {

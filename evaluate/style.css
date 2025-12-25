@@ -1863,3 +1863,156 @@
     padding: 8px 6px;
   }
 }
+
+/* EXPORT AND REPORTING STYLES */
+
+.export-menu {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.export-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text);
+}
+
+.export-btn:hover {
+  background: var(--accent1);
+  color: white;
+  border-color: var(--accent1);
+}
+
+.export-btn:active {
+  transform: scale(0.98);
+}
+
+.export-btn .icon {
+  font-size: 14px;
+}
+
+.export-btn.export-csv:hover {
+  background: rgb(34, 197, 94);
+  border-color: rgb(34, 197, 94);
+}
+
+.export-btn.export-json:hover {
+  background: rgb(99, 102, 241);
+  border-color: rgb(99, 102, 241);
+}
+
+.export-btn.export-html:hover {
+  background: rgb(59, 130, 246);
+  border-color: rgb(59, 130, 246);
+}
+
+.export-btn.export-print:hover {
+  background: rgb(168, 85, 247);
+  border-color: rgb(168, 85, 247);
+}
+
+.copy-summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text);
+  margin-top: 8px;
+}
+
+.copy-summary:hover {
+  background: var(--accent2);
+  color: white;
+  border-color: var(--accent2);
+}
+
+.share-link-container {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+  margin-top: 12px;
+}
+
+.share-link-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: monospace;
+  background: var(--bg-secondary);
+  color: var(--text);
+}
+
+.share-link-btn {
+  padding: 8px 14px;
+  background: var(--accent2);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.share-link-btn:hover {
+  background: var(--accent1);
+}
+
+@media (max-width: 768px) {
+  .export-menu {
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .export-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .export-btn .icon {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .export-menu {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .export-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .share-link-container {
+    flex-direction: column;
+  }
+
+  .share-link-input {
+    width: 100%;
+  }
+}
