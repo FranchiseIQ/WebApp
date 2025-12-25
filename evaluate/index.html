@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="description" content="Franchise Evaluation - Find the right franchise opportunity with market intelligence.">
+    <meta name="keywords" content="franchise evaluation, market analysis, unit economics, franchise opportunities">
+    <meta name="author" content="FranResearch">
+    <meta name="robots" content="index, follow">
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <title>Franchise Evaluation - FranResearch</title>
+    <link rel="icon" href="../logo.svg" type="image/svg+xml">
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Ticker Widget Styles -->
+    <link rel="stylesheet" href="../Website/style.css">
+</head>
+<body class="has-fixed-ticker has-fixed-nav">
+
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="page-wrapper">
+        <!-- =================================================================
+             LIVE STOCK TICKER - Fixed at top
+             ================================================================= -->
+        <div class="ticker-wrapper-global">
+            <div id="closing-message" style="display: none; background: #ff9800; color: white; text-align: center; padding: 8px; font-weight: 600; font-size: 14px;">
+                Showing Closing Prices
+            </div>
+            <div id="status-bar">
+                <div id="clock-section">
+                    <span id="clock">--:--:-- --</span>
+                    <span id="timezone">ET</span>
+                </div>
+                <div id="market-status-section">
+                    <span id="market-indicator" class="closed"></span>
+                    <span id="market-label">Market Closed</span>
+                </div>
+                <div id="last-updated-section" style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-size: 12px; color: #999;">Updated:</span>
+                    <span id="last-updated" style="font-weight: 600; font-size: 13px; color: #667eea;">--:--</span>
+                </div>
+                <div id="refresh-section">
+                    <span id="refresh-label">Next:</span>
+                    <span id="countdown">60:00</span>
+                </div>
+            </div>
+            <div id="ticker-container">
+                <div id="ticker-content"></div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             NAVIGATION - Fixed below ticker
+             ================================================================= -->
+        <nav class="site-nav below-ticker" role="navigation" aria-label="Main navigation">
+            <a href="../index.html" class="nav-brand">
+                <img src="../logo.svg" alt="FranResearch" width="32" height="32">
+                <span>FranResearch</span>
+            </a>
+            <div class="nav-links">
+                <a href="../StockChart/chart.html" class="nav-link">Charts</a>
+                <a href="../FranchiseMap/map.html" class="nav-link">Map</a>
+                <a href="../FranchiseNews/news-feed.html" class="nav-link">News</a>
+                <a href="../sports.html" class="nav-link">Sports</a>
+                <a href="../franchise_calculators_module/index.html" class="nav-link">Calculators</a>
+                <a href="../about.html" class="nav-link">About</a>
+            </div>
+        </nav>
+
+        <!-- =================================================================
+             MAIN CONTENT
+             ================================================================= -->
+        <main id="main-content">
+            <!-- BRAND HEADER BLOCK -->
+            <section class="brand-header-section">
+                <div class="shell">
+                    <div class="brand-header-content">
+                        <div class="brand-info">
+                            <h1 id="brand-name-heading">--</h1>
+                            <div id="brand-stats" class="brand-stats">
+                                <span id="brand-price" class="stat">Price: --</span>
+                                <span id="brand-change" class="stat">Change: --</span>
+                                <span id="brand-units" class="stat">Units: --</span>
+                            </div>
+                        </div>
+                        <div class="brand-controls">
+                            <div class="control-group">
+                                <label for="brand-select">Change Brand</label>
+                                <select id="brand-select" class="control-select">
+                                    <option value="">Loading brands...</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label for="market-select">Select Market</label>
+                                <select id="market-select" class="control-select">
+                                    <option value="">Select a state...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DECISION SUMMARY -->
+            <section class="decision-summary-section">
+                <div class="shell">
+                    <div class="decision-card">
+                        <div class="decision-header">
+                            <h2>Market Opportunity Assessment</h2>
+                            <p>Data-driven evaluation of franchise potential in your selected market</p>
+                        </div>
+
+                        <div class="decision-score">
+                            <div class="score-display">
+                                <div class="score-number" id="opportunity-score">--</div>
+                                <div class="score-label">Market Opportunity Score</div>
+                            </div>
+                            <div class="score-interpretation">
+                                <div id="opportunity-label" class="interpretation-label">--</div>
+                                <div id="opportunity-description" class="interpretation-description">
+                                    Select a brand and market to calculate the score
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="decision-insights">
+                            <h3>Key Insights</h3>
+                            <ul id="insights-list" class="insights-list">
+                                <li>Select a brand and market to see insights</li>
+                            </ul>
+                        </div>
+
+                        <div class="decision-actions">
+                            <button class="btn btn-primary" id="adjust-assumptions-btn">
+                                Adjust Assumptions
+                            </button>
+                            <button class="btn btn-secondary" id="compare-btn">
+                                Compare to Other Brands
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TABBED CONTENT SECTIONS -->
+            <section class="tabs-section">
+                <div class="shell">
+                    <div class="tabs-container">
+                        <!-- Tab Navigation -->
+                        <div class="tabs-nav">
+                            <button class="tab-button active" data-tab="overview">Overview</button>
+                            <button class="tab-button" data-tab="location">Location Analysis</button>
+                            <button class="tab-button" data-tab="economics">Unit Economics</button>
+                            <button class="tab-button" data-tab="risk">Risk Factors</button>
+                        </div>
+
+                        <!-- Tab Content -->
+                        <div class="tabs-content">
+                            <!-- OVERVIEW TAB -->
+                            <div class="tab-pane active" id="tab-overview">
+                                <div class="tab-inner">
+                                    <h3>Brand Performance Overview</h3>
+
+                                    <div class="overview-grid">
+                                        <div class="overview-card">
+                                            <h4>Stock Performance</h4>
+                                            <div id="overview-stock-chart" class="chart-placeholder">
+                                                <p>Loading chart...</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="overview-card">
+                                            <h4>Key Metrics</h4>
+                                            <div id="overview-metrics" class="metrics-block">
+                                                <div class="metric">
+                                                    <span class="metric-label">YTD Performance</span>
+                                                    <span id="metric-ytd" class="metric-value">--</span>
+                                                </div>
+                                                <div class="metric">
+                                                    <span class="metric-label">Unit Growth YoY</span>
+                                                    <span id="metric-growth" class="metric-value">--</span>
+                                                </div>
+                                                <div class="metric">
+                                                    <span class="metric-label">Current Price</span>
+                                                    <span id="metric-price" class="metric-value">--</span>
+                                                </div>
+                                                <div class="metric">
+                                                    <span class="metric-label">Total Units Tracked</span>
+                                                    <span id="metric-units" class="metric-value">--</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="overview-card full-width">
+                                            <h4>Top Performing Markets</h4>
+                                            <div id="top-markets" class="markets-list">
+                                                <p>Loading market data...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- LOCATION ANALYSIS TAB -->
+                            <div class="tab-pane" id="tab-location">
+                                <div class="tab-inner">
+                                    <h3>Market Location Analysis</h3>
+
+                                    <div class="location-grid">
+                                        <div class="location-metrics">
+                                            <h4>Market Saturation Metrics</h4>
+                                            <div id="saturation-metrics" class="metrics-block">
+                                                <div class="metric">
+                                                    <span class="metric-label">Density (units per 100k)</span>
+                                                    <span id="metric-density" class="metric-value">--</span>
+                                                </div>
+                                                <div class="metric">
+                                                    <span class="metric-label">Competitors (within 5 mi)</span>
+                                                    <span id="metric-competitors" class="metric-value">--</span>
+                                                </div>
+                                                <div class="metric">
+                                                    <span class="metric-label">Avg Site Score</span>
+                                                    <span id="metric-site-score" class="metric-value">--</span>
+                                                </div>
+                                                <div class="metric">
+                                                    <span class="metric-label">Median Income</span>
+                                                    <span id="metric-income" class="metric-value">--</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="location-map">
+                                            <h4>Location Distribution</h4>
+                                            <div id="map-container" class="map-placeholder">
+                                                <p><a href="../FranchiseMap/map.html" target="_blank">Open full map viewer →</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- UNIT ECONOMICS TAB -->
+                            <div class="tab-pane" id="tab-economics">
+                                <div class="tab-inner">
+                                    <h3>Unit Economics & Financial Modeling</h3>
+
+                                    <div class="economics-grid">
+                                        <div class="economics-card">
+                                            <h4>Estimated Unit Performance</h4>
+                                            <p class="text-muted">Based on industry data and market adjustments</p>
+                                            <div id="economics-metrics" class="metrics-block">
+                                                <div class="metric">
+                                                    <span class="metric-label">Avg Unit Revenue</span>
+                                                    <span id="metric-revenue" class="metric-value">--</span>
+                                                </div>
+                                                <div class="metric">
+                                                    <span class="metric-label">Operating Margin</span>
+                                                    <span id="metric-margin" class="metric-value">--</span>
+                                                </div>
+                                                <div class="metric">
+                                                    <span class="metric-label">Est. Net Income</span>
+                                                    <span id="metric-net-income" class="metric-value">--</span>
+                                                </div>
+                                                <div class="metric">
+                                                    <span class="metric-label">Initial Investment</span>
+                                                    <span id="metric-investment" class="metric-value">--</span>
+                                                </div>
+                                                <div class="metric">
+                                                    <span class="metric-label">Break-even Period</span>
+                                                    <span id="metric-breakeven" class="metric-value">--</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="economics-card">
+                                            <h4>Run Custom Scenarios</h4>
+                                            <p class="text-muted">Model different assumptions and investment scenarios</p>
+                                            <a href="../franchise_calculators_module/index.html" class="btn btn-secondary" target="_blank">
+                                                Open Calculator →
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RISK TAB -->
+                            <div class="tab-pane" id="tab-risk">
+                                <div class="tab-inner">
+                                    <h3>Risk Assessment</h3>
+
+                                    <div class="risk-container">
+                                        <div id="risk-factors" class="risk-factors">
+                                            <p>Select a brand and market to assess risk factors</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- METHODOLOGY DISCLOSURE -->
+            <section class="methodology-section">
+                <div class="shell">
+                    <div class="methodology-card">
+                        <button class="methodology-toggle" id="methodology-toggle">
+                            <span>How This Score Is Calculated</span>
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                        <div class="methodology-content" id="methodology-content">
+                            <div class="methodology-grid">
+                                <div class="methodology-item">
+                                    <h4>Brand Health (40%)</h4>
+                                    <ul>
+                                        <li><strong>Stock Performance (20%)</strong> - YTD price movement indicates momentum and investor confidence</li>
+                                        <li><strong>Unit Growth (20%)</strong> - Year-over-year unit expansion shows market acceptance</li>
+                                    </ul>
+                                </div>
+                                <div class="methodology-item">
+                                    <h4>Market Attractiveness (30%)</h4>
+                                    <ul>
+                                        <li><strong>Density (15%)</strong> - Units per 100k population; lower is better for new entrants</li>
+                                        <li><strong>Competition (15%)</strong> - Competitive brand locations within 5 miles; fewer is better</li>
+                                    </ul>
+                                </div>
+                                <div class="methodology-item">
+                                    <h4>Site Quality (30%)</h4>
+                                    <ul>
+                                        <li><strong>Market Site Scores (30%)</strong> - Average location scores in your selected market reflect visibility, accessibility, and demographics</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="methodology-interpretation">
+                                <h4>Score Interpretation</h4>
+                                <table class="interpretation-table">
+                                    <tr>
+                                        <td><strong>80-100</strong></td>
+                                        <td>Strong Opportunity</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>60-79</strong></td>
+                                        <td>Moderate Opportunity</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>40-59</strong></td>
+                                        <td>Challenging Market</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>0-39</strong></td>
+                                        <td>High Risk</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- =================================================================
+             FOOTER
+             ================================================================= -->
+        <footer class="site-footer">
+            <div class="shell">
+                <div class="footer-grid">
+                    <div class="footer-section">
+                        <h4>Tools</h4>
+                        <ul>
+                            <li><a href="../StockChart/chart.html">Stock Charts</a></li>
+                            <li><a href="../Website/ticker.html">Live Ticker</a></li>
+                            <li><a href="../FranchiseMap/map.html">Franchise Map</a></li>
+                            <li><a href="../FranchiseNews/news-feed.html">News Feed</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="../sports.html">Sports Dashboard</a></li>
+                            <li><a href="../franchise_calculators_module/index.html">Calculators</a></li>
+                            <li><a href="../about.html">About Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Data Sources</h4>
+                        <p>Stock data via Finnhub API. Location data covers 22,000+ mapped franchises. Site scores based on demographic and accessibility analysis.</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    &copy; 2024 FranResearch. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- =================================================================
+         SCRIPTS
+         ================================================================= -->
+    <!-- Shared Utilities -->
+    <script src="../src/js/config/app.config.js"></script>
+    <script src="../src/js/utils/formatters.js"></script>
+    <script src="../src/js/utils/dom.js"></script>
+    <script src="../src/js/utils/storage.js"></script>
+    <script src="../src/js/utils/market.js"></script>
+    <script src="../src/js/api/dataService.js"></script>
+    <script src="../src/js/utils/index.js"></script>
+
+    <!-- Scoring Module -->
+    <script src="scoring.js"></script>
+
+    <!-- Comparison Module -->
+    <script src="comparison.js"></script>
+
+    <!-- Metrics Dashboard -->
+    <script src="metrics-dashboard.js"></script>
+
+    <!-- Brand Search Module -->
+    <script src="brand-search.js"></script>
+
+    <!-- Saved Evaluations Module -->
+    <script src="saved-evaluations.js"></script>
+
+    <!-- Unit Economics Calculator -->
+    <script src="unit-economics.js"></script>
+
+    <!-- Financial Visualizations -->
+    <script src="financial-visualizations.js"></script>
+
+    <!-- Demographics Analytics -->
+    <script src="demographics.js"></script>
+
+    <!-- Export and Reporting -->
+    <script src="export-reports.js"></script>
+
+    <!-- Trends and Forecasting -->
+    <script src="trends-analysis.js"></script>
+
+    <!-- Page Scripts -->
+    <script src="../Website/ticker.js"></script>
+    <script src="evaluate.js"></script>
+</body>
+</html>

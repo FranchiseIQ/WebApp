@@ -460,29 +460,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const color = getColor(item.ticker);
             const isRoark = item.is_roark || false;
 
-            const btn = document.createElement('button');
-            btn.className = 'brand-pill' + (isRoark ? ' roark' : '');
-            btn.dataset.ticker = item.ticker;
-            btn.dataset.file = item.file;
+            // Handle multi-brand companies (like DIN with IHOP, Applebee's, Fuzzy's Taco Shop)
+            // Create separate buttons for each brand, but all reference the same ticker
+            const brands = item.brands || [item.name || item.ticker];
 
-            // Format brand name and ticker separately
-            const brandName = item.brands[0] || item.ticker;
+            brands.forEach(brandName => {
+                const btn = document.createElement('button');
+                btn.className = 'brand-pill' + (isRoark ? ' roark' : '');
+                btn.dataset.ticker = item.ticker;
+                btn.dataset.file = item.file;
+                btn.dataset.brand = brandName; // Track individual brand name
 
-            btn.innerHTML = `
-                <span class="brand-dot" style="background-color: ${color}"></span>
-                <div class="brand-info">
-                    <div class="brand-name">${brandName}</div>
-                    <div class="brand-ticker">${item.ticker}</div>
-                </div>
-                <span class="brand-count">${item.count.toLocaleString()}</span>
-            `;
+                // For multi-brand entries like DIN, show the brand name with ticker in parentheses
+                const displayName = brands.length > 1
+                    ? `${brandName} (${item.ticker})`
+                    : brandName;
 
-            btn.onclick = () => {
-                toggleTicker(item.ticker, item.file);
-                btn.classList.toggle('active');
-            };
+                btn.innerHTML = `
+                    <span class="brand-dot" style="background-color: ${color}"></span>
+                    <div class="brand-info">
+                        <div class="brand-name">${displayName}</div>
+                        <div class="brand-ticker">${item.ticker}</div>
+                    </div>
+                    <span class="brand-count">${item.count.toLocaleString()}</span>
+                `;
 
-            container.appendChild(btn);
+                btn.onclick = () => {
+                    toggleTicker(item.ticker, item.file);
+                    btn.classList.toggle('active');
+                };
+
+                container.appendChild(btn);
+            });
         });
     }
 
@@ -1592,6 +1601,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2500);
     }
 
+    /**
+     * Update toggle view button state, styling, and title
+     * @param {boolean} isSaved - Whether a view is currently saved
+     */
+    function updateToggleViewButton(isSaved) {
+        const btn = document.getElementById('btn-toggle-view');
+        if (!btn) return;
+
+        if (isSaved) {
+            // View is saved - show "Reset View" state (gold/yellow)
+            btn.classList.add('view-saved');
+            btn.setAttribute('title', 'Reset View');
+        } else {
+            // View is not saved - show "Save View" state (white)
+            btn.classList.remove('view-saved');
+            btn.setAttribute('title', 'Save Current View');
+        }
+    }
+
+    /**
+     * Toggle between saving and resetting the current map view
+     */
+    function toggleSavedView() {
+        const isSavedViewActive = getSavedView() !== null;
+
+        if (isSavedViewActive) {
+            // View is currently saved - reset it
+            resetStartView();
+            updateToggleViewButton(false);
+        } else {
+            // View is not saved - save it
+            saveStartView();
+            updateToggleViewButton(true);
+        }
+    }
+
     function setupRail() {
         // Home button - navigate to saved view or default US center
         document.getElementById('btn-home').onclick = () => {
@@ -1622,11 +1667,14 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Unable to access your location. Check browser permissions.');
         });
 
-        // Save Start View button
-        document.getElementById('btn-save-view').onclick = saveStartView;
-
-        // Reset Start View button
-        document.getElementById('btn-reset-view').onclick = resetStartView;
+        // Toggle View button - combines save and reset functionality
+        const toggleViewBtn = document.getElementById('btn-toggle-view');
+        if (toggleViewBtn) {
+            toggleViewBtn.onclick = toggleSavedView;
+            // Initialize button state based on whether a view is already saved
+            const isSaved = getSavedView() !== null;
+            updateToggleViewButton(isSaved);
+        }
 
         // Initialize save button state on page load
         updateSaveButtonState();

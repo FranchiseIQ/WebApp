@@ -101,8 +101,10 @@
   font-weight: 600;
   border: none;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   text-decoration: none;
+  min-height: 44px;
+  gap: 8px;
 }
 
 .btn-primary {
@@ -116,6 +118,23 @@
   box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
 }
 
+.btn-primary:focus-visible {
+  outline: 2px solid #a5b4fc;
+  outline-offset: 2px;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 .btn-secondary {
   background: rgba(255, 255, 255, 0.08);
   color: #e2e8f0;
@@ -124,18 +143,47 @@
 
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid #cbd5e1;
+  outline-offset: 2px;
+}
+
+.btn-secondary:active {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .btn-sm {
   padding: 8px 14px;
   font-size: 13px;
   border-radius: 8px;
+  min-height: 36px;
 }
 
 .btn-lg {
   padding: 16px 28px;
   font-size: 17px;
   border-radius: 12px;
+  min-height: 52px;
+}
+
+/* Button Group Utility */
+.btn-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-group-compact {
+  gap: 6px;
 }
 
 /* Hero Elements */
