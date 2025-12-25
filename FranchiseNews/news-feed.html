@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="news-widget.css?v=1.0">
 
     <style>
+        /* Page-specific styles - ticker/nav styles from global.css */
         * {
             margin: 0;
             padding: 0;
@@ -50,81 +51,6 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-        }
-
-        /* Global Ticker - Fixed positioning */
-        .global-ticker {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 300;
-            background: #0a0a0a;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.16);
-            overflow: hidden;
-        }
-
-        .global-ticker iframe {
-            width: 100%;
-            height: 120px;
-            border: none;
-            display: block;
-            overflow: hidden;
-        }
-
-        /* Navigation Bar - Fixed below ticker */
-        .main-nav {
-            position: fixed;
-            top: 120px;
-            left: 0;
-            width: 100%;
-            z-index: 299;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: rgba(15, 23, 42, 0.95);
-            padding: 12px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            backdrop-filter: blur(12px);
-            overflow-x: auto;
-            box-sizing: border-box;
-        }
-
-        .main-nav .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--text, #f8fafc);
-            margin-right: auto;
-        }
-
-        .main-nav .nav-brand img {
-            height: 28px;
-            width: auto;
-        }
-
-        .main-nav a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            white-space: nowrap;
-            padding: 6px 10px;
-            border-radius: 6px;
-            transition: color 0.15s, background 0.15s;
-        }
-
-        .main-nav a:hover {
-            color: var(--text, #f8fafc);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .main-nav a.active {
-            color: var(--accent1, #6366f1);
-            background: rgba(99, 102, 241, 0.15);
         }
 
         /* Header - hidden since we have global nav */
