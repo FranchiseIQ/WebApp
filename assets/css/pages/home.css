@@ -93,29 +93,14 @@
   border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Stats row */
-.hero-stats {
-  display: flex;
-  justify-content: center;
-  gap: 48px;
-  margin-top: 0;
-  flex-wrap: wrap;
-}
-
-.hero-stat {
-  text-align: center;
-}
-
-.hero-stat-value {
-  font-size: 32px;
-  font-weight: 800;
-  color: var(--text);
-}
-
-.hero-stat-label {
+/* Credibility / Metrics Strip */
+.hero-credibility {
   font-size: 14px;
   color: var(--text-muted);
-  margin-top: 4px;
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.6;
+  text-align: center;
 }
 
 /* ============================================================================
@@ -474,14 +459,6 @@
   .hero-cta {
     width: 100%;
     justify-content: center;
-  }
-
-  .hero-stats {
-    gap: 32px;
-  }
-
-  .hero-stat-value {
-    font-size: 28px;
   }
 
   .tools-grid {
