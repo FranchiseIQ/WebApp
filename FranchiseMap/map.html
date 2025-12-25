@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        // Detect embed mode and hide header
+        if (new URLSearchParams(window.location.search).get('embed') === 'true') {
+            document.write('<style>.top-bar { display: none !important; } #map-container { top: 0 !important; height: 100vh !important; }</style>');
+            document.documentElement.classList.add('embed-mode');
+        }
+    </script>
 </head>
 <body>
     <header class="top-bar">
