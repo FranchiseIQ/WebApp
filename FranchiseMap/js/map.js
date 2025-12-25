@@ -50,6 +50,153 @@ document.addEventListener('DOMContentLoaded', () => {
     let ownershipModel = new Set(['franchise', 'non-franchise']);  // Show both by default
     let subtypes = new Set(['licensed', 'corporate', 'independent', 'unknown']);  // Show all by default
 
+    // --- Notification System (Toast Messages) ---
+    const NotificationManager = {
+        queue: [],
+        show(message, type = 'info', duration = 3000) {
+            const toastContainer = document.getElementById('toast-container') || this.createContainer();
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 10);
+
+            if (duration > 0) {
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, duration);
+            }
+            return toast;
+        },
+        success(message, duration = 2500) { return this.show(message, 'success', duration); },
+        error(message, duration = 4000) { return this.show(message, 'error', duration); },
+        info(message, duration = 3000) { return this.show(message, 'info', duration); },
+        loading(message) { return this.show(message, 'loading', 0); },
+        createContainer() {
+            const container = document.createElement('div');
+            container.id = 'toast-container';
+            document.body.appendChild(container);
+            return container;
+        }
+    };
+
+    // Toast Styles (injected into head)
+    if (!document.getElementById('toast-styles')) {
+        const style = document.createElement('style');
+        style.id = 'toast-styles';
+        style.textContent = `
+            #toast-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 10000;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                max-width: 400px;
+                pointer-events: none;
+            }
+            .toast {
+                padding: 12px 16px;
+                border-radius: 6px;
+                font-size: 14px;
+                font-weight: 500;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                pointer-events: auto;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                animation: slideIn 0.3s ease forwards;
+            }
+            .toast.show { opacity: 1; }
+            .toast-success { background: #10b981; color: white; }
+            .toast-error { background: #ef4444; color: white; }
+            .toast-info { background: #3b82f6; color: white; }
+            .toast-loading { background: #8b5cf6; color: white; }
+            @keyframes slideIn {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @media (max-width: 768px) {
+                #toast-container {
+                    top: 10px;
+                    right: 10px;
+                    max-width: 90vw;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // --- Reverse Geocoding Cache & Batch System ---
+    const GeocodeCache = {
+        cache: new Map(),  // Store lat,lng -> address mappings
+        queue: [],
+        isProcessing: false,
+        batchSize: 10,     // Process 10 requests per batch
+
+        async get(lat, lng) {
+            const key = `${lat.toFixed(4)},${lng.toFixed(4)}`;
+
+            // Check cache first
+            if (this.cache.has(key)) {
+                return this.cache.get(key);
+            }
+
+            // Queue for batch processing
+            return new Promise((resolve) => {
+                this.queue.push({ lat, lng, key, resolve });
+                this.processBatch();
+            });
+        },
+
+        async processBatch() {
+            if (this.isProcessing || this.queue.length === 0) return;
+
+            this.isProcessing = true;
+            const batch = this.queue.splice(0, this.batchSize);
+
+            try {
+                for (const item of batch) {
+                    // Rate limiting: wait 150ms between requests
+                    await new Promise(r => setTimeout(r, 150));
+
+                    try {
+                        const response = await fetch(
+                            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${item.lat}&lon=${item.lng}`,
+                            { signal: AbortSignal.timeout(4000) }
+                        );
+                        const data = await response.json();
+
+                        let address = 'Address not available';
+                        if (data.address) {
+                            const addr = data.address;
+                            const city = addr.city || addr.town || addr.village || '';
+                            const state = addr.state || '';
+                            if (city && state) address = `${city}, ${state}`;
+                            else if (city) address = city;
+                            else if (state) address = state;
+                        }
+
+                        this.cache.set(item.key, address);
+                        item.resolve(address);
+                    } catch (e) {
+                        console.warn('Geocoding failed for', item.key, e);
+                        const fallback = 'Address unavailable';
+                        this.cache.set(item.key, fallback);
+                        item.resolve(fallback);
+                    }
+                }
+            } finally {
+                this.isProcessing = false;
+                if (this.queue.length > 0) {
+                    this.processBatch();
+                }
+            }
+        }
+    };
+
     // Predefined unique color palette - 60+ distinct colors
     const COLOR_PALETTE = [
         '#FFC72C', '#00704A', '#D62300', '#E2203D', '#006491', '#FF8732', '#E31837', '#00A94F',
@@ -370,18 +517,28 @@ document.addEventListener('DOMContentLoaded', () => {
     function toggleTicker(ticker, filePath) {
         if (activeTickers.has(ticker)) {
             activeTickers.delete(ticker);
-            refreshMap();
+            scheduleRefreshMap();
         } else {
             activeTickers.add(ticker);
             if (loadedTickers.has(ticker)) {
-                refreshMap();
+                scheduleRefreshMap();
             } else {
+                // Show loading notification while fetching brand data
+                const loadingToast = NotificationManager.loading(`Loading ${ticker}...`);
                 fetch(filePath).then(r => r.json()).then(data => {
                     // Merge metadata before adding to allLocations
                     const enhancedData = mergeOwnershipMetadata(data, ticker);
                     allLocations = allLocations.concat(enhancedData);
                     loadedTickers.add(ticker);
+                    // Remove loading toast
+                    if (loadingToast) loadingToast.remove();
+                    NotificationManager.success(`${ticker} loaded`);
                     refreshMap();
+                }).catch(e => {
+                    if (loadingToast) loadingToast.remove();
+                    NotificationManager.error(`Failed to load ${ticker}`);
+                    console.error(`Error loading ${ticker}:`, e);
+                    activeTickers.delete(ticker);
                 });
             }
         }
@@ -652,22 +809,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (locationPanelOpen) {
             updateLocationList();
         }
-    }
-
-    function updateScoreDistribution(locations) {
-        const distribution = { excellent: 0, good: 0, fair: 0, poor: 0 };
-        locations.forEach(loc => {
-            if (loc.s >= 80) distribution.excellent++;
-            else if (loc.s >= 65) distribution.good++;
-            else if (loc.s >= 50) distribution.fair++;
-            else distribution.poor++;
-        });
-
-        const total = locations.length || 1;
-        document.getElementById('dist-excellent').style.width = `${(distribution.excellent / total) * 100}%`;
-        document.getElementById('dist-good').style.width = `${(distribution.good / total) * 100}%`;
-        document.getElementById('dist-fair').style.width = `${(distribution.fair / total) * 100}%`;
-        document.getElementById('dist-poor').style.width = `${(distribution.poor / total) * 100}%`;
     }
 
     function createMarker(loc, isIndividual = false) {
@@ -2180,42 +2321,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return location.a;
         }
 
-        // If no address, attempt reverse geocoding
+        // Check if coordinates exist
         if (location.lat === undefined || location.lng === undefined) {
             return 'Location data pending';
         }
 
+        // Use batch geocoding cache for efficient reverse geocoding
         try {
-            // Use Nominatim reverse geocoding API with modest rate limiting
-            // Add small delay to respect API rate limits
-            await new Promise(resolve => setTimeout(resolve, 100));
-
-            const response = await fetch(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${location.lat}&lon=${location.lng}`,
-                { signal: AbortSignal.timeout(5000) }
-            );
-            const data = await response.json();
-
-            if (data.address) {
-                const addr = data.address;
-                // Format as City, State (or fallback to available fields)
-                const city = addr.city || addr.town || addr.village || '';
-                const state = addr.state || '';
-                if (city && state) {
-                    return `${city}, ${state}`;
-                } else if (city) {
-                    return city;
-                } else if (state) {
-                    return state;
-                }
-            }
+            return await GeocodeCache.get(location.lat, location.lng);
         } catch (e) {
-            // Silently fail and use fallback
-            console.log('Reverse geocoding failed for location', location.id);
+            console.warn('Geocoding error for location', location.id, e);
+            return 'Address unavailable';
         }
-
-        // Fallback: Show nothing or generic message
-        return 'Address not available';
     }
 
     function showHighPerformers() {
@@ -2462,8 +2579,8 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreFilter.min = min;
         scoreFilter.max = max;
 
-        // Refresh map with new filter
-        refreshMap();
+        // Schedule map refresh with debouncing to prevent excessive updates during slider drag
+        scheduleRefreshMap();
     }
 
     // ===== NEW LOCATION PANEL FUNCTIONS =====
@@ -2658,5 +2775,112 @@ document.addEventListener('DOMContentLoaded', () => {
         animateKpiNumber('avg-score', currentScore, newScore);
     }
 
+    // --- Debounced Map Refresh System ---
+    let refreshMapDebounceTimer = null;
+    function scheduleRefreshMap() {
+        // Cancel previous timer if exists
+        if (refreshMapDebounceTimer) {
+            clearTimeout(refreshMapDebounceTimer);
+        }
+        // Schedule new refresh after 200ms of inactivity
+        refreshMapDebounceTimer = setTimeout(() => {
+            refreshMap();
+            refreshMapDebounceTimer = null;
+        }, 200);
+    }
+
+    // --- Keyboard Shortcuts System ---
+    const KeyboardShortcuts = {
+        init() {
+            document.addEventListener('keydown', (e) => this.handleKeydown(e));
+        },
+        handleKeydown(e) {
+            // Don't trigger shortcuts if user is typing in input
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+
+            const isCtrl = e.ctrlKey || e.metaKey;
+            const isShift = e.shiftKey;
+
+            // Ctrl+F: Toggle search panel
+            if (isCtrl && e.key === 'f') {
+                e.preventDefault();
+                const searchToggleBtn = document.querySelector('[onclick*="toggleSearchPanel"]');
+                if (searchToggleBtn) {
+                    searchToggleBtn.click();
+                } else {
+                    // Fallback: toggle search panel manually
+                    const searchPanel = document.getElementById('search-panel');
+                    if (searchPanel) {
+                        searchPanel.classList.toggle('hidden');
+                        NotificationManager.info('Search panel toggled');
+                    }
+                }
+            }
+
+            // Ctrl+H: Toggle heatmap
+            if (isCtrl && e.key === 'h') {
+                e.preventDefault();
+                const heatmapBtn = document.getElementById('btn-heatmap-toggle');
+                if (heatmapBtn) {
+                    heatmapBtn.click();
+                    NotificationManager.info(`Heatmap ${isHeatmapView ? 'disabled' : 'enabled'}`);
+                }
+            }
+
+            // Ctrl+C: Toggle clustering
+            if (isCtrl && e.key === 'c') {
+                e.preventDefault();
+                const clusterBtn = document.getElementById('btn-cluster-toggle');
+                if (clusterBtn) {
+                    clusterBtn.click();
+                    NotificationManager.info(`Clustering ${isClusterView ? 'disabled' : 'enabled'}`);
+                }
+            }
+
+            // Ctrl+R: Reset view
+            if (isCtrl && e.key === 'r') {
+                e.preventDefault();
+                const resetBtn = document.getElementById('btn-reset-view');
+                if (resetBtn) {
+                    resetBtn.click();
+                    NotificationManager.info('View reset to default');
+                }
+            }
+
+            // Ctrl+Shift+L: Load geolocation
+            if (isCtrl && isShift && e.key === 'l') {
+                e.preventDefault();
+                const geoBtn = document.getElementById('btn-locate');
+                if (geoBtn) {
+                    geoBtn.click();
+                    NotificationManager.info('Locating...');
+                }
+            }
+
+            // ?: Show keyboard shortcuts help
+            if (e.key === '?' && !isCtrl) {
+                e.preventDefault();
+                this.showHelp();
+            }
+        },
+        showHelp() {
+            const helpText = `
+⌨️ Keyboard Shortcuts:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Ctrl+F       Search/Filter
+Ctrl+H       Toggle Heatmap
+Ctrl+C       Toggle Clustering
+Ctrl+R       Reset View
+Ctrl+Shift+L  Use Geolocation
+?            Show this help
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            `;
+            NotificationManager.show(helpText, 'info', 5000);
+        }
+    };
+
     initMap();
+    KeyboardShortcuts.init();
 });
