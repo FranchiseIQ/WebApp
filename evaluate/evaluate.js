@@ -629,6 +629,19 @@ class EvaluationPage {
 
       document.getElementById('top-markets').innerHTML = topStates || '<p>No location data available</p>';
     }
+
+    // Initialize trends analysis with historical stock data
+    if (typeof TrendsAnalysis !== 'undefined' && this.historicalStockData && this.historicalStockData.length > 0) {
+      const tabElement = document.getElementById('tab-overview');
+      if (tabElement) {
+        // Remove any existing trends section
+        const existingTrends = document.getElementById('trends-analysis');
+        if (existingTrends) existingTrends.remove();
+
+        // Initialize trends display
+        TrendsAnalysis.initializeTrends(tabElement, this.historicalStockData);
+      }
+    }
   }
 
   updateLocationTab(marketMetrics) {
