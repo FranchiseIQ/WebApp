@@ -2787,6 +2787,122 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize legend customization
     setupLegendCustomization();
 
+    // ===== SAVED VIEWS SETUP =====
+    function setupSavedViews() {
+        const viewsToggleBtn = document.getElementById('views-toggle-btn');
+        const viewsPanel = document.getElementById('saved-views-panel');
+        const closeViewsBtn = document.getElementById('close-saved-views');
+        const viewCards = document.querySelectorAll('.view-card');
+        const clearFiltersBtn = document.getElementById('clear-filters-btn');
+
+        // Toggle views panel
+        if (viewsToggleBtn) {
+            viewsToggleBtn.onclick = function(e) {
+                e.stopPropagation();
+                if (viewsPanel.classList.contains('hidden')) {
+                    viewsPanel.classList.remove('hidden');
+                } else {
+                    viewsPanel.classList.add('hidden');
+                }
+            };
+        }
+
+        // Close views panel
+        if (closeViewsBtn) {
+            closeViewsBtn.onclick = function() {
+                viewsPanel.classList.add('hidden');
+            };
+        }
+
+        // Handle view card clicks
+        viewCards.forEach(card => {
+            card.onclick = function(e) {
+                e.stopPropagation();
+                const view = this.dataset.view;
+                applyView(view);
+                viewsPanel.classList.add('hidden');
+            };
+        });
+
+        // Clear filters
+        if (clearFiltersBtn) {
+            clearFiltersBtn.onclick = function() {
+                scoreFilter.min = 0;
+                scoreFilter.max = 100;
+
+                // Update slider displays
+                const sliderMin = document.getElementById('slider-min');
+                const sliderMax = document.getElementById('slider-max');
+                const panelSliderMin = document.getElementById('panel-slider-min');
+                const panelSliderMax = document.getElementById('panel-slider-max');
+
+                if (sliderMin) sliderMin.value = 0;
+                if (sliderMax) sliderMax.value = 100;
+                if (panelSliderMin) panelSliderMin.value = 0;
+                if (panelSliderMax) panelSliderMax.value = 100;
+
+                updateScoreSliderDisplay();
+                updatePanelSliderDisplay();
+
+                // Reset ownership model filter
+                ownershipModel = new Set(['franchise', 'non-franchise']);
+
+                scheduleRefreshMap();
+                showToast('All filters cleared', 'info');
+            };
+        }
+    }
+
+    function applyView(viewName) {
+        switch(viewName) {
+            case 'high-performers':
+                scoreFilter.min = 80;
+                scoreFilter.max = 100;
+                ownershipModel = new Set(['franchise', 'non-franchise']);
+                showToast('Showing: High Performers (Score 80+)', 'success');
+                break;
+
+            case 'good-quality':
+                scoreFilter.min = 65;
+                scoreFilter.max = 100;
+                ownershipModel = new Set(['franchise', 'non-franchise']);
+                showToast('Showing: Good Quality (Score 65+)', 'success');
+                break;
+
+            case 'poor-locations':
+                scoreFilter.min = 0;
+                scoreFilter.max = 50;
+                ownershipModel = new Set(['franchise', 'non-franchise']);
+                showToast('Showing: Under 50 (Score <50)', 'success');
+                break;
+
+            case 'roark-brands':
+                scoreFilter.min = 0;
+                scoreFilter.max = 100;
+                ownershipModel = new Set(['franchise']); // Roark brands are franchise
+                showToast('Showing: Roark Portfolio Only', 'success');
+                break;
+        }
+
+        // Update slider displays
+        const sliderMin = document.getElementById('slider-min');
+        const sliderMax = document.getElementById('slider-max');
+        const panelSliderMin = document.getElementById('panel-slider-min');
+        const panelSliderMax = document.getElementById('panel-slider-max');
+
+        if (sliderMin) sliderMin.value = scoreFilter.min;
+        if (sliderMax) sliderMax.value = scoreFilter.max;
+        if (panelSliderMin) panelSliderMin.value = scoreFilter.min;
+        if (panelSliderMax) panelSliderMax.value = scoreFilter.max;
+
+        updateScoreSliderDisplay();
+        updatePanelSliderDisplay();
+
+        scheduleRefreshMap();
+    }
+
+    setupSavedViews();
+
     function updateScrollIndicators(element) {
         const hasScroll = element.scrollHeight > element.clientHeight;
         const isScrolled = element.scrollTop > 0;

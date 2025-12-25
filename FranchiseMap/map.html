@@ -214,6 +214,9 @@
             <button id="saved-locations-toggle-btn" class="control-btn" title="View saved locations">
                 <i class="fa-solid fa-bookmark"></i>
             </button>
+            <button id="views-toggle-btn" class="control-btn" title="Quick view filters">
+                <i class="fa-solid fa-window-restore"></i>
+            </button>
             <div class="control-divider"></div>
             <button id="btn-cluster-toggle" class="control-btn active" title="Switch to All Locations">
                 <i class="fa-solid fa-circle-nodes"></i>
@@ -469,6 +472,46 @@
                 </div>
                 <div class="customization-actions">
                     <button id="reset-legend-btn" class="customization-btn reset-btn">Reset to Defaults</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Saved Views Panel -->
+        <aside id="saved-views-panel" class="high-performers-panel hidden">
+            <div class="high-performers-header">
+                <div class="high-performers-title">
+                    <i class="fa-solid fa-window-restore"></i>
+                    <span>Quick Views</span>
+                </div>
+                <button id="close-saved-views" class="close-high-performers-btn" title="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="saved-views-content" class="high-performers-content">
+                <div class="views-grid">
+                    <button class="view-card" data-view="high-performers" title="View only excellent locations">
+                        <i class="fa-solid fa-star"></i>
+                        <span class="view-label">High Performers</span>
+                        <span class="view-desc">Score 80+</span>
+                    </button>
+                    <button class="view-card" data-view="good-quality" title="View good and better locations">
+                        <i class="fa-solid fa-check-double"></i>
+                        <span class="view-label">Good Quality</span>
+                        <span class="view-desc">Score 65+</span>
+                    </button>
+                    <button class="view-card" data-view="poor-locations" title="View locations needing improvement">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span class="view-label">Under 50</span>
+                        <span class="view-desc">Score &lt;50</span>
+                    </button>
+                    <button class="view-card" data-view="roark-brands" title="View only Roark brands">
+                        <i class="fa-solid fa-building"></i>
+                        <span class="view-label">Roark Portfolio</span>
+                        <span class="view-desc">Roark only</span>
+                    </button>
+                </div>
+                <div class="views-actions">
+                    <button id="clear-filters-btn" class="customization-btn reset-btn">Clear Filters</button>
                 </div>
             </div>
         </aside>
