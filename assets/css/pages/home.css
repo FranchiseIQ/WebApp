@@ -50,13 +50,21 @@
   line-height: 1.6;
 }
 
+/* CTA Button Group */
+.hero-cta-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
 /* Primary CTA Button */
 .hero-cta {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 16px 32px;
-  background: var(--gradient);
   color: white;
   font-size: 16px;
   font-weight: 600;
@@ -65,9 +73,24 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.hero-cta:hover {
+.hero-cta-primary {
+  background: var(--gradient);
+}
+
+.hero-cta-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4);
+}
+
+.hero-cta-secondary {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-cta-secondary:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Stats row */
@@ -75,7 +98,7 @@
   display: flex;
   justify-content: center;
   gap: 48px;
-  margin-top: 48px;
+  margin-top: 0;
   flex-wrap: wrap;
 }
 
@@ -441,6 +464,16 @@
 @media (max-width: 768px) {
   .hero-section {
     padding: 48px 16px 32px;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-cta {
+    width: 100%;
+    justify-content: center;
   }
 
   .hero-stats {
