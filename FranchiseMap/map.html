@@ -113,13 +113,16 @@
                 <div class="search-panel-title">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <span>Search</span>
+                    <span id="search-result-count" class="search-result-count" style="display: none;"></span>
                 </div>
                 <button id="close-search-panel" class="close-search-panel-btn" title="Close">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
             <div class="search-panel-content">
-                <input type="text" id="search-input" class="search-input" placeholder="City, zip, or address...">
+                <div class="search-input-wrapper">
+                    <input type="text" id="search-input" class="search-input" placeholder="City, zip, or address...">
+                </div>
                 <div id="search-results" class="search-results"></div>
             </div>
         </div>

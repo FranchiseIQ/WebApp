@@ -2299,6 +2299,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const searchResults = document.getElementById('search-results');
         const closeSearchBtn = document.getElementById('close-search-panel');
         const searchToggleBtn = document.getElementById('search-toggle-btn');
+        const resultCount = document.getElementById('search-result-count');
 
         if (!searchPanel || !searchInput) return;
 
@@ -2333,40 +2334,94 @@ document.addEventListener('DOMContentLoaded', () => {
                 performSearch(this.value);
             } else {
                 searchResults.innerHTML = '';
+                if (resultCount) resultCount.style.display = 'none';
             }
         });
+
+        // Scroll indicator detection
+        searchResults.addEventListener('scroll', () => {
+            updateScrollIndicators(searchResults);
+        });
+    }
+
+    function updateScrollIndicators(element) {
+        const hasScroll = element.scrollHeight > element.clientHeight;
+        const isScrolled = element.scrollTop > 0;
+
+        if (hasScroll) {
+            element.classList.add('scrollable');
+        } else {
+            element.classList.remove('scrollable');
+        }
+
+        if (isScrolled && hasScroll) {
+            element.classList.add('scrolling');
+        } else {
+            element.classList.remove('scrolling');
+        }
     }
 
     function performSearch(query) {
         const searchResults = document.getElementById('search-results');
+        const resultCount = document.getElementById('search-result-count');
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=us`;
+
+        // Show loading state
+        searchResults.innerHTML = '<div class="search-empty-state"><i class="fa-solid fa-hourglass-end"></i><div class="search-empty-state-title">Searching...</div></div>';
+        if (resultCount) resultCount.style.display = 'none';
 
         fetch(url)
             .then(res => res.json())
             .then(results => {
                 searchResults.innerHTML = '';
                 if (results.length === 0) {
-                    searchResults.innerHTML = '<div style="padding: 8px; color: var(--text-light); font-size: 0.85rem;">No results found</div>';
+                    searchResults.innerHTML = `
+                        <div class="search-empty-state">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <div class="search-empty-state-title">No results found</div>
+                            <div class="search-empty-state-text">Try a different city, zip code, or address</div>
+                        </div>
+                    `;
+                    if (resultCount) resultCount.style.display = 'none';
                     return;
                 }
 
-                results.forEach(result => {
+                // Show result count
+                if (resultCount) {
+                    resultCount.textContent = `${results.length}`;
+                    resultCount.style.display = 'inline-block';
+                }
+
+                results.forEach((result, index) => {
                     const resultEl = document.createElement('div');
                     resultEl.className = 'search-result-item';
                     resultEl.textContent = result.display_name.split(',')[0];
+                    resultEl.title = result.display_name;
+                    resultEl.style.setProperty('--index', index);
                     resultEl.onclick = function() {
                         const bbox = result.boundingbox;
                         map.fitBounds([
                             [parseFloat(bbox[0]), parseFloat(bbox[2])],
                             [parseFloat(bbox[1]), parseFloat(bbox[3])]
                         ]);
+                        NotificationManager.success(`Centered on ${result.display_name.split(',')[0]}`);
                     };
                     searchResults.appendChild(resultEl);
                 });
+
+                // Update scroll indicators after rendering
+                setTimeout(() => updateScrollIndicators(searchResults), 0);
             })
             .catch(err => {
                 console.error('Search error:', err);
-                searchResults.innerHTML = '<div style="padding: 8px; color: red; font-size: 0.85rem;">Search error</div>';
+                searchResults.innerHTML = `
+                    <div class="search-empty-state">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div class="search-empty-state-title">Search error</div>
+                        <div class="search-empty-state-text">Could not connect. Try again.</div>
+                    </div>
+                `;
+                if (resultCount) resultCount.style.display = 'none';
             });
     }
 
