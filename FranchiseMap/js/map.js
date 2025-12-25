@@ -2189,7 +2189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         }
 
-        // Slider inputs
+        // Modal Slider inputs
         const sliderMin = document.getElementById('slider-min');
         const sliderMax = document.getElementById('slider-max');
 
@@ -2201,8 +2201,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.value = max;
                     return;
                 }
+                // Keep panel sliders in sync
+                const panelSliderMin = document.getElementById('panel-slider-min');
+                if (panelSliderMin) panelSliderMin.value = min;
+
                 updateScoreSliderDisplay();
-                applyScoreFilter();
+                updatePanelSliderDisplay();
+
+                scoreFilter.min = min;
+                scheduleRefreshMap();
             };
 
             sliderMax.oninput = function() {
@@ -2212,75 +2219,120 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.value = min;
                     return;
                 }
+                // Keep panel sliders in sync
+                const panelSliderMax = document.getElementById('panel-slider-max');
+                if (panelSliderMax) panelSliderMax.value = max;
+
                 updateScoreSliderDisplay();
-                applyScoreFilter();
+                updatePanelSliderDisplay();
+
+                scoreFilter.max = max;
+                scheduleRefreshMap();
             };
         }
 
-        // Reset slider button
+        // Reset modal slider button
         const resetBtn = document.getElementById('reset-slider');
         if (resetBtn) {
             resetBtn.onclick = function() {
-                sliderMin.value = 0;
-                sliderMax.value = 100;
-                updateScoreSliderDisplay();
-                applyScoreFilter();
+                if (sliderMin && sliderMax) {
+                    sliderMin.value = 0;
+                    sliderMax.value = 100;
+
+                    // Keep panel sliders in sync
+                    const panelSliderMin = document.getElementById('panel-slider-min');
+                    const panelSliderMax = document.getElementById('panel-slider-max');
+                    if (panelSliderMin) panelSliderMin.value = 0;
+                    if (panelSliderMax) panelSliderMax.value = 100;
+
+                    updateScoreSliderDisplay();
+                    updatePanelSliderDisplay();
+
+                    scoreFilter.min = 0;
+                    scoreFilter.max = 100;
+                    scheduleRefreshMap();
+                }
             };
         }
 
-        // Initialize slider with current values
+        // Initialize modal sliders with current values
         if (sliderMin && sliderMax) {
             sliderMin.value = scoreFilter.min;
             sliderMax.value = scoreFilter.max;
             updateScoreSliderDisplay();
         }
 
-        // Panel-based score filter sliders
-        const scoreMin = document.getElementById('score-min');
-        const scoreMax = document.getElementById('score-max');
+        // Panel-based score filter sliders (side panel)
+        const panelSliderMin = document.getElementById('panel-slider-min');
+        const panelSliderMax = document.getElementById('panel-slider-max');
 
-        if (scoreMin && scoreMax) {
-            scoreMin.oninput = function() {
+        if (panelSliderMin && panelSliderMax) {
+            panelSliderMin.oninput = function() {
                 const min = parseInt(this.value);
-                const max = parseInt(scoreMax.value);
+                const max = parseInt(panelSliderMax.value);
                 if (min > max) {
                     this.value = max;
                     return;
                 }
-                updatePanelScoreDisplay();
-                applyScoreFilter();
+                // Update both modal and panel sliders to keep them in sync
+                const sliderMin = document.getElementById('slider-min');
+                if (sliderMin) sliderMin.value = min;
+
+                updatePanelSliderDisplay();
+                updateScoreSliderDisplay();
+
+                scoreFilter.min = min;
+                scheduleRefreshMap();
             };
 
-            scoreMax.oninput = function() {
+            panelSliderMax.oninput = function() {
                 const max = parseInt(this.value);
-                const min = parseInt(scoreMin.value);
+                const min = parseInt(panelSliderMin.value);
                 if (max < min) {
                     this.value = min;
                     return;
                 }
-                updatePanelScoreDisplay();
-                applyScoreFilter();
+                // Update both modal and panel sliders to keep them in sync
+                const sliderMax = document.getElementById('slider-max');
+                if (sliderMax) sliderMax.value = max;
+
+                updatePanelSliderDisplay();
+                updateScoreSliderDisplay();
+
+                scoreFilter.max = max;
+                scheduleRefreshMap();
             };
         }
 
-        // Reset panel score filter button
-        const resetScoreBtn = document.getElementById('reset-score-filter');
-        if (resetScoreBtn) {
-            resetScoreBtn.onclick = function() {
-                if (scoreMin && scoreMax) {
-                    scoreMin.value = 0;
-                    scoreMax.value = 100;
-                    updatePanelScoreDisplay();
-                    applyScoreFilter();
+        // Reset panel slider button
+        const resetPanelSliderBtn = document.getElementById('panel-reset-slider');
+        if (resetPanelSliderBtn) {
+            resetPanelSliderBtn.onclick = function() {
+                if (panelSliderMin && panelSliderMax) {
+                    panelSliderMin.value = 0;
+                    panelSliderMax.value = 100;
+
+                    // Keep modal sliders in sync
+                    const sliderMin = document.getElementById('slider-min');
+                    const sliderMax = document.getElementById('slider-max');
+                    if (sliderMin) sliderMin.value = 0;
+                    if (sliderMax) sliderMax.value = 100;
+
+                    updatePanelSliderDisplay();
+                    updateScoreSliderDisplay();
+
+                    scoreFilter.min = 0;
+                    scoreFilter.max = 100;
+                    scheduleRefreshMap();
                 }
             };
         }
 
         // Initialize panel sliders with current values
-        if (scoreMin && scoreMax) {
-            scoreMin.value = scoreFilter.min;
-            scoreMax.value = scoreFilter.max;
-            updatePanelScoreDisplay();
+        if (panelSliderMin && panelSliderMax) {
+            panelSliderMin.value = scoreFilter.min;
+            panelSliderMax.value = scoreFilter.max;
+            updatePanelSliderDisplay();
         }
 
         // Initialize draggable panels
@@ -2877,6 +2929,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (minValue) minValue.textContent = sliderMin.value;
         if (maxValue) maxValue.textContent = sliderMax.value;
+    }
+
+    function updatePanelSliderDisplay() {
+        const panelSliderMin = document.getElementById('panel-slider-min');
+        const panelSliderMax = document.getElementById('panel-slider-max');
+        const panelMinValue = document.getElementById('panel-slider-min-value');
+        const panelMaxValue = document.getElementById('panel-slider-max-value');
+
+        if (panelMinValue && panelSliderMin) panelMinValue.textContent = panelSliderMin.value;
+        if (panelMaxValue && panelSliderMax) panelMaxValue.textContent = panelSliderMax.value;
     }
 
     function updatePanelScoreDisplay() {
