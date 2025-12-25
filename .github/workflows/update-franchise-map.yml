@@ -1,0 +1,289 @@
+name: Update FranchiseMap Data
+
+# Unified workflow for all FranchiseMap data updates
+# Replaces: generate-data.yml, batch-generate-locations.yml, batch-process-scheduler.yml
+#
+# This workflow:
+# - Runs every 4 hours to respect OpenStreetMap API rate limits
+# - Processes brands in adaptive batches (50-100 at a time)
+# - Retries with smaller batches on failures
+# - Enriches locations with address data
+# - Tracks progress across runs
+
+on:
+  schedule:
+    # Run every 4 hours to respect API rate limits
+    # Staggered timing avoids conflicts with other scheduled workflows
+    - cron: '15 */4 * * *'
+  workflow_dispatch:
+    inputs:
+      batch_size:
+        description: 'Override batch size (default: random 50-100)'
+        required: false
+      skip_enrichment:
+        description: 'Skip address enrichment step (faster)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  update-map-data:
+    runs-on: ubuntu-latest
+    name: Process Location Batch
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Create Data Directories
+        run: |
+          mkdir -p FranchiseMap/data/brands
+          mkdir -p data_aggregation/logs
+
+      - name: Install Dependencies
+        run: |
+          pip install requests
+
+      - name: Display Queue Status
+        run: |
+          echo "📊 Current Processing Queue Status"
+          echo "=================================="
+          python -m data_aggregation.pipelines.franchise.batch_processor --action status || echo "Queue status unavailable"
+
+      - name: Run Adaptive Batch Processor
+        id: batch_process
+        run: |
+          echo ""
+          echo "🚀 Starting Adaptive Batch Processor"
+          echo "===================================="
+          echo "Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo ""
+
+          if python -m data_aggregation.pipelines.franchise.adaptive_batch_processor; then
+            echo "batch_status=success" >> $GITHUB_OUTPUT
+            echo ""
+            echo "✅ Batch processing completed successfully"
+          else
+            BATCH_EXIT_CODE=$?
+            echo "batch_status=failed" >> $GITHUB_OUTPUT
+            echo ""
+            echo "⚠️  Batch processor exited with code: $BATCH_EXIT_CODE"
+            # Don't exit with error - continue to save any partial results
+          fi
+
+      - name: Enrich Location Data with Addresses
+        if: steps.batch_process.outputs.batch_status == 'success' && github.event.inputs.skip_enrichment != 'true'
+        run: |
+          echo ""
+          echo "📍 Enriching Location Data with Addresses"
+          echo "=========================================="
+          python3 << 'EOF'
+          import json
+          from pathlib import Path
+          from time import sleep
+          import requests
+
+          data_dir = Path('FranchiseMap/data/brands')
+          if not data_dir.exists():
+              print("ℹ️  No location data to enrich")
+              exit(0)
+
+          enriched_count = 0
+          skipped_count = 0
+          failed_count = 0
+          max_enrichments = 500  # Limit per run to respect Nominatim ToS
+
+          for brand_file in sorted(data_dir.glob('*.json')):
+              if enriched_count >= max_enrichments:
+                  print(f"ℹ️  Reached enrichment limit ({max_enrichments}), will continue next run")
+                  break
+
+              try:
+                  with open(brand_file, 'r', encoding='utf-8') as f:
+                      brand_data = json.load(f)
+
+                  modified = False
+                  if isinstance(brand_data, list):
+                      for location in brand_data:
+                          if enriched_count >= max_enrichments:
+                              break
+
+                          if 'lat' in location and 'lng' in location:
+                              # Skip if already has address
+                              if location.get('address') and location.get('display_name'):
+                                  skipped_count += 1
+                                  continue
+
+                              try:
+                                  url = f"https://nominatim.openstreetmap.org/reverse?format=json&lat={location['lat']}&lon={location['lng']}"
+                                  response = requests.get(url, timeout=10, headers={'User-Agent': 'FranchiseMap/1.0'})
+                                  response.raise_for_status()
+                                  data = response.json()
+
+                                  if 'address' in data:
+                                      addr = data['address']
+                                      city = addr.get('city', addr.get('town', addr.get('village', '')))
+                                      state = addr.get('state', '')
+                                      postcode = addr.get('postcode', '')
+
+                                      parts = [p for p in [city, state, postcode] if p]
+                                      location['address'] = ', '.join(parts) if parts else ''
+                                      location['display_name'] = data.get('display_name', '')
+                                      location['country'] = addr.get('country', '')
+                                      modified = True
+                                      enriched_count += 1
+
+                                  # Rate limit: 1 request per second per Nominatim ToS
+                                  sleep(1.1)
+
+                              except requests.exceptions.HTTPError as e:
+                                  if e.response.status_code == 429:
+                                      print(f"⚠️  Rate limited - stopping enrichment")
+                                      break
+                                  failed_count += 1
+                              except Exception as e:
+                                  failed_count += 1
+
+                  if modified:
+                      with open(brand_file, 'w', encoding='utf-8') as f:
+                          json.dump(brand_data, f, indent=2, ensure_ascii=False)
+
+              except Exception as e:
+                  print(f"⚠️  Error processing {brand_file.name}: {e}")
+
+          print(f"\n✅ Enrichment Summary:")
+          print(f"   Addresses added: {enriched_count}")
+          print(f"   Already enriched (skipped): {skipped_count}")
+          print(f"   Failed: {failed_count}")
+          EOF
+
+      - name: Validate Data Completeness
+        if: always()
+        run: |
+          echo ""
+          echo "📊 Data Completeness Report"
+          echo "==========================="
+          python3 << 'EOF'
+          import json
+          from pathlib import Path
+
+          data_dir = Path('FranchiseMap/data/brands')
+          manifest_file = Path('FranchiseMap/data/manifest.json')
+
+          stats = {
+              'total_brands': 0,
+              'total_locations': 0,
+              'with_address': 0,
+              'with_coords': 0,
+          }
+
+          if data_dir.exists():
+              for brand_file in data_dir.glob('*.json'):
+                  try:
+                      with open(brand_file, 'r', encoding='utf-8') as f:
+                          data = json.load(f)
+                      if isinstance(data, list):
+                          stats['total_brands'] += 1
+                          for loc in data:
+                              stats['total_locations'] += 1
+                              if loc.get('address'):
+                                  stats['with_address'] += 1
+                              if 'lat' in loc and 'lng' in loc:
+                                  stats['with_coords'] += 1
+                  except:
+                      pass
+
+          total = max(stats['total_locations'], 1)
+          print(f"Brands processed: {stats['total_brands']}")
+          print(f"Total locations: {stats['total_locations']:,}")
+          print(f"With coordinates: {stats['with_coords']:,} ({stats['with_coords']*100//total}%)")
+          print(f"With addresses: {stats['with_address']:,} ({stats['with_address']*100//total}%)")
+          EOF
+
+      - name: Upload Processing Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: franchise-map-logs-${{ github.run_id }}
+          path: data_aggregation/logs/
+          retention-days: 14
+
+      - name: Upload Data Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: franchise-map-data-${{ github.run_id }}
+          path: FranchiseMap/data/
+          retention-days: 7
+
+      - name: Commit and Push Changes
+        if: always()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Stage all data files
+          git add FranchiseMap/data/
+          git add data_aggregation/processed_brands.txt || true
+          git add data_aggregation/logs/ || true
+
+          if git diff --staged --quiet; then
+            echo "ℹ️  No changes to commit"
+            exit 0
+          fi
+
+          # Commit with descriptive message
+          TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
+          git commit -m "chore: update FranchiseMap data [$TIMESTAMP] [skip ci]"
+
+          # Push to current branch
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          echo "📤 Pushing to: $CURRENT_BRANCH"
+
+          # Handle potential merge conflicts
+          if git fetch origin "$CURRENT_BRANCH" 2>/dev/null; then
+            git merge -X ours "origin/$CURRENT_BRANCH" --no-edit || true
+          fi
+
+          if git push origin "$CURRENT_BRANCH"; then
+            echo "✅ Changes pushed successfully"
+          else
+            echo "⚠️  Push failed - data saved in artifacts"
+          fi
+
+      - name: Report Next Run
+        if: always()
+        run: |
+          echo ""
+          echo "📅 Schedule Information"
+          echo "======================"
+          NEXT_RUN=$(date -d '+4 hours' '+%Y-%m-%d %H:%M:%S UTC')
+          echo "Next scheduled run: $NEXT_RUN"
+          echo ""
+          echo "To trigger a manual run:"
+          echo "  gh workflow run update-franchise-map.yml"
+
+  # Notification job for monitoring
+  report-status:
+    runs-on: ubuntu-latest
+    needs: update-map-data
+    if: always()
+    steps:
+      - name: Report Final Status
+        run: |
+          if [ "${{ needs.update-map-data.result }}" == "success" ]; then
+            echo "✅ FranchiseMap update completed successfully"
+          else
+            echo "⚠️  FranchiseMap update had issues - check logs"
+            echo "The workflow will automatically retry in 4 hours"
+          fi
