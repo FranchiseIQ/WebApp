@@ -1,4 +1,56 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Apply saved legend customizations at startup
+    function applyInitialLegendSettings() {
+        const legendDefaults = {
+            excellent: { label: 'Excellent', color: '#22c55e', visible: true },
+            good: { label: 'Good', color: '#84cc16', visible: true },
+            fair: { label: 'Fair', color: '#eab308', visible: true },
+            poor: { label: 'Poor', color: '#ef4444', visible: true }
+        };
+
+        const saved = localStorage.getItem('franchiseiq_legend_settings');
+        const settings = saved ? JSON.parse(saved) : legendDefaults;
+
+        // Update CSS variables for colors
+        Object.entries(settings).forEach(([tier, config]) => {
+            document.documentElement.style.setProperty(`--score-${tier}`, config.color);
+        });
+
+        // Update legend items
+        const scoreLegend = document.getElementById('score-legend');
+        if (scoreLegend) {
+            scoreLegend.querySelectorAll('.legend-item').forEach(item => {
+                const tier = item.dataset.tier;
+                const config = settings[tier];
+                if (!config) return;
+
+                if (!config.visible) {
+                    item.style.display = 'none';
+                } else {
+                    item.style.display = '';
+                }
+
+                const colorSpan = item.querySelector('.legend-color');
+                if (colorSpan) {
+                    colorSpan.style.backgroundColor = config.color;
+                }
+
+                const labelSpan = item.querySelector('.legend-label');
+                if (labelSpan) {
+                    const rangeLabels = {
+                        excellent: '80+',
+                        good: '65-79',
+                        fair: '50-64',
+                        poor: '<50'
+                    };
+                    labelSpan.textContent = `${rangeLabels[tier]} ${config.label}`;
+                }
+            });
+        }
+    }
+
+    applyInitialLegendSettings();
+
     // --- Config ---
     // Roark brands are now loaded dynamically from manifest with is_roark field
     const RADIUS_STEPS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
@@ -2579,6 +2631,161 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         }
     }
+
+    // ===== LEGEND CUSTOMIZATION SETUP =====
+    const legendDefaults = {
+        excellent: { label: 'Excellent', color: '#22c55e', visible: true },
+        good: { label: 'Good', color: '#84cc16', visible: true },
+        fair: { label: 'Fair', color: '#eab308', visible: true },
+        poor: { label: 'Poor', color: '#ef4444', visible: true }
+    };
+
+    function getLegendSettings() {
+        const saved = localStorage.getItem('franchiseiq_legend_settings');
+        return saved ? JSON.parse(saved) : legendDefaults;
+    }
+
+    function saveLegendSettings(settings) {
+        localStorage.setItem('franchiseiq_legend_settings', JSON.stringify(settings));
+        applyLegendCustomizations(settings);
+    }
+
+    function applyLegendCustomizations(settings) {
+        const scoreLegend = document.getElementById('score-legend');
+        if (!scoreLegend) return;
+
+        // Update CSS variables for colors
+        Object.entries(settings).forEach(([tier, config]) => {
+            document.documentElement.style.setProperty(`--score-${tier}`, config.color);
+        });
+
+        // Update legend item visibility and labels
+        scoreLegend.querySelectorAll('.legend-item').forEach(item => {
+            const tier = item.dataset.tier;
+            const config = settings[tier];
+            if (!config) return;
+
+            // Update visibility
+            if (!config.visible) {
+                item.style.display = 'none';
+            } else {
+                item.style.display = '';
+            }
+
+            // Update color
+            const colorSpan = item.querySelector('.legend-color');
+            if (colorSpan) {
+                colorSpan.style.backgroundColor = config.color;
+            }
+
+            // Update label
+            const labelSpan = item.querySelector('.legend-label');
+            if (labelSpan) {
+                labelSpan.textContent = `${config.rangeLabel || getDefaultRangeLabel(tier)} ${config.label}`;
+            }
+        });
+    }
+
+    function getDefaultRangeLabel(tier) {
+        const labels = {
+            excellent: '80+',
+            good: '65-79',
+            fair: '50-64',
+            poor: '<50'
+        };
+        return labels[tier] || '';
+    }
+
+    function setupLegendCustomization() {
+        const customizeBtn = document.getElementById('legend-customize-btn');
+        const customizationPanel = document.getElementById('legend-customization-panel');
+        const closeBtn = document.getElementById('close-legend-customization');
+        const resetBtn = document.getElementById('reset-legend-btn');
+
+        const currentSettings = getLegendSettings();
+
+        // Load current settings into form
+        Object.entries(currentSettings).forEach(([tier, config]) => {
+            const toggle = document.querySelector(`.tier-toggle[data-tier="${tier}"]`);
+            const labelInput = document.querySelector(`.tier-label-input[data-tier="${tier}"]`);
+            const colorInput = document.querySelector(`.tier-color-input[data-tier="${tier}"]`);
+
+            if (toggle) toggle.checked = config.visible;
+            if (labelInput) labelInput.value = config.label;
+            if (colorInput) colorInput.value = config.color;
+        });
+
+        // Open customization panel
+        if (customizeBtn) {
+            customizeBtn.onclick = function(e) {
+                e.stopPropagation();
+                customizationPanel.classList.remove('hidden');
+            };
+        }
+
+        // Close customization panel
+        if (closeBtn) {
+            closeBtn.onclick = function() {
+                customizationPanel.classList.add('hidden');
+            };
+        }
+
+        // Handle tier toggle changes
+        document.querySelectorAll('.tier-toggle').forEach(toggle => {
+            toggle.onchange = function() {
+                const tier = this.dataset.tier;
+                currentSettings[tier].visible = this.checked;
+                saveLegendSettings(currentSettings);
+            };
+        });
+
+        // Handle label changes
+        document.querySelectorAll('.tier-label-input').forEach(input => {
+            input.oninput = function() {
+                const tier = this.dataset.tier;
+                currentSettings[tier].label = this.value;
+                saveLegendSettings(currentSettings);
+            };
+        });
+
+        // Handle color changes
+        document.querySelectorAll('.tier-color-input').forEach(input => {
+            input.onchange = function() {
+                const tier = this.dataset.tier;
+                currentSettings[tier].color = this.value;
+                saveLegendSettings(currentSettings);
+            };
+        });
+
+        // Reset to defaults
+        if (resetBtn) {
+            resetBtn.onclick = function() {
+                const defaults = {
+                    excellent: { label: 'Excellent', color: '#22c55e', visible: true },
+                    good: { label: 'Good', color: '#84cc16', visible: true },
+                    fair: { label: 'Fair', color: '#eab308', visible: true },
+                    poor: { label: 'Poor', color: '#ef4444', visible: true }
+                };
+                saveLegendSettings(defaults);
+
+                // Reset form inputs
+                Object.entries(defaults).forEach(([tier, config]) => {
+                    const toggle = document.querySelector(`.tier-toggle[data-tier="${tier}"]`);
+                    const labelInput = document.querySelector(`.tier-label-input[data-tier="${tier}"]`);
+                    const colorInput = document.querySelector(`.tier-color-input[data-tier="${tier}"]`);
+
+                    if (toggle) toggle.checked = config.visible;
+                    if (labelInput) labelInput.value = config.label;
+                    if (colorInput) colorInput.value = config.color;
+                });
+
+                showToast('Legend reset to defaults', 'success');
+            };
+        }
+    }
+
+    // Initialize legend customization
+    setupLegendCustomization();
 
     function updateScrollIndicators(element) {
         const hasScroll = element.scrollHeight > element.clientHeight;
