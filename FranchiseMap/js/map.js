@@ -50,6 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let ownershipModel = new Set(['franchise', 'non-franchise']);  // Show both by default
     let subtypes = new Set(['licensed', 'corporate', 'independent', 'unknown']);  // Show all by default
 
+    // --- Data Refresh Status Tracking ---
+    let dataLastUpdated = null;  // Track when location data was last loaded
+    let manifestLastUpdated = null;  // Track when manifest was last loaded
+
     // --- Notification System (Toast Messages) ---
     const NotificationManager = {
         queue: [],
@@ -193,6 +197,265 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (this.queue.length > 0) {
                     this.processBatch();
                 }
+            }
+        }
+    };
+
+    // --- Data Status Manager ---
+    const DataStatusManager = {
+        init() {
+            // Initialize status display in dashboard
+            this.createStatusElement();
+            this.updateDisplay();
+        },
+        createStatusElement() {
+            // Inject data status info into dashboard (top right area)
+            const statusHTML = `
+                <div id="data-status-badge" style="
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: rgba(59, 130, 246, 0.9);
+                    color: white;
+                    padding: 12px 16px;
+                    border-radius: 8px;
+                    font-size: 12px;
+                    z-index: 1000;
+                    cursor: pointer;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255,255,255,0.2);
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    transition: all 0.3s ease;
+                ">
+                    <span id="data-status-indicator" style="
+                        width: 8px;
+                        height: 8px;
+                        background: #10b981;
+                        border-radius: 50%;
+                        animation: pulse 2s infinite;
+                    "></span>
+                    <div id="data-status-text" style="display: flex; flex-direction: column; gap: 2px;">
+                        <div style="font-weight: 600; font-size: 11px;">Data Loaded</div>
+                        <div id="data-status-time" style="font-size: 10px; opacity: 0.9;">Just now</div>
+                    </div>
+                    <button id="data-refresh-btn" onclick="DataStatusManager.refresh()" style="
+                        background: rgba(255,255,255,0.2);
+                        border: none;
+                        color: white;
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 11px;
+                        font-weight: 600;
+                        transition: background 0.2s;
+                        margin-left: auto;
+                    ">
+                        ↻ Refresh
+                    </button>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', statusHTML);
+
+            // Add hover effect
+            const badge = document.getElementById('data-status-badge');
+            badge.addEventListener('mouseenter', () => {
+                badge.style.background = 'rgba(59, 130, 246, 1)';
+                badge.style.transform = 'translateY(-4px)';
+            });
+            badge.addEventListener('mouseleave', () => {
+                badge.style.background = 'rgba(59, 130, 246, 0.9)';
+                badge.style.transform = 'translateY(0)';
+            });
+
+            // Add CSS for pulse animation
+            if (!document.getElementById('status-animation-styles')) {
+                const style = document.createElement('style');
+                style.id = 'status-animation-styles';
+                style.textContent = `
+                    @keyframes pulse {
+                        0%, 100% { opacity: 1; }
+                        50% { opacity: 0.5; }
+                    }
+                    #data-refresh-btn:hover {
+                        background: rgba(255,255,255,0.3) !important;
+                        transform: rotate(180deg);
+                        transition: all 0.3s ease;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        },
+        updateDisplay() {
+            const timeEl = document.getElementById('data-status-time');
+            if (!timeEl || !dataLastUpdated) return;
+
+            const now = new Date();
+            const diffMs = now - dataLastUpdated;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMins / 60);
+            const diffDays = Math.floor(diffHours / 24);
+
+            let timeStr = 'Just now';
+            if (diffMins < 1) timeStr = 'Just now';
+            else if (diffMins < 60) timeStr = `${diffMins}m ago`;
+            else if (diffHours < 24) timeStr = `${diffHours}h ago`;
+            else timeStr = `${diffDays}d ago`;
+
+            timeEl.textContent = timeStr;
+        },
+        setUpdated() {
+            dataLastUpdated = new Date();
+            this.updateDisplay();
+            NotificationManager.success('Data refreshed');
+        },
+        refresh() {
+            NotificationManager.loading('Reloading manifest and brand data...');
+            // Clear loaded data
+            allLocations = [];
+            loadedTickers.clear();
+            activeTickers.clear();
+            // Reload manifest and reselect all
+            loadManifest();
+            this.setUpdated();
+        }
+    };
+
+    // --- Mobile Panel Manager (Phase 3) ---
+    const MobilePanelManager = {
+        isMobile: () => window.innerWidth <= 768,
+        activePanel: null,
+        panelStack: [],
+
+        init() {
+            // Register all managed panels
+            this.registerPanel('location-panel', 'Location Details');
+            this.registerPanel('high-performers-panel', 'High Performers');
+            this.registerPanel('competitor-analysis-panel', 'Competitor Analysis');
+            this.registerPanel('search-panel', 'Search Results');
+
+            // Listen to window resize
+            window.addEventListener('resize', () => this.handleResize());
+
+            // Add backdrop click handler
+            document.addEventListener('click', (e) => {
+                if (e.target.id === 'mobile-panel-backdrop') {
+                    this.closeActivePanel();
+                }
+            });
+        },
+
+        registerPanel(panelId, panelName) {
+            const panel = document.getElementById(panelId);
+            if (!panel) return;
+
+            // Store original close buttons
+            const closeBtn = panel.querySelector('.close-location-panel-btn, .close-search-panel-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => this.closeActivePanel());
+            }
+        },
+
+        openPanel(panelId) {
+            if (!this.isMobile()) return; // Only manage on mobile
+
+            // Close previous panel if exists
+            if (this.activePanel && this.activePanel !== panelId) {
+                this.closePanel(this.activePanel);
+            }
+
+            const panel = document.getElementById(panelId);
+            if (!panel) return;
+
+            // Create backdrop if needed
+            let backdrop = document.getElementById('mobile-panel-backdrop');
+            if (!backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.id = 'mobile-panel-backdrop';
+                backdrop.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 2000;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    pointer-events: none;
+                `;
+                document.body.appendChild(backdrop);
+            }
+
+            // Show backdrop
+            setTimeout(() => {
+                backdrop.style.opacity = '1';
+                backdrop.style.pointerEvents = 'auto';
+            }, 10);
+
+            // Configure panel for modal display
+            panel.style.cssText = `
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-height: 85vh;
+                z-index: 2100;
+                border-radius: 16px 16px 0 0;
+                transform: translateY(0);
+                transition: transform 0.3s ease;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+            `;
+
+            panel.classList.remove('hidden');
+            this.activePanel = panelId;
+
+            // Show notification for screen readers
+            NotificationManager.info(`${document.getElementById(panelId)?.querySelector('.location-panel-title, .search-panel-title')?.textContent || 'Panel'} opened`);
+        },
+
+        closePanel(panelId) {
+            const panel = document.getElementById(panelId);
+            if (!panel) return;
+
+            panel.classList.add('hidden');
+            if (this.activePanel === panelId) {
+                this.activePanel = null;
+            }
+        },
+
+        closeActivePanel() {
+            if (!this.activePanel) return;
+
+            const backdrop = document.getElementById('mobile-panel-backdrop');
+            if (backdrop) {
+                backdrop.style.opacity = '0';
+                backdrop.style.pointerEvents = 'none';
+            }
+
+            const panel = document.getElementById(this.activePanel);
+            if (panel) {
+                panel.style.transform = 'translateY(100%)';
+                setTimeout(() => {
+                    panel.classList.add('hidden');
+                    panel.style.transform = '';
+                }, 300);
+            }
+
+            this.activePanel = null;
+        },
+
+        handleResize() {
+            // On resize to desktop, restore normal panel behavior
+            if (!this.isMobile() && this.activePanel) {
+                this.closeActivePanel();
+                // Restore panels to normal CSS positioning
+                document.querySelectorAll('.location-panel, .high-performers-panel, .search-panel').forEach(panel => {
+                    panel.style.cssText = '';
+                });
             }
         }
     };
@@ -433,6 +696,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Select all locations by default on page load
                 selectAll();
                 updateDashboardStats();
+                // Track when data was loaded
+                DataStatusManager.setUpdated();
             })
             .catch(e => {
                 // Fallback to original manifest if brands_manifest.json doesn't exist
@@ -444,6 +709,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         renderLegend(manifest);
                         selectAll();
                         updateDashboardStats();
+                        // Track when data was loaded
+                        DataStatusManager.setUpdated();
                     })
                     .catch(e2 => {
                         console.log("Data not yet generated. Run GitHub Action.");
@@ -2032,6 +2299,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const searchResults = document.getElementById('search-results');
         const closeSearchBtn = document.getElementById('close-search-panel');
         const searchToggleBtn = document.getElementById('search-toggle-btn');
+        const resultCount = document.getElementById('search-result-count');
 
         if (!searchPanel || !searchInput) return;
 
@@ -2066,40 +2334,94 @@ document.addEventListener('DOMContentLoaded', () => {
                 performSearch(this.value);
             } else {
                 searchResults.innerHTML = '';
+                if (resultCount) resultCount.style.display = 'none';
             }
         });
+
+        // Scroll indicator detection
+        searchResults.addEventListener('scroll', () => {
+            updateScrollIndicators(searchResults);
+        });
+    }
+
+    function updateScrollIndicators(element) {
+        const hasScroll = element.scrollHeight > element.clientHeight;
+        const isScrolled = element.scrollTop > 0;
+
+        if (hasScroll) {
+            element.classList.add('scrollable');
+        } else {
+            element.classList.remove('scrollable');
+        }
+
+        if (isScrolled && hasScroll) {
+            element.classList.add('scrolling');
+        } else {
+            element.classList.remove('scrolling');
+        }
     }
 
     function performSearch(query) {
         const searchResults = document.getElementById('search-results');
+        const resultCount = document.getElementById('search-result-count');
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=us`;
+
+        // Show loading state
+        searchResults.innerHTML = '<div class="search-empty-state"><i class="fa-solid fa-hourglass-end"></i><div class="search-empty-state-title">Searching...</div></div>';
+        if (resultCount) resultCount.style.display = 'none';
 
         fetch(url)
             .then(res => res.json())
             .then(results => {
                 searchResults.innerHTML = '';
                 if (results.length === 0) {
-                    searchResults.innerHTML = '<div style="padding: 8px; color: var(--text-light); font-size: 0.85rem;">No results found</div>';
+                    searchResults.innerHTML = `
+                        <div class="search-empty-state">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <div class="search-empty-state-title">No results found</div>
+                            <div class="search-empty-state-text">Try a different city, zip code, or address</div>
+                        </div>
+                    `;
+                    if (resultCount) resultCount.style.display = 'none';
                     return;
                 }
 
-                results.forEach(result => {
+                // Show result count
+                if (resultCount) {
+                    resultCount.textContent = `${results.length}`;
+                    resultCount.style.display = 'inline-block';
+                }
+
+                results.forEach((result, index) => {
                     const resultEl = document.createElement('div');
                     resultEl.className = 'search-result-item';
                     resultEl.textContent = result.display_name.split(',')[0];
+                    resultEl.title = result.display_name;
+                    resultEl.style.setProperty('--index', index);
                     resultEl.onclick = function() {
                         const bbox = result.boundingbox;
                         map.fitBounds([
                             [parseFloat(bbox[0]), parseFloat(bbox[2])],
                             [parseFloat(bbox[1]), parseFloat(bbox[3])]
                         ]);
+                        NotificationManager.success(`Centered on ${result.display_name.split(',')[0]}`);
                     };
                     searchResults.appendChild(resultEl);
                 });
+
+                // Update scroll indicators after rendering
+                setTimeout(() => updateScrollIndicators(searchResults), 0);
             })
             .catch(err => {
                 console.error('Search error:', err);
-                searchResults.innerHTML = '<div style="padding: 8px; color: red; font-size: 0.85rem;">Search error</div>';
+                searchResults.innerHTML = `
+                    <div class="search-empty-state">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div class="search-empty-state-title">Search error</div>
+                        <div class="search-empty-state-text">Could not connect. Try again.</div>
+                    </div>
+                `;
+                if (resultCount) resultCount.style.display = 'none';
             });
     }
 
@@ -2881,6 +3203,98 @@ Ctrl+Shift+L  Use Geolocation
         }
     };
 
+    // --- Multi-Touch Gesture Manager (Phase 3) ---
+    const MultiTouchManager = {
+        touches: [],
+        initialDistance: 0,
+        initialRotation: 0,
+        isMultiTouch: false,
+
+        init() {
+            const mapContainer = document.getElementById('map-container');
+            if (!mapContainer) return;
+
+            mapContainer.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: false });
+            mapContainer.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
+            mapContainer.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: false });
+        },
+
+        handleTouchStart(e) {
+            this.touches = Array.from(e.touches);
+            this.isMultiTouch = this.touches.length >= 2;
+
+            if (this.isMultiTouch) {
+                e.preventDefault();
+                this.initialDistance = this.calculateDistance(this.touches[0], this.touches[1]);
+                this.initialRotation = this.calculateRotation(this.touches[0], this.touches[1]);
+                // Disable map's default touch handling during multi-touch
+                if (map) {
+                    map.dragging.disable();
+                    map.touchZoom.disable();
+                }
+            }
+        },
+
+        handleTouchMove(e) {
+            if (!this.isMultiTouch || this.touches.length < 2) return;
+            e.preventDefault();
+
+            const currentTouches = Array.from(e.touches);
+            const currentDistance = this.calculateDistance(currentTouches[0], currentTouches[1]);
+            const currentRotation = this.calculateRotation(currentTouches[0], currentTouches[1]);
+
+            // Two-finger pan/drag - move map
+            const midX = (currentTouches[0].clientX + currentTouches[1].clientX) / 2;
+            const midY = (currentTouches[0].clientY + currentTouches[1].clientY) / 2;
+            const oldMidX = (this.touches[0].clientX + this.touches[1].clientX) / 2;
+            const oldMidY = (this.touches[0].clientY + this.touches[1].clientY) / 2;
+
+            const deltaX = midX - oldMidX;
+            const deltaY = midY - oldMidY;
+
+            // Convert screen coordinates to map movement
+            const mapContainer = document.getElementById('map-container');
+            if (map && mapContainer && (deltaX !== 0 || deltaY !== 0)) {
+                const rect = mapContainer.getBoundingClientRect();
+                const center = map.getCenter();
+                const point = map.latLngToContainerPoint(center);
+                const newPoint = L.point(point.x - deltaX, point.y - deltaY);
+                const newCenter = map.containerPointToLatLng(newPoint);
+                map.setView(newCenter, map.getZoom(), { animate: false });
+            }
+
+            // Store current touches for next move
+            this.touches = currentTouches;
+        },
+
+        handleTouchEnd(e) {
+            if (this.isMultiTouch) {
+                // Re-enable default map touch handling
+                if (map) {
+                    map.dragging.enable();
+                    map.touchZoom.enable();
+                }
+                this.isMultiTouch = false;
+                this.touches = [];
+            }
+        },
+
+        calculateDistance(touch1, touch2) {
+            const dx = touch1.clientX - touch2.clientX;
+            const dy = touch1.clientY - touch2.clientY;
+            return Math.sqrt(dx * dx + dy * dy);
+        },
+
+        calculateRotation(touch1, touch2) {
+            const dx = touch2.clientX - touch1.clientX;
+            const dy = touch2.clientY - touch1.clientY;
+            return Math.atan2(dy, dx) * (180 / Math.PI);
+        }
+    };
+
     initMap();
     KeyboardShortcuts.init();
+    DataStatusManager.init();
+    MobilePanelManager.init();
+    MultiTouchManager.init();
 });

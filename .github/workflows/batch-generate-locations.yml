@@ -34,22 +34,24 @@ jobs:
         id: batch
         run: |
           pip install requests
-          python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size ${{ github.event.inputs.batch_size }}
+          BATCH_SIZE=${{ github.event.inputs.batch_size || '50' }}
+          python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size "$BATCH_SIZE"
 
       - name: Generate Locations for Batch
         if: steps.batch.outcome == 'success'
         run: |
           # Extract batch from processor output (between JSON markers)
-          BATCH=$(python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size ${{ github.event.inputs.batch_size }} 2>/dev/null | sed -n '/--- JSON OUTPUT START ---/,/--- JSON OUTPUT END ---/p' | sed '1d;$d' | python -c "import sys, json; data = json.load(sys.stdin); print(','.join(data['batch']))")
+          BATCH_SIZE=${{ github.event.inputs.batch_size || '50' }}
+          BATCH=$(python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size "$BATCH_SIZE" 2>/dev/null | sed -n '/--- JSON OUTPUT START ---/,/--- JSON OUTPUT END ---/p' | sed '1d;$d' | python -c "import sys, json; data = json.load(sys.stdin); print(','.join(data['batch']))")
           echo "🔄 Processing batch: $BATCH"
 
-          # Generate locations with full data enrichment
-          python -m data_aggregation.pipelines.franchise.generate_locations \
-            --batch "$BATCH" \
-            --include-addresses \
-            --include-hours \
-            --include-contact \
-            --enrich-details
+          if [ -z "$BATCH" ]; then
+            echo "✅ All brands already processed"
+            exit 0
+          fi
+
+          # Generate locations - only pass supported arguments
+          python -m data_aggregation.pipelines.franchise.generate_locations --batch "$BATCH"
 
           echo "✅ Batch location generation complete"
 
@@ -77,7 +79,14 @@ jobs:
 
       - name: Mark Batch Complete
         run: |
-          BATCH=$(python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size ${{ github.event.inputs.batch_size }} 2>/dev/null | sed -n '/--- JSON OUTPUT START ---/,/--- JSON OUTPUT END ---/p' | sed '1d;$d' | python -c "import sys, json; data = json.load(sys.stdin); print(','.join(data['batch']))")
+          BATCH_SIZE=${{ github.event.inputs.batch_size || '50' }}
+          BATCH=$(python -m data_aggregation.pipelines.franchise.batch_processor --action get_batch --batch_size "$BATCH_SIZE" 2>/dev/null | sed -n '/--- JSON OUTPUT START ---/,/--- JSON OUTPUT END ---/p' | sed '1d;$d' | python -c "import sys, json; data = json.load(sys.stdin); print(','.join(data['batch']))")
+
+          if [ -z "$BATCH" ]; then
+            echo "ℹ️  No batch to mark complete (all brands processed)"
+            exit 0
+          fi
+
           COUNTS=$(python3 -c "import json; from pathlib import Path; m = Path('FranchiseMap/data/manifest.json'); data = json.load(open(m)) if m.exists() else []; print(json.dumps({item['ticker']: item['count'] for item in data}))")
           python -m data_aggregation.pipelines.franchise.batch_processor --action complete_batch --batch "$BATCH" --counts "$COUNTS"
 

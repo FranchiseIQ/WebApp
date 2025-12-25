@@ -29,11 +29,7 @@ jobs:
         run: |
           pip install requests
           echo "🔄 Generating all franchise locations..."
-          python -m data_aggregation.pipelines.franchise.generate_locations \
-            --include-addresses \
-            --include-hours \
-            --include-contact \
-            --enrich-details
+          python -m data_aggregation.pipelines.franchise.generate_locations
           echo "✅ Location generation complete"
 
       - name: Generate Brand Metadata
