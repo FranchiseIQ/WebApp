@@ -2977,3 +2977,200 @@
     width: 100%;
   }
 }
+
+/* EXPANDED MARKET METRICS STYLES */
+
+.expanded-metrics-container {
+  margin-top: 24px;
+}
+
+.metrics-overview {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.overview-card {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%);
+  border: 2px solid rgba(34, 197, 94, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  flex: 1;
+  min-width: 200px;
+}
+
+.overview-card.market-index {
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.card-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.card-big-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--accent2);
+  font-family: 'Monaco', 'Consolas', monospace;
+  margin-bottom: 8px;
+}
+
+.card-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.metrics-sections {
+  display: grid;
+  gap: 24px;
+}
+
+.metrics-section {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.metrics-section h5 {
+  margin: 0 0 16px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.metric-box {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.metric-box.wide {
+  grid-column: span 2;
+}
+
+.metric-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.metric-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent2);
+  font-family: 'Monaco', 'Consolas', monospace;
+}
+
+.metric-comparison {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.metric-value-list {
+  font-size: 12px;
+  color: var(--text);
+  display: block;
+  margin-top: 4px;
+}
+
+/* Section-specific colors */
+
+.economic-section {
+  border-top: 4px solid rgb(34, 197, 94);
+}
+
+.education-section {
+  border-top: 4px solid rgb(99, 102, 241);
+}
+
+.employment-section {
+  border-top: 4px solid rgb(59, 130, 246);
+}
+
+.demographic-section {
+  border-top: 4px solid rgb(168, 85, 247);
+}
+
+.housing-section {
+  border-top: 4px solid rgb(250, 204, 21);
+}
+
+.safety-section {
+  border-top: 4px solid rgb(239, 68, 68);
+}
+
+.health-section {
+  border-top: 4px solid rgb(236, 72, 153);
+}
+
+.lifestyle-section {
+  border-top: 4px solid rgb(14, 165, 233);
+}
+
+/* Responsive adjustments for expanded metrics */
+@media (max-width: 768px) {
+  .metrics-overview {
+    flex-direction: column;
+  }
+
+  .overview-card {
+    min-width: 100%;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .metric-box.wide {
+    grid-column: span 2;
+  }
+
+  .card-big-number {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .metrics-section {
+    padding: 16px;
+  }
+
+  .metrics-section h5 {
+    font-size: 14px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-box.wide {
+    grid-column: span 1;
+  }
+
+  .card-big-number {
+    font-size: 32px;
+  }
+
+  .metric-value {
+    font-size: 18px;
+  }
+}
