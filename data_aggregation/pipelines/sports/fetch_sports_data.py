@@ -129,8 +129,119 @@ def get_youtube_highlight(query, league, existing_cache=None):
         return None
 
 
+def extract_player_stats(competitor):
+    """Extract key player statistics from competitor athletes."""
+    athletes = competitor.get("athletes", [])
+    players = []
+
+    # Get top performers (limit to top 10 to reduce data size)
+    for athlete in athletes[:10]:
+        try:
+            player = {
+                "id": athlete.get("id", ""),
+                "name": athlete.get("displayName", ""),
+                "position": athlete.get("position", {}).get("abbreviation", ""),
+                "jersey": athlete.get("jersey", ""),
+                "status": athlete.get("status", ""),  # Out, Probable, etc.
+                "stats": {}
+            }
+
+            # Extract player statistics
+            stats_list = athlete.get("stats", [])
+            for stat in stats_list:
+                stat_name = stat.get("name", "").lower()
+                stat_value = stat.get("displayValue", "0")
+                # Store key stats (passing, rushing, receiving, tackles, etc.)
+                if stat_name in ["passingYards", "rushingYards", "receivingYards", "tackles",
+                                 "sacks", "interceptions", "touchdowns", "points", "rebounds",
+                                 "assists", "steals", "blockedShots", "goals", "assists"]:
+                    player["stats"][stat_name] = stat_value
+
+            if player["stats"] or player["position"]:  # Only include if has stats or position
+                players.append(player)
+        except Exception as e:
+            continue
+
+    return players
+
+
+def extract_injuries(competitor):
+    """Extract injury information for players."""
+    athletes = competitor.get("athletes", [])
+    injuries = []
+
+    for athlete in athletes:
+        status = athlete.get("status", "").lower()
+        if "out" in status or "doubtful" in status or "questionable" in status or "probable" in status:
+            injury = {
+                "playerName": athlete.get("displayName", ""),
+                "position": athlete.get("position", {}).get("abbreviation", ""),
+                "status": athlete.get("status", ""),
+                "id": athlete.get("id", "")
+            }
+            injuries.append(injury)
+
+    return injuries
+
+
+def extract_betting_odds(competition):
+    """Extract betting odds/lines from competition."""
+    odds_data = competition.get("odds", [])
+
+    if not odds_data:
+        return None
+
+    try:
+        odds = odds_data[0]
+        return {
+            "spread": odds.get("spread", {}),
+            "overUnder": odds.get("overUnder", ""),
+            "moneyline": odds.get("moneyline", {}),
+            "provider": odds.get("provider", {}).get("name", "ESPN"),
+            "lastUpdated": odds.get("lastModified", "")
+        }
+    except Exception as e:
+        return None
+
+
+def extract_game_notes(event):
+    """Extract headlines and notes about the game."""
+    headlines = []
+
+    # Get notes from the event
+    notes = event.get("notes", [])
+    for note in notes:
+        try:
+            headline = {
+                "headline": note.get("headline", ""),
+                "description": note.get("description", ""),
+                "type": note.get("type", ""),
+                "lastModified": note.get("lastModified", "")
+            }
+            if headline["headline"]:
+                headlines.append(headline)
+        except:
+            continue
+
+    # Get story links if available
+    links = event.get("links", [])
+    for link in links:
+        try:
+            if "recap" in link.get("text", "").lower() or "summary" in link.get("text", "").lower():
+                headlines.append({
+                    "headline": link.get("text", ""),
+                    "description": "",
+                    "type": "recap",
+                    "url": link.get("href", "")
+                })
+        except:
+            continue
+
+    return headlines
+
+
 def process_game(event, league, video_cache=None):
-    """Standardizes game data from ESPN API."""
+    """Standardizes game data from ESPN API with enhanced player and odds data."""
     try:
         comp = event["competitions"][0]
         status_type = event["status"]["type"]
@@ -187,6 +298,43 @@ def process_game(event, league, video_cache=None):
             names = broadcasts[0].get("names", [])
             network = names[0] if names else ""
 
+        # ENHANCED DATA EXTRACTION
+        # Player statistics
+        home_players = extract_player_stats(home)
+        away_players = extract_player_stats(away)
+
+        # Injury reports
+        home_injuries = extract_injuries(home)
+        away_injuries = extract_injuries(away)
+
+        # Betting odds
+        odds = extract_betting_odds(comp)
+
+        # Game headlines and notes
+        headlines = extract_game_notes(event)
+
+        # Venue information
+        venue = comp.get("venue", {})
+        venue_info = {
+            "name": venue.get("fullName", ""),
+            "city": venue.get("address", {}).get("city", ""),
+            "state": venue.get("address", {}).get("state", ""),
+            "capacity": venue.get("capacity", ""),
+            "indoor": venue.get("indoor", None)
+        }
+
+        # Wind and weather conditions (if available)
+        weather = comp.get("weather", [])
+        weather_info = None
+        if weather:
+            w = weather[0]
+            weather_info = {
+                "displayValue": w.get("displayValue", ""),
+                "temperature": w.get("temperature", ""),
+                "wind": w.get("wind", ""),
+                "conditions": w.get("conditions", "")
+            }
+
         return {
             "id": event.get("id", ""),
             "date": event.get("date", ""),
@@ -196,24 +344,34 @@ def process_game(event, league, video_cache=None):
             "clock": clock,
             "period": period,
             "network": network,
+            "venue": venue_info,
+            "weather": weather_info,
             "homeTeam": {
                 "name": home_full,
                 "shortName": home_name,
                 "abbreviation": home_team.get("abbreviation", ""),
                 "logoUrl": home_team.get("logo", ""),
-                "record": home_record
+                "record": home_record,
+                "players": home_players,
+                "injuries": home_injuries,
+                "rank": home_team.get("rank", "")
             },
             "awayTeam": {
                 "name": away_full,
                 "shortName": away_name,
                 "abbreviation": away_team.get("abbreviation", ""),
                 "logoUrl": away_team.get("logo", ""),
-                "record": away_record
+                "record": away_record,
+                "players": away_players,
+                "injuries": away_injuries,
+                "rank": away_team.get("rank", "")
             },
             "homeScore": home_score,
             "awayScore": away_score,
             "video_url": video_url,
-            "league": league
+            "league": league,
+            "odds": odds,
+            "headlines": headlines
         }
     except Exception as e:
         print(f"  Error processing game: {e}")
