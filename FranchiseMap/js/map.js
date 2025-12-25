@@ -323,6 +323,143 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // --- Mobile Panel Manager (Phase 3) ---
+    const MobilePanelManager = {
+        isMobile: () => window.innerWidth <= 768,
+        activePanel: null,
+        panelStack: [],
+
+        init() {
+            // Register all managed panels
+            this.registerPanel('location-panel', 'Location Details');
+            this.registerPanel('high-performers-panel', 'High Performers');
+            this.registerPanel('competitor-analysis-panel', 'Competitor Analysis');
+            this.registerPanel('search-panel', 'Search Results');
+
+            // Listen to window resize
+            window.addEventListener('resize', () => this.handleResize());
+
+            // Add backdrop click handler
+            document.addEventListener('click', (e) => {
+                if (e.target.id === 'mobile-panel-backdrop') {
+                    this.closeActivePanel();
+                }
+            });
+        },
+
+        registerPanel(panelId, panelName) {
+            const panel = document.getElementById(panelId);
+            if (!panel) return;
+
+            // Store original close buttons
+            const closeBtn = panel.querySelector('.close-location-panel-btn, .close-search-panel-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => this.closeActivePanel());
+            }
+        },
+
+        openPanel(panelId) {
+            if (!this.isMobile()) return; // Only manage on mobile
+
+            // Close previous panel if exists
+            if (this.activePanel && this.activePanel !== panelId) {
+                this.closePanel(this.activePanel);
+            }
+
+            const panel = document.getElementById(panelId);
+            if (!panel) return;
+
+            // Create backdrop if needed
+            let backdrop = document.getElementById('mobile-panel-backdrop');
+            if (!backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.id = 'mobile-panel-backdrop';
+                backdrop.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 2000;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    pointer-events: none;
+                `;
+                document.body.appendChild(backdrop);
+            }
+
+            // Show backdrop
+            setTimeout(() => {
+                backdrop.style.opacity = '1';
+                backdrop.style.pointerEvents = 'auto';
+            }, 10);
+
+            // Configure panel for modal display
+            panel.style.cssText = `
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-height: 85vh;
+                z-index: 2100;
+                border-radius: 16px 16px 0 0;
+                transform: translateY(0);
+                transition: transform 0.3s ease;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+            `;
+
+            panel.classList.remove('hidden');
+            this.activePanel = panelId;
+
+            // Show notification for screen readers
+            NotificationManager.info(`${document.getElementById(panelId)?.querySelector('.location-panel-title, .search-panel-title')?.textContent || 'Panel'} opened`);
+        },
+
+        closePanel(panelId) {
+            const panel = document.getElementById(panelId);
+            if (!panel) return;
+
+            panel.classList.add('hidden');
+            if (this.activePanel === panelId) {
+                this.activePanel = null;
+            }
+        },
+
+        closeActivePanel() {
+            if (!this.activePanel) return;
+
+            const backdrop = document.getElementById('mobile-panel-backdrop');
+            if (backdrop) {
+                backdrop.style.opacity = '0';
+                backdrop.style.pointerEvents = 'none';
+            }
+
+            const panel = document.getElementById(this.activePanel);
+            if (panel) {
+                panel.style.transform = 'translateY(100%)';
+                setTimeout(() => {
+                    panel.classList.add('hidden');
+                    panel.style.transform = '';
+                }, 300);
+            }
+
+            this.activePanel = null;
+        },
+
+        handleResize() {
+            // On resize to desktop, restore normal panel behavior
+            if (!this.isMobile() && this.activePanel) {
+                this.closeActivePanel();
+                // Restore panels to normal CSS positioning
+                document.querySelectorAll('.location-panel, .high-performers-panel, .search-panel').forEach(panel => {
+                    panel.style.cssText = '';
+                });
+            }
+        }
+    };
+
     // Predefined unique color palette - 60+ distinct colors
     const COLOR_PALETTE = [
         '#FFC72C', '#00704A', '#D62300', '#E2203D', '#006491', '#FF8732', '#E31837', '#00A94F',
@@ -3014,4 +3151,5 @@ Ctrl+Shift+L  Use Geolocation
     initMap();
     KeyboardShortcuts.init();
     DataStatusManager.init();
+    MobilePanelManager.init();
 });
