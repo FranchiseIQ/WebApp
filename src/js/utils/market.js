@@ -13,6 +13,8 @@ const MarketUtils = {
     openMinute: 30,
     closeHour: 16,
     closeMinute: 0,
+    earlyCloseHour: 13,
+    earlyCloseMinute: 0,
     preMarketStart: 4,
     afterHoursEnd: 20,
     holidays: [
@@ -23,7 +25,23 @@ const MarketUtils = {
       // 2025 US Market Holidays
       '2025-01-01', '2025-01-20', '2025-02-17', '2025-04-18',
       '2025-05-26', '2025-06-19', '2025-07-04', '2025-09-01',
-      '2025-11-27', '2025-12-25'
+      '2025-11-27', '2025-12-25',
+      // 2026 US Market Holidays
+      '2026-07-03'
+    ],
+    earlyCloseDays: [
+      // 2024 Early-Close Days (1:00 PM ET)
+      '2024-07-03',
+      '2024-11-29',
+      '2024-12-24',
+      // 2025 Early-Close Days (1:00 PM ET)
+      '2025-07-03',
+      '2025-11-28',
+      '2025-12-24',
+      // 2026 Early-Close Days (1:00 PM ET)
+      '2026-07-02',
+      '2026-11-27',
+      '2026-12-24'
     ]
   },
 
@@ -61,6 +79,16 @@ const MarketUtils = {
   },
 
   /**
+   * Check if today is an early-close day (1:00 PM ET)
+   * @param {Date} date - Date to check (optional, defaults to today)
+   * @returns {boolean} True if early-close day
+   */
+  isEarlyClose(date = new Date()) {
+    const dateStr = date.toISOString().split('T')[0];
+    return this.config.earlyCloseDays.includes(dateStr);
+  },
+
+  /**
    * Check if it's a weekend
    * @param {Date} date - Date to check (optional, defaults to today)
    * @returns {boolean} True if weekend
@@ -83,7 +111,11 @@ const MarketUtils = {
 
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
     const openMinutes = this.config.openHour * 60 + this.config.openMinute;
-    const closeMinutes = this.config.closeHour * 60 + this.config.closeMinute;
+
+    // Determine close time based on whether it's an early-close day
+    const closeHour = this.isEarlyClose(now) ? this.config.earlyCloseHour : this.config.closeHour;
+    const closeMinute = this.isEarlyClose(now) ? this.config.earlyCloseMinute : this.config.closeMinute;
+    const closeMinutes = closeHour * 60 + closeMinute;
 
     return currentMinutes >= openMinutes && currentMinutes < closeMinutes;
   },
@@ -118,7 +150,12 @@ const MarketUtils = {
     }
 
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
-    const closeMinutes = this.config.closeHour * 60 + this.config.closeMinute;
+
+    // Determine close time based on whether it's an early-close day
+    const closeHour = this.isEarlyClose(now) ? this.config.earlyCloseHour : this.config.closeHour;
+    const closeMinute = this.isEarlyClose(now) ? this.config.earlyCloseMinute : this.config.closeMinute;
+    const closeMinutes = closeHour * 60 + closeMinute;
+
     const afterHoursEndMinutes = this.config.afterHoursEnd * 60;
 
     return currentMinutes >= closeMinutes && currentMinutes < afterHoursEndMinutes;
@@ -132,6 +169,7 @@ const MarketUtils = {
     const now = this.getEasternTime();
     const isWeekend = this.isWeekend(now);
     const isHoliday = this.isHoliday(now);
+    const isEarlyClose = this.isEarlyClose(now);
     const isOpen = this.isMarketOpen();
     const isPreMarket = this.isPreMarket();
     const isAfterHours = this.isAfterHours();
@@ -146,6 +184,10 @@ const MarketUtils = {
       status = 'closed';
       label = 'Holiday - Market Closed';
       indicator = 'closed';
+    } else if (isOpen && isEarlyClose) {
+      status = 'open';
+      label = 'Market Open - Early Close 1:00 PM ET';
+      indicator = 'early-close';
     } else if (isOpen) {
       status = 'open';
       label = 'Market Open';
@@ -173,6 +215,7 @@ const MarketUtils = {
       isAfterHours,
       isWeekend,
       isHoliday,
+      isEarlyClose,
       currentTime: this.formatEasternTime(now),
       timezone: 'ET'
     };
@@ -217,7 +260,12 @@ const MarketUtils = {
 
     const now = this.getEasternTime();
     const closeTime = new Date(now);
-    closeTime.setHours(this.config.closeHour, this.config.closeMinute, 0, 0);
+
+    // Determine close time based on whether it's an early-close day
+    const closeHour = this.isEarlyClose(now) ? this.config.earlyCloseHour : this.config.closeHour;
+    const closeMinute = this.isEarlyClose(now) ? this.config.earlyCloseMinute : this.config.closeMinute;
+
+    closeTime.setHours(closeHour, closeMinute, 0, 0);
 
     const diffMs = closeTime - now;
     const hours = Math.floor(diffMs / (1000 * 60 * 60));
