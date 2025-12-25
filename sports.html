@@ -1060,6 +1060,333 @@
             display: block;
         }
 
+        /* Settings Modal */
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 900;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .settings-modal.open {
+            display: flex;
+        }
+
+        .settings-panel {
+            background: linear-gradient(135deg, rgba(30, 30, 50, 0.95), rgba(40, 40, 70, 0.95));
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            backdrop-filter: blur(20px);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease-out forwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+
+        .settings-header h2 {
+            font-size: 1.3em;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .settings-close {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .settings-close:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text);
+        }
+
+        .settings-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .settings-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .settings-section h3 {
+            font-size: 0.95em;
+            text-transform: uppercase;
+            color: var(--accent1);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin: 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .settings-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .settings-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .settings-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            font-size: 0.9em;
+            flex: 1;
+        }
+
+        .settings-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--accent1);
+        }
+
+        .settings-select,
+        .settings-input {
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 0.9em;
+            font-family: inherit;
+            flex: 1;
+            transition: all 0.2s;
+        }
+
+        .settings-select:hover,
+        .settings-input:hover {
+            border-color: var(--accent1);
+            background: rgba(0,0,0,0.4);
+        }
+
+        .settings-select:focus,
+        .settings-input:focus {
+            outline: none;
+            border-color: var(--accent1);
+            box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+        }
+
+        .team-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .team-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .team-checkbox:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--accent1);
+        }
+
+        .team-checkbox input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--accent1);
+        }
+
+        .team-checkbox label {
+            cursor: pointer;
+            color: var(--text);
+            font-size: 0.85em;
+        }
+
+        .settings-footer {
+            display: flex;
+            gap: 10px;
+            padding: 16px 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+
+        .settings-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .settings-btn-save {
+            background: var(--accent1);
+            color: white;
+        }
+
+        .settings-btn-save:hover {
+            background: var(--accent2);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .settings-btn-reset {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        .settings-btn-reset:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+        }
+
+        .settings-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Settings button in navbar */
+        .settings-btn-nav {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.7);
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .settings-btn-nav:hover {
+            color: var(--text);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(99, 102, 241, 0.3);
+            transition: 0.3s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--accent1);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(16px);
+        }
+
+        /* Toast animations */
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
 
         /* Responsive */
         /* ========== RESPONSIVE DESIGN ========== */
@@ -1393,6 +1720,7 @@
                 padding: 8px 12px;
             }
         }
+        }
 
         /* Sports Headlines Ticker */
         .sports-ticker {
@@ -1508,6 +1836,7 @@
         <a href="sports.html" class="active">Sports</a>
         <a href="franchise_calculators_module/index.html">Calculators</a>
         <a href="about.html">About</a>
+        <button class="settings-btn-nav" onclick="openSettings()" title="Preferences">⚙️</button>
     </nav>
 
     <!-- Hero Header -->
@@ -1602,6 +1931,81 @@
         </div>
         <div class="drawer-content" id="drawer-content">
             <!-- Content populated dynamically -->
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settings-modal">
+        <div class="settings-panel">
+            <div class="settings-header">
+                <h2>Preferences</h2>
+                <button class="settings-close" onclick="closeSettings()">&times;</button>
+            </div>
+            <div class="settings-content">
+                <!-- Favorite Leagues -->
+                <div class="settings-section">
+                    <h3>Favorite Leagues</h3>
+                    <div class="team-checkboxes" id="league-checkboxes">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Favorite Teams -->
+                <div class="settings-section">
+                    <h3>Favorite Teams</h3>
+                    <div class="team-checkboxes" id="team-checkboxes">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Notifications -->
+                <div class="settings-section">
+                    <h3>Notifications</h3>
+                    <div class="settings-item">
+                        <label class="settings-label">Enable Notifications</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notify-enabled">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-item">
+                        <label class="settings-label">Notification Sound</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notify-sound">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <label style="color: var(--secondary); font-size: 0.9em; flex: 1;">Quiet Hours</label>
+                        <select class="settings-select" id="quiet-start" style="flex: 0.8;">
+                            <!-- Hours 0-23 -->
+                        </select>
+                        <span style="color: var(--secondary);">to</span>
+                        <select class="settings-select" id="quiet-end" style="flex: 0.8;">
+                            <!-- Hours 0-23 -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Theme & View -->
+                <div class="settings-section">
+                    <h3>Display</h3>
+                    <div class="settings-item">
+                        <label class="settings-label">Time Zone</label>
+                        <select class="settings-select" id="timezone-select">
+                            <option value="America/New_York">Eastern (EST/EDT)</option>
+                            <option value="America/Chicago">Central (CST/CDT)</option>
+                            <option value="America/Denver">Mountain (MST/MDT)</option>
+                            <option value="America/Los_Angeles">Pacific (PST/PDT)</option>
+                            <option value="UTC">UTC</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-footer">
+                <button class="settings-btn settings-btn-save" onclick="saveSettings()">Save Preferences</button>
+                <button class="settings-btn settings-btn-reset" onclick="resetSettings()">Reset to Defaults</button>
+            </div>
         </div>
     </div>
 
@@ -3761,6 +4165,128 @@
             drawer.classList.remove('open');
             overlay.classList.remove('open');
         }
+
+        // Settings modal functions
+        function openSettings() {
+            const modal = document.getElementById('settings-modal');
+            modal.classList.add('open');
+            loadSettingsUI();
+        }
+
+        function closeSettings() {
+            const modal = document.getElementById('settings-modal');
+            modal.classList.remove('open');
+        }
+
+        // Load settings UI from preferences
+        function loadSettingsUI() {
+            const prefs = preferences.getAll();
+
+            // Load league checkboxes
+            const leagues = ['NFL', 'NBA', 'WNBA', 'NHL', 'MLB', 'MLS'];
+            const leagueContainer = document.getElementById('league-checkboxes');
+            leagueContainer.innerHTML = leagues.map(league => `
+                <label class="team-checkbox">
+                    <input type="checkbox" data-league="${league}" ${prefs.favoriteLeagues.includes(league) ? 'checked' : ''}>
+                    <label>${league}</label>
+                </label>
+            `).join('');
+
+            // Load team checkboxes
+            const teams = ['KC', 'NE', 'DAL', 'GB', 'SF', 'LAR', 'MIN', 'PHI', 'LAC', 'BUF', 'NYG', 'CHI', 'TB', 'NO'];
+            const teamContainer = document.getElementById('team-checkboxes');
+            teamContainer.innerHTML = teams.map(team => `
+                <label class="team-checkbox">
+                    <input type="checkbox" data-team="${team}" ${prefs.favoriteTeams.includes(team) ? 'checked' : ''}>
+                    <label>${team}</label>
+                </label>
+            `).join('');
+
+            // Load notification settings
+            document.getElementById('notify-enabled').checked = prefs.notificationsEnabled;
+            document.getElementById('notify-sound').checked = prefs.notificationSound;
+            document.getElementById('timezone-select').value = prefs.timeZone;
+
+            // Load quiet hours
+            document.getElementById('quiet-start').innerHTML = Array.from({ length: 24 }, (_, i) => `
+                <option value="${i}" ${i === prefs.quietHoursStart ? 'selected' : ''}>${i.toString().padStart(2, '0')}:00</option>
+            `).join('');
+            document.getElementById('quiet-end').innerHTML = Array.from({ length: 24 }, (_, i) => `
+                <option value="${i}" ${i === prefs.quietHoursEnd ? 'selected' : ''}>${i.toString().padStart(2, '0')}:00</option>
+            `).join('');
+        }
+
+        // Save settings to preferences
+        function saveSettings() {
+            // Save favorite leagues
+            const leagueCheckboxes = document.querySelectorAll('#league-checkboxes input[type="checkbox"]');
+            const favoriteLeagues = Array.from(leagueCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.dataset.league);
+            preferences.set('favoriteLeagues', favoriteLeagues);
+
+            // Save favorite teams
+            const teamCheckboxes = document.querySelectorAll('#team-checkboxes input[type="checkbox"]');
+            const favoriteTeams = Array.from(teamCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.dataset.team);
+            preferences.set('favoriteTeams', favoriteTeams);
+
+            // Save notification settings
+            preferences.set('notificationsEnabled', document.getElementById('notify-enabled').checked);
+            preferences.set('notificationSound', document.getElementById('notify-sound').checked);
+            preferences.set('quietHoursStart', parseInt(document.getElementById('quiet-start').value));
+            preferences.set('quietHoursEnd', parseInt(document.getElementById('quiet-end').value));
+            preferences.set('timeZone', document.getElementById('timezone-select').value);
+
+            // Show success message
+            showToast('Preferences saved successfully', 'success');
+            closeSettings();
+        }
+
+        // Reset settings to defaults
+        function resetSettings() {
+            if (confirm('Are you sure you want to reset all preferences to defaults?')) {
+                preferences.reset();
+                loadSettingsUI();
+                showToast('Preferences reset to defaults', 'info');
+            }
+        }
+
+        // Simple toast notification
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                border-radius: 8px;
+                background: ${type === 'success' ? '#22c55e' : '#6366f1'};
+                color: white;
+                z-index: 1000;
+                font-size: 0.9em;
+                font-weight: 600;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.3s ease-out';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Close settings on overlay click
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('settings-modal');
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeSettings();
+                }
+            });
+        });
 
         // Initialize news ticker
         async function initNewsTicker() {
