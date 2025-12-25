@@ -1411,6 +1411,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(!slider) return;
 
+        let hasLoadedCompetitors = false;
+
         const updateRadius = function() {
             const miles = RADIUS_STEPS[slider.value];
             label.innerText = `${miles} mi`;
@@ -1422,11 +1424,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 color: color, fillOpacity: 0.08, weight: 2, dashArray: '5,5'
             }).addTo(map);
 
+            // Lazy load competitor analysis - only load when user interacts with slider
             highlightCompetitors(loc, miles, competitorsDiv);
+            hasLoadedCompetitors = true;
         };
 
         slider.oninput = updateRadius;
-        updateRadius();
+
+        // Don't load competitors on popup creation - defer until user interacts
+        // This reduces initial popup load time for better UX
+        competitorsDiv.innerHTML = '<div class="loading-competitors"><i class="fa-solid fa-hourglass-end"></i> Loading analysis...</div>';
 
         // Handle save button
         const saveBtn = document.querySelector(`.popup-save-btn[data-location-id="${loc.id}"]`);
