@@ -25,6 +25,16 @@
             --green: #22c55e;
         }
 
+        /* Light theme */
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --card: rgba(0,0,0,0.05);
+            --text: #0f172a;
+            --secondary: #475569;
+            --accent1: #4f46e5;
+            --accent2: #9333ea;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -39,80 +49,7 @@
             padding-bottom: 100px;
         }
 
-        /* Global Stock Ticker - Fixed positioning */
-        .global-ticker {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 300;
-            background: #0a0a0a;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-
-        .global-ticker iframe {
-            width: 100%;
-            height: 120px;
-            border: none;
-            display: block;
-            overflow: hidden;
-        }
-
-        /* Navigation Bar - Fixed below ticker */
-        .main-nav {
-            position: fixed;
-            top: 120px;
-            left: 0;
-            width: 100%;
-            z-index: 299;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: rgba(15, 23, 42, 0.95);
-            padding: 12px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            backdrop-filter: blur(12px);
-            overflow-x: auto;
-            box-sizing: border-box;
-        }
-
-        .main-nav .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--text);
-            margin-right: auto;
-        }
-
-        .main-nav .nav-brand img {
-            height: 28px;
-            width: auto;
-        }
-
-        .main-nav a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            white-space: nowrap;
-            padding: 6px 10px;
-            border-radius: 6px;
-            transition: color 0.15s, background 0.15s;
-        }
-
-        .main-nav a:hover {
-            color: var(--text);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .main-nav a.active {
-            color: var(--accent1);
-            background: rgba(99, 102, 241, 0.15);
-        }
+        /* Ticker and nav styles from global.css */
 
         /* Franchisor Filter */
         .franchisor-filter {
@@ -253,6 +190,248 @@
             border-radius: 12px;
             font-size: 0.8em;
             font-weight: 600;
+        }
+
+        /* Advanced Filters Panel */
+        .advanced-filters {
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filters-toggle {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .filters-toggle:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .filters-toggle .arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.8em;
+        }
+
+        .filters-toggle[aria-expanded="true"] .arrow {
+            transform: rotate(180deg);
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .save-filter-btn, .clear-filters-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s ease;
+        }
+
+        .save-filter-btn:hover {
+            background: var(--accent1);
+            border-color: var(--accent1);
+        }
+
+        .clear-filters-btn:hover {
+            background: #ef4444;
+            border-color: #ef4444;
+        }
+
+        .filters-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .filters-content[aria-hidden="false"] {
+            max-height: 600px;
+            padding: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 0.9em;
+            color: var(--secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .team-search-input {
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text);
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+        }
+
+        .team-search-input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.12);
+            border-color: var(--accent1);
+        }
+
+        .team-search-input::placeholder {
+            color: var(--secondary);
+            opacity: 0.7;
+        }
+
+        /* Status Filters */
+        .status-filters {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .status-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .status-checkbox:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .status-checkbox input[type="checkbox"] {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        .status-badge {
+            font-size: 0.85em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .status-checkbox input:checked ~ .status-badge {
+            border-color: var(--accent1);
+        }
+
+        .status-badge.live {
+            color: #ef4444;
+        }
+
+        .status-badge.upcoming {
+            color: #f59e0b;
+        }
+
+        .status-badge.final {
+            color: #22c55e;
+        }
+
+        /* Date Range Filter */
+        .date-range {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .date-input {
+            flex: 1;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text);
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+        }
+
+        .date-input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.12);
+            border-color: var(--accent1);
+        }
+
+        .date-to-label {
+            font-size: 0.85em;
+            color: var(--secondary);
+            flex-shrink: 0;
+        }
+
+        /* Saved Presets */
+        .presets-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .preset-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85em;
+        }
+
+        .preset-item:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent1);
+        }
+
+        .preset-delete {
+            background: transparent;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 0.9em;
+            padding: 2px 6px;
+            transition: all 0.2s ease;
+        }
+
+        .preset-delete:hover {
+            color: #ff6b6b;
         }
 
         /* Hero Header */
@@ -1060,8 +1239,731 @@
             display: block;
         }
 
+        /* Settings Modal */
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 900;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .settings-modal.open {
+            display: flex;
+        }
+
+        .settings-panel {
+            background: linear-gradient(135deg, rgba(30, 30, 50, 0.95), rgba(40, 40, 70, 0.95));
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            backdrop-filter: blur(20px);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease-out forwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+
+        .settings-header h2 {
+            font-size: 1.3em;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .settings-close {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .settings-close:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text);
+        }
+
+        .settings-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .settings-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .settings-section h3 {
+            font-size: 0.95em;
+            text-transform: uppercase;
+            color: var(--accent1);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin: 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .settings-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .settings-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .settings-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            font-size: 0.9em;
+            flex: 1;
+        }
+
+        .settings-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--accent1);
+        }
+
+        .settings-select,
+        .settings-input {
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 0.9em;
+            font-family: inherit;
+            flex: 1;
+            transition: all 0.2s;
+        }
+
+        .settings-select:hover,
+        .settings-input:hover {
+            border-color: var(--accent1);
+            background: rgba(0,0,0,0.4);
+        }
+
+        .settings-select:focus,
+        .settings-input:focus {
+            outline: none;
+            border-color: var(--accent1);
+            box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+        }
+
+        .team-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .team-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .team-checkbox:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--accent1);
+        }
+
+        .team-checkbox input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--accent1);
+        }
+
+        .team-checkbox label {
+            cursor: pointer;
+            color: var(--text);
+            font-size: 0.85em;
+        }
+
+        .settings-footer {
+            display: flex;
+            gap: 10px;
+            padding: 16px 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+
+        .settings-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .settings-btn-save {
+            background: var(--accent1);
+            color: white;
+        }
+
+        .settings-btn-save:hover {
+            background: var(--accent2);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .settings-btn-reset {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        .settings-btn-reset:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+        }
+
+        .settings-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Settings button in navbar */
+        .settings-btn-nav {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.7);
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .settings-btn-nav:hover {
+            color: var(--text);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Notification Center */
+        .notification-btn-nav {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.7);
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .notification-btn-nav:hover {
+            color: var(--text);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65em;
+            font-weight: 700;
+        }
+
+        /* Notification Center Panel */
+        .notification-center {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 450px;
+            height: 100vh;
+            background: var(--bg);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.3s ease;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+        }
+
+        .notification-center.open {
+            right: 0;
+        }
+
+        .notification-center-header {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .notification-center-header h2 {
+            font-size: 1.1em;
+            margin: 0;
+        }
+
+        .notification-center-close {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-center-actions {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+
+        .notification-clear-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.2s;
+        }
+
+        .notification-clear-btn:hover {
+            background: #ef4444;
+            border-color: #ef4444;
+        }
+
+        .notification-list {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .notification-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            gap: 12px;
+        }
+
+        .notification-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .notification-item.new {
+            background: rgba(99, 102, 241, 0.05);
+            border-left: 3px solid var(--accent1);
+        }
+
+        .notification-icon {
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+
+        .notification-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            font-size: 0.95em;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        .notification-message {
+            font-size: 0.85em;
+            color: var(--secondary);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .notification-time {
+            font-size: 0.75em;
+            color: var(--secondary);
+            opacity: 0.7;
+        }
+
+        .notification-remove {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            font-size: 1.1em;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            opacity: 0.5;
+            transition: all 0.2s;
+        }
+
+        .notification-remove:hover {
+            color: #ef4444;
+            opacity: 1;
+        }
+
+        .notification-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--secondary);
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(99, 102, 241, 0.3);
+            transition: 0.3s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--accent1);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(16px);
+        }
+
+        /* Toast animations */
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
 
         /* Responsive */
+        /* ========== RESPONSIVE DESIGN ========== */
+
+        /* Mobile First: Styles for screens 480px and below */
+        @media (max-width: 480px) {
+            /* Adjust padding for smaller screens */
+            body {
+                padding-top: 160px; /* Reduced from 170px */
+                padding-bottom: 80px; /* Reduced from 100px */
+            }
+
+            /* Navigation adjustments */
+            .main-nav {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+
+            .nav-brand img {
+                height: 24px;
+            }
+
+            /* Game grid - single column on mobile */
+            .highlights-grid {
+                grid-template-columns: 1fr;
+                padding: 12px;
+                gap: 12px;
+            }
+
+            /* Game cards compact */
+            .highlight-card {
+                border-radius: 8px;
+            }
+
+            .highlight-info {
+                padding: 10px;
+            }
+
+            .highlight-teams {
+                font-size: 0.9em;
+            }
+
+            .highlight-meta {
+                font-size: 0.8em;
+                gap: 8px;
+            }
+
+            /* Drawer optimizations for mobile */
+            .game-details-drawer {
+                width: 100%;
+                height: 90vh;
+                top: auto;
+                bottom: 0;
+                border-radius: 12px 12px 0 0;
+                max-height: 90vh;
+                animation: slideUpMobile 0.3s ease-out forwards;
+            }
+
+            .game-details-drawer.open {
+                bottom: 0;
+            }
+
+            @keyframes slideUpMobile {
+                from {
+                    transform: translateY(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            .drawer-content {
+                max-height: calc(90vh - 60px);
+                overflow-y: auto;
+                padding: 16px 12px;
+            }
+
+            /* Ticker adjustments */
+            .sports-ticker {
+                height: 50px;
+                padding: 0;
+            }
+
+            .ticker-item {
+                font-size: 0.75em;
+                padding: 4px 8px;
+                gap: 8px;
+            }
+
+            .ticker-item-teams {
+                flex-direction: column;
+                gap: 2px;
+            }
+
+            .ticker-item-score {
+                margin: 0 4px;
+            }
+
+            /* Hide secondary info on very small screens */
+            .highlight-meta span:last-child {
+                display: none;
+            }
+
+            /* Adjust league tabs */
+            .league-tabs {
+                overflow-x: auto;
+                padding: 8px;
+                gap: 4px;
+                justify-content: flex-start;
+            }
+
+            .league-tabs button {
+                padding: 6px 12px;
+                font-size: 0.85em;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            /* Team filter adjustments */
+            .filter-button {
+                padding: 8px 12px;
+                font-size: 0.85em;
+            }
+
+            /* Detail section responsiveness */
+            .detail-section h3 {
+                font-size: 1em;
+                margin-bottom: 12px;
+            }
+
+            .weather-item {
+                padding: 8px 0;
+                font-size: 0.85em;
+            }
+
+            /* Prediction panel - stack vertically on mobile */
+            .prediction-section {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Team comparison - vertical layout on mobile */
+            .team-comparison-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Tablet: Styles for screens 481px - 768px */
+        @media (min-width: 481px) and (max-width: 768px) {
+            body {
+                padding-top: 165px;
+                padding-bottom: 90px;
+            }
+
+            .highlights-grid {
+                grid-template-columns: 1fr;
+                padding: 16px;
+                gap: 14px;
+            }
+
+            .game-details-drawer {
+                width: 100%;
+                height: 85vh;
+                top: auto;
+                bottom: 0;
+                border-radius: 12px 12px 0 0;
+                animation: slideUpMobile 0.3s ease-out forwards;
+            }
+
+            .drawer-content {
+                max-height: calc(85vh - 60px);
+                padding: 16px;
+            }
+
+            .sports-ticker {
+                height: 55px;
+            }
+
+            .league-tabs {
+                padding: 10px;
+                gap: 6px;
+            }
+
+            .league-tabs button {
+                padding: 7px 14px;
+                font-size: 0.9em;
+            }
+
+            /* Better use of tablet width */
+            .team-comparison-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .prediction-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Original 768px media query - keep for backwards compatibility */
         @media (max-width: 768px) {
             .sports-hero h1 {
                 font-size: 1.8em;
@@ -1087,21 +1989,215 @@
                 justify-content: flex-start;
             }
 
-            .highlights-grid {
-                grid-template-columns: 1fr;
-            }
-
             .highlight-thumbnail .team-logos img {
                 width: 50px;
                 height: 50px;
             }
+        }
+
+        /* Desktop: Styles for screens 769px and above */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            /* Tablet landscape - 2 columns */
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            /* Drawer positioning for desktop */
+            .game-details-drawer {
+                width: 420px;
+                height: auto;
+                max-height: 85vh;
+                top: 50%;
+                right: 20px;
+                bottom: auto;
+                transform: translateY(-50%);
+                border-radius: 12px;
+            }
+
+            .game-details-drawer.open {
+                right: 20px;
+            }
+        }
+
+        /* Large Desktop: 1025px and above */
+        @media (min-width: 1025px) {
+            /* 3-column grid on desktop */
+            .highlights-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            /* Drawer on the right */
+            .game-details-drawer {
+                width: 450px;
+                height: auto;
+                max-height: 90vh;
+                top: 50%;
+                right: 30px;
+                bottom: auto;
+                transform: translateY(-50%);
+                border-radius: 12px;
+            }
+
+            .game-details-drawer.open {
+                right: 30px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            /* Increase touch target sizes */
+            button, .league-tabs button, .filter-button {
+                min-height: 44px;
+                min-width: 44px;
+                padding: 10px 16px;
+            }
+
+            /* Remove hover effects on touch devices */
+            .league-tabs button:hover {
+                border-color: inherit;
+                color: inherit;
+            }
+
+            /* Improve card tap targets */
+            .highlight-card {
+                cursor: pointer;
+                -webkit-tap-highlight-color: rgba(99, 102, 241, 0.2);
+            }
+
+            /* Better touch scrolling */
+            .drawer-content {
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .sports-ticker-container {
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        /* Landscape orientation adjustments */
+        @media (orientation: landscape) and (max-height: 600px) {
+            body {
+                padding-top: 130px;
+                padding-bottom: 60px;
+            }
+
+            .game-details-drawer {
+                max-height: 85vh;
+            }
+
+            .sports-ticker {
+                height: 45px;
+            }
+
+            .main-nav {
+                padding: 8px 12px;
+            }
+        }
+        }
+
+        /* Sports Headlines Ticker */
+        .sports-ticker {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(90deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            border-top: 2px solid var(--accent1);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        }
+
+        .sports-ticker-container {
+            display: flex;
+            gap: 30px;
+            padding: 8px 20px;
+            animation: scrollRight 30s linear infinite;
+            white-space: nowrap;
+            will-change: transform;
+        }
+
+        .sports-ticker-container:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollRight {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100vw);
+            }
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            font-size: 0.85em;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            flex-shrink: 0;
+        }
+
+        .ticker-item-teams {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .ticker-item-score {
+            font-weight: 700;
+            color: var(--accent1);
+            margin: 0 6px;
+        }
+
+        .ticker-item-status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 6px;
+        }
+
+        .ticker-status-live {
+            background: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            animation: pulse-red 1.5s ease-in-out infinite;
+        }
+
+        .ticker-status-final {
+            background: rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        .ticker-status-upcoming {
+            background: rgba(99, 102, 241, 0.3);
+            color: #6366f1;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
     </style>
 </head>
 <body class="has-fixed-ticker has-fixed-nav">
     <!-- Global Stock Ticker -->
     <div class="global-ticker">
-        <iframe src="Website/ticker.html?embed=true" title="Franchise stock ticker" loading="lazy" scrolling="no"></iframe>
+        <iframe src="Website/ticker.html?embed=true" title="Franchise stock ticker" loading="eager" scrolling="no"></iframe>
     </div>
 
     <!-- Navigation Bar -->
@@ -1117,6 +2213,14 @@
         <a href="sports.html" class="active">Sports</a>
         <a href="franchise_calculators_module/index.html">Calculators</a>
         <a href="about.html">About</a>
+        <button class="notification-btn-nav" id="notification-btn" onclick="openNotificationCenter()" title="Notifications">
+            🔔
+            <span class="notification-badge" id="notification-badge" style="display: none;">0</span>
+        </button>
+        <button class="notification-btn-nav" id="analytics-btn" onclick="openAnalyticsDashboard()" title="Analytics">
+            📊
+        </button>
+        <button class="settings-btn-nav" onclick="openSettings()" title="Preferences">⚙️</button>
     </nav>
 
     <!-- Hero Header -->
@@ -1135,8 +2239,86 @@
         <button data-league="MLB">MLB</button>
     </nav>
 
-    <!-- Franchisor Filter -->
-    <div class="franchisor-filter">
+    <!-- Advanced Filters Panel -->
+    <div class="advanced-filters">
+        <div class="filters-header">
+            <button class="filters-toggle" id="filters-toggle" title="Toggle Filters">
+                <span>🔍 Filters</span>
+                <span class="arrow">▼</span>
+            </button>
+            <div class="filter-actions">
+                <button class="save-filter-btn" id="save-filter-btn" title="Save current filters">💾 Save</button>
+                <button class="clear-filters-btn" id="clear-filters-btn" title="Clear all filters">✕ Clear</button>
+            </div>
+        </div>
+
+        <div class="filters-content" id="filters-content">
+            <!-- Team Search -->
+            <div class="filter-group">
+                <label>Find Team:</label>
+                <input type="text" id="team-search" placeholder="Search teams..." class="team-search-input">
+            </div>
+
+            <!-- Game Status Filter -->
+            <div class="filter-group">
+                <label>Game Status:</label>
+                <div class="status-filters">
+                    <label class="status-checkbox">
+                        <input type="checkbox" name="game-status" value="LIVE" id="filter-live">
+                        <span class="status-badge live">🔴 Live</span>
+                    </label>
+                    <label class="status-checkbox">
+                        <input type="checkbox" name="game-status" value="UPCOMING" id="filter-upcoming">
+                        <span class="status-badge upcoming">⏰ Upcoming</span>
+                    </label>
+                    <label class="status-checkbox">
+                        <input type="checkbox" name="game-status" value="FINAL" id="filter-final">
+                        <span class="status-badge final">✓ Final</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Date Range Filter -->
+            <div class="filter-group">
+                <label>Date Range:</label>
+                <div class="date-range">
+                    <input type="date" id="filter-date-from" class="date-input" title="Start date">
+                    <span class="date-to-label">to</span>
+                    <input type="date" id="filter-date-to" class="date-input" title="End date">
+                </div>
+            </div>
+
+            <!-- Team Filter -->
+            <div class="filter-group">
+                <label>Filter by Team:</label>
+                <div class="team-filter-dropdown" id="team-filter-dropdown">
+                    <button class="team-filter-btn" id="team-filter-btn">
+                        <span id="filter-btn-text">All Teams</span>
+                        <span class="arrow">&#9662;</span>
+                    </button>
+                    <div class="team-filter-menu" id="team-filter-menu">
+                        <div class="menu-header">
+                            <span>Select Teams</span>
+                            <div>
+                                <button id="select-all-teams">Select All</button>
+                                <button id="clear-all-teams">Clear</button>
+                            </div>
+                        </div>
+                        <div id="team-checkboxes"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saved Filter Presets -->
+            <div class="filter-group" id="saved-presets-group" style="display: none;">
+                <label>Saved Presets:</label>
+                <div class="presets-list" id="presets-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Franchisor Filter (Kept for backward compatibility) -->
+    <div class="franchisor-filter" style="display: none;">
         <label>Filter by Team:</label>
         <div class="team-filter-dropdown" id="team-filter-dropdown">
             <button class="team-filter-btn" id="team-filter-btn">
@@ -1195,6 +2377,13 @@
     <!-- Fixed Bottom News Ticker -->
     <div id="franchise-news-ticker-bottom" class="news-ticker-bottom"></div>
 
+    <!-- Sports Headlines Ticker -->
+    <div class="sports-ticker" id="sports-ticker">
+        <div class="sports-ticker-container" id="sports-ticker-container">
+            <!-- Game items will be populated here -->
+        </div>
+    </div>
+
     <!-- Game Details Drawer -->
     <div class="drawer-overlay" id="drawer-overlay"></div>
     <div class="game-details-drawer" id="game-details-drawer">
@@ -1204,6 +2393,121 @@
         </div>
         <div class="drawer-content" id="drawer-content">
             <!-- Content populated dynamically -->
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settings-modal">
+        <div class="settings-panel">
+            <div class="settings-header">
+                <h2>Preferences</h2>
+                <button class="settings-close" onclick="closeSettings()">&times;</button>
+            </div>
+            <div class="settings-content">
+                <!-- Favorite Leagues -->
+                <div class="settings-section">
+                    <h3>Favorite Leagues</h3>
+                    <div class="team-checkboxes" id="league-checkboxes">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Favorite Teams -->
+                <div class="settings-section">
+                    <h3>Favorite Teams</h3>
+                    <div class="team-checkboxes" id="team-checkboxes">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Notifications -->
+                <div class="settings-section">
+                    <h3>Notifications</h3>
+                    <div class="settings-item">
+                        <label class="settings-label">Enable Notifications</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notify-enabled">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-item">
+                        <label class="settings-label">Notification Sound</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notify-sound">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <label style="color: var(--secondary); font-size: 0.9em; flex: 1;">Quiet Hours</label>
+                        <select class="settings-select" id="quiet-start" style="flex: 0.8;">
+                            <!-- Hours 0-23 -->
+                        </select>
+                        <span style="color: var(--secondary);">to</span>
+                        <select class="settings-select" id="quiet-end" style="flex: 0.8;">
+                            <!-- Hours 0-23 -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Theme & View -->
+                <div class="settings-section">
+                    <h3>Display</h3>
+                    <div class="settings-item">
+                        <label class="settings-label">Time Zone</label>
+                        <select class="settings-select" id="timezone-select">
+                            <option value="America/New_York">Eastern (EST/EDT)</option>
+                            <option value="America/Chicago">Central (CST/CDT)</option>
+                            <option value="America/Denver">Mountain (MST/MDT)</option>
+                            <option value="America/Los_Angeles">Pacific (PST/PDT)</option>
+                            <option value="UTC">UTC</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <label class="settings-label">Theme</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="theme-toggle" data-theme-toggle>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span style="font-size: 0.85em; color: var(--secondary); margin-left: 8px;">
+                            <span id="theme-label">Dark</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-footer">
+                <button class="settings-btn settings-btn-save" onclick="saveSettings()">Save Preferences</button>
+                <button class="settings-btn settings-btn-reset" onclick="resetSettings()">Reset to Defaults</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Center Panel -->
+    <div class="notification-center" id="notification-center">
+        <div class="notification-center-header">
+            <h2>Notifications</h2>
+            <button class="notification-center-close" onclick="closeNotificationCenter()">✕</button>
+        </div>
+        <div class="notification-center-actions">
+            <button class="notification-clear-btn" onclick="clearAllNotifications()">Clear All</button>
+        </div>
+        <div class="notification-list" id="notification-list">
+            <div class="notification-empty">No notifications yet</div>
+        </div>
+    </div>
+
+    <!-- Analytics Dashboard Panel -->
+    <div class="notification-center" id="analytics-dashboard">
+        <div class="notification-center-header">
+            <h2>Analytics</h2>
+            <button class="notification-center-close" onclick="closeAnalyticsDashboard()">✕</button>
+        </div>
+        <div class="notification-center-actions">
+            <button class="notification-clear-btn" onclick="clearAnalyticsHistory()">Clear History</button>
+        </div>
+        <div style="padding: 16px; overflow-y: auto; flex: 1;">
+            <div id="analytics-content">
+                <div class="notification-empty">Loading analytics...</div>
+            </div>
         </div>
     </div>
 
@@ -1278,6 +2582,7 @@
 
         // Weather cache to avoid repeated API calls
         let weatherCache = {};
+        let currentLeague = 'NFL'; // Current league being viewed
         let currentWeek = null; // Will be set to the current week
         let gamesCache = {};
         let allGames = [];
@@ -1473,7 +2778,17 @@
             if (Object.keys(videoUrlCache).length > 0) return; // Already loaded
 
             try {
-                const response = await fetch(`sports_data.json?t=${Date.now()}`);
+                // Add timeout to fetch (3 seconds)
+                const fetchWithTimeout = (url, timeout = 3000) => {
+                    return Promise.race([
+                        fetch(url),
+                        new Promise((_, reject) =>
+                            setTimeout(() => reject(new Error('Fetch timeout')), timeout)
+                        )
+                    ]);
+                };
+
+                const response = await fetchWithTimeout(`sports_data.json?t=${Date.now()}`, 3000);
                 if (!response.ok) return;
 
                 const data = await response.json();
@@ -1499,7 +2814,7 @@
 
                 console.log(`Cached ${Object.keys(videoUrlCache).length} video URLs`);
             } catch (error) {
-                console.log('No unified video data available yet');
+                console.log('No unified video data available yet:', error.message);
             }
         }
 
@@ -1534,7 +2849,17 @@
             }
 
             try {
-                const response = await fetch(config.dataUrl);
+                // Add timeout to fetch (5 seconds)
+                const fetchWithTimeout = (url, timeout = 5000) => {
+                    return Promise.race([
+                        fetch(url),
+                        new Promise((_, reject) =>
+                            setTimeout(() => reject(new Error('Fetch timeout')), timeout)
+                        )
+                    ]);
+                };
+
+                const response = await fetchWithTimeout(config.dataUrl, 5000);
                 if (!response.ok) {
                     console.warn(`No data file for ${league}`);
                     return [];
@@ -1551,7 +2876,7 @@
                 gamesCache[cacheKey] = games;
                 return games;
             } catch (error) {
-                console.error(`Error fetching ${league} games:`, error);
+                console.error(`Error fetching ${league} games:`, error.message);
                 return [];
             }
         }
@@ -1758,6 +3083,27 @@
             `;
         }
 
+        // Load favorite teams from preferences and apply to filter
+        function applyFavoriteTeamsToFilter() {
+            const prefs = preferences.getAll();
+            const favoriteTeams = prefs.favoriteTeams || [];
+
+            if (favoriteTeams.length > 0) {
+                selectedTeams.clear();
+                favoriteTeams.forEach(team => {
+                    selectedTeams.add(team);
+                });
+
+                // Update checkboxes to match selected teams
+                const checkboxes = document.querySelectorAll('#team-checkboxes input[type="checkbox"]');
+                checkboxes.forEach(cb => {
+                    cb.checked = selectedTeams.has(cb.value);
+                });
+
+                updateFilterButtonText();
+            }
+        }
+
         // Build team filter checkboxes based on current games
         function buildTeamFilter(games) {
             const teamsMap = new Map();
@@ -1801,6 +3147,9 @@
                     renderGames();
                 });
             });
+
+            // Apply favorite teams to filter
+            applyFavoriteTeamsToFilter();
         }
 
         // Update selected teams from checkboxes
@@ -1886,6 +3235,235 @@
             }
         }
 
+        // Advanced filtering state and filters
+        let activeFilters = {
+            gameStatus: [],
+            dateFrom: null,
+            dateTo: null,
+            teamSearch: ''
+        };
+
+        // Initialize advanced filters
+        function setupAdvancedFilters() {
+            // Toggle filters panel
+            const toggle = document.getElementById('filters-toggle');
+            const content = document.getElementById('filters-content');
+
+            toggle.addEventListener('click', () => {
+                const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+                toggle.setAttribute('aria-expanded', !isExpanded);
+                content.setAttribute('aria-hidden', isExpanded);
+            });
+
+            // Game status filters
+            document.querySelectorAll('input[name="game-status"]').forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        if (!activeFilters.gameStatus.includes(e.target.value)) {
+                            activeFilters.gameStatus.push(e.target.value);
+                        }
+                    } else {
+                        activeFilters.gameStatus = activeFilters.gameStatus.filter(s => s !== e.target.value);
+                    }
+                    renderGames();
+                });
+            });
+
+            // Date range filters
+            document.getElementById('filter-date-from').addEventListener('change', (e) => {
+                activeFilters.dateFrom = e.target.value ? new Date(e.target.value) : null;
+                renderGames();
+            });
+
+            document.getElementById('filter-date-to').addEventListener('change', (e) => {
+                activeFilters.dateTo = e.target.value ? new Date(e.target.value) : null;
+                renderGames();
+            });
+
+            // Team search
+            document.getElementById('team-search').addEventListener('input', (e) => {
+                activeFilters.teamSearch = e.target.value.toLowerCase();
+                filterTeamList();
+            });
+
+            // Save filter preset
+            document.getElementById('save-filter-btn').addEventListener('click', saveFilterPreset);
+
+            // Clear all filters
+            document.getElementById('clear-filters-btn').addEventListener('click', clearAllFilters);
+
+            // Load saved presets
+            loadFilterPresets();
+        }
+
+        // Filter team list based on search
+        function filterTeamList() {
+            const search = activeFilters.teamSearch;
+            const checkboxes = document.querySelectorAll('#team-checkboxes input[type="checkbox"]');
+
+            checkboxes.forEach(checkbox => {
+                const label = checkbox.nextElementSibling.textContent.toLowerCase();
+                const container = checkbox.closest('.team-option');
+                if (label.includes(search)) {
+                    container.style.display = '';
+                } else {
+                    container.style.display = 'none';
+                }
+            });
+        }
+
+        // Apply all filters to games
+        function applyAdvancedFilters(games) {
+            let filtered = [...games];
+
+            // Filter by game status
+            if (activeFilters.gameStatus.length > 0) {
+                filtered = filtered.filter(game => {
+                    const status = normalizeStatus(game);
+                    return activeFilters.gameStatus.includes(status);
+                });
+            }
+
+            // Filter by date range
+            if (activeFilters.dateFrom || activeFilters.dateTo) {
+                filtered = filtered.filter(game => {
+                    if (!game.startTime) return false;
+                    const gameDate = new Date(game.startTime);
+
+                    if (activeFilters.dateFrom && gameDate < activeFilters.dateFrom) {
+                        return false;
+                    }
+                    if (activeFilters.dateTo) {
+                        const dateToPlusOne = new Date(activeFilters.dateTo);
+                        dateToPlusOne.setDate(dateToPlusOne.getDate() + 1);
+                        if (gameDate >= dateToPlusOne) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+            }
+
+            return filtered;
+        }
+
+        // Save filter preset
+        function saveFilterPreset() {
+            const presetName = prompt('Enter a name for this filter preset (e.g., "My Favorites")');
+            if (!presetName) return;
+
+            const preset = {
+                name: presetName,
+                teams: Array.from(selectedTeams),
+                gameStatus: [...activeFilters.gameStatus],
+                dateFrom: activeFilters.dateFrom ? activeFilters.dateFrom.toISOString().split('T')[0] : null,
+                dateTo: activeFilters.dateTo ? activeFilters.dateTo.toISOString().split('T')[0] : null,
+                league: currentLeague,
+                timestamp: Date.now()
+            };
+
+            const presets = JSON.parse(localStorage.getItem('filter_presets') || '[]');
+            presets.push(preset);
+            localStorage.setItem('filter_presets', JSON.stringify(presets));
+
+            loadFilterPresets();
+            showToast(`Filter preset "${presetName}" saved!`, 'success');
+        }
+
+        // Load and display filter presets
+        function loadFilterPresets() {
+            const presets = JSON.parse(localStorage.getItem('filter_presets') || '[]');
+            const presetsGroup = document.getElementById('saved-presets-group');
+            const presetsList = document.getElementById('presets-list');
+
+            if (presets.length === 0) {
+                presetsGroup.style.display = 'none';
+                return;
+            }
+
+            presetsGroup.style.display = 'block';
+            presetsList.innerHTML = presets.map((preset, idx) => `
+                <div class="preset-item">
+                    <span onclick="loadFilterPreset(${idx})" style="flex: 1; cursor: pointer;">
+                        ${preset.name}
+                    </span>
+                    <button class="preset-delete" onclick="deleteFilterPreset(${idx})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        // Load a saved filter preset
+        function loadFilterPreset(index) {
+            const presets = JSON.parse(localStorage.getItem('filter_presets') || '[]');
+            const preset = presets[index];
+            if (!preset) return;
+
+            // Set league
+            currentLeague = preset.league;
+            document.querySelectorAll('.league-tabs button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.league === currentLeague);
+            });
+
+            // Set teams
+            selectedTeams.clear();
+            preset.teams.forEach(team => selectedTeams.add(team));
+
+            // Set game status
+            activeFilters.gameStatus = preset.gameStatus;
+            document.querySelectorAll('input[name="game-status"]').forEach(cb => {
+                cb.checked = activeFilters.gameStatus.includes(cb.value);
+            });
+
+            // Set date range
+            if (preset.dateFrom) {
+                document.getElementById('filter-date-from').value = preset.dateFrom;
+                activeFilters.dateFrom = new Date(preset.dateFrom);
+            }
+            if (preset.dateTo) {
+                document.getElementById('filter-date-to').value = preset.dateTo;
+                activeFilters.dateTo = new Date(preset.dateTo);
+            }
+
+            updateFilterButtonText();
+            renderGames();
+            showToast(`Loaded preset: "${preset.name}"`, 'info');
+        }
+
+        // Delete a filter preset
+        function deleteFilterPreset(index) {
+            if (!confirm('Delete this filter preset?')) return;
+
+            const presets = JSON.parse(localStorage.getItem('filter_presets') || '[]');
+            presets.splice(index, 1);
+            localStorage.setItem('filter_presets', JSON.stringify(presets));
+
+            loadFilterPresets();
+            showToast('Filter preset deleted', 'info');
+        }
+
+        // Clear all filters
+        function clearAllFilters() {
+            selectedTeams.clear();
+            activeFilters = {
+                gameStatus: [],
+                dateFrom: null,
+                dateTo: null,
+                teamSearch: ''
+            };
+
+            // Reset UI
+            document.getElementById('team-search').value = '';
+            document.querySelectorAll('input[name="game-status"]').forEach(cb => cb.checked = false);
+            document.getElementById('filter-date-from').value = '';
+            document.getElementById('filter-date-to').value = '';
+            document.querySelectorAll('#team-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = true);
+
+            updateFilterButtonText();
+            filterTeamList();
+            renderGames();
+            showToast('All filters cleared', 'info');
+        }
+
         // Render all games in unified card format grouped by week and time
         async function renderGames() {
             const container = document.getElementById('games-grid');
@@ -1904,6 +3482,9 @@
 
                 const games = await fetchGames(currentLeague);
                 allGames = enrichGamesWithVideoUrls(games);
+
+                // Check for game changes and generate notifications
+                notificationManager.checkGameChanges(games);
 
                 // Generate week selector after loading games
                 generateWeekSelector();
@@ -1926,6 +3507,9 @@
                         return selectedTeams.has(homeShort) || selectedTeams.has(awayShort);
                     });
                 }
+
+                // Apply advanced filters (game status, date range)
+                filteredGames = applyAdvancedFilters(filteredGames);
 
                 if (filteredGames.length === 0) {
                     container.innerHTML = `
@@ -1965,6 +3549,11 @@
 
                 // Build HTML with time groups and games
                 let html = '';
+
+                // Build all card promises for all games
+                const cardPromises = [];
+                const cardMappings = []; // Track which card belongs to which time slot
+
                 sortedTimes.forEach(timeSlot => {
                     const gamesAtTime = gamesByTime[timeSlot];
 
@@ -1986,18 +3575,36 @@
                         return statusA === 'FINAL' ? timeB - timeA : timeA - timeB;
                     });
 
-                    // Add time header
-                    html += `<div style="grid-column: 1 / -1; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin-top: 16px;">
-                        <div style="font-size: 1.1em; font-weight: 600; color: var(--text);">Kickoff: ${timeSlot}</div>
-                    </div>`;
-
-                    // Add games for this time
+                    // Collect promises and track mapping
                     gamesAtTime.forEach(game => {
-                        html += buildUnifiedCard(game, currentLeague);
+                        cardPromises.push(buildUnifiedCard(game, currentLeague));
+                        cardMappings.push(timeSlot);
                     });
                 });
 
+                // Await all card builds
+                const builtCards = await Promise.all(cardPromises);
+
+                // Build final HTML with time headers and cards
+                let currentTimeSlot = null;
+                builtCards.forEach((cardHTML, idx) => {
+                    const timeSlot = cardMappings[idx];
+
+                    // Add time header if new time slot
+                    if (timeSlot !== currentTimeSlot) {
+                        html += `<div style="grid-column: 1 / -1; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin-top: 16px;">
+                            <div style="font-size: 1.1em; font-weight: 600; color: var(--text);">Kickoff: ${timeSlot}</div>
+                        </div>`;
+                        currentTimeSlot = timeSlot;
+                    }
+
+                    html += cardHTML;
+                });
+
                 container.innerHTML = html;
+
+                // Update sports ticker with latest games
+                updateSportsTicker();
 
             } catch (error) {
                 console.error('Error rendering games:', error);
@@ -2120,8 +3727,822 @@
             };
         }
 
+        // Prediction Engine - AI-like win probability calculator with weighted factors
+        class PredictionEngine {
+            constructor() {
+                this.weights = {
+                    odds: 0.45,        // Betting odds (professional consensus)
+                    record: 0.25,      // Team win-loss record
+                    players: 0.20,     // Player injuries/availability
+                    weather: 0.10      // Game conditions
+                };
+
+                // Position-based injury impact multipliers
+                this.injuryImpactByPosition = {
+                    'QB': 0.08,      // Quarterback: 8% team strength
+                    'RB': 0.05,      // Running back: 5%
+                    'WR': 0.04,      // Wide receiver: 4%
+                    'TE': 0.03,      // Tight end: 3%
+                    'OL': 0.06,      // Offensive line: 6%
+                    'DL': 0.05,      // Defensive line: 5%
+                    'LB': 0.04,      // Linebacker: 4%
+                    'DB': 0.03,      // Defensive back: 3%
+                    'PG': 0.06,      // Basketball point guard: 6%
+                    'SG': 0.04,      // Shooting guard: 4%
+                    'SF': 0.04,      // Small forward: 4%
+                    'PF': 0.05,      // Power forward: 5%
+                    'C': 0.07,       // Center: 7%
+                    'P': 0.08,       // Pitcher: 8%
+                    'C': 0.06,       // Catcher: 6%
+                    'F': 0.05,       // Forward: 5%
+                    'D': 0.04        // Defenseman/Defender: 4%
+                };
+
+                // Status-based injury severity multipliers
+                this.statusMultiplier = {
+                    'Out': 1.0,
+                    'Doubtful': 0.8,
+                    'Questionable': 0.5,
+                    'Probable': 0.2
+                };
+            }
+
+            /**
+             * Convert American moneyline odds to implied probability
+             * @param {number} moneyline - Moneyline odds (e.g., -165 or +145)
+             * @returns {number} - Probability 0.0-1.0
+             */
+            getMoneylineProb(moneyline) {
+                if (!moneyline || moneyline === 0) return 0.5;
+
+                const ml = parseInt(moneyline);
+                if (ml < 0) {
+                    // Negative odds: -165 means 165/(165+100) = 0.6226
+                    return Math.abs(ml) / (Math.abs(ml) + 100);
+                } else {
+                    // Positive odds: +145 means 100/(145+100) = 0.4082
+                    return 100 / (ml + 100);
+                }
+            }
+
+            /**
+             * Extract win percentage from record string
+             * @param {string} record - Record string like "12-3" or "8-5-0"
+             * @returns {number} - Win percentage 0.0-1.0
+             */
+            getWinPercentage(record) {
+                if (!record) return 0.5;
+
+                const match = record.match(/(\d+)-(\d+)/);
+                if (!match) return 0.5;
+
+                const wins = parseInt(match[1]);
+                const losses = parseInt(match[2]);
+                const total = wins + losses;
+
+                return total > 0 ? wins / total : 0.5;
+            }
+
+            /**
+             * Calculate injury impact factor for team
+             * @param {Object} team - Team object with injuries array
+             * @returns {number} - Impact factor 0.75-1.0 (max 25% reduction)
+             */
+            getInjuryFactor(team) {
+                if (!team || !team.injuries || team.injuries.length === 0) {
+                    return 1.0;
+                }
+
+                let totalImpact = 0;
+
+                for (const injury of team.injuries) {
+                    const position = injury.position || 'D';
+                    const status = injury.status || 'Out';
+
+                    // Get base impact for position
+                    let positionImpact = this.injuryImpactByPosition[position] || 0.04;
+
+                    // Multiply by status severity
+                    const statusMult = this.statusMultiplier[status] || 1.0;
+                    const injuryImpact = positionImpact * statusMult;
+
+                    totalImpact += injuryImpact;
+                }
+
+                // Cap maximum impact at 0.25 (75% of team strength minimum)
+                const cappedImpact = Math.min(totalImpact, 0.25);
+                return 1.0 - cappedImpact;
+            }
+
+            /**
+             * Calculate weather impact on game probability
+             * @param {Object} weather - Weather object {temp, condition, wind}
+             * @param {string} venueType - 'indoor' or 'outdoor'
+             * @returns {number} - Weather factor 0.85-1.15
+             */
+            getWeatherFactor(weather, venueType = 'outdoor') {
+                if (!weather || venueType === 'indoor') {
+                    return 1.0;
+                }
+
+                let factor = 1.0;
+
+                // Wind impact (stronger wind favors passing teams less)
+                if (weather.wind && weather.wind > 15) {
+                    factor *= 0.98; // Slight reduction for high wind
+                }
+
+                // Temperature impact (extreme cold or heat)
+                if (weather.temp) {
+                    if (weather.temp < 20) {
+                        factor *= 0.99; // Cold affects performance slightly
+                    } else if (weather.temp > 90) {
+                        factor *= 0.99; // Heat affects performance
+                    }
+                }
+
+                // Precipitation impact (rain/snow favors rushing teams)
+                if (weather.condition && (weather.condition.includes('Rain') || weather.condition.includes('Snow'))) {
+                    factor *= 0.98;
+                }
+
+                return Math.max(0.85, Math.min(1.15, factor));
+            }
+
+            /**
+             * Calculate win probability for a team
+             * @param {Object} team - Team object
+             * @param {Object} opponent - Opponent team object
+             * @param {Object} odds - Odds object {moneyline, spread}
+             * @param {Object} weather - Weather object
+             * @returns {number} - Win probability 0.0-1.0
+             */
+            calculateWinProbability(team, opponent, odds, weather = {}) {
+                // Get odds-based probability (most important)
+                const oddsProb = this.getMoneylineProb(odds.moneyline);
+
+                // Get record-based probability
+                const recordProb = this.getWinPercentage(team.record);
+
+                // Get injury factor
+                const injuryFactor = this.getInjuryFactor(team);
+
+                // Get weather factor
+                const weatherFactor = this.getWeatherFactor(weather, team.venueType);
+
+                // Weighted combination
+                let prob = (
+                    oddsProb * this.weights.odds +
+                    recordProb * this.weights.record +
+                    injuryFactor * this.weights.players +
+                    weatherFactor * this.weights.weather
+                );
+
+                // Normalize
+                const totalWeight = this.weights.odds + this.weights.record + this.weights.players + this.weights.weather;
+                prob = prob / totalWeight;
+
+                return Math.max(0, Math.min(1, prob));
+            }
+
+            /**
+             * Calculate spread coverage probability
+             * @param {number} teamWinProb - Team win probability
+             * @param {number} spread - Spread value (positive favors away, negative favors home)
+             * @returns {number} - Spread coverage probability
+             */
+            calculateSpreadCoverage(teamWinProb, spread) {
+                // If spread is 0, use direct win probability
+                if (spread === 0) return teamWinProb;
+
+                // Adjust probability based on spread
+                // More confident wins = better spread coverage
+                // Tighter games = closer to 50%
+                const confidenceLevel = Math.abs(teamWinProb - 0.5) * 2; // 0-1 scale
+
+                // If team is favored and confident, higher spread coverage
+                // If team is underdog, lower spread coverage expectation
+                const adjustment = Math.sign(spread) * (confidenceLevel * 0.1);
+
+                let spreadCoverage = teamWinProb + adjustment;
+                return Math.max(0.05, Math.min(0.95, spreadCoverage));
+            }
+
+            /**
+             * Get full prediction for a matchup
+             * @param {Object} homeTeam - Home team
+             * @param {Object} awayTeam - Away team
+             * @param {Object} odds - Odds object
+             * @param {Object} weather - Weather object
+             * @returns {Object} - Complete prediction
+             */
+            getPrediction(homeTeam, awayTeam, odds = {}, weather = {}) {
+                const homeOdds = odds.homeMoneyline || odds.moneyline;
+                const awayOdds = odds.awayMoneyline || (odds.moneyline ? -Math.abs(odds.moneyline) : 0);
+                const spread = odds.spread || 0;
+
+                // Calculate win probabilities
+                const homeWinProb = this.calculateWinProbability(
+                    homeTeam,
+                    awayTeam,
+                    { moneyline: homeOdds, spread: spread },
+                    weather
+                );
+
+                const awayWinProb = 1.0 - homeWinProb;
+
+                // Calculate spread coverage
+                const homeSpreadProb = this.calculateSpreadCoverage(homeWinProb, -Math.abs(spread));
+                const awaySpreadProb = this.calculateSpreadCoverage(awayWinProb, Math.abs(spread));
+
+                // Determine favored team
+                const favored = homeWinProb > 0.5 ? 'home' : 'away';
+
+                // Calculate confidence (how confident are we in the prediction)
+                const confidence = Math.abs(homeWinProb - 0.5) * 2; // 0-1 scale
+
+                return {
+                    homeWinProb: homeWinProb,
+                    awayWinProb: awayWinProb,
+                    homeSpreadProb: homeSpreadProb,
+                    awaySpreadProb: awaySpreadProb,
+                    favored: favored,
+                    confidence: confidence,
+                    spread: spread
+                };
+            }
+        }
+
+        // Create global prediction engine instance
+        const predictionEngine = new PredictionEngine();
+
+        // Prediction cache to avoid recalculation
+        const predictionCache = new Map();
+        const PREDICTION_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+        // Get cached prediction or calculate new one
+        function getCachedPrediction(gameId, homeTeam, awayTeam, odds, weather) {
+            const cacheKey = `${gameId}_${Date.now() / PREDICTION_CACHE_TTL | 0}`; // Key changes every 5 minutes
+
+            if (predictionCache.has(cacheKey)) {
+                return predictionCache.get(cacheKey);
+            }
+
+            const prediction = predictionEngine.getPrediction(homeTeam, awayTeam, odds, weather);
+            predictionCache.set(cacheKey, prediction);
+
+            // Cleanup old cache entries (keep only recent ones)
+            if (predictionCache.size > 500) {
+                const entriesToDelete = Array.from(predictionCache.entries())
+                    .sort((a, b) => (b[1].calculatedAt || 0) - (a[1].calculatedAt || 0))
+                    .slice(250) // Keep only the 250 most recent
+                    .map(([key]) => key);
+                entriesToDelete.forEach(key => predictionCache.delete(key));
+            }
+
+            return prediction;
+        }
+
+        // User Preferences Manager - Handles localStorage for user settings
+        class PreferencesManager {
+            constructor(storageKey = 'sports_widget_preferences') {
+                this.storageKey = storageKey;
+                this.defaults = {
+                    favoriteTeams: [],
+                    favoriteLeagues: ['NFL'],
+                    preferredView: 'cards',
+                    refreshInterval: 'adaptive',
+                    hideCompletedGames: false,
+                    theme: 'dark',
+                    timeZone: 'America/New_York',
+                    lastViewed: { league: 'NFL', week: null },
+                    notificationsEnabled: false,
+                    notificationSound: true,
+                    quietHoursStart: 22,
+                    quietHoursEnd: 8
+                };
+                this.prefs = this.load();
+            }
+
+            /**
+             * Load preferences from localStorage
+             */
+            load() {
+                try {
+                    const stored = localStorage.getItem(this.storageKey);
+                    if (stored) {
+                        return { ...this.defaults, ...JSON.parse(stored) };
+                    }
+                } catch (e) {
+                    console.warn('Could not load preferences:', e);
+                }
+                return { ...this.defaults };
+            }
+
+            /**
+             * Save preferences to localStorage
+             */
+            save() {
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(this.prefs));
+                    return true;
+                } catch (e) {
+                    console.error('Could not save preferences:', e);
+                    return false;
+                }
+            }
+
+            /**
+             * Get a preference value
+             */
+            get(key, defaultValue = null) {
+                return this.prefs.hasOwnProperty(key) ? this.prefs[key] : defaultValue;
+            }
+
+            /**
+             * Set a preference value
+             */
+            set(key, value) {
+                this.prefs[key] = value;
+                this.save();
+            }
+
+            /**
+             * Toggle array preference (for favorite teams, leagues)
+             */
+            toggleArrayItem(key, item) {
+                const arr = this.prefs[key] || [];
+                const index = arr.indexOf(item);
+                if (index > -1) {
+                    arr.splice(index, 1);
+                } else {
+                    arr.push(item);
+                }
+                this.prefs[key] = arr;
+                this.save();
+                return arr;
+            }
+
+            /**
+             * Check if item is in array preference
+             */
+            hasItem(key, item) {
+                const arr = this.prefs[key] || [];
+                return arr.includes(item);
+            }
+
+            /**
+             * Reset all preferences to defaults
+             */
+            reset() {
+                this.prefs = { ...this.defaults };
+                localStorage.removeItem(this.storageKey);
+            }
+
+            /**
+             * Get all preferences
+             */
+            getAll() {
+                return { ...this.prefs };
+            }
+        }
+
+        // Create global preferences instance
+        const preferences = new PreferencesManager();
+
+        // Notification Manager Class
+        class NotificationManager {
+            constructor() {
+                this.notifications = JSON.parse(localStorage.getItem('game_notifications') || '[]');
+                this.gameSnapshots = {}; // Track game states for change detection
+                this.maxNotifications = 50; // Keep last 50 notifications
+            }
+
+            addNotification(title, message, type = 'info', data = {}) {
+                const notification = {
+                    id: Date.now() + Math.random(),
+                    title,
+                    message,
+                    type, // 'info', 'goal', 'status-change', 'final'
+                    icon: this.getIcon(type),
+                    data,
+                    timestamp: new Date(),
+                    read: false
+                };
+
+                this.notifications.unshift(notification);
+                if (this.notifications.length > this.maxNotifications) {
+                    this.notifications.pop();
+                }
+                this.save();
+                this.updateUI();
+
+                // Play sound if enabled
+                this.playSound(type);
+
+                return notification;
+            }
+
+            getIcon(type) {
+                const icons = {
+                    'goal': '⚽',
+                    'status-change': '🔄',
+                    'final': '✓',
+                    'live': '🔴',
+                    'upcoming': '⏰',
+                    'info': 'ℹ️'
+                };
+                return icons[type] || icons['info'];
+            }
+
+            checkGameChanges(games) {
+                const prefs = preferences.getAll();
+                const favoriteTeams = new Set(prefs.favoriteTeams || []);
+                const notificationsEnabled = prefs.notificationsEnabled;
+
+                if (!notificationsEnabled) return;
+
+                games.forEach(game => {
+                    const gameId = `${game.homeTeam?.shortName || game.homeTeam?.name}-${game.awayTeam?.shortName || game.awayTeam?.name}-${game.startTime}`;
+                    const snapshot = this.gameSnapshots[gameId];
+                    const status = normalizeStatus(game);
+                    const homeShort = game.homeTeam?.shortName || game.homeTeam?.name;
+                    const awayShort = game.awayTeam?.shortName || game.awayTeam?.name;
+                    const isFavoriteGame = favoriteTeams.has(homeShort) || favoriteTeams.has(awayShort);
+
+                    if (!isFavoriteGame) return; // Only notify for favorite teams
+
+                    if (!snapshot) {
+                        // First time seeing this game
+                        this.gameSnapshots[gameId] = {
+                            status,
+                            homeScore: game.homeScore ?? 0,
+                            awayScore: game.awayScore ?? 0
+                        };
+                        return;
+                    }
+
+                    // Check for status change
+                    if (snapshot.status !== status) {
+                        if (status === 'LIVE') {
+                            this.addNotification(
+                                `${homeShort} vs ${awayShort}`,
+                                'Game started!',
+                                'live',
+                                { game }
+                            );
+                        } else if (status === 'FINAL') {
+                            const homeScore = game.homeScore ?? 0;
+                            const awayScore = game.awayScore ?? 0;
+                            const winner = homeScore > awayScore ? homeShort : awayShort;
+                            this.addNotification(
+                                `${homeShort} vs ${awayShort}`,
+                                `Game final: ${winner} wins ${homeScore}-${awayScore}`,
+                                'final',
+                                { game }
+                            );
+                        }
+                    }
+
+                    // Check for score changes
+                    if ((game.homeScore ?? 0) !== snapshot.homeScore || (game.awayScore ?? 0) !== snapshot.awayScore) {
+                        const homeScore = game.homeScore ?? 0;
+                        const awayScore = game.awayScore ?? 0;
+                        this.addNotification(
+                            `${homeShort} vs ${awayShort}`,
+                            `Score: ${homeShort} ${homeScore} - ${awayShort} ${awayScore}`,
+                            'goal',
+                            { game }
+                        );
+                    }
+
+                    // Update snapshot
+                    this.gameSnapshots[gameId] = {
+                        status,
+                        homeScore: game.homeScore ?? 0,
+                        awayScore: game.awayScore ?? 0
+                    };
+                });
+            }
+
+            playSound(type) {
+                const prefs = preferences.getAll();
+                if (!prefs.notificationSound) return;
+
+                if (this.isInQuietHours()) return; // Respect quiet hours
+
+                // Create a simple beep using Web Audio API
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+
+                    const frequency = type === 'goal' ? 800 : type === 'final' ? 600 : 400;
+                    oscillator.frequency.value = frequency;
+                    oscillator.type = 'sine';
+
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                } catch (e) {
+                    console.warn('Could not play sound:', e);
+                }
+            }
+
+            isInQuietHours() {
+                const prefs = preferences.getAll();
+                const now = new Date();
+                const hour = now.getHours();
+                const start = prefs.quietHoursStart;
+                const end = prefs.quietHoursEnd;
+
+                if (start < end) {
+                    return hour >= start && hour < end;
+                } else {
+                    return hour >= start || hour < end;
+                }
+            }
+
+            updateUI() {
+                const unreadCount = this.notifications.filter(n => !n.read).length;
+                const badge = document.getElementById('notification-badge');
+                const list = document.getElementById('notification-list');
+
+                if (unreadCount > 0) {
+                    badge.textContent = unreadCount;
+                    badge.style.display = 'flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+
+                if (this.notifications.length === 0) {
+                    list.innerHTML = '<div class="notification-empty">No notifications yet</div>';
+                    return;
+                }
+
+                list.innerHTML = this.notifications.map(n => `
+                    <div class="notification-item ${!n.read ? 'new' : ''}">
+                        <div class="notification-icon">${n.icon}</div>
+                        <div class="notification-content">
+                            <div class="notification-title">${n.title}</div>
+                            <div class="notification-message">${n.message}</div>
+                            <div class="notification-time">${this.formatTime(n.timestamp)}</div>
+                        </div>
+                        <button class="notification-remove" onclick="removeNotification('${n.id}')">✕</button>
+                    </div>
+                `).join('');
+
+                // Mark as read
+                this.notifications.forEach(n => n.read = true);
+                this.save();
+            }
+
+            formatTime(timestamp) {
+                const date = new Date(timestamp);
+                const now = new Date();
+                const diffMs = now - date;
+                const diffMins = Math.floor(diffMs / 60000);
+
+                if (diffMins < 1) return 'now';
+                if (diffMins < 60) return `${diffMins}m ago`;
+                const diffHours = Math.floor(diffMins / 60);
+                if (diffHours < 24) return `${diffHours}h ago`;
+                const diffDays = Math.floor(diffHours / 24);
+                return `${diffDays}d ago`;
+            }
+
+            removeNotification(id) {
+                this.notifications = this.notifications.filter(n => n.id !== id);
+                this.save();
+                this.updateUI();
+            }
+
+            clearAll() {
+                this.notifications = [];
+                this.save();
+                this.updateUI();
+            }
+
+            save() {
+                localStorage.setItem('game_notifications', JSON.stringify(this.notifications));
+            }
+        }
+
+        const notificationManager = new NotificationManager();
+
+        // Analytics Manager Class
+        class AnalyticsManager {
+            constructor() {
+                this.gameHistory = JSON.parse(localStorage.getItem('game_history') || '[]');
+                this.predictions = JSON.parse(localStorage.getItem('game_predictions') || '[]');
+                this.teamStats = {};
+                this.seasonStats = {};
+                this.buildStats();
+            }
+
+            recordGame(game) {
+                const gameId = `${game.homeTeam?.shortName || game.homeTeam?.name}-${game.awayTeam?.shortName || game.awayTeam?.name}-${game.startTime}`;
+
+                // Check if game already recorded
+                if (this.gameHistory.find(g => g.id === gameId)) {
+                    return; // Game already recorded
+                }
+
+                const finalGame = {
+                    id: gameId,
+                    league: game.league || 'UNKNOWN',
+                    date: new Date(game.startTime).toISOString().split('T')[0],
+                    homeTeam: game.homeTeam?.shortName || game.homeTeam?.name,
+                    awayTeam: game.awayTeam?.shortName || game.awayTeam?.name,
+                    homeScore: game.homeScore ?? 0,
+                    awayScore: game.awayScore ?? 0,
+                    status: normalizeStatus(game),
+                    recordedAt: new Date().toISOString()
+                };
+
+                if (finalGame.status === 'FINAL') {
+                    this.gameHistory.unshift(finalGame);
+                    if (this.gameHistory.length > 500) {
+                        this.gameHistory.pop(); // Keep last 500 games
+                    }
+                    this.save();
+                    this.buildStats();
+                }
+            }
+
+            recordPrediction(game, prediction) {
+                const predictionRecord = {
+                    id: `${game.homeTeam?.shortName}-${game.awayTeam?.shortName}-${game.startTime}`,
+                    league: game.league || 'UNKNOWN',
+                    date: new Date(game.startTime).toISOString().split('T')[0],
+                    homeTeam: game.homeTeam?.shortName || game.homeTeam?.name,
+                    awayTeam: game.awayTeam?.shortName || game.awayTeam?.name,
+                    prediction: prediction, // 'HOME', 'AWAY', 'OVER', 'UNDER'
+                    homeScore: game.homeScore,
+                    awayScore: game.awayScore,
+                    status: normalizeStatus(game),
+                    correct: null,
+                    recordedAt: new Date().toISOString()
+                };
+
+                // Check if prediction already recorded
+                const existing = this.predictions.find(p => p.id === predictionRecord.id);
+                if (!existing) {
+                    this.predictions.unshift(predictionRecord);
+                    if (this.predictions.length > 500) {
+                        this.predictions.pop();
+                    }
+                    this.save();
+                }
+            }
+
+            buildStats() {
+                this.teamStats = {};
+                this.seasonStats = {};
+
+                this.gameHistory.forEach(game => {
+                    if (game.status !== 'FINAL') return;
+
+                    // Initialize team stats if not exists
+                    if (!this.teamStats[game.homeTeam]) {
+                        this.teamStats[game.homeTeam] = {
+                            team: game.homeTeam,
+                            wins: 0,
+                            losses: 0,
+                            ties: 0,
+                            pointsFor: 0,
+                            pointsAgainst: 0,
+                            games: []
+                        };
+                    }
+                    if (!this.teamStats[game.awayTeam]) {
+                        this.teamStats[game.awayTeam] = {
+                            team: game.awayTeam,
+                            wins: 0,
+                            losses: 0,
+                            ties: 0,
+                            pointsFor: 0,
+                            pointsAgainst: 0,
+                            games: []
+                        };
+                    }
+
+                    // Update league season stats
+                    if (!this.seasonStats[game.league]) {
+                        this.seasonStats[game.league] = {
+                            league: game.league,
+                            totalGames: 0,
+                            teamRecords: {}
+                        };
+                    }
+                    this.seasonStats[game.league].totalGames++;
+
+                    // Record game and update stats
+                    const homeStats = this.teamStats[game.homeTeam];
+                    const awayStats = this.teamStats[game.awayTeam];
+
+                    homeStats.pointsFor += game.homeScore;
+                    homeStats.pointsAgainst += game.awayScore;
+                    awayStats.pointsFor += game.awayScore;
+                    awayStats.pointsAgainst += game.homeScore;
+
+                    homeStats.games.push({
+                        opponent: game.awayTeam,
+                        pointsFor: game.homeScore,
+                        pointsAgainst: game.awayScore,
+                        result: game.homeScore > game.awayScore ? 'W' : game.homeScore < game.awayScore ? 'L' : 'T',
+                        date: game.date
+                    });
+                    awayStats.games.push({
+                        opponent: game.homeTeam,
+                        pointsFor: game.awayScore,
+                        pointsAgainst: game.homeScore,
+                        result: game.awayScore > game.homeScore ? 'W' : game.awayScore < game.homeScore ? 'L' : 'T',
+                        date: game.date
+                    });
+
+                    // Update wins/losses
+                    if (game.homeScore > game.awayScore) {
+                        homeStats.wins++;
+                        awayStats.losses++;
+                    } else if (game.awayScore > game.homeScore) {
+                        awayStats.wins++;
+                        homeStats.losses++;
+                    } else {
+                        homeStats.ties++;
+                        awayStats.ties++;
+                    }
+                });
+            }
+
+            getTeamStats(team) {
+                return this.teamStats[team] || null;
+            }
+
+            getLeagueStats(league) {
+                return this.seasonStats[league] || null;
+            }
+
+            getAllTeamStats() {
+                return Object.values(this.teamStats)
+                    .sort((a, b) => {
+                        const aWinPct = a.wins / (a.wins + a.losses + a.ties) || 0;
+                        const bWinPct = b.wins / (b.wins + b.losses + b.ties) || 0;
+                        return bWinPct - aWinPct;
+                    });
+            }
+
+            getPredictionAccuracy() {
+                if (this.predictions.length === 0) return { correct: 0, total: 0, accuracy: 0 };
+
+                let correct = 0;
+                let total = 0;
+
+                this.predictions.forEach(pred => {
+                    if (pred.status === 'FINAL') {
+                        total++;
+                        if (pred.prediction === 'HOME' && pred.homeScore > pred.awayScore) {
+                            correct++;
+                        } else if (pred.prediction === 'AWAY' && pred.awayScore > pred.homeScore) {
+                            correct++;
+                        }
+                    }
+                });
+
+                return {
+                    correct,
+                    total,
+                    accuracy: total > 0 ? Math.round((correct / total) * 100) : 0
+                };
+            }
+
+            getRecentGames(count = 10) {
+                return this.gameHistory.slice(0, count);
+            }
+
+            save() {
+                localStorage.setItem('game_history', JSON.stringify(this.gameHistory));
+                localStorage.setItem('game_predictions', JSON.stringify(this.predictions));
+            }
+
+            clearHistory() {
+                this.gameHistory = [];
+                this.predictions = [];
+                this.teamStats = {};
+                this.seasonStats = {};
+                this.save();
+            }
+        }
+
+        const analyticsManager = new AnalyticsManager();
+
         // Build unified card for both completed and upcoming games
-        function buildUnifiedCard(game, leagueKey) {
+        async function buildUnifiedCard(game, leagueKey) {
             const homeTeam = game.homeTeam || {};
             const awayTeam = game.awayTeam || {};
             const homeScore = game.homeScore ?? 0;
@@ -2152,6 +4573,31 @@
 
             // Get stadium info
             const stadium = game.venue || homeTeam.venue || 'TBD';
+
+            // Get weather data
+            const weather = await getWeather(stadium, gameDate);
+
+            // Calculate prediction for upcoming games
+            let prediction = null;
+            if (isUpcoming) {
+                // Prepare team data for prediction engine
+                const homeTeamData = {
+                    name: homeTeam.name,
+                    record: game.homeTeamRecord || '0-0',
+                    injuries: game.homeTeamInjuries || [],
+                    venueType: 'outdoor' // Default to outdoor
+                };
+
+                const awayTeamData = {
+                    name: awayTeam.name,
+                    record: game.awayTeamRecord || '0-0',
+                    injuries: game.awayTeamInjuries || [],
+                    venueType: 'outdoor'
+                };
+
+                // Use cached prediction to improve performance
+                prediction = getCachedPrediction(game.id || '', homeTeamData, awayTeamData, odds, weather);
+            }
 
             // Build recap summary
             const recap = generateRecap(game);
@@ -2190,9 +4636,76 @@
                         <strong>Spread:</strong> ${odds.spread > 0 ? '+' : ''}${odds.spread} | <strong>O/U:</strong> ${odds.total}
                     </div>
                 `;
+
+                // Add prediction panel for upcoming games
+                if (prediction) {
+                    const homeWinPercent = Math.round(prediction.homeWinProb * 100);
+                    const awayWinPercent = Math.round(prediction.awayWinProb * 100);
+                    const homeSpreadPercent = Math.round(prediction.homeSpreadProb * 100);
+                    const awaySpreadPercent = Math.round(prediction.awaySpreadProb * 100);
+
+                    metadataHTML += `
+                        <div style="font-size: 0.85em; margin-top: 10px; padding: 10px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1)); border-radius: 8px; border-left: 3px solid var(--accent1);">
+                            <div style="font-weight: 600; color: var(--accent1); margin-bottom: 8px; font-size: 0.9em;">PREDICTION</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                <div>
+                                    <div style="color: var(--secondary); font-size: 0.75em; margin-bottom: 6px; text-transform: uppercase; font-weight: 600;">Win Probability</div>
+                                    <div style="margin-bottom: 10px;">
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.8em;">
+                                            <span style="color: #6366f1; font-weight: 500;">${awayTeam.shortName || awayTeam.name}</span>
+                                            <span style="color: #6366f1; font-weight: 600;">${awayWinPercent}%</span>
+                                        </div>
+                                        <div style="width: 100%; height: 6px; background: rgba(99, 102, 241, 0.2); border-radius: 3px; overflow: hidden;">
+                                            <div style="height: 100%; width: ${awayWinPercent}%; background: linear-gradient(90deg, #6366f1, #6366f1dd); border-radius: 3px; transition: width 0.3s ease;"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.8em;">
+                                            <span style="color: #a855f7; font-weight: 500;">${homeTeam.shortName || homeTeam.name}</span>
+                                            <span style="color: #a855f7; font-weight: 600;">${homeWinPercent}%</span>
+                                        </div>
+                                        <div style="width: 100%; height: 6px; background: rgba(168, 85, 247, 0.2); border-radius: 3px; overflow: hidden;">
+                                            <div style="height: 100%; width: ${homeWinPercent}%; background: linear-gradient(90deg, #a855f7, #a855f7dd); border-radius: 3px; transition: width 0.3s ease;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="color: var(--secondary); font-size: 0.75em; margin-bottom: 6px; text-transform: uppercase; font-weight: 600;">Spread Coverage</div>
+                                    <div style="margin-bottom: 10px;">
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.8em;">
+                                            <span style="color: #6366f1; font-weight: 500;">Away</span>
+                                            <span style="color: #6366f1; font-weight: 600;">${awaySpreadPercent}%</span>
+                                        </div>
+                                        <div style="width: 100%; height: 6px; background: rgba(99, 102, 241, 0.2); border-radius: 3px; overflow: hidden;">
+                                            <div style="height: 100%; width: ${awaySpreadPercent}%; background: linear-gradient(90deg, #6366f1, #6366f1dd); border-radius: 3px; transition: width 0.3s ease;"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.8em;">
+                                            <span style="color: #a855f7; font-weight: 500;">Home</span>
+                                            <span style="color: #a855f7; font-weight: 600;">${homeSpreadPercent}%</span>
+                                        </div>
+                                        <div style="width: 100%; height: 6px; background: rgba(168, 85, 247, 0.2); border-radius: 3px; overflow: hidden;">
+                                            <div style="height: 100%; width: ${homeSpreadPercent}%; background: linear-gradient(90deg, #a855f7, #a855f7dd); border-radius: 3px; transition: width 0.3s ease;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
             }
 
-            const clickHandler = `onclick="openGameDrawer(event, '${encodeURIComponent(JSON.stringify({ ...game, leagueKey, status }))}')"`;
+            const clickHandler = `onclick="openGameDrawer(event, '${encodeURIComponent(JSON.stringify({
+                ...game,
+                leagueKey,
+                status,
+                prediction,
+                awayTeamPlayers: game.awayTeamPlayers || [],
+                homeTeamPlayers: game.homeTeamPlayers || [],
+                awayTeamInjuries: game.awayTeamInjuries || [],
+                homeTeamInjuries: game.homeTeamInjuries || []
+            }))')"`;
 
             return `
                 <div class="highlight-card" ${clickHandler} style="cursor: pointer;">
@@ -2221,8 +4734,34 @@
             `;
         }
 
+        // Initialize current league from user preferences
+        function initializeCurrentLeague() {
+            const prefs = preferences.getAll();
+            const favoriteLeagues = prefs.favoriteLeagues && prefs.favoriteLeagues.length > 0
+                ? prefs.favoriteLeagues
+                : ['NFL'];
+
+            // Set currentLeague to first favorite league
+            currentLeague = favoriteLeagues[0];
+
+            // Mark favorite leagues in tabs
+            const leagueTabs = document.querySelectorAll('.league-tabs button');
+            leagueTabs.forEach(tab => {
+                const league = tab.dataset.league;
+                if (favoriteLeagues.includes(league)) {
+                    tab.style.fontWeight = '600';
+                    tab.style.opacity = '1';
+                } else {
+                    tab.style.opacity = '0.6';
+                }
+            });
+        }
+
         // Set up league tab click handlers
         function setupLeagueTabs() {
+            // Initialize current league from preferences
+            initializeCurrentLeague();
+
             document.querySelectorAll('.league-tabs button').forEach(btn => {
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.league-tabs button').forEach(b => b.classList.remove('active'));
@@ -2235,6 +4774,46 @@
                     renderGames();
                 });
             });
+
+            // Set active tab to currentLeague
+            const activeBtn = document.querySelector(`.league-tabs button[data-league="${currentLeague}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+        }
+
+        // Generate prediction factor breakdown visualization
+        function generatePredictionBreakdown(prediction) {
+            if (!prediction) return '';
+
+            // Calculate individual factor contributions (based on weights: odds 45%, record 25%, players 20%, weather 10%)
+            const factors = [
+                { name: 'Betting Odds', weight: 45, color: '#f59e0b' },
+                { name: 'Team Record', weight: 25, color: '#10b981' },
+                { name: 'Player Health', weight: 20, color: '#8b5cf6' },
+                { name: 'Weather Impact', weight: 10, color: '#3b82f6' }
+            ];
+
+            return `
+                <div style="margin-top: 16px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                    <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 12px; text-transform: uppercase; font-weight: 600;">
+                        Prediction Factors
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        ${factors.map(factor => `
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.85em;">
+                                    <span style="color: var(--secondary);">${factor.name}</span>
+                                    <span style="color: ${factor.color}; font-weight: 600;">${factor.weight}%</span>
+                                </div>
+                                <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+                                    <div style="height: 100%; width: ${factor.weight}%; background: linear-gradient(90deg, ${factor.color}, ${factor.color}aa); border-radius: 3px;"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
         }
 
         // Open game details drawer
@@ -2355,6 +4934,207 @@
                                 </div>
                             </div>
                         </div>
+
+                        ${game.prediction ? `
+                        <div class="detail-section">
+                            <h3>Game Prediction</h3>
+                            <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1)); padding: 16px; border-radius: 8px; border-left: 3px solid var(--accent1);">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 12px;">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 8px; text-transform: uppercase; font-weight: 600;">Win Probability</div>
+                                        <div style="background: rgba(99, 102, 241, 0.2); padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+                                            <div style="color: #6366f1; font-size: 0.9em; margin-bottom: 4px;">${awayTeam.shortName || awayTeam.name}</div>
+                                            <div style="color: #6366f1; font-weight: 700; font-size: 1.4em;">${Math.round(game.prediction.awayWinProb * 100)}%</div>
+                                        </div>
+                                        <div style="background: rgba(168, 85, 247, 0.2); padding: 12px; border-radius: 8px;">
+                                            <div style="color: #a855f7; font-size: 0.9em; margin-bottom: 4px;">${homeTeam.shortName || homeTeam.name}</div>
+                                            <div style="color: #a855f7; font-weight: 700; font-size: 1.4em;">${Math.round(game.prediction.homeWinProb * 100)}%</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 8px; text-transform: uppercase; font-weight: 600;">Spread Coverage</div>
+                                        <div style="background: rgba(99, 102, 241, 0.2); padding: 12px; border-radius: 8px; margin-bottom: 8px;">
+                                            <div style="color: #6366f1; font-size: 0.9em; margin-bottom: 4px;">${awayTeam.shortName || awayTeam.name}</div>
+                                            <div style="color: #6366f1; font-weight: 700; font-size: 1.4em;">${Math.round(game.prediction.awaySpreadProb * 100)}%</div>
+                                        </div>
+                                        <div style="background: rgba(168, 85, 247, 0.2); padding: 12px; border-radius: 8px;">
+                                            <div style="color: #a855f7; font-size: 0.9em; margin-bottom: 4px;">${homeTeam.shortName || homeTeam.name}</div>
+                                            <div style="color: #a855f7; font-weight: 700; font-size: 1.4em;">${Math.round(game.prediction.homeSpreadProb * 100)}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; text-align: center;">
+                                    <div style="font-size: 0.85em; color: var(--secondary); margin-bottom: 6px;">Confidence Level</div>
+                                    <div style="font-weight: 600; color: var(--text); font-size: 1.1em;">${(game.prediction.confidence * 100).toFixed(0)}%</div>
+                                </div>
+                                ${generatePredictionBreakdown(game.prediction)}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        <div class="detail-section">
+                            <h3>Team Comparison</h3>
+                            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center;">
+                                <!-- Away Team Column -->
+                                <div style="text-align: right;">
+                                    <div style="font-weight: 600; color: #6366f1; margin-bottom: 8px;">${awayTeam.shortName || awayTeam.name}</div>
+                                    <div style="font-size: 0.85em; line-height: 1.6;">
+                                        <div style="margin-bottom: 4px;">
+                                            <span style="color: var(--secondary);">Record:</span>
+                                            <span style="color: var(--text); font-weight: 500;">${awayTeam.record || 'TBD'}</span>
+                                        </div>
+                                        <div style="margin-bottom: 4px;">
+                                            <span style="color: var(--secondary);">Rank:</span>
+                                            <span style="color: var(--text); font-weight: 500;">#${awayTeam.rank || '–'}</span>
+                                        </div>
+                                        ${awayTeam.record ? `
+                                        <div>
+                                            <span style="color: var(--secondary);">Win %:</span>
+                                            <span style="color: var(--text); font-weight: 500;">${(() => {
+                                                const match = (awayTeam.record || '').match(/(\d+)-(\d+)/);
+                                                if (match) {
+                                                    const wins = parseInt(match[1]);
+                                                    const losses = parseInt(match[2]);
+                                                    const total = wins + losses;
+                                                    return total > 0 ? ((wins / total) * 100).toFixed(1) + '%' : 'N/A';
+                                                }
+                                                return 'N/A';
+                                            })()}</span>
+                                        </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+
+                                <!-- Middle Column (spacer) -->
+                                <div style="width: 20px; text-align: center; color: var(--secondary); font-weight: 600;">VS</div>
+
+                                <!-- Home Team Column -->
+                                <div style="text-align: left;">
+                                    <div style="font-weight: 600; color: #a855f7; margin-bottom: 8px;">${homeTeam.shortName || homeTeam.name}</div>
+                                    <div style="font-size: 0.85em; line-height: 1.6;">
+                                        <div style="margin-bottom: 4px;">
+                                            <span style="color: var(--secondary);">Record:</span>
+                                            <span style="color: var(--text); font-weight: 500;">${homeTeam.record || 'TBD'}</span>
+                                        </div>
+                                        <div style="margin-bottom: 4px;">
+                                            <span style="color: var(--secondary);">Rank:</span>
+                                            <span style="color: var(--text); font-weight: 500;">#${homeTeam.rank || '–'}</span>
+                                        </div>
+                                        ${homeTeam.record ? `
+                                        <div>
+                                            <span style="color: var(--secondary);">Win %:</span>
+                                            <span style="color: var(--text); font-weight: 500;">${(() => {
+                                                const match = (homeTeam.record || '').match(/(\d+)-(\d+)/);
+                                                if (match) {
+                                                    const wins = parseInt(match[1]);
+                                                    const losses = parseInt(match[2]);
+                                                    const total = wins + losses;
+                                                    return total > 0 ? ((wins / total) * 100).toFixed(1) + '%' : 'N/A';
+                                                }
+                                                return 'N/A';
+                                            })()}</span>
+                                        </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        ${(game.homeTeamInjuries && game.homeTeamInjuries.length > 0) || (game.awayTeamInjuries && game.awayTeamInjuries.length > 0) ? `
+                        <div class="detail-section">
+                            <h3>Injury Report</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                ${(game.awayTeamInjuries && game.awayTeamInjuries.length > 0) ? `
+                                <div>
+                                    <div style="font-weight: 600; color: #6366f1; margin-bottom: 8px; font-size: 0.9em;">${awayTeam.shortName || awayTeam.name} Injuries</div>
+                                    <div style="font-size: 0.85em;">
+                                        ${game.awayTeamInjuries.map(injury => `
+                                            <div style="padding: 8px; background: rgba(99, 102, 241, 0.1); border-radius: 6px; margin-bottom: 6px;">
+                                                <div style="font-weight: 500; color: var(--text); margin-bottom: 2px;">${injury.playerName}</div>
+                                                <div style="color: var(--secondary); font-size: 0.8em;">
+                                                    ${injury.position} · <span style="padding: 2px 6px; background: rgba(239, 68, 68, 0.2); border-radius: 4px; color: #ef4444; font-weight: 600;">${injury.status}</span>
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                ` : '<div style="color: var(--secondary); font-size: 0.9em;">No injuries reported</div>'}
+
+                                ${(game.homeTeamInjuries && game.homeTeamInjuries.length > 0) ? `
+                                <div>
+                                    <div style="font-weight: 600; color: #a855f7; margin-bottom: 8px; font-size: 0.9em;">${homeTeam.shortName || homeTeam.name} Injuries</div>
+                                    <div style="font-size: 0.85em;">
+                                        ${game.homeTeamInjuries.map(injury => `
+                                            <div style="padding: 8px; background: rgba(168, 85, 247, 0.1); border-radius: 6px; margin-bottom: 6px;">
+                                                <div style="font-weight: 500; color: var(--text); margin-bottom: 2px;">${injury.playerName}</div>
+                                                <div style="color: var(--secondary); font-size: 0.8em;">
+                                                    ${injury.position} · <span style="padding: 2px 6px; background: rgba(239, 68, 68, 0.2); border-radius: 4px; color: #ef4444; font-weight: 600;">${injury.status}</span>
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                ` : '<div style="color: var(--secondary); font-size: 0.9em;">No injuries reported</div>'}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        ${game.awayTeamPlayers || game.homeTeamPlayers ? `
+                        <div class="detail-section">
+                            <h3>Top Performers</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                ${game.awayTeamPlayers && game.awayTeamPlayers.length > 0 ? `
+                                <div>
+                                    <div style="font-weight: 600; color: #6366f1; margin-bottom: 8px; font-size: 0.9em;">${awayTeam.shortName || awayTeam.name}</div>
+                                    <div style="font-size: 0.8em;">
+                                        ${game.awayTeamPlayers.slice(0, 5).map(player => `
+                                            <div style="padding: 8px; background: rgba(99, 102, 241, 0.08); border-radius: 6px; margin-bottom: 6px;">
+                                                <div style="font-weight: 500; color: var(--text); margin-bottom: 2px;">
+                                                    #${player.jersey || '?'} ${player.name}
+                                                </div>
+                                                <div style="color: var(--secondary); font-size: 0.75em; margin-bottom: 3px;">
+                                                    ${player.position || 'N/A'}
+                                                </div>
+                                                ${player.stats && Object.keys(player.stats).length > 0 ? `
+                                                <div style="color: #6366f1; font-size: 0.75em; font-weight: 500;">
+                                                    ${Object.entries(player.stats).slice(0, 2).map(([key, val]) =>
+                                                        \`\${key}: \${val}\`
+                                                    ).join(' · ')}
+                                                </div>
+                                                ` : ''}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                ` : ''}
+
+                                ${game.homeTeamPlayers && game.homeTeamPlayers.length > 0 ? `
+                                <div>
+                                    <div style="font-weight: 600; color: #a855f7; margin-bottom: 8px; font-size: 0.9em;">${homeTeam.shortName || homeTeam.name}</div>
+                                    <div style="font-size: 0.8em;">
+                                        ${game.homeTeamPlayers.slice(0, 5).map(player => `
+                                            <div style="padding: 8px; background: rgba(168, 85, 247, 0.08); border-radius: 6px; margin-bottom: 6px;">
+                                                <div style="font-weight: 500; color: var(--text); margin-bottom: 2px;">
+                                                    #${player.jersey || '?'} ${player.name}
+                                                </div>
+                                                <div style="color: var(--secondary); font-size: 0.75em; margin-bottom: 3px;">
+                                                    ${player.position || 'N/A'}
+                                                </div>
+                                                ${player.stats && Object.keys(player.stats).length > 0 ? `
+                                                <div style="color: #a855f7; font-size: 0.75em; font-weight: 500;">
+                                                    ${Object.entries(player.stats).slice(0, 2).map(([key, val]) =>
+                                                        \`\${key}: \${val}\`
+                                                    ).join(' · ')}
+                                                </div>
+                                                ` : ''}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                        ` : ''}
 
                         <div class="detail-section">
                             <h3>Weather Forecast</h3>
@@ -2526,12 +5306,375 @@
         }
 
         // Close game details drawer
+        // Touch event handling for mobile drawers
+        let touchStartY = 0;
+        let touchStartX = 0;
+        let isSwiping = false;
+
+        function setupTouchHandlers() {
+            const drawer = document.getElementById('game-details-drawer');
+            const drawerHeader = document.querySelector('.drawer-header');
+
+            if (!drawer) return;
+
+            // Touch start - record initial position
+            drawer.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+                touchStartX = e.touches[0].clientX;
+                isSwiping = true;
+            }, false);
+
+            // Touch move - detect swipe direction
+            drawer.addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+                const touch = e.touches[0];
+                const diffY = touch.clientY - touchStartY;
+                const diffX = Math.abs(touch.clientX - touchStartX);
+
+                // Only consider vertical swipes (not horizontal scrolling)
+                if (diffX < 50 && diffY > 20) {
+                    // Swiping down on mobile drawer
+                    if (window.innerWidth <= 768) {
+                        drawer.style.transform = `translateY(${Math.max(0, diffY)}px)`;
+                    }
+                }
+            }, false);
+
+            // Touch end - close if swiped far enough
+            drawer.addEventListener('touchend', (e) => {
+                const touch = e.changedTouches[0];
+                const diffY = touch.clientY - touchStartY;
+
+                // Close drawer if swiped down more than 100px on mobile
+                if (window.innerWidth <= 768 && diffY > 100) {
+                    closeGameDrawer();
+                } else {
+                    // Reset position
+                    drawer.style.transform = 'translateY(0)';
+                }
+
+                isSwiping = false;
+            }, false);
+
+            // Close on header tap for mobile
+            if (drawerHeader) {
+                drawerHeader.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('drawer-close')) {
+                        closeGameDrawer();
+                    }
+                });
+            }
+        }
+
+        // Optimize drawer positioning for viewport
+        function optimizeDrawerPosition() {
+            const drawer = document.getElementById('game-details-drawer');
+            if (!drawer || !drawer.classList.contains('open')) return;
+
+            const viewportHeight = window.innerHeight;
+            const viewportWidth = window.innerWidth;
+
+            // Mobile: bottom sheet
+            if (viewportWidth <= 768) {
+                drawer.style.position = 'fixed';
+                drawer.style.width = '100%';
+                drawer.style.height = 'auto';
+                drawer.style.top = 'auto';
+                drawer.style.right = 'auto';
+                drawer.style.left = '0';
+                drawer.style.bottom = '0';
+                drawer.style.borderRadius = '12px 12px 0 0';
+                drawer.style.maxHeight = '90vh';
+            }
+            // Desktop: side drawer
+            else {
+                drawer.style.position = 'fixed';
+                drawer.style.width = viewportWidth > 1024 ? '450px' : '420px';
+                drawer.style.height = 'auto';
+                drawer.style.top = '50%';
+                drawer.style.right = viewportWidth > 1024 ? '30px' : '20px';
+                drawer.style.left = 'auto';
+                drawer.style.bottom = 'auto';
+                drawer.style.transform = 'translateY(-50%)';
+                drawer.style.borderRadius = '12px';
+                drawer.style.maxHeight = '90vh';
+            }
+        }
+
+        // Handle viewport changes
+        window.addEventListener('resize', optimizeDrawerPosition);
+
         function closeGameDrawer() {
             const drawer = document.getElementById('game-details-drawer');
             const overlay = document.getElementById('drawer-overlay');
             drawer.classList.remove('open');
             overlay.classList.remove('open');
         }
+
+        // Apply theme from preferences
+        function applyTheme(theme) {
+            const htmlElement = document.documentElement;
+            if (theme === 'light') {
+                htmlElement.setAttribute('data-theme', 'light');
+            } else {
+                htmlElement.removeAttribute('data-theme');
+            }
+        }
+
+        // Initialize theme from preferences
+        function initializeTheme() {
+            const prefs = preferences.getAll();
+            const theme = prefs.theme || 'dark';
+            applyTheme(theme);
+
+            // If there's a dark/light toggle in settings, update it
+            const themeToggle = document.querySelector('[data-theme-toggle]');
+            if (themeToggle) {
+                themeToggle.checked = theme === 'light';
+            }
+        }
+
+        // Toggle theme
+        function toggleTheme() {
+            const htmlElement = document.documentElement;
+            const currentTheme = htmlElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            applyTheme(newTheme);
+            preferences.set('theme', newTheme);
+        }
+
+        // Settings modal functions
+        function openSettings() {
+            const modal = document.getElementById('settings-modal');
+            modal.classList.add('open');
+            loadSettingsUI();
+        }
+
+        function closeSettings() {
+            const modal = document.getElementById('settings-modal');
+            modal.classList.remove('open');
+        }
+
+        // Notification Center Functions
+        function openNotificationCenter() {
+            const center = document.getElementById('notification-center');
+            center.classList.add('open');
+            notificationManager.updateUI(); // Refresh UI when opening
+        }
+
+        function closeNotificationCenter() {
+            const center = document.getElementById('notification-center');
+            center.classList.remove('open');
+        }
+
+        function removeNotification(id) {
+            notificationManager.removeNotification(parseFloat(id));
+        }
+
+        function clearAllNotifications() {
+            if (confirm('Clear all notifications?')) {
+                notificationManager.clearAll();
+            }
+        }
+
+        // Analytics Dashboard Functions
+        function openAnalyticsDashboard() {
+            const dashboard = document.getElementById('analytics-dashboard');
+            dashboard.classList.add('open');
+            displayAnalyticsContent();
+        }
+
+        function closeAnalyticsDashboard() {
+            const dashboard = document.getElementById('analytics-dashboard');
+            dashboard.classList.remove('open');
+        }
+
+        function displayAnalyticsContent() {
+            const content = document.getElementById('analytics-content');
+            const accuracy = analyticsManager.getPredictionAccuracy();
+            const teamStats = analyticsManager.getAllTeamStats();
+            const recentGames = analyticsManager.getRecentGames(5);
+
+            let html = `
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 12px 0; color: var(--text); font-size: 1em;">Prediction Accuracy</h3>
+                    <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid var(--accent1); padding: 12px; border-radius: 6px;">
+                        <div style="font-size: 2em; font-weight: 700; color: var(--accent1);">${accuracy.accuracy}%</div>
+                        <div style="font-size: 0.85em; color: var(--secondary); margin-top: 4px;">${accuracy.correct} correct out of ${accuracy.total} predictions</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 12px 0; color: var(--text); font-size: 1em;">Team Standings</h3>
+                    <div style="font-size: 0.85em;">
+                        ${teamStats.slice(0, 5).map(stat => `
+                            <div style="display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <span style="color: var(--text); font-weight: 600;">${stat.team}</span>
+                                <span style="color: var(--secondary);">${stat.wins}-${stat.losses}${stat.ties ? `-${stat.ties}` : ''}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="margin: 0 0 12px 0; color: var(--text); font-size: 1em;">Recent Games</h3>
+                    <div style="font-size: 0.8em;">
+                        ${recentGames.length === 0 ? '<div style="color: var(--secondary); text-align: center; padding: 16px;">No games recorded yet</div>' : recentGames.map(game => `
+                            <div style="padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div style="color: var(--text); font-weight: 600; margin-bottom: 4px;">${game.awayTeam} @ ${game.homeTeam}</div>
+                                <div style="color: var(--secondary);">${game.awayScore} - ${game.homeScore} <span style="margin-left: 8px; font-size: 0.75em;">${game.date}</span></div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            content.innerHTML = html;
+        }
+
+        function clearAnalyticsHistory() {
+            if (confirm('Clear all analytics history? This cannot be undone.')) {
+                analyticsManager.clearHistory();
+                displayAnalyticsContent();
+                showToast('Analytics history cleared', 'info');
+            }
+        }
+
+        // Load settings UI from preferences
+        function loadSettingsUI() {
+            const prefs = preferences.getAll();
+
+            // Load league checkboxes
+            const leagues = ['NFL', 'NBA', 'WNBA', 'NHL', 'MLB', 'MLS'];
+            const leagueContainer = document.getElementById('league-checkboxes');
+            leagueContainer.innerHTML = leagues.map(league => `
+                <label class="team-checkbox">
+                    <input type="checkbox" data-league="${league}" ${prefs.favoriteLeagues.includes(league) ? 'checked' : ''}>
+                    <label>${league}</label>
+                </label>
+            `).join('');
+
+            // Load team checkboxes
+            const teams = ['KC', 'NE', 'DAL', 'GB', 'SF', 'LAR', 'MIN', 'PHI', 'LAC', 'BUF', 'NYG', 'CHI', 'TB', 'NO'];
+            const teamContainer = document.getElementById('team-checkboxes');
+            teamContainer.innerHTML = teams.map(team => `
+                <label class="team-checkbox">
+                    <input type="checkbox" data-team="${team}" ${prefs.favoriteTeams.includes(team) ? 'checked' : ''}>
+                    <label>${team}</label>
+                </label>
+            `).join('');
+
+            // Load notification settings
+            document.getElementById('notify-enabled').checked = prefs.notificationsEnabled;
+            document.getElementById('notify-sound').checked = prefs.notificationSound;
+            document.getElementById('timezone-select').value = prefs.timeZone;
+
+            // Load quiet hours
+            document.getElementById('quiet-start').innerHTML = Array.from({ length: 24 }, (_, i) => `
+                <option value="${i}" ${i === prefs.quietHoursStart ? 'selected' : ''}>${i.toString().padStart(2, '0')}:00</option>
+            `).join('');
+            document.getElementById('quiet-end').innerHTML = Array.from({ length: 24 }, (_, i) => `
+                <option value="${i}" ${i === prefs.quietHoursEnd ? 'selected' : ''}>${i.toString().padStart(2, '0')}:00</option>
+            `).join('');
+
+            // Load theme preference
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeLabel = document.getElementById('theme-label');
+            const currentTheme = prefs.theme || 'dark';
+            themeToggle.checked = currentTheme === 'light';
+            themeLabel.textContent = currentTheme === 'light' ? 'Light' : 'Dark';
+
+            // Add theme toggle change listener
+            themeToggle.removeEventListener('change', onThemeToggleChange);
+            themeToggle.addEventListener('change', onThemeToggleChange);
+        }
+
+        // Theme toggle change handler
+        function onThemeToggleChange(e) {
+            const newTheme = e.target.checked ? 'light' : 'dark';
+            const themeLabel = document.getElementById('theme-label');
+            themeLabel.textContent = newTheme === 'light' ? 'Light' : 'Dark';
+            applyTheme(newTheme);
+        }
+
+        // Save settings to preferences
+        function saveSettings() {
+            // Save favorite leagues
+            const leagueCheckboxes = document.querySelectorAll('#league-checkboxes input[type="checkbox"]');
+            const favoriteLeagues = Array.from(leagueCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.dataset.league);
+            preferences.set('favoriteLeagues', favoriteLeagues);
+
+            // Save favorite teams
+            const teamCheckboxes = document.querySelectorAll('#team-checkboxes input[type="checkbox"]');
+            const favoriteTeams = Array.from(teamCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.dataset.team);
+            preferences.set('favoriteTeams', favoriteTeams);
+
+            // Save notification settings
+            preferences.set('notificationsEnabled', document.getElementById('notify-enabled').checked);
+            preferences.set('notificationSound', document.getElementById('notify-sound').checked);
+            preferences.set('quietHoursStart', parseInt(document.getElementById('quiet-start').value));
+            preferences.set('quietHoursEnd', parseInt(document.getElementById('quiet-end').value));
+            preferences.set('timeZone', document.getElementById('timezone-select').value);
+
+            // Save theme preference
+            const themeToggle = document.getElementById('theme-toggle');
+            const newTheme = themeToggle.checked ? 'light' : 'dark';
+            preferences.set('theme', newTheme);
+
+            // Show success message
+            showToast('Preferences saved successfully', 'success');
+            closeSettings();
+        }
+
+        // Reset settings to defaults
+        function resetSettings() {
+            if (confirm('Are you sure you want to reset all preferences to defaults?')) {
+                preferences.reset();
+                loadSettingsUI();
+                initializeTheme();
+                showToast('Preferences reset to defaults', 'info');
+            }
+        }
+
+        // Simple toast notification
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                border-radius: 8px;
+                background: ${type === 'success' ? '#22c55e' : '#6366f1'};
+                color: white;
+                z-index: 1000;
+                font-size: 0.9em;
+                font-weight: 600;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.3s ease-out';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Close settings on overlay click
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('settings-modal');
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeSettings();
+                }
+            });
+        });
 
         // Initialize news ticker
         async function initNewsTicker() {
@@ -2741,6 +5884,9 @@
                 overlay.addEventListener('click', closeGameDrawer);
             }
 
+            // Setup touch handlers for mobile drawer
+            setupTouchHandlers();
+
             // Close modals on Escape key
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
@@ -2748,26 +5894,128 @@
                     closeGameDrawer();
                 }
             });
+
+            // Optimize drawer position on modal open
+            const originalOpenGameDrawer = window.openGameDrawer;
+            window.openGameDrawer = async function(event, gameData) {
+                await originalOpenGameDrawer(event, gameData);
+                setTimeout(() => optimizeDrawerPosition(), 100);
+            };
         }
 
         // Initialize app
+        // Populate sports headlines ticker
+        function updateSportsTicker() {
+            const container = document.getElementById('sports-ticker-container');
+            if (!container) return;
+
+            // Get all games from cache
+            let allGames = [];
+            for (const games of Object.values(gamesCache)) {
+                allGames = allGames.concat(games);
+            }
+
+            // Sort by start time
+            allGames.sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
+
+            // Create ticker items
+            const html = allGames.map(game => {
+                const homeTeam = game.homeTeam || {};
+                const awayTeam = game.awayTeam || {};
+                const status = normalizeStatus(game);
+                const isFinal = status === 'FINAL';
+                const isLive = status === 'LIVE';
+                const isUpcoming = status === 'UPCOMING';
+
+                let statusClass = 'ticker-status-upcoming';
+                let statusText = 'UPCOMING';
+
+                if (isFinal) {
+                    statusClass = 'ticker-status-final';
+                    statusText = 'FINAL';
+                } else if (isLive) {
+                    statusClass = 'ticker-status-live';
+                    statusText = 'LIVE';
+                }
+
+                const homeScore = game.homeScore ?? 0;
+                const awayScore = game.awayScore ?? 0;
+                const gameTime = new Date(game.startTime).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+                let scoreHTML = '';
+                if (isFinal || isLive) {
+                    scoreHTML = `<span class="ticker-item-score">${awayScore}-${homeScore}</span>`;
+                } else {
+                    scoreHTML = `<span class="ticker-item-score">${gameTime}</span>`;
+                }
+
+                return `
+                    <div class="ticker-item">
+                        <div class="ticker-item-teams">
+                            ${awayTeam.shortName || awayTeam.name || 'TBA'}
+                            <span style="color: var(--secondary); margin: 0 4px;">@</span>
+                            ${homeTeam.shortName || homeTeam.name || 'TBA'}
+                        </div>
+                        ${scoreHTML}
+                        <span class="ticker-item-status ${statusClass}">${statusText}</span>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = html;
+        }
+
+        // Check if there are any live games
+        function hasLiveGames() {
+            for (const games of Object.values(gamesCache)) {
+                if (games.some(game => normalizeStatus(game) === 'LIVE')) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Setup adaptive refresh intervals (faster for live games)
+        function setupAdaptiveRefresh() {
+            let lastRefreshTime = Date.now();
+            const fastInterval = 5000;  // 5 seconds for live games
+            const slowInterval = 60000; // 60 seconds for completed/upcoming games
+
+            setInterval(async () => {
+                const isLive = hasLiveGames();
+                const timeSinceLastRefresh = Date.now() - lastRefreshTime;
+                const minInterval = isLive ? fastInterval : slowInterval;
+
+                if (timeSinceLastRefresh >= minInterval) {
+                    gamesCache = {}; // Clear cache to force fresh fetch
+                    videoUrlCache = {}; // Clear video cache
+                    await renderGames(); // Re-render will regenerate week selector
+                    updateSportsTicker(); // Update ticker with new data
+                    lastRefreshTime = Date.now();
+                }
+            }, 2000); // Check every 2 seconds if we need to refresh
+        }
+
         async function init() {
+            // Initialize theme and preferences
+            initializeTheme();
+
             setupLeagueTabs();
             setupTeamFilter();
+            setupAdvancedFilters();
             setupModalEvents();
 
             // Load initial games and generate week selector
             await renderGames();
 
+            // Update sports ticker
+            updateSportsTicker();
+
             // Initialize news ticker
             initNewsTicker();
 
-            // Refresh every 60 seconds
-            setInterval(() => {
-                gamesCache = {}; // Clear cache to force fresh fetch
-                videoUrlCache = {}; // Clear video cache
-                renderGames(); // Re-render will regenerate week selector
-            }, 60000);
+            // Setup adaptive refresh based on live games
+            setupAdaptiveRefresh();
         }
 
         // Make functions available globally
@@ -2776,6 +6024,18 @@
         window.openHighlightModal = openHighlightModal;
         window.openGameDrawer = openGameDrawer;
         window.closeGameDrawer = closeGameDrawer;
+        window.loadFilterPreset = loadFilterPreset;
+        window.deleteFilterPreset = deleteFilterPreset;
+        window.saveFilterPreset = saveFilterPreset;
+        window.clearAllFilters = clearAllFilters;
+        window.openNotificationCenter = openNotificationCenter;
+        window.closeNotificationCenter = closeNotificationCenter;
+        window.removeNotification = removeNotification;
+        window.clearAllNotifications = clearAllNotifications;
+        window.openAnalyticsDashboard = openAnalyticsDashboard;
+        window.closeAnalyticsDashboard = closeAnalyticsDashboard;
+        window.displayAnalyticsContent = displayAnalyticsContent;
+        window.clearAnalyticsHistory = clearAnalyticsHistory;
 
         // Start
         document.addEventListener('DOMContentLoaded', init);

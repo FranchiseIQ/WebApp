@@ -50,6 +50,416 @@ document.addEventListener('DOMContentLoaded', () => {
     let ownershipModel = new Set(['franchise', 'non-franchise']);  // Show both by default
     let subtypes = new Set(['licensed', 'corporate', 'independent', 'unknown']);  // Show all by default
 
+    // --- Data Refresh Status Tracking ---
+    let dataLastUpdated = null;  // Track when location data was last loaded
+    let manifestLastUpdated = null;  // Track when manifest was last loaded
+
+    // --- Notification System (Toast Messages) ---
+    const NotificationManager = {
+        queue: [],
+        show(message, type = 'info', duration = 3000) {
+            const toastContainer = document.getElementById('toast-container') || this.createContainer();
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 10);
+
+            if (duration > 0) {
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, duration);
+            }
+            return toast;
+        },
+        success(message, duration = 2500) { return this.show(message, 'success', duration); },
+        error(message, duration = 4000) { return this.show(message, 'error', duration); },
+        info(message, duration = 3000) { return this.show(message, 'info', duration); },
+        loading(message) { return this.show(message, 'loading', 0); },
+        createContainer() {
+            const container = document.createElement('div');
+            container.id = 'toast-container';
+            document.body.appendChild(container);
+            return container;
+        }
+    };
+
+    // Toast Styles (injected into head)
+    if (!document.getElementById('toast-styles')) {
+        const style = document.createElement('style');
+        style.id = 'toast-styles';
+        style.textContent = `
+            #toast-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 10000;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                max-width: 400px;
+                pointer-events: none;
+            }
+            .toast {
+                padding: 12px 16px;
+                border-radius: 6px;
+                font-size: 14px;
+                font-weight: 500;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                pointer-events: auto;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                animation: slideIn 0.3s ease forwards;
+            }
+            .toast.show { opacity: 1; }
+            .toast-success { background: #10b981; color: white; }
+            .toast-error { background: #ef4444; color: white; }
+            .toast-info { background: #3b82f6; color: white; }
+            .toast-loading { background: #8b5cf6; color: white; }
+            @keyframes slideIn {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @media (max-width: 768px) {
+                #toast-container {
+                    top: 10px;
+                    right: 10px;
+                    max-width: 90vw;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // --- Reverse Geocoding Cache & Batch System ---
+    const GeocodeCache = {
+        cache: new Map(),  // Store lat,lng -> address mappings
+        queue: [],
+        isProcessing: false,
+        batchSize: 10,     // Process 10 requests per batch
+
+        async get(lat, lng) {
+            const key = `${lat.toFixed(4)},${lng.toFixed(4)}`;
+
+            // Check cache first
+            if (this.cache.has(key)) {
+                return this.cache.get(key);
+            }
+
+            // Queue for batch processing
+            return new Promise((resolve) => {
+                this.queue.push({ lat, lng, key, resolve });
+                this.processBatch();
+            });
+        },
+
+        async processBatch() {
+            if (this.isProcessing || this.queue.length === 0) return;
+
+            this.isProcessing = true;
+            const batch = this.queue.splice(0, this.batchSize);
+
+            try {
+                for (const item of batch) {
+                    // Rate limiting: wait 150ms between requests
+                    await new Promise(r => setTimeout(r, 150));
+
+                    try {
+                        const response = await fetch(
+                            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${item.lat}&lon=${item.lng}`,
+                            { signal: AbortSignal.timeout(4000) }
+                        );
+                        const data = await response.json();
+
+                        let address = 'Address not available';
+                        if (data.address) {
+                            const addr = data.address;
+                            const city = addr.city || addr.town || addr.village || '';
+                            const state = addr.state || '';
+                            if (city && state) address = `${city}, ${state}`;
+                            else if (city) address = city;
+                            else if (state) address = state;
+                        }
+
+                        this.cache.set(item.key, address);
+                        item.resolve(address);
+                    } catch (e) {
+                        console.warn('Geocoding failed for', item.key, e);
+                        const fallback = 'Address unavailable';
+                        this.cache.set(item.key, fallback);
+                        item.resolve(fallback);
+                    }
+                }
+            } finally {
+                this.isProcessing = false;
+                if (this.queue.length > 0) {
+                    this.processBatch();
+                }
+            }
+        }
+    };
+
+    // --- Data Status Manager ---
+    const DataStatusManager = {
+        init() {
+            // Initialize status display in dashboard
+            this.createStatusElement();
+            this.updateDisplay();
+        },
+        createStatusElement() {
+            // Inject data status info into dashboard (top right area)
+            const statusHTML = `
+                <div id="data-status-badge" style="
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: rgba(59, 130, 246, 0.9);
+                    color: white;
+                    padding: 12px 16px;
+                    border-radius: 8px;
+                    font-size: 12px;
+                    z-index: 1000;
+                    cursor: pointer;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255,255,255,0.2);
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    transition: all 0.3s ease;
+                ">
+                    <span id="data-status-indicator" style="
+                        width: 8px;
+                        height: 8px;
+                        background: #10b981;
+                        border-radius: 50%;
+                        animation: pulse 2s infinite;
+                    "></span>
+                    <div id="data-status-text" style="display: flex; flex-direction: column; gap: 2px;">
+                        <div style="font-weight: 600; font-size: 11px;">Data Loaded</div>
+                        <div id="data-status-time" style="font-size: 10px; opacity: 0.9;">Just now</div>
+                    </div>
+                    <button id="data-refresh-btn" onclick="DataStatusManager.refresh()" style="
+                        background: rgba(255,255,255,0.2);
+                        border: none;
+                        color: white;
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 11px;
+                        font-weight: 600;
+                        transition: background 0.2s;
+                        margin-left: auto;
+                    ">
+                        ↻ Refresh
+                    </button>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', statusHTML);
+
+            // Add hover effect
+            const badge = document.getElementById('data-status-badge');
+            badge.addEventListener('mouseenter', () => {
+                badge.style.background = 'rgba(59, 130, 246, 1)';
+                badge.style.transform = 'translateY(-4px)';
+            });
+            badge.addEventListener('mouseleave', () => {
+                badge.style.background = 'rgba(59, 130, 246, 0.9)';
+                badge.style.transform = 'translateY(0)';
+            });
+
+            // Add CSS for pulse animation
+            if (!document.getElementById('status-animation-styles')) {
+                const style = document.createElement('style');
+                style.id = 'status-animation-styles';
+                style.textContent = `
+                    @keyframes pulse {
+                        0%, 100% { opacity: 1; }
+                        50% { opacity: 0.5; }
+                    }
+                    #data-refresh-btn:hover {
+                        background: rgba(255,255,255,0.3) !important;
+                        transform: rotate(180deg);
+                        transition: all 0.3s ease;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        },
+        updateDisplay() {
+            const timeEl = document.getElementById('data-status-time');
+            if (!timeEl || !dataLastUpdated) return;
+
+            const now = new Date();
+            const diffMs = now - dataLastUpdated;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMins / 60);
+            const diffDays = Math.floor(diffHours / 24);
+
+            let timeStr = 'Just now';
+            if (diffMins < 1) timeStr = 'Just now';
+            else if (diffMins < 60) timeStr = `${diffMins}m ago`;
+            else if (diffHours < 24) timeStr = `${diffHours}h ago`;
+            else timeStr = `${diffDays}d ago`;
+
+            timeEl.textContent = timeStr;
+        },
+        setUpdated() {
+            dataLastUpdated = new Date();
+            this.updateDisplay();
+            NotificationManager.success('Data refreshed');
+        },
+        refresh() {
+            NotificationManager.loading('Reloading manifest and brand data...');
+            // Clear loaded data
+            allLocations = [];
+            loadedTickers.clear();
+            activeTickers.clear();
+            // Reload manifest and reselect all
+            loadManifest();
+            this.setUpdated();
+        }
+    };
+
+    // --- Mobile Panel Manager (Phase 3) ---
+    const MobilePanelManager = {
+        isMobile: () => window.innerWidth <= 768,
+        activePanel: null,
+        panelStack: [],
+
+        init() {
+            // Register all managed panels
+            this.registerPanel('location-panel', 'Location Details');
+            this.registerPanel('high-performers-panel', 'High Performers');
+            this.registerPanel('competitor-analysis-panel', 'Competitor Analysis');
+            this.registerPanel('search-panel', 'Search Results');
+
+            // Listen to window resize
+            window.addEventListener('resize', () => this.handleResize());
+
+            // Add backdrop click handler
+            document.addEventListener('click', (e) => {
+                if (e.target.id === 'mobile-panel-backdrop') {
+                    this.closeActivePanel();
+                }
+            });
+        },
+
+        registerPanel(panelId, panelName) {
+            const panel = document.getElementById(panelId);
+            if (!panel) return;
+
+            // Store original close buttons
+            const closeBtn = panel.querySelector('.close-location-panel-btn, .close-search-panel-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => this.closeActivePanel());
+            }
+        },
+
+        openPanel(panelId) {
+            if (!this.isMobile()) return; // Only manage on mobile
+
+            // Close previous panel if exists
+            if (this.activePanel && this.activePanel !== panelId) {
+                this.closePanel(this.activePanel);
+            }
+
+            const panel = document.getElementById(panelId);
+            if (!panel) return;
+
+            // Create backdrop if needed
+            let backdrop = document.getElementById('mobile-panel-backdrop');
+            if (!backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.id = 'mobile-panel-backdrop';
+                backdrop.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 2000;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    pointer-events: none;
+                `;
+                document.body.appendChild(backdrop);
+            }
+
+            // Show backdrop
+            setTimeout(() => {
+                backdrop.style.opacity = '1';
+                backdrop.style.pointerEvents = 'auto';
+            }, 10);
+
+            // Configure panel for modal display
+            panel.style.cssText = `
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-height: 85vh;
+                z-index: 2100;
+                border-radius: 16px 16px 0 0;
+                transform: translateY(0);
+                transition: transform 0.3s ease;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+            `;
+
+            panel.classList.remove('hidden');
+            this.activePanel = panelId;
+
+            // Show notification for screen readers
+            NotificationManager.info(`${document.getElementById(panelId)?.querySelector('.location-panel-title, .search-panel-title')?.textContent || 'Panel'} opened`);
+        },
+
+        closePanel(panelId) {
+            const panel = document.getElementById(panelId);
+            if (!panel) return;
+
+            panel.classList.add('hidden');
+            if (this.activePanel === panelId) {
+                this.activePanel = null;
+            }
+        },
+
+        closeActivePanel() {
+            if (!this.activePanel) return;
+
+            const backdrop = document.getElementById('mobile-panel-backdrop');
+            if (backdrop) {
+                backdrop.style.opacity = '0';
+                backdrop.style.pointerEvents = 'none';
+            }
+
+            const panel = document.getElementById(this.activePanel);
+            if (panel) {
+                panel.style.transform = 'translateY(100%)';
+                setTimeout(() => {
+                    panel.classList.add('hidden');
+                    panel.style.transform = '';
+                }, 300);
+            }
+
+            this.activePanel = null;
+        },
+
+        handleResize() {
+            // On resize to desktop, restore normal panel behavior
+            if (!this.isMobile() && this.activePanel) {
+                this.closeActivePanel();
+                // Restore panels to normal CSS positioning
+                document.querySelectorAll('.location-panel, .high-performers-panel, .search-panel').forEach(panel => {
+                    panel.style.cssText = '';
+                });
+            }
+        }
+    };
+
     // Predefined unique color palette - 60+ distinct colors
     const COLOR_PALETTE = [
         '#FFC72C', '#00704A', '#D62300', '#E2203D', '#006491', '#FF8732', '#E31837', '#00A94F',
@@ -286,6 +696,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Select all locations by default on page load
                 selectAll();
                 updateDashboardStats();
+                // Track when data was loaded
+                DataStatusManager.setUpdated();
             })
             .catch(e => {
                 // Fallback to original manifest if brands_manifest.json doesn't exist
@@ -297,6 +709,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         renderLegend(manifest);
                         selectAll();
                         updateDashboardStats();
+                        // Track when data was loaded
+                        DataStatusManager.setUpdated();
                     })
                     .catch(e2 => {
                         console.log("Data not yet generated. Run GitHub Action.");
@@ -370,18 +784,28 @@ document.addEventListener('DOMContentLoaded', () => {
     function toggleTicker(ticker, filePath) {
         if (activeTickers.has(ticker)) {
             activeTickers.delete(ticker);
-            refreshMap();
+            scheduleRefreshMap();
         } else {
             activeTickers.add(ticker);
             if (loadedTickers.has(ticker)) {
-                refreshMap();
+                scheduleRefreshMap();
             } else {
+                // Show loading notification while fetching brand data
+                const loadingToast = NotificationManager.loading(`Loading ${ticker}...`);
                 fetch(filePath).then(r => r.json()).then(data => {
                     // Merge metadata before adding to allLocations
                     const enhancedData = mergeOwnershipMetadata(data, ticker);
                     allLocations = allLocations.concat(enhancedData);
                     loadedTickers.add(ticker);
+                    // Remove loading toast
+                    if (loadingToast) loadingToast.remove();
+                    NotificationManager.success(`${ticker} loaded`);
                     refreshMap();
+                }).catch(e => {
+                    if (loadingToast) loadingToast.remove();
+                    NotificationManager.error(`Failed to load ${ticker}`);
+                    console.error(`Error loading ${ticker}:`, e);
+                    activeTickers.delete(ticker);
                 });
             }
         }
@@ -652,22 +1076,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (locationPanelOpen) {
             updateLocationList();
         }
-    }
-
-    function updateScoreDistribution(locations) {
-        const distribution = { excellent: 0, good: 0, fair: 0, poor: 0 };
-        locations.forEach(loc => {
-            if (loc.s >= 80) distribution.excellent++;
-            else if (loc.s >= 65) distribution.good++;
-            else if (loc.s >= 50) distribution.fair++;
-            else distribution.poor++;
-        });
-
-        const total = locations.length || 1;
-        document.getElementById('dist-excellent').style.width = `${(distribution.excellent / total) * 100}%`;
-        document.getElementById('dist-good').style.width = `${(distribution.good / total) * 100}%`;
-        document.getElementById('dist-fair').style.width = `${(distribution.fair / total) * 100}%`;
-        document.getElementById('dist-poor').style.width = `${(distribution.poor / total) * 100}%`;
     }
 
     function createMarker(loc, isIndividual = false) {
@@ -1781,7 +2189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         }
 
-        // Slider inputs
+        // Modal Slider inputs
         const sliderMin = document.getElementById('slider-min');
         const sliderMax = document.getElementById('slider-max');
 
@@ -1793,8 +2201,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.value = max;
                     return;
                 }
+                // Keep panel sliders in sync
+                const panelSliderMin = document.getElementById('panel-slider-min');
+                if (panelSliderMin) panelSliderMin.value = min;
+
                 updateScoreSliderDisplay();
-                applyScoreFilter();
+                updatePanelSliderDisplay();
+
+                scoreFilter.min = min;
+                scheduleRefreshMap();
             };
 
             sliderMax.oninput = function() {
@@ -1804,75 +2219,120 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.value = min;
                     return;
                 }
+                // Keep panel sliders in sync
+                const panelSliderMax = document.getElementById('panel-slider-max');
+                if (panelSliderMax) panelSliderMax.value = max;
+
                 updateScoreSliderDisplay();
-                applyScoreFilter();
+                updatePanelSliderDisplay();
+
+                scoreFilter.max = max;
+                scheduleRefreshMap();
             };
         }
 
-        // Reset slider button
+        // Reset modal slider button
         const resetBtn = document.getElementById('reset-slider');
         if (resetBtn) {
             resetBtn.onclick = function() {
-                sliderMin.value = 0;
-                sliderMax.value = 100;
-                updateScoreSliderDisplay();
-                applyScoreFilter();
+                if (sliderMin && sliderMax) {
+                    sliderMin.value = 0;
+                    sliderMax.value = 100;
+
+                    // Keep panel sliders in sync
+                    const panelSliderMin = document.getElementById('panel-slider-min');
+                    const panelSliderMax = document.getElementById('panel-slider-max');
+                    if (panelSliderMin) panelSliderMin.value = 0;
+                    if (panelSliderMax) panelSliderMax.value = 100;
+
+                    updateScoreSliderDisplay();
+                    updatePanelSliderDisplay();
+
+                    scoreFilter.min = 0;
+                    scoreFilter.max = 100;
+                    scheduleRefreshMap();
+                }
             };
         }
 
-        // Initialize slider with current values
+        // Initialize modal sliders with current values
         if (sliderMin && sliderMax) {
             sliderMin.value = scoreFilter.min;
             sliderMax.value = scoreFilter.max;
             updateScoreSliderDisplay();
         }
 
-        // Panel-based score filter sliders
-        const scoreMin = document.getElementById('score-min');
-        const scoreMax = document.getElementById('score-max');
+        // Panel-based score filter sliders (side panel)
+        const panelSliderMin = document.getElementById('panel-slider-min');
+        const panelSliderMax = document.getElementById('panel-slider-max');
 
-        if (scoreMin && scoreMax) {
-            scoreMin.oninput = function() {
+        if (panelSliderMin && panelSliderMax) {
+            panelSliderMin.oninput = function() {
                 const min = parseInt(this.value);
-                const max = parseInt(scoreMax.value);
+                const max = parseInt(panelSliderMax.value);
                 if (min > max) {
                     this.value = max;
                     return;
                 }
-                updatePanelScoreDisplay();
-                applyScoreFilter();
+                // Update both modal and panel sliders to keep them in sync
+                const sliderMin = document.getElementById('slider-min');
+                if (sliderMin) sliderMin.value = min;
+
+                updatePanelSliderDisplay();
+                updateScoreSliderDisplay();
+
+                scoreFilter.min = min;
+                scheduleRefreshMap();
             };
 
-            scoreMax.oninput = function() {
+            panelSliderMax.oninput = function() {
                 const max = parseInt(this.value);
-                const min = parseInt(scoreMin.value);
+                const min = parseInt(panelSliderMin.value);
                 if (max < min) {
                     this.value = min;
                     return;
                 }
-                updatePanelScoreDisplay();
-                applyScoreFilter();
+                // Update both modal and panel sliders to keep them in sync
+                const sliderMax = document.getElementById('slider-max');
+                if (sliderMax) sliderMax.value = max;
+
+                updatePanelSliderDisplay();
+                updateScoreSliderDisplay();
+
+                scoreFilter.max = max;
+                scheduleRefreshMap();
             };
         }
 
-        // Reset panel score filter button
-        const resetScoreBtn = document.getElementById('reset-score-filter');
-        if (resetScoreBtn) {
-            resetScoreBtn.onclick = function() {
-                if (scoreMin && scoreMax) {
-                    scoreMin.value = 0;
-                    scoreMax.value = 100;
-                    updatePanelScoreDisplay();
-                    applyScoreFilter();
+        // Reset panel slider button
+        const resetPanelSliderBtn = document.getElementById('panel-reset-slider');
+        if (resetPanelSliderBtn) {
+            resetPanelSliderBtn.onclick = function() {
+                if (panelSliderMin && panelSliderMax) {
+                    panelSliderMin.value = 0;
+                    panelSliderMax.value = 100;
+
+                    // Keep modal sliders in sync
+                    const sliderMin = document.getElementById('slider-min');
+                    const sliderMax = document.getElementById('slider-max');
+                    if (sliderMin) sliderMin.value = 0;
+                    if (sliderMax) sliderMax.value = 100;
+
+                    updatePanelSliderDisplay();
+                    updateScoreSliderDisplay();
+
+                    scoreFilter.min = 0;
+                    scoreFilter.max = 100;
+                    scheduleRefreshMap();
                 }
             };
         }
 
         // Initialize panel sliders with current values
-        if (scoreMin && scoreMax) {
-            scoreMin.value = scoreFilter.min;
-            scoreMax.value = scoreFilter.max;
-            updatePanelScoreDisplay();
+        if (panelSliderMin && panelSliderMax) {
+            panelSliderMin.value = scoreFilter.min;
+            panelSliderMax.value = scoreFilter.max;
+            updatePanelSliderDisplay();
         }
 
         // Initialize draggable panels
@@ -1891,6 +2351,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const searchResults = document.getElementById('search-results');
         const closeSearchBtn = document.getElementById('close-search-panel');
         const searchToggleBtn = document.getElementById('search-toggle-btn');
+        const resultCount = document.getElementById('search-result-count');
 
         if (!searchPanel || !searchInput) return;
 
@@ -1925,40 +2386,94 @@ document.addEventListener('DOMContentLoaded', () => {
                 performSearch(this.value);
             } else {
                 searchResults.innerHTML = '';
+                if (resultCount) resultCount.style.display = 'none';
             }
         });
+
+        // Scroll indicator detection
+        searchResults.addEventListener('scroll', () => {
+            updateScrollIndicators(searchResults);
+        });
+    }
+
+    function updateScrollIndicators(element) {
+        const hasScroll = element.scrollHeight > element.clientHeight;
+        const isScrolled = element.scrollTop > 0;
+
+        if (hasScroll) {
+            element.classList.add('scrollable');
+        } else {
+            element.classList.remove('scrollable');
+        }
+
+        if (isScrolled && hasScroll) {
+            element.classList.add('scrolling');
+        } else {
+            element.classList.remove('scrolling');
+        }
     }
 
     function performSearch(query) {
         const searchResults = document.getElementById('search-results');
+        const resultCount = document.getElementById('search-result-count');
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=us`;
+
+        // Show loading state
+        searchResults.innerHTML = '<div class="search-empty-state"><i class="fa-solid fa-hourglass-end"></i><div class="search-empty-state-title">Searching...</div></div>';
+        if (resultCount) resultCount.style.display = 'none';
 
         fetch(url)
             .then(res => res.json())
             .then(results => {
                 searchResults.innerHTML = '';
                 if (results.length === 0) {
-                    searchResults.innerHTML = '<div style="padding: 8px; color: var(--text-light); font-size: 0.85rem;">No results found</div>';
+                    searchResults.innerHTML = `
+                        <div class="search-empty-state">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <div class="search-empty-state-title">No results found</div>
+                            <div class="search-empty-state-text">Try a different city, zip code, or address</div>
+                        </div>
+                    `;
+                    if (resultCount) resultCount.style.display = 'none';
                     return;
                 }
 
-                results.forEach(result => {
+                // Show result count
+                if (resultCount) {
+                    resultCount.textContent = `${results.length}`;
+                    resultCount.style.display = 'inline-block';
+                }
+
+                results.forEach((result, index) => {
                     const resultEl = document.createElement('div');
                     resultEl.className = 'search-result-item';
                     resultEl.textContent = result.display_name.split(',')[0];
+                    resultEl.title = result.display_name;
+                    resultEl.style.setProperty('--index', index);
                     resultEl.onclick = function() {
                         const bbox = result.boundingbox;
                         map.fitBounds([
                             [parseFloat(bbox[0]), parseFloat(bbox[2])],
                             [parseFloat(bbox[1]), parseFloat(bbox[3])]
                         ]);
+                        NotificationManager.success(`Centered on ${result.display_name.split(',')[0]}`);
                     };
                     searchResults.appendChild(resultEl);
                 });
+
+                // Update scroll indicators after rendering
+                setTimeout(() => updateScrollIndicators(searchResults), 0);
             })
             .catch(err => {
                 console.error('Search error:', err);
-                searchResults.innerHTML = '<div style="padding: 8px; color: red; font-size: 0.85rem;">Search error</div>';
+                searchResults.innerHTML = `
+                    <div class="search-empty-state">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div class="search-empty-state-title">Search error</div>
+                        <div class="search-empty-state-text">Could not connect. Try again.</div>
+                    </div>
+                `;
+                if (resultCount) resultCount.style.display = 'none';
             });
     }
 
@@ -2180,42 +2695,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return location.a;
         }
 
-        // If no address, attempt reverse geocoding
+        // Check if coordinates exist
         if (location.lat === undefined || location.lng === undefined) {
             return 'Location data pending';
         }
 
+        // Use batch geocoding cache for efficient reverse geocoding
         try {
-            // Use Nominatim reverse geocoding API with modest rate limiting
-            // Add small delay to respect API rate limits
-            await new Promise(resolve => setTimeout(resolve, 100));
-
-            const response = await fetch(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${location.lat}&lon=${location.lng}`,
-                { signal: AbortSignal.timeout(5000) }
-            );
-            const data = await response.json();
-
-            if (data.address) {
-                const addr = data.address;
-                // Format as City, State (or fallback to available fields)
-                const city = addr.city || addr.town || addr.village || '';
-                const state = addr.state || '';
-                if (city && state) {
-                    return `${city}, ${state}`;
-                } else if (city) {
-                    return city;
-                } else if (state) {
-                    return state;
-                }
-            }
+            return await GeocodeCache.get(location.lat, location.lng);
         } catch (e) {
-            // Silently fail and use fallback
-            console.log('Reverse geocoding failed for location', location.id);
+            console.warn('Geocoding error for location', location.id, e);
+            return 'Address unavailable';
         }
-
-        // Fallback: Show nothing or generic message
-        return 'Address not available';
     }
 
     function showHighPerformers() {
@@ -2440,6 +2931,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (maxValue) maxValue.textContent = sliderMax.value;
     }
 
+    function updatePanelSliderDisplay() {
+        const panelSliderMin = document.getElementById('panel-slider-min');
+        const panelSliderMax = document.getElementById('panel-slider-max');
+        const panelMinValue = document.getElementById('panel-slider-min-value');
+        const panelMaxValue = document.getElementById('panel-slider-max-value');
+
+        if (panelMinValue && panelSliderMin) panelMinValue.textContent = panelSliderMin.value;
+        if (panelMaxValue && panelSliderMax) panelMaxValue.textContent = panelSliderMax.value;
+    }
+
     function updatePanelScoreDisplay() {
         const scoreMin = document.getElementById('score-min');
         const scoreMax = document.getElementById('score-max');
@@ -2462,8 +2963,8 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreFilter.min = min;
         scoreFilter.max = max;
 
-        // Refresh map with new filter
-        refreshMap();
+        // Schedule map refresh with debouncing to prevent excessive updates during slider drag
+        scheduleRefreshMap();
     }
 
     // ===== NEW LOCATION PANEL FUNCTIONS =====
@@ -2658,5 +3159,204 @@ document.addEventListener('DOMContentLoaded', () => {
         animateKpiNumber('avg-score', currentScore, newScore);
     }
 
+    // --- Debounced Map Refresh System ---
+    let refreshMapDebounceTimer = null;
+    function scheduleRefreshMap() {
+        // Cancel previous timer if exists
+        if (refreshMapDebounceTimer) {
+            clearTimeout(refreshMapDebounceTimer);
+        }
+        // Schedule new refresh after 200ms of inactivity
+        refreshMapDebounceTimer = setTimeout(() => {
+            refreshMap();
+            refreshMapDebounceTimer = null;
+        }, 200);
+    }
+
+    // --- Keyboard Shortcuts System ---
+    const KeyboardShortcuts = {
+        init() {
+            document.addEventListener('keydown', (e) => this.handleKeydown(e));
+        },
+        handleKeydown(e) {
+            // Don't trigger shortcuts if user is typing in input
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+
+            const isCtrl = e.ctrlKey || e.metaKey;
+            const isShift = e.shiftKey;
+
+            // Ctrl+F: Toggle search panel
+            if (isCtrl && e.key === 'f') {
+                e.preventDefault();
+                const searchToggleBtn = document.querySelector('[onclick*="toggleSearchPanel"]');
+                if (searchToggleBtn) {
+                    searchToggleBtn.click();
+                } else {
+                    // Fallback: toggle search panel manually
+                    const searchPanel = document.getElementById('search-panel');
+                    if (searchPanel) {
+                        searchPanel.classList.toggle('hidden');
+                        NotificationManager.info('Search panel toggled');
+                    }
+                }
+            }
+
+            // Ctrl+H: Toggle heatmap
+            if (isCtrl && e.key === 'h') {
+                e.preventDefault();
+                const heatmapBtn = document.getElementById('btn-heatmap-toggle');
+                if (heatmapBtn) {
+                    heatmapBtn.click();
+                    NotificationManager.info(`Heatmap ${isHeatmapView ? 'disabled' : 'enabled'}`);
+                }
+            }
+
+            // Ctrl+C: Toggle clustering
+            if (isCtrl && e.key === 'c') {
+                e.preventDefault();
+                const clusterBtn = document.getElementById('btn-cluster-toggle');
+                if (clusterBtn) {
+                    clusterBtn.click();
+                    NotificationManager.info(`Clustering ${isClusterView ? 'disabled' : 'enabled'}`);
+                }
+            }
+
+            // Ctrl+R: Reset view
+            if (isCtrl && e.key === 'r') {
+                e.preventDefault();
+                const resetBtn = document.getElementById('btn-reset-view');
+                if (resetBtn) {
+                    resetBtn.click();
+                    NotificationManager.info('View reset to default');
+                }
+            }
+
+            // Ctrl+Shift+L: Load geolocation
+            if (isCtrl && isShift && e.key === 'l') {
+                e.preventDefault();
+                const geoBtn = document.getElementById('btn-locate');
+                if (geoBtn) {
+                    geoBtn.click();
+                    NotificationManager.info('Locating...');
+                }
+            }
+
+            // ?: Show keyboard shortcuts help
+            if (e.key === '?' && !isCtrl) {
+                e.preventDefault();
+                this.showHelp();
+            }
+        },
+        showHelp() {
+            const helpText = `
+⌨️ Keyboard Shortcuts:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Ctrl+F       Search/Filter
+Ctrl+H       Toggle Heatmap
+Ctrl+C       Toggle Clustering
+Ctrl+R       Reset View
+Ctrl+Shift+L  Use Geolocation
+?            Show this help
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            `;
+            NotificationManager.show(helpText, 'info', 5000);
+        }
+    };
+
+    // --- Multi-Touch Gesture Manager (Phase 3) ---
+    const MultiTouchManager = {
+        touches: [],
+        initialDistance: 0,
+        initialRotation: 0,
+        isMultiTouch: false,
+
+        init() {
+            const mapContainer = document.getElementById('map-container');
+            if (!mapContainer) return;
+
+            mapContainer.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: false });
+            mapContainer.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
+            mapContainer.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: false });
+        },
+
+        handleTouchStart(e) {
+            this.touches = Array.from(e.touches);
+            this.isMultiTouch = this.touches.length >= 2;
+
+            if (this.isMultiTouch) {
+                e.preventDefault();
+                this.initialDistance = this.calculateDistance(this.touches[0], this.touches[1]);
+                this.initialRotation = this.calculateRotation(this.touches[0], this.touches[1]);
+                // Disable map's default touch handling during multi-touch
+                if (map) {
+                    map.dragging.disable();
+                    map.touchZoom.disable();
+                }
+            }
+        },
+
+        handleTouchMove(e) {
+            if (!this.isMultiTouch || this.touches.length < 2) return;
+            e.preventDefault();
+
+            const currentTouches = Array.from(e.touches);
+            const currentDistance = this.calculateDistance(currentTouches[0], currentTouches[1]);
+            const currentRotation = this.calculateRotation(currentTouches[0], currentTouches[1]);
+
+            // Two-finger pan/drag - move map
+            const midX = (currentTouches[0].clientX + currentTouches[1].clientX) / 2;
+            const midY = (currentTouches[0].clientY + currentTouches[1].clientY) / 2;
+            const oldMidX = (this.touches[0].clientX + this.touches[1].clientX) / 2;
+            const oldMidY = (this.touches[0].clientY + this.touches[1].clientY) / 2;
+
+            const deltaX = midX - oldMidX;
+            const deltaY = midY - oldMidY;
+
+            // Convert screen coordinates to map movement
+            const mapContainer = document.getElementById('map-container');
+            if (map && mapContainer && (deltaX !== 0 || deltaY !== 0)) {
+                const rect = mapContainer.getBoundingClientRect();
+                const center = map.getCenter();
+                const point = map.latLngToContainerPoint(center);
+                const newPoint = L.point(point.x - deltaX, point.y - deltaY);
+                const newCenter = map.containerPointToLatLng(newPoint);
+                map.setView(newCenter, map.getZoom(), { animate: false });
+            }
+
+            // Store current touches for next move
+            this.touches = currentTouches;
+        },
+
+        handleTouchEnd(e) {
+            if (this.isMultiTouch) {
+                // Re-enable default map touch handling
+                if (map) {
+                    map.dragging.enable();
+                    map.touchZoom.enable();
+                }
+                this.isMultiTouch = false;
+                this.touches = [];
+            }
+        },
+
+        calculateDistance(touch1, touch2) {
+            const dx = touch1.clientX - touch2.clientX;
+            const dy = touch1.clientY - touch2.clientY;
+            return Math.sqrt(dx * dx + dy * dy);
+        },
+
+        calculateRotation(touch1, touch2) {
+            const dx = touch2.clientX - touch1.clientX;
+            const dy = touch2.clientY - touch1.clientY;
+            return Math.atan2(dy, dx) * (180 / Math.PI);
+        }
+    };
+
     initMap();
+    KeyboardShortcuts.init();
+    DataStatusManager.init();
+    MobilePanelManager.init();
+    MultiTouchManager.init();
 });

@@ -44,7 +44,7 @@ TICKER_QUERIES = {
     "YUM":  ['"KFC"', '"Taco Bell"', '"Pizza Hut"', '"The Habit Burger"'],
     "QSR":  ['"Burger King"', '"Tim Hortons"', '"Popeyes"', '"Firehouse Subs"'],
     "WEN":  ['"Wendy\'s"'],
-    "DPZ":  ['"Domino\'s Pizza"', '"Dominos Pizza"'],
+    "DPZ":  ['"Domino\'s Pizza"', '"Dominos Pizza"', '"Dominos"', '"Domino"'],
     "CMG":  ['"Chipotle Mexican Grill"', '"Chipotle"'],
     "JACK": ['"Jack in the Box"', '"Del Taco"'],
     "WING": ['"Wingstop"'],
@@ -303,12 +303,25 @@ def generate_fallback_locations(ticker, queries, count=50):
     return locations
 
 
-def fetch_overpass_data(queries):
-    """Query OpenStreetMap with timeout for comprehensive data."""
+def fetch_overpass_data(queries, ticker=None):
+    """Query OpenStreetMap with timeout for comprehensive data.
+
+    Enhanced to handle special cases like Domino's with broader queries.
+    """
     search_terms = ""
     for q in queries:
         search_terms += f'nwr["name"~{q},i](24.39,-125.0,49.38,-66.93);'
         search_terms += f'nwr["brand"~{q},i](24.39,-125.0,49.38,-66.93);'
+
+    # Special handling for brands with limited OSM coverage
+    # Domino's often appears as just "Dominos" or might be tagged differently
+    if ticker == "DPZ" and len(queries) > 0:
+        # Add additional queries for delivery pizza places that might be Domino's
+        search_terms += 'node["delivery"="yes"]["cuisine"~"pizza",i](24.39,-125.0,49.38,-66.93);'
+        search_terms += 'way["delivery"="yes"]["cuisine"~"pizza",i](24.39,-125.0,49.38,-66.93);'
+        # Also search for nodes/ways tagged as fast_food with pizza cuisine
+        search_terms += 'node["amenity"="restaurant"]["cuisine"~"pizza",i]["name"~"Domino",i](24.39,-125.0,49.38,-66.93);'
+        search_terms += 'way["amenity"="restaurant"]["cuisine"~"pizza",i]["name"~"Domino",i](24.39,-125.0,49.38,-66.93);'
 
     ql_query = f"[out:json][timeout:900];({search_terms});out center;"
 
@@ -319,7 +332,7 @@ def fetch_overpass_data(queries):
         elif response.status_code == 429:
             print("  Rate limited. Waiting 60s...")
             time.sleep(60)
-            return fetch_overpass_data(queries)
+            return fetch_overpass_data(queries, ticker)
         else:
             print(f"  Error {response.status_code} - using fallback synthetic data")
         return None
@@ -407,7 +420,7 @@ def generate_real_data(batch_tickers=None):
         query_name = queries[0].replace('"', '')
         print(f"Querying {ticker} ({query_name}...)...")
 
-        elements = fetch_overpass_data(queries)
+        elements = fetch_overpass_data(queries, ticker)
         all_ticker_locs = []
 
         # If API fetch failed or returned no results, use fallback synthetic data

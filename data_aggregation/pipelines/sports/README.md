@@ -129,32 +129,184 @@ python3 -m data_aggregation.pipelines.sports.fetch_sports_data
     {
       "id": "nfl-401547839",
       "league": "NFL",
-      "startTime": "2025-12-21T13:00Z",
+      "date": "2025-12-21T13:00Z",
+      "status": "Final",
+      "is_active": false,
+      "is_final": true,
+      "clock": "0:00",
+      "period": "4",
+      "network": "CBS",
+      "venue": {
+        "name": "Arrowhead Stadium",
+        "city": "Kansas City",
+        "state": "MO",
+        "capacity": "76416",
+        "indoor": false
+      },
+      "weather": {
+        "displayValue": "Clear",
+        "temperature": "42",
+        "wind": "10 mph",
+        "conditions": "Clear"
+      },
       "homeTeam": {
-        "name": "New England Patriots",
-        "shortName": "Patriots",
-        "abbreviation": "NE",
+        "name": "Kansas City Chiefs",
+        "shortName": "Chiefs",
+        "abbreviation": "KC",
         "logoUrl": "https://...",
-        "record": "5-10"
+        "record": "12-3",
+        "rank": "2",
+        "players": [
+          {
+            "id": "46352",
+            "name": "Patrick Mahomes",
+            "position": "QB",
+            "jersey": "15",
+            "status": "Active",
+            "stats": {
+              "passingYards": "385",
+              "touchdowns": "3",
+              "interceptions": "1"
+            }
+          }
+        ],
+        "injuries": [
+          {
+            "playerName": "Travis Kelce",
+            "position": "TE",
+            "status": "Questionable",
+            "id": "46365"
+          }
+        ]
       },
       "awayTeam": {
         "name": "Los Angeles Chargers",
         "shortName": "Chargers",
         "abbreviation": "LAC",
         "logoUrl": "https://...",
-        "record": "7-8"
+        "record": "7-8",
+        "rank": "24",
+        "players": [...],
+        "injuries": [...]
       },
-      "homeScore": 21,
-      "awayScore": 17,
-      "status": "final",
-      "quarter": "4",
-      "clock": "0:00",
-      "network": "CBS",
+      "homeScore": 23,
+      "awayScore": 20,
       "video_url": "https://www.youtube.com/embed/...",
+      "odds": {
+        "spread": "-3.5",
+        "overUnder": "47.5",
+        "moneyline": {
+          "home": "-165",
+          "away": "+145"
+        },
+        "provider": "DraftKings",
+        "lastUpdated": "2025-12-21T12:55:00Z"
+      },
+      "headlines": [
+        {
+          "headline": "Mahomes leads Chiefs to victory",
+          "description": "Patrick Mahomes threw 3 TDs in dominant performance",
+          "type": "recap",
+          "lastModified": "2025-12-21T16:30:00Z"
+        }
+      ],
       "is_championship": false
     }
   ]
 }
+```
+
+## Enhanced Data Fields (NEW)
+
+The pipeline now extracts comprehensive data for predictive analytics and advanced game analysis:
+
+### Player Statistics
+```json
+"players": [
+  {
+    "id": "46352",
+    "name": "Patrick Mahomes",
+    "position": "QB",
+    "jersey": "15",
+    "status": "Active",
+    "stats": {
+      "passingYards": "385",
+      "touchdowns": "3",
+      "interceptions": "1",
+      "rushingYards": "45",
+      "sacks": "0"
+    }
+  }
+]
+```
+**Available stat fields**:
+- Football: `passingYards`, `rushingYards`, `receivingYards`, `touchdowns`, `interceptions`, `tackles`, `sacks`
+- Basketball: `points`, `rebounds`, `assists`, `steals`, `blockedShots`
+- Other sports: Sport-specific stats based on ESPN data
+
+### Injury Reports
+```json
+"injuries": [
+  {
+    "playerName": "Travis Kelce",
+    "position": "TE",
+    "status": "Questionable",
+    "id": "46365"
+  }
+]
+```
+**Status values**: `Out`, `Doubtful`, `Questionable`, `Probable`, `Active`
+
+### Betting Odds
+```json
+"odds": {
+  "spread": "-3.5",
+  "overUnder": "47.5",
+  "moneyline": {
+    "home": "-165",
+    "away": "+145"
+  },
+  "provider": "DraftKings",
+  "lastUpdated": "2025-12-21T12:55:00Z"
+}
+```
+
+### Venue Information
+```json
+"venue": {
+  "name": "Arrowhead Stadium",
+  "city": "Kansas City",
+  "state": "MO",
+  "capacity": "76416",
+  "indoor": false
+}
+```
+
+### Weather Conditions
+```json
+"weather": {
+  "displayValue": "Clear",
+  "temperature": "42",
+  "wind": "10 mph",
+  "conditions": "Clear"
+}
+```
+
+### Game Headlines
+```json
+"headlines": [
+  {
+    "headline": "Mahomes leads Chiefs to victory",
+    "description": "Patrick Mahomes threw 3 TDs in dominant performance",
+    "type": "recap",
+    "lastModified": "2025-12-21T16:30:00Z"
+  }
+]
+```
+
+### Team Rankings
+```json
+"rank": "2"  // National ranking within league
 ```
 
 ## Data Quality
@@ -162,6 +314,9 @@ python3 -m data_aggregation.pipelines.sports.fetch_sports_data
 - **ESPN API**: Reliable and regularly updated during games
 - **Highlight Videos**: Best effort; some games may not have available highlights
 - **Video Caching**: Existing video URLs are preserved to minimize API quota usage
+- **Player Stats**: Top 10 performers per team; includes stats from available athletes
+- **Injury Data**: Automatic detection of Out/Doubtful/Questionable status
+- **Betting Odds**: ESPN odds provider; availability depends on ESPN data
 - **Error Handling**: Script gracefully handles API failures and missing data
 
 ## Usage in Frontend

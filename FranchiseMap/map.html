@@ -113,13 +113,16 @@
                 <div class="search-panel-title">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <span>Search</span>
+                    <span id="search-result-count" class="search-result-count" style="display: none;"></span>
                 </div>
                 <button id="close-search-panel" class="close-search-panel-btn" title="Close">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
             <div class="search-panel-content">
-                <input type="text" id="search-input" class="search-input" placeholder="City, zip, or address...">
+                <div class="search-input-wrapper">
+                    <input type="text" id="search-input" class="search-input" placeholder="City, zip, or address...">
+                </div>
                 <div id="search-results" class="search-results"></div>
             </div>
         </div>
@@ -226,20 +229,20 @@
                             <span class="slider-label-right">High Quality</span>
                         </div>
                         <div class="slider-container">
-                            <input type="range" id="slider-min" class="slider" min="0" max="100" value="0">
-                            <input type="range" id="slider-max" class="slider" min="0" max="100" value="100">
+                            <input type="range" id="panel-slider-min" class="slider" min="0" max="100" value="0">
+                            <input type="range" id="panel-slider-max" class="slider" min="0" max="100" value="100">
                         </div>
                         <div class="slider-values">
                             <div class="slider-value">
                                 <span class="value-label">Min:</span>
-                                <span id="slider-min-value" class="value">0</span>
+                                <span id="panel-slider-min-value" class="value">0</span>
                             </div>
                             <div class="slider-value">
                                 <span class="value-label">Max:</span>
-                                <span id="slider-max-value" class="value">100</span>
+                                <span id="panel-slider-max-value" class="value">100</span>
                             </div>
                         </div>
-                        <button id="reset-slider" class="reset-btn">Reset to All Scores</button>
+                        <button id="panel-reset-slider" class="reset-btn">Reset to All Scores</button>
                     </div>
                 </div>
 
