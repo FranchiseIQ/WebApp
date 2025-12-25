@@ -3203,8 +3203,98 @@ Ctrl+Shift+L  Use Geolocation
         }
     };
 
+    // --- Multi-Touch Gesture Manager (Phase 3) ---
+    const MultiTouchManager = {
+        touches: [],
+        initialDistance: 0,
+        initialRotation: 0,
+        isMultiTouch: false,
+
+        init() {
+            const mapContainer = document.getElementById('map-container');
+            if (!mapContainer) return;
+
+            mapContainer.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: false });
+            mapContainer.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
+            mapContainer.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: false });
+        },
+
+        handleTouchStart(e) {
+            this.touches = Array.from(e.touches);
+            this.isMultiTouch = this.touches.length >= 2;
+
+            if (this.isMultiTouch) {
+                e.preventDefault();
+                this.initialDistance = this.calculateDistance(this.touches[0], this.touches[1]);
+                this.initialRotation = this.calculateRotation(this.touches[0], this.touches[1]);
+                // Disable map's default touch handling during multi-touch
+                if (map) {
+                    map.dragging.disable();
+                    map.touchZoom.disable();
+                }
+            }
+        },
+
+        handleTouchMove(e) {
+            if (!this.isMultiTouch || this.touches.length < 2) return;
+            e.preventDefault();
+
+            const currentTouches = Array.from(e.touches);
+            const currentDistance = this.calculateDistance(currentTouches[0], currentTouches[1]);
+            const currentRotation = this.calculateRotation(currentTouches[0], currentTouches[1]);
+
+            // Two-finger pan/drag - move map
+            const midX = (currentTouches[0].clientX + currentTouches[1].clientX) / 2;
+            const midY = (currentTouches[0].clientY + currentTouches[1].clientY) / 2;
+            const oldMidX = (this.touches[0].clientX + this.touches[1].clientX) / 2;
+            const oldMidY = (this.touches[0].clientY + this.touches[1].clientY) / 2;
+
+            const deltaX = midX - oldMidX;
+            const deltaY = midY - oldMidY;
+
+            // Convert screen coordinates to map movement
+            const mapContainer = document.getElementById('map-container');
+            if (map && mapContainer && (deltaX !== 0 || deltaY !== 0)) {
+                const rect = mapContainer.getBoundingClientRect();
+                const center = map.getCenter();
+                const point = map.latLngToContainerPoint(center);
+                const newPoint = L.point(point.x - deltaX, point.y - deltaY);
+                const newCenter = map.containerPointToLatLng(newPoint);
+                map.setView(newCenter, map.getZoom(), { animate: false });
+            }
+
+            // Store current touches for next move
+            this.touches = currentTouches;
+        },
+
+        handleTouchEnd(e) {
+            if (this.isMultiTouch) {
+                // Re-enable default map touch handling
+                if (map) {
+                    map.dragging.enable();
+                    map.touchZoom.enable();
+                }
+                this.isMultiTouch = false;
+                this.touches = [];
+            }
+        },
+
+        calculateDistance(touch1, touch2) {
+            const dx = touch1.clientX - touch2.clientX;
+            const dy = touch1.clientY - touch2.clientY;
+            return Math.sqrt(dx * dx + dy * dy);
+        },
+
+        calculateRotation(touch1, touch2) {
+            const dx = touch2.clientX - touch1.clientX;
+            const dy = touch2.clientY - touch1.clientY;
+            return Math.atan2(dy, dx) * (180 / Math.PI);
+        }
+    };
+
     initMap();
     KeyboardShortcuts.init();
     DataStatusManager.init();
     MobilePanelManager.init();
+    MultiTouchManager.init();
 });
