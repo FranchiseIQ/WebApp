@@ -3174,3 +3174,115 @@
     font-size: 18px;
   }
 }
+
+/* PDF REPORT CONTROLS */
+
+.pdf-controls {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.pdf-controls h4 {
+  margin: 0 0 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.pdf-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pdf-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text);
+}
+
+.pdf-btn:hover {
+  background: var(--accent1);
+  color: white;
+  border-color: var(--accent1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(3, 105, 161, 0.2);
+}
+
+.pdf-btn:active {
+  transform: translateY(0);
+}
+
+.pdf-btn .icon {
+  font-size: 16px;
+}
+
+.pdf-btn.evaluation-pdf:hover {
+  background: rgb(59, 130, 246);
+  border-color: rgb(59, 130, 246);
+}
+
+.pdf-btn.financial-pdf:hover {
+  background: rgb(34, 197, 94);
+  border-color: rgb(34, 197, 94);
+}
+
+.pdf-btn.full-pdf:hover {
+  background: rgb(168, 85, 247);
+  border-color: rgb(168, 85, 247);
+}
+
+.pdf-btn.print-pdf:hover {
+  background: rgb(99, 102, 241);
+  border-color: rgb(99, 102, 241);
+}
+
+.pdf-format-note {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px;
+  font-style: italic;
+}
+
+/* Responsive adjustments for PDF controls */
+@media (max-width: 768px) {
+  .pdf-buttons {
+    gap: 8px;
+  }
+
+  .pdf-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pdf-controls {
+    padding: 16px;
+  }
+
+  .pdf-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pdf-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
