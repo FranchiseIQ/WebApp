@@ -508,18 +508,28 @@ document.addEventListener('DOMContentLoaded', () => {
     function toggleTicker(ticker, filePath) {
         if (activeTickers.has(ticker)) {
             activeTickers.delete(ticker);
-            refreshMap();
+            scheduleRefreshMap();
         } else {
             activeTickers.add(ticker);
             if (loadedTickers.has(ticker)) {
-                refreshMap();
+                scheduleRefreshMap();
             } else {
+                // Show loading notification while fetching brand data
+                const loadingToast = NotificationManager.loading(`Loading ${ticker}...`);
                 fetch(filePath).then(r => r.json()).then(data => {
                     // Merge metadata before adding to allLocations
                     const enhancedData = mergeOwnershipMetadata(data, ticker);
                     allLocations = allLocations.concat(enhancedData);
                     loadedTickers.add(ticker);
+                    // Remove loading toast
+                    if (loadingToast) loadingToast.remove();
+                    NotificationManager.success(`${ticker} loaded`);
                     refreshMap();
+                }).catch(e => {
+                    if (loadingToast) loadingToast.remove();
+                    NotificationManager.error(`Failed to load ${ticker}`);
+                    console.error(`Error loading ${ticker}:`, e);
+                    activeTickers.delete(ticker);
                 });
             }
         }
@@ -2521,8 +2531,8 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreFilter.min = min;
         scoreFilter.max = max;
 
-        // Refresh map with new filter
-        refreshMap();
+        // Schedule map refresh with debouncing to prevent excessive updates during slider drag
+        scheduleRefreshMap();
     }
 
     // ===== NEW LOCATION PANEL FUNCTIONS =====
@@ -2717,5 +2727,112 @@ document.addEventListener('DOMContentLoaded', () => {
         animateKpiNumber('avg-score', currentScore, newScore);
     }
 
+    // --- Debounced Map Refresh System ---
+    let refreshMapDebounceTimer = null;
+    function scheduleRefreshMap() {
+        // Cancel previous timer if exists
+        if (refreshMapDebounceTimer) {
+            clearTimeout(refreshMapDebounceTimer);
+        }
+        // Schedule new refresh after 200ms of inactivity
+        refreshMapDebounceTimer = setTimeout(() => {
+            refreshMap();
+            refreshMapDebounceTimer = null;
+        }, 200);
+    }
+
+    // --- Keyboard Shortcuts System ---
+    const KeyboardShortcuts = {
+        init() {
+            document.addEventListener('keydown', (e) => this.handleKeydown(e));
+        },
+        handleKeydown(e) {
+            // Don't trigger shortcuts if user is typing in input
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+
+            const isCtrl = e.ctrlKey || e.metaKey;
+            const isShift = e.shiftKey;
+
+            // Ctrl+F: Toggle search panel
+            if (isCtrl && e.key === 'f') {
+                e.preventDefault();
+                const searchToggleBtn = document.querySelector('[onclick*="toggleSearchPanel"]');
+                if (searchToggleBtn) {
+                    searchToggleBtn.click();
+                } else {
+                    // Fallback: toggle search panel manually
+                    const searchPanel = document.getElementById('search-panel');
+                    if (searchPanel) {
+                        searchPanel.classList.toggle('hidden');
+                        NotificationManager.info('Search panel toggled');
+                    }
+                }
+            }
+
+            // Ctrl+H: Toggle heatmap
+            if (isCtrl && e.key === 'h') {
+                e.preventDefault();
+                const heatmapBtn = document.getElementById('btn-heatmap-toggle');
+                if (heatmapBtn) {
+                    heatmapBtn.click();
+                    NotificationManager.info(`Heatmap ${isHeatmapView ? 'disabled' : 'enabled'}`);
+                }
+            }
+
+            // Ctrl+C: Toggle clustering
+            if (isCtrl && e.key === 'c') {
+                e.preventDefault();
+                const clusterBtn = document.getElementById('btn-cluster-toggle');
+                if (clusterBtn) {
+                    clusterBtn.click();
+                    NotificationManager.info(`Clustering ${isClusterView ? 'disabled' : 'enabled'}`);
+                }
+            }
+
+            // Ctrl+R: Reset view
+            if (isCtrl && e.key === 'r') {
+                e.preventDefault();
+                const resetBtn = document.getElementById('btn-reset-view');
+                if (resetBtn) {
+                    resetBtn.click();
+                    NotificationManager.info('View reset to default');
+                }
+            }
+
+            // Ctrl+Shift+L: Load geolocation
+            if (isCtrl && isShift && e.key === 'l') {
+                e.preventDefault();
+                const geoBtn = document.getElementById('btn-locate');
+                if (geoBtn) {
+                    geoBtn.click();
+                    NotificationManager.info('Locating...');
+                }
+            }
+
+            // ?: Show keyboard shortcuts help
+            if (e.key === '?' && !isCtrl) {
+                e.preventDefault();
+                this.showHelp();
+            }
+        },
+        showHelp() {
+            const helpText = `
+⌨️ Keyboard Shortcuts:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Ctrl+F       Search/Filter
+Ctrl+H       Toggle Heatmap
+Ctrl+C       Toggle Clustering
+Ctrl+R       Reset View
+Ctrl+Shift+L  Use Geolocation
+?            Show this help
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            `;
+            NotificationManager.show(helpText, 'info', 5000);
+        }
+    };
+
     initMap();
+    KeyboardShortcuts.init();
 });
