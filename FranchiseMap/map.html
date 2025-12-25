@@ -114,6 +114,26 @@
             <div id="competitor-analysis-content" class="high-performers-content"></div>
         </aside>
 
+        <!-- Saved Locations Panel -->
+        <aside id="saved-locations-panel" class="high-performers-panel hidden">
+            <div class="high-performers-header">
+                <div class="high-performers-title">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span>Saved Locations</span>
+                    <span id="saved-count" class="search-result-count">0</span>
+                </div>
+                <button id="close-saved-locations" class="close-high-performers-btn" title="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="saved-locations-content" class="high-performers-content">
+                <div class="empty-state">
+                    <i class="fa-regular fa-bookmark"></i>
+                    <p>No saved locations yet. Click the bookmark icon on a location popup to save it.</p>
+                </div>
+            </div>
+        </aside>
+
         <!-- Search Panel (Collapsible) -->
         <div id="search-panel" class="search-panel hidden">
             <div class="search-panel-header">
@@ -197,6 +217,12 @@
             </button>
             <button id="search-toggle-btn" class="control-btn" title="Search location or area">
                 <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <button id="saved-locations-toggle-btn" class="control-btn" title="View saved locations">
+                <i class="fa-solid fa-bookmark"></i>
+            </button>
+            <button id="views-toggle-btn" class="control-btn" title="Quick view filters">
+                <i class="fa-solid fa-window-restore"></i>
             </button>
             <div class="control-divider"></div>
             <button id="btn-cluster-toggle" class="control-btn active" title="Switch to All Locations">
@@ -364,26 +390,138 @@
 
         <!-- Score Legend -->
         <div id="score-legend" class="score-legend">
-            <div class="legend-title">Site Score</div>
+            <div class="legend-header">
+                <div class="legend-title">Site Score</div>
+                <button id="legend-customize-btn" class="legend-customize-btn" title="Customize legend">
+                    <i class="fa-solid fa-sliders"></i>
+                </button>
+            </div>
             <div class="legend-items">
-                <div class="legend-item">
+                <div class="legend-item" data-tier="excellent">
                     <span class="legend-color excellent"></span>
-                    <span>80+ Excellent</span>
+                    <span class="legend-label">80+ Excellent</span>
                 </div>
-                <div class="legend-item">
+                <div class="legend-item" data-tier="good">
                     <span class="legend-color good"></span>
-                    <span>65-79 Good</span>
+                    <span class="legend-label">65-79 Good</span>
                 </div>
-                <div class="legend-item">
+                <div class="legend-item" data-tier="fair">
                     <span class="legend-color fair"></span>
-                    <span>50-64 Fair</span>
+                    <span class="legend-label">50-64 Fair</span>
                 </div>
-                <div class="legend-item">
+                <div class="legend-item" data-tier="poor">
                     <span class="legend-color poor"></span>
-                    <span>&lt;50 Poor</span>
+                    <span class="legend-label">&lt;50 Poor</span>
                 </div>
             </div>
         </div>
+
+        <!-- Legend Customization Panel -->
+        <aside id="legend-customization-panel" class="high-performers-panel hidden">
+            <div class="high-performers-header">
+                <div class="high-performers-title">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>Customize Legend</span>
+                </div>
+                <button id="close-legend-customization" class="close-high-performers-btn" title="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="legend-customization-content" class="high-performers-content">
+                <div class="customization-section">
+                    <h4>Score Tier Settings</h4>
+                    <div class="tier-customizer">
+                        <div class="tier-setting">
+                            <div class="tier-header">
+                                <label>Excellent (80+)</label>
+                                <input type="checkbox" class="tier-toggle" data-tier="excellent" checked>
+                            </div>
+                            <input type="text" class="tier-label-input" data-tier="excellent" placeholder="Label" value="Excellent">
+                            <div class="color-picker">
+                                <label>Color:</label>
+                                <input type="color" class="tier-color-input" data-tier="excellent" value="#22c55e">
+                            </div>
+                        </div>
+                        <div class="tier-setting">
+                            <div class="tier-header">
+                                <label>Good (65-79)</label>
+                                <input type="checkbox" class="tier-toggle" data-tier="good" checked>
+                            </div>
+                            <input type="text" class="tier-label-input" data-tier="good" placeholder="Label" value="Good">
+                            <div class="color-picker">
+                                <label>Color:</label>
+                                <input type="color" class="tier-color-input" data-tier="good" value="#84cc16">
+                            </div>
+                        </div>
+                        <div class="tier-setting">
+                            <div class="tier-header">
+                                <label>Fair (50-64)</label>
+                                <input type="checkbox" class="tier-toggle" data-tier="fair" checked>
+                            </div>
+                            <input type="text" class="tier-label-input" data-tier="fair" placeholder="Label" value="Fair">
+                            <div class="color-picker">
+                                <label>Color:</label>
+                                <input type="color" class="tier-color-input" data-tier="fair" value="#eab308">
+                            </div>
+                        </div>
+                        <div class="tier-setting">
+                            <div class="tier-header">
+                                <label>Poor (&lt;50)</label>
+                                <input type="checkbox" class="tier-toggle" data-tier="poor" checked>
+                            </div>
+                            <input type="text" class="tier-label-input" data-tier="poor" placeholder="Label" value="Poor">
+                            <div class="color-picker">
+                                <label>Color:</label>
+                                <input type="color" class="tier-color-input" data-tier="poor" value="#ef4444">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="customization-actions">
+                    <button id="reset-legend-btn" class="customization-btn reset-btn">Reset to Defaults</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Saved Views Panel -->
+        <aside id="saved-views-panel" class="high-performers-panel hidden">
+            <div class="high-performers-header">
+                <div class="high-performers-title">
+                    <i class="fa-solid fa-window-restore"></i>
+                    <span>Quick Views</span>
+                </div>
+                <button id="close-saved-views" class="close-high-performers-btn" title="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="saved-views-content" class="high-performers-content">
+                <div class="views-grid">
+                    <button class="view-card" data-view="high-performers" title="View only excellent locations">
+                        <i class="fa-solid fa-star"></i>
+                        <span class="view-label">High Performers</span>
+                        <span class="view-desc">Score 80+</span>
+                    </button>
+                    <button class="view-card" data-view="good-quality" title="View good and better locations">
+                        <i class="fa-solid fa-check-double"></i>
+                        <span class="view-label">Good Quality</span>
+                        <span class="view-desc">Score 65+</span>
+                    </button>
+                    <button class="view-card" data-view="poor-locations" title="View locations needing improvement">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span class="view-label">Under 50</span>
+                        <span class="view-desc">Score &lt;50</span>
+                    </button>
+                    <button class="view-card" data-view="roark-brands" title="View only Roark brands">
+                        <i class="fa-solid fa-building"></i>
+                        <span class="view-label">Roark Portfolio</span>
+                        <span class="view-desc">Roark only</span>
+                    </button>
+                </div>
+                <div class="views-actions">
+                    <button id="clear-filters-btn" class="customization-btn reset-btn">Clear Filters</button>
+                </div>
+            </div>
+        </aside>
 
         <!-- Heat Map Legend -->
         <div id="heatmap-legend" class="heatmap-legend hidden">

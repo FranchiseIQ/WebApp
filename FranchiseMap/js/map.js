@@ -1,4 +1,56 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Apply saved legend customizations at startup
+    function applyInitialLegendSettings() {
+        const legendDefaults = {
+            excellent: { label: 'Excellent', color: '#22c55e', visible: true },
+            good: { label: 'Good', color: '#84cc16', visible: true },
+            fair: { label: 'Fair', color: '#eab308', visible: true },
+            poor: { label: 'Poor', color: '#ef4444', visible: true }
+        };
+
+        const saved = localStorage.getItem('franchiseiq_legend_settings');
+        const settings = saved ? JSON.parse(saved) : legendDefaults;
+
+        // Update CSS variables for colors
+        Object.entries(settings).forEach(([tier, config]) => {
+            document.documentElement.style.setProperty(`--score-${tier}`, config.color);
+        });
+
+        // Update legend items
+        const scoreLegend = document.getElementById('score-legend');
+        if (scoreLegend) {
+            scoreLegend.querySelectorAll('.legend-item').forEach(item => {
+                const tier = item.dataset.tier;
+                const config = settings[tier];
+                if (!config) return;
+
+                if (!config.visible) {
+                    item.style.display = 'none';
+                } else {
+                    item.style.display = '';
+                }
+
+                const colorSpan = item.querySelector('.legend-color');
+                if (colorSpan) {
+                    colorSpan.style.backgroundColor = config.color;
+                }
+
+                const labelSpan = item.querySelector('.legend-label');
+                if (labelSpan) {
+                    const rangeLabels = {
+                        excellent: '80+',
+                        good: '65-79',
+                        fair: '50-64',
+                        poor: '<50'
+                    };
+                    labelSpan.textContent = `${rangeLabels[tier]} ${config.label}`;
+                }
+            });
+        }
+    }
+
+    applyInitialLegendSettings();
+
     // --- Config ---
     // Roark brands are now loaded dynamically from manifest with is_roark field
     const RADIUS_STEPS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
@@ -163,13 +215,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 for (const item of batch) {
-                    // Rate limiting: wait 150ms between requests
-                    await new Promise(r => setTimeout(r, 150));
+                    // Rate limiting: wait 1.5 seconds between requests to comply with Nominatim ToS
+                    // Nominatim requires maximum 1 request per second per IP per guidelines
+                    await new Promise(r => setTimeout(r, 1500));
 
                     try {
                         const response = await fetch(
                             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${item.lat}&lon=${item.lng}`,
-                            { signal: AbortSignal.timeout(4000) }
+                            {
+                                signal: AbortSignal.timeout(4000),
+                                headers: {
+                                    'User-Agent': 'FranchiseIQ-MapApp/1.0 (Location Analysis Tool)'
+                                }
+                            }
                         );
                         const data = await response.json();
 
@@ -1132,6 +1190,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button class="popup-pin-btn" data-location-id="${loc.id}" title="Pin to compare multiple locations">
                             <i class="fa-solid fa-thumbtack"></i>
                         </button>
+                        <button class="popup-save-btn" data-location-id="${loc.id}" title="Save location">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="popup-address">${(loc.a && loc.a !== 'US Location (OSM)') ? loc.a : '<span style="color: var(--text-light);">Address not available</span>'}</div>
@@ -1350,6 +1411,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(!slider) return;
 
+        let hasLoadedCompetitors = false;
+
         const updateRadius = function() {
             const miles = RADIUS_STEPS[slider.value];
             label.innerText = `${miles} mi`;
@@ -1361,11 +1424,169 @@ document.addEventListener('DOMContentLoaded', () => {
                 color: color, fillOpacity: 0.08, weight: 2, dashArray: '5,5'
             }).addTo(map);
 
+            // Lazy load competitor analysis - only load when user interacts with slider
             highlightCompetitors(loc, miles, competitorsDiv);
+            hasLoadedCompetitors = true;
         };
 
         slider.oninput = updateRadius;
-        updateRadius();
+
+        // Don't load competitors on popup creation - defer until user interacts
+        // This reduces initial popup load time for better UX
+        competitorsDiv.innerHTML = '<div class="loading-competitors"><i class="fa-solid fa-hourglass-end"></i> Loading analysis...</div>';
+
+        // Handle save button
+        const saveBtn = document.querySelector(`.popup-save-btn[data-location-id="${loc.id}"]`);
+        if (saveBtn) {
+            // Check if location is already saved
+            const savedLocations = getSavedLocations();
+            const isSaved = savedLocations.some(sl => sl.id === loc.id);
+
+            if (isSaved) {
+                saveBtn.classList.add('saved');
+                saveBtn.querySelector('i').classList.remove('fa-regular');
+                saveBtn.querySelector('i').classList.add('fa-solid');
+            }
+
+            saveBtn.onclick = function(e) {
+                e.stopPropagation();
+                const locationData = {
+                    id: loc.id,
+                    name: loc.n,
+                    ticker: loc.ticker,
+                    address: loc.a,
+                    lat: loc.lat,
+                    lng: loc.lng,
+                    score: loc.s,
+                    savedAt: new Date().toISOString()
+                };
+
+                if (isSaved) {
+                    removeFromSavedLocations(loc.id);
+                    saveBtn.classList.remove('saved');
+                    saveBtn.querySelector('i').classList.remove('fa-solid');
+                    saveBtn.querySelector('i').classList.add('fa-regular');
+                    showToast(`Removed "${loc.n}" from saved locations`, 'info');
+                } else {
+                    addToSavedLocations(locationData);
+                    saveBtn.classList.add('saved');
+                    saveBtn.querySelector('i').classList.add('fa-solid');
+                    saveBtn.querySelector('i').classList.remove('fa-regular');
+                    showToast(`Saved "${loc.n}" to your collection`, 'success');
+                }
+                updateSavedLocationsPanel();
+            };
+        }
+    }
+
+    function getSavedLocations() {
+        const saved = localStorage.getItem('franchiseiq_saved_locations');
+        return saved ? JSON.parse(saved) : [];
+    }
+
+    function addToSavedLocations(locationData) {
+        const saved = getSavedLocations();
+        if (!saved.some(l => l.id === locationData.id)) {
+            saved.push(locationData);
+            localStorage.setItem('franchiseiq_saved_locations', JSON.stringify(saved));
+        }
+    }
+
+    function removeFromSavedLocations(locationId) {
+        const saved = getSavedLocations();
+        const filtered = saved.filter(l => l.id !== locationId);
+        localStorage.setItem('franchiseiq_saved_locations', JSON.stringify(filtered));
+    }
+
+    function updateSavedLocationsPanel() {
+        const saved = getSavedLocations();
+        const panel = document.getElementById('saved-locations-panel');
+        const content = document.getElementById('saved-locations-content');
+        const countBadge = document.getElementById('saved-count');
+
+        if (!content) return;
+
+        countBadge.textContent = saved.length;
+
+        if (saved.length === 0) {
+            content.innerHTML = `
+                <div class="empty-state">
+                    <i class="fa-regular fa-bookmark"></i>
+                    <p>No saved locations yet. Click the bookmark icon on a location popup to save it.</p>
+                </div>
+            `;
+        } else {
+            // Sort by saved date (newest first)
+            const sorted = [...saved].sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt));
+            let html = '';
+
+            sorted.forEach(loc => {
+                const color = getColor(loc.ticker);
+                html += `
+                    <div class="saved-location-item" data-location-id="${loc.id}">
+                        <div class="saved-location-header">
+                            <h4>${loc.name}</h4>
+                            <span class="saved-ticker" style="background: ${color}">${loc.ticker}</span>
+                        </div>
+                        <div class="saved-location-details">
+                            <div class="saved-detail">
+                                <i class="fa-solid fa-map-pin"></i>
+                                <span>${loc.address && loc.address !== 'US Location (OSM)' ? loc.address : 'Address not available'}</span>
+                            </div>
+                            <div class="saved-detail">
+                                <i class="fa-solid fa-star"></i>
+                                <span>Score: ${Math.round(loc.score)}</span>
+                            </div>
+                            <div class="saved-detail">
+                                <i class="fa-solid fa-calendar"></i>
+                                <span>${new Date(loc.savedAt).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                        <div class="saved-location-actions">
+                            <button class="saved-location-btn view-btn" data-location-id="${loc.id}" title="Center map on location">
+                                <i class="fa-solid fa-map"></i> View
+                            </button>
+                            <button class="saved-location-btn remove-btn" data-location-id="${loc.id}" title="Remove from saved">
+                                <i class="fa-solid fa-trash"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            content.innerHTML = html;
+
+            // Add event listeners to view and remove buttons
+            content.querySelectorAll('.view-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    const locId = this.dataset.locationId;
+                    const savedLoc = saved.find(l => l.id === locId);
+                    if (savedLoc && map) {
+                        map.setView([savedLoc.lat, savedLoc.lng], 14);
+                    }
+                };
+            });
+
+            content.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    const locId = this.dataset.locationId;
+                    const savedLoc = saved.find(l => l.id === locId);
+                    removeFromSavedLocations(locId);
+                    showToast(`Removed "${savedLoc.name}" from saved locations`, 'info');
+                    updateSavedLocationsPanel();
+
+                    // Update bookmark button if popup is open
+                    const saveBtn = document.querySelector(`.popup-save-btn[data-location-id="${locId}"]`);
+                    if (saveBtn) {
+                        saveBtn.classList.remove('saved');
+                        saveBtn.querySelector('i').classList.remove('fa-solid');
+                        saveBtn.querySelector('i').classList.add('fa-regular');
+                    }
+                };
+            });
+        }
     }
 
     function highlightCompetitors(centerLoc, radiusMiles, displayDiv) {
@@ -2159,6 +2380,17 @@ document.addEventListener('DOMContentLoaded', () => {
             closeCompetitorBtn.onclick = hideCompetitorAnalysis;
         }
 
+        // Close saved locations panel button
+        const closeSavedLocationsBtn = document.getElementById('close-saved-locations');
+        if (closeSavedLocationsBtn) {
+            closeSavedLocationsBtn.onclick = function() {
+                const panel = document.getElementById('saved-locations-panel');
+                if (panel) {
+                    panel.classList.add('hidden');
+                }
+            };
+        }
+
         // Score Distribution / Comparison Toggle button
         const comparisonToggleBtn = document.getElementById('btn-comparison-toggle');
         if (comparisonToggleBtn) {
@@ -2396,6 +2628,294 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Setup saved locations toggle button
+    {
+        const savedLocationsToggleBtn = document.getElementById('saved-locations-toggle-btn');
+        const savedLocationsPanel = document.getElementById('saved-locations-panel');
+
+        if (savedLocationsToggleBtn && savedLocationsPanel) {
+            savedLocationsToggleBtn.onclick = function() {
+                updateSavedLocationsPanel();
+                if (savedLocationsPanel.classList.contains('hidden')) {
+                    savedLocationsPanel.classList.remove('hidden');
+                } else {
+                    savedLocationsPanel.classList.add('hidden');
+                }
+            };
+        }
+    }
+
+    // ===== LEGEND CUSTOMIZATION SETUP =====
+    const legendDefaults = {
+        excellent: { label: 'Excellent', color: '#22c55e', visible: true },
+        good: { label: 'Good', color: '#84cc16', visible: true },
+        fair: { label: 'Fair', color: '#eab308', visible: true },
+        poor: { label: 'Poor', color: '#ef4444', visible: true }
+    };
+
+    function getLegendSettings() {
+        const saved = localStorage.getItem('franchiseiq_legend_settings');
+        return saved ? JSON.parse(saved) : legendDefaults;
+    }
+
+    function saveLegendSettings(settings) {
+        localStorage.setItem('franchiseiq_legend_settings', JSON.stringify(settings));
+        applyLegendCustomizations(settings);
+    }
+
+    function applyLegendCustomizations(settings) {
+        const scoreLegend = document.getElementById('score-legend');
+        if (!scoreLegend) return;
+
+        // Update CSS variables for colors
+        Object.entries(settings).forEach(([tier, config]) => {
+            document.documentElement.style.setProperty(`--score-${tier}`, config.color);
+        });
+
+        // Update legend item visibility and labels
+        scoreLegend.querySelectorAll('.legend-item').forEach(item => {
+            const tier = item.dataset.tier;
+            const config = settings[tier];
+            if (!config) return;
+
+            // Update visibility
+            if (!config.visible) {
+                item.style.display = 'none';
+            } else {
+                item.style.display = '';
+            }
+
+            // Update color
+            const colorSpan = item.querySelector('.legend-color');
+            if (colorSpan) {
+                colorSpan.style.backgroundColor = config.color;
+            }
+
+            // Update label
+            const labelSpan = item.querySelector('.legend-label');
+            if (labelSpan) {
+                labelSpan.textContent = `${config.rangeLabel || getDefaultRangeLabel(tier)} ${config.label}`;
+            }
+        });
+    }
+
+    function getDefaultRangeLabel(tier) {
+        const labels = {
+            excellent: '80+',
+            good: '65-79',
+            fair: '50-64',
+            poor: '<50'
+        };
+        return labels[tier] || '';
+    }
+
+    function setupLegendCustomization() {
+        const customizeBtn = document.getElementById('legend-customize-btn');
+        const customizationPanel = document.getElementById('legend-customization-panel');
+        const closeBtn = document.getElementById('close-legend-customization');
+        const resetBtn = document.getElementById('reset-legend-btn');
+
+        const currentSettings = getLegendSettings();
+
+        // Load current settings into form
+        Object.entries(currentSettings).forEach(([tier, config]) => {
+            const toggle = document.querySelector(`.tier-toggle[data-tier="${tier}"]`);
+            const labelInput = document.querySelector(`.tier-label-input[data-tier="${tier}"]`);
+            const colorInput = document.querySelector(`.tier-color-input[data-tier="${tier}"]`);
+
+            if (toggle) toggle.checked = config.visible;
+            if (labelInput) labelInput.value = config.label;
+            if (colorInput) colorInput.value = config.color;
+        });
+
+        // Open customization panel
+        if (customizeBtn) {
+            customizeBtn.onclick = function(e) {
+                e.stopPropagation();
+                customizationPanel.classList.remove('hidden');
+            };
+        }
+
+        // Close customization panel
+        if (closeBtn) {
+            closeBtn.onclick = function() {
+                customizationPanel.classList.add('hidden');
+            };
+        }
+
+        // Handle tier toggle changes
+        document.querySelectorAll('.tier-toggle').forEach(toggle => {
+            toggle.onchange = function() {
+                const tier = this.dataset.tier;
+                currentSettings[tier].visible = this.checked;
+                saveLegendSettings(currentSettings);
+            };
+        });
+
+        // Handle label changes
+        document.querySelectorAll('.tier-label-input').forEach(input => {
+            input.oninput = function() {
+                const tier = this.dataset.tier;
+                currentSettings[tier].label = this.value;
+                saveLegendSettings(currentSettings);
+            };
+        });
+
+        // Handle color changes
+        document.querySelectorAll('.tier-color-input').forEach(input => {
+            input.onchange = function() {
+                const tier = this.dataset.tier;
+                currentSettings[tier].color = this.value;
+                saveLegendSettings(currentSettings);
+            };
+        });
+
+        // Reset to defaults
+        if (resetBtn) {
+            resetBtn.onclick = function() {
+                const defaults = {
+                    excellent: { label: 'Excellent', color: '#22c55e', visible: true },
+                    good: { label: 'Good', color: '#84cc16', visible: true },
+                    fair: { label: 'Fair', color: '#eab308', visible: true },
+                    poor: { label: 'Poor', color: '#ef4444', visible: true }
+                };
+                saveLegendSettings(defaults);
+
+                // Reset form inputs
+                Object.entries(defaults).forEach(([tier, config]) => {
+                    const toggle = document.querySelector(`.tier-toggle[data-tier="${tier}"]`);
+                    const labelInput = document.querySelector(`.tier-label-input[data-tier="${tier}"]`);
+                    const colorInput = document.querySelector(`.tier-color-input[data-tier="${tier}"]`);
+
+                    if (toggle) toggle.checked = config.visible;
+                    if (labelInput) labelInput.value = config.label;
+                    if (colorInput) colorInput.value = config.color;
+                });
+
+                showToast('Legend reset to defaults', 'success');
+            };
+        }
+    }
+
+    // Initialize legend customization
+    setupLegendCustomization();
+
+    // ===== SAVED VIEWS SETUP =====
+    function setupSavedViews() {
+        const viewsToggleBtn = document.getElementById('views-toggle-btn');
+        const viewsPanel = document.getElementById('saved-views-panel');
+        const closeViewsBtn = document.getElementById('close-saved-views');
+        const viewCards = document.querySelectorAll('.view-card');
+        const clearFiltersBtn = document.getElementById('clear-filters-btn');
+
+        // Toggle views panel
+        if (viewsToggleBtn) {
+            viewsToggleBtn.onclick = function(e) {
+                e.stopPropagation();
+                if (viewsPanel.classList.contains('hidden')) {
+                    viewsPanel.classList.remove('hidden');
+                } else {
+                    viewsPanel.classList.add('hidden');
+                }
+            };
+        }
+
+        // Close views panel
+        if (closeViewsBtn) {
+            closeViewsBtn.onclick = function() {
+                viewsPanel.classList.add('hidden');
+            };
+        }
+
+        // Handle view card clicks
+        viewCards.forEach(card => {
+            card.onclick = function(e) {
+                e.stopPropagation();
+                const view = this.dataset.view;
+                applyView(view);
+                viewsPanel.classList.add('hidden');
+            };
+        });
+
+        // Clear filters
+        if (clearFiltersBtn) {
+            clearFiltersBtn.onclick = function() {
+                scoreFilter.min = 0;
+                scoreFilter.max = 100;
+
+                // Update slider displays
+                const sliderMin = document.getElementById('slider-min');
+                const sliderMax = document.getElementById('slider-max');
+                const panelSliderMin = document.getElementById('panel-slider-min');
+                const panelSliderMax = document.getElementById('panel-slider-max');
+
+                if (sliderMin) sliderMin.value = 0;
+                if (sliderMax) sliderMax.value = 100;
+                if (panelSliderMin) panelSliderMin.value = 0;
+                if (panelSliderMax) panelSliderMax.value = 100;
+
+                updateScoreSliderDisplay();
+                updatePanelSliderDisplay();
+
+                // Reset ownership model filter
+                ownershipModel = new Set(['franchise', 'non-franchise']);
+
+                scheduleRefreshMap();
+                showToast('All filters cleared', 'info');
+            };
+        }
+    }
+
+    function applyView(viewName) {
+        switch(viewName) {
+            case 'high-performers':
+                scoreFilter.min = 80;
+                scoreFilter.max = 100;
+                ownershipModel = new Set(['franchise', 'non-franchise']);
+                showToast('Showing: High Performers (Score 80+)', 'success');
+                break;
+
+            case 'good-quality':
+                scoreFilter.min = 65;
+                scoreFilter.max = 100;
+                ownershipModel = new Set(['franchise', 'non-franchise']);
+                showToast('Showing: Good Quality (Score 65+)', 'success');
+                break;
+
+            case 'poor-locations':
+                scoreFilter.min = 0;
+                scoreFilter.max = 50;
+                ownershipModel = new Set(['franchise', 'non-franchise']);
+                showToast('Showing: Under 50 (Score <50)', 'success');
+                break;
+
+            case 'roark-brands':
+                scoreFilter.min = 0;
+                scoreFilter.max = 100;
+                ownershipModel = new Set(['franchise']); // Roark brands are franchise
+                showToast('Showing: Roark Portfolio Only', 'success');
+                break;
+        }
+
+        // Update slider displays
+        const sliderMin = document.getElementById('slider-min');
+        const sliderMax = document.getElementById('slider-max');
+        const panelSliderMin = document.getElementById('panel-slider-min');
+        const panelSliderMax = document.getElementById('panel-slider-max');
+
+        if (sliderMin) sliderMin.value = scoreFilter.min;
+        if (sliderMax) sliderMax.value = scoreFilter.max;
+        if (panelSliderMin) panelSliderMin.value = scoreFilter.min;
+        if (panelSliderMax) panelSliderMax.value = scoreFilter.max;
+
+        updateScoreSliderDisplay();
+        updatePanelSliderDisplay();
+
+        scheduleRefreshMap();
+    }
+
+    setupSavedViews();
+
     function updateScrollIndicators(element) {
         const hasScroll = element.scrollHeight > element.clientHeight;
         const isScrolled = element.scrollTop > 0;
@@ -2422,7 +2942,11 @@ document.addEventListener('DOMContentLoaded', () => {
         searchResults.innerHTML = '<div class="search-empty-state"><i class="fa-solid fa-hourglass-end"></i><div class="search-empty-state-title">Searching...</div></div>';
         if (resultCount) resultCount.style.display = 'none';
 
-        fetch(url)
+        fetch(url, {
+            headers: {
+                'User-Agent': 'FranchiseIQ-MapApp/1.0 (Location Analysis Tool)'
+            }
+        })
             .then(res => res.json())
             .then(results => {
                 searchResults.innerHTML = '';
