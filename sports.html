@@ -265,6 +265,248 @@
             font-weight: 600;
         }
 
+        /* Advanced Filters Panel */
+        .advanced-filters {
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filters-toggle {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .filters-toggle:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .filters-toggle .arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.8em;
+        }
+
+        .filters-toggle[aria-expanded="true"] .arrow {
+            transform: rotate(180deg);
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .save-filter-btn, .clear-filters-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s ease;
+        }
+
+        .save-filter-btn:hover {
+            background: var(--accent1);
+            border-color: var(--accent1);
+        }
+
+        .clear-filters-btn:hover {
+            background: #ef4444;
+            border-color: #ef4444;
+        }
+
+        .filters-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .filters-content[aria-hidden="false"] {
+            max-height: 600px;
+            padding: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 0.9em;
+            color: var(--secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .team-search-input {
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text);
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+        }
+
+        .team-search-input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.12);
+            border-color: var(--accent1);
+        }
+
+        .team-search-input::placeholder {
+            color: var(--secondary);
+            opacity: 0.7;
+        }
+
+        /* Status Filters */
+        .status-filters {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .status-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .status-checkbox:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .status-checkbox input[type="checkbox"] {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        .status-badge {
+            font-size: 0.85em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .status-checkbox input:checked ~ .status-badge {
+            border-color: var(--accent1);
+        }
+
+        .status-badge.live {
+            color: #ef4444;
+        }
+
+        .status-badge.upcoming {
+            color: #f59e0b;
+        }
+
+        .status-badge.final {
+            color: #22c55e;
+        }
+
+        /* Date Range Filter */
+        .date-range {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .date-input {
+            flex: 1;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text);
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+        }
+
+        .date-input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.12);
+            border-color: var(--accent1);
+        }
+
+        .date-to-label {
+            font-size: 0.85em;
+            color: var(--secondary);
+            flex-shrink: 0;
+        }
+
+        /* Saved Presets */
+        .presets-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .preset-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85em;
+        }
+
+        .preset-item:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent1);
+        }
+
+        .preset-delete {
+            background: transparent;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 0.9em;
+            padding: 2px 6px;
+            transition: all 0.2s ease;
+        }
+
+        .preset-delete:hover {
+            color: #ff6b6b;
+        }
+
         /* Hero Header */
         .sports-hero {
             text-align: center;
@@ -1865,8 +2107,86 @@
         <button data-league="MLB">MLB</button>
     </nav>
 
-    <!-- Franchisor Filter -->
-    <div class="franchisor-filter">
+    <!-- Advanced Filters Panel -->
+    <div class="advanced-filters">
+        <div class="filters-header">
+            <button class="filters-toggle" id="filters-toggle" title="Toggle Filters">
+                <span>🔍 Filters</span>
+                <span class="arrow">▼</span>
+            </button>
+            <div class="filter-actions">
+                <button class="save-filter-btn" id="save-filter-btn" title="Save current filters">💾 Save</button>
+                <button class="clear-filters-btn" id="clear-filters-btn" title="Clear all filters">✕ Clear</button>
+            </div>
+        </div>
+
+        <div class="filters-content" id="filters-content">
+            <!-- Team Search -->
+            <div class="filter-group">
+                <label>Find Team:</label>
+                <input type="text" id="team-search" placeholder="Search teams..." class="team-search-input">
+            </div>
+
+            <!-- Game Status Filter -->
+            <div class="filter-group">
+                <label>Game Status:</label>
+                <div class="status-filters">
+                    <label class="status-checkbox">
+                        <input type="checkbox" name="game-status" value="LIVE" id="filter-live">
+                        <span class="status-badge live">🔴 Live</span>
+                    </label>
+                    <label class="status-checkbox">
+                        <input type="checkbox" name="game-status" value="UPCOMING" id="filter-upcoming">
+                        <span class="status-badge upcoming">⏰ Upcoming</span>
+                    </label>
+                    <label class="status-checkbox">
+                        <input type="checkbox" name="game-status" value="FINAL" id="filter-final">
+                        <span class="status-badge final">✓ Final</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Date Range Filter -->
+            <div class="filter-group">
+                <label>Date Range:</label>
+                <div class="date-range">
+                    <input type="date" id="filter-date-from" class="date-input" title="Start date">
+                    <span class="date-to-label">to</span>
+                    <input type="date" id="filter-date-to" class="date-input" title="End date">
+                </div>
+            </div>
+
+            <!-- Team Filter -->
+            <div class="filter-group">
+                <label>Filter by Team:</label>
+                <div class="team-filter-dropdown" id="team-filter-dropdown">
+                    <button class="team-filter-btn" id="team-filter-btn">
+                        <span id="filter-btn-text">All Teams</span>
+                        <span class="arrow">&#9662;</span>
+                    </button>
+                    <div class="team-filter-menu" id="team-filter-menu">
+                        <div class="menu-header">
+                            <span>Select Teams</span>
+                            <div>
+                                <button id="select-all-teams">Select All</button>
+                                <button id="clear-all-teams">Clear</button>
+                            </div>
+                        </div>
+                        <div id="team-checkboxes"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saved Filter Presets -->
+            <div class="filter-group" id="saved-presets-group" style="display: none;">
+                <label>Saved Presets:</label>
+                <div class="presets-list" id="presets-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Franchisor Filter (Kept for backward compatibility) -->
+    <div class="franchisor-filter" style="display: none;">
         <label>Filter by Team:</label>
         <div class="team-filter-dropdown" id="team-filter-dropdown">
             <button class="team-filter-btn" id="team-filter-btn">
@@ -2733,6 +3053,235 @@
             }
         }
 
+        // Advanced filtering state and filters
+        let activeFilters = {
+            gameStatus: [],
+            dateFrom: null,
+            dateTo: null,
+            teamSearch: ''
+        };
+
+        // Initialize advanced filters
+        function setupAdvancedFilters() {
+            // Toggle filters panel
+            const toggle = document.getElementById('filters-toggle');
+            const content = document.getElementById('filters-content');
+
+            toggle.addEventListener('click', () => {
+                const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+                toggle.setAttribute('aria-expanded', !isExpanded);
+                content.setAttribute('aria-hidden', isExpanded);
+            });
+
+            // Game status filters
+            document.querySelectorAll('input[name="game-status"]').forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        if (!activeFilters.gameStatus.includes(e.target.value)) {
+                            activeFilters.gameStatus.push(e.target.value);
+                        }
+                    } else {
+                        activeFilters.gameStatus = activeFilters.gameStatus.filter(s => s !== e.target.value);
+                    }
+                    renderGames();
+                });
+            });
+
+            // Date range filters
+            document.getElementById('filter-date-from').addEventListener('change', (e) => {
+                activeFilters.dateFrom = e.target.value ? new Date(e.target.value) : null;
+                renderGames();
+            });
+
+            document.getElementById('filter-date-to').addEventListener('change', (e) => {
+                activeFilters.dateTo = e.target.value ? new Date(e.target.value) : null;
+                renderGames();
+            });
+
+            // Team search
+            document.getElementById('team-search').addEventListener('input', (e) => {
+                activeFilters.teamSearch = e.target.value.toLowerCase();
+                filterTeamList();
+            });
+
+            // Save filter preset
+            document.getElementById('save-filter-btn').addEventListener('click', saveFilterPreset);
+
+            // Clear all filters
+            document.getElementById('clear-filters-btn').addEventListener('click', clearAllFilters);
+
+            // Load saved presets
+            loadFilterPresets();
+        }
+
+        // Filter team list based on search
+        function filterTeamList() {
+            const search = activeFilters.teamSearch;
+            const checkboxes = document.querySelectorAll('#team-checkboxes input[type="checkbox"]');
+
+            checkboxes.forEach(checkbox => {
+                const label = checkbox.nextElementSibling.textContent.toLowerCase();
+                const container = checkbox.closest('.team-option');
+                if (label.includes(search)) {
+                    container.style.display = '';
+                } else {
+                    container.style.display = 'none';
+                }
+            });
+        }
+
+        // Apply all filters to games
+        function applyAdvancedFilters(games) {
+            let filtered = [...games];
+
+            // Filter by game status
+            if (activeFilters.gameStatus.length > 0) {
+                filtered = filtered.filter(game => {
+                    const status = normalizeStatus(game);
+                    return activeFilters.gameStatus.includes(status);
+                });
+            }
+
+            // Filter by date range
+            if (activeFilters.dateFrom || activeFilters.dateTo) {
+                filtered = filtered.filter(game => {
+                    if (!game.startTime) return false;
+                    const gameDate = new Date(game.startTime);
+
+                    if (activeFilters.dateFrom && gameDate < activeFilters.dateFrom) {
+                        return false;
+                    }
+                    if (activeFilters.dateTo) {
+                        const dateToPlusOne = new Date(activeFilters.dateTo);
+                        dateToPlusOne.setDate(dateToPlusOne.getDate() + 1);
+                        if (gameDate >= dateToPlusOne) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+            }
+
+            return filtered;
+        }
+
+        // Save filter preset
+        function saveFilterPreset() {
+            const presetName = prompt('Enter a name for this filter preset (e.g., "My Favorites")');
+            if (!presetName) return;
+
+            const preset = {
+                name: presetName,
+                teams: Array.from(selectedTeams),
+                gameStatus: [...activeFilters.gameStatus],
+                dateFrom: activeFilters.dateFrom ? activeFilters.dateFrom.toISOString().split('T')[0] : null,
+                dateTo: activeFilters.dateTo ? activeFilters.dateTo.toISOString().split('T')[0] : null,
+                league: currentLeague,
+                timestamp: Date.now()
+            };
+
+            const presets = JSON.parse(localStorage.getItem('filter_presets') || '[]');
+            presets.push(preset);
+            localStorage.setItem('filter_presets', JSON.stringify(presets));
+
+            loadFilterPresets();
+            showToast(`Filter preset "${presetName}" saved!`, 'success');
+        }
+
+        // Load and display filter presets
+        function loadFilterPresets() {
+            const presets = JSON.parse(localStorage.getItem('filter_presets') || '[]');
+            const presetsGroup = document.getElementById('saved-presets-group');
+            const presetsList = document.getElementById('presets-list');
+
+            if (presets.length === 0) {
+                presetsGroup.style.display = 'none';
+                return;
+            }
+
+            presetsGroup.style.display = 'block';
+            presetsList.innerHTML = presets.map((preset, idx) => `
+                <div class="preset-item">
+                    <span onclick="loadFilterPreset(${idx})" style="flex: 1; cursor: pointer;">
+                        ${preset.name}
+                    </span>
+                    <button class="preset-delete" onclick="deleteFilterPreset(${idx})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        // Load a saved filter preset
+        function loadFilterPreset(index) {
+            const presets = JSON.parse(localStorage.getItem('filter_presets') || '[]');
+            const preset = presets[index];
+            if (!preset) return;
+
+            // Set league
+            currentLeague = preset.league;
+            document.querySelectorAll('.league-tabs button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.league === currentLeague);
+            });
+
+            // Set teams
+            selectedTeams.clear();
+            preset.teams.forEach(team => selectedTeams.add(team));
+
+            // Set game status
+            activeFilters.gameStatus = preset.gameStatus;
+            document.querySelectorAll('input[name="game-status"]').forEach(cb => {
+                cb.checked = activeFilters.gameStatus.includes(cb.value);
+            });
+
+            // Set date range
+            if (preset.dateFrom) {
+                document.getElementById('filter-date-from').value = preset.dateFrom;
+                activeFilters.dateFrom = new Date(preset.dateFrom);
+            }
+            if (preset.dateTo) {
+                document.getElementById('filter-date-to').value = preset.dateTo;
+                activeFilters.dateTo = new Date(preset.dateTo);
+            }
+
+            updateFilterButtonText();
+            renderGames();
+            showToast(`Loaded preset: "${preset.name}"`, 'info');
+        }
+
+        // Delete a filter preset
+        function deleteFilterPreset(index) {
+            if (!confirm('Delete this filter preset?')) return;
+
+            const presets = JSON.parse(localStorage.getItem('filter_presets') || '[]');
+            presets.splice(index, 1);
+            localStorage.setItem('filter_presets', JSON.stringify(presets));
+
+            loadFilterPresets();
+            showToast('Filter preset deleted', 'info');
+        }
+
+        // Clear all filters
+        function clearAllFilters() {
+            selectedTeams.clear();
+            activeFilters = {
+                gameStatus: [],
+                dateFrom: null,
+                dateTo: null,
+                teamSearch: ''
+            };
+
+            // Reset UI
+            document.getElementById('team-search').value = '';
+            document.querySelectorAll('input[name="game-status"]').forEach(cb => cb.checked = false);
+            document.getElementById('filter-date-from').value = '';
+            document.getElementById('filter-date-to').value = '';
+            document.querySelectorAll('#team-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = true);
+
+            updateFilterButtonText();
+            filterTeamList();
+            renderGames();
+            showToast('All filters cleared', 'info');
+        }
+
         // Render all games in unified card format grouped by week and time
         async function renderGames() {
             const container = document.getElementById('games-grid');
@@ -2773,6 +3322,9 @@
                         return selectedTeams.has(homeShort) || selectedTeams.has(awayShort);
                     });
                 }
+
+                // Apply advanced filters (game status, date range)
+                filteredGames = applyAdvancedFilters(filteredGames);
 
                 if (filteredGames.length === 0) {
                     container.innerHTML = `
@@ -4749,6 +5301,7 @@
 
             setupLeagueTabs();
             setupTeamFilter();
+            setupAdvancedFilters();
             setupModalEvents();
 
             // Load initial games and generate week selector
@@ -4770,6 +5323,10 @@
         window.openHighlightModal = openHighlightModal;
         window.openGameDrawer = openGameDrawer;
         window.closeGameDrawer = closeGameDrawer;
+        window.loadFilterPreset = loadFilterPreset;
+        window.deleteFilterPreset = deleteFilterPreset;
+        window.saveFilterPreset = saveFilterPreset;
+        window.clearAllFilters = clearAllFilters;
 
         // Start
         document.addEventListener('DOMContentLoaded', init);
