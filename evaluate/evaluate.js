@@ -639,6 +639,22 @@ class EvaluationPage {
         mapInfo.innerHTML = `<p><strong>${marketInfo}</strong></p><p><a href="../FranchiseMap/map.html?brand=${this.currentBrand}&market=${this.currentMarket}" target="_blank">View on interactive map →</a></p>`;
       }
     }
+
+    // Initialize demographic analytics
+    if (typeof DemographicsAnalytics !== 'undefined' && marketMetrics.locations) {
+      const tabContent = document.getElementById('tab-location');
+      if (tabContent) {
+        // Clear any existing demographic section
+        const existingDemographics = document.getElementById('demographics-analytics');
+        const existingComparison = document.getElementById('demographic-comparison');
+        if (existingDemographics) existingDemographics.remove();
+        if (existingComparison) existingComparison.remove();
+
+        // Extract and display demographics
+        const demographics = DemographicsAnalytics.extractDemographics(marketMetrics.locations);
+        DemographicsAnalytics.initializeDemographics(tabContent, demographics, this.currentMarket);
+      }
+    }
   }
 
   updateEconomicsTab() {
