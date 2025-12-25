@@ -642,12 +642,26 @@ class EvaluationPage {
   }
 
   updateEconomicsTab() {
-    // Placeholder economics data
-    document.getElementById('metric-revenue').textContent = 'Data not available';
-    document.getElementById('metric-margin').textContent = 'Data not available';
-    document.getElementById('metric-net-income').textContent = 'Data not available';
-    document.getElementById('metric-investment').textContent = 'Data not available';
-    document.getElementById('metric-breakeven').textContent = 'Data not available';
+    // Initialize unit economics calculator
+    if (typeof UnitEconomicsCalculator !== 'undefined') {
+      const category = this.currentBrand ? this.getCategory(this.currentBrand) : 'QSR';
+      UnitEconomicsCalculator.initializeCalculator(category);
+    }
+  }
+
+  getCategory(ticker) {
+    // Map ticker to category based on brand-search database
+    const categories = {
+      QSR: ['MCD', 'YUM', 'SBUX', 'DPZ', 'QSR', 'WEN', 'JACK', 'SHAK', 'DENN', 'DIN', 'DNUT', 'NATH', 'RRGB'],
+      Hospitality: ['MAR', 'HLT', 'H', 'CHH', 'WH', 'VAC'],
+      AutoServices: ['DRVN', 'HRB', 'MCW', 'SERV', 'ROL']
+    };
+
+    for (const [category, tickers] of Object.entries(categories)) {
+      if (tickers.includes(ticker)) return category;
+    }
+
+    return 'QSR'; // Default
   }
 
   updateRiskTab(scoreResult, inputs, marketMetrics) {
