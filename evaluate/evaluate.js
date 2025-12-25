@@ -30,6 +30,11 @@ class EvaluationPage {
       // Initialize UI event listeners
       this.setupEventListeners();
 
+      // Initialize brand search
+      if (typeof BrandSearch !== 'undefined') {
+        BrandSearch.initializeSearch(this);
+      }
+
       // Load initial data
       await this.loadBrandList();
 
@@ -107,6 +112,21 @@ class EvaluationPage {
       const populars = ['MCD', 'YUM', 'SBUX', 'DPZ', 'QSR'];
       ComparisonModule.showComparisonModal(populars, this.currentMarket);
     });
+
+    // Add history button if not already present
+    const decisionActions = document.querySelector('.decision-actions');
+    if (decisionActions && !document.getElementById('history-btn')) {
+      const historyBtn = document.createElement('button');
+      historyBtn.id = 'history-btn';
+      historyBtn.className = 'btn btn-secondary';
+      historyBtn.textContent = 'View History';
+      historyBtn.addEventListener('click', () => {
+        if (typeof SavedEvaluations !== 'undefined') {
+          SavedEvaluations.showHistoryModal();
+        }
+      });
+      decisionActions.appendChild(historyBtn);
+    }
   }
 
   async loadBrandList() {
@@ -529,6 +549,22 @@ class EvaluationPage {
         insightsDiv.insertAdjacentHTML('afterend', summaryHtml);
       }
     }
+
+    // Auto-save evaluation to localStorage
+    if (typeof SavedEvaluations !== 'undefined') {
+      SavedEvaluations.saveEvaluation({
+        brand: this.currentBrand,
+        brandName: this.getBrandName(this.currentBrand),
+        market: this.currentMarket,
+        score: scoreResult.score,
+        interpretation: scoreResult.interpretation.label
+      });
+    }
+  }
+
+  getBrandName(ticker) {
+    const option = document.querySelector(`#brand-select option[value="${ticker}"]`);
+    return option ? option.textContent.split(' (')[0] : ticker;
   }
 
   updateOverviewTab(scoringInput, marketMetrics) {
