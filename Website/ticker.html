@@ -14,12 +14,17 @@
         // Detect embed mode from URL parameter
         if (new URLSearchParams(window.location.search).get('embed') === 'true') {
             document.write('<style>' +
-                'body.embed-mode { margin: 0; padding: 0; min-height: auto !important; height: 120px; overflow: hidden !important; display: flex; flex-direction: column; } ' +
+                'html.embed-mode, body.embed-mode { margin: 0 !important; padding: 0 !important; min-height: 120px !important; max-height: 120px !important; height: 120px !important; overflow: hidden !important; display: flex; flex-direction: column; } ' +
+                'html.embed-mode { overflow: hidden !important; } ' +
                 'body.embed-mode #header { display: none !important; } ' +
-                'body.embed-mode footer, body.embed-mode .site-footer { display: none !important; } ' +
-                'body.embed-mode #closing-message { flex-shrink: 0; } ' +
-                'body.embed-mode #status-bar { flex-shrink: 0; height: 50px; } ' +
-                'body.embed-mode #ticker-container { flex: 1; height: 70px; overflow: hidden !important; } ' +
+                'body.embed-mode footer, body.embed-mode .site-footer, body.embed-mode .sitemap { display: none !important; } ' +
+                'body.embed-mode #closing-message { flex-shrink: 0; max-height: 0; overflow: hidden; } ' +
+                'body.embed-mode #closing-message[style*="display: block"], body.embed-mode #closing-message[style*="display:block"] { max-height: none; } ' +
+                'body.embed-mode #status-bar { flex-shrink: 0; height: 50px !important; min-height: 50px !important; max-height: 50px !important; } ' +
+                'body.embed-mode #ticker-container { flex: 1; height: 70px !important; min-height: 70px !important; max-height: 70px !important; overflow: hidden !important; } ' +
+                'body.embed-mode #ticker-content { overflow: hidden !important; } ' +
+                'body.embed-mode::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; } ' +
+                'body.embed-mode { -ms-overflow-style: none !important; scrollbar-width: none !important; } ' +
                 '</style>');
             document.documentElement.classList.add('embed-mode');
         }

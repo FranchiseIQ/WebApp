@@ -322,6 +322,7 @@ button:hover,
 
 /* ============================================================================
    TICKER WRAPPER - Fixed at top, never scrolls
+   Global styles for both embedded and iframe ticker implementations
    ============================================================================ */
 
 .ticker-wrapper-global,
@@ -334,23 +335,112 @@ button:hover,
   z-index: var(--z-fixed);
   background: #0a0a0a;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: visible; /* Prevent any scrollbars */
+  overflow: hidden; /* Prevent any scrollbars on the container */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.16);
 }
 
 /* Fix banner message being cut off at top of viewport */
 #closing-message {
-     padding-top: 4px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
+  padding-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Iframe ticker - ensure no scrollbars */
 .global-ticker iframe {
   width: 100%;
   height: 120px;
   border: none;
   display: block;
   overflow: hidden;
+}
+
+/* ============================================================================
+   MAIN NAVIGATION - Fixed below ticker
+   Shared styles for navigation bar across all pages
+   ============================================================================ */
+
+.main-nav {
+  position: fixed;
+  top: 120px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 50px;
+  z-index: calc(var(--z-fixed) - 1);
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Hide scrollbar on nav but allow scrolling on mobile */
+.main-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.main-nav {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.main-nav .nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text, #f8fafc);
+  margin-right: auto;
+  flex-shrink: 0;
+}
+
+.main-nav .nav-brand img {
+  height: 28px;
+  width: auto;
+}
+
+.main-nav a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.main-nav a:hover {
+  color: var(--text, #f8fafc);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.main-nav a.active {
+  color: var(--accent1, #6366f1);
+  background: rgba(99, 102, 241, 0.15);
+}
+
+/* Mobile navigation responsive */
+@media (max-width: 768px) {
+  .main-nav {
+    gap: 16px;
+    padding: 0 16px;
+  }
+
+  .main-nav a {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
 }
 
 /* ============================================================================
@@ -377,29 +467,11 @@ body.has-fixed-ticker.has-fixed-nav {
 }
 
 /* ============================================================================
-   NAVIGATION POSITIONING - Fixed below ticker
+   NAVIGATION POSITIONING - Additional classes
    ============================================================================ */
 
-/* Main navigation that sits below fixed ticker */
-.main-nav {
-  position: fixed;
-  top: 120px;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 50px;
-  z-index: calc(var(--z-fixed) - 1);
-  background: rgba(15, 23, 42, 0.95);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
-  box-sizing: border-box;
-  backdrop-filter: blur(12px);
-}
-
-.site-nav.below-ticker,
-.main-nav.below-ticker {
+/* Alternative class for nav below ticker */
+.site-nav.below-ticker {
   position: fixed;
   top: 120px;
   left: 0;
