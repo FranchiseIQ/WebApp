@@ -2270,7 +2270,7 @@
 <body>
     <!-- Global Stock Ticker -->
     <div class="global-ticker">
-        <iframe src="Website/ticker.html?embed=true" title="Franchise stock ticker" loading="lazy" scrolling="no"></iframe>
+        <iframe src="Website/ticker.html?embed=true" title="Franchise stock ticker" loading="eager" scrolling="no"></iframe>
     </div>
 
     <!-- Navigation Bar -->
@@ -2832,7 +2832,17 @@
             if (Object.keys(videoUrlCache).length > 0) return; // Already loaded
 
             try {
-                const response = await fetch(`sports_data.json?t=${Date.now()}`);
+                // Add timeout to fetch (3 seconds)
+                const fetchWithTimeout = (url, timeout = 3000) => {
+                    return Promise.race([
+                        fetch(url),
+                        new Promise((_, reject) =>
+                            setTimeout(() => reject(new Error('Fetch timeout')), timeout)
+                        )
+                    ]);
+                };
+
+                const response = await fetchWithTimeout(`sports_data.json?t=${Date.now()}`, 3000);
                 if (!response.ok) return;
 
                 const data = await response.json();
@@ -2858,7 +2868,7 @@
 
                 console.log(`Cached ${Object.keys(videoUrlCache).length} video URLs`);
             } catch (error) {
-                console.log('No unified video data available yet');
+                console.log('No unified video data available yet:', error.message);
             }
         }
 
@@ -2893,7 +2903,17 @@
             }
 
             try {
-                const response = await fetch(config.dataUrl);
+                // Add timeout to fetch (5 seconds)
+                const fetchWithTimeout = (url, timeout = 5000) => {
+                    return Promise.race([
+                        fetch(url),
+                        new Promise((_, reject) =>
+                            setTimeout(() => reject(new Error('Fetch timeout')), timeout)
+                        )
+                    ]);
+                };
+
+                const response = await fetchWithTimeout(config.dataUrl, 5000);
                 if (!response.ok) {
                     console.warn(`No data file for ${league}`);
                     return [];
@@ -2910,7 +2930,7 @@
                 gamesCache[cacheKey] = games;
                 return games;
             } catch (error) {
-                console.error(`Error fetching ${league} games:`, error);
+                console.error(`Error fetching ${league} games:`, error.message);
                 return [];
             }
         }
