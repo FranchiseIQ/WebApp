@@ -1565,11 +1565,209 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .settings-btn-nav:hover {
             color: var(--text);
             background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Notification Center */
+        .notification-btn-nav {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.7);
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .notification-btn-nav:hover {
+            color: var(--text);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65em;
+            font-weight: 700;
+        }
+
+        /* Notification Center Panel */
+        .notification-center {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 450px;
+            height: 100vh;
+            background: var(--bg);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.3s ease;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+        }
+
+        .notification-center.open {
+            right: 0;
+        }
+
+        .notification-center-header {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .notification-center-header h2 {
+            font-size: 1.1em;
+            margin: 0;
+        }
+
+        .notification-center-close {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-center-actions {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+
+        .notification-clear-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.2s;
+        }
+
+        .notification-clear-btn:hover {
+            background: #ef4444;
+            border-color: #ef4444;
+        }
+
+        .notification-list {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .notification-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            gap: 12px;
+        }
+
+        .notification-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .notification-item.new {
+            background: rgba(99, 102, 241, 0.05);
+            border-left: 3px solid var(--accent1);
+        }
+
+        .notification-icon {
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+
+        .notification-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            font-size: 0.95em;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        .notification-message {
+            font-size: 0.85em;
+            color: var(--secondary);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .notification-time {
+            font-size: 0.75em;
+            color: var(--secondary);
+            opacity: 0.7;
+        }
+
+        .notification-remove {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            font-size: 1.1em;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            opacity: 0.5;
+            transition: all 0.2s;
+        }
+
+        .notification-remove:hover {
+            color: #ef4444;
+            opacity: 1;
+        }
+
+        .notification-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--secondary);
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
         }
 
         .toggle-switch {
@@ -2088,6 +2286,10 @@
         <a href="sports.html" class="active">Sports</a>
         <a href="franchise_calculators_module/index.html">Calculators</a>
         <a href="about.html">About</a>
+        <button class="notification-btn-nav" id="notification-btn" onclick="openNotificationCenter()" title="Notifications">
+            🔔
+            <span class="notification-badge" id="notification-badge" style="display: none;">0</span>
+        </button>
         <button class="settings-btn-nav" onclick="openSettings()" title="Preferences">⚙️</button>
     </nav>
 
@@ -2346,6 +2548,20 @@
                 <button class="settings-btn settings-btn-save" onclick="saveSettings()">Save Preferences</button>
                 <button class="settings-btn settings-btn-reset" onclick="resetSettings()">Reset to Defaults</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Notification Center Panel -->
+    <div class="notification-center" id="notification-center">
+        <div class="notification-center-header">
+            <h2>Notifications</h2>
+            <button class="notification-center-close" onclick="closeNotificationCenter()">✕</button>
+        </div>
+        <div class="notification-center-actions">
+            <button class="notification-clear-btn" onclick="clearAllNotifications()">Clear All</button>
+        </div>
+        <div class="notification-list" id="notification-list">
+            <div class="notification-empty">No notifications yet</div>
         </div>
     </div>
 
@@ -3301,6 +3517,9 @@
                 const games = await fetchGames(currentLeague);
                 allGames = enrichGamesWithVideoUrls(games);
 
+                // Check for game changes and generate notifications
+                notificationManager.checkGameChanges(games);
+
                 // Generate week selector after loading games
                 generateWeekSelector();
 
@@ -3924,6 +4143,231 @@
 
         // Create global preferences instance
         const preferences = new PreferencesManager();
+
+        // Notification Manager Class
+        class NotificationManager {
+            constructor() {
+                this.notifications = JSON.parse(localStorage.getItem('game_notifications') || '[]');
+                this.gameSnapshots = {}; // Track game states for change detection
+                this.maxNotifications = 50; // Keep last 50 notifications
+            }
+
+            addNotification(title, message, type = 'info', data = {}) {
+                const notification = {
+                    id: Date.now() + Math.random(),
+                    title,
+                    message,
+                    type, // 'info', 'goal', 'status-change', 'final'
+                    icon: this.getIcon(type),
+                    data,
+                    timestamp: new Date(),
+                    read: false
+                };
+
+                this.notifications.unshift(notification);
+                if (this.notifications.length > this.maxNotifications) {
+                    this.notifications.pop();
+                }
+                this.save();
+                this.updateUI();
+
+                // Play sound if enabled
+                this.playSound(type);
+
+                return notification;
+            }
+
+            getIcon(type) {
+                const icons = {
+                    'goal': '⚽',
+                    'status-change': '🔄',
+                    'final': '✓',
+                    'live': '🔴',
+                    'upcoming': '⏰',
+                    'info': 'ℹ️'
+                };
+                return icons[type] || icons['info'];
+            }
+
+            checkGameChanges(games) {
+                const prefs = preferences.getAll();
+                const favoriteTeams = new Set(prefs.favoriteTeams || []);
+                const notificationsEnabled = prefs.notificationsEnabled;
+
+                if (!notificationsEnabled) return;
+
+                games.forEach(game => {
+                    const gameId = `${game.homeTeam?.shortName || game.homeTeam?.name}-${game.awayTeam?.shortName || game.awayTeam?.name}-${game.startTime}`;
+                    const snapshot = this.gameSnapshots[gameId];
+                    const status = normalizeStatus(game);
+                    const homeShort = game.homeTeam?.shortName || game.homeTeam?.name;
+                    const awayShort = game.awayTeam?.shortName || game.awayTeam?.name;
+                    const isFavoriteGame = favoriteTeams.has(homeShort) || favoriteTeams.has(awayShort);
+
+                    if (!isFavoriteGame) return; // Only notify for favorite teams
+
+                    if (!snapshot) {
+                        // First time seeing this game
+                        this.gameSnapshots[gameId] = {
+                            status,
+                            homeScore: game.homeScore ?? 0,
+                            awayScore: game.awayScore ?? 0
+                        };
+                        return;
+                    }
+
+                    // Check for status change
+                    if (snapshot.status !== status) {
+                        if (status === 'LIVE') {
+                            this.addNotification(
+                                `${homeShort} vs ${awayShort}`,
+                                'Game started!',
+                                'live',
+                                { game }
+                            );
+                        } else if (status === 'FINAL') {
+                            const homeScore = game.homeScore ?? 0;
+                            const awayScore = game.awayScore ?? 0;
+                            const winner = homeScore > awayScore ? homeShort : awayShort;
+                            this.addNotification(
+                                `${homeShort} vs ${awayShort}`,
+                                `Game final: ${winner} wins ${homeScore}-${awayScore}`,
+                                'final',
+                                { game }
+                            );
+                        }
+                    }
+
+                    // Check for score changes
+                    if ((game.homeScore ?? 0) !== snapshot.homeScore || (game.awayScore ?? 0) !== snapshot.awayScore) {
+                        const homeScore = game.homeScore ?? 0;
+                        const awayScore = game.awayScore ?? 0;
+                        this.addNotification(
+                            `${homeShort} vs ${awayShort}`,
+                            `Score: ${homeShort} ${homeScore} - ${awayShort} ${awayScore}`,
+                            'goal',
+                            { game }
+                        );
+                    }
+
+                    // Update snapshot
+                    this.gameSnapshots[gameId] = {
+                        status,
+                        homeScore: game.homeScore ?? 0,
+                        awayScore: game.awayScore ?? 0
+                    };
+                });
+            }
+
+            playSound(type) {
+                const prefs = preferences.getAll();
+                if (!prefs.notificationSound) return;
+
+                if (this.isInQuietHours()) return; // Respect quiet hours
+
+                // Create a simple beep using Web Audio API
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+
+                    const frequency = type === 'goal' ? 800 : type === 'final' ? 600 : 400;
+                    oscillator.frequency.value = frequency;
+                    oscillator.type = 'sine';
+
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                } catch (e) {
+                    console.warn('Could not play sound:', e);
+                }
+            }
+
+            isInQuietHours() {
+                const prefs = preferences.getAll();
+                const now = new Date();
+                const hour = now.getHours();
+                const start = prefs.quietHoursStart;
+                const end = prefs.quietHoursEnd;
+
+                if (start < end) {
+                    return hour >= start && hour < end;
+                } else {
+                    return hour >= start || hour < end;
+                }
+            }
+
+            updateUI() {
+                const unreadCount = this.notifications.filter(n => !n.read).length;
+                const badge = document.getElementById('notification-badge');
+                const list = document.getElementById('notification-list');
+
+                if (unreadCount > 0) {
+                    badge.textContent = unreadCount;
+                    badge.style.display = 'flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+
+                if (this.notifications.length === 0) {
+                    list.innerHTML = '<div class="notification-empty">No notifications yet</div>';
+                    return;
+                }
+
+                list.innerHTML = this.notifications.map(n => `
+                    <div class="notification-item ${!n.read ? 'new' : ''}">
+                        <div class="notification-icon">${n.icon}</div>
+                        <div class="notification-content">
+                            <div class="notification-title">${n.title}</div>
+                            <div class="notification-message">${n.message}</div>
+                            <div class="notification-time">${this.formatTime(n.timestamp)}</div>
+                        </div>
+                        <button class="notification-remove" onclick="removeNotification('${n.id}')">✕</button>
+                    </div>
+                `).join('');
+
+                // Mark as read
+                this.notifications.forEach(n => n.read = true);
+                this.save();
+            }
+
+            formatTime(timestamp) {
+                const date = new Date(timestamp);
+                const now = new Date();
+                const diffMs = now - date;
+                const diffMins = Math.floor(diffMs / 60000);
+
+                if (diffMins < 1) return 'now';
+                if (diffMins < 60) return `${diffMins}m ago`;
+                const diffHours = Math.floor(diffMins / 60);
+                if (diffHours < 24) return `${diffHours}h ago`;
+                const diffDays = Math.floor(diffHours / 24);
+                return `${diffDays}d ago`;
+            }
+
+            removeNotification(id) {
+                this.notifications = this.notifications.filter(n => n.id !== id);
+                this.save();
+                this.updateUI();
+            }
+
+            clearAll() {
+                this.notifications = [];
+                this.save();
+                this.updateUI();
+            }
+
+            save() {
+                localStorage.setItem('game_notifications', JSON.stringify(this.notifications));
+            }
+        }
+
+        const notificationManager = new NotificationManager();
 
         // Build unified card for both completed and upcoming games
         async function buildUnifiedCard(game, leagueKey) {
@@ -4840,6 +5284,28 @@
             modal.classList.remove('open');
         }
 
+        // Notification Center Functions
+        function openNotificationCenter() {
+            const center = document.getElementById('notification-center');
+            center.classList.add('open');
+            notificationManager.updateUI(); // Refresh UI when opening
+        }
+
+        function closeNotificationCenter() {
+            const center = document.getElementById('notification-center');
+            center.classList.remove('open');
+        }
+
+        function removeNotification(id) {
+            notificationManager.removeNotification(parseFloat(id));
+        }
+
+        function clearAllNotifications() {
+            if (confirm('Clear all notifications?')) {
+                notificationManager.clearAll();
+            }
+        }
+
         // Load settings UI from preferences
         function loadSettingsUI() {
             const prefs = preferences.getAll();
@@ -5327,6 +5793,10 @@
         window.deleteFilterPreset = deleteFilterPreset;
         window.saveFilterPreset = saveFilterPreset;
         window.clearAllFilters = clearAllFilters;
+        window.openNotificationCenter = openNotificationCenter;
+        window.closeNotificationCenter = closeNotificationCenter;
+        window.removeNotification = removeNotification;
+        window.clearAllNotifications = clearAllNotifications;
 
         // Start
         document.addEventListener('DOMContentLoaded', init);
