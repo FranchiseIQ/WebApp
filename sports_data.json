@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-26 06:42:32 EST",
+  "last_updated": "2025-12-26 12:56:54 EST",
   "nfl": {
     "games": [
       {
@@ -432,7 +432,7 @@
         "league": "NFL",
         "odds": {
           "spread": -7.5,
-          "overUnder": 52.5,
+          "overUnder": 53.5,
           "moneyline": {
             "displayName": "Moneyline",
             "shortDisplayName": "ML",
@@ -782,7 +782,7 @@
         "video_url": null,
         "league": "NFL",
         "odds": {
-          "spread": 6.5,
+          "spread": 6.0,
           "overUnder": 48.5,
           "moneyline": {
             "displayName": "Moneyline",
@@ -1720,7 +1720,7 @@
         },
         "homeScore": "126",
         "awayScore": "124",
-        "video_url": "https://www.youtube.com/embed/MEp3ymMFxsE?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/YTYZjqWc2M8?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -1888,11 +1888,11 @@
       {
         "id": "401809242",
         "date": "2025-12-26T03:30Z",
-        "status": "0.0 - OT",
-        "is_active": true,
-        "is_final": false,
-        "clock": "0.0",
-        "period": 5,
+        "status": "Final/OT",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "ABC",
         "venue": {
           "name": "Ball Arena",
@@ -1907,7 +1907,7 @@
           "shortName": "Nuggets",
           "abbreviation": "DEN",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/den.png",
-          "record": "21-8",
+          "record": "22-8",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1917,17 +1917,24 @@
           "shortName": "Timberwolves",
           "abbreviation": "MIN",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/min.png",
-          "record": "20-10",
+          "record": "20-11",
           "players": [],
           "injuries": [],
           "rank": ""
         },
         "homeScore": "142",
         "awayScore": "138",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/i1oNcHkGDCI?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nba/recap?gameId=401809242"
+          }
+        ]
       }
     ]
   },
