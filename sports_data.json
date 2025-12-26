@@ -1,51 +1,7 @@
 {
-  "last_updated": "2025-12-26 02:10:41 EST",
+  "last_updated": "2025-12-26 06:42:32 EST",
   "nfl": {
     "games": [
-      {
-        "id": "401772622",
-        "date": "2025-12-26T01:15Z",
-        "status": "6:17 - 2nd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "6:17",
-        "period": 2,
-        "network": "Prime Video",
-        "venue": {
-          "name": "GEHA Field at Arrowhead Stadium",
-          "city": "Kansas City",
-          "state": "MO",
-          "capacity": "",
-          "indoor": false
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Kansas City Chiefs",
-          "shortName": "Chiefs",
-          "abbreviation": "KC",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png",
-          "record": "6-9",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Denver Broncos",
-          "shortName": "Broncos",
-          "abbreviation": "DEN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png",
-          "record": "12-3",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "7",
-        "awayScore": "3",
-        "video_url": null,
-        "league": "NFL",
-        "odds": null,
-        "headlines": []
-      },
       {
         "id": "401772710",
         "date": "2025-12-25T18:00Z",
@@ -145,6 +101,57 @@
             "description": "",
             "type": "recap",
             "url": "https://www.espn.com/nfl/recap?gameId=401772711"
+          }
+        ]
+      },
+      {
+        "id": "401772622",
+        "date": "2025-12-26T01:15Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "Prime Video",
+        "venue": {
+          "name": "GEHA Field at Arrowhead Stadium",
+          "city": "Kansas City",
+          "state": "MO",
+          "capacity": "",
+          "indoor": false
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Kansas City Chiefs",
+          "shortName": "Chiefs",
+          "abbreviation": "KC",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png",
+          "record": "6-10",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Denver Broncos",
+          "shortName": "Broncos",
+          "abbreviation": "DEN",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png",
+          "record": "13-3",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "13",
+        "awayScore": "20",
+        "video_url": "https://www.youtube.com/embed/arvbLvX9doA?autoplay=1&rel=0",
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772622"
           }
         ]
       },
@@ -1830,11 +1837,11 @@
       {
         "id": "401809241",
         "date": "2025-12-26T01:00Z",
-        "status": "53.4 - 2nd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "53.4",
-        "period": 2,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "ABC",
         "venue": {
           "name": "crypto.com Arena",
@@ -1849,7 +1856,7 @@
           "shortName": "Lakers",
           "abbreviation": "LAL",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png",
-          "record": "19-9",
+          "record": "19-10",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1859,26 +1866,33 @@
           "shortName": "Rockets",
           "abbreviation": "HOU",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/hou.png",
-          "record": "17-10",
+          "record": "18-10",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "51",
-        "awayScore": "61",
-        "video_url": null,
+        "homeScore": "96",
+        "awayScore": "119",
+        "video_url": "https://www.youtube.com/embed/ZB7ZUEMdtZw?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nba/recap?gameId=401809241"
+          }
+        ]
       },
       {
         "id": "401809242",
         "date": "2025-12-26T03:30Z",
-        "status": "Thu, December 25th at 10:30 PM EST",
-        "is_active": false,
+        "status": "0.0 - OT",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "0.0",
+        "period": 5,
         "network": "ABC",
         "venue": {
           "name": "Ball Arena",
@@ -1908,84 +1922,11 @@
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "0",
-        "awayScore": "0",
+        "homeScore": "142",
+        "awayScore": "138",
         "video_url": null,
         "league": "NBA",
-        "odds": {
-          "spread": -1.5,
-          "overUnder": 238.5,
-          "moneyline": {
-            "displayName": "Moneyline",
-            "shortDisplayName": "ML",
-            "home": {
-              "close": {
-                "odds": "-115",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "home",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32631685%3Foutcomes%3D0ML80876014_1",
-                  "text": "Home Bet",
-                  "shortText": "Home Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nba",
-                      "sport": "basketball",
-                      "gameId": 401809242,
-                      "betSide": "home",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-175"
-              }
-            },
-            "away": {
-              "close": {
-                "odds": "-105",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "away",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32631685%3Foutcomes%3D0ML80876014_3",
-                  "text": "Away Bet",
-                  "shortText": "Away Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nba",
-                      "sport": "basketball",
-                      "gameId": 401809242,
-                      "betSide": "away",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "+145"
-              }
-            }
-          },
-          "provider": "Draft Kings",
-          "lastUpdated": ""
-        },
+        "odds": null,
         "headlines": []
       }
     ]
