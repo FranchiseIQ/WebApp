@@ -590,21 +590,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Calculate marker radius based on zoom level and view mode
     function getMarkerRadius(zoom, isIndividual = false) {
-        // Visual hierarchy: individual circles are MUCH smaller than clusters
-        // Individual: 8-12px (zoom 0-14) - tiny dots, essentially no zoom scaling
-        // Clusters: 14-32px (zoom 0-14) - prominent markers, 2.5-3x larger than individual
-        // Individual circles should be subtle indicators, not prominent markers
+        // TWO SEPARATE SIZING CONTEXTS:
+        // 1. Clustered View (isIndividual=false): Individual markers that appear when clusters break apart
+        //    - Should be SMALL and subtle (not visually dominate)
+        //    - Minimal zoom scaling
+        // 2. Solo/Non-clustered View (isIndividual=true): Primary marker display in solo mode
+        //    - Should be LARGE and easily clickable
+        //    - More prominent zoom scaling for visibility at all levels
 
         if (isIndividual) {
-            // Individual location circles: tiny dots, minimal scaling with zoom
-            const baseRadius = 8;           // 8px at zoom 0 (small but visible)
-            const zoomFactor = 0.25;        // +0.25px per zoom level (minimal growth)
-            return Math.min(baseRadius + (zoom * zoomFactor), 12);  // Cap at 12px max
+            // SOLO/NON-CLUSTERED VIEW: Large, easily selectable markers
+            // These are the primary markers in solo map view - must be clearly clickable
+            const baseRadius = 16;          // 16px at zoom 0 (large, easily clickable)
+            const zoomFactor = 0.8;         // +0.8px per zoom level (significant growth)
+            return Math.min(baseRadius + (zoom * zoomFactor), 28);  // Cap at 28px max
         } else {
-            // Cluster circles: much larger and more prominent
-            const baseRadius = 14;          // 14px at zoom 0 (1.75x individual)
-            const zoomFactor = 1.3;         // +1.3px per zoom level (faster growth)
-            return baseRadius + (zoom * zoomFactor);
+            // CLUSTERED VIEW: Small individual markers when clusters break apart
+            // When clusters split, show subtle individual markers that don't visually dominate
+            const baseRadius = 6;           // 6px at zoom 0 (small, subtle)
+            const zoomFactor = 0.15;        // +0.15px per zoom level (minimal growth)
+            return Math.min(baseRadius + (zoom * zoomFactor), 10);  // Cap at 10px max
         }
     }
 
