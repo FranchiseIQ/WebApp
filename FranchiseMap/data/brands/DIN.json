@@ -62370,7 +62370,10 @@
       "educationIndex": 83,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188061"
-    }
+    },
+    "address": "McMinnville, Oregon, 97128",
+    "display_name": "IHOP, Northeast Pacific Highway West, McMinnville, Yamhill County, Oregon, 97128, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_793654062",
@@ -62391,7 +62394,10 @@
       "educationIndex": 82,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188067"
-    }
+    },
+    "address": "Jasmine Estates, Florida, 34668",
+    "display_name": "Applebee's, Little Road, Jasmine Estates, Pasco County, Florida, 34668, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_796311224",
@@ -62412,7 +62418,10 @@
       "educationIndex": 83,
       "employmentRate": 96.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188073"
-    }
+    },
+    "address": "Wytheville, Virginia, 24382",
+    "display_name": "Applebee's, 1440, East Main Street, Wytheville, Wythe County, Virginia, 24382, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_796682449",
@@ -62433,7 +62442,10 @@
       "educationIndex": 81,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188078"
-    }
+    },
+    "address": "Oak Park Heights, Minnesota, 55082",
+    "display_name": "Applebee's, 60th Street North, Oak Park Heights, Washington County, Minnesota, 55082, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_798156328",
@@ -62454,7 +62466,10 @@
       "educationIndex": 80,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188084"
-    }
+    },
+    "address": "Delray Beach, Florida, 33444",
+    "display_name": "IHOP, West Atlantic Avenue, Delray Beach, Palm Beach County, Florida, 33444, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_801401788",
@@ -62475,7 +62490,10 @@
       "educationIndex": 82,
       "employmentRate": 96.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188090"
-    }
+    },
+    "address": "Town of Mamaroneck, New York, 10538",
+    "display_name": "IHOP, 1375, Boston Post Road, Town of Mamaroneck, Westchester County, New York, 10538, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_802269921",
@@ -62496,7 +62514,10 @@
       "educationIndex": 80,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188096"
-    }
+    },
+    "address": "Loganville, Georgia, 30052",
+    "display_name": "Applebee's, Atlanta Highway, Loganville, Walton County, Georgia, 30052, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_803452919",
@@ -62517,7 +62538,10 @@
       "educationIndex": 78,
       "employmentRate": 93.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188102"
-    }
+    },
+    "address": "Pelham, Alabama, 35124",
+    "display_name": "IHOP, Pelham Parkway, Pelham, Shelby County, Alabama, 35124, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_803843980",
@@ -62538,7 +62562,10 @@
       "educationIndex": 75,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188108"
-    }
+    },
+    "address": "White Lake Charter Township, Michigan, 48386",
+    "display_name": "Applebee's, Highland Road, White Lake Charter Township, Oakland County, Michigan, 48386, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_807337437",
@@ -62559,7 +62586,10 @@
       "educationIndex": 76,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188114"
-    }
+    },
+    "address": "Mesa, Arizona, 85205",
+    "display_name": "Applebee's, 1143, North Higley Road, Mesa, Maricopa County, Arizona, 85205, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_807401858",
@@ -62580,7 +62610,10 @@
       "educationIndex": 81,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188119"
-    }
+    },
+    "address": "Mesa, Arizona, 85205",
+    "display_name": "IHOP, 1150, North Higley Road, Mesa, Maricopa County, Arizona, 85205, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_809343962",
@@ -62601,7 +62634,10 @@
       "educationIndex": 84,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188126"
-    }
+    },
+    "address": "City of Watertown, New York, 13601",
+    "display_name": "Pioneer Plaza Drive, Arsenal Plaza, City of Watertown, Jefferson County, New York, 13601, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_809727692",
@@ -62622,7 +62658,10 @@
       "educationIndex": 80,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.188132"
-    }
+    },
+    "address": "Erie, Pennsylvania, 16509",
+    "display_name": "Applebee's, 7790, Peach Street, South Kearsarge, Erie, Erie County, Pennsylvania, 16509, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_810632745",
@@ -62643,7 +62682,10 @@
       "educationIndex": 79,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188138"
-    }
+    },
+    "address": "Missoula, Montana, 59801",
+    "display_name": "Applebee's, 4041, Old US Highway 93, South 39th, Missoula, Missoula County, Montana, 59801, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_815983306",
@@ -62664,7 +62706,10 @@
       "educationIndex": 76,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188145"
-    }
+    },
+    "address": "Ashland, Ohio, 44805",
+    "display_name": "Applebee's, 2250, Claremont Avenue, Center Street Historic District, Westview Mobile Home Park, Ashland, Ashland County, Ohio, 44805, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_817093813",
@@ -62685,7 +62730,10 @@
       "educationIndex": 79,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188151"
-    }
+    },
+    "address": "Houston, Texas, 77339",
+    "display_name": "IHOP, Eastex Freeway Frontage Road, Pittsville, Houston, Montgomery County, Texas, 77339, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_817970841",
@@ -62706,7 +62754,10 @@
       "educationIndex": 81,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188157"
-    }
+    },
+    "address": "San Antonio, Texas, 78223",
+    "display_name": "IHOP, 739, Hot Wells Boulevard, San Antonio, Bexar County, Texas, 78223, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_818951693",
@@ -62727,7 +62778,10 @@
       "educationIndex": 74,
       "employmentRate": 93.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188164"
-    }
+    },
+    "address": "Mentor, Ohio, 44060",
+    "display_name": "Applebee's, 9174, Mentor Avenue, East Mentor, Mentor, Lake County, Ohio, 44060, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_821269314",
@@ -62748,7 +62802,10 @@
       "educationIndex": 83,
       "employmentRate": 96.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188170"
-    }
+    },
+    "address": "Elizabeth, New Jersey, 07201",
+    "display_name": "IHOP, Kapkowski Road, Elizabeth, Union County, New Jersey, 07201, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_821984912",
@@ -62769,7 +62826,10 @@
       "educationIndex": 78,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188176"
-    }
+    },
+    "address": "Clarksville, Indiana, 47129",
+    "display_name": "IHOP, 1220, Veterans Parkway, Clarksville, Clark County, Indiana, 47129, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_823189539",
@@ -62790,7 +62850,10 @@
       "educationIndex": 79,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188182"
-    }
+    },
+    "address": "Knoxville, Tennessee",
+    "display_name": "IHOP, Chapman Highway, Knoxville, Knox County, East Tennessee, Tennessee, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_823242761",
@@ -62811,7 +62874,10 @@
       "educationIndex": 81,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188188"
-    }
+    },
+    "address": "San Antonio, Texas, 78244",
+    "display_name": "IHOP, 6519, Seguin Road, San Antonio, Bexar County, Texas, 78244, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_824916897",
@@ -62832,7 +62898,10 @@
       "educationIndex": 79,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188194"
-    }
+    },
+    "address": "Ebensburg, Pennsylvania, 15931",
+    "display_name": "Applebee's, 222, Jamesway Road, Mylo Park, Ebensburg, Cambria County, Pennsylvania, 15931, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_825702316",
@@ -62853,7 +62922,10 @@
       "educationIndex": 77,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188206"
-    }
+    },
+    "address": "Schertz, Texas, 78154",
+    "display_name": "IHOP, Interstate 35 North, Schertz, Guadalupe County, Texas, 78154, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_826257862",
@@ -62874,7 +62946,10 @@
       "educationIndex": 82,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188213"
-    }
+    },
+    "address": "Casselberry, Florida, 32707",
+    "display_name": "IHOP, Hibiscus Road, Casselberry, Seminole County, Florida, 32707, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_827530055",
@@ -62895,7 +62970,10 @@
       "educationIndex": 84,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188219"
-    }
+    },
+    "address": "Town of Geneseo, New York, 14454",
+    "display_name": "Genesee Valley Plaza, Town of Geneseo, Livingston County, New York, 14454, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_827902854",
@@ -62916,7 +62994,10 @@
       "educationIndex": 72,
       "employmentRate": 92.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188225"
-    }
+    },
+    "address": "Baton Rouge, Louisiana, 70808",
+    "display_name": "IHOP, Rabey Street, Concord Park, Baton Rouge, East Baton Rouge Parish, Louisiana, 70808, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_828210921",
@@ -62937,7 +63018,10 @@
       "educationIndex": 75,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188232"
-    }
+    },
+    "address": "North Little Rock, Arkansas, 72216",
+    "display_name": "IHOP, 4225, Warden Road, McCain Mall, Timber Creek, North Little Rock, Hill Township, Pulaski County, Arkansas, 72216, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_828308096",
@@ -62958,7 +63042,10 @@
       "educationIndex": 78,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188239"
-    }
+    },
+    "address": "Kearney, Nebraska, 68847",
+    "display_name": "Applebee's, 5605, 2nd Avenue, Kearney, Buffalo County, Nebraska, 68847, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_828988308",
@@ -62979,7 +63066,10 @@
       "educationIndex": 82,
       "employmentRate": 96.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188245"
-    }
+    },
+    "address": "Chillicothe, Ohio, 45601",
+    "display_name": "Applebee's, 820, North Bridge Street, Chillicothe, Ross County, Ohio, 45601, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_829277142",
@@ -63000,7 +63090,10 @@
       "educationIndex": 79,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188251"
-    }
+    },
+    "address": "Duncan, Oklahoma, 73533",
+    "display_name": "Applebee's, 2002, West Apollo Drive, Duncan, Stephens County, Oklahoma, 73533, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_829931270",
@@ -63021,7 +63114,10 @@
       "educationIndex": 81,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188257"
-    }
+    },
+    "address": "Garland, Texas, 75041",
+    "display_name": "Applebee's, 1440, Eastgate Drive, Garland, Dallas County, Texas, 75041, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_831749325",
@@ -63042,7 +63138,10 @@
       "educationIndex": 87,
       "employmentRate": 96.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188264"
-    }
+    },
+    "address": "Taylor, Michigan, 48111",
+    "display_name": "Applebee's, Ecorse Road, Taylor, Wayne County, Michigan, 48111, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_832059628",
@@ -63063,7 +63162,10 @@
       "educationIndex": 80,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188270"
-    }
+    },
+    "address": "Knoxville, Tennessee, 37919",
+    "display_name": "IHOP, Wellington Drive, Deane Hill, Bearden, Knoxville, Knox County, East Tennessee, Tennessee, 37919, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_832867642",
@@ -63084,7 +63186,10 @@
       "educationIndex": 85,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.188276"
-    }
+    },
+    "address": "La Habra, California, 90631",
+    "display_name": "Applebee's, 1238, West Imperial Highway, La Habra, Orange County, California, 90631, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_834354513",
@@ -63105,7 +63210,10 @@
       "educationIndex": 80,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188282"
-    }
+    },
+    "address": "Dalton, Georgia, 30720",
+    "display_name": "IHOP, West Walnut Avenue, Dalton, Whitfield County, Georgia, 30720, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_834354523",
@@ -63126,7 +63234,10 @@
       "educationIndex": 82,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188288"
-    }
+    },
+    "address": "Dalton, Georgia, 30720",
+    "display_name": "Applebee's, West Walnut Avenue, Dalton, Whitfield County, Georgia, 30720, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_834789772",
@@ -63147,7 +63258,10 @@
       "educationIndex": 78,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188294"
-    }
+    },
+    "address": "Erie, Pennsylvania, 16510",
+    "display_name": "Applebee's, 4002, Buffalo Road, Rolling Ridge, Erie, Erie County, Pennsylvania, 16510, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_835509015",
@@ -63168,7 +63282,10 @@
       "educationIndex": 80,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188300"
-    }
+    },
+    "address": "Knoxville, Tennessee, 37923",
+    "display_name": "Applebee's, North Peters Road, Town and Country Center, Ten Mile, Knoxville, Knox County, East Tennessee, Tennessee, 37923, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_838366654",
@@ -63189,7 +63306,10 @@
       "educationIndex": 77,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188306"
-    }
+    },
+    "address": "Tucson, Arizona, 85711",
+    "display_name": "Applebee's, 5870, East Broadway Boulevard, Tucson, Pima County, Arizona, 85711, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_839514528",
@@ -63210,7 +63330,10 @@
       "educationIndex": 76,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188312"
-    }
+    },
+    "address": "Delafield, Wisconsin, 53018",
+    "display_name": "3100, Golf Road, Nagawaukee, Delafield, Waukesha County, Wisconsin, 53018, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_841513314",
@@ -63231,7 +63354,10 @@
       "educationIndex": 79,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188318"
-    }
+    },
+    "address": "San Antonio, Texas, 78247",
+    "display_name": "IHOP, 6831, North Loop 1604 East, San Antonio, Bexar County, Texas, 78247, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_842051881",
@@ -63252,7 +63378,10 @@
       "educationIndex": 84,
       "employmentRate": 96.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188324"
-    }
+    },
+    "address": "Toms River, New Jersey, 08754",
+    "display_name": "IHOP, Route 37 East, Lauren Estates, Toms River, Ocean County, New Jersey, 08754, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_842258067",
@@ -63273,7 +63402,10 @@
       "educationIndex": 76,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188330"
-    }
+    },
+    "address": "Peoria, Arizona, 85382",
+    "display_name": "Applebee's, 8001, West Bell Road, Peoria, Maricopa County, Arizona, 85382, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_842272572",
@@ -63294,7 +63426,10 @@
       "educationIndex": 77,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.188335"
-    }
+    },
+    "address": "Phoenix, Arizona, 85053",
+    "display_name": "IHOP, 4201, West Bell Road, Parkview North, Deer Valley, Phoenix, Maricopa County, Arizona, 85053, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_842911180",
@@ -63315,7 +63450,10 @@
       "educationIndex": 78,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188341"
-    }
+    },
+    "address": "Billings, Montana, 59105",
+    "display_name": "Applebee's, US 87, East Downtown, Billings, Yellowstone County, Montana, 59105, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_845840990",
@@ -63336,7 +63474,10 @@
       "educationIndex": 77,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188347"
-    }
+    },
+    "address": "Richmond, Texas, 77406",
+    "display_name": "IHOP, Bellaire Boulevard, Westpark Lakes, Richmond, Fort Bend County, Texas, 77406, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_845876402",
@@ -63357,7 +63498,10 @@
       "educationIndex": 77,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188353"
-    }
+    },
+    "address": "Houston, Texas, 77060",
+    "display_name": "IHOP, 197, Greens Road, Greenspoint, North Houston District, Houston, Harris County, Texas, 77060, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_846245291",
@@ -63378,7 +63522,10 @@
       "educationIndex": 74,
       "employmentRate": 93.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188359"
-    }
+    },
+    "address": "Wichita Falls, Texas, 76308",
+    "display_name": "IHOP, 4025, Southwest Parkway, Wichita Falls, Wichita County, Texas, 76308, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_847340158",
@@ -63399,7 +63546,10 @@
       "educationIndex": 80,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188365"
-    }
+    },
+    "address": "Georgia, 30274",
+    "display_name": "Applebee's, Tara Boulevard, Edgemoor Manor, Clayton County, Georgia, 30274, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_847604472",
@@ -63420,7 +63570,10 @@
       "educationIndex": 75,
       "employmentRate": 93.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188372"
-    }
+    },
+    "address": "Memphis, Tennessee, 38018",
+    "display_name": "IHOP, North Germantown Parkway, Cordova, Memphis, Shelby County, West Tennessee, Tennessee, 38018, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_848216710",
@@ -63441,7 +63594,10 @@
       "educationIndex": 83,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188378"
-    }
+    },
+    "address": "Pittsburgh, Pennsylvania, 15217",
+    "display_name": "Nine Mile Run Trail, Squirrel Hill South, Pittsburgh, Allegheny County, Pennsylvania, 15217, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_848216711",
@@ -63462,7 +63618,10 @@
       "educationIndex": 77,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188384"
-    }
+    },
+    "address": "Pittsburgh, Pennsylvania, 15217",
+    "display_name": "IHOP Tr., Squirrel Hill South, Pittsburgh, Allegheny County, Pennsylvania, 15217, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_848560692",
@@ -63483,7 +63642,10 @@
       "educationIndex": 78,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188389"
-    }
+    },
+    "address": "Killeen, Texas, 76541",
+    "display_name": "IHOP, 700, West Central Texas Expressway, Killeen, Bell County, Texas, 76541, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_849317872",
@@ -63504,7 +63666,10 @@
       "educationIndex": 76,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188395"
-    }
+    },
+    "address": "Houston, Texas, 77015",
+    "display_name": "IHOP, 13405, East Freeway, Houston, Harris County, Texas, 77015, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_850565193",
@@ -63525,7 +63690,10 @@
       "educationIndex": 81,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188402"
-    }
+    },
+    "address": "Waterville, Maine, 04901",
+    "display_name": "Applebee's, 249, Kennedy Memorial Drive, Waterville, Kennebec County, Maine, 04901, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_852221184",
@@ -63546,7 +63714,10 @@
       "educationIndex": 77,
       "employmentRate": 93.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188408"
-    }
+    },
+    "address": "Aurora, Illinois, 60506",
+    "display_name": "IHOP, 2455, Augusta Way, Aurora, Sugar Grove Township, Kane County, Illinois, 60506, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_853100455",
@@ -63567,7 +63738,10 @@
       "educationIndex": 80,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188413"
-    }
+    },
+    "address": "Queen Creek, Arizona, 85142",
+    "display_name": "IHOP, 20710, East Victoria Lane, Queen Creek, Maricopa County, Arizona, 85142, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_854090223",
@@ -63588,7 +63762,10 @@
       "educationIndex": 83,
       "employmentRate": 96.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.188419"
-    }
+    },
+    "address": "Clarksburg, West Virginia, 26323",
+    "display_name": "Applebee's, Emily Drive, Newpointe, Clarksburg, Harrison County, West Virginia, 26323, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_854238250",
@@ -63609,7 +63786,10 @@
       "educationIndex": 74,
       "employmentRate": 93.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188425"
-    }
+    },
+    "address": "Hastings, Michigan, 49058",
+    "display_name": "Applebee's, West State Street, Hastings, Barry County, Michigan, 49058, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_854318359",
@@ -63630,7 +63810,10 @@
       "educationIndex": 79,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188432"
-    }
+    },
+    "address": "Houston, Texas, 77092",
+    "display_name": "IHOP, 12340, Northwest Freeway, Rosslyn, Langwood, Houston, Harris County, Texas, 77092, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_854328959",
@@ -63651,7 +63834,10 @@
       "educationIndex": 73,
       "employmentRate": 93.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188438"
-    }
+    },
+    "address": "Prattville, Alabama, 36066",
+    "display_name": "Applebee's, Cobbs Ford Lane, Premier Place, Prattville, Autauga County, Alabama, 36066, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_855681084",
@@ -63672,7 +63858,10 @@
       "educationIndex": 83,
       "employmentRate": 96.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188444"
-    }
+    },
+    "address": "Alamosa, Colorado, 81101",
+    "display_name": "IHOP, Main Street, Alamosa, Alamosa County, Colorado, 81101, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_856863242",
@@ -63693,7 +63882,10 @@
       "educationIndex": 76,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188450"
-    }
+    },
+    "address": "Prattville, Alabama, 36066",
+    "display_name": "IHOP, Legends Parkway, Prattville, Elmore County, Alabama, 36066, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_858057588",
@@ -63714,7 +63906,10 @@
       "educationIndex": 77,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188456"
-    }
+    },
+    "address": "Hinesville, Georgia, 31313",
+    "display_name": "IHOP, West Oglethorpe Highway, Cherokee Village, Hinesville, Liberty County, Georgia, 31313, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_858657795",
@@ -63735,7 +63930,10 @@
       "educationIndex": 81,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188462"
-    }
+    },
+    "address": "Matthews, North Carolina, 28105",
+    "display_name": "IHOP, 9253, East Independence Boulevard, Matthews, Mecklenburg County, North Carolina, 28105, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_864661977",
@@ -63756,7 +63954,10 @@
       "educationIndex": 78,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188467"
-    }
+    },
+    "address": "Georgetown, Texas, 78626",
+    "display_name": "Applebee's, 350, South Interstate 35, Georgetown, Williamson County, Texas, 78626, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_865227547",
@@ -63777,7 +63978,10 @@
       "educationIndex": 74,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188473"
-    }
+    },
+    "address": "Ardmore, Oklahoma, 73401",
+    "display_name": "Applebee's, 2680, West Broadway Street, Ardmore, Carter County, Oklahoma, 73401, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_865432373",
@@ -63798,7 +64002,10 @@
       "educationIndex": 77,
       "employmentRate": 93.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188479"
-    }
+    },
+    "address": "Ardmore, Oklahoma, 73401",
+    "display_name": "IHOP, 2520, Veterans Boulevard, Ardmore, Carter County, Oklahoma, 73401, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_866281782",
@@ -63819,7 +64026,10 @@
       "educationIndex": 78,
       "employmentRate": 93.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188485"
-    }
+    },
+    "address": "Richmond, Kentucky, 40475",
+    "display_name": "IHOP, Old KY 2883, Richmond, Madison County, Kentucky, 40475, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_866795199",
@@ -63840,7 +64050,10 @@
       "educationIndex": 83,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188490"
-    }
+    },
+    "address": "Berlin, Vermont, 05602",
+    "display_name": "Paine Turnpike North, Berlin Corners, Berlin, Washington County, Vermont, 05602, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_870590254",
@@ -63861,7 +64074,10 @@
       "educationIndex": 80,
       "employmentRate": 96.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188497"
-    }
+    },
+    "address": "City of Rochester, New York, 14624",
+    "display_name": "Applebee's, 2120, Chili Avenue, Tressmar, City of Rochester, Town of Gates, Monroe County, New York, 14624, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_871554744",
@@ -63882,7 +64098,10 @@
       "educationIndex": 76,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188502"
-    }
+    },
+    "address": "Reynosa, Tamaulipas, 88500",
+    "display_name": "IHOP, Boulevard Hidalgo, Reynosa, Tamaulipas, 88500, México",
+    "country": "México"
   },
   {
     "id": "DIN_874513260",
@@ -63903,7 +64122,10 @@
       "educationIndex": 76,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188508"
-    }
+    },
+    "address": "Forney, Texas, 75126",
+    "display_name": "Applebee's, 114, East US Highway 80, Forney, Kaufman County, Texas, 75126, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_877288122",
@@ -63924,7 +64146,10 @@
       "educationIndex": 76,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188515"
-    }
+    },
+    "address": "Greenbush, Maine, 04418",
+    "display_name": "Applebee's Superette, 248, Greenfield Road, Greenfield Township, Greenbush, Penobscot County, Maine, 04418, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_877316990",
@@ -63945,7 +64170,10 @@
       "educationIndex": 76,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188521"
-    }
+    },
+    "address": "Moore, Oklahoma, 73160",
+    "display_name": "IHOP, Southwest 25th Street, Moore, Cleveland County, Oklahoma, 73160, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_882118520",
@@ -63966,7 +64194,10 @@
       "educationIndex": 76,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188527"
-    }
+    },
+    "address": "Florida, 34232",
+    "display_name": "Applebee's, 5550, Fruitville Road, Belspur, Sarasota County, Florida, 34232, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_883262728",
@@ -63987,7 +64218,10 @@
       "educationIndex": 83,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188532"
-    }
+    },
+    "address": "Ridley Township, Pennsylvania, 19033",
+    "display_name": "Applebee's, 320, Macdade Boulevard, Folsom, Ridley Township, Delaware County, Pennsylvania, 19033, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_883639087",
@@ -64008,7 +64242,10 @@
       "educationIndex": 82,
       "employmentRate": 96.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188538"
-    }
+    },
+    "address": "Limerick Township, Pennsylvania, 19468",
+    "display_name": "Applebee's, 70, Buckwalter Road, Limerick Square, Limerick Township, Montgomery County, Pennsylvania, 19468, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_885061308",
@@ -64029,7 +64266,10 @@
       "educationIndex": 78,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188545"
-    }
+    },
+    "address": "Bismarck, North Dakota, 58503",
+    "display_name": "Applebee's, 3200, North 14th Street, Memorial, Bismarck, Burleigh County, North Dakota, 58503, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_885665977",
@@ -64050,7 +64290,10 @@
       "educationIndex": 72,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188551"
-    }
+    },
+    "address": "Fultondale, Alabama, 35068",
+    "display_name": "Applebee's, Boots Boulevard, Fultondale, Jefferson County, Alabama, 35068, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_886803136",
@@ -64071,7 +64314,10 @@
       "educationIndex": 86,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188557"
-    }
+    },
+    "address": "Bluefield, Virginia, 24605",
+    "display_name": "Applebee's, US 460, Bluefield, Tazewell County, Virginia, 24605, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_888320423",
@@ -64092,7 +64338,10 @@
       "educationIndex": 88,
       "employmentRate": 97.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188563"
-    }
+    },
+    "address": "Manchester Township, New Jersey, 08759",
+    "display_name": "Applebee's, Colonial Drive, Manchester Township, Ocean County, New Jersey, 08759, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_893458055",
@@ -64113,7 +64362,10 @@
       "educationIndex": 75,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188570"
-    }
+    },
+    "address": "Meridian, Idaho, 83642",
+    "display_name": "IHOP, 3525, East Fairview Avenue, Meridian, Ada County, Idaho, 83642, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_894060808",
@@ -64134,7 +64386,10 @@
       "educationIndex": 77,
       "employmentRate": 92.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188576"
-    }
+    },
+    "address": "Radcliff, Kentucky, 40160",
+    "display_name": "Applebee's, 2059, Walmart Way, Radcliff, Hardin County, Kentucky, 40160, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_894875672",
@@ -64155,7 +64410,10 @@
       "educationIndex": 73,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188581"
-    }
+    },
+    "address": "Elizabethtown, Kentucky, 42701",
+    "display_name": "IHOP, 3900, North Dixie Highway, Long View, Elizabethtown, Hardin County, Kentucky, 42701, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_896341246",
@@ -64176,7 +64434,10 @@
       "educationIndex": 77,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188587"
-    }
+    },
+    "address": "Shreveport, Louisiana, 71129",
+    "display_name": "IHOP, 6109, Financial Plaza, Five Oaks, Shreveport, Caddo Parish, Louisiana, 71129, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_896785484",
@@ -64197,7 +64458,10 @@
       "educationIndex": 80,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188593"
-    }
+    },
+    "address": "Morristown, Tennessee, 37813",
+    "display_name": "IHOP, Crockett Trace Drive, Crockett Square, Morristown, Hamblen County, East Tennessee, Tennessee, 37813, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_897347985",
@@ -64218,7 +64482,10 @@
       "educationIndex": 77,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.188599"
-    }
+    },
+    "address": "Wilmington, North Carolina, 28405",
+    "display_name": "IHOP, North College Road, Wilmington, New Hanover County, North Carolina, 28405, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_899385390",
@@ -64239,7 +64506,10 @@
       "educationIndex": 76,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188605"
-    }
+    },
+    "address": "Texarkana, Arkansas, 71854",
+    "display_name": "IHOP, 329, East 51st Street, Texarkana, Miller County, Arkansas, 71854, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_900469735",
@@ -64260,7 +64530,10 @@
       "educationIndex": 79,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188611"
-    }
+    },
+    "address": "Georgia, 30277",
+    "display_name": "IHOP, Bullsboro Drive, White Oak, Coweta County, Georgia, 30277, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_901225731",
@@ -64281,7 +64554,10 @@
       "educationIndex": 77,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188617"
-    }
+    },
+    "address": "Michigan, 49546",
+    "display_name": "Applebee's, 28th Street Southeast, Cascade Charter Township, Kent County, Michigan, 49546, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_903252943",
@@ -64302,7 +64578,10 @@
       "educationIndex": 76,
       "employmentRate": 93.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188623"
-    }
+    },
+    "address": "West Memphis, Arkansas, 72301",
+    "display_name": "Applebee's, 208, West Service Road, West Memphis, Crittenden County, Arkansas, 72301, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_904294769",
@@ -64323,7 +64602,10 @@
       "educationIndex": 82,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.188629"
-    }
+    },
+    "address": "City of New York, New York, 10314",
+    "display_name": "Carter's | OshKosh B'gosh, Ring Road, Staten Island Mall, Staten Island, Richmond County, City of New York, New York, 10314, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_905650635",
@@ -64344,7 +64626,10 @@
       "educationIndex": 76,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188635"
-    }
+    },
+    "address": "Clemmons, North Carolina, 27012",
+    "display_name": "IHOP, 6305, Allegacy Way, Allegacy Village, Parkwood Lake, Clemmons, Forsyth County, North Carolina, 27012, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_905650637",
@@ -64365,7 +64650,10 @@
       "educationIndex": 76,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188642"
-    }
+    },
+    "address": "Clemmons, North Carolina, 27012",
+    "display_name": "Applebee's, 6310, Allegacy Way, Allegacy Village, Parkwood Lake, Clemmons, Forsyth County, North Carolina, 27012, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_905925633",
@@ -64386,7 +64674,10 @@
       "educationIndex": 81,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188649"
-    }
+    },
+    "address": "Henderson, Georgia, 31419",
+    "display_name": "IHOP, Gateway Boulevard East, Henderson, Chatham County, Georgia, 31419, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_905925641",
@@ -64407,7 +64698,10 @@
       "educationIndex": 77,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188655"
-    }
+    },
+    "address": "Henderson, Georgia, 31419",
+    "display_name": "Applebee's, Al Henderson Boulevard, Henderson, Chatham County, Georgia, 31419, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_908262540",
@@ -64428,7 +64722,10 @@
       "educationIndex": 76,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188660"
-    }
+    },
+    "address": "Brownsville, Texas, 78526",
+    "display_name": "IHOP, 2430, Pablo Kisel Boulevard, Brownsville, Cameron County, Texas, 78526, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_908400880",
@@ -64449,7 +64746,10 @@
       "educationIndex": 76,
       "employmentRate": 93.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188667"
-    }
+    },
+    "address": "Louisiana, 70360",
+    "display_name": "IHOP, 1719, Martin Luther King Boulevard, Terrebonne Parish, Louisiana, 70360, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_909328353",
@@ -64470,7 +64770,10 @@
       "educationIndex": 82,
       "employmentRate": 96.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188674"
-    }
+    },
+    "address": "Santa Maria, California, 93454",
+    "display_name": "IHOP, Nicholson Avenue, Santa Maria, Santa Barbara County, California, 93454, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_909378276",
@@ -64491,7 +64794,10 @@
       "educationIndex": 78,
       "employmentRate": 93.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188680"
-    }
+    },
+    "address": "Tulsa, Oklahoma, 74133",
+    "display_name": "IHOP, 7007, South Memorial Drive East, Tulsa, Tulsa County, Oklahoma, 74133, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_910854644",
@@ -64512,7 +64818,10 @@
       "educationIndex": 81,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188685"
-    }
+    },
+    "address": "Austin, Texas, 78737",
+    "display_name": "IHOP, 165, Hargraves Drive, Belterra Village, Austin, Hays County, Texas, 78737, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_911022243",
@@ -64533,7 +64842,10 @@
       "educationIndex": 85,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188692"
-    }
+    },
+    "address": "Anaheim, California, 92801",
+    "display_name": "IHOP, 839, North Euclid Street, West Anaheim, Anaheim, Orange County, California, 92801, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_911645240",
@@ -64554,7 +64866,10 @@
       "educationIndex": 81,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188698"
-    }
+    },
+    "address": "Georgia, 31757",
+    "display_name": "IHOP, Dogwood Drive, Thomas County, Georgia, 31757, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_913872007",
@@ -64575,7 +64890,10 @@
       "educationIndex": 74,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188705"
-    }
+    },
+    "address": "Osage Beach, Missouri, 65065",
+    "display_name": "Applebee's, 4040, Osage Beach Parkway, Osage Beach, Camden County, Missouri, 65065, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_914557424",
@@ -64596,7 +64914,10 @@
       "educationIndex": 80,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188711"
-    }
+    },
+    "address": "Waukegan, Illinois, 60085",
+    "display_name": "IHOP, Belvidere Street, Waukegan, Lake County, Illinois, 60085, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_915308531",
@@ -64617,7 +64938,10 @@
       "educationIndex": 78,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.188718"
-    }
+    },
+    "address": "Smyrna, Tennessee, 37086",
+    "display_name": "IHOP, Team Boulevard, Johnstown, Smyrna, Rutherford County, Middle Tennessee, Tennessee, 37086, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_916879094",
@@ -64638,7 +64962,10 @@
       "educationIndex": 83,
       "employmentRate": 96.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188724"
-    }
+    },
+    "address": "Hazard, Kentucky, 41701",
+    "display_name": "Applebee's, Morton Boulevard, Hazard, Perry County, Kentucky, 41701, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_917267461",
@@ -64659,7 +64986,10 @@
       "educationIndex": 78,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188730"
-    }
+    },
+    "address": "Munster, Indiana, 46321",
+    "display_name": "Applebee's, 330, Ridge Road, Munster, North Township, Lake County, Indiana, 46321, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_918083735",
@@ -64680,7 +65010,10 @@
       "educationIndex": 86,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188736"
-    }
+    },
+    "address": "West Hartford, Connecticut, 06119",
+    "display_name": "IHOP, 61, Kane Street, West Hartford, Capitol Planning Region, Connecticut, 06119, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_919036025",
@@ -64701,7 +65034,10 @@
       "educationIndex": 80,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188743"
-    }
+    },
+    "address": "Ohio, 43551",
+    "display_name": "IHOP, Market Center Drive, Wood County, Ohio, 43551, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_921116018",
@@ -64722,7 +65058,10 @@
       "educationIndex": 76,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188751"
-    }
+    },
+    "address": "Fremont, Ohio, 43420",
+    "display_name": "Applebee's, 2200, SR 53, Fremont, Sandusky County, Ohio, 43420, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_924051879",
@@ -64743,7 +65082,10 @@
       "educationIndex": 82,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188758"
-    }
+    },
+    "address": "Fontana, California, 92334",
+    "display_name": "IHOP, Foothill Boulevard, Fontana, San Bernardino County, California, 92334, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_924577602",
@@ -64764,7 +65106,10 @@
       "educationIndex": 75,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188764"
-    }
+    },
+    "address": "Grandville, Michigan, 49418",
+    "display_name": "Applebee's, 4488, Rivertown Point Court Southwest, Grandville, Kent County, Michigan, 49418, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_925793357",
@@ -64785,7 +65130,10 @@
       "educationIndex": 82,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188770"
-    }
+    },
+    "address": "Daytona Beach Shores, Florida, 32118",
+    "display_name": "2204, South Atlantic Avenue, Daytona Beach Shores, Volusia County, Florida, 32118, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_927296453",
@@ -64806,7 +65154,10 @@
       "educationIndex": 83,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188776"
-    }
+    },
+    "address": "Bloomington, Minnesota, 55420",
+    "display_name": "Applebee's, 9601, Lyndale Avenue South, Bloomington, Hennepin County, Minnesota, 55420, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_929462152",
@@ -64827,7 +65178,10 @@
       "educationIndex": 76,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188782"
-    }
+    },
+    "address": "Bernalillo, New Mexico, 87004",
+    "display_name": "Applebee's, US 550, Bernalillo, Sandoval County, New Mexico, 87004, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_931223178",
@@ -64848,7 +65202,10 @@
       "educationIndex": 78,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188788"
-    }
+    },
+    "address": "Laredo, Texas, 78045",
+    "display_name": "Applebee's, 10719, International Boulevard, San Isidro Ranch, Laredo, Webb County, Texas, 78045, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_934109149",
@@ -64869,7 +65226,10 @@
       "educationIndex": 83,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188794"
-    }
+    },
+    "address": "La Plata, Maryland, 20646",
+    "display_name": "Applebee's, Crain Highway, Willow Gate, La Plata, Charles County, Maryland, 20646, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_934163149",
@@ -64890,7 +65250,10 @@
       "educationIndex": 86,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188800"
-    }
+    },
+    "address": "Santee, California, 92071",
+    "display_name": "9708, Mission Gorge Road, Santee, San Diego County, California, 92071, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_934181616",
@@ -64911,7 +65274,10 @@
       "educationIndex": 71,
       "employmentRate": 93.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188806"
-    }
+    },
+    "address": "Meridian, Mississippi, 39301",
+    "display_name": "IHOP, North Frontage Road, Meridian, Lauderdale County, Mississippi, 39301, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_934644398",
@@ -64932,7 +65298,10 @@
       "educationIndex": 78,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188812"
-    }
+    },
+    "address": "Florida, 33409",
+    "display_name": "IHOP, Westgate Avenue, WestgateCRA, Westgate-Belvedere Homes, Palm Beach County, Florida, 33409, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_935084203",
@@ -64953,7 +65322,10 @@
       "educationIndex": 78,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188818"
-    }
+    },
+    "address": "Pompano Beach, Florida, 33069",
+    "display_name": "IHOP, Gateway Drive, Pompano Beach, Broward County, Florida, 33069, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_936361102",
@@ -64974,7 +65346,10 @@
       "educationIndex": 78,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.188824"
-    }
+    },
+    "address": "Mayfield, Kentucky, 42066",
+    "display_name": "Applebee's, Charles Drive, Mayfield, Graves County, Kentucky, 42066, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_937484549",
@@ -64995,7 +65370,10 @@
       "educationIndex": 79,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.188830"
-    }
+    },
+    "address": "Eustis, Florida, 32278",
+    "display_name": "15351, US Highway 441, Eustis, Lake County, Florida, 32278, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_938801265",
@@ -65016,7 +65394,10 @@
       "educationIndex": 87,
       "employmentRate": 96.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188836"
-    }
+    },
+    "address": "Eureka, California, 95501",
+    "display_name": "Applebee's, 2846, Broadway Street, Eureka Mall Region, Bucksport, Eureka, Humboldt County, California, 95501, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_940170903",
@@ -65037,7 +65418,10 @@
       "educationIndex": 78,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.188843"
-    }
+    },
+    "address": "Ormond Beach, Florida, 32174",
+    "display_name": "Applebee's, 150, Williamson Boulevard, San Marco Apartments, Ormond Beach, Volusia County, Florida, 32174, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_940788686",
@@ -65058,7 +65442,10 @@
       "educationIndex": 78,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.188849"
-    }
+    },
+    "address": "Oxford, Alabama, 36203",
+    "display_name": "Applebee's, Hamric Drive East, Lakeview, Jo Dell, Oxford, Calhoun County, Alabama, 36203, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_941166330",
@@ -65079,7 +65466,10 @@
       "educationIndex": 80,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188855"
-    }
+    },
+    "address": "Melbourne, Florida, 32940",
+    "display_name": "IHOP, 8201, North Wickham Road, Melbourne, Brevard County, Florida, 32940, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_942924230",
@@ -65100,7 +65490,10 @@
       "educationIndex": 80,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.188861"
-    }
+    },
+    "address": "Eustis, Florida, 32278",
+    "display_name": "16025, US Highway 441, Eustis, Lake County, Florida, 32278, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_943667461",
@@ -65121,7 +65514,10 @@
       "educationIndex": 82,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188867"
-    }
+    },
+    "address": "Tucker, Georgia, 30084",
+    "display_name": "Lavista Road, Tucker, DeKalb County, Georgia, 30084, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_944522038",
@@ -65142,7 +65538,10 @@
       "educationIndex": 80,
       "employmentRate": 93.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188873"
-    }
+    },
+    "address": "Idaho Falls, Idaho, 83402",
+    "display_name": "Applebee's, Nevada Avenue, Downtown, Idaho Falls, Bonneville County, Idaho, 83402, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_945836531",
@@ -65163,7 +65562,10 @@
       "educationIndex": 85,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.188879"
-    }
+    },
+    "address": "Salem, Virginia, 24153",
+    "display_name": "Applebee's, 1806, West Main Street, Dixie Heights, Salem, Virginia, 24153, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_946059339",
@@ -65184,7 +65586,10 @@
       "educationIndex": 82,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.188885"
-    }
+    },
+    "address": "Pompano Beach, Florida, 33064",
+    "display_name": "IHOP, 851, West Sample Road, Bonnie Lock, Pompano Beach, Broward County, Florida, 33064, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_947245245",
@@ -65205,7 +65610,10 @@
       "educationIndex": 82,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188894"
-    }
+    },
+    "address": "Pueblo, Colorado, 81005",
+    "display_name": "Applebee's, West Northern Avenue, Regency, Pueblo, Pueblo County, Colorado, 81005, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_948219956",
@@ -65226,7 +65634,10 @@
       "educationIndex": 87,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188900"
-    }
+    },
+    "address": "Harrisonburg, Virginia, 22801",
+    "display_name": "Applebee's, East Market Street, Harrisonburg, Virginia, 22801, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_948544850",
@@ -65247,7 +65658,10 @@
       "educationIndex": 82,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188906"
-    }
+    },
+    "address": "Seminole, Florida, 33772",
+    "display_name": "Applebee's, 80th Avenue, Seminole, Pinellas County, Florida, 33772, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_948846110",
@@ -65268,7 +65682,10 @@
       "educationIndex": 80,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188912"
-    }
+    },
+    "address": "McDonough, Georgia, 30353",
+    "display_name": "IHOP, Regency Plaza Boulevard, McDonough, Henry County, Georgia, 30353, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_948846129",
@@ -65289,7 +65706,10 @@
       "educationIndex": 81,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188918"
-    }
+    },
+    "address": "McDonough, Georgia, 30253",
+    "display_name": "Applebee's, Industrial Boulevard, McDonough, Henry County, Georgia, 30253, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_949863827",
@@ -65310,7 +65730,10 @@
       "educationIndex": 77,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188924"
-    }
+    },
+    "address": "Georgia, 30273",
+    "display_name": "Applebee's, Hanover Parkway, Clayton County, Georgia, 30273, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_949863829",
@@ -65331,7 +65754,10 @@
       "educationIndex": 83,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188930"
-    }
+    },
+    "address": "Stockbridge, Georgia, 30281",
+    "display_name": "IHOP, 3675, Lake Spivey Parkway, Stockbridge, Clayton County, Georgia, 30281, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_951316731",
@@ -65352,7 +65778,10 @@
       "educationIndex": 77,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188936"
-    }
+    },
+    "address": "Cypress, Texas, 77429",
+    "display_name": "IHOP, 26301, Northwest Freeway, Cypress, Harris County, Texas, 77429, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_952252593",
@@ -65373,7 +65802,10 @@
       "educationIndex": 81,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.188941"
-    }
+    },
+    "address": "Harker Heights, Texas, 76548",
+    "display_name": "IHOP, 170, East Central Texas Expressway, Harker Heights, Bell County, Texas, 76548, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_952402034",
@@ -65394,7 +65826,10 @@
       "educationIndex": 77,
       "employmentRate": 92.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.188948"
-    }
+    },
+    "address": "Little Rock, Arkansas, 72211",
+    "display_name": "Applebee's, 12110, Chenal Parkway, Timber Ridge, Little Rock, Big Rock Township, Pulaski County, Arkansas, 72211, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_954000726",
@@ -65415,7 +65850,10 @@
       "educationIndex": 78,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188954"
-    }
+    },
+    "address": "Winston-Salem, North Carolina, 27105",
+    "display_name": "IHOP, 5985, University Parkway, Angel Oaks, Winston-Salem, Forsyth County, North Carolina, 27105, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_955434052",
@@ -65436,7 +65874,10 @@
       "educationIndex": 79,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.188960"
-    }
+    },
+    "address": "Port Charlotte, Florida, 33948",
+    "display_name": "IHOP, 1789, Tamiami Trail, Port Charlotte, Charlotte County, Florida, 33948, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_955462047",
@@ -65457,7 +65898,10 @@
       "educationIndex": 82,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.188966"
-    }
+    },
+    "address": "Dothan, Alabama, 36303",
+    "display_name": "IHOP, Southbound Frontage Road, Solomon Heights, Dothan, Houston County, Alabama, 36303, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_955923133",
@@ -65478,7 +65922,10 @@
       "educationIndex": 82,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.188976"
-    }
+    },
+    "address": "Detroit, Michigan, 48203",
+    "display_name": "Applebee's, 2111, 8 Mile Road West, Detroit, Wayne County, Michigan, 48203, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_956585978",
@@ -65499,7 +65946,10 @@
       "educationIndex": 77,
       "employmentRate": 93.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.188986"
-    }
+    },
+    "address": "Ammon, Idaho, 83406",
+    "display_name": "IHOP, 2463, South 25th East, Ammon, Bonneville County, Idaho, 83406, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_956795645",
@@ -65520,7 +65970,10 @@
       "educationIndex": 88,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.188996"
-    }
+    },
+    "address": "Westampton Township, New Jersey, 08060",
+    "display_name": "Applebee's, 2018, Burlington-Mount Holly Road, Westampton Township, Burlington County, New Jersey, 08060, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_958087931",
@@ -65541,7 +65994,10 @@
       "educationIndex": 81,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189004"
-    }
+    },
+    "address": "Columbus, Georgia, 31909",
+    "display_name": "IHOP, Kayne Boulevard, Fortson Terrace, Columbus, Muscogee County, Georgia, 31909, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_958405328",
@@ -65562,7 +66018,10 @@
       "educationIndex": 83,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.189010"
-    }
+    },
+    "address": "Columbus, Georgia, 31904",
+    "display_name": "Applebee's, Airport Thruway, Kingston, Columbus, Muscogee County, Georgia, 31904, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_958533143",
@@ -65583,7 +66042,10 @@
       "educationIndex": 83,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189016"
-    }
+    },
+    "address": "Bridgewater Township, New Jersey, 08805",
+    "display_name": "Applebee's, Union Avenue, Bridgewater Township, Somerset County, New Jersey, 08805, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_958718931",
@@ -65604,7 +66066,10 @@
       "educationIndex": 87,
       "employmentRate": 96.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.189021"
-    }
+    },
+    "address": "Hamilton Township, New Jersey, 08619",
+    "display_name": "Applebee's, 333, Whitehorse-Mercerville Road, Mercerville, Hamilton Township, Mercer County, New Jersey, 08619, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_960771090",
@@ -65625,7 +66090,10 @@
       "educationIndex": 78,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189027"
-    }
+    },
+    "address": "Wesley Chapel, Florida, 33544",
+    "display_name": "Applebee's, Wesley Chapel Boulevard, Wesley Chapel, Pasco County, Florida, 33544, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_960830181",
@@ -65646,7 +66114,10 @@
       "educationIndex": 84,
       "employmentRate": 96.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189034"
-    }
+    },
+    "address": "Ontario, California, 91743",
+    "display_name": "Applebee's, North Milliken Avenue, Ontario, San Bernardino County, California, 91743, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_962379738",
@@ -65667,7 +66138,10 @@
       "educationIndex": 88,
       "employmentRate": 96.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189040"
-    }
+    },
+    "address": "Quakertown, Pennsylvania, 18951",
+    "display_name": "Applebee's, 145, North West End Boulevard, Quakertown, Bucks County, Pennsylvania, 18951, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_962704362",
@@ -65688,7 +66162,10 @@
       "educationIndex": 78,
       "employmentRate": 92.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189047"
-    }
+    },
+    "address": "West Monroe, Louisiana, 71291",
+    "display_name": "IHOP, 202, Blanchard Street, Parkwood, West Monroe, Ouachita Parish, Louisiana, 71291, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_963448024",
@@ -65709,7 +66186,10 @@
       "educationIndex": 81,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189053"
-    }
+    },
+    "address": "Jacksonville, North Carolina, 28540",
+    "display_name": "IHOP, 2720, Richlands Highway, Triangle Shopping Center, Jacksonville, Onslow County, North Carolina, 28540, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_964181264",
@@ -65730,7 +66210,10 @@
       "educationIndex": 83,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189059"
-    }
+    },
+    "address": "Ashland, Kentucky, 41101",
+    "display_name": "Applebee's, Armco Road, Ashland, Boyd County, Kentucky, 41101, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_964483472",
@@ -65751,7 +66234,10 @@
       "educationIndex": 78,
       "employmentRate": 92.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189066"
-    }
+    },
+    "address": "Lafayette, Louisiana, 70503",
+    "display_name": "Applebee's, 5630, Johnston Street, Lafayette, Lafayette Parish, Louisiana, 70503, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_964674788",
@@ -65772,7 +66258,10 @@
       "educationIndex": 83,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189073"
-    }
+    },
+    "address": "Morrow, Georgia, 30260",
+    "display_name": "IHOP, Southlake Plaza Drive, Woodstone, Morrow, Clayton County, Georgia, 30260, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_964734125",
@@ -65793,7 +66282,10 @@
       "educationIndex": 84,
       "employmentRate": 96.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189083"
-    }
+    },
+    "address": "Corona, California, 92882",
+    "display_name": "IHOP, 2450, Wardlow Road, Corona, Riverside County, California, 92882, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_965332395",
@@ -65814,7 +66306,10 @@
       "educationIndex": 75,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189094"
-    }
+    },
+    "address": "Lancaster, Ohio, 43130",
+    "display_name": "Applebee's, River Valley Circle North, Lancaster, Greenfield Township, Fairfield County, Ohio, 43130, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_965332396",
@@ -65835,7 +66330,10 @@
       "educationIndex": 75,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189103"
-    }
+    },
+    "address": "Lancaster, Ohio, 43130",
+    "display_name": "IHOP, River Valley Circle North, Lancaster, Greenfield Township, Fairfield County, Ohio, 43130, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_966443488",
@@ -65856,7 +66354,10 @@
       "educationIndex": 87,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189113"
-    }
+    },
+    "address": "Lacey Township, New Jersey, 08731",
+    "display_name": "IHOP, 113, South Main Street, Forked River, Lacey Township, Ocean County, New Jersey, 08731, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_967143188",
@@ -65877,7 +66378,10 @@
       "educationIndex": 90,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189122"
-    }
+    },
+    "address": "Manchester, Connecticut, 06042",
+    "display_name": "IHOP, 191, Deming Street, Manchester, Capitol Planning Region, Connecticut, 06042, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_967154671",
@@ -65898,7 +66402,10 @@
       "educationIndex": 81,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.189132"
-    }
+    },
+    "address": "Lovejoy, Georgia, 30250",
+    "display_name": "IHOP, Walmart Way, Lovejoy, Clayton County, Georgia, 30250, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_967181430",
@@ -65919,7 +66426,10 @@
       "educationIndex": 79,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189142"
-    }
+    },
+    "address": "Riverdale, Georgia, 30296",
+    "display_name": "IHOP, GA 138, Dover Meadows, Riverdale, Clayton County, Georgia, 30296, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_969987607",
@@ -65940,7 +66450,10 @@
       "educationIndex": 79,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.189151"
-    }
+    },
+    "address": "Sherwood, Oregon, 97140",
+    "display_name": "IHOP, Southwest Pacific Highway, Six Corners, Sherwood, Washington County, Oregon, 97140, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_970153026",
@@ -65961,7 +66474,10 @@
       "educationIndex": 78,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189157"
-    }
+    },
+    "address": "Macon, Georgia, 31204",
+    "display_name": "Applebee's, Riverside Drive, Northwoods, Macon, Bibb County, Georgia, 31204, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_970446823",
@@ -65982,7 +66498,10 @@
       "educationIndex": 76,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189163"
-    }
+    },
+    "address": "Florida, 32669",
+    "display_name": "Applebee's, West Newberry Road, Alachua County, Florida, 32669, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_971530104",
@@ -66003,7 +66522,10 @@
       "educationIndex": 79,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189170"
-    }
+    },
+    "address": "Dyersburg, Tennessee, 38025",
+    "display_name": "Applebee's, Mall Loop Road, Dyersburg, Dyer County, West Tennessee, Tennessee, 38025, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_972592678",
@@ -66024,7 +66546,10 @@
       "educationIndex": 81,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189176"
-    }
+    },
+    "address": "Tucker, Georgia, 30084",
+    "display_name": "Applebee's, Lawrenceville Highway, Tucker, DeKalb County, Georgia, 30084, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_974497059",
@@ -66045,7 +66570,10 @@
       "educationIndex": 76,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.189183"
-    }
+    },
+    "address": "Windham, Maine, 04062",
+    "display_name": "Applebee's, 836, Roosevelt Trail, North Windham, Windham, Cumberland County, Maine, 04062, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_975030482",
@@ -66066,7 +66594,10 @@
       "educationIndex": 77,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189189"
-    }
+    },
+    "address": "Ormond Beach, Florida, 32176",
+    "display_name": "190, South Atlantic Avenue, Ormond Beach, Volusia County, Florida, 32176, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_976315352",
@@ -66087,7 +66618,10 @@
       "educationIndex": 81,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189195"
-    }
+    },
+    "address": "Albany, Georgia, 31707",
+    "display_name": "Applebee's, North Westover Boulevard, Dawson Heights, Albany, Dougherty County, Georgia, 31707, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_976394252",
@@ -66108,7 +66642,10 @@
       "educationIndex": 77,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.189210"
-    }
+    },
+    "address": "Noblesville, Indiana, 46060",
+    "display_name": "Applebee's, 17801, Foundation Drive, Noblesville, Hamilton County, Indiana, 46060, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_977727055",
@@ -66129,7 +66666,10 @@
       "educationIndex": 76,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189216"
-    }
+    },
+    "address": "Shreveport, Louisiana, 71118",
+    "display_name": "Applebee's, 9088, Mansfield Road, Hadley, Shreveport, Caddo Parish, Louisiana, 71118, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_978604546",
@@ -66150,7 +66690,10 @@
       "educationIndex": 76,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189222"
-    }
+    },
+    "address": "Bossier City, Louisiana, 71112",
+    "display_name": "IHOP, 1989, Airline Drive, Southern Terrace, Bossier City, Bossier Parish, Louisiana, 71112, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_981075949",
@@ -66171,7 +66714,10 @@
       "educationIndex": 81,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189228"
-    }
+    },
+    "address": "Leland, North Carolina, 28451",
+    "display_name": "Applebee's, 1113, New Pointe Boulevard, Leland, Brunswick County, North Carolina, 28451, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_981660477",
@@ -66192,7 +66738,10 @@
       "educationIndex": 75,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189235"
-    }
+    },
+    "address": "Monroe, Louisiana, 71203",
+    "display_name": "IHOP, Pecanland Mall Drive, Monroe, Ouachita Parish, Louisiana, 71203, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_981880683",
@@ -66213,7 +66762,10 @@
       "educationIndex": 78,
       "employmentRate": 93.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189242"
-    }
+    },
+    "address": "Reynoldsburg, Ohio, 43068",
+    "display_name": "IHOP, Taylor Square Drive, Taylor Square, Reynoldsburg, Violet Township, Fairfield County, Ohio, 43068, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_983307656",
@@ -66234,7 +66786,10 @@
       "educationIndex": 80,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189248"
-    }
+    },
+    "address": "Rome, Georgia, 30161",
+    "display_name": "IHOP, Riverbend Drive, Rome, Floyd County, Georgia, 30161, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_983501715",
@@ -66255,7 +66810,10 @@
       "educationIndex": 86,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189255"
-    }
+    },
+    "address": "Perris, California, 92571",
+    "display_name": "IHOP, West Nuevo Road, Perris, Riverside County, California, 92571, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_983601338",
@@ -66276,7 +66834,10 @@
       "educationIndex": 82,
       "employmentRate": 96.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189261"
-    }
+    },
+    "address": "Taylorsville, Utah, 84123",
+    "display_name": "Applebee's, 5678 S, Redwood Road, Taylorsville, Salt Lake County, Utah, 84123, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_984687049",
@@ -66297,7 +66858,10 @@
       "educationIndex": 81,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189266"
-    }
+    },
+    "address": "Lake Jackson, Texas, 77566",
+    "display_name": "IHOP, 202, State Highway 332 East, Lake Jackson, Brazoria County, Texas, 77566, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_985542696",
@@ -66318,7 +66882,10 @@
       "educationIndex": 86,
       "employmentRate": 96.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.189273"
-    }
+    },
+    "address": "Woonsocket, Rhode Island, 02895",
+    "display_name": "Applebee's, 1855, Diamond Hill Road, Woonsocket, Providence County, Rhode Island, 02895, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_986147908",
@@ -66339,7 +66906,10 @@
       "educationIndex": 78,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189279"
-    }
+    },
+    "address": "Union City, Tennessee, 38261",
+    "display_name": "Applebee's, Lannom Lane, Union City, Obion County, West Tennessee, Tennessee, 38261, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_987517507",
@@ -66360,7 +66930,10 @@
       "educationIndex": 87,
       "employmentRate": 96.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.189286"
-    }
+    },
+    "address": "Madera, California, 93637",
+    "display_name": "IHOP, 2201, West Cleveland Avenue, Madera, Madera County, California, 93637, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_989796595",
@@ -66381,7 +66954,10 @@
       "educationIndex": 85,
       "employmentRate": 96.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.189292"
-    }
+    },
+    "address": "Cherry Hill Township, New Jersey, 08002",
+    "display_name": "IHOP, 1602, Church Road, Plaza at Cherry Hill, Cherry Hill Township, Camden County, New Jersey, 08002, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_990155942",
@@ -66402,7 +66978,10 @@
       "educationIndex": 86,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189299"
-    }
+    },
+    "address": "Upland, California, 91786",
+    "display_name": "IHOP, East A Street, North Ontario, Upland, San Bernardino County, California, 91786, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_990210999",
@@ -66423,7 +67002,10 @@
       "educationIndex": 79,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189305"
-    }
+    },
+    "address": "El Paso, Texas, 79924",
+    "display_name": "Applebee's, 4700, Woodrow Bean Transmountain Drive, El Paso, El Paso County, Texas, 79924, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_990216761",
@@ -66444,7 +67026,10 @@
       "educationIndex": 78,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.189311"
-    }
+    },
+    "address": "Adrian, Michigan, 49221",
+    "display_name": "Applebee's, 1396, South Main Street, Adrian, Lenawee County, Michigan, 49221, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_990537836",
@@ -66465,7 +67050,10 @@
       "educationIndex": 87,
       "employmentRate": 96.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.189317"
-    }
+    },
+    "address": "Sterling, Virginia, 20166",
+    "display_name": "IHOP, 24290, Liberty Harvest Court, Sterling, Loudoun County, Virginia, 20166, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_992086997",
@@ -66486,7 +67074,10 @@
       "educationIndex": 80,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.189322"
-    }
+    },
+    "address": "Village of Pewaukee, Wisconsin, 53072",
+    "display_name": "Applebee's, 1267, Capitol Drive, Village of Pewaukee, Waukesha County, Wisconsin, 53072, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_993544981",
@@ -66507,7 +67098,10 @@
       "educationIndex": 81,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189328"
-    }
+    },
+    "address": "Griffin, Georgia, 30223",
+    "display_name": "Applebee's, North Expressway, Griffin, Spalding County, Georgia, 30223, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_995061672",
@@ -66528,7 +67122,10 @@
       "educationIndex": 86,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189335"
-    }
+    },
+    "address": "El Cajon, California, 92021",
+    "display_name": "IHOP, 1286, Oakdale Avenue, Bostonia, El Cajon, San Diego County, California, 92021, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_995239311",
@@ -66549,7 +67146,10 @@
       "educationIndex": 80,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189341"
-    }
+    },
+    "address": "Buffalo, New York, 14225",
+    "display_name": "Applebee's, 1785, Walden Avenue, Buffalo, Erie County, New York, 14225, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_995926435",
@@ -66570,7 +67170,10 @@
       "educationIndex": 80,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.189347"
-    }
+    },
+    "address": "Boynton Beach, Florida, 33426",
+    "display_name": "IHOP, North Congress Avenue, Boynton Beach, Palm Beach County, Florida, 33426, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_996561482",
@@ -66591,7 +67194,10 @@
       "educationIndex": 76,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189353"
-    }
+    },
+    "address": "Porter, Texas, 77365",
+    "display_name": "IHOP, 23681, Church Street, Porter, Montgomery County, Texas, 77365, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_999931673",
@@ -66612,7 +67218,10 @@
       "educationIndex": 77,
       "employmentRate": 93.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189360"
-    }
+    },
+    "address": "Lee's Summit, Missouri, 64065",
+    "display_name": "Applebee's, Northeast Douglas Street, Lee's Summit, Jackson County, Missouri, 64065, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1000007003",
@@ -66633,7 +67242,10 @@
       "educationIndex": 77,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189366"
-    }
+    },
+    "address": "Conyers, Georgia, 30012",
+    "display_name": "Applebee's, Dogwood Drive Southeast, Conyers, Rockdale County, Georgia, 30012, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1000310224",
@@ -66654,7 +67266,10 @@
       "educationIndex": 82,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.189371"
-    }
+    },
+    "address": "Fort Worth, Texas, 76179",
+    "display_name": "IHOP, West Bailey Boswell Road, Fort Worth, Tarrant County, Texas, 76179, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1000653285",
@@ -66675,7 +67290,10 @@
       "educationIndex": 72,
       "employmentRate": 92.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189378"
-    }
+    },
+    "address": "Little Rock, Arkansas, 72211",
+    "display_name": "IHOP, 11601, Hermitage Road, Little Rock, Big Rock Township, Pulaski County, Arkansas, 72211, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1001232835",
@@ -66696,7 +67314,10 @@
       "educationIndex": 80,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189384"
-    }
+    },
+    "address": "Waycross, Georgia, 31501",
+    "display_name": "Applebee's, Memorial Drive, Waycross, Ware County, Georgia, 31501, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1002438470",
@@ -66717,7 +67338,10 @@
       "educationIndex": 76,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189389"
-    }
+    },
+    "address": "Overland Park, Kansas, 66223",
+    "display_name": "IHOP, 8400, West 151st Street, Overland Park, Johnson County, Kansas, 66223, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1003805393",
@@ -66738,7 +67362,10 @@
       "educationIndex": 78,
       "employmentRate": 93.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189395"
-    }
+    },
+    "address": "Durant, Oklahoma, 74701",
+    "display_name": "IHOP, Westside Drive, Durant, Bryan County, Oklahoma, 74701, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1005394108",
@@ -66759,7 +67386,10 @@
       "educationIndex": 77,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189401"
-    }
+    },
+    "address": "Durant, Oklahoma, 74701",
+    "display_name": "Applebee's, Westside Drive, Durant, Bryan County, Oklahoma, 74701, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1006557710",
@@ -66780,7 +67410,10 @@
       "educationIndex": 76,
       "employmentRate": 93.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189408"
-    }
+    },
+    "address": "Glen Carbon, Illinois, 62034",
+    "display_name": "IHOP, 4233, South State Route 159, Glen Carbon, Madison County, Illinois, 62034, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1010680997",
@@ -66801,7 +67434,10 @@
       "educationIndex": 83,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189414"
-    }
+    },
+    "address": "Georgia, 30168",
+    "display_name": "IHOP, North Blairs Bridge Road, Douglas County, Georgia, 30168, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1010685271",
@@ -66822,7 +67458,10 @@
       "educationIndex": 82,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.189420"
-    }
+    },
+    "address": "Georgia, 30122",
+    "display_name": "Applebee's, Thornton Road, Douglas County, Georgia, 30122, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1010926098",
@@ -66843,7 +67482,10 @@
       "educationIndex": 87,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.189427"
-    }
+    },
+    "address": "Fairfield, California, 94533",
+    "display_name": "IHOP, Travis Boulevard, Fairfield, Solano County, California, 94533, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1012656837",
@@ -66864,7 +67506,10 @@
       "educationIndex": 86,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189434"
-    }
+    },
+    "address": "City of Rome, New York, 13440",
+    "display_name": "Applebee's, 1794, Black River Boulevard North, Ridge Mills, City of Rome, Oneida County, New York, 13440, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1013950559",
@@ -66885,7 +67530,10 @@
       "educationIndex": 77,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189441"
-    }
+    },
+    "address": "Wood River, Illinois, 62095",
+    "display_name": "Applebee's, 1921, Vaughn Road, Ivy Heights, Wood River, Madison County, Illinois, 62095, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1015155221",
@@ -66906,7 +67554,10 @@
       "educationIndex": 79,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189448"
-    }
+    },
+    "address": "Alton, Illinois, 62002",
+    "display_name": "IHOP, 181, Homer M Adams Parkway, Alton, Madison County, Illinois, 62002, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1017043161",
@@ -66927,7 +67578,10 @@
       "educationIndex": 82,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.189454"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89121",
+    "display_name": "IHOP, 3260, East Tropicana Avenue, Las Vegas, Clark County, Nevada, 89121, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1017054425",
@@ -66948,7 +67602,10 @@
       "educationIndex": 83,
       "employmentRate": 96.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189461"
-    }
+    },
+    "address": "Monterey Park, California, 91754",
+    "display_name": "IHOP, South Atlantic Boulevard, Monterey Park, Los Angeles County, California, 91754, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1017443581",
@@ -66969,7 +67626,10 @@
       "educationIndex": 81,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189468"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89110",
+    "display_name": "IHOP, 352, North Nellis Boulevard, Las Vegas, Clark County, Nevada, 89110, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1017978424",
@@ -66990,7 +67650,10 @@
       "educationIndex": 82,
       "employmentRate": 96.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189474"
-    }
+    },
+    "address": "Rockaway Township, New Jersey, 07866",
+    "display_name": "Applebee's, Bloomfield Avenue, Rockaway Township, Morris County, New Jersey, 07866, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1020430998",
@@ -67011,7 +67674,10 @@
       "educationIndex": 83,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189480"
-    }
+    },
+    "address": "Charleston, West Virginia, 25304",
+    "display_name": "IHOP, 6308, Maccorkle Avenue Southeast, Charleston, Kanawha County, West Virginia, 25304, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1021737195",
@@ -67032,7 +67698,10 @@
       "educationIndex": 83,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.189486"
-    }
+    },
+    "address": "Hamilton Township, New Jersey, 08690",
+    "display_name": "IHOP, New Jersey Highway 33, Nottingham, Hamilton Township, Mercer County, New Jersey, 08690, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1022097809",
@@ -67053,7 +67722,10 @@
       "educationIndex": 83,
       "employmentRate": 96.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189493"
-    }
+    },
+    "address": "Fullerton, California, 92832",
+    "display_name": "IHOP, West Orangethorpe Avenue, Fullerton, Orange County, California, 92832, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1027373312",
@@ -67074,7 +67746,10 @@
       "educationIndex": 81,
       "employmentRate": 96.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189498"
-    }
+    },
+    "address": "Montrose, Colorado, 81403",
+    "display_name": "Applebee's, Williams Drive, Montrose, Montrose County, Colorado, 81403, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1028434486",
@@ -67095,7 +67770,10 @@
       "educationIndex": 84,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189504"
-    }
+    },
+    "address": "Waite Park, Minnesota, 56301",
+    "display_name": "IHOP, 2nd Street South, Waite Park, Stearns County, Minnesota, 56301, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1030619449",
@@ -67116,7 +67794,10 @@
       "educationIndex": 78,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189510"
-    }
+    },
+    "address": "Carrollwood, Florida, 33618",
+    "display_name": "Applebee's, 15090, North Dale Mabry Highway, Carrollwood, Hillsborough County, Florida, 33618, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1032479347",
@@ -67137,7 +67818,10 @@
       "educationIndex": 78,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189517"
-    }
+    },
+    "address": "Indianapolis, Indiana, 46219",
+    "display_name": "Applebee's, 7345, East Washington Street, Indianapolis, Marion County, Indiana, 46219, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1035091173",
@@ -67158,7 +67842,10 @@
       "educationIndex": 78,
       "employmentRate": 93.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189524"
-    }
+    },
+    "address": "Saco, Maine, 04072",
+    "display_name": "IHOP, 515, Main Street, Saco, York County, Maine, 04072, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1037203399",
@@ -67179,7 +67866,10 @@
       "educationIndex": 87,
       "employmentRate": 96.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189530"
-    }
+    },
+    "address": "Bensalem Township, Pennsylvania, 19020",
+    "display_name": "Applebee's, 3219, Street Road, Bensalem Township, Bucks County, Pennsylvania, 19020, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1038383346",
@@ -67200,7 +67890,10 @@
       "educationIndex": 87,
       "employmentRate": 96.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189535"
-    }
+    },
+    "address": "Upper Southampton Township, Pennsylvania, 18966",
+    "display_name": "Applebee's, 1063, Street Road, Southampton, Upper Southampton Township, Bucks County, Pennsylvania, 18966, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1043586093",
@@ -67221,7 +67914,10 @@
       "educationIndex": 77,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189542"
-    }
+    },
+    "address": "Bloomington, Indiana, 47401",
+    "display_name": "Applebee's, 2800, East 3rd Street, Bloomington, Monroe County, Indiana, 47401, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1046271384",
@@ -67242,7 +67938,10 @@
       "educationIndex": 80,
       "employmentRate": 93.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189550"
-    }
+    },
+    "address": "Muncie, Indiana, 47304",
+    "display_name": "IHOP, 3300, North Chadam Lane, Andersonville, Muncie, Delaware County, Indiana, 47304, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1050421890",
@@ -67263,7 +67962,10 @@
       "educationIndex": 82,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189557"
-    }
+    },
+    "address": "Citrus Heights, California, 95621",
+    "display_name": "Applebee's, 6900, Auburn Boulevard, Citrus Heights, Sacramento County, California, 95621, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1053833982",
@@ -67284,7 +67986,10 @@
       "educationIndex": 78,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189562"
-    }
+    },
+    "address": "Derby, Kansas, 67037",
+    "display_name": "Applebee's, 1245, North Rock Road, Derby, Gypsum Township, Sedgwick County, Kansas, 67037, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1054108372",
@@ -67305,7 +68010,10 @@
       "educationIndex": 78,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.189569"
-    }
+    },
+    "address": "Elfers, Florida, 34652",
+    "display_name": "IHOP, US Highway 19, Elfers, Pasco County, Florida, 34652, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1054366015",
@@ -67326,7 +68034,10 @@
       "educationIndex": 75,
       "employmentRate": 93.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189575"
-    }
+    },
+    "address": "New Mexico, 87114",
+    "display_name": "Applebee's, New Mexico State Road 528 Northwest, Bernalillo County, New Mexico, 87114, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1059778861",
@@ -67347,7 +68058,10 @@
       "educationIndex": 84,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189580"
-    }
+    },
+    "address": "Greeley, Colorado, 80634",
+    "display_name": "Applebee's, 4100, Polomar Drive, Greeley, Weld County, Colorado, 80634, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1062469945",
@@ -67368,7 +68082,10 @@
       "educationIndex": 83,
       "employmentRate": 96.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189587"
-    }
+    },
+    "address": "Norwalk, California, 90650",
+    "display_name": "IHOP, Norwalk Boulevard, Norwalk, Los Angeles County, California, 90650, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1063043462",
@@ -67389,7 +68106,10 @@
       "educationIndex": 76,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189592"
-    }
+    },
+    "address": "Hutchinson, Kansas, 67504",
+    "display_name": "IHOP, Mall Road, Hutchinson, Reno County, Kansas, 67504, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1063097291",
@@ -67410,7 +68130,10 @@
       "educationIndex": 76,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189599"
-    }
+    },
+    "address": "Sparks, Nevada, 89431",
+    "display_name": "Applebee's, 693, North McCarran Boulevard, Sparks, Washoe County, Nevada, 89431, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1064488271",
@@ -67431,7 +68154,10 @@
       "educationIndex": 80,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189605"
-    }
+    },
+    "address": "Uvalde, Texas, 78801",
+    "display_name": "Applebee's, 3060, East Main Street, Uvalde, Uvalde County, Texas, 78801, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1065014956",
@@ -67452,7 +68178,10 @@
       "educationIndex": 76,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.189612"
-    }
+    },
+    "address": "Gretna, Louisiana, 70053",
+    "display_name": "IHOP, 151, Westbank Expressway, Gretna, Jefferson Parish, Louisiana, 70053, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1065028025",
@@ -67473,7 +68202,10 @@
       "educationIndex": 79,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189619"
-    }
+    },
+    "address": "Sidney, Ohio, 45365",
+    "display_name": "Applebee's, 221, North Vandemark Road, Sidney, Shelby County, Ohio, 45365, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1065647869",
@@ -67494,7 +68226,10 @@
       "educationIndex": 77,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189626"
-    }
+    },
+    "address": "Summerville, South Carolina, 29485",
+    "display_name": "IHOP, Dorchester Road, Dorchester Crossing, Coventry Place, Summerville, Dorchester County, South Carolina, 29485, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1065929613",
@@ -67515,7 +68250,10 @@
       "educationIndex": 81,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189634"
-    }
+    },
+    "address": "Southfield, Michigan, 48076",
+    "display_name": "Applebee's, 29177, Southfield Road, Southfield, Oakland County, Michigan, 48076, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1066304757",
@@ -67536,7 +68274,10 @@
       "educationIndex": 69,
       "employmentRate": 92.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189641"
-    }
+    },
+    "address": "Picayune, Mississippi, 39463",
+    "display_name": "IHOP, Memorial Boulevard, Picayune, Pearl River County, Mississippi, 39463, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1066453689",
@@ -67557,7 +68298,10 @@
       "educationIndex": 82,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.189647"
-    }
+    },
+    "address": "Stafford, Texas, 77477",
+    "display_name": "IHOP, 12725, Southwest Freeway, Stafford, Fort Bend County, Texas, 77477, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1066667292",
@@ -67578,7 +68322,10 @@
       "educationIndex": 88,
       "employmentRate": 96.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189653"
-    }
+    },
+    "address": "Philadelphia, Pennsylvania, 19114",
+    "display_name": "Applebee's, 9142, Roosevelt Boulevard, Lagrange, Northeast Philadelphia, Philadelphia, Philadelphia County, Pennsylvania, 19114, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1066716408",
@@ -67599,7 +68346,10 @@
       "educationIndex": 82,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189658"
-    }
+    },
+    "address": "Houston, Texas, 77089",
+    "display_name": "IHOP, Fuqua Street, Houston, Harris County, Texas, 77089, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1069367889",
@@ -67620,7 +68370,10 @@
       "educationIndex": 83,
       "employmentRate": 96.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189664"
-    }
+    },
+    "address": "Marietta, Ohio, 45750",
+    "display_name": "IHOP, 103, Crooked Run Lane, Marietta, Washington County, Ohio, 45750, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1071719755",
@@ -67641,7 +68394,10 @@
       "educationIndex": 77,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189671"
-    }
+    },
+    "address": "Avon, Indiana, 46213",
+    "display_name": "Applebee's, Rockville Road, Big Four Yard, Avon, Hendricks County, Indiana, 46213, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1075797172",
@@ -67662,7 +68418,10 @@
       "educationIndex": 78,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.189677"
-    }
+    },
+    "address": "Conroe, Texas, 77387",
+    "display_name": "IHOP, 15444, State Highway 105, Conroe, Montgomery County, Texas, 77387, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1076486213",
@@ -67683,7 +68442,10 @@
       "educationIndex": 75,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189683"
-    }
+    },
+    "address": "Brownsburg, Indiana, 46112",
+    "display_name": "Applebee's, Whittington Drive, Brownsburg, Hendricks County, Indiana, 46112, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1077967621",
@@ -67704,7 +68466,10 @@
       "educationIndex": 77,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189689"
-    }
+    },
+    "address": "Bethlehem, Georgia, 30620",
+    "display_name": "Applebee's, 544, Carl Bethlehem Road Southwest, Bethlehem, Barrow County, Georgia, 30620, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1077967622",
@@ -67725,7 +68490,10 @@
       "educationIndex": 80,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189695"
-    }
+    },
+    "address": "Bethlehem, Georgia, 30620",
+    "display_name": "IHOP, 520, Carl Bethlehem Road Southwest, Bethlehem, Barrow County, Georgia, 30620, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1078686554",
@@ -67746,7 +68514,10 @@
       "educationIndex": 81,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189701"
-    }
+    },
+    "address": "Rogers, Arkansas, 72756",
+    "display_name": "IHOP, 4604, West Walnut Street, Rogers, Benton County, Arkansas, 72756, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1080314247",
@@ -67767,7 +68538,10 @@
       "educationIndex": 77,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189706"
-    }
+    },
+    "address": "Frisco, Texas, 75033",
+    "display_name": "IHOP, 1375, West University Drive, Frisco, Denton County, Texas, 75033, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1080421003",
@@ -67788,7 +68562,10 @@
       "educationIndex": 85,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189713"
-    }
+    },
+    "address": "La Habra, California, 90631",
+    "display_name": "IHOP, West Imperial Highway, La Habra, Orange County, California, 90631, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1081059511",
@@ -67809,7 +68586,10 @@
       "educationIndex": 87,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189719"
-    }
+    },
+    "address": "Costa Mesa, California, 92626",
+    "display_name": "IHOP, 3125, Harbor Boulevard, Mesa Verde, Costa Mesa, Orange County, California, 92626, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1082101768",
@@ -67830,7 +68610,10 @@
       "educationIndex": 80,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189725"
-    }
+    },
+    "address": "Beaver Falls, Pennsylvania, 15010",
+    "display_name": "Applebee's, 850, Chippewa Town Center, Beaver Falls, Beaver County, Pennsylvania, 15010, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1085190625",
@@ -67851,7 +68634,10 @@
       "educationIndex": 83,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189731"
-    }
+    },
+    "address": "White Bear Township, Minnesota, 55127",
+    "display_name": "Applebee's, 1018, Meadowlands Drive, Meadowlands Shoppes, White Bear Township, Ramsey County, Minnesota, 55127, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1085487848",
@@ -67872,7 +68658,10 @@
       "educationIndex": 77,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189737"
-    }
+    },
+    "address": "Rowlett, Texas, 75088",
+    "display_name": "Applebee's, 4616, Lakeview Parkway, Rowlett, Dallas County, Texas, 75088, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1086317269",
@@ -67893,7 +68682,10 @@
       "educationIndex": 80,
       "employmentRate": 96.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189744"
-    }
+    },
+    "address": "Washington, 98446",
+    "display_name": "IHOP, Canyon Road East, Pierce County, Washington, 98446, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1091347718",
@@ -67914,7 +68706,10 @@
       "educationIndex": 76,
       "employmentRate": 92.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189750"
-    }
+    },
+    "address": "Bryant, Arkansas, 72022",
+    "display_name": "IHOP, West Commerce Street, Bryant, Saline County, Arkansas, 72022, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1093276196",
@@ -67935,7 +68730,10 @@
       "educationIndex": 82,
       "employmentRate": 96.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189757"
-    }
+    },
+    "address": "Lodi, California, 95240",
+    "display_name": "IHOP, 1230, West Kettleman Lane, Lodi, San Joaquin County, California, 95240, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1093427626",
@@ -67956,7 +68754,10 @@
       "educationIndex": 88,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.189763"
-    }
+    },
+    "address": "Wheaton, Maryland, 20902",
+    "display_name": "IHOP, Grandview Avenue, Kensington View, Wheaton, Montgomery County, Maryland, 20902, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1095207035",
@@ -67977,7 +68778,10 @@
       "educationIndex": 77,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189768"
-    }
+    },
+    "address": "Siloam Springs, Arkansas, 72761",
+    "display_name": "IHOP, 3451, US 412;AR 59, Siloam Springs, Benton County, Arkansas, 72761, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1097916071",
@@ -67998,7 +68802,10 @@
       "educationIndex": 76,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189774"
-    }
+    },
+    "address": "Baytown, Texas, 77521",
+    "display_name": "IHOP, 5001, Garth Road, Baytown, Harris County, Texas, 77521, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1098117071",
@@ -68019,7 +68826,10 @@
       "educationIndex": 69,
       "employmentRate": 91.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189779"
-    }
+    },
+    "address": "Tupelo, Mississippi, 38804",
+    "display_name": "IHOP, 3965, North Gloster Street, Tupelo, Lee County, Mississippi, 38804, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1103977263",
@@ -68040,7 +68850,10 @@
       "educationIndex": 82,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189786"
-    }
+    },
+    "address": "Oxford, Maine, 04270",
+    "display_name": "Applebee's, 1591, Main Street, Oxford Shopping Plaza, Oxford, Oxford County, Maine, 04270, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1104778082",
@@ -68061,7 +68874,10 @@
       "educationIndex": 72,
       "employmentRate": 93.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189792"
-    }
+    },
+    "address": "Albuquerque, New Mexico, 87120",
+    "display_name": "Applebee's, Coors Frontage Road Northwest, Albuquerque, Bernalillo County, New Mexico, 87120, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1106451323",
@@ -68082,7 +68898,10 @@
       "educationIndex": 79,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189798"
-    }
+    },
+    "address": "Columbus, Georgia, 31820",
+    "display_name": "IHOP, Talokas Lane, Foxrun, Columbus, Muscogee County, Georgia, 31820, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1106480095",
@@ -68103,7 +68922,10 @@
       "educationIndex": 82,
       "employmentRate": 97.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.189804"
-    }
+    },
+    "address": "Philadelphia, Pennsylvania, 19134",
+    "display_name": "Applebee's, 2501, Aramingo Avenue, Northbank, River Wards, Philadelphia, Philadelphia County, Pennsylvania, 19134, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1106592225",
@@ -68124,7 +68946,10 @@
       "educationIndex": 74,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189811"
-    }
+    },
+    "address": "Marion, Indiana, 46953",
+    "display_name": "IHOP, 3038, South Western Avenue, Marion, Grant County, Indiana, 46953, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1108078609",
@@ -68145,7 +68970,10 @@
       "educationIndex": 80,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.189817"
-    }
+    },
+    "address": "Visalia, California, 93277",
+    "display_name": "Applebee's, 3400, South Mooney Boulevard, Visalia, Tulare County, California, 93277, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1109022587",
@@ -68166,7 +68994,10 @@
       "educationIndex": 83,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189823"
-    }
+    },
+    "address": "Colorado Springs, Colorado, 80921",
+    "display_name": "IHOP, 1344, Republic Drive, Victory Ridge, Colorado Springs, El Paso County, Colorado, 80921, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1112556492",
@@ -68187,7 +69018,10 @@
       "educationIndex": 78,
       "employmentRate": 93.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189828"
-    }
+    },
+    "address": "Muskogee, Oklahoma, 74401",
+    "display_name": "IHOP, 1600, North 32nd Street, Home Acres, Muskogee, Muskogee County, Oklahoma, 74401, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1113517737",
@@ -68208,7 +69042,10 @@
       "educationIndex": 77,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189834"
-    }
+    },
+    "address": "Oklahoma City, Oklahoma, 73108",
+    "display_name": "IHOP, 701, South Meridian Avenue, Oklahoma City, Oklahoma County, Oklahoma, 73108, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1118823128",
@@ -68229,7 +69066,10 @@
       "educationIndex": 81,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189839"
-    }
+    },
+    "address": "Yuma, Arizona, 85364",
+    "display_name": "IHOP, 575, East 16th Street, Yuma, Yuma County, Arizona, 85364, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1118981733",
@@ -68250,7 +69090,10 @@
       "educationIndex": 81,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189845"
-    }
+    },
+    "address": "Dublin, Georgia, 31021",
+    "display_name": "Applebee's, Veterans Boulevard, Dublin, Laurens County, Georgia, 31021, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1119993710",
@@ -68271,7 +69114,10 @@
       "educationIndex": 77,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189850"
-    }
+    },
+    "address": "Liberal, Kansas, 67901",
+    "display_name": "IHOP, Centennial Boulevard, Liberal, Seward County, Kansas, 67901, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1119993711",
@@ -68292,7 +69138,10 @@
       "educationIndex": 79,
       "employmentRate": 93.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189856"
-    }
+    },
+    "address": "Liberal, Kansas, 67901",
+    "display_name": "Applebee's, Centennial Boulevard, Liberal, Seward County, Kansas, 67901, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1123773342",
@@ -68313,7 +69162,10 @@
       "educationIndex": 72,
       "employmentRate": 93.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189862"
-    }
+    },
+    "address": "Albuquerque, New Mexico, 87120",
+    "display_name": "Applebee's, Montaño Plaza Drive Northwest, Albuquerque, Bernalillo County, New Mexico, 87120, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1125697707",
@@ -68334,7 +69186,10 @@
       "educationIndex": 79,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189868"
-    }
+    },
+    "address": "Clyde, Texas, 79601",
+    "display_name": "IHOP, Interstate 20 West, Clyde, Callahan County, Texas, 79601, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1126074991",
@@ -68355,7 +69210,10 @@
       "educationIndex": 82,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189874"
-    }
+    },
+    "address": "Burlington, North Carolina, 27216",
+    "display_name": "IHOP, Longpine Road, Pinewood Acres, Burlington, Alamance County, North Carolina, 27216, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1130550506",
@@ -68376,7 +69234,10 @@
       "educationIndex": 85,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189879"
-    }
+    },
+    "address": "Hackensack, New Jersey, 07661",
+    "display_name": "Applebee's, Commerce Way, Hackensack Commons, Hackensack, Bergen County, New Jersey, 07661, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1131033601",
@@ -68397,7 +69258,10 @@
       "educationIndex": 70,
       "employmentRate": 92.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.189885"
-    }
+    },
+    "address": "Senatobia, Mississippi, 38668",
+    "display_name": "Applebee's, Norfleet Drive, Senatobia, Tate County, Mississippi, 38668, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1133617183",
@@ -68418,7 +69282,10 @@
       "educationIndex": 80,
       "employmentRate": 93.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.189895"
-    }
+    },
+    "address": "Nashville, Tennessee, 37076",
+    "display_name": "IHOP, Old Hickory Boulevard, Hermitage, Nashville, Davidson County, Middle Tennessee, Tennessee, 37076, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1137532885",
@@ -68439,7 +69306,10 @@
       "educationIndex": 86,
       "employmentRate": 96.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189902"
-    }
+    },
+    "address": "Ellensburg, Washington",
+    "display_name": "IHOP, Triple L Loop, Ellensburg, Kittitas County, Washington, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1138122912",
@@ -68460,7 +69330,10 @@
       "educationIndex": 74,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.189909"
-    }
+    },
+    "address": "Lincoln, Nebraska, 68521",
+    "display_name": "Applebee's, 3951, North 27th Street, Landon's, Lincoln, Lancaster County, Nebraska, 68521, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1138230105",
@@ -68481,7 +69354,10 @@
       "educationIndex": 79,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.189915"
-    }
+    },
+    "address": "Arnold, Missouri, 63010",
+    "display_name": "Applebee's, 1110, Big Bill Boulevard, Arnold, Arnold Township, Jefferson County, Missouri, 63010, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1138964549",
@@ -68502,7 +69378,10 @@
       "educationIndex": 82,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.189921"
-    }
+    },
+    "address": "Wilson, North Carolina, 27852",
+    "display_name": "Applebee's, Westwood Avenue West, Pinewood Estates, Wilson, Wilson County, North Carolina, 27852, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1145340998",
@@ -68523,7 +69402,10 @@
       "educationIndex": 78,
       "employmentRate": 93.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.189928"
-    }
+    },
+    "address": "Louisiana, 70039",
+    "display_name": "IHOP, Tiger Drive, Boutte, St. Charles Parish, Louisiana, 70039, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1149946934",
@@ -68544,7 +69426,10 @@
       "educationIndex": 78,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.189934"
-    }
+    },
+    "address": "Excelsior Springs, Missouri, 64073",
+    "display_name": "Applebee's, Vintage Drive, Excelsior Springs, Clay County, Missouri, 64073, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1159642074",
@@ -68565,7 +69450,10 @@
       "educationIndex": 80,
       "employmentRate": 93.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.189941"
-    }
+    },
+    "address": "Ohio, 44312",
+    "display_name": "Applebee's, 2897, South Arlington Road, Springfield Township, Summit County, Ohio, 44312, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1159642075",
@@ -68586,7 +69474,10 @@
       "educationIndex": 76,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.189949"
-    }
+    },
+    "address": "Ohio, 44312",
+    "display_name": "IHOP, 2877, South Arlington Road, Coventry Township, Summit County, Ohio, 44312, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1160203323",
@@ -68607,7 +69498,10 @@
       "educationIndex": 78,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.189956"
-    }
+    },
+    "address": "Harrisburg, Pennsylvania, 17111",
+    "display_name": "Applebee's, 3501, Paxton Street, Harrisburg, Dauphin County, Pennsylvania, 17111, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1160696687",
@@ -68628,7 +69522,10 @@
       "educationIndex": 81,
       "employmentRate": 96.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.189963"
-    }
+    },
+    "address": "Town of Clay, New York, 13041",
+    "display_name": "IHOP, 4211, State Route 31, Euclid, Town of Clay, Onondaga County, New York, 13041, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1164887890",
@@ -68649,7 +69546,10 @@
       "educationIndex": 76,
       "employmentRate": 93.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.189970"
-    }
+    },
+    "address": "Altus, Oklahoma, 73521",
+    "display_name": "Applebee's, 3501, North Main Street, Altus, Jackson County, Oklahoma, 73521, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1165183463",
@@ -68670,7 +69570,10 @@
       "educationIndex": 88,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.190296"
-    }
+    },
+    "address": "West Virginia, 26378",
+    "display_name": "IHOP, Hackers Creek Road, South Park Trailer Park, Lewis County, West Virginia, 26378, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1175794082",
@@ -68691,7 +69594,10 @@
       "educationIndex": 84,
       "employmentRate": 96.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.190308"
-    }
+    },
+    "address": "Pittsburg, California, 94565",
+    "display_name": "IHOP, 2290, Loveridge Road, Pittsburg, Contra Costa County, California, 94565, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1177943357",
@@ -68712,7 +69618,10 @@
       "educationIndex": 79,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.190315"
-    }
+    },
+    "address": "Pensacola, Florida, 32504",
+    "display_name": "IHOP, Village Oaks Drive, Village Oaks, Ferry Pass, Pensacola, Escambia County, Florida, 32504, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1180554325",
@@ -68733,7 +69642,10 @@
       "educationIndex": 73,
       "employmentRate": 93.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190322"
-    }
+    },
+    "address": "Ozark, Alabama, 36360",
+    "display_name": "Applebee's, South US Highway 231, Ozark, Dale County, Alabama, 36360, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1183046663",
@@ -68754,7 +69666,10 @@
       "educationIndex": 87,
       "employmentRate": 96.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.190329"
-    }
+    },
+    "address": "Newark, California, 94560",
+    "display_name": "IHOP, 5687, Jarvis Avenue, Newark, Alameda County, California, 94560, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1183873086",
@@ -68775,7 +69690,10 @@
       "educationIndex": 85,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.190335"
-    }
+    },
+    "address": "Lacey Township, New Jersey, 08731",
+    "display_name": "Applebee's, 404, South Main Street, Paradise Point, Forked River Point, Forked River, Lacey Township, Ocean County, New Jersey, 08731, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1188548820",
@@ -68796,7 +69714,10 @@
       "educationIndex": 84,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190341"
-    }
+    },
+    "address": "Linden, New Jersey, 07036",
+    "display_name": "Applebee's, 671, West Edgar Road, Linden, Union County, New Jersey, 07036, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1189294497",
@@ -68817,7 +69738,10 @@
       "educationIndex": 73,
       "employmentRate": 93.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.190347"
-    }
+    },
+    "address": "Jefferson City, Missouri, 65109",
+    "display_name": "IHOP, 2011, Missouri Boulevard, Jefferson City, Cole County, Missouri, 65109, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1190017591",
@@ -68838,7 +69762,10 @@
       "educationIndex": 76,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190354"
-    }
+    },
+    "address": "Coeur d'Alene, Idaho, 83815",
+    "display_name": "Applebee's, 280, West Hanley Avenue, Coeur d'Alene, Kootenai County, Idaho, 83815, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1190023892",
@@ -68859,7 +69786,10 @@
       "educationIndex": 82,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190361"
-    }
+    },
+    "address": "Buffalo, Minnesota, 55313",
+    "display_name": "Applebee's, Market Place, Buffalo Manor, Buffalo, Wright County, Minnesota, 55313, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1190028585",
@@ -68880,7 +69810,10 @@
       "educationIndex": 86,
       "employmentRate": 97.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190367"
-    }
+    },
+    "address": "Elizabeth, New Jersey, 07028",
+    "display_name": "IHOP, 465, North Broad Street, Elizabeth, Union County, New Jersey, 07028, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1199520723",
@@ -68901,7 +69834,10 @@
       "educationIndex": 74,
       "employmentRate": 92.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190373"
-    }
+    },
+    "address": "Starkville, Mississippi, 39769",
+    "display_name": "Applebee's, MS 12, Westwood, Starkville, Oktibbeha County, Mississippi, 39769, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1199691744",
@@ -68922,7 +69858,10 @@
       "educationIndex": 79,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190379"
-    }
+    },
+    "address": "Shreveport, Louisiana, 71105",
+    "display_name": "IHOP, Youree Drive, Shreveport, Caddo Parish, Louisiana, 71105, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201587422",
@@ -68943,7 +69882,10 @@
       "educationIndex": 78,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190385"
-    }
+    },
+    "address": "Murray, Kentucky, 42071",
+    "display_name": "Applebee's, North 12th Street, Murray, Calloway County, Kentucky, 42071, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201588496",
@@ -68964,7 +69906,10 @@
       "educationIndex": 79,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190391"
-    }
+    },
+    "address": "Clinton, Missouri, 64735",
+    "display_name": "Applebee's, Kansas Avenue, Clinton, Henry County, Missouri, 64735, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201589047",
@@ -68985,7 +69930,10 @@
       "educationIndex": 76,
       "employmentRate": 93.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190398"
-    }
+    },
+    "address": "Warrensburg, Missouri, 64093",
+    "display_name": "IHOP, East Russell Avenue, Glasscock Plaza, Warrensburg, Johnson County, Missouri, 64093, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201589162",
@@ -69006,7 +69954,10 @@
       "educationIndex": 79,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190405"
-    }
+    },
+    "address": "Harrisonville, Missouri, 64701",
+    "display_name": "Applebee's, East Rock Haven Road, Harrisonville, Cass County, Missouri, 64701, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201589491",
@@ -69027,7 +69978,10 @@
       "educationIndex": 82,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190412"
-    }
+    },
+    "address": "Danville, Illinois, 61811",
+    "display_name": "Applebee's, North Vermilion Street, Danville, Vermilion County, Illinois, 61811, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201590707",
@@ -69048,7 +70002,10 @@
       "educationIndex": 80,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190419"
-    }
+    },
+    "address": "Merrillville, Indiana, 46410",
+    "display_name": "IHOP, East 79th Avenue, Merrillville, Ross Township, Lake County, Indiana, 46410, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201591034",
@@ -69069,7 +70026,10 @@
       "educationIndex": 73,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.190425"
-    }
+    },
+    "address": "Cape Girardeau, Missouri, 63703",
+    "display_name": "Applebee's, William Street, Cape Girardeau, Cape Girardeau County, Missouri, 63703, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201591319",
@@ -69090,7 +70050,10 @@
       "educationIndex": 77,
       "employmentRate": 92.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190431"
-    }
+    },
+    "address": "Danville, Kentucky, 40422",
+    "display_name": "Applebee's, Bellinda Boulevard, Danville, Boyle County, Kentucky, 40422, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201591320",
@@ -69111,7 +70074,10 @@
       "educationIndex": 78,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190438"
-    }
+    },
+    "address": "Farmington, Missouri, 63640",
+    "display_name": "Applebee's, Market Street, Maple Valley Plaza, Farmington, Saint Francois County, Missouri, 63640, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201595611",
@@ -69132,7 +70098,10 @@
       "educationIndex": 79,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.190444"
-    }
+    },
+    "address": "Ada, Oklahoma, 74820",
+    "display_name": "Applebee's, North Mississippi Avenue, Ada, Pontotoc County, Oklahoma, 74820, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201596969",
@@ -69153,7 +70122,10 @@
       "educationIndex": 78,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190449"
-    }
+    },
+    "address": "Shawnee, Oklahoma, 74802",
+    "display_name": "IHOP, West Interstate Parkway, Shawnee, Pottawatomie County, Oklahoma, 74802, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201598476",
@@ -69174,7 +70146,10 @@
       "educationIndex": 79,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190455"
-    }
+    },
+    "address": "Charlotte, Michigan, 48813",
+    "display_name": "Applebee's, Packard Highway, Charlotte, Eaton County, Michigan, 48813, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201598648",
@@ -69195,7 +70170,10 @@
       "educationIndex": 81,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190462"
-    }
+    },
+    "address": "Devils Lake, North Dakota, 58301",
+    "display_name": "Applebee's, 5th Avenue Southeast, Devils Lake, Ramsey County, North Dakota, 58301, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201600325",
@@ -69216,7 +70194,10 @@
       "educationIndex": 78,
       "employmentRate": 93.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.190467"
-    }
+    },
+    "address": "Union Charter Township, Michigan, 48858",
+    "display_name": "IHOP, East Pickard Road, Union Charter Township, Isabella County, Michigan, 48858, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201623866",
@@ -69237,7 +70218,10 @@
       "educationIndex": 82,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.190474"
-    }
+    },
+    "address": "La Quinta, California, 92253",
+    "display_name": "IHOP, 79892, Highway 111, La Quinta, Riverside County, California, 92253, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201625954",
@@ -69258,7 +70242,10 @@
       "educationIndex": 78,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.190480"
-    }
+    },
+    "address": "Lake Havasu City, Arizona, 86403",
+    "display_name": "IHOP, Marlboro Drive, Lake Havasu City, Mohave County, Arizona, 86403, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201664450",
@@ -69279,7 +70266,10 @@
       "educationIndex": 78,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190485"
-    }
+    },
+    "address": "Greeneville, Tennessee, 37745",
+    "display_name": "Applebee's, 2771, East Andrew Johnson Highway, College View, Greeneville, Greene County, East Tennessee, Tennessee, 37745, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201676908",
@@ -69300,7 +70290,10 @@
       "educationIndex": 78,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.190491"
-    }
+    },
+    "address": "Reading, Pennsylvania, 19606",
+    "display_name": "Applebee's, 5600, Perkiomen Avenue, Reading, Berks County, Pennsylvania, 19606, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201694498",
@@ -69321,7 +70314,10 @@
       "educationIndex": 80,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190498"
-    }
+    },
+    "address": "Walterboro, South Carolina, 29488",
+    "display_name": "IHOP, 2040, Bell's Highway, Walterboro, Colleton County, South Carolina, 29488, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201705129",
@@ -69342,7 +70338,10 @@
       "educationIndex": 73,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190505"
-    }
+    },
+    "address": "Hot Springs, Arkansas, 71913",
+    "display_name": "Applebee's, 4426, Central Avenue, Hot Springs, Garland County, Arkansas, 71913, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1201717329",
@@ -69363,7 +70362,10 @@
       "educationIndex": 75,
       "employmentRate": 93.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190510"
-    }
+    },
+    "address": "Grenada, Mississippi, 38901",
+    "display_name": "Applebee's, 1665, Sunset Drive, Grenada, Grenada County, Mississippi, 38901, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1202043259",
@@ -69384,7 +70386,10 @@
       "educationIndex": 78,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190516"
-    }
+    },
+    "address": "Starke, Florida, 32091",
+    "display_name": "IHOP, Temple Avenue, Starke, Bradford County, Florida, 32091, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1202668220",
@@ -69405,7 +70410,10 @@
       "educationIndex": 83,
       "employmentRate": 96.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190522"
-    }
+    },
+    "address": "Dover, New Hampshire, 03820",
+    "display_name": "Applebee's, New Rochester Road, Dover, Strafford County, New Hampshire, 03820, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1202841858",
@@ -69426,7 +70434,10 @@
       "educationIndex": 79,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190529"
-    }
+    },
+    "address": "Inverness, Florida, 34452",
+    "display_name": "Applebee's, West Main Street, Inverness, Citrus County, Florida, 34452, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1202843890",
@@ -69447,7 +70458,10 @@
       "educationIndex": 78,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.190534"
-    }
+    },
+    "address": "Copperas Cove, Texas, 76522",
+    "display_name": "Applebee's, East Highway 190, Copperas Cove, Coryell County, Texas, 76522, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1202996953",
@@ -69468,7 +70482,10 @@
       "educationIndex": 81,
       "employmentRate": 96.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190540"
-    }
+    },
+    "address": "Castle Rock, Colorado, 80109",
+    "display_name": "Applebee's, Allen Street, Castle Rock, Douglas County, Colorado, 80109, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1203160042",
@@ -69489,7 +70506,10 @@
       "educationIndex": 79,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190546"
-    }
+    },
+    "address": "Saint Joseph, Missouri, 64506",
+    "display_name": "Applebee's, North Woodbine Road, Saint Joseph, Buchanan County, Missouri, 64506, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1204285411",
@@ -69510,7 +70530,10 @@
       "educationIndex": 84,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.190551"
-    }
+    },
+    "address": "Grants Pass, Oregon, 97506",
+    "display_name": "Applebee's, Grants Pass Parkway, Grants Pass, Josephine County, Oregon, 97506, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1205107064",
@@ -69531,7 +70554,10 @@
       "educationIndex": 77,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.190557"
-    }
+    },
+    "address": "Lancaster, South Carolina, 29721",
+    "display_name": "Applebee's, Commerce Boulevard, Rosegate, Gregwood, Lancaster, Lancaster County, South Carolina, 29721, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1207999907",
@@ -69552,7 +70578,10 @@
       "educationIndex": 85,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190563"
-    }
+    },
+    "address": "Martinsville, Virginia, 24112",
+    "display_name": "Applebee's, 281, Commonwealth Boulevard West, Martinsville, Virginia, 24112, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1208087994",
@@ -69573,7 +70602,10 @@
       "educationIndex": 78,
       "employmentRate": 93.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.190569"
-    }
+    },
+    "address": "Belleville, Illinois, 62221",
+    "display_name": "AutoZone, Carlyle Avenue, Belleville, Saint Clair County, Illinois, 62221, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1210090786",
@@ -69594,7 +70626,10 @@
       "educationIndex": 79,
       "employmentRate": 93.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190576"
-    }
+    },
+    "address": "Columbia, Tennessee, 38402",
+    "display_name": "Applebee's, Fairway Drive, Columbia, Maury County, Middle Tennessee, Tennessee, 38402, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1210324476",
@@ -69615,7 +70650,10 @@
       "educationIndex": 82,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.190583"
-    }
+    },
+    "address": "Brookings, South Dakota, 57006",
+    "display_name": "Applebee's, 3001, LeFevre Drive, Brookings, Aurora Township, Brookings County, South Dakota, 57006, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1216355910",
@@ -69636,7 +70674,10 @@
       "educationIndex": 76,
       "employmentRate": 92.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.190588"
-    }
+    },
+    "address": "Owasso, Oklahoma, 74055",
+    "display_name": "IHOP, 9005, North 121st Avenue East, Owasso, Tulsa County, Oklahoma, 74055, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1219110557",
@@ -69657,7 +70698,10 @@
       "educationIndex": 82,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.190594"
-    }
+    },
+    "address": "Washington Township, New Jersey, 08012",
+    "display_name": "Applebee's, Black Horse Pike, Washington Township, Gloucester County, New Jersey, 08012, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1219952257",
@@ -69678,7 +70722,10 @@
       "educationIndex": 80,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190600"
-    }
+    },
+    "address": "Morristown, Tennessee, 37814",
+    "display_name": "Applebee's, West Andrew Johnson Highway, Westview, Morristown, Hamblen County, East Tennessee, Tennessee, 37814, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1221227910",
@@ -69699,7 +70746,10 @@
       "educationIndex": 80,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190606"
-    }
+    },
+    "address": "Bristol, Tennessee, 37620",
+    "display_name": "IHOP, Volunteer Parkway, Oak Hill, Bristol, Sullivan County, East Tennessee, Tennessee, 37620, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1223580712",
@@ -69720,7 +70770,10 @@
       "educationIndex": 74,
       "employmentRate": 92.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.190613"
-    }
+    },
+    "address": "Lafayette, Louisiana, 70508",
+    "display_name": "IHOP, Ambassador Caffery Parkway, Lafayette, Lafayette Parish, Louisiana, 70508, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1233976251",
@@ -69741,7 +70794,10 @@
       "educationIndex": 76,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190618"
-    }
+    },
+    "address": "Pasadena, Texas, 77505",
+    "display_name": "Applebee's, Fairmont Parkway, Pasadena, Harris County, Texas, 77505, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1236491308",
@@ -69762,7 +70818,10 @@
       "educationIndex": 78,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.190625"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89148",
+    "display_name": "Applebee's, 5010, South Fort Apache Road, Las Vegas, Clark County, Nevada, 89148, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1236491432",
@@ -69783,7 +70842,10 @@
       "educationIndex": 78,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190631"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89148",
+    "display_name": "IHOP, 5170, South Fort Apache Road, Las Vegas, Clark County, Nevada, 89148, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1236784556",
@@ -69804,7 +70866,10 @@
       "educationIndex": 76,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.190639"
-    }
+    },
+    "address": "North Las Vegas, Nevada, 89032",
+    "display_name": "IHOP, 2026, West Craig Road, Craig Ranch, North Las Vegas, Clark County, Nevada, 89032, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1237457615",
@@ -69825,7 +70890,10 @@
       "educationIndex": 78,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190648"
-    }
+    },
+    "address": "Texas, 79228",
+    "display_name": "Applebee's, Eastlake Boulevard, El Paso County, Texas, 79228, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1238387562",
@@ -69846,7 +70914,10 @@
       "educationIndex": 82,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.190653"
-    }
+    },
+    "address": "Bloomfield, New Jersey, 07003",
+    "display_name": "IHOP, 542, Bloomfield Avenue, Bloomfield, Essex County, New Jersey, 07003, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1240623097",
@@ -69867,7 +70938,10 @@
       "educationIndex": 77,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190660"
-    }
+    },
+    "address": "Lake Charles, Louisiana, 70601",
+    "display_name": "IHOP, 2601, Admiral King Street, Lake Charles, Calcasieu Parish, Louisiana, 70601, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1244801208",
@@ -69888,7 +70962,10 @@
       "educationIndex": 80,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.190666"
-    }
+    },
+    "address": "Bridgeview, Illinois, 60455",
+    "display_name": "IHOP, 79th Street, Bridgeview, Lyons Township, Cook County, Illinois, 60455, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1245849150",
@@ -69909,7 +70986,10 @@
       "educationIndex": 77,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190672"
-    }
+    },
+    "address": "Garden City, Kansas, 67846",
+    "display_name": "Applebee's, Leslie Road, Garden City, Finney County, Kansas, 67846, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1246964898",
@@ -69930,7 +71010,10 @@
       "educationIndex": 85,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190678"
-    }
+    },
+    "address": "Coon Rapids, Minnesota, 55448",
+    "display_name": "Applebee's, 129th Avenue Northwest, Riverdale, Coon Rapids, Anoka County, Minnesota, 55448, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1246965453",
@@ -69951,7 +71034,10 @@
       "educationIndex": 84,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.190685"
-    }
+    },
+    "address": "New York, 12019",
+    "display_name": "Applebee's, Saratoga Road, Stoodley Corners, Town of Glenville, Schenectady County, New York, 12019, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1246965976",
@@ -69972,7 +71058,10 @@
       "educationIndex": 82,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.190691"
-    }
+    },
+    "address": "Maple Grove, Minnesota, 55311",
+    "display_name": "Applebee's, Weaver Lake Road, Maple Grove, Hennepin County, Minnesota, 55311, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1246966198",
@@ -69993,7 +71082,10 @@
       "educationIndex": 79,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190698"
-    }
+    },
+    "address": "Crestwood, Illinois, 60445",
+    "display_name": "Applebee's, 4937, Cal Sag Road, Crestwood, Worth Township, Cook County, Illinois, 60445, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1246975947",
@@ -70014,7 +71106,10 @@
       "educationIndex": 81,
       "employmentRate": 96.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190704"
-    }
+    },
+    "address": "Town of Lancaster, New York, 14043",
+    "display_name": "4967, Transit Road, Town of Lancaster, Erie County, New York, 14043, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1247048003",
@@ -70035,7 +71130,10 @@
       "educationIndex": 82,
       "employmentRate": 96.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190710"
-    }
+    },
+    "address": "Bethlehem, Pennsylvania, 18018",
+    "display_name": "Applebee's, 2109, Motel Drive, West Bethlehem, Bethlehem, Lehigh County, Pennsylvania, 18018, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1247069702",
@@ -70056,7 +71154,10 @@
       "educationIndex": 77,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190716"
-    }
+    },
+    "address": "Knoxville, Tennessee, 37294",
+    "display_name": "Applebee's, 2912, Knoxville Bypass, Loveland, Knoxville, Knox County, East Tennessee, Tennessee, 37294, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1247070656",
@@ -70077,7 +71178,10 @@
       "educationIndex": 77,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190722"
-    }
+    },
+    "address": "Merrillville, Indiana, 46410",
+    "display_name": "Applebee's, 8425, Broadway, Merrillville, Ross Township, Lake County, Indiana, 46410, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1247075807",
@@ -70098,7 +71202,10 @@
       "educationIndex": 84,
       "employmentRate": 96.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190728"
-    }
+    },
+    "address": "Monroe Township, New Jersey, 08094",
+    "display_name": "Applebee's, 1830, South Black Horse Pike, Monroe Township, Gloucester County, New Jersey, 08094, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1247077063",
@@ -70119,7 +71226,10 @@
       "educationIndex": 84,
       "employmentRate": 97.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190734"
-    }
+    },
+    "address": "Aston Township, Pennsylvania, 19014",
+    "display_name": "Applebee's, 4301, Pennell Road, Twin Oaks, Aston Township, Delaware County, Pennsylvania, 19014, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1247079284",
@@ -70140,7 +71250,10 @@
       "educationIndex": 80,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190740"
-    }
+    },
+    "address": "El Paso, Texas, 79938",
+    "display_name": "Applebee's, 3460, Joe Battle Boulevard, El Paso, El Paso County, Texas, 79938, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1247079541",
@@ -70161,7 +71274,10 @@
       "educationIndex": 85,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.190746"
-    }
+    },
+    "address": "Swedesboro, New Jersey, 08085",
+    "display_name": "Applebee's, 1639, Center Square Road, Beckett, Swedesboro, Gloucester County, New Jersey, 08085, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1247400619",
@@ -70182,7 +71298,10 @@
       "educationIndex": 79,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.190752"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89108",
+    "display_name": "IHOP, 6870, West Cheyenne Avenue, North Cheyenne, Las Vegas, Clark County, Nevada, 89108, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1247415370",
@@ -70203,7 +71322,10 @@
       "educationIndex": 77,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.190759"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89102",
+    "display_name": "IHOP, 1401, South Decatur Boulevard, Rancho Charleston, Las Vegas, Clark County, Nevada, 89102, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1248230934",
@@ -70224,7 +71346,10 @@
       "educationIndex": 84,
       "employmentRate": 96.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.190766"
-    }
+    },
+    "address": "Richmond, California, 94806",
+    "display_name": "IHOP, 3401, Klose Way, Hilltop Plaza, Richmond, Contra Costa County, California, 94806, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1248233367",
@@ -70245,7 +71370,10 @@
       "educationIndex": 84,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.190772"
-    }
+    },
+    "address": "Oceanside, California, 92054",
+    "display_name": "IHOP, 1806, Oceanside Boulevard, Oceanside, San Diego County, California, 92054, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1248236230",
@@ -70266,7 +71394,10 @@
       "educationIndex": 84,
       "employmentRate": 96.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190778"
-    }
+    },
+    "address": "Irvington, New Jersey, 07111",
+    "display_name": "IHOP, 1212, Springfield Avenue, Irvington, Essex County, New Jersey, 07111, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1248239724",
@@ -70287,7 +71418,10 @@
       "educationIndex": 78,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190784"
-    }
+    },
+    "address": "El Paso, Texas, 79905",
+    "display_name": "IHOP, 6080, Gateway Boulevard East, El Paso, El Paso County, Texas, 79905, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1248239992",
@@ -70308,7 +71442,10 @@
       "educationIndex": 75,
       "employmentRate": 93.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190790"
-    }
+    },
+    "address": "Marrero, Louisiana, 70072",
+    "display_name": "5025, Lapalco Boulevard, Marrero, Jefferson Parish, Louisiana, 70072, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1248240082",
@@ -70329,7 +71466,10 @@
       "educationIndex": 78,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190796"
-    }
+    },
+    "address": "Pasadena, Texas, 77505",
+    "display_name": "IHOP, 3646, East Sam Houston Parkway South, Pasadena, Harris County, Texas, 77505, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1248240476",
@@ -70350,7 +71490,10 @@
       "educationIndex": 76,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190801"
-    }
+    },
+    "address": "Pasadena, Texas, 77504",
+    "display_name": "IHOP, 3605, Spencer Highway, Pasadena, Harris County, Texas, 77504, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1265621096",
@@ -70371,7 +71514,10 @@
       "educationIndex": 82,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.190807"
-    }
+    },
+    "address": "Wylie, Texas, 75098",
+    "display_name": "IHOP, 2592, FM 544, Wylie, Collin County, Texas, 75098, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1265938486",
@@ -70392,7 +71538,10 @@
       "educationIndex": 82,
       "employmentRate": 96.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190813"
-    }
+    },
+    "address": "East Windsor Township, New Jersey, 08520",
+    "display_name": "IHOP, 610, NJ 33, Twin Rivers, East Windsor Township, Mercer County, New Jersey, 08520, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1268525759",
@@ -70413,7 +71562,10 @@
       "educationIndex": 84,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.190820"
-    }
+    },
+    "address": "Simi Valley, California, 93065",
+    "display_name": "IHOP, 698, East Los Angeles Avenue, Greek Tract, Simi Valley, Ventura County, California, 93065, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1272645730",
@@ -70434,7 +71586,10 @@
       "educationIndex": 79,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.190826"
-    }
+    },
+    "address": "Houston, Texas, 77042",
+    "display_name": "IHOP, 2940, West Sam Houston Parkway South, Westchase, Houston, Harris County, Texas, 77042, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1275486899",
@@ -70455,7 +71610,10 @@
       "educationIndex": 77,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190833"
-    }
+    },
+    "address": "Fresno, California, 93711",
+    "display_name": "IHOP, 3418, West Shaw Avenue, Fresno, Fresno County, California, 93711, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1300563908",
@@ -70476,7 +71634,10 @@
       "educationIndex": 79,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.190838"
-    }
+    },
+    "address": "Pittsburgh, Pennsylvania, 15207",
+    "display_name": "IHOP Trail, Squirrel Hill South, Pittsburgh, Allegheny County, Pennsylvania, 15207, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1313626690",
@@ -70497,7 +71658,10 @@
       "educationIndex": 76,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.190844"
-    }
+    },
+    "address": "Delicias, Chihuahua, 33000",
+    "display_name": "Applebee's, 801, Avenida 3 Oriente, Delicias, Chihuahua, 33000, México",
+    "country": "México"
   },
   {
     "id": "DIN_1315760267",
@@ -70518,7 +71682,10 @@
       "educationIndex": 76,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.190851"
-    }
+    },
+    "address": "Indiana, 46113",
+    "display_name": "Applebee's, 10680, Enterprise Drive, Friendswood, Hendricks County, Indiana, 46113, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1317050355",
@@ -70539,7 +71706,10 @@
       "educationIndex": 76,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.190858"
-    }
+    },
+    "address": "Springfield, Missouri, 65804",
+    "display_name": "IHOP, 3804, South Glenstone Avenue, Springfield, Greene County, Missouri, 65804, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1317050361",
@@ -70560,7 +71730,10 @@
       "educationIndex": 78,
       "employmentRate": 93.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.190865"
-    }
+    },
+    "address": "Springfield, Missouri, 65807",
+    "display_name": "Applebee's, East Primrose Street, Springfield, Greene County, Missouri, 65807, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1317811459",
@@ -70581,7 +71754,10 @@
       "educationIndex": 84,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.190871"
-    }
+    },
+    "address": "Gaithersburg, Maryland, 29877",
+    "display_name": "IHOP, North Frederick Avenue, Observatory Heights, Gaithersburg, Montgomery County, Maryland, 29877, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1329496130",
@@ -70602,7 +71778,10 @@
       "educationIndex": 77,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190877"
-    }
+    },
+    "address": "Lansing, Illinois, 60438",
+    "display_name": "IHOP, 2430, 173rd Street, Bernice, Lansing, Thornton Township, Cook County, Illinois, 60438, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1331509947",
@@ -70623,7 +71802,10 @@
       "educationIndex": 80,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.190883"
-    }
+    },
+    "address": "Emporia, Kansas, 66801",
+    "display_name": "IHOP, 2831, West 18th Street, Emporia, Lyon County, Kansas, 66801, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1333585850",
@@ -70644,7 +71826,10 @@
       "educationIndex": 73,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.190893"
-    }
+    },
+    "address": "Decatur, Alabama, 35601",
+    "display_name": "IHOP, 1428, Beltline Road Southwest, Decatur, Morgan County, Alabama, 35601, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1335595775",
@@ -70665,7 +71850,10 @@
       "educationIndex": 74,
       "employmentRate": 93.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.190899"
-    }
+    },
+    "address": "Collinsville, Illinois, 62234",
+    "display_name": "Applebee's, 610, North Bluff Road, Collinsville, Madison County, Illinois, 62234, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1337113837",
@@ -70686,7 +71874,10 @@
       "educationIndex": 77,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190905"
-    }
+    },
+    "address": "College Station, Texas, 77845",
+    "display_name": "IHOP, South Highway 6, College Station, Brazos County, Texas, 77845, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1339650499",
@@ -70707,7 +71898,10 @@
       "educationIndex": 81,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.190912"
-    }
+    },
+    "address": "Crestwood, Illinois, 60418",
+    "display_name": "IHOP, 4821, Cal Sag Road, Crestwood, Worth Township, Cook County, Illinois, 60418, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1342046656",
@@ -70728,7 +71922,10 @@
       "educationIndex": 82,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.190917"
-    }
+    },
+    "address": "Valdosta, Georgia, 31602",
+    "display_name": "Applebee's, Inner Perimeter Road, Valdosta, Lowndes County, Georgia, 31602, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1344631923",
@@ -70749,7 +71946,10 @@
       "educationIndex": 74,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.190923"
-    }
+    },
+    "address": "Belvidere, Illinois, 61008",
+    "display_name": "Applebee's, U.S. Grant Memorial Highway, Belvidere, Spring Township, Boone County, Illinois, 61008, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1352820319",
@@ -70770,7 +71970,10 @@
       "educationIndex": 86,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.190930"
-    }
+    },
+    "address": "Bonney Lake, Washington, 98321",
+    "display_name": "Applebee's, Elhi Hill Road, Bonney Lake, Pierce County, Washington, 98321, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1357864366",
@@ -70791,7 +71994,10 @@
       "educationIndex": 79,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.190936"
-    }
+    },
+    "address": "Bullhead City, Arizona, 86442",
+    "display_name": "IHOP, Mohave Valley Highway, Bullhead City, Mohave County, Arizona, 86442, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1361883079",
@@ -70812,7 +72018,10 @@
       "educationIndex": 78,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.190942"
-    }
+    },
+    "address": "Billings, Montana, 59102",
+    "display_name": "IHOP, 2833, King Avenue West, Billings, Yellowstone County, Montana, 59102, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1364382905",
@@ -70833,7 +72042,10 @@
       "educationIndex": 87,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.190948"
-    }
+    },
+    "address": "Purcellville, Virginia, 20132",
+    "display_name": "IHOP, 1231, Wolf Rock Drive, Purcellville, Loudoun County, Virginia, 20132, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1372892875",
@@ -70854,7 +72066,10 @@
       "educationIndex": 77,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.190955"
-    }
+    },
+    "address": "Schererville, Indiana, 46375",
+    "display_name": "IHOP, Wicker Avenue, Schererville, Lake County, Indiana, 46375, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1373174722",
@@ -70875,7 +72090,10 @@
       "educationIndex": 72,
       "employmentRate": 92.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.190961"
-    }
+    },
+    "address": "Heath, Ohio, 43056",
+    "display_name": "IHOP, 651, Hebron Road, Heath, Licking County, Ohio, 43056, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1387109089",
@@ -70896,7 +72114,10 @@
       "educationIndex": 73,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.190967"
-    }
+    },
+    "address": "Wentzville, Missouri, 63385",
+    "display_name": "IHOP, 10, Layla Lane, Wentzville, Saint Charles County, Missouri, 63385, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1388908111",
@@ -70917,7 +72138,10 @@
       "educationIndex": 88,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190974"
-    }
+    },
+    "address": "Berlin, Maryland, 21811",
+    "display_name": "IHOP, 11328, Samuel Bowen Boulevard, Berlin, Worcester County, Maryland, 21811, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1394179887",
@@ -70938,7 +72162,10 @@
       "educationIndex": 77,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.190981"
-    }
+    },
+    "address": "Newport, Maine, 04593",
+    "display_name": "Irving, Ox Bow Road, Newport, Penobscot County, Maine, 04593, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1396710545",
@@ -70959,7 +72186,10 @@
       "educationIndex": 76,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.190986"
-    }
+    },
+    "address": "San Antonio, Texas, 78288",
+    "display_name": "IHOP, Interstate 10 West, San Antonio, Bexar County, Texas, 78288, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1410711400",
@@ -70980,7 +72210,10 @@
       "educationIndex": 87,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.190993"
-    }
+    },
+    "address": "Modesto, California, 95350",
+    "display_name": "IHOP, 2098, West Orangeburg Avenue, Modesto, Stanislaus County, California, 95350, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1412808281",
@@ -71001,7 +72234,10 @@
       "educationIndex": 80,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.191000"
-    }
+    },
+    "address": "Crawfordsville, Indiana, 47933",
+    "display_name": "Applebee's, South Washington Street, Crawfordsville, Montgomery County, Indiana, 47933, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1413580584",
@@ -71022,7 +72258,10 @@
       "educationIndex": 77,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.191007"
-    }
+    },
+    "address": "Covington, Tennessee, 38011",
+    "display_name": "Applebee's, US 51;TN 59, Covington, Tipton County, West Tennessee, Tennessee, 38011, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1418497447",
@@ -71043,7 +72282,10 @@
       "educationIndex": 76,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.191013"
-    }
+    },
+    "address": "Fresno, California, 93650",
+    "display_name": "IHOP, North Fresno Street, Fresno, Fresno County, California, 93650, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1429855509",
@@ -71064,7 +72306,10 @@
       "educationIndex": 82,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.191019"
-    }
+    },
+    "address": "West Whiteland Township, Pennsylvania, 19341",
+    "display_name": "IHOP, 471, John Young Way, West Whiteland Township, Chester County, Pennsylvania, 19341, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1430918313",
@@ -71085,7 +72330,10 @@
       "educationIndex": 84,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.191024"
-    }
+    },
+    "address": "Middletown, Delaware, 19709",
+    "display_name": "IHOP, 496, Middletown Warwick Road, Middletown, New Castle County, Delaware, 19709, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1443329525",
@@ -71106,7 +72354,10 @@
       "educationIndex": 74,
       "employmentRate": 93.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.191031"
-    }
+    },
+    "address": "Memphis, Tennessee, 38125",
+    "display_name": "IHOP, Malco Crossing, Memphis, Shelby County, West Tennessee, Tennessee, 38125, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1443813841",
@@ -71127,7 +72378,10 @@
       "educationIndex": 81,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.191038"
-    }
+    },
+    "address": "Cerritos, California, 90703",
+    "display_name": "IHOP, Court Yard Place, Cerritos Towne Center, Cerritos, Los Angeles County, California, 90703, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1444409751",
@@ -71148,7 +72402,10 @@
       "educationIndex": 79,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.191044"
-    }
+    },
+    "address": "Bulverde, Texas, 78163",
+    "display_name": "IHOP, Singing Oaks, Singing Hills, Bulverde, Comal County, Texas, 78163, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1447790970",
@@ -71169,7 +72426,10 @@
       "educationIndex": 76,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.191051"
-    }
+    },
+    "address": "Tullahoma, Tennessee, 37360",
+    "display_name": "Applebee's, North Jackson Street, Flowertown, Tullahoma, Coffee County, Middle Tennessee, Tennessee, 37360, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1448422935",
@@ -71190,7 +72450,10 @@
       "educationIndex": 82,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.191056"
-    }
+    },
+    "address": "San Antonio, Texas, 78247",
+    "display_name": "IHOP, 17242, Autry Pond Road, Bulverde Marketplace, San Antonio, Bexar County, Texas, 78247, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1451276926",
@@ -71211,7 +72474,10 @@
       "educationIndex": 80,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.191062"
-    }
+    },
+    "address": "Hartsville, South Carolina, 29550",
+    "display_name": "Applebee's, 203, South 5th Street, Hartsville, Darlington County, South Carolina, 29550, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1455272916",
@@ -71232,7 +72498,10 @@
       "educationIndex": 78,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.191068"
-    }
+    },
+    "address": "Melbourne, Florida, 32925",
+    "display_name": "IHOP, 2447, North Wickham Road, Melbourne, Brevard County, Florida, 32925, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_1456768541",
@@ -71253,7 +72522,10 @@
       "educationIndex": 77,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.191074"
-    }
+    },
+    "address": "Decatur, Alabama, 35601",
+    "display_name": "Applebee's, 2401-A, Beltline Road Southwest, Decatur, Morgan County, Alabama, 35601, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_9760579",
@@ -71274,7 +72546,10 @@
       "educationIndex": 79,
       "employmentRate": 93.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.191080"
-    }
+    },
+    "address": "Clarksville, Tennessee, 37040",
+    "display_name": "IHOP, 2819B, Wilma Rudolph Boulevard, Clarksville, Montgomery County, Middle Tennessee, Tennessee, 37040, United States",
+    "country": "United States"
   },
   {
     "id": "DIN_15096307",
@@ -71295,6 +72570,9 @@
       "educationIndex": 83,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.191087"
-    }
+    },
+    "address": "City of Hornell, New York, 14843",
+    "display_name": "Applebee's, 1006, NY 21; NY 36, Village of North Hornell, City of Hornell, Town of Hornellsville, Steuben County, New York, 14843, United States",
+    "country": "United States"
   }
 ]
