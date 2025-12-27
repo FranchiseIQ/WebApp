@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-27 06:40:54 EST",
+  "last_updated": "2025-12-27 12:54:29 EST",
   "nfl": {
     "games": [
       {
@@ -51,7 +51,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "-125",
+                "odds": "-122",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -83,7 +83,7 @@
             },
             "away": {
               "close": {
-                "odds": "+105",
+                "odds": "+102",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1257,7 +1257,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "+120",
+                "odds": "+130",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1289,7 +1289,7 @@
             },
             "away": {
               "close": {
-                "odds": "-142",
+                "odds": "-155",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1771,7 +1771,7 @@
         },
         "homeScore": "105",
         "awayScore": "120",
-        "video_url": "https://www.youtube.com/embed/uaJQNn_cWfk?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/n8KOHBA9l-s?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": []
@@ -2121,7 +2121,7 @@
         },
         "homeScore": "103",
         "awayScore": "119",
-        "video_url": "https://www.youtube.com/embed/uvidQ-xxbg4?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/QgpgJsxzFR8?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -3404,7 +3404,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "+110",
+                "odds": "+114",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -3436,7 +3436,7 @@
             },
             "away": {
               "close": {
-                "odds": "-130",
+                "odds": "-135",
                 "link": {
                   "language": "en-US",
                   "rel": [
