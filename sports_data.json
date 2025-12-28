@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-28 06:41:08 EST",
+  "last_updated": "2025-12-28 12:55:29 EST",
   "nfl": {
     "games": [
       {
@@ -285,7 +285,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "+102",
+                "odds": "EVEN",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -317,7 +317,7 @@
             },
             "away": {
               "close": {
-                "odds": "-122",
+                "odds": "-120",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -512,7 +512,7 @@
         "video_url": null,
         "league": "NFL",
         "odds": {
-          "spread": 5.5,
+          "spread": 6.0,
           "overUnder": 44.5,
           "moneyline": {
             "displayName": "Moneyline",
@@ -870,7 +870,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "+120",
+                "odds": "+124",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -902,7 +902,7 @@
             },
             "away": {
               "close": {
-                "odds": "-142",
+                "odds": "-148",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1104,7 +1104,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "-180",
+                "odds": "-192",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1136,7 +1136,7 @@
             },
             "away": {
               "close": {
-                "odds": "+150",
+                "odds": "+160",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -2449,7 +2449,7 @@
         },
         "homeScore": "3",
         "awayScore": "2",
-        "video_url": "https://www.youtube.com/embed/YQI4xb7HGGk?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/SiPvqF-ckis?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -2983,7 +2983,7 @@
         },
         "homeScore": "3",
         "awayScore": "1",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/CzZsSW1nUog?autoplay=1&rel=0",
         "league": "MLS",
         "odds": null,
         "headlines": [
