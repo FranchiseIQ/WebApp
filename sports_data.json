@@ -1,15 +1,15 @@
 {
-  "last_updated": "2025-12-28 12:55:29 EST",
+  "last_updated": "2025-12-28 18:38:50 EST",
   "nfl": {
     "games": [
       {
         "id": "401772954",
         "date": "2025-12-28T18:00Z",
-        "status": "Sun, December 28th at 1:00 PM EST",
-        "is_active": false,
+        "status": "14:12 - 2nd Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "14:12",
+        "period": 2,
         "network": "FOX",
         "venue": {
           "name": "Paycor Stadium",
@@ -39,94 +39,21 @@
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "0",
+        "homeScore": "13",
         "awayScore": "0",
         "video_url": null,
         "league": "NFL",
-        "odds": {
-          "spread": -7.0,
-          "overUnder": 53.5,
-          "moneyline": {
-            "displayName": "Moneyline",
-            "shortDisplayName": "ML",
-            "home": {
-              "close": {
-                "odds": "-355",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "home",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225533%3Foutcomes%3D0ML79742914_1",
-                  "text": "Home Bet",
-                  "shortText": "Home Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772954,
-                      "betSide": "home",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-238"
-              }
-            },
-            "away": {
-              "close": {
-                "odds": "+280",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "away",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225533%3Foutcomes%3D0ML79742914_3",
-                  "text": "Away Bet",
-                  "shortText": "Away Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772954,
-                      "betSide": "away",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "+195"
-              }
-            }
-          },
-          "provider": "Draft Kings",
-          "lastUpdated": ""
-        },
+        "odds": null,
         "headlines": []
       },
       {
         "id": "401772807",
         "date": "2025-12-28T18:00Z",
-        "status": "Sun, December 28th at 1:00 PM EST",
-        "is_active": false,
+        "status": "End of 1st Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "0:00",
+        "period": 1,
         "network": "CBS",
         "venue": {
           "name": "Huntington Bank Field",
@@ -156,94 +83,21 @@
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "0",
+        "homeScore": "10",
         "awayScore": "0",
         "video_url": null,
         "league": "NFL",
-        "odds": {
-          "spread": 3.5,
-          "overUnder": 34.5,
-          "moneyline": {
-            "displayName": "Moneyline",
-            "shortDisplayName": "ML",
-            "home": {
-              "close": {
-                "odds": "+154",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "home",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225537%3Foutcomes%3D0ML79742918_1",
-                  "text": "Home Bet",
-                  "shortText": "Home Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772807,
-                      "betSide": "home",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "+154"
-              }
-            },
-            "away": {
-              "close": {
-                "odds": "-185",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "away",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225537%3Foutcomes%3D0ML79742918_3",
-                  "text": "Away Bet",
-                  "shortText": "Away Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772807,
-                      "betSide": "away",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-185"
-              }
-            }
-          },
-          "provider": "Draft Kings",
-          "lastUpdated": ""
-        },
+        "odds": null,
         "headlines": []
       },
       {
         "id": "401772809",
         "date": "2025-12-28T18:00Z",
-        "status": "Sun, December 28th at 1:00 PM EST",
-        "is_active": false,
+        "status": "3:04 - 1st Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "3:04",
+        "period": 1,
         "network": "CBS",
         "venue": {
           "name": "Nissan Stadium",
@@ -273,94 +127,21 @@
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "0",
+        "homeScore": "6",
         "awayScore": "0",
         "video_url": null,
         "league": "NFL",
-        "odds": {
-          "spread": 1.5,
-          "overUnder": 39.5,
-          "moneyline": {
-            "displayName": "Moneyline",
-            "shortDisplayName": "ML",
-            "home": {
-              "close": {
-                "odds": "EVEN",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "home",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225600%3Foutcomes%3D0ML79742993_1",
-                  "text": "Home Bet",
-                  "shortText": "Home Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772809,
-                      "betSide": "home",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "+105"
-              }
-            },
-            "away": {
-              "close": {
-                "odds": "-120",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "away",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225600%3Foutcomes%3D0ML79742993_3",
-                  "text": "Away Bet",
-                  "shortText": "Away Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772809,
-                      "betSide": "away",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-125"
-              }
-            }
-          },
-          "provider": "Draft Kings",
-          "lastUpdated": ""
-        },
+        "odds": null,
         "headlines": []
       },
       {
         "id": "401772915",
         "date": "2025-12-28T18:00Z",
-        "status": "Sun, December 28th at 1:00 PM EST",
-        "is_active": false,
+        "status": "12:44 - 2nd Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "12:44",
+        "period": 2,
         "network": "FOX",
         "venue": {
           "name": "Lucas Oil Stadium",
@@ -390,94 +171,21 @@
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "0",
+        "homeScore": "10",
         "awayScore": "0",
         "video_url": null,
         "league": "NFL",
-        "odds": {
-          "spread": 5.5,
-          "overUnder": 48.5,
-          "moneyline": {
-            "displayName": "Moneyline",
-            "shortDisplayName": "ML",
-            "home": {
-              "close": {
-                "odds": "+210",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "home",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225642%3Foutcomes%3D0ML79743043_1",
-                  "text": "Home Bet",
-                  "shortText": "Home Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772915,
-                      "betSide": "home",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "+195"
-              }
-            },
-            "away": {
-              "close": {
-                "odds": "-258",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "away",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225642%3Foutcomes%3D0ML79743043_3",
-                  "text": "Away Bet",
-                  "shortText": "Away Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772915,
-                      "betSide": "away",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-238"
-              }
-            }
-          },
-          "provider": "Draft Kings",
-          "lastUpdated": ""
-        },
+        "odds": null,
         "headlines": []
       },
       {
         "id": "401772916",
         "date": "2025-12-28T18:00Z",
-        "status": "Sun, December 28th at 1:00 PM EST",
-        "is_active": false,
+        "status": "13:59 - 2nd Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "13:59",
+        "period": 2,
         "network": "FOX",
         "venue": {
           "name": "Hard Rock Stadium",
@@ -507,94 +215,21 @@
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "0",
-        "awayScore": "0",
+        "homeScore": "7",
+        "awayScore": "7",
         "video_url": null,
         "league": "NFL",
-        "odds": {
-          "spread": 6.0,
-          "overUnder": 44.5,
-          "moneyline": {
-            "displayName": "Moneyline",
-            "shortDisplayName": "ML",
-            "home": {
-              "close": {
-                "odds": "+215",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "home",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225785%3Foutcomes%3D0ML79743215_1",
-                  "text": "Home Bet",
-                  "shortText": "Home Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772916,
-                      "betSide": "home",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "+130"
-              }
-            },
-            "away": {
-              "close": {
-                "odds": "-265",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "away",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225785%3Foutcomes%3D0ML79743215_3",
-                  "text": "Away Bet",
-                  "shortText": "Away Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772916,
-                      "betSide": "away",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-155"
-              }
-            }
-          },
-          "provider": "Draft Kings",
-          "lastUpdated": ""
-        },
+        "odds": null,
         "headlines": []
       },
       {
         "id": "401772808",
         "date": "2025-12-28T18:00Z",
-        "status": "Sun, December 28th at 1:00 PM EST",
-        "is_active": false,
+        "status": "0:36 - 1st Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "0:36",
+        "period": 1,
         "network": "FOX",
         "venue": {
           "name": "MetLife Stadium",
@@ -625,93 +260,20 @@
           "rank": ""
         },
         "homeScore": "0",
-        "awayScore": "0",
+        "awayScore": "14",
         "video_url": null,
         "league": "NFL",
-        "odds": {
-          "spread": 13.5,
-          "overUnder": 42.5,
-          "moneyline": {
-            "displayName": "Moneyline",
-            "shortDisplayName": "ML",
-            "home": {
-              "close": {
-                "odds": "+675",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "home",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225680%3Foutcomes%3D0ML79743082_1",
-                  "text": "Home Bet",
-                  "shortText": "Home Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772808,
-                      "betSide": "home",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "+380"
-              }
-            },
-            "away": {
-              "close": {
-                "odds": "-1050",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "away",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225680%3Foutcomes%3D0ML79743082_3",
-                  "text": "Away Bet",
-                  "shortText": "Away Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772808,
-                      "betSide": "away",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-500"
-              }
-            }
-          },
-          "provider": "Draft Kings",
-          "lastUpdated": ""
-        },
+        "odds": null,
         "headlines": []
       },
       {
         "id": "401772952",
         "date": "2025-12-28T18:00Z",
-        "status": "Sun, December 28th at 1:00 PM EST",
-        "is_active": false,
+        "status": "1:54 - 1st Quarter",
+        "is_active": true,
         "is_final": false,
-        "clock": "",
-        "period": "",
+        "clock": "1:54",
+        "period": 1,
         "network": "CBS",
         "venue": {
           "name": "Bank of America Stadium",
@@ -742,83 +304,10 @@
           "rank": ""
         },
         "homeScore": "0",
-        "awayScore": "0",
+        "awayScore": "3",
         "video_url": null,
         "league": "NFL",
-        "odds": {
-          "spread": 7.0,
-          "overUnder": 42.5,
-          "moneyline": {
-            "displayName": "Moneyline",
-            "shortDisplayName": "ML",
-            "home": {
-              "close": {
-                "odds": "+280",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "home",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225516%3Foutcomes%3D0ML79742897_1",
-                  "text": "Home Bet",
-                  "shortText": "Home Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772952,
-                      "betSide": "home",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "+320"
-              }
-            },
-            "away": {
-              "close": {
-                "odds": "-355",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "away",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F32225516%3Foutcomes%3D0ML79742897_3",
-                  "text": "Away Bet",
-                  "shortText": "Away Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nfl",
-                      "sport": "football",
-                      "gameId": 401772952,
-                      "betSide": "away",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-410"
-              }
-            }
-          },
-          "provider": "Draft Kings",
-          "lastUpdated": ""
-        },
+        "odds": null,
         "headlines": []
       },
       {
@@ -863,14 +352,14 @@
         "video_url": null,
         "league": "NFL",
         "odds": {
-          "spread": 2.5,
-          "overUnder": 41.5,
+          "spread": 3.0,
+          "overUnder": 40.5,
           "moneyline": {
             "displayName": "Moneyline",
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "+124",
+                "odds": "+140",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -902,7 +391,7 @@
             },
             "away": {
               "close": {
-                "odds": "-148",
+                "odds": "-166",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -980,14 +469,14 @@
         "video_url": null,
         "league": "NFL",
         "odds": {
-          "spread": -1.5,
-          "overUnder": 44.5,
+          "spread": -3.0,
+          "overUnder": 45.5,
           "moneyline": {
             "displayName": "Moneyline",
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "-125",
+                "odds": "-170",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1019,7 +508,7 @@
             },
             "away": {
               "close": {
-                "odds": "+105",
+                "odds": "+142",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1098,13 +587,13 @@
         "league": "NFL",
         "odds": {
           "spread": -3.5,
-          "overUnder": 52.5,
+          "overUnder": 51.5,
           "moneyline": {
             "displayName": "Moneyline",
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "-192",
+                "odds": "-185",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1136,7 +625,7 @@
             },
             "away": {
               "close": {
-                "odds": "+160",
+                "odds": "+154",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1476,7 +965,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "+350",
+                "odds": "+330",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1508,7 +997,7 @@
             },
             "away": {
               "close": {
-                "odds": "-455",
+                "odds": "-425",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1549,6 +1038,708 @@
   },
   "nba": {
     "games": [
+      {
+        "id": "401810296",
+        "date": "2025-12-28T20:30Z",
+        "status": "Sun, December 28th at 3:30 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "network": "NBC Sports BA",
+        "venue": {
+          "name": "Scotiabank Arena",
+          "city": "Toronto",
+          "state": "ON",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Toronto Raptors",
+          "shortName": "Raptors",
+          "abbreviation": "TOR",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/tor.png",
+          "record": "18-14",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Golden State Warriors",
+          "shortName": "Warriors",
+          "abbreviation": "GS",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png",
+          "record": "16-15",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NBA",
+        "odds": {
+          "spread": 4.5,
+          "overUnder": 225.5,
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "+154",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33365893%3Foutcomes%3D0ML82752752_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nba",
+                      "sport": "basketball",
+                      "gameId": 401810296,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "+136"
+              }
+            },
+            "away": {
+              "close": {
+                "odds": "-185",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "away",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33365893%3Foutcomes%3D0ML82752752_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nba",
+                      "sport": "basketball",
+                      "gameId": 401810296,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "-162"
+              }
+            }
+          },
+          "provider": "Draft Kings",
+          "lastUpdated": ""
+        },
+        "headlines": []
+      },
+      {
+        "id": "401810297",
+        "date": "2025-12-28T20:30Z",
+        "status": "Sun, December 28th at 3:30 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "network": "FanDuel SN OK",
+        "venue": {
+          "name": "Paycom Center",
+          "city": "Oklahoma City",
+          "state": "OK",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Oklahoma City Thunder",
+          "shortName": "Thunder",
+          "abbreviation": "OKC",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/okc.png",
+          "record": "26-5",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Philadelphia 76ers",
+          "shortName": "76ers",
+          "abbreviation": "PHI",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phi.png",
+          "record": "16-13",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NBA",
+        "odds": {
+          "spread": -15.5,
+          "overUnder": 226.5,
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "-950",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33344369%3Foutcomes%3D0ML82706021_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nba",
+                      "sport": "basketball",
+                      "gameId": 401810297,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "-1000"
+              }
+            },
+            "away": {
+              "close": {
+                "odds": "+625",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "away",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33344369%3Foutcomes%3D0ML82706021_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nba",
+                      "sport": "basketball",
+                      "gameId": 401810297,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "+650"
+              }
+            }
+          },
+          "provider": "Draft Kings",
+          "lastUpdated": ""
+        },
+        "headlines": []
+      },
+      {
+        "id": "401810298",
+        "date": "2025-12-28T23:00Z",
+        "status": "Sun, December 28th at 6:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "network": "MNMT",
+        "venue": {
+          "name": "Capital One Arena",
+          "city": "Washington",
+          "state": "DC",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Washington Wizards",
+          "shortName": "Wizards",
+          "abbreviation": "WSH",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/wsh.png",
+          "record": "6-23",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Memphis Grizzlies",
+          "shortName": "Grizzlies",
+          "abbreviation": "MEM",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mem.png",
+          "record": "15-16",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NBA",
+        "odds": {
+          "spread": 7.5,
+          "overUnder": 240.5,
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "+240",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33365894%3Foutcomes%3D0ML82752753_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nba",
+                      "sport": "basketball",
+                      "gameId": 401810298,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "+205"
+              }
+            },
+            "away": {
+              "close": {
+                "odds": "-298",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "away",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33365894%3Foutcomes%3D0ML82752753_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nba",
+                      "sport": "basketball",
+                      "gameId": 401810298,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "-250"
+              }
+            }
+          },
+          "provider": "Draft Kings",
+          "lastUpdated": ""
+        },
+        "headlines": []
+      },
+      {
+        "id": "401810299",
+        "date": "2025-12-28T23:00Z",
+        "status": "Sun, December 28th at 6:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "network": "BlazerVision",
+        "venue": {
+          "name": "Moda Center",
+          "city": "Portland",
+          "state": "OR",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Portland Trail Blazers",
+          "shortName": "Trail Blazers",
+          "abbreviation": "POR",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/por.png",
+          "record": "12-19",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Boston Celtics",
+          "shortName": "Celtics",
+          "abbreviation": "BOS",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bos.png",
+          "record": "19-11",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NBA",
+        "odds": {
+          "spread": 7.5,
+          "overUnder": 229.5,
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "+215",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33344370%3Foutcomes%3D0ML82706022_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nba",
+                      "sport": "basketball",
+                      "gameId": 401810299,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "+180"
+              }
+            },
+            "away": {
+              "close": {
+                "odds": "-265",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "away",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33344370%3Foutcomes%3D0ML82706022_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nba",
+                      "sport": "basketball",
+                      "gameId": 401810299,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "-218"
+              }
+            }
+          },
+          "provider": "Draft Kings",
+          "lastUpdated": ""
+        },
+        "headlines": []
+      },
+      {
+        "id": "401810300",
+        "date": "2025-12-29T02:00Z",
+        "status": "Sun, December 28th at 9:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "network": "FanDuel SN DET Ext",
+        "venue": {
+          "name": "Intuit Dome",
+          "city": "Inglewood",
+          "state": "CA",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "LA Clippers",
+          "shortName": "Clippers",
+          "abbreviation": "LAC",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lac.png",
+          "record": "9-21",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Detroit Pistons",
+          "shortName": "Pistons",
+          "abbreviation": "DET",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/det.png",
+          "record": "24-7",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NBA",
+        "odds": {
+          "spread": 3.5,
+          "overUnder": 224.5,
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "+136",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33344371%3Foutcomes%3D0ML82706023_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nba",
+                      "sport": "basketball",
+                      "gameId": 401810300,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "+130"
+              }
+            },
+            "away": {
+              "close": {
+                "odds": "-162",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "away",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33344371%3Foutcomes%3D0ML82706023_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nba",
+                      "sport": "basketball",
+                      "gameId": 401810300,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "-155"
+              }
+            }
+          },
+          "provider": "Draft Kings",
+          "lastUpdated": ""
+        },
+        "headlines": []
+      },
+      {
+        "id": "401810301",
+        "date": "2025-12-29T02:30Z",
+        "status": "Sun, December 28th at 9:30 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "network": "Spectrum Sports Net",
+        "venue": {
+          "name": "crypto.com Arena",
+          "city": "Los Angeles",
+          "state": "CA",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Los Angeles Lakers",
+          "shortName": "Lakers",
+          "abbreviation": "LAL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png",
+          "record": "19-10",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Sacramento Kings",
+          "shortName": "Kings",
+          "abbreviation": "SAC",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sac.png",
+          "record": "8-23",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NBA",
+        "odds": {
+          "spread": -13.5,
+          "overUnder": 232.5,
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "-650",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33365895%3Foutcomes%3D0ML82752754_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nba",
+                      "sport": "basketball",
+                      "gameId": 401810301,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "-575"
+              }
+            },
+            "away": {
+              "close": {
+                "odds": "+470",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "away",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33365895%3Foutcomes%3D0ML82752754_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nba",
+                      "sport": "basketball",
+                      "gameId": 401810301,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "+425"
+              }
+            }
+          },
+          "provider": "Draft Kings",
+          "lastUpdated": ""
+        },
+        "headlines": []
+      },
       {
         "id": "401810287",
         "date": "2025-12-27T22:00Z",
@@ -2054,6 +2245,591 @@
   "nhl": {
     "games": [
       {
+        "id": "401802953",
+        "date": "2025-12-28T22:00Z",
+        "status": "Sun, December 28th at 5:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "network": "ESPN+",
+        "venue": {
+          "name": "Benchmark International Arena",
+          "city": "Tampa",
+          "state": "FL",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Tampa Bay Lightning",
+          "shortName": "Lightning",
+          "abbreviation": "TB",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/tb.png",
+          "record": "21-13-3",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Montreal Canadiens",
+          "shortName": "Canadiens",
+          "abbreviation": "MTL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/mtl.png",
+          "record": "20-12-5",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NHL",
+        "odds": {
+          "spread": -1.5,
+          "overUnder": 6.5,
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "-155",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33364806%3Foutcomes%3D0ML82752350_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nhl",
+                      "sport": "hockey",
+                      "gameId": 401802953,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "-162"
+              }
+            },
+            "away": {
+              "close": {
+                "odds": "+130",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "away",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33364806%3Foutcomes%3D0ML82752350_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nhl",
+                      "sport": "hockey",
+                      "gameId": 401802953,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "+136"
+              }
+            }
+          },
+          "provider": "Draft Kings",
+          "lastUpdated": ""
+        },
+        "headlines": []
+      },
+      {
+        "id": "401802954",
+        "date": "2025-12-28T22:00Z",
+        "status": "Sun, December 28th at 5:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "network": "ESPN+",
+        "venue": {
+          "name": "Nationwide Arena",
+          "city": "Columbus",
+          "state": "OH",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Columbus Blue Jackets",
+          "shortName": "Blue Jackets",
+          "abbreviation": "CBJ",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/cbj.png",
+          "record": "15-15-6",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "New York Islanders",
+          "shortName": "Islanders",
+          "abbreviation": "NYI",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nyi.png",
+          "record": "21-13-4",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NHL",
+        "odds": {
+          "spread": -1.5,
+          "overUnder": 5.5,
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "-135",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33364805%3Foutcomes%3D0ML82752358_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nhl",
+                      "sport": "hockey",
+                      "gameId": 401802954,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "-142"
+              }
+            },
+            "away": {
+              "close": {
+                "odds": "+114",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "away",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33364805%3Foutcomes%3D0ML82752358_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nhl",
+                      "sport": "hockey",
+                      "gameId": 401802954,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "+120"
+              }
+            }
+          },
+          "provider": "Draft Kings",
+          "lastUpdated": ""
+        },
+        "headlines": []
+      },
+      {
+        "id": "401802952",
+        "date": "2025-12-29T00:00Z",
+        "status": "Sun, December 28th at 7:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "network": "ESPN+",
+        "venue": {
+          "name": "Little Caesars Arena",
+          "city": "Detroit",
+          "state": "MI",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Detroit Red Wings",
+          "shortName": "Red Wings",
+          "abbreviation": "DET",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/det.png",
+          "record": "22-14-3",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Toronto Maple Leafs",
+          "shortName": "Maple Leafs",
+          "abbreviation": "TOR",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/tor.png",
+          "record": "17-15-5",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NHL",
+        "odds": {
+          "spread": -1.5,
+          "overUnder": 6.5,
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "-125",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33364808%3Foutcomes%3D0ML82752356_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nhl",
+                      "sport": "hockey",
+                      "gameId": 401802952,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "-130"
+              }
+            },
+            "away": {
+              "close": {
+                "odds": "+105",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "away",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33364808%3Foutcomes%3D0ML82752356_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nhl",
+                      "sport": "hockey",
+                      "gameId": 401802952,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "+110"
+              }
+            }
+          },
+          "provider": "Draft Kings",
+          "lastUpdated": ""
+        },
+        "headlines": []
+      },
+      {
+        "id": "401802955",
+        "date": "2025-12-29T00:00Z",
+        "status": "Sun, December 28th at 7:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "network": "ESPN+",
+        "venue": {
+          "name": "United Center",
+          "city": "Chicago",
+          "state": "IL",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Chicago Blackhawks",
+          "shortName": "Blackhawks",
+          "abbreviation": "CHI",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/chi.png",
+          "record": "14-17-6",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Pittsburgh Penguins",
+          "shortName": "Penguins",
+          "abbreviation": "PIT",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/pit.png",
+          "record": "15-12-9",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NHL",
+        "odds": {
+          "spread": 1.5,
+          "overUnder": 5.5,
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "+136",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33364807%3Foutcomes%3D0ML82752354_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nhl",
+                      "sport": "hockey",
+                      "gameId": 401802955,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "+142"
+              }
+            },
+            "away": {
+              "close": {
+                "odds": "-162",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "away",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33364807%3Foutcomes%3D0ML82752354_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nhl",
+                      "sport": "hockey",
+                      "gameId": 401802955,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "-170"
+              }
+            }
+          },
+          "provider": "Draft Kings",
+          "lastUpdated": ""
+        },
+        "headlines": []
+      },
+      {
+        "id": "401802956",
+        "date": "2025-12-29T01:00Z",
+        "status": "Sun, December 28th at 8:00 PM EST",
+        "is_active": false,
+        "is_final": false,
+        "clock": "",
+        "period": "",
+        "network": "KONG",
+        "venue": {
+          "name": "Climate Pledge Arena",
+          "city": "Seattle",
+          "state": "WA",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Seattle Kraken",
+          "shortName": "Kraken",
+          "abbreviation": "SEA",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/sea.png",
+          "record": "15-14-6",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Philadelphia Flyers",
+          "shortName": "Flyers",
+          "abbreviation": "PHI",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/phi.png",
+          "record": "19-10-7",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "0",
+        "awayScore": "0",
+        "video_url": null,
+        "league": "NHL",
+        "odds": {
+          "spread": 1.5,
+          "overUnder": 5.5,
+          "moneyline": {
+            "displayName": "Moneyline",
+            "shortDisplayName": "ML",
+            "home": {
+              "close": {
+                "odds": "+105",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "home",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33364809%3Foutcomes%3D0ML82752353_1",
+                  "text": "Home Bet",
+                  "shortText": "Home Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nhl",
+                      "sport": "hockey",
+                      "gameId": 401802956,
+                      "betSide": "home",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "+110"
+              }
+            },
+            "away": {
+              "close": {
+                "odds": "-125",
+                "link": {
+                  "language": "en-US",
+                  "rel": [
+                    "away",
+                    "desktop",
+                    "bets",
+                    "draft-kings"
+                  ],
+                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33364809%3Foutcomes%3D0ML82752353_3",
+                  "text": "Away Bet",
+                  "shortText": "Away Bet",
+                  "isExternal": true,
+                  "isPremium": false,
+                  "tracking": {
+                    "campaign": "betting-integrations",
+                    "tags": {
+                      "league": "nhl",
+                      "sport": "hockey",
+                      "gameId": 401802956,
+                      "betSide": "away",
+                      "betType": "straight"
+                    }
+                  }
+                }
+              },
+              "open": {
+                "odds": "-130"
+              }
+            }
+          },
+          "provider": "Draft Kings",
+          "lastUpdated": ""
+        },
+        "headlines": []
+      },
+      {
         "id": "401802939",
         "date": "2025-12-27T23:00Z",
         "status": "Final",
@@ -2143,7 +2919,7 @@
         },
         "homeScore": "4",
         "awayScore": "1",
-        "video_url": "https://www.youtube.com/embed/V72KwwWHpcU?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/pvSkU6_uyQw?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -2194,7 +2970,7 @@
         },
         "homeScore": "7",
         "awayScore": "5",
-        "video_url": "https://www.youtube.com/embed/p5Nsp8dX2Zs?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/MxqdiOi94Hk?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -2704,7 +3480,7 @@
         },
         "homeScore": "5",
         "awayScore": "6",
-        "video_url": "https://www.youtube.com/embed/Jueh9YplgzQ?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/DYsHS1vKmEw?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
