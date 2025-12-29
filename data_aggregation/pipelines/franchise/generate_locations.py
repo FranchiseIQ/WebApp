@@ -552,7 +552,7 @@ def generate_real_data(batch_tickers=None):
 
     total = sum(m['count'] for m in final_manifest)
     print(f"\n{'='*70}")
-    print(f"✓ Data generation complete!")
+    print(f"[OK] Data generation complete!")
     print(f"Total: {total:,} locations across {len(final_manifest)} brand groups")
     print(f"Output: {MANIFEST_JSON}")
     print(f"Location files: {BRANDS_DATA_DIR}/*.json")

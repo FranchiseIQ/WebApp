@@ -63,8 +63,9 @@ CHAMPIONSHIP_DATES = {
 YOUTUBE_SEARCH_URL = "https://www.googleapis.com/youtube/v3/search"
 
 # Official YouTube channel IDs for better highlight search
+# Note: NFL official channel often blocks embedding, so we use fallback channels
 CHANNEL_IDS = {
-    "NFL": "UCDVYQ4Zhbm3S2dlz7P1GBDg",
+    "NFL": "UCDVYQ4Zhbm3S2dlz7P1GBDg",  # Official NFL (often blocked)
     "NBA": "UCWJ2lWNubArHWmf3FIHbfcQ",
     "WNBA": "UCJm4Yt-5hzFqbfGH2xbIZWA",
     "NHL": "UCqFMzb-4AUf6WAIbl132QKA",
@@ -72,10 +73,29 @@ CHANNEL_IDS = {
     "MLS": "UCSZbXT5TLLW_i-5W8FZpFsg"
 }
 
+# Alternative YouTube channels that allow embedding for NFL highlights
+# These third-party channels post highlights that are embeddable
+NFL_FALLBACK_CHANNELS = [
+    None,  # No channel restriction - search all YouTube
+    # Removed specific channel IDs as they may change
+]
+
+# ESPN video base URL for game recaps
+ESPN_VIDEO_BASE = "https://www.espn.com/video/clip/_/id/"
+
 # --- HELPER FUNCTIONS ---
 
 def get_youtube_highlight(query, league, existing_cache=None):
-    """Finds a highlight video for a completed game using YouTube Data API."""
+    """
+    Finds a highlight video for a completed game using YouTube Data API.
+
+    For NFL, we skip the official channel (embedding often blocked) and search
+    for embeddable highlights from any channel. For other leagues, we try the
+    official channel first, then fall back to unrestricted search.
+
+    Returns:
+        Embeddable YouTube URL or None
+    """
     if not YOUTUBE_API_KEY:
         return None
 
@@ -88,32 +108,43 @@ def get_youtube_highlight(query, league, existing_cache=None):
     try:
         params = {
             'part': 'snippet',
-            'q': query,
+            'q': query + " highlights",  # Add "highlights" to improve relevance
             'key': YOUTUBE_API_KEY,
-            'maxResults': 1,
+            'maxResults': 3,  # Get multiple results in case first is blocked
             'type': 'video',
-            'videoEmbeddable': 'true',
-            'order': 'relevance'
+            'videoEmbeddable': 'true',  # CRITICAL: Only embeddable videos
+            'order': 'relevance',
+            'publishedAfter': get_recent_date_iso(),  # Only recent videos
         }
 
-        # Try official channel first
-        channel_id = CHANNEL_IDS.get(league)
-        if channel_id:
-            params['channelId'] = channel_id
+        # For NFL, skip official channel (often blocks embedding)
+        # For other leagues, try official channel first
+        if league != "NFL":
+            channel_id = CHANNEL_IDS.get(league)
+            if channel_id:
+                params['channelId'] = channel_id
 
         resp = requests.get(YOUTUBE_SEARCH_URL, params=params, timeout=10)
         data = resp.json()
 
         if "error" in data:
-            print(f"  YouTube API error: {data['error'].get('message', 'Unknown')}")
+            error_msg = data['error'].get('message', 'Unknown')
+            if 'quota' in error_msg.lower():
+                print(f"  YouTube API quota exceeded")
+            else:
+                print(f"  YouTube API error: {error_msg}")
             return None
 
+        # Try to find a working video from results
         if "items" in data and len(data["items"]) > 0:
-            video_id = data["items"][0]["id"]["videoId"]
-            return f"https://www.youtube.com/embed/{video_id}?autoplay=1&rel=0"
+            for item in data["items"]:
+                video_id = item["id"]["videoId"]
+                embed_url = f"https://www.youtube.com/embed/{video_id}?autoplay=1&rel=0"
+                # Return the first embeddable video (API already filtered for this)
+                return embed_url
 
-        # Fallback: Search without channel restriction
-        if channel_id:
+        # Fallback: Search without channel restriction (for non-NFL leagues)
+        if league != "NFL" and CHANNEL_IDS.get(league):
             del params['channelId']
             resp = requests.get(YOUTUBE_SEARCH_URL, params=params, timeout=10)
             data = resp.json()
@@ -124,9 +155,19 @@ def get_youtube_highlight(query, league, existing_cache=None):
 
         return None
 
+    except requests.exceptions.Timeout:
+        print(f"  YouTube API timeout for: {query[:30]}...")
+        return None
     except Exception as e:
         print(f"  YouTube error: {e}")
         return None
+
+
+def get_recent_date_iso():
+    """Get ISO date string for 7 days ago (for YouTube API publishedAfter param)."""
+    from datetime import datetime, timedelta
+    week_ago = datetime.utcnow() - timedelta(days=7)
+    return week_ago.strftime("%Y-%m-%dT00:00:00Z")
 
 
 def extract_player_stats(competitor):
@@ -673,7 +714,7 @@ def main():
     # Save unified file
     with open(SPORTS_DATA_JSON, "w") as f:
         json.dump(final_data, f, indent=2)
-    print(f"✓ Saved unified data to {SPORTS_DATA_JSON}")
+    print(f"[OK] Saved unified data to {SPORTS_DATA_JSON}")
 
     # Also save individual league files for frontend compatibility
     print("\nSaving individual league files...")
@@ -695,7 +736,7 @@ def main():
         video_count = len([g for g in games if g.get("video_url")])
         print(f"  {league}: {len(games)} games ({final_count} final, {video_count} with video)")
     print("=" * 70)
-    print("\n✓ Done!")
+    print("\n[OK] Done!")
 
 
 if __name__ == "__main__":

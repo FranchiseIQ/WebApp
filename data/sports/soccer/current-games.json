@@ -1,4 +1,38 @@
 {
-  "lastUpdated": "2025-12-23T09:15:51.716449Z",
-  "games": []
+  "lastUpdated": "2025-12-29T16:42:30.123859Z",
+  "games": [
+    {
+      "id": "mls-762182",
+      "league": "MLS",
+      "startTime": "2025-12-06T19:30Z",
+      "homeTeam": {
+        "name": "Inter Miami CF",
+        "shortName": "Miami",
+        "abbreviation": "MIA",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/soccer/500/20232.png",
+        "record": "",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "awayTeam": {
+        "name": "Vancouver Whitecaps",
+        "shortName": "Vancouver",
+        "abbreviation": "VAN",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/soccer/500/9727.png",
+        "record": "",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "homeScore": "3",
+      "awayScore": "1",
+      "status": "final",
+      "quarter": "",
+      "clock": "",
+      "network": "FOX",
+      "video_url": null,
+      "is_championship": false
+    }
+  ]
 }

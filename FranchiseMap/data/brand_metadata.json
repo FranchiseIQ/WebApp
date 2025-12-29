@@ -640,6 +640,17 @@
       "needs_review": false,
       "notes": ""
     },
+    "PLAY": {
+      "name": "Dave & Buster's",
+      "ownership_model": "franchise",
+      "primary_subtype": "licensed",
+      "category": "casual",
+      "industry_category": "Casual Dining",
+      "sub_sector": "",
+      "count": 234,
+      "needs_review": false,
+      "notes": "Entertainment dining chain"
+    },
     "PLANETFITNESS": {
       "name": "Planet Fitness",
       "ownership_model": "franchise",

@@ -1,4 +1,170 @@
 {
-  "lastUpdated": "2025-12-23T09:15:51.715930Z",
-  "games": []
+  "lastUpdated": "2025-12-29T16:42:30.119858Z",
+  "games": [
+    {
+      "id": "mlb-401832869",
+      "league": "MLB",
+      "startTime": "2026-02-20T05:00Z",
+      "homeTeam": {
+        "name": "Baltimore Orioles",
+        "shortName": "Orioles",
+        "abbreviation": "BAL",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/bal.png",
+        "record": "",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "awayTeam": {
+        "name": "New York Yankees",
+        "shortName": "Yankees",
+        "abbreviation": "NYY",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/nyy.png",
+        "record": "",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "homeScore": "0",
+      "awayScore": "0",
+      "status": "scheduled",
+      "quarter": "",
+      "clock": "",
+      "network": "",
+      "video_url": null,
+      "is_championship": false
+    },
+    {
+      "id": "mlb-401832870",
+      "league": "MLB",
+      "startTime": "2026-02-20T05:00Z",
+      "homeTeam": {
+        "name": "Chicago Cubs",
+        "shortName": "Cubs",
+        "abbreviation": "CHC",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/chc.png",
+        "record": "",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "awayTeam": {
+        "name": "Chicago White Sox",
+        "shortName": "White Sox",
+        "abbreviation": "CHW",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/chw.png",
+        "record": "",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "homeScore": "0",
+      "awayScore": "0",
+      "status": "scheduled",
+      "quarter": "",
+      "clock": "",
+      "network": "",
+      "video_url": null,
+      "is_championship": false
+    },
+    {
+      "id": "mlb-401832871",
+      "league": "MLB",
+      "startTime": "2026-02-20T05:00Z",
+      "homeTeam": {
+        "name": "Colorado Rockies",
+        "shortName": "Rockies",
+        "abbreviation": "COL",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/col.png",
+        "record": "",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "awayTeam": {
+        "name": "Arizona Diamondbacks",
+        "shortName": "Diamondbacks",
+        "abbreviation": "ARI",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/ari.png",
+        "record": "",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "homeScore": "0",
+      "awayScore": "0",
+      "status": "scheduled",
+      "quarter": "",
+      "clock": "",
+      "network": "",
+      "video_url": null,
+      "is_championship": false
+    },
+    {
+      "id": "mlb-401832872",
+      "league": "MLB",
+      "startTime": "2026-02-20T05:00Z",
+      "homeTeam": {
+        "name": "Seattle Mariners",
+        "shortName": "Mariners",
+        "abbreviation": "SEA",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/sea.png",
+        "record": "",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "awayTeam": {
+        "name": "San Diego Padres",
+        "shortName": "Padres",
+        "abbreviation": "SD",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/sd.png",
+        "record": "",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "homeScore": "0",
+      "awayScore": "0",
+      "status": "scheduled",
+      "quarter": "",
+      "clock": "",
+      "network": "",
+      "video_url": null,
+      "is_championship": false
+    },
+    {
+      "id": "mlb-401832873",
+      "league": "MLB",
+      "startTime": "2026-02-20T05:00Z",
+      "homeTeam": {
+        "name": "Texas Rangers",
+        "shortName": "Rangers",
+        "abbreviation": "TEX",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/tex.png",
+        "record": "",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "awayTeam": {
+        "name": "Kansas City Royals",
+        "shortName": "Royals",
+        "abbreviation": "KC",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/kc.png",
+        "record": "",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "homeScore": "0",
+      "awayScore": "0",
+      "status": "scheduled",
+      "quarter": "",
+      "clock": "",
+      "network": "",
+      "video_url": null,
+      "is_championship": false
+    }
+  ]
 }

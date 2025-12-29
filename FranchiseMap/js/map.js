@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let colorIndex = 0;
     let comparisonLocations = [];
     let scoreFilter = { min: 0, max: 100 };
+    let categoryFilter = 'all';  // Active category filter (all, qsr, casual, hotels, services, private)
     let proximityIndex = new ProximityIndex(0.02); // Grid-based spatial index
     let highPerformersOpen = false; // Track high performers panel state
     let competitorAnalysisOpen = false; // Track competitor analysis panel state
@@ -920,14 +921,22 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('dist-excellent').style.width = Math.max(1, excellentPct) + '%';
     }
 
+    // Helper function to check if ticker passes category filter
+    function passesCategory(ticker) {
+        if (categoryFilter === 'all') return true;
+        const categoryTickers = CATEGORY_MAP[categoryFilter] || [];
+        return categoryTickers.includes(ticker);
+    }
+
     function refreshMap() {
         clusterLayer.clearLayers();
         individualLayer.clearLayers();
         highlightedMarkers = [];
 
-        // Apply all filters (AND logic)
+        // Apply all filters (AND logic) including category
         const visible = allLocations.filter(loc =>
             activeTickers.has(loc.ticker) &&
+            passesCategory(loc.ticker) &&
             loc.s >= scoreFilter.min &&
             loc.s <= scoreFilter.max &&
             ownershipModel.has(loc.ownership) &&
@@ -1034,6 +1043,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateLocationCount() {
         const visible = allLocations.filter(loc =>
             activeTickers.has(loc.ticker) &&
+            passesCategory(loc.ticker) &&
             loc.s >= scoreFilter.min &&
             loc.s <= scoreFilter.max &&
             ownershipModel.has(loc.ownership) &&
@@ -1075,6 +1085,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const visibleLocations = allLocations.filter(loc => {
             // Check if location is within bounds and passes all filters
             return activeTickers.has(loc.ticker) &&
+                   passesCategory(loc.ticker) &&
                    bounds.contains([loc.lat, loc.lng]) &&
                    loc.s >= scoreFilter.min &&
                    loc.s <= scoreFilter.max &&
@@ -3077,6 +3088,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function exportAllVisible() {
         const visible = allLocations.filter(loc =>
             activeTickers.has(loc.ticker) &&
+            passesCategory(loc.ticker) &&
             loc.s >= scoreFilter.min &&
             loc.s <= scoreFilter.max &&
             ownershipModel.has(loc.ownership) &&
@@ -3185,6 +3197,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function filterByCategory(category) {
+        // Update the global category filter
+        categoryFilter = category;
+
         const container = document.getElementById('brand-legend');
         const pills = container.querySelectorAll('.brand-pill');
 
@@ -3197,6 +3212,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 pill.style.display = categoryTickers.includes(ticker) ? 'flex' : 'none';
             }
         });
+
+        // Refresh the map to apply the category filter
+        refreshMap();
     }
 
     // Show/hide subtype filter based on ownership selection
@@ -3520,9 +3538,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const visibleLocations = allLocations.filter(loc => {
             // Check if location is within bounds and from active ticker
             return activeTickers.has(loc.ticker) &&
+                   passesCategory(loc.ticker) &&
                    bounds.contains([loc.lat, loc.lng]) &&
                    loc.s >= scoreFilter.min &&
-                   loc.s <= scoreFilter.max;
+                   loc.s <= scoreFilter.max &&
+                   ownershipModel.has(loc.ownership) &&
+                   subtypes.has(loc.subtype);
         });
 
         renderLocationList(visibleLocations);

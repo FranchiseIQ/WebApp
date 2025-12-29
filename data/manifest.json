@@ -6,7 +6,8 @@
       "McDonalds"
     ],
     "file": "data/brands/MCD.json",
-    "count": 45
+    "count": 15080,
+    "category": "QSR"
   },
   {
     "ticker": "SBUX",
@@ -14,7 +15,8 @@
       "Starbucks"
     ],
     "file": "data/brands/SBUX.json",
-    "count": 45
+    "count": 12092,
+    "category": "QSR"
   },
   {
     "ticker": "YUM",
@@ -25,7 +27,8 @@
       "The Habit Burger"
     ],
     "file": "data/brands/YUM.json",
-    "count": 45
+    "count": 14938,
+    "category": "QSR"
   },
   {
     "ticker": "QSR",
@@ -36,7 +39,8 @@
       "Firehouse Subs"
     ],
     "file": "data/brands/QSR.json",
-    "count": 45
+    "count": 45,
+    "category": "QSR"
   },
   {
     "ticker": "WEN",
@@ -44,16 +48,20 @@
       "Wendy's"
     ],
     "file": "data/brands/WEN.json",
-    "count": 45
+    "count": 5758,
+    "category": "QSR"
   },
   {
     "ticker": "DPZ",
     "brands": [
       "Domino's Pizza",
-      "Dominos Pizza"
+      "Dominos Pizza",
+      "Dominos",
+      "Domino"
     ],
     "file": "data/brands/DPZ.json",
-    "count": 45
+    "count": 7606,
+    "category": "QSR"
   },
   {
     "ticker": "CMG",
@@ -62,7 +70,8 @@
       "Chipotle"
     ],
     "file": "data/brands/CMG.json",
-    "count": 45
+    "count": 45,
+    "category": "QSR"
   },
   {
     "ticker": "JACK",
@@ -71,7 +80,8 @@
       "Del Taco"
     ],
     "file": "data/brands/JACK.json",
-    "count": 45
+    "count": 45,
+    "category": "QSR"
   },
   {
     "ticker": "WING",
@@ -79,7 +89,8 @@
       "Wingstop"
     ],
     "file": "data/brands/WING.json",
-    "count": 45
+    "count": 45,
+    "category": "QSR"
   },
   {
     "ticker": "SHAK",
@@ -87,7 +98,8 @@
       "Shake Shack"
     ],
     "file": "data/brands/SHAK.json",
-    "count": 45
+    "count": 45,
+    "category": "QSR"
   },
   {
     "ticker": "PZZA",
@@ -96,7 +108,8 @@
       "Papa Johns"
     ],
     "file": "data/brands/PZZA.json",
-    "count": 45
+    "count": 45,
+    "category": "QSR"
   },
   {
     "ticker": "DNUT",
@@ -105,7 +118,8 @@
       "Insomnia Cookies"
     ],
     "file": "data/brands/DNUT.json",
-    "count": 45
+    "count": 45,
+    "category": "QSR"
   },
   {
     "ticker": "NATH",
@@ -113,7 +127,8 @@
       "Nathan's Famous"
     ],
     "file": "data/brands/NATH.json",
-    "count": 45
+    "count": 45,
+    "category": "QSR"
   },
   {
     "ticker": "DIN",
@@ -122,7 +137,8 @@
       "IHOP"
     ],
     "file": "data/brands/DIN.json",
-    "count": 45
+    "count": 45,
+    "category": "Casual"
   },
   {
     "ticker": "HRB",
@@ -130,7 +146,8 @@
       "H&R Block"
     ],
     "file": "data/brands/HRB.json",
-    "count": 45
+    "count": 45,
+    "category": "Services"
   },
   {
     "ticker": "DENN",
@@ -139,7 +156,8 @@
       "Keke's"
     ],
     "file": "data/brands/DENN.json",
-    "count": 45
+    "count": 45,
+    "category": "Casual"
   },
   {
     "ticker": "ROL",
@@ -147,7 +165,8 @@
       "Orkin"
     ],
     "file": "data/brands/ROL.json",
-    "count": 45
+    "count": 45,
+    "category": "Services"
   },
   {
     "ticker": "RRGB",
@@ -155,7 +174,8 @@
       "Red Robin"
     ],
     "file": "data/brands/RRGB.json",
-    "count": 45
+    "count": 45,
+    "category": "Casual"
   },
   {
     "ticker": "PLNT",
@@ -163,7 +183,8 @@
       "Planet Fitness"
     ],
     "file": "data/brands/PLNT.json",
-    "count": 45
+    "count": 45,
+    "category": "Fitness"
   },
   {
     "ticker": "PLAY",
@@ -172,7 +193,8 @@
       "Main Event"
     ],
     "file": "data/brands/PLAY.json",
-    "count": 45
+    "count": 45,
+    "category": "Casual"
   },
   {
     "ticker": "SERV",
@@ -182,7 +204,8 @@
       "Terminix"
     ],
     "file": "data/brands/SERV.json",
-    "count": 45
+    "count": 45,
+    "category": "Services"
   },
   {
     "ticker": "VAC",
@@ -190,7 +213,8 @@
       "Marriott Vacation Club"
     ],
     "file": "data/brands/VAC.json",
-    "count": 45
+    "count": 45,
+    "category": "Hotels"
   },
   {
     "ticker": "TNL",
@@ -198,7 +222,8 @@
       "Club Wyndham"
     ],
     "file": "data/brands/TNL.json",
-    "count": 45
+    "count": 45,
+    "category": "Hotels"
   },
   {
     "ticker": "MCW",
@@ -206,6 +231,52 @@
       "Mister Car Wash"
     ],
     "file": "data/brands/MCW.json",
-    "count": 45
+    "count": 45,
+    "category": "Fitness"
+  },
+  {
+    "ticker": "SUB",
+    "brands": [
+      "Subway"
+    ],
+    "file": "data/brands/SUB.json",
+    "count": 14842,
+    "category": "Non-Franchise"
+  },
+  {
+    "ticker": "CFA",
+    "brands": [
+      "Chick-fil-A"
+    ],
+    "file": "data/brands/CFA.json",
+    "count": 2743,
+    "category": "Non-Franchise"
+  },
+  {
+    "ticker": "PANDA",
+    "brands": [
+      "Panda Express"
+    ],
+    "file": "data/brands/PANDA.json",
+    "count": 2043,
+    "category": "Non-Franchise"
+  },
+  {
+    "ticker": "DQ",
+    "brands": [
+      "Dairy Queen"
+    ],
+    "file": "data/brands/DQ.json",
+    "count": 1492,
+    "category": "Non-Franchise"
+  },
+  {
+    "ticker": "PANERA",
+    "brands": [
+      "Panera Bread"
+    ],
+    "file": "data/brands/PANERA.json",
+    "count": 2046,
+    "category": "Non-Franchise"
   }
 ]

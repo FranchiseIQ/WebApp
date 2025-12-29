@@ -1,0 +1,57 @@
+<!-- =====================================================================
+     SHARED HEADER COMPONENT - Include via load-header.js
+     DO NOT MODIFY: ticker-wrapper-global markup is frozen
+
+     Usage in HTML pages:
+       <div id="shared-header"></div>
+       <script src="common/load-header.js"></script>
+
+     For subdirectory pages (e.g., StockChart/chart.html):
+       <div id="shared-header"></div>
+       <script src="../common/load-header.js"></script>
+     ===================================================================== -->
+
+<!-- ==== FROZEN TICKER START ==== -->
+<div class="ticker-wrapper-global">
+    <div id="closing-message" style="display: none; background: #ff9800; color: white; text-align: center; padding: 8px; font-weight: 600; font-size: 14px;">
+        Showing Closing Prices
+    </div>
+    <div id="status-bar">
+        <div id="clock-section">
+            <span id="clock">--:--:-- --</span>
+            <span id="timezone">ET</span>
+        </div>
+        <div id="market-status-section">
+            <span id="market-indicator" class="closed"></span>
+            <span id="market-label">Market Closed</span>
+        </div>
+        <div id="last-updated-section" style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 12px; color: #999;">Updated:</span>
+            <span id="last-updated" style="font-weight: 600; font-size: 13px; color: #667eea;">--:--</span>
+        </div>
+        <div id="refresh-section">
+            <span id="refresh-label">Next:</span>
+            <span id="countdown">60:00</span>
+        </div>
+    </div>
+    <div id="ticker-container">
+        <div id="ticker-content"></div>
+    </div>
+</div>
+<!-- ==== FROZEN TICKER END ==== -->
+
+<!-- NAVIGATION - Consistent across all pages except Map -->
+<nav class="site-nav below-ticker" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="nav-brand" data-base-href="index.html">
+        <img src="logo.svg" alt="FranResearch" width="32" height="32" data-base-src="logo.svg">
+        <span>FranResearch</span>
+    </a>
+    <div class="nav-links">
+        <a href="StockChart/chart.html" class="nav-link" data-base-href="StockChart/chart.html">Charts</a>
+        <a href="FranchiseMap/map.html" class="nav-link" data-base-href="FranchiseMap/map.html">Map</a>
+        <a href="FranchiseNews/news-feed.html" class="nav-link" data-base-href="FranchiseNews/news-feed.html">News</a>
+        <a href="sports.html" class="nav-link" data-base-href="sports.html">Sports</a>
+        <a href="franchise_calculators_module/index.html" class="nav-link" data-base-href="franchise_calculators_module/index.html">Calculators</a>
+        <a href="about.html" class="nav-link" data-base-href="about.html">About</a>
+    </div>
+</nav>
