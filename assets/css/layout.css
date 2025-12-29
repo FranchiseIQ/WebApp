@@ -1,10 +1,11 @@
 /* ============================================================================
    LAYOUT SYSTEM - Global page structure
-   Per CODEX Phase 1 Global Redesign Framework
+   Phase 1: Global Redesign Framework - Improved UX, Hick's Law, Fitts' Law
    ============================================================================ */
 
 /* ============================================================================
-   SECTION A: Global Ticker
+   SECTION A: Global Ticker (FROZEN - DO NOT MODIFY)
+   DO NOT TOUCH: ticker-wrapper-global, ticker.js, ticker.html, ticker.css
    ============================================================================ */
 
 #global-ticker-container {
@@ -25,6 +26,11 @@
   border: none;
   display: block;
 }
+
+/* ==== FROZEN TICKER START ====
+   DO NOT MODIFY: ticker-wrapper-global and all child elements
+   This container is managed by Website/ticker.js (1,056 lines)
+   ==== FROZEN TICKER END ==== */
 
 /* Alternative: iframe-based ticker (existing pages use 120px) */
 .global-ticker-wrapper {
@@ -49,13 +55,14 @@
 
 /* ============================================================================
    SECTION B: Navigation Bar
+   Improved design per Phase 1: Enhanced spacing, clarity, accessibility
    ============================================================================ */
 
 .global-nav {
   width: 100%;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(12px);
-  padding: 12px 0;
+  padding: 14px 0;
   position: sticky;
   top: 0;
   z-index: 99;
@@ -67,17 +74,20 @@
   position: fixed;
   top: 120px;
   left: 0;
+  width: 100%;
   z-index: 299;
 }
 
 .global-nav ul {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
   list-style: none;
   margin: 0;
-  padding-left: 20px;
-  max-width: 1200px;
+  padding: 0 24px;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .global-nav li {
@@ -85,28 +95,26 @@
 }
 
 .global-nav a {
-  color: white;
-  font-size: 16px;
+  color: #cbd5e1;
+  font-size: 15px;
   font-weight: 500;
   text-decoration: none;
-  opacity: 0.9;
-  padding: 6px 10px;
-  border-radius: 6px;
-  transition: opacity 0.15s, background 0.15s;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
 }
 
 .global-nav a:hover {
-  opacity: 1;
+  color: #f8fafc;
   background: rgba(255, 255, 255, 0.08);
 }
 
 .global-nav a.active {
-  opacity: 1;
   color: #6366f1;
-  background: rgba(99, 102, 241, 0.15);
+  background: rgba(99, 102, 241, 0.12);
 }
 
-/* Alternative: main-nav class (existing pages) */
+/* Alternative: main-nav class (existing pages) - Enhanced per Phase 1 */
 .main-nav {
   position: fixed;
   top: 120px;
@@ -115,13 +123,24 @@
   z-index: 299;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 28px;
   background: rgba(15, 23, 42, 0.95);
-  padding: 12px 24px;
+  padding: 14px 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
   overflow-x: auto;
   box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar on nav but allow scrolling on mobile */
+.main-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.main-nav {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .main-nav .nav-brand {
@@ -133,10 +152,11 @@
   font-size: 18px;
   color: var(--text, #f8fafc);
   margin-right: auto;
+  flex-shrink: 0;
 }
 
 .main-nav .nav-brand img {
-  height: 28px;
+  height: 32px;
   width: auto;
 }
 
@@ -146,8 +166,8 @@
   font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
-  padding: 6px 10px;
-  border-radius: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
   transition: color 0.15s, background 0.15s;
 }
 
@@ -190,32 +210,28 @@
 
 /* ============================================================================
    SECTION D: Global Footer
+   Phase 1: Improved spacing, typography, and visual hierarchy
    ============================================================================ */
 
 .global-footer {
-  margin-top: 80px;
-  padding: 40px;
-  background: rgba(0, 0, 0, 0.55);
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
+  margin-top: 100px;
+  padding: 64px 24px 48px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.55));
   backdrop-filter: blur(12px);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  flex-wrap: wrap;
-  gap: 40px;
 }
 
 .global-footer a {
   display: block;
-  color: #ddd;
+  color: #cbd5e1;
   font-size: 14px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   text-decoration: none;
   transition: color 0.15s;
 }
 
 .global-footer a:hover {
-  color: #fff;
+  color: #f8fafc;
 }
 
 .footer-col {
@@ -225,11 +241,11 @@
 
 .footer-col h4 {
   color: #f8fafc;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
 }
 
 .footer-col p {
@@ -243,15 +259,15 @@
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 48px;
 }
 
 .footer-bottom {
   width: 100%;
   max-width: 1200px;
-  margin: 32px auto 0;
-  padding-top: 24px;
+  margin: 40px auto 0;
+  padding-top: 28px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   text-align: center;
   font-size: 13px;
@@ -274,51 +290,119 @@
 
 /* ============================================================================
    Responsive Layout
+   Phase 1: Improved mobile, tablet, and desktop breakpoints
    ============================================================================ */
 
 /* Tablet screens: adjust spacing for reduced nav height */
+@media (max-width: 1024px) {
+  .global-nav ul {
+    gap: 24px;
+  }
+
+  .main-nav {
+    gap: 24px;
+    padding: 12px 20px;
+  }
+}
+
+/* Tablet screens: further adjustments */
 @media (max-width: 768px) {
   .global-nav {
-    padding: 10px 0;
+    padding: 12px 0;
   }
 
   .global-nav ul {
-    gap: 12px;
+    gap: 16px;
     overflow-x: auto;
     padding: 0 16px 4px;
+    -webkit-overflow-scrolling: touch;
   }
 
   .global-nav a {
     font-size: 14px;
     white-space: nowrap;
+    padding: 6px 10px;
   }
 
   .main-nav {
-    gap: 16px;
-    padding: 10px 16px;
+    gap: 20px;
+    padding: 12px 16px;
+  }
+
+  .main-nav .nav-brand img {
+    height: 28px;
   }
 
   .main-nav a {
     font-size: 13px;
+    padding: 6px 10px;
   }
 
   /* Adjust body padding on tablet - nav is more compact */
+  .has-fixed-ticker {
+    padding-top: 120px;
+  }
+
+  .has-fixed-ticker.has-fixed-nav {
+    padding-top: 165px;
+  }
+
+  .page-container {
+    padding: 28px 16px;
+  }
+
+  .global-footer {
+    padding: 48px 16px 36px;
+    margin-top: 80px;
+  }
+
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  .footer-bottom {
+    margin: 32px auto 0;
+    padding-top: 24px;
+  }
+}
+
+/* Mobile screens: further reduce padding for compact nav */
+@media (max-width: 640px) {
+  .global-nav ul {
+    gap: 12px;
+    padding: 0 12px 4px;
+  }
+
+  .main-nav {
+    gap: 16px;
+    padding: 10px 12px;
+  }
+
+  .main-nav .nav-brand {
+    font-size: 16px;
+  }
+
+  .main-nav .nav-brand img {
+    height: 24px;
+  }
+
+  /* On very small screens, nav and ticker may be more compact */
   .has-fixed-ticker {
     padding-top: 110px;
   }
 
   .has-fixed-ticker.has-fixed-nav {
-    padding-top: 160px;
+    padding-top: 155px;
   }
 
   .page-container {
-    padding: 24px 16px;
+    padding: 20px 12px;
   }
 
   .global-footer {
-    padding: 32px 16px;
-    flex-direction: column;
-    gap: 32px;
+    padding: 36px 12px 28px;
+    margin-top: 60px;
   }
 
   .footer-content {
@@ -329,16 +413,8 @@
   .footer-col {
     min-width: 100%;
   }
-}
 
-/* Mobile screens: further reduce padding for compact nav */
-@media (max-width: 480px) {
-  /* On very small screens, nav and ticker may be more compact */
-  .has-fixed-ticker {
-    padding-top: 100px;
-  }
-
-  .has-fixed-ticker.has-fixed-nav {
-    padding-top: 145px;
+  .footer-col h4 {
+    margin-bottom: 16px;
   }
 }
