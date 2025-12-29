@@ -1,1 +1,26 @@
-[{"id":"NATH_12143467439","ticker":"NATH","n":"Nathan's Famous","a":"US Location (OSM)","lat":40.2915689,"lng":-76.6538094,"s":63,"at":{"medianIncome":74739,"traffic":12348,"competitors":1,"visibility":63,"walkScore":95,"avgAge":39.6,"householdSize":2.3,"educationIndex":82,"employmentRate":95.6,"_demographicsPopulated":"2025-12-19T06:49:37.255462"}}]
+[
+  {
+    "id": "NATH_12143467439",
+    "ticker": "NATH",
+    "n": "Nathan's Famous",
+    "a": "US Location (OSM)",
+    "lat": 40.2915689,
+    "lng": -76.6538094,
+    "s": 63,
+    "at": {
+      "medianIncome": 74739,
+      "traffic": 12348,
+      "competitors": 1,
+      "visibility": 63,
+      "walkScore": 95,
+      "avgAge": 39.6,
+      "householdSize": 2.3,
+      "educationIndex": 82,
+      "employmentRate": 95.6,
+      "_demographicsPopulated": "2025-12-19T06:49:37.255462"
+    },
+    "address": "Derry Township, Pennsylvania, 17033",
+    "display_name": "Nathan's Famous, Park Avenue, Hershey, Derry Township, Dauphin County, Pennsylvania, 17033, United States",
+    "country": "United States"
+  }
+]
