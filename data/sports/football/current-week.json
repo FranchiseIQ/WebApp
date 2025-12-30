@@ -1,39 +1,6 @@
 {
-  "lastUpdated": "2025-12-29T16:42:30.099715Z",
+  "lastUpdated": "2025-12-30T04:24:14.945354Z",
   "games": [
-    {
-      "id": "nfl-401772825",
-      "league": "NFL",
-      "startTime": "2025-12-30T01:15Z",
-      "homeTeam": {
-        "name": "Atlanta Falcons",
-        "shortName": "Falcons",
-        "abbreviation": "ATL",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
-        "record": "6-9",
-        "players": [],
-        "injuries": [],
-        "rank": ""
-      },
-      "awayTeam": {
-        "name": "Los Angeles Rams",
-        "shortName": "Rams",
-        "abbreviation": "LAR",
-        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
-        "record": "11-4",
-        "players": [],
-        "injuries": [],
-        "rank": ""
-      },
-      "homeScore": "0",
-      "awayScore": "0",
-      "status": "scheduled",
-      "quarter": "",
-      "clock": "",
-      "network": "ESPN",
-      "video_url": null,
-      "is_championship": false
-    },
     {
       "id": "nfl-401772710",
       "league": "NFL",
@@ -526,6 +493,39 @@
       "quarter": "",
       "clock": "",
       "network": "NBC",
+      "video_url": null,
+      "is_championship": false
+    },
+    {
+      "id": "nfl-401772825",
+      "league": "NFL",
+      "startTime": "2025-12-30T01:15Z",
+      "homeTeam": {
+        "name": "Atlanta Falcons",
+        "shortName": "Falcons",
+        "abbreviation": "ATL",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
+        "record": "7-9",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "awayTeam": {
+        "name": "Los Angeles Rams",
+        "shortName": "Rams",
+        "abbreviation": "LAR",
+        "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
+        "record": "11-5",
+        "players": [],
+        "injuries": [],
+        "rank": ""
+      },
+      "homeScore": "27",
+      "awayScore": "24",
+      "status": "final",
+      "quarter": "",
+      "clock": "",
+      "network": "ESPN",
       "video_url": null,
       "is_championship": false
     }
