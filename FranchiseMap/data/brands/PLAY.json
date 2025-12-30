@@ -5394,7 +5394,10 @@
       "educationIndex": 81,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.465726"
-    }
+    },
+    "address": "Eureka, California, 95503",
+    "display_name": "W Street, Eureka, Humboldt County, California, 95503, United States",
+    "country": "United States"
   },
   {
     "id": "PLAY_1370995901",
@@ -5415,7 +5418,10 @@
       "educationIndex": 86,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.465733"
-    }
+    },
+    "address": "Spokane Valley, Washington, 99216",
+    "display_name": "Dave & Buster's, 13921, East Mansfield Avenue, Spokane Valley, Spokane County, Washington, 99216, United States",
+    "country": "United States"
   },
   {
     "id": "PLAY_1374174009",
@@ -5436,7 +5442,10 @@
       "educationIndex": 85,
       "employmentRate": 96.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.465738"
-    }
+    },
+    "address": "Colorado Springs, Colorado, 80920",
+    "display_name": "Dave & Buster's, 9279, Chapel Hills Drive, Colorado Springs, El Paso County, Colorado, 80920, United States",
+    "country": "United States"
   },
   {
     "id": "PLAY_1374305352",
@@ -5457,7 +5466,10 @@
       "educationIndex": 76,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.465745"
-    }
+    },
+    "address": "Fresno, California, 93720",
+    "display_name": "Dave & Buster's, 212, E River Park Circle, Fresno, Fresno County, California, 93720, United States",
+    "country": "United States"
   },
   {
     "id": "PLAY_1376371079",
@@ -5478,7 +5490,10 @@
       "educationIndex": 79,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.465751"
-    }
+    },
+    "address": "Eagle Point, Oregon, 97524",
+    "display_name": "Freddie's Diner & The Main Event, 120, Main Street West, Eagle Point, Jackson County, Oregon, 97524, United States",
+    "country": "United States"
   },
   {
     "id": "PLAY_1379210291",
@@ -5499,7 +5514,10 @@
       "educationIndex": 85,
       "employmentRate": 96.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.465757"
-    }
+    },
+    "address": "Torrance, California, 90503",
+    "display_name": "Burlington, 21880, Hawthorne Boulevard, Torrance, Los Angeles County, California, 90503, United States",
+    "country": "United States"
   },
   {
     "id": "PLAY_1411638362",
@@ -5520,7 +5538,10 @@
       "educationIndex": 79,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.465763"
-    }
+    },
+    "address": "Wichita, Kansas, 67226",
+    "display_name": "Dave & Buster's, 2644, North Greenwich Court, Wichita, Sedgwick County, Kansas, 67226, United States",
+    "country": "United States"
   },
   {
     "id": "PLAY_1413367627",
@@ -5541,7 +5562,10 @@
       "educationIndex": 69,
       "employmentRate": 92.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.465768"
-    }
+    },
+    "address": "Mobile, Alabama, 36606",
+    "display_name": "Dave & Buster's, Commerce Drive East, Mobile County Commission District 1, Mobile, Mobile County, Alabama, 36606, United States",
+    "country": "United States"
   },
   {
     "id": "PLAY_1445707301",
@@ -5562,7 +5586,10 @@
       "educationIndex": 79,
       "employmentRate": 93.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.465774"
-    }
+    },
+    "address": "Norman, Oklahoma, 73069",
+    "display_name": "Main Event, 1929, Mount Williams Way, Norman, Cleveland County, Oklahoma, 73069, United States",
+    "country": "United States"
   },
   {
     "id": "PLAY_1456460436",
@@ -5583,6 +5610,9 @@
       "educationIndex": 77,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.465781"
-    }
+    },
+    "address": "Arkansas, 72572",
+    "display_name": "Lawrence Road 344, Lawrence County, Arkansas, 72572, United States",
+    "country": "United States"
   }
 ]
