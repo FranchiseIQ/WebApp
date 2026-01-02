@@ -11,7 +11,10 @@
       "walkScore": 55,
       "transitScore": 22,
       "bikeScore": 45
-    }
+    },
+    "address": "Columbus, Ohio, 43202",
+    "display_name": "Buckeye Lot, Fred Taylor Drive, Columbus, Sharon, Franklin County, Ohio, 43202, United States",
+    "country": "United States"
   },
   {
     "id": "wen-002",
@@ -25,7 +28,10 @@
       "walkScore": 99,
       "transitScore": 100,
       "bikeScore": 89
-    }
+    },
+    "address": "City of New York, New York, 10019",
+    "display_name": "7th Avenue, Times Square, Manhattan Community Board 5, Manhattan, New York County, City of New York, New York, 10019, United States",
+    "country": "United States"
   },
   {
     "id": "wen-003",
@@ -39,7 +45,10 @@
       "walkScore": 98,
       "transitScore": 100,
       "bikeScore": 85
-    }
+    },
+    "address": "Chicago, Illinois, 60604",
+    "display_name": "314, South Federal Street, Printer's Row, Loop, Chicago, South Chicago Township, Cook County, Illinois, 60604, United States",
+    "country": "United States"
   },
   {
     "id": "wen-004",
@@ -53,7 +62,10 @@
       "walkScore": 85,
       "transitScore": 56,
       "bikeScore": 48
-    }
+    },
+    "address": "Houston, Texas, 77002",
+    "display_name": "West Walker Tunnel, Downtown, Houston, Harris County, Texas, 77002, United States",
+    "country": "United States"
   },
   {
     "id": "wen-005",
@@ -67,7 +79,10 @@
       "walkScore": 72,
       "transitScore": 48,
       "bikeScore": 62
-    }
+    },
+    "address": "Phoenix, Arizona, 85003",
+    "display_name": "2, North Central Avenue, Central City, Phoenix, Maricopa County, Arizona, 85003, United States",
+    "country": "United States"
   },
   {
     "id": "wen-006",
@@ -81,7 +96,10 @@
       "walkScore": 97,
       "transitScore": 96,
       "bikeScore": 89
-    }
+    },
+    "address": "Boston, Massachusetts, 02203",
+    "display_name": "Dock Square, Boston, Suffolk County, Massachusetts, 02203, United States",
+    "country": "United States"
   },
   {
     "id": "wen-007",
@@ -95,7 +113,10 @@
       "walkScore": 91,
       "transitScore": 75,
       "bikeScore": 68
-    }
+    },
+    "address": "Los Angeles, California, 90012",
+    "display_name": "Los Angeles Police Department Headquarters, West 1st Street, Civic Center, Downtown, Los Angeles, Los Angeles County, California, 90012, United States",
+    "country": "United States"
   },
   {
     "id": "wen-008",
@@ -109,7 +130,10 @@
       "walkScore": 78,
       "transitScore": 52,
       "bikeScore": 45
-    }
+    },
+    "address": "Dallas, Texas, 75242",
+    "display_name": "Dallas City Hall, 1500, Marilla Street, Downtown PID, Dallas, Dallas County, Texas, 75242, United States",
+    "country": "United States"
   },
   {
     "id": "wen-009",
@@ -123,7 +147,10 @@
       "walkScore": 88,
       "transitScore": 65,
       "bikeScore": 82
-    }
+    },
+    "address": "Denver, Colorado, 80274",
+    "display_name": "Bannock Central Plaza, Golden Triangle, Denver, Colorado, 80274, United States",
+    "country": "United States"
   },
   {
     "id": "wen-010",
@@ -137,7 +164,10 @@
       "walkScore": 94,
       "transitScore": 85,
       "bikeScore": 78
-    }
+    },
+    "address": "Washington, District of Columbia, 20036",
+    "display_name": "Scott Circle Northwest, Downtown, Ward 2, Washington, District of Columbia, 20036, United States",
+    "country": "United States"
   },
   {
     "id": "wen-011",
@@ -151,7 +181,10 @@
       "walkScore": 75,
       "transitScore": 32,
       "bikeScore": 55
-    }
+    },
+    "address": "Nashville, Tennessee, 37219",
+    "display_name": "6th Avenue North, Downtown Nashville, Nashville, Davidson County, Middle Tennessee, Tennessee, 37219, United States",
+    "country": "United States"
   },
   {
     "id": "wen-012",
@@ -165,7 +198,10 @@
       "walkScore": 70,
       "transitScore": 28,
       "bikeScore": 48
-    }
+    },
+    "address": "Charlotte, North Carolina, 28202",
+    "display_name": "Industry, East Trade Street, Uptown, Charlotte, Mecklenburg County, North Carolina, 28202, United States",
+    "country": "United States"
   },
   {
     "id": "wen-013",
@@ -179,7 +215,10 @@
       "walkScore": 85,
       "transitScore": 68,
       "bikeScore": 92
-    }
+    },
+    "address": "Minneapolis, Minnesota, 55415",
+    "display_name": "Minneapolis Skyway (Tunnel), Minneapolis, Hennepin County, Minnesota, 55415, United States",
+    "country": "United States"
   },
   {
     "id": "wen-014",
@@ -193,7 +232,10 @@
       "walkScore": 94,
       "transitScore": 82,
       "bikeScore": 75
-    }
+    },
+    "address": "Philadelphia, Pennsylvania, 19110",
+    "display_name": "North 15th Street, Gayborhood, Center City, Philadelphia, Philadelphia County, Pennsylvania, 19110, United States",
+    "country": "United States"
   },
   {
     "id": "wen-015",
@@ -207,7 +249,10 @@
       "walkScore": 82,
       "transitScore": 55,
       "bikeScore": 52
-    }
+    },
+    "address": "Atlanta, Georgia, 30334",
+    "display_name": "Miss Freedom, 206, Washington Street Southwest, South Downtown, Atlanta, Fulton County, Georgia, 30334, United States",
+    "country": "United States"
   },
   {
     "id": "wen-016",
@@ -221,7 +266,10 @@
       "walkScore": 96,
       "transitScore": 88,
       "bikeScore": 78
-    }
+    },
+    "address": "Seattle, Washington, 98164",
+    "display_name": "Schuchart, 919, 5th Avenue, Central Business District, First Hill, Seattle, King County, Washington, 98164, United States",
+    "country": "United States"
   },
   {
     "id": "wen-017",
@@ -235,7 +283,10 @@
       "walkScore": 89,
       "transitScore": 62,
       "bikeScore": 72
-    }
+    },
+    "address": "Miami, Florida, 33131",
+    "display_name": "CVS Pharmacy, 1201, Brickell Avenue, Miami, Miami-Dade County, Florida, 33131, United States",
+    "country": "United States"
   },
   {
     "id": "wen-018",
@@ -249,7 +300,10 @@
       "walkScore": 95,
       "transitScore": 89,
       "bikeScore": 92
-    }
+    },
+    "address": "San Francisco, California, 94103",
+    "display_name": "South Van Ness Avenue, Civic Center, San Francisco, California, 94103, United States",
+    "country": "United States"
   },
   {
     "id": "wen-019",
@@ -263,7 +317,10 @@
       "walkScore": 82,
       "transitScore": 42,
       "bikeScore": 72
-    }
+    },
+    "address": "Austin, Texas, 78701",
+    "display_name": "Charles Schwab, 501, Congress Avenue, Downtown, Austin, Travis County, Texas, 78701, United States",
+    "country": "United States"
   },
   {
     "id": "wen-020",
@@ -277,7 +334,10 @@
       "walkScore": 92,
       "transitScore": 75,
       "bikeScore": 95
-    }
+    },
+    "address": "Portland, Oregon, 97258",
+    "display_name": "Robert Hugh Baldock Freeway, Downtown, Portland, Multnomah County, Oregon, 97258, United States",
+    "country": "United States"
   },
   {
     "id": "wen-021",
@@ -291,7 +351,10 @@
       "walkScore": 65,
       "transitScore": 32,
       "bikeScore": 52
-    }
+    },
+    "address": "Columbus, Ohio, 43216",
+    "display_name": "Ohio House of Representatives, East State Street, Downtown, Columbus, Franklin County, Ohio, 43216, United States",
+    "country": "United States"
   },
   {
     "id": "wen-022",
@@ -305,7 +368,10 @@
       "walkScore": 68,
       "transitScore": 35,
       "bikeScore": 48
-    }
+    },
+    "address": "Cincinnati, Ohio, 45202",
+    "display_name": "Metropole, 609, Walnut Street, Main Street Historic District, Central Business District, Cincinnati, Hamilton County, Ohio, 45202, United States",
+    "country": "United States"
   },
   {
     "id": "wen-023",
@@ -319,7 +385,10 @@
       "walkScore": 72,
       "transitScore": 45,
       "bikeScore": 58
-    }
+    },
+    "address": "Cleveland, Ohio, 44113",
+    "display_name": "Superior Avenue, Downtown Cleveland, Cleveland, Cuyahoga County, Ohio, 44113, United States",
+    "country": "United States"
   },
   {
     "id": "wen-024",
@@ -333,7 +402,10 @@
       "walkScore": 72,
       "transitScore": 38,
       "bikeScore": 55
-    }
+    },
+    "address": "Detroit, Michigan, 48226",
+    "display_name": "52, Cadillac Square, Greektown, Detroit, Wayne County, Michigan, 48226, United States",
+    "country": "United States"
   },
   {
     "id": "wen-025",
@@ -347,6 +419,9 @@
       "walkScore": 75,
       "transitScore": 42,
       "bikeScore": 55
-    }
+    },
+    "address": "Saint Louis, Missouri, 63103",
+    "display_name": "St. Louis City Hall, 1200, Market Street, Downtown West, Saint Louis, Missouri, 63103, United States",
+    "country": "United States"
   }
 ]

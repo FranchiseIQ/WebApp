@@ -23010,7 +23010,10 @@
       "educationIndex": 77,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.095844"
-    }
+    },
+    "address": "Miami, Florida, 33150",
+    "display_name": "Wingstop, 651, Northwest 62nd Street, Edison Center, Miami, Miami-Dade County, Florida, 33150, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12179280043",
@@ -23031,7 +23034,10 @@
       "educationIndex": 86,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.095851"
-    }
+    },
+    "address": "Renton, Washington, 98059",
+    "display_name": "Wingstop, 4710, Northeast 4th Street, Renton, King County, Washington, 98059, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12180220778",
@@ -23052,7 +23058,10 @@
       "educationIndex": 75,
       "employmentRate": 93.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.095858"
-    }
+    },
+    "address": "Nashville, Tennessee, 37228",
+    "display_name": "Wingstop, 2048, Rosa L Parks Boulevard, Nashville, Davidson County, Middle Tennessee, Tennessee, 37228, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12192067333",
@@ -23073,7 +23082,10 @@
       "educationIndex": 87,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.095865"
-    }
+    },
+    "address": "Palmdale, California",
+    "display_name": "Wingstop, Rancho Vista Road, Palmdale, Los Angeles County, California, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12193548058",
@@ -23094,7 +23106,10 @@
       "educationIndex": 81,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.095870"
-    }
+    },
+    "address": "Rosenberg, Texas, 77469",
+    "display_name": "Wingstop, Spacek Road, Rosenberg, Fort Bend County, Texas, 77469, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12193883864",
@@ -23115,7 +23130,10 @@
       "educationIndex": 82,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.095877"
-    }
+    },
+    "address": "Reno, Nevada, 89506",
+    "display_name": "Wingstop, 200, Vista Knoll Parkway, Reno, Washoe County, Nevada, 89506, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12196223766",
@@ -23136,7 +23154,10 @@
       "educationIndex": 85,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.095883"
-    }
+    },
+    "address": "Pleasant Grove, Utah, 84062",
+    "display_name": "Wingstop, North County Boulevard, Pleasant Grove, Utah County, Utah, 84062, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12210976454",
@@ -23157,7 +23178,10 @@
       "educationIndex": 82,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.095888"
-    }
+    },
+    "address": "Arvada, Colorado, 80003",
+    "display_name": "Wingstop, Sheridan Boulevard, Arvada, Adams County, Colorado, 80003, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12214523806",
@@ -23178,7 +23202,10 @@
       "educationIndex": 82,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.095894"
-    }
+    },
+    "address": "Newark, New Jersey, 07104",
+    "display_name": "Wingstop, 1244, McCarter Highway, Newark, Essex County, New Jersey, 07104, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12223873000",
@@ -23199,7 +23226,10 @@
       "educationIndex": 78,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.095900"
-    }
+    },
+    "address": "Cumru Township, Pennsylvania, 19607",
+    "display_name": "Wingstop, Elkins Avenue, The Shoppe at Shillington, Cumru Township, Berks County, Pennsylvania, 19607, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12233652733",
@@ -23220,7 +23250,10 @@
       "educationIndex": 80,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.095906"
-    }
+    },
+    "address": "Saint Paul, Minnesota, 55104",
+    "display_name": "Wingstop, University Avenue, Lexington - Hamline, Union Park, Saint Paul, Ramsey County, Minnesota, 55104, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12249287478",
@@ -23241,7 +23274,10 @@
       "educationIndex": 82,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.095912"
-    }
+    },
+    "address": "Shreveport, Louisiana, 71105",
+    "display_name": "Wingstop, 779, Shreveport Barksdale Highway, Shreveport, Caddo Parish, Louisiana, 71105, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12277592536",
@@ -23262,7 +23298,10 @@
       "educationIndex": 86,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.095918"
-    }
+    },
+    "address": "City of New York, New York, 10031",
+    "display_name": "Wingstop, 3440, Broadway, Hamilton Heights, Manhattan Community Board 9, Manhattan, New York County, City of New York, New York, 10031, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12287885970",
@@ -23283,7 +23322,10 @@
       "educationIndex": 83,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.095924"
-    }
+    },
+    "address": "City of Albany, New York, 12206",
+    "display_name": "Wingstop, 911, Central Avenue, City of Albany, Albany County, New York, 12206, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12289394996",
@@ -23304,7 +23346,10 @@
       "educationIndex": 82,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.095930"
-    }
+    },
+    "address": "Texas, 77379",
+    "display_name": "Wingstop, 18426, Kuykendahl Road, Harris County, Texas, 77379, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12290903606",
@@ -23325,7 +23370,10 @@
       "educationIndex": 82,
       "employmentRate": 96.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.095936"
-    }
+    },
+    "address": "Sioux Falls, South Dakota, 57197",
+    "display_name": "Wingstop, South Minnesota Avenue, Sioux Falls, Sioux Falls Township, Minnehaha County, South Dakota, 57197, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12312987416",
@@ -23346,7 +23394,10 @@
       "educationIndex": 83,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.095943"
-    }
+    },
+    "address": "Wayne, Michigan, 48184",
+    "display_name": "Wingstop, 35165, East Michigan Avenue, Wayne, Wayne County, Michigan, 48184, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12312987427",
@@ -23367,7 +23418,10 @@
       "educationIndex": 76,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.095949"
-    }
+    },
+    "address": "Canton Township, Michigan, 48187",
+    "display_name": "Wingstop, 39904, Ford Road, Canton Township, Wayne County, Michigan, 48187, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12319917730",
@@ -23388,7 +23442,10 @@
       "educationIndex": 81,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.095955"
-    }
+    },
+    "address": "City of New York, New York, 11239",
+    "display_name": "Wingstop, 11114, Flatlands Avenue, Brooklyn, Kings County, City of New York, New York, 11239, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12321821532",
@@ -23409,7 +23466,10 @@
       "educationIndex": 77,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.095961"
-    }
+    },
+    "address": "Northlake, Illinois, 60164",
+    "display_name": "Wingstop, 6, West North Avenue, Northlake, Leyden Township, Cook County, Illinois, 60164, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12335832558",
@@ -23430,7 +23490,10 @@
       "educationIndex": 85,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.095968"
-    }
+    },
+    "address": "Watsonville, California, 95076",
+    "display_name": "Wingstop, 1483, Main Street, Overlook Shopping Center, Watsonville, Santa Cruz County, California, 95076, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12336572324",
@@ -23451,7 +23514,10 @@
       "educationIndex": 85,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.095976"
-    }
+    },
+    "address": "Big Bear Lake, California, 92315",
+    "display_name": "Wingstop, 42169, Big Bear Boulevard, Big Bear Lake, San Bernardino County, California, 92315, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12339893454",
@@ -23472,7 +23538,10 @@
       "educationIndex": 82,
       "employmentRate": 96.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.095982"
-    }
+    },
+    "address": "Aberdeen Township, New Jersey, 07721",
+    "display_name": "Wingstop, 315, NJ 35, Cliffwood Beach, Aberdeen Township, Monmouth County, New Jersey, 07721, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12345433048",
@@ -23493,7 +23562,10 @@
       "educationIndex": 70,
       "employmentRate": 93.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.095987"
-    }
+    },
+    "address": "Denham Springs, Louisiana, 70726",
+    "display_name": "Wingstop, 27800, Juban Road, Denham Springs, Livingston Parish, Louisiana, 70726, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12381248850",
@@ -23514,7 +23586,10 @@
       "educationIndex": 77,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.095993"
-    }
+    },
+    "address": "Forest Hills, Kentucky, 40222",
+    "display_name": "Wingstop, 2007, South Hurstbourne Parkway, Forest Hills, Jefferson County, Kentucky, 40222, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12389599095",
@@ -23535,7 +23610,10 @@
       "educationIndex": 81,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.095999"
-    }
+    },
+    "address": "Lexington, South Carolina, 29072",
+    "display_name": "Wingstop, Ellis Avenue, Lakeland, Lexington, Lexington County, South Carolina, 29072, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12392840822",
@@ -23556,7 +23634,10 @@
       "educationIndex": 87,
       "employmentRate": 96.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096006"
-    }
+    },
+    "address": "Temecula, California, 92592",
+    "display_name": "Wingstop, Temecula Parkway, Sombrosa, Paseo del Sol, Temecula, Riverside County, California, 92592, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12402611563",
@@ -23577,7 +23658,10 @@
       "educationIndex": 84,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096011"
-    }
+    },
+    "address": "Aurora, Colorado, 80249",
+    "display_name": "Wingstop, North Tower Road, Aurora, Adams County, Colorado, 80249, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12415996228",
@@ -23598,7 +23682,10 @@
       "educationIndex": 80,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096017"
-    }
+    },
+    "address": "Laredo, Texas, 78046",
+    "display_name": "Wingstop, South Zapata Highway, Riverhill, Laredo, Webb County, Texas, 78046, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12417091468",
@@ -23619,7 +23706,10 @@
       "educationIndex": 82,
       "employmentRate": 96.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096024"
-    }
+    },
+    "address": "Oak Harbor, Washington, 98277",
+    "display_name": "Wingstop, 31270, State Route 20, Pioneer Blueberries, Oak Harbor, Island County, Washington, 98277, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12422557005",
@@ -23640,7 +23730,10 @@
       "educationIndex": 84,
       "employmentRate": 96.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096030"
-    }
+    },
+    "address": "Cockeysville, Maryland, 21030",
+    "display_name": "Wingstop, 10015, York Road, Deertree, Cockeysville, Baltimore County, Maryland, 21030, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12427726548",
@@ -23661,7 +23754,10 @@
       "educationIndex": 84,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096035"
-    }
+    },
+    "address": "Woods Cross, Utah, 84087",
+    "display_name": "Wingstop, 618, 2600 South, Woods Cross, Davis County, Utah, 84087, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12431629897",
@@ -23682,7 +23778,10 @@
       "educationIndex": 69,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096041"
-    }
+    },
+    "address": "Flowood, Mississippi, 39047",
+    "display_name": "Wingstop, Lakeland Place, Flowood, Rankin County, Mississippi, 39047, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12439568978",
@@ -23703,7 +23802,10 @@
       "educationIndex": 80,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096046"
-    }
+    },
+    "address": "Charlotte, North Carolina, 28208",
+    "display_name": "Wingstop, 3202, Wilkinson Boulevard, Ashley Park, Charlotte, Mecklenburg County, North Carolina, 28208, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12467656837",
@@ -23724,7 +23826,10 @@
       "educationIndex": 84,
       "employmentRate": 96.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096053"
-    }
+    },
+    "address": "San Diego, California, 92110",
+    "display_name": "Wingstop, Rosecrans Street, Loma Square, Midway District, San Diego, San Diego County, California, 92110, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12507748968",
@@ -23745,7 +23850,10 @@
       "educationIndex": 78,
       "employmentRate": 93.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096059"
-    }
+    },
+    "address": "La Grange, Illinois, 60525",
+    "display_name": "Wingstop, 115, North La Grange Road, La Grange, Lyons Township, Cook County, Illinois, 60525, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12518060857",
@@ -23766,7 +23874,10 @@
       "educationIndex": 85,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096066"
-    }
+    },
+    "address": "Chino Hills, California, 91709",
+    "display_name": "Wingstop, Pipeline Avenue, Chino Hills, San Bernardino County, California, 91709, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12519409058",
@@ -23787,7 +23898,10 @@
       "educationIndex": 75,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.096071"
-    }
+    },
+    "address": "Chicago, Illinois, 60639",
+    "display_name": "Wingstop, 4430, West North Avenue, Beat 2523, Humboldt Park, Chicago, West Chicago Township, Cook County, Illinois, 60639, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12530860417",
@@ -23808,7 +23922,10 @@
       "educationIndex": 76,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096077"
-    }
+    },
+    "address": "Lake Jackson, Texas, 77566",
+    "display_name": "Wingstop, 117, State Highway 332 East, Lake Jackson, Brazoria County, Texas, 77566, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12537247086",
@@ -23829,7 +23946,10 @@
       "educationIndex": 79,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.096084"
-    }
+    },
+    "address": "Hammond, Indiana, 46320",
+    "display_name": "Wingstop, 902, Roby Drive, Marina District, Hammond, North Township, Lake County, Indiana, 46320, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12546659101",
@@ -23850,7 +23970,10 @@
       "educationIndex": 83,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096090"
-    }
+    },
+    "address": "Town of Henrietta, New York, 14623",
+    "display_name": "Wingstop, Hylan Drive, Town of Henrietta, Monroe County, New York, 14623, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12547958580",
@@ -23871,7 +23994,10 @@
       "educationIndex": 87,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096097"
-    }
+    },
+    "address": "Patterson, California, 95363",
+    "display_name": "Wingstop, Sperry Avenue, Patterson, Stanislaus County, California, 95363, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12591700055",
@@ -23892,7 +24018,10 @@
       "educationIndex": 82,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096104"
-    }
+    },
+    "address": "Garden Grove, California, 92842",
+    "display_name": "Wingstop, Harbor Boulevard, Garden Grove, Orange County, California, 92842, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12597714608",
@@ -23913,7 +24042,10 @@
       "educationIndex": 88,
       "employmentRate": 96.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096110"
-    }
+    },
+    "address": "Allentown, Pennsylvania, 18109",
+    "display_name": "Wingstop, 1824, Airport Road, Allentown, Lehigh County, Pennsylvania, 18109, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12601557755",
@@ -23934,7 +24066,10 @@
       "educationIndex": 79,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096116"
-    }
+    },
+    "address": "Wentzville, Missouri, 63385",
+    "display_name": "Wingstop, 1855, Wentzville Parkway, Wentzville, Saint Charles County, Missouri, 63385, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12602722170",
@@ -23955,7 +24090,10 @@
       "educationIndex": 82,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096123"
-    }
+    },
+    "address": "Elk Grove, California, 95823",
+    "display_name": "Wingstop, Florin Road, Elk Grove, Sacramento County, California, 95823, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12604147636",
@@ -23976,7 +24114,10 @@
       "educationIndex": 86,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096130"
-    }
+    },
+    "address": "Heroica Nogales, Sonora, 84066",
+    "display_name": "Wingstop, 2693, Periférico Luis Donaldo Colosio Murrieta, Heroica Nogales, Nogales, Sonora, 84066, México",
+    "country": "México"
   },
   {
     "id": "WING_12607743383",
@@ -23997,7 +24138,10 @@
       "educationIndex": 80,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096137"
-    }
+    },
+    "address": "Matteson, Illinois, 60443",
+    "display_name": "Wingstop, 4630, Lincoln Highway, Matteson, Rich Township, Cook County, Illinois, 60443, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12617326471",
@@ -24018,7 +24162,10 @@
       "educationIndex": 80,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096143"
-    }
+    },
+    "address": "Henderson, Nevada, 89015",
+    "display_name": "Wingstop, 1421, South Boulder Highway, Henderson, Clark County, Nevada, 89015, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12622920078",
@@ -24039,7 +24186,10 @@
       "educationIndex": 76,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.096149"
-    }
+    },
+    "address": "Wauwatosa, Wisconsin, 53213",
+    "display_name": "Wingstop, 6933, West North Avenue, Inglewood, Wauwatosa, Milwaukee County, Wisconsin, 53213, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12624115228",
@@ -24060,7 +24210,10 @@
       "educationIndex": 75,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096154"
-    }
+    },
+    "address": "Oshtemo Charter Township, Michigan, 49009",
+    "display_name": "Wingstop, 5021, West Main Street, Oshtemo Charter Township, Kalamazoo County, Michigan, 49009, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12630438172",
@@ -24081,7 +24234,10 @@
       "educationIndex": 79,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096160"
-    }
+    },
+    "address": "San Antonio, Texas, 78233",
+    "display_name": "Wingstop, 13909, Nacogdoches Road, San Antonio, Bexar County, Texas, 78233, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12631370267",
@@ -24102,7 +24258,10 @@
       "educationIndex": 86,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096166"
-    }
+    },
+    "address": "Commerce City, Colorado, 80024",
+    "display_name": "Wingstop, East 62nd Avenue, Commerce City, Adams County, Colorado, 80024, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12636233501",
@@ -24123,7 +24282,10 @@
       "educationIndex": 83,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096171"
-    }
+    },
+    "address": "Fort Collins, Colorado, 80525",
+    "display_name": "Wingstop, South Mason Street, Arbor Plaza, Fort Collins, Larimer County, Colorado, 80525, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12641634245",
@@ -24144,7 +24306,10 @@
       "educationIndex": 74,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.096177"
-    }
+    },
+    "address": "Battle Creek, Michigan, 49015",
+    "display_name": "Wingstop, 5475, Beckley Road, Battle Creek, Calhoun County, Michigan, 49015, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12649436470",
@@ -24165,7 +24330,10 @@
       "educationIndex": 82,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096183"
-    }
+    },
+    "address": "Milwaukee, Wisconsin, 53216",
+    "display_name": "Wingstop, 5610, West Capitol Drive, Capitol Heights, Milwaukee, Milwaukee County, Wisconsin, 53216, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12668949356",
@@ -24186,7 +24354,10 @@
       "educationIndex": 80,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096189"
-    }
+    },
+    "address": "Benbrook, Texas, 76126",
+    "display_name": "Wingstop, 8723, Benbrook Boulevard, Benbrook, Tarrant County, Texas, 76126, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12678181901",
@@ -24207,7 +24378,10 @@
       "educationIndex": 74,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096195"
-    }
+    },
+    "address": "Louisville, Kentucky, 40291",
+    "display_name": "Wingstop, 6209, Bardstown Road, Fern Creek, Louisville, Jefferson County, Kentucky, 40291, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12688402048",
@@ -24228,7 +24402,10 @@
       "educationIndex": 76,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096213"
-    }
+    },
+    "address": "Saint Joseph, Missouri, 64506",
+    "display_name": "Wingstop, 2115, North Belt Highway, Saint Joseph, Buchanan County, Missouri, 64506, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12695631324",
@@ -24249,7 +24426,10 @@
       "educationIndex": 76,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096222"
-    }
+    },
+    "address": "Temple, Texas, 76502",
+    "display_name": "Wingstop, 3024, South 31st Street, Temple, Bell County, Texas, 76502, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12703965061",
@@ -24270,7 +24450,10 @@
       "educationIndex": 80,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096229"
-    }
+    },
+    "address": "Seattle, Washington, 98122",
+    "display_name": "Wingstop, 1812, Broadway, Capitol Hill, Seattle, King County, Washington, 98122, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12707306355",
@@ -24291,7 +24474,10 @@
       "educationIndex": 82,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096235"
-    }
+    },
+    "address": "Greensboro, North Carolina, 27410",
+    "display_name": "Wingstop, 2306, Battleground Avenue, Fairfield, Greensboro, Guilford County, North Carolina, 27410, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12714808831",
@@ -24312,7 +24498,10 @@
       "educationIndex": 79,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096241"
-    }
+    },
+    "address": "Sugar Land, Texas, 77479",
+    "display_name": "Wingstop, 16525, Lexington Boulevard, Sugar Land, Fort Bend County, Texas, 77479, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12726891198",
@@ -24333,7 +24522,10 @@
       "educationIndex": 87,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096247"
-    }
+    },
+    "address": "Culpeper, Virginia, 22701",
+    "display_name": "Wingstop, James Madison Highway, Dominion Square Shopping Center, Culpeper, Culpeper County, Virginia, 22701, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12727160974",
@@ -24354,7 +24546,10 @@
       "educationIndex": 76,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096253"
-    }
+    },
+    "address": "Illinois, 61008",
+    "display_name": "Wingstop, Crystal Parkway, Spring Township, Boone County, Illinois, 61008, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12750710760",
@@ -24375,7 +24570,10 @@
       "educationIndex": 83,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096258"
-    }
+    },
+    "address": "Virginia Beach, Virginia, 23452",
+    "display_name": "Wingstop, 3740, Virginia Beach Boulevard, Birchwood-Gardens, Virginia Beach, Virginia, 23452, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12755487401",
@@ -24396,7 +24594,10 @@
       "educationIndex": 74,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096264"
-    }
+    },
+    "address": "Mount Prospect, Illinois, 60056",
+    "display_name": "Wingstop, 1776, West Algonquin Road, Mount Prospect, Elk Grove Township, Cook County, Illinois, 60056, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12755530948",
@@ -24417,7 +24618,10 @@
       "educationIndex": 77,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096270"
-    }
+    },
+    "address": "Raleigh, North Carolina, 27612",
+    "display_name": "Wingstop, Glenwood Avenue, Brier Creek, Raleigh, Wake County, North Carolina, 27612, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12779853614",
@@ -24438,7 +24642,10 @@
       "educationIndex": 80,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096277"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89178",
+    "display_name": "Wingstop, 7935, Blue Diamond Road, Mountain's Edge, Las Vegas, Clark County, Nevada, 89178, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12784264757",
@@ -24459,7 +24666,10 @@
       "educationIndex": 84,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096283"
-    }
+    },
+    "address": "Merced, California, 95340",
+    "display_name": "Wingstop, 779, East Yosemite Avenue, Merced, Merced County, California, 95340, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12787307885",
@@ -24480,7 +24690,10 @@
       "educationIndex": 82,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096290"
-    }
+    },
+    "address": "Lemon Grove, California, 91945",
+    "display_name": "Wingstop, 6969, Broadway, Lemon Grove, San Diego County, California, 91945, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12793584618",
@@ -24501,7 +24714,10 @@
       "educationIndex": 81,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096296"
-    }
+    },
+    "address": "Colorado Springs, Colorado, 80907",
+    "display_name": "Wingstop, 1142, East Fillmore Street, Bonnievillie, Papeton, Colorado Springs, El Paso County, Colorado, 80907, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12799052629",
@@ -24522,7 +24738,10 @@
       "educationIndex": 79,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096302"
-    }
+    },
+    "address": "College Station, Texas, 77845",
+    "display_name": "Wingstop, 11659, Wellborn Road, Koppe, College Station, Brazos County, Texas, 77845, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12799052630",
@@ -24543,7 +24762,10 @@
       "educationIndex": 79,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096307"
-    }
+    },
+    "address": "College Station, Texas, 77840",
+    "display_name": "Wingstop, 700, University Drive East, College Station, Brazos County, Texas, 77840, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12829260760",
@@ -24564,7 +24786,10 @@
       "educationIndex": 86,
       "employmentRate": 96.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096313"
-    }
+    },
+    "address": "East Brunswick Township, New Jersey, 08816",
+    "display_name": "Wingstop, 415, State Route 18, Village Green, East Brunswick Township, Middlesex County, New Jersey, 08816, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12845357786",
@@ -24585,7 +24810,10 @@
       "educationIndex": 77,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096319"
-    }
+    },
+    "address": "Apopka, Florida, 32703",
+    "display_name": "Wingstop, 3002, Semoran Boulevard, Apopka, Orange County, Florida, 32703, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12854736166",
@@ -24606,7 +24834,10 @@
       "educationIndex": 76,
       "employmentRate": 93.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096325"
-    }
+    },
+    "address": "Hoover, Alabama, 35216",
+    "display_name": "Wingstop, 1539, Montgomery Highway, Hoover, Jefferson County, Alabama, 35216, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12854742990",
@@ -24627,7 +24858,10 @@
       "educationIndex": 74,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096332"
-    }
+    },
+    "address": "Birmingham, Alabama, 35242",
+    "display_name": "Wingstop, 830, Inverness Corners, Morning Sun Villas, Birmingham, Shelby County, Alabama, 35242, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12854753799",
@@ -24648,7 +24882,10 @@
       "educationIndex": 74,
       "employmentRate": 93.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096338"
-    }
+    },
+    "address": "Birmingham, Alabama, 35209",
+    "display_name": "Wingstop, 808, Green Springs Highway, Edgemont, Birmingham, Jefferson County, Alabama, 35209, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12861117159",
@@ -24669,7 +24906,10 @@
       "educationIndex": 75,
       "employmentRate": 93.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096343"
-    }
+    },
+    "address": "Tulsa, Oklahoma, 74146",
+    "display_name": "Wingstop, 3132, South Garnett Road East, Tulsa, Tulsa County, Oklahoma, 74146, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12862413714",
@@ -24690,7 +24930,10 @@
       "educationIndex": 77,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096349"
-    }
+    },
+    "address": "Laredo, Texas, 78045",
+    "display_name": "Wingstop, 2603, Bob Bullock Loop, Laredo, Webb County, Texas, 78045, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12863169620",
@@ -24711,7 +24954,10 @@
       "educationIndex": 78,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096356"
-    }
+    },
+    "address": "Findlay, Ohio, 45840",
+    "display_name": "Wingstop, 1107, Northridge Road, Findlay, Hancock County, Ohio, 45840, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12883598021",
@@ -24732,7 +24978,10 @@
       "educationIndex": 78,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096363"
-    }
+    },
+    "address": "Springfield, Illinois, 62702",
+    "display_name": "Wingstop, 2724, North Dirksen Parkway, Springfield, Sangamon County, Illinois, 62702, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12911705900",
@@ -24753,7 +25002,10 @@
       "educationIndex": 80,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096369"
-    }
+    },
+    "address": "Roswell, New Mexico, 88201",
+    "display_name": "Wingstop, North Main Street, Roswell, Chaves County, New Mexico, 88201, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12912848523",
@@ -24774,7 +25026,10 @@
       "educationIndex": 76,
       "employmentRate": 93.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096374"
-    }
+    },
+    "address": "Walker, Michigan, 49544",
+    "display_name": "Wingstop, Alpine Avenue Northwest, Walker, Kent County, Michigan, 49544, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12918343905",
@@ -24795,7 +25050,10 @@
       "educationIndex": 82,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096380"
-    }
+    },
+    "address": "Allen, Texas, 75013",
+    "display_name": "Wingstop, 543, West McDermott Drive, Allen, Collin County, Texas, 75013, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12921936576",
@@ -24816,7 +25074,10 @@
       "educationIndex": 84,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096386"
-    }
+    },
+    "address": "McMinnville, Oregon, 97128",
+    "display_name": "Wingstop, Northeast 27th Street, McMinnville, Yamhill County, Oregon, 97128, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12943478402",
@@ -24837,7 +25098,10 @@
       "educationIndex": 78,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096392"
-    }
+    },
+    "address": "Dalton, Georgia, 30720",
+    "display_name": "Wingstop, West Franklin Street, Cannon Heights, Dalton, Whitfield County, Georgia, 30720, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12948695064",
@@ -24858,7 +25122,10 @@
       "educationIndex": 85,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096398"
-    }
+    },
+    "address": "Apple Valley, California, 92307",
+    "display_name": "Wingstop, 20434, Outer Hwy 18 North, Apple Valley, San Bernardino County, California, 92307, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12949177788",
@@ -24879,7 +25146,10 @@
       "educationIndex": 86,
       "employmentRate": 96.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096405"
-    }
+    },
+    "address": "Fontana, California, 92336",
+    "display_name": "Wingstop, 7273, Citrus Avenue, Fontana, San Bernardino County, California, 92336, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12954718501",
@@ -24900,7 +25170,10 @@
       "educationIndex": 84,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096412"
-    }
+    },
+    "address": "Modesto, California, 95350",
+    "display_name": "Wingstop, Prescott Road, Modesto, Stanislaus County, California, 95350, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12959923544",
@@ -24921,7 +25194,10 @@
       "educationIndex": 81,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096418"
-    }
+    },
+    "address": "Fort Worth, Texas, 76116",
+    "display_name": "Wingstop, 9116, Camp Bowie West Boulevard, Fort Worth, Tarrant County, Texas, 76116, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12968683988",
@@ -24942,7 +25218,10 @@
       "educationIndex": 81,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096424"
-    }
+    },
+    "address": "Columbia, South Carolina, 29063",
+    "display_name": "Wingstop, Lykes Lane, Glenridge At Harbison, Columbia, Richland County, South Carolina, 29063, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12978276981",
@@ -24963,7 +25242,10 @@
       "educationIndex": 87,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096429"
-    }
+    },
+    "address": "City of New York, New York, 11234",
+    "display_name": "Wingstop, East 59th Street, Paerdegat, Brooklyn, Kings County, City of New York, New York, 11234, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12993088551",
@@ -24984,7 +25266,10 @@
       "educationIndex": 82,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096437"
-    }
+    },
+    "address": "Costa Mesa, California, 92627",
+    "display_name": "Wingstop, West Wilson Street, College Park, Costa Mesa, Orange County, California, 92627, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12995242379",
@@ -25005,7 +25290,10 @@
       "educationIndex": 82,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.096442"
-    }
+    },
+    "address": "Laredo, Texas, 78043",
+    "display_name": "Wingstop, Bob Bullock Loop, Laredo, Webb County, Texas, 78043, United States",
+    "country": "United States"
   },
   {
     "id": "WING_12996202768",
@@ -25026,7 +25314,10 @@
       "educationIndex": 81,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096448"
-    }
+    },
+    "address": "Waco, Texas, 76701",
+    "display_name": "Wingstop, South 2nd Street, Abby Glenn Apartments, Waco, McLennan County, Texas, 76701, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13001093385",
@@ -25047,7 +25338,10 @@
       "educationIndex": 74,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.096455"
-    }
+    },
+    "address": "Chattanooga, Tennessee, 37411",
+    "display_name": "Wingstop, 5714, Brainerd Road, Brainerd Park, Chattanooga, Hamilton County, East Tennessee, Tennessee, 37411, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13004473313",
@@ -25068,7 +25362,10 @@
       "educationIndex": 80,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096461"
-    }
+    },
+    "address": "South Jordan, Utah, 84096",
+    "display_name": "Wingstop, 11800 South, Daybreak, Trail Crossing, South Jordan, Salt Lake County, Utah, 84096, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13012418732",
@@ -25089,7 +25386,10 @@
       "educationIndex": 82,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096468"
-    }
+    },
+    "address": "Sacramento, California, 95822",
+    "display_name": "Wingstop, Wentworth Avenue, South Land Park, Sacramento, Sacramento County, California, 95822, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13018136629",
@@ -25110,7 +25410,10 @@
       "educationIndex": 84,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096474"
-    }
+    },
+    "address": "Fredericksburg, Virginia, 22406",
+    "display_name": "Wingstop, 28, South Gateway Drive, Fredericksburg, Stafford County, Virginia, 22406, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13022841274",
@@ -25131,7 +25434,10 @@
       "educationIndex": 82,
       "employmentRate": 96.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096480"
-    }
+    },
+    "address": "Virginia, 23120",
+    "display_name": "Wingstop, Hull Street Road, Hampton Park, Chesterfield County, Virginia, 23120, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13025843980",
@@ -25152,7 +25458,10 @@
       "educationIndex": 82,
       "employmentRate": 96.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096486"
-    }
+    },
+    "address": "Bethlehem, Pennsylvania, 18015",
+    "display_name": "Wingstop, 614, East 3rd Street, South Bethlehem, Bethlehem, Northampton County, Pennsylvania, 18015, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13032314636",
@@ -25173,7 +25482,10 @@
       "educationIndex": 75,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096493"
-    }
+    },
+    "address": "Ashland, Ohio, 44805",
+    "display_name": "Wingstop, Sugarbush Drive, Ashland, Ashland County, Ohio, 44805, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13037318649",
@@ -25194,7 +25506,10 @@
       "educationIndex": 74,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096500"
-    }
+    },
+    "address": "Avon, Indiana, 46231",
+    "display_name": "Wingstop, Rockville Road, Avon, Hendricks County, Indiana, 46231, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13037992843",
@@ -25215,7 +25530,10 @@
       "educationIndex": 84,
       "employmentRate": 96.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096506"
-    }
+    },
+    "address": "California, 92591",
+    "display_name": "Wingstop, Sky Canyon Drive, Winchester Creek, Four Seasons, Riverside County, California, 92591, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13037995002",
@@ -25236,7 +25554,10 @@
       "educationIndex": 80,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096512"
-    }
+    },
+    "address": "Carol Stream, Illinois, 60108",
+    "display_name": "Wingstop, West Army Trail Road, Carol Stream, Wayne Township, DuPage County, Illinois, 60108, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13040870766",
@@ -25257,7 +25578,10 @@
       "educationIndex": 75,
       "employmentRate": 93.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096519"
-    }
+    },
+    "address": "Jackson, Tennessee, 38305",
+    "display_name": "Wingstop, Stonebridge Boulevard, Jackson, Madison County, West Tennessee, Tennessee, 38305, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13042166159",
@@ -25278,7 +25602,10 @@
       "educationIndex": 77,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096525"
-    }
+    },
+    "address": "Los Lunas, New Mexico, 87031",
+    "display_name": "Wingstop, 2270, Main Street Northwest, Los Lunas, Valencia County, New Mexico, 87031, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13064689414",
@@ -25299,7 +25626,10 @@
       "educationIndex": 79,
       "employmentRate": 93.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096531"
-    }
+    },
+    "address": "Muskogee, Oklahoma, 74401",
+    "display_name": "Wingstop, 938, West Shawnee Street, Muskogee, Muskogee County, Oklahoma, 74401, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13069180273",
@@ -25320,7 +25650,10 @@
       "educationIndex": 76,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096538"
-    }
+    },
+    "address": "Avon, Ohio, 44011",
+    "display_name": "Wingstop, 2060, Center Road, Avon Center, Avon, Lorain County, Ohio, 44011, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13071698258",
@@ -25341,7 +25674,10 @@
       "educationIndex": 86,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096545"
-    }
+    },
+    "address": "Hesperia, California, 92345",
+    "display_name": "Wingstop, 13259, Main Street, Hesperia, San Bernardino County, California, 92345, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13073337588",
@@ -25362,7 +25698,10 @@
       "educationIndex": 79,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096551"
-    }
+    },
+    "address": "Columbia, South Carolina, 29201",
+    "display_name": "Wingstop, 132, Assembly Street, Hollywood-Rose Hill, Wales Garden, Columbia, Richland County, South Carolina, 29201, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13077137384",
@@ -25383,7 +25722,10 @@
       "educationIndex": 83,
       "employmentRate": 96.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096558"
-    }
+    },
+    "address": "Goleta, California, 93117",
+    "display_name": "Wingstop, 129, North Fairview Avenue, Goleta, Santa Barbara County, California, 93117, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13102050567",
@@ -25404,7 +25746,10 @@
       "educationIndex": 87,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096564"
-    }
+    },
+    "address": "Bristow, Virginia, 20181",
+    "display_name": "Wingstop, Nokesville Road, Bristow, Prince William County, Virginia, 20181, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13114544802",
@@ -25425,7 +25770,10 @@
       "educationIndex": 73,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096570"
-    }
+    },
+    "address": "Jacksonville, Arkansas, 72076",
+    "display_name": "Wingstop, 2050, John Harden Drive, Jacksonville, Hill Township, Pulaski County, Arkansas, 72076, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13115345384",
@@ -25446,7 +25794,10 @@
       "educationIndex": 80,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096576"
-    }
+    },
+    "address": "Erie, Pennsylvania, 16510",
+    "display_name": "Wingstop, 4474, Buffalo Road, Erie, Erie County, Pennsylvania, 16510, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13117162307",
@@ -25467,7 +25818,10 @@
       "educationIndex": 84,
       "employmentRate": 96.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096583"
-    }
+    },
+    "address": "Washington, District of Columbia, 20009",
+    "display_name": "America’s Best Wingstop, U Street Northwest, Greater U Street Historic District, Ward 1, Washington, District of Columbia, 20009, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13121530743",
@@ -25488,7 +25842,10 @@
       "educationIndex": 81,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096589"
-    }
+    },
+    "address": "Fresno, California, 93711",
+    "display_name": "Wingstop, 3658, West Shaw Avenue, Fresno, Fresno County, California, 93711, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13123935572",
@@ -25509,7 +25866,10 @@
       "educationIndex": 76,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096596"
-    }
+    },
+    "address": "Fresno, California, 93710",
+    "display_name": "Wingstop, 1089, East Shaw Avenue, Fresno, Fresno County, California, 93710, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13125773430",
@@ -25530,7 +25890,10 @@
       "educationIndex": 74,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.096603"
-    }
+    },
+    "address": "Bowling Green, Ohio, 43402",
+    "display_name": "Wingstop, 1502, East Wooster Street, Athletics District, Bowling Green, Wood County, Ohio, 43402, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13128364684",
@@ -25551,7 +25914,10 @@
       "educationIndex": 87,
       "employmentRate": 96.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096609"
-    }
+    },
+    "address": "Belleville, New Jersey, 07109",
+    "display_name": "Wingstop, 388, Main Street, Belleville, Essex County, New Jersey, 07109, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13138158977",
@@ -25572,7 +25938,10 @@
       "educationIndex": 77,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096615"
-    }
+    },
+    "address": "Frisco, Texas, 75068",
+    "display_name": "Wingstop, 4940, West University Drive, Frisco, Denton County, Texas, 75068, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13140864398",
@@ -25593,7 +25962,10 @@
       "educationIndex": 78,
       "employmentRate": 93.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096621"
-    }
+    },
+    "address": "La Porte, Indiana, 46350",
+    "display_name": "Wingstop, West State Road 2, La Porte, LaPorte County, Indiana, 46350, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13168161462",
@@ -25614,7 +25986,10 @@
       "educationIndex": 82,
       "employmentRate": 96.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096627"
-    }
+    },
+    "address": "Catonsville, Maryland, 21228",
+    "display_name": "Wingstop, 817, Maiden Choice Lane, Catonsville, Baltimore County, Maryland, 21228, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13168541749",
@@ -25635,7 +26010,10 @@
       "educationIndex": 82,
       "employmentRate": 96.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096633"
-    }
+    },
+    "address": "Clementon, New Jersey, 08021",
+    "display_name": "Wingstop, 1410, Blackwood-Clementon Road, Millbridge, Clementon, Camden County, New Jersey, 08021, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13173836870",
@@ -25656,7 +26034,10 @@
       "educationIndex": 71,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096639"
-    }
+    },
+    "address": "Hagerstown, Maryland, 21740",
+    "display_name": "Wingstop, Wesel Boulevard, Hagerstown, Washington County, Maryland, 21740, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13175039733",
@@ -25677,7 +26058,10 @@
       "educationIndex": 77,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.096645"
-    }
+    },
+    "address": "Amarillo, Texas, 79107",
+    "display_name": "Wingstop, 2423, North Grand Street, Amarillo, Potter County, Texas, 79107, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13189837436",
@@ -25698,7 +26082,10 @@
       "educationIndex": 82,
       "employmentRate": 96.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096651"
-    }
+    },
+    "address": "Corona, California, 92882",
+    "display_name": "Wingstop, 2791, Green River Road, Corona, Riverside County, California, 92882, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13196237380",
@@ -25719,7 +26106,10 @@
       "educationIndex": 77,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096657"
-    }
+    },
+    "address": "Flower Mound, Texas, 75028",
+    "display_name": "Wingstop, 2608, Flower Mound Road, Flower Mound, Denton County, Texas, 75028, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13203894299",
@@ -25740,7 +26130,10 @@
       "educationIndex": 84,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.096664"
-    }
+    },
+    "address": "Toronto, Ontario, M5B 2A1",
+    "display_name": "51, Carlton Street, Downtown Yonge East, Toronto Centre, Toronto, Golden Horseshoe, Ontario, M5B 2A1, Canada",
+    "country": "Canada"
   },
   {
     "id": "WING_13205466066",
@@ -25761,7 +26154,10 @@
       "educationIndex": 86,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096669"
-    }
+    },
+    "address": "Golden, Colorado, 80401",
+    "display_name": "Wingstop, 17121, South Golden Road, Golden, Jefferson County, Colorado, 80401, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13207970825",
@@ -25782,7 +26178,10 @@
       "educationIndex": 77,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096675"
-    }
+    },
+    "address": "Augusta, Georgia, 30905",
+    "display_name": "Wingstop, Jimmie Dyess Parkway, Belair, Augusta, Richmond County, Georgia, 30905, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13241404235",
@@ -25803,7 +26202,10 @@
       "educationIndex": 83,
       "employmentRate": 96.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096682"
-    }
+    },
+    "address": "Santa Paula, California, 93060",
+    "display_name": "Wingstop, 550, West Main Street, Santa Paula, Ventura County, California, 93060, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13242195868",
@@ -25824,7 +26226,10 @@
       "educationIndex": 80,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096688"
-    }
+    },
+    "address": "Doral, Florida, 33178",
+    "display_name": "Wingstop, Northwest 58th Terrace, Doral, Miami-Dade County, Florida, 33178, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13253372619",
@@ -25845,7 +26250,10 @@
       "educationIndex": 78,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096694"
-    }
+    },
+    "address": "Helena, Alabama, 35244",
+    "display_name": "Wingstop, Helena Road, Calliston, Helena, Shelby County, Alabama, 35244, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13254912291",
@@ -25866,7 +26274,10 @@
       "educationIndex": 87,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096701"
-    }
+    },
+    "address": "Santa Barbara, California, 93105",
+    "display_name": "Wingstop, 3849, State Street, Santa Barbara, Santa Barbara County, California, 93105, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13282907421",
@@ -25887,7 +26298,10 @@
       "educationIndex": 85,
       "employmentRate": 96.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.096707"
-    }
+    },
+    "address": "Bristol, Connecticut, 06010",
+    "display_name": "Wingstop, 1235, Farmington Avenue, Bristol, Naugatuck Valley Planning Region, Connecticut, 06010, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13288246913",
@@ -25908,7 +26322,10 @@
       "educationIndex": 82,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096713"
-    }
+    },
+    "address": "Sulphur Springs, Texas, 75482",
+    "display_name": "Wingstop, Drexel Drive, Sulphur Springs, Hopkins County, Texas, 75482, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13289542300",
@@ -25929,7 +26346,10 @@
       "educationIndex": 80,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096719"
-    }
+    },
+    "address": "Aldine, Texas, 77039",
+    "display_name": "Wingstop, Aldine Mail Route, Aldine, Harris County, Texas, 77039, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13289605669",
@@ -25950,7 +26370,10 @@
       "educationIndex": 78,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.096728"
-    }
+    },
+    "address": "Collinsville, Illinois, 62234",
+    "display_name": "Wingstop, 1077-1071, Collinsville Crossing Boulevard, Collinsville, Madison County, Illinois, 62234, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13290187601",
@@ -25971,7 +26394,10 @@
       "educationIndex": 82,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.096735"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89107",
+    "display_name": "Wingstop, 450, South Decatur Boulevard, Charleston Heights, Las Vegas, Clark County, Nevada, 89107, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13290208247",
@@ -25992,7 +26418,10 @@
       "educationIndex": 80,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096741"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89102",
+    "display_name": "Wingstop, 2411, West Sahara Avenue, Rancho Charleston, Las Vegas, Clark County, Nevada, 89102, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13293623139",
@@ -26013,7 +26442,10 @@
       "educationIndex": 81,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096747"
-    }
+    },
+    "address": "Yuma, Arizona, 85364",
+    "display_name": "Wingstop, West 32nd Street, Big Curve Shopping Center, Yuma, Yuma County, Arizona, 85364, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13305909048",
@@ -26034,7 +26466,10 @@
       "educationIndex": 82,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096753"
-    }
+    },
+    "address": "Arizona, 85140",
+    "display_name": "Wingstop, North Gantzel Road, Pinal County, Arizona, 85140, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13309985593",
@@ -26055,7 +26490,10 @@
       "educationIndex": 82,
       "employmentRate": 93.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.096758"
-    }
+    },
+    "address": "Hialeah, Florida, 33174",
+    "display_name": "Wingstop, West Flagler Street, Fountainbleau, Hialeah, Miami-Dade County, Florida, 33174, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13317796959",
@@ -26076,7 +26514,10 @@
       "educationIndex": 76,
       "employmentRate": 93.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096765"
-    }
+    },
+    "address": "Billings, Montana, 59102",
+    "display_name": "Wingstop, 2346, Grand Avenue, Billings, Yellowstone County, Montana, 59102, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13323452905",
@@ -26097,7 +26538,10 @@
       "educationIndex": 80,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.096771"
-    }
+    },
+    "address": "Cartersville, Georgia, 30121",
+    "display_name": "Wingstop, Forrest Lane, Cartersville, Bartow County, Georgia, 30121, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13327479032",
@@ -26118,7 +26562,10 @@
       "educationIndex": 74,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096776"
-    }
+    },
+    "address": "Edmond, Oklahoma, 73013",
+    "display_name": "Wingstop, 3320, South Broadway, Edmond, Oklahoma County, Oklahoma, 73013, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13328645642",
@@ -26139,7 +26586,10 @@
       "educationIndex": 88,
       "employmentRate": 96.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.096782"
-    }
+    },
+    "address": "Jersey City, New Jersey, 07310",
+    "display_name": "Wingstop, 231, 12th Street, Hamilton Park, Jersey City, Hudson County, New Jersey, 07310, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13329682829",
@@ -26160,7 +26610,10 @@
       "educationIndex": 80,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096788"
-    }
+    },
+    "address": "Maricopa, Arizona, 85238",
+    "display_name": "Wingstop, West Edison Road, Villages at Rancho El Dorado, Maricopa, Pinal County, Arizona, 85238, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13337489680",
@@ -26181,7 +26634,10 @@
       "educationIndex": 76,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.096794"
-    }
+    },
+    "address": "Saint Charles, Missouri, 63301",
+    "display_name": "Wingstop, 2088, First Capitol Drive, Saint Charles, Saint Charles County, Missouri, 63301, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13351680768",
@@ -26202,7 +26658,10 @@
       "educationIndex": 80,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096800"
-    }
+    },
+    "address": "Florence, South Carolina, 29501",
+    "display_name": "Wingstop, North Beltline Drive, Lakewood, Florence, Florence County, South Carolina, 29501, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13357105144",
@@ -26223,7 +26682,10 @@
       "educationIndex": 85,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096807"
-    }
+    },
+    "address": "El Centro, California, 92243",
+    "display_name": "Wingstop, Adams Avenue, El Centro, Imperial County, California, 92243, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13360331075",
@@ -26244,7 +26706,10 @@
       "educationIndex": 74,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096813"
-    }
+    },
+    "address": "Decatur, Alabama, 35601",
+    "display_name": "Wingstop, 1605, Beltline Road Southwest, Decatur, Morgan County, Alabama, 35601, United States",
+    "country": "United States"
   },
   {
     "id": "WING_13360760365",
@@ -26265,7 +26730,10 @@
       "educationIndex": 86,
       "employmentRate": 96.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096819"
-    }
+    },
+    "address": "Derby, Connecticut, 06418",
+    "display_name": "Wingstop, 49, Pershing Drive, Derby, Naugatuck Valley Planning Region, Connecticut, 06418, United States",
+    "country": "United States"
   },
   {
     "id": "WING_31808608",
@@ -26286,7 +26754,10 @@
       "educationIndex": 84,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096826"
-    }
+    },
+    "address": "San Diego, California, 92105",
+    "display_name": "Wingstop, 4403, University Avenue, City Heights, San Diego, San Diego County, California, 92105, United States",
+    "country": "United States"
   },
   {
     "id": "WING_104897686",
@@ -26307,7 +26778,10 @@
       "educationIndex": 77,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096831"
-    }
+    },
+    "address": "Manhattan, Kansas, 66502",
+    "display_name": "Wingstop, 1126, Moro Street, Aggieville, Manhattan, Riley County, Kansas, 66502, United States",
+    "country": "United States"
   },
   {
     "id": "WING_157474291",
@@ -26328,7 +26802,10 @@
       "educationIndex": 85,
       "employmentRate": 96.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096837"
-    }
+    },
+    "address": "Nashua, New Hampshire, 03060",
+    "display_name": "Wingstop, 290, Main Street, Ward 7, Nashua, Hillsborough County, New Hampshire, 03060, United States",
+    "country": "United States"
   },
   {
     "id": "WING_197437001",
@@ -26349,7 +26826,10 @@
       "educationIndex": 78,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096843"
-    }
+    },
+    "address": "San Marcos, Texas, 78666",
+    "display_name": "Wingstop, 651, Barnes Drive, Stone Creek Crossing, San Marcos, Hays County, Texas, 78666, United States",
+    "country": "United States"
   },
   {
     "id": "WING_209865630",
@@ -26370,7 +26850,10 @@
       "educationIndex": 77,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096849"
-    }
+    },
+    "address": "Chicago, Illinois, 60647",
+    "display_name": "Wingstop, 1639, North Milwaukee Avenue, Wicker Park, West Town, Chicago, West Chicago Township, Cook County, Illinois, 60647, United States",
+    "country": "United States"
   },
   {
     "id": "WING_211180646",
@@ -26391,7 +26874,10 @@
       "educationIndex": 77,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096854"
-    }
+    },
+    "address": "Madison, Wisconsin, 53715",
+    "display_name": "Wingstop, 1234, Regent Street, South Campus, Oakland Heights, Bowens Addition, Madison, Dane County, Wisconsin, 53715, United States",
+    "country": "United States"
   },
   {
     "id": "WING_264521279",
@@ -26412,7 +26898,10 @@
       "educationIndex": 76,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.096860"
-    }
+    },
+    "address": "Texarkana, Texas, 75503",
+    "display_name": "Wingstop, 2700, Richmond Road, Texarkana, Bowie County, Texas, 75503, United States",
+    "country": "United States"
   },
   {
     "id": "WING_304599039",
@@ -26433,7 +26922,10 @@
       "educationIndex": 74,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.096866"
-    }
+    },
+    "address": "Glen Ellyn, Illinois, 60137",
+    "display_name": "Wingstop, 661, South Exmoor Avenue, Glen Ellyn, DuPage County, Illinois, 60137, United States",
+    "country": "United States"
   },
   {
     "id": "WING_304760968",
@@ -26454,7 +26946,10 @@
       "educationIndex": 83,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096873"
-    }
+    },
+    "address": "Mountain View, California, 94040",
+    "display_name": "Wingstop, 530, Showers Drive, Castro City, Mountain View, Santa Clara County, California, 94040, United States",
+    "country": "United States"
   },
   {
     "id": "WING_353932776",
@@ -26475,7 +26970,10 @@
       "educationIndex": 85,
       "employmentRate": 96.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096880"
-    }
+    },
+    "address": "Kent, Washington, 98032",
+    "display_name": "IC Boba, Ramsay Way, Downtown, Kent, King County, Washington, 98032, United States",
+    "country": "United States"
   },
   {
     "id": "WING_361068680",
@@ -26496,7 +26994,10 @@
       "educationIndex": 82,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096886"
-    }
+    },
+    "address": "Cape Coral, Florida, 33914",
+    "display_name": "Wingstop, 2505, Santa Barbara Boulevard, Cape Coral, Lee County, Florida, 33914, United States",
+    "country": "United States"
   },
   {
     "id": "WING_363946682",
@@ -26517,7 +27018,10 @@
       "educationIndex": 81,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.096892"
-    }
+    },
+    "address": "City of Utica, New York, 13502",
+    "display_name": "Wingstop, 90, North Genesee Street, City of Utica, Oneida County, New York, 13502, United States",
+    "country": "United States"
   },
   {
     "id": "WING_369320863",
@@ -26538,7 +27042,10 @@
       "educationIndex": 82,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.096898"
-    }
+    },
+    "address": "Broomfield, Colorado, 80020",
+    "display_name": "Wingstop, 1255, East 1st Avenue, Broomfield Town Centre, Broomfield, Colorado, 80020, United States",
+    "country": "United States"
   },
   {
     "id": "WING_372750494",
@@ -26559,7 +27066,10 @@
       "educationIndex": 82,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.096904"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89110",
+    "display_name": "Wingstop, 400, North Nellis Boulevard, Sunrise Manor, Las Vegas, Clark County, Nevada, 89110, United States",
+    "country": "United States"
   },
   {
     "id": "WING_376214258",
@@ -26580,7 +27090,10 @@
       "educationIndex": 81,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.096911"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89119",
+    "display_name": "Wingstop, 3910, South Maryland Parkway, Filipino Town, Winchester, Las Vegas, Clark County, Nevada, 89119, United States",
+    "country": "United States"
   },
   {
     "id": "WING_381414149",
@@ -26601,7 +27114,10 @@
       "educationIndex": 76,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096916"
-    }
+    },
+    "address": "Longview, Texas, 75604",
+    "display_name": "Wingstop, 1723, West Loop 281, Longview, Gregg County, Texas, 75604, United States",
+    "country": "United States"
   },
   {
     "id": "WING_388285453",
@@ -26622,7 +27138,10 @@
       "educationIndex": 81,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.096922"
-    }
+    },
+    "address": "Norcross, Georgia, 30093",
+    "display_name": "Wingstop, 5247, Jimmy Carter Boulevard, Danbury Village, Norcross, Gwinnett County, Georgia, 30093, United States",
+    "country": "United States"
   },
   {
     "id": "WING_407552703",
@@ -26643,7 +27162,10 @@
       "educationIndex": 86,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096929"
-    }
+    },
+    "address": "Orange, California, 92867",
+    "display_name": "Wingstop, 1541, East Katella Avenue, Orange, Orange County, California, 92867, United States",
+    "country": "United States"
   },
   {
     "id": "WING_407798235",
@@ -26664,7 +27186,10 @@
       "educationIndex": 79,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096935"
-    }
+    },
+    "address": "McHenry, Illinois, 60051",
+    "display_name": "Wingstop, West Elm Street, Westside Crest Apartments, McHenry, McHenry County, Illinois, 60051, United States",
+    "country": "United States"
   },
   {
     "id": "WING_417460061",
@@ -26685,7 +27210,10 @@
       "educationIndex": 78,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096940"
-    }
+    },
+    "address": "Vancouver, Washington, 98665",
+    "display_name": "Wingstop, 310, Northeast 78th Street, Northeast Hazel Dell, Hazel Dell, Vancouver, Clark County, Washington, 98665, United States",
+    "country": "United States"
   },
   {
     "id": "WING_421376678",
@@ -26706,7 +27234,10 @@
       "educationIndex": 84,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096946"
-    }
+    },
+    "address": "Portland, Oregon, 97202",
+    "display_name": "Wingstop, 3844, Southeast Powell Boulevard, Creston-Kenilworth, Portland, Multnomah County, Oregon, 97202, United States",
+    "country": "United States"
   },
   {
     "id": "WING_442223156",
@@ -26727,7 +27258,10 @@
       "educationIndex": 82,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096953"
-    }
+    },
+    "address": "Torrance, California, 90504",
+    "display_name": "Wingstop, 17419, Crenshaw Boulevard, Bridgedale, Torrance, Los Angeles County, California, 90504, United States",
+    "country": "United States"
   },
   {
     "id": "WING_446038282",
@@ -26748,7 +27282,10 @@
       "educationIndex": 88,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096959"
-    }
+    },
+    "address": "Newark, New Jersey, 07107",
+    "display_name": "Wingstop, 487, Bloomfield Avenue, Newark, Essex County, New Jersey, 07107, United States",
+    "country": "United States"
   },
   {
     "id": "WING_465786332",
@@ -26769,7 +27306,10 @@
       "educationIndex": 77,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.096964"
-    }
+    },
+    "address": "Lubbock, Texas, 79401",
+    "display_name": "Wingstop, 1803, 7th Street, Lubbock, Lubbock County, Texas, 79401, United States",
+    "country": "United States"
   },
   {
     "id": "WING_466564037",
@@ -26790,7 +27330,10 @@
       "educationIndex": 76,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096970"
-    }
+    },
+    "address": "Lubbock, Texas, 79416",
+    "display_name": "Wingstop, 5510, 4th Street, Lubbock, Lubbock County, Texas, 79416, United States",
+    "country": "United States"
   },
   {
     "id": "WING_469746285",
@@ -26811,7 +27354,10 @@
       "educationIndex": 82,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.096978"
-    }
+    },
+    "address": "City of Troy, New York, 12180",
+    "display_name": "740, Hoosick Road, City of Troy, Rensselaer County, New York, 12180, United States",
+    "country": "United States"
   },
   {
     "id": "WING_471351835",
@@ -26832,7 +27378,10 @@
       "educationIndex": 81,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.096984"
-    }
+    },
+    "address": "Lubbock, Texas, 79424",
+    "display_name": "Wingstop, 6807, Slide Road, Lubbock, Lubbock County, Texas, 79424, United States",
+    "country": "United States"
   },
   {
     "id": "WING_471957328",
@@ -26853,7 +27402,10 @@
       "educationIndex": 81,
       "employmentRate": 96.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096991"
-    }
+    },
+    "address": "Glendale, California, 91205",
+    "display_name": "Wingstop, 245, South Glendale Avenue, Glendale, Los Angeles County, California, 91205, United States",
+    "country": "United States"
   },
   {
     "id": "WING_475237135",
@@ -26874,7 +27426,10 @@
       "educationIndex": 83,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.096997"
-    }
+    },
+    "address": "Portland, Oregon, 97266",
+    "display_name": "Wingstop, 4124, Southeast 82nd Avenue, Foster-Powell, Portland, Multnomah County, Oregon, 97266, United States",
+    "country": "United States"
   },
   {
     "id": "WING_486143972",
@@ -26895,7 +27450,10 @@
       "educationIndex": 82,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.097002"
-    }
+    },
+    "address": "Knoxville, Tennessee, 37918",
+    "display_name": "Wingstop, 4865, North Broadway, Fountain City, Knoxville, Knox County, East Tennessee, Tennessee, 37918, United States",
+    "country": "United States"
   },
   {
     "id": "WING_495771804",
@@ -26916,7 +27474,10 @@
       "educationIndex": 81,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.097008"
-    }
+    },
+    "address": "Grand Prairie, Texas, 75050",
+    "display_name": "Wingstop, 928, North Belt Line Road, Grand Prairie, Dallas County, Texas, 75050, United States",
+    "country": "United States"
   },
   {
     "id": "WING_497023290",
@@ -26937,7 +27498,10 @@
       "educationIndex": 87,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.097014"
-    }
+    },
+    "address": "Grand Junction, Colorado, 81501",
+    "display_name": "Wingstop, 2835, North Avenue, Grand Junction, Mesa County, Colorado, 81501, United States",
+    "country": "United States"
   },
   {
     "id": "WING_500820448",
@@ -26958,7 +27522,10 @@
       "educationIndex": 81,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.097020"
-    }
+    },
+    "address": "Oregon City, Oregon, 97045",
+    "display_name": "Wingstop, 358, Warner Milne Road, Hillendale, Oregon City, Clackamas County, Oregon, 97045, United States",
+    "country": "United States"
   },
   {
     "id": "WING_502734883",
@@ -26979,7 +27546,10 @@
       "educationIndex": 76,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.097025"
-    }
+    },
+    "address": "Harlingen, Texas, 78550",
+    "display_name": "Wingstop, 2010, South 77 Sunshine Strip, Harlingen, Cameron County, Texas, 78550, United States",
+    "country": "United States"
   },
   {
     "id": "WING_510694738",
@@ -27000,7 +27570,10 @@
       "educationIndex": 78,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.097031"
-    }
+    },
+    "address": "Corpus Christi, Texas, 78410",
+    "display_name": "Wingstop, 4101, Lane A, Five Points Shopping Center, Calallen, Corpus Christi, Nueces County, Texas, 78410, United States",
+    "country": "United States"
   },
   {
     "id": "WING_522292561",
@@ -27021,7 +27594,10 @@
       "educationIndex": 84,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.097037"
-    }
+    },
+    "address": "Tualatin, Oregon, 97062",
+    "display_name": "Wingstop, 7684, Southwest Nyberg Street, Nyberg, Tualatin, Washington County, Oregon, 97062, United States",
+    "country": "United States"
   },
   {
     "id": "WING_542495156",
@@ -27042,7 +27618,10 @@
       "educationIndex": 82,
       "employmentRate": 96.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.097042"
-    }
+    },
+    "address": "Pueblo, Colorado, 81008",
+    "display_name": "Wingstop, 3414, North Elizabeth Street, Dillon, Pueblo, Pueblo County, Colorado, 81008, United States",
+    "country": "United States"
   },
   {
     "id": "WING_557920985",
@@ -27063,7 +27642,10 @@
       "educationIndex": 85,
       "employmentRate": 96.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.097049"
-    }
+    },
+    "address": "Seaside, California, 93955",
+    "display_name": "Wingstop, 1951, Fremont Boulevard, Seaside, Monterey County, California, 93955, United States",
+    "country": "United States"
   },
   {
     "id": "WING_558220104",
@@ -27084,7 +27666,10 @@
       "educationIndex": 86,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.097056"
-    }
+    },
+    "address": "Isla Vista, California, 93117",
+    "display_name": "Wingstop, 888, Embarcadero del Norte, 65 Block, Isla Vista, Santa Barbara County, California, 93117, United States",
+    "country": "United States"
   },
   {
     "id": "WING_578261964",
@@ -27105,7 +27690,10 @@
       "educationIndex": 82,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.097062"
-    }
+    },
+    "address": "Lakewood, Washington, 98499",
+    "display_name": "Wingstop, 5919, Lakewood Towne Center Boulevard Southwest, Lakewood Towne Center, Clinton Park, Lakewood, Pierce County, Washington, 98499, United States",
+    "country": "United States"
   },
   {
     "id": "WING_586456212",
@@ -27126,7 +27714,10 @@
       "educationIndex": 81,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.097068"
-    }
+    },
+    "address": "Georgia, 30809",
+    "display_name": "Wingstop, 4351, Washington Road, Pheasant Run, Evans, Columbia County, Georgia, 30809, United States",
+    "country": "United States"
   },
   {
     "id": "WING_609281226",
@@ -27147,7 +27738,10 @@
       "educationIndex": 77,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.097074"
-    }
+    },
+    "address": "Houston, Texas, 77094",
+    "display_name": "Wingstop, 19111, Katy Freeway, Barker, Houston, Harris County, Texas, 77094, United States",
+    "country": "United States"
   },
   {
     "id": "WING_616677737",
@@ -27168,7 +27762,10 @@
       "educationIndex": 81,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.097081"
-    }
+    },
+    "address": "Urbana, Illinois, 61802",
+    "display_name": "Wingstop, 114, North Vine Street, Urbana, Champaign County, Illinois, 61802, United States",
+    "country": "United States"
   },
   {
     "id": "WING_625725701",
@@ -27189,7 +27786,10 @@
       "educationIndex": 75,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.097088"
-    }
+    },
+    "address": "Indianapolis, Indiana, 46224",
+    "display_name": "Wingstop, 5309, West 10th Street, Indianapolis, Marion County, Indiana, 46224, United States",
+    "country": "United States"
   },
   {
     "id": "WING_632734219",
@@ -27210,7 +27810,10 @@
       "educationIndex": 78,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.097093"
-    }
+    },
+    "address": "Nacogdoches, Texas, 75965",
+    "display_name": "Wingstop, 4909, North Street, Nacogdoches, Nacogdoches County, Texas, 75965, United States",
+    "country": "United States"
   },
   {
     "id": "WING_636688310",
@@ -27231,7 +27834,10 @@
       "educationIndex": 82,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.097099"
-    }
+    },
+    "address": "Midlothian, Texas, 76065",
+    "display_name": "Wingstop, 2040, FM 663, Midlothian Towne Center, Midlothian, Ellis County, Texas, 76065, United States",
+    "country": "United States"
   },
   {
     "id": "WING_667710091",
@@ -27252,7 +27858,10 @@
       "educationIndex": 80,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.097105"
-    }
+    },
+    "address": "Weatherford, Texas, 76086",
+    "display_name": "Wingstop, South Main Street, Weatherford, Parker County, Texas, 76086, United States",
+    "country": "United States"
   },
   {
     "id": "WING_672404175",
@@ -27273,7 +27882,10 @@
       "educationIndex": 76,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.097112"
-    }
+    },
+    "address": "Lincoln, Nebraska, 68504",
+    "display_name": "Wingstop, 2740, Superior Street, Elizabeth Park North, Lincoln, Lancaster County, Nebraska, 68504, United States",
+    "country": "United States"
   },
   {
     "id": "WING_684902157",
@@ -27294,7 +27906,10 @@
       "educationIndex": 79,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.097118"
-    }
+    },
+    "address": "Kilgore, Texas, 75662",
+    "display_name": "Wingstop, 1214, US Highway 259 Business North, Midtown, Pineview addition, Kilgore, Gregg County, Texas, 75662, United States",
+    "country": "United States"
   },
   {
     "id": "WING_688468151",
@@ -27315,7 +27930,10 @@
       "educationIndex": 77,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.097124"
-    }
+    },
+    "address": "Niles, Illinois, 60714",
+    "display_name": "Wingstop, 5706, West Touhy Avenue, Niles, Niles Township, Cook County, Illinois, 60714, United States",
+    "country": "United States"
   },
   {
     "id": "WING_723672493",
@@ -27336,7 +27954,10 @@
       "educationIndex": 82,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.097129"
-    }
+    },
+    "address": "Arvada, Colorado, 80002",
+    "display_name": "Wingstop, 9515, Independence Street, Arvada, Jefferson County, Colorado, 80002, United States",
+    "country": "United States"
   },
   {
     "id": "WING_729331956",
@@ -27357,7 +27978,10 @@
       "educationIndex": 86,
       "employmentRate": 96.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.097135"
-    }
+    },
+    "address": "Fort Collins, Colorado, 80524",
+    "display_name": "Wingstop, 244, North College Avenue, River Rock Cohousing, Fort Collins, Larimer County, Colorado, 80524, United States",
+    "country": "United States"
   },
   {
     "id": "WING_750964244",
@@ -27378,7 +28002,10 @@
       "educationIndex": 81,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.097142"
-    }
+    },
+    "address": "Gilroy, California, 95020",
+    "display_name": "Wingstop, 7171, Camino Arroyo, Pacheco Pass Center, Gilroy, Santa Clara County, California, 95020, United States",
+    "country": "United States"
   },
   {
     "id": "WING_753365123",
@@ -27399,7 +28026,10 @@
       "educationIndex": 81,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.097148"
-    }
+    },
+    "address": "Round Rock, Texas, 78681",
+    "display_name": "Wingstop, 150, Sundance Parkway, La Frontera Village, Round Rock, Williamson County, Texas, 78681, United States",
+    "country": "United States"
   },
   {
     "id": "WING_754058891",
@@ -27420,7 +28050,10 @@
       "educationIndex": 81,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.097153"
-    }
+    },
+    "address": "Pflugerville, Texas, 78660",
+    "display_name": "Wingstop, 1420, Wells Branch Parkway, Pflugerville, Travis County, Texas, 78660, United States",
+    "country": "United States"
   },
   {
     "id": "WING_766302637",
@@ -27441,7 +28074,10 @@
       "educationIndex": 80,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.097159"
-    }
+    },
+    "address": "Katy, Texas, 77494",
+    "display_name": "Wingstop, 1998, Katy Mills Boulevard, Katy, Harris County, Texas, 77494, United States",
+    "country": "United States"
   },
   {
     "id": "WING_782888804",
@@ -27462,7 +28098,10 @@
       "educationIndex": 83,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.097166"
-    }
+    },
+    "address": "Santa Rosa, California, 95407",
+    "display_name": "760, Stony Point Road, Santa Rosa, Sonoma County, California, 95407, United States",
+    "country": "United States"
   },
   {
     "id": "WING_799290119",
@@ -27483,7 +28122,10 @@
       "educationIndex": 85,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.097173"
-    }
+    },
+    "address": "Santa Clara, California, 95054",
+    "display_name": "Banh Mi & Bowl, 4300, Great America Parkway, Santa Clara, Santa Clara County, California, 95054, United States",
+    "country": "United States"
   },
   {
     "id": "WING_836120098",
@@ -27504,7 +28146,10 @@
       "educationIndex": 79,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.097179"
-    }
+    },
+    "address": "Miami, Florida, 33147",
+    "display_name": "3380, Northwest 79th Street, Miami Heights Trailer Park, Miami, Miami-Dade County, Florida, 33147, United States",
+    "country": "United States"
   },
   {
     "id": "WING_836454261",
@@ -27525,7 +28170,10 @@
       "educationIndex": 87,
       "employmentRate": 95.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.097186"
-    }
+    },
+    "address": "Coralville, Iowa, 52241",
+    "display_name": "Wingstop, 2451, 2nd Street, Coralville, Johnson County, Iowa, 52241, United States",
+    "country": "United States"
   },
   {
     "id": "WING_870330145",
@@ -27546,7 +28194,10 @@
       "educationIndex": 77,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.097192"
-    }
+    },
+    "address": "Reynosa, Tamaulipas, 88500",
+    "display_name": "Wingstop, Calle Rosalinda Guerrero, Reynosa, Tamaulipas, 88500, México",
+    "country": "México"
   },
   {
     "id": "WING_881076862",
@@ -27567,7 +28218,10 @@
       "educationIndex": 77,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.097207"
-    }
+    },
+    "address": "Tucson, Arizona, 85719",
+    "display_name": "Wingstop, 3122, North Campbell Avenue, Samos, Hedrick Acres, Tucson, Pima County, Arizona, 85719, United States",
+    "country": "United States"
   },
   {
     "id": "WING_896701918",
@@ -27588,7 +28242,10 @@
       "educationIndex": 76,
       "employmentRate": 93.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.097218"
-    }
+    },
+    "address": "Smyrna, Tennessee, 37167",
+    "display_name": "Wingstop, 443, Rock Springs Road, St. Johns Wood, Loafer's Corner, Smyrna, Rutherford County, Middle Tennessee, Tennessee, 37167, United States",
+    "country": "United States"
   },
   {
     "id": "WING_908017471",
@@ -27609,7 +28266,10 @@
       "educationIndex": 76,
       "employmentRate": 93.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.097228"
-    }
+    },
+    "address": "Spring Branch, Texas, 78070",
+    "display_name": "Wingstop, 322, Singing Oaks, Singing Hills, Spring Branch, Comal County, Texas, 78070, United States",
+    "country": "United States"
   },
   {
     "id": "WING_909448530",
@@ -27630,7 +28290,10 @@
       "educationIndex": 76,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.097234"
-    }
+    },
+    "address": "Crowley, Texas, 76036",
+    "display_name": "Wingstop, 900, South Crowley Road, Crowley, Tarrant County, Texas, 76036, United States",
+    "country": "United States"
   },
   {
     "id": "WING_918407966",
@@ -27651,7 +28314,10 @@
       "educationIndex": 76,
       "employmentRate": 94.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.097241"
-    }
+    },
+    "address": "North Little Rock, Arkansas, 72116",
+    "display_name": "Wingstop, 2913, Lakewood Village Drive, McCain Mall, Timber Creek, North Little Rock, Hill Township, Pulaski County, Arkansas, 72116, United States",
+    "country": "United States"
   },
   {
     "id": "WING_919025289",
@@ -27672,7 +28338,10 @@
       "educationIndex": 78,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.097247"
-    }
+    },
+    "address": "Frisco, Texas, 75034",
+    "display_name": "Frisco Nails & Spa, Main Street, Westfalls Village, Frisco, Denton County, Texas, 75034, United States",
+    "country": "United States"
   },
   {
     "id": "WING_972592672",
@@ -27693,7 +28362,10 @@
       "educationIndex": 79,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.097253"
-    }
+    },
+    "address": "Tucker, Georgia, 30084",
+    "display_name": "Chipotle, 4347, Hugh Howell Road, Tucker, DeKalb County, Georgia, 30084, United States",
+    "country": "United States"
   },
   {
     "id": "WING_979970825",
@@ -27714,7 +28386,10 @@
       "educationIndex": 77,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.097259"
-    }
+    },
+    "address": "Lindale, Texas, 75771",
+    "display_name": "Wingstop, 2553, South Main Street, Thedford, Lindale, Smith County, Texas, 75771, United States",
+    "country": "United States"
   },
   {
     "id": "WING_985289515",
@@ -27735,7 +28410,10 @@
       "educationIndex": 80,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.097264"
-    }
+    },
+    "address": "Alamogordo, New Mexico, 88310",
+    "display_name": "Wingstop, 1300, South White Sands Boulevard, Alamogordo, Otero County, New Mexico, 88310, United States",
+    "country": "United States"
   },
   {
     "id": "WING_985588951",
@@ -27756,7 +28434,10 @@
       "educationIndex": 78,
       "employmentRate": 93.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.097270"
-    }
+    },
+    "address": "Glendale, Arizona, 85301",
+    "display_name": "Wingstop, 6147, North 59th Avenue, Glendale, Maricopa County, Arizona, 85301, United States",
+    "country": "United States"
   },
   {
     "id": "WING_986318733",
@@ -27777,7 +28458,10 @@
       "educationIndex": 77,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.097277"
-    }
+    },
+    "address": "Whitehall, Ohio, 43213",
+    "display_name": "Wingstop, 3686, East Main Street, Whitehall, Franklin County, Ohio, 43213, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1007179580",
@@ -27798,7 +28482,10 @@
       "educationIndex": 79,
       "employmentRate": 93.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.097283"
-    }
+    },
+    "address": "Olathe, Kansas, 66061",
+    "display_name": "Wingstop, 195, North Parker Street, Olathe, Johnson County, Kansas, 66061, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1041178429",
@@ -27819,7 +28506,10 @@
       "educationIndex": 82,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.097289"
-    }
+    },
+    "address": "Covington, Georgia, 30014",
+    "display_name": "Wingstop, 5151, Highway 278 Northwest, Covington, Newton County, Georgia, 30014, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1055478354",
@@ -27840,7 +28530,10 @@
       "educationIndex": 84,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.097296"
-    }
+    },
+    "address": "General Escobedo, Nuevo León, 66073",
+    "display_name": "Wingstop, Licenciado Raúl Salinas Lozano, General Escobedo, Nuevo León, 66073, México",
+    "country": "México"
   },
   {
     "id": "WING_1062965231",
@@ -27861,7 +28554,10 @@
       "educationIndex": 83,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.097302"
-    }
+    },
+    "address": "Commerce City, Colorado, 80022",
+    "display_name": "Wingstop, 10430, Chambers Road, Commerce City North, Commerce City, Adams County, Colorado, 80022, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1082790903",
@@ -27882,7 +28578,10 @@
       "educationIndex": 81,
       "employmentRate": 96.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.097308"
-    }
+    },
+    "address": "Cypress, California, 90630",
+    "display_name": "Wingstop, 10015, Valley View Street, Cypress, Orange County, California, 90630, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1091995059",
@@ -27903,7 +28602,10 @@
       "educationIndex": 80,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.097315"
-    }
+    },
+    "address": "Plainfield, Illinois, 60585",
+    "display_name": "12640, Illinois Route 59, Plainfield, Wheatland Township, Will County, Illinois, 60585, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1097137359",
@@ -27924,7 +28626,10 @@
       "educationIndex": 79,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.097321"
-    }
+    },
+    "address": "Charlotte, North Carolina, 28262",
+    "display_name": "Wingstop, 9211, North Tryon Street, University City, Charlotte, Mecklenburg County, North Carolina, 28262, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1102263889",
@@ -27945,7 +28650,10 @@
       "educationIndex": 78,
       "employmentRate": 94.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.097327"
-    }
+    },
+    "address": "Naperville, Illinois, 60564",
+    "display_name": "2695, Forgue Drive, Windridge, Naperville, Wheatland Township, Will County, Illinois, 60564, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1149801481",
@@ -27966,7 +28674,10 @@
       "educationIndex": 79,
       "employmentRate": 93.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.097333"
-    }
+    },
+    "address": "Paducah, Kentucky, 42001",
+    "display_name": "Wingstop, 5187, Hinkleville Road, Concord, Paducah, McCracken County, Kentucky, 42001, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1162563611",
@@ -27987,7 +28698,10 @@
       "educationIndex": 86,
       "employmentRate": 95.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.097339"
-    }
+    },
+    "address": "Irvington, New Jersey, 07111",
+    "display_name": "Wingstop, Grove Street, Irvington, Essex County, New Jersey, 07111, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1175940720",
@@ -28008,7 +28722,10 @@
       "educationIndex": 83,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.097346"
-    }
+    },
+    "address": "Islas Agrarias A, Baja California, 21395",
+    "display_name": "Boulevard Anillo Periférico, Islas Agrarias A, Municipio de Mexicali, Baja California, 21395, México",
+    "country": "México"
   },
   {
     "id": "WING_1177920245",
@@ -28029,7 +28746,10 @@
       "educationIndex": 78,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.097352"
-    }
+    },
+    "address": "Oak Creek, Wisconsin, 53154",
+    "display_name": "8750, South Howell Avenue, Oak Creek, Milwaukee County, Wisconsin, 53154, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1187412326",
@@ -28050,7 +28770,10 @@
       "educationIndex": 78,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.097358"
-    }
+    },
+    "address": "Tulsa, Oklahoma, 74112",
+    "display_name": "Wingstop, 1921, South Yale Avenue East, Wedgewood, Tulsa, Tulsa County, Oklahoma, 74112, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1201714639",
@@ -28071,7 +28794,10 @@
       "educationIndex": 77,
       "employmentRate": 94.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.097363"
-    }
+    },
+    "address": "Shreveport, Louisiana, 71129",
+    "display_name": "Wingstop, 6205, West Port Avenue, Five Oaks, Shreveport, Caddo Parish, Louisiana, 71129, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1204410238",
@@ -28092,7 +28818,10 @@
       "educationIndex": 79,
       "employmentRate": 93.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.097369"
-    }
+    },
+    "address": "Midwest City, Oklahoma, 73110",
+    "display_name": "Wingstop, 7201, Southeast 29th Street, Midwest City, Oklahoma County, Oklahoma, 73110, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1205936692",
@@ -28113,7 +28842,10 @@
       "educationIndex": 85,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.097375"
-    }
+    },
+    "address": "Ewing Township, New Jersey, 08638",
+    "display_name": "Wingstop, 1566, Olden Avenue, Prospect Heights, Ewing Township, Mercer County, New Jersey, 08638, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1208518207",
@@ -28134,7 +28866,10 @@
       "educationIndex": 76,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.097381"
-    }
+    },
+    "address": "Austin, Texas, 78705",
+    "display_name": "Wingstop, 2316, Guadalupe Street, The Drag, Austin, Travis County, Texas, 78705, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1215449181",
@@ -28155,7 +28890,10 @@
       "educationIndex": 75,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.097387"
-    }
+    },
+    "address": "Wichita, Kansas, 67203",
+    "display_name": "Wingstop, West 21st Street North, Wichita, Sedgwick County, Kansas, 67203, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1223172482",
@@ -28176,7 +28914,10 @@
       "educationIndex": 82,
       "employmentRate": 95.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.097394"
-    }
+    },
+    "address": "San Fernando, California, 91340",
+    "display_name": "Wingstop, 1101, Truman Street, San Fernando, Los Angeles County, California, 91340, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1229833066",
@@ -28197,7 +28938,10 @@
       "educationIndex": 85,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.097401"
-    }
+    },
+    "address": "Oak Harbor, Washington, 98277",
+    "display_name": "Wingstop, State Route 20, Oak Harbor, Island County, Washington, 98277, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1235771947",
@@ -28218,7 +28962,10 @@
       "educationIndex": 81,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.097407"
-    }
+    },
+    "address": "North Las Vegas, Nevada, 89030",
+    "display_name": "Wingstop, 2010, East Lake Mead Boulevard, North Las Vegas, Clark County, Nevada, 89030, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1249822273",
@@ -28239,7 +28986,10 @@
       "educationIndex": 80,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.097413"
-    }
+    },
+    "address": "El Paso, Texas, 79924",
+    "display_name": "Wingstop, 9839, Dyer Street, El Paso, El Paso County, Texas, 79924, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1257653286",
@@ -28260,7 +29010,10 @@
       "educationIndex": 77,
       "employmentRate": 94.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.097419"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89139",
+    "display_name": "Wingstop, 5095, Blue Diamond Road, Enterprise, Las Vegas, Clark County, Nevada, 89139, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1272924295",
@@ -28281,7 +29034,10 @@
       "educationIndex": 78,
       "employmentRate": 94.3,
       "_demographicsPopulated": "2025-12-19T06:49:37.097425"
-    }
+    },
+    "address": "Lake Zurich, Illinois, 60047",
+    "display_name": "Wingstop, 799, West Main Street, The Orchards, Lake Zurich, Ela Township, Lake County, Illinois, 60047, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1289720425",
@@ -28302,7 +29058,10 @@
       "educationIndex": 84,
       "employmentRate": 97.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.097431"
-    }
+    },
+    "address": "Cinnaminson Township, New Jersey, 08077",
+    "display_name": "Wingstop, 127, Calhoun Street, The Shoppes at Cinnaminson, Parry, Cinnaminson Township, Burlington County, New Jersey, 08077, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1294849729",
@@ -28323,7 +29082,10 @@
       "educationIndex": 79,
       "employmentRate": 94.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.097437"
-    }
+    },
+    "address": "Ferry Pass, Florida, 32514",
+    "display_name": "Wingstop, Magaha Lane, Ferry Pass, Escambia County, Florida, 32514, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1328403526",
@@ -28344,7 +29106,10 @@
       "educationIndex": 87,
       "employmentRate": 95.7,
       "_demographicsPopulated": "2025-12-19T06:49:37.097445"
-    }
+    },
+    "address": "Sterling Heights, Michigan, 48312",
+    "display_name": "Wingstop, 35374, Van Dyke Avenue, Sterling Heights, Macomb County, Michigan, 48312, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1333773783",
@@ -28365,7 +29130,10 @@
       "educationIndex": 80,
       "employmentRate": 95.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.097452"
-    }
+    },
+    "address": "South Chicago Heights, Illinois, 60411",
+    "display_name": "Wingstop, 44, West Sauk Trail, South Chicago Heights, Bloom Township, Cook County, Illinois, 60411, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1343907892",
@@ -28386,7 +29154,10 @@
       "educationIndex": 76,
       "employmentRate": 93.5,
       "_demographicsPopulated": "2025-12-19T06:49:37.097458"
-    }
+    },
+    "address": "Toledo, Ohio, 43611",
+    "display_name": "Wingstop, East Alexis Road, Toledo, Lucas County, Ohio, 43611, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1346058327",
@@ -28407,7 +29178,10 @@
       "educationIndex": 78,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.097463"
-    }
+    },
+    "address": "Bossier City, Louisiana, 71111",
+    "display_name": "Wingstop, 2119, Airline Drive, Southern Terrace, Bossier City, Bossier Parish, Louisiana, 71111, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1347198656",
@@ -28428,7 +29202,10 @@
       "educationIndex": 84,
       "employmentRate": 95.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.097470"
-    }
+    },
+    "address": "San Luis Obispo, California, 93401",
+    "display_name": "3840, Broad Street, San Luis Obispo, San Luis Obispo County, California, 93401, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1361365863",
@@ -28449,7 +29226,10 @@
       "educationIndex": 76,
       "employmentRate": 94.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.097477"
-    }
+    },
+    "address": "Las Vegas, Nevada, 89145",
+    "display_name": "Wingstop, 903, South Rainbow Boulevard, Charleston Heights Southwest, Charleston Heights, Las Vegas, Clark County, Nevada, 89145, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1365617942",
@@ -28470,7 +29250,10 @@
       "educationIndex": 81,
       "employmentRate": 95.2,
       "_demographicsPopulated": "2025-12-19T06:49:37.097483"
-    }
+    },
+    "address": "Richmond, Texas, 77407",
+    "display_name": "Wingstop, 10510, FM 1464, Aliana, Richmond, Fort Bend County, Texas, 77407, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1368511970",
@@ -28491,7 +29274,10 @@
       "educationIndex": 86,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.097490"
-    }
+    },
+    "address": "Thousand Oaks, California, 91360",
+    "display_name": "Wingstop, North Moorpark Road, Thousand Oaks, Ventura County, California, 91360, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1370476069",
@@ -28512,7 +29298,10 @@
       "educationIndex": 81,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.097495"
-    }
+    },
+    "address": "Stephenville, Texas, 76401",
+    "display_name": "Wingstop, 2851, West Washington Street, Stephenville, Erath County, Texas, 76401, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1387406425",
@@ -28533,7 +29322,10 @@
       "educationIndex": 77,
       "employmentRate": 95.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.097501"
-    }
+    },
+    "address": "Houston, Texas, 77096",
+    "display_name": "Wingstop, 5621, Beechnut Street, Houston, Harris County, Texas, 77096, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1409368978",
@@ -28554,7 +29346,10 @@
       "educationIndex": 78,
       "employmentRate": 94.9,
       "_demographicsPopulated": "2025-12-19T06:49:37.097506"
-    }
+    },
+    "address": "Pecos, Texas, 79772",
+    "display_name": "Wingstop, 2503, South Cedar Street, Pecos, Reeves County, Texas, 79772, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1412253936",
@@ -28575,7 +29370,10 @@
       "educationIndex": 76,
       "employmentRate": 93.6,
       "_demographicsPopulated": "2025-12-19T06:49:37.097512"
-    }
+    },
+    "address": "Holland, Michigan, 49424",
+    "display_name": "Wingstop, 90, Douglas Avenue, Oaklawn Beechwood, Beechwood, Holland, Ottawa County, Michigan, 49424, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1420301538",
@@ -28596,7 +29394,10 @@
       "educationIndex": 80,
       "employmentRate": 95.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.097518"
-    }
+    },
+    "address": "Fort Worth, Texas, 76115",
+    "display_name": "Wingstop, 920, East Seminary Drive, Fort Worth, Tarrant County, Texas, 76115, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1428440010",
@@ -28617,7 +29418,10 @@
       "educationIndex": 84,
       "employmentRate": 96.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.097525"
-    }
+    },
+    "address": "King City, California, 93930",
+    "display_name": "Wingstop, 510, Canal Street, South Mildred, King City, Monterey County, California, 93930, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1445932023",
@@ -28638,7 +29442,10 @@
       "educationIndex": 79,
       "employmentRate": 94.1,
       "_demographicsPopulated": "2025-12-19T06:49:37.097532"
-    }
+    },
+    "address": "Elizabethtown, Kentucky, 42701",
+    "display_name": "Wingstop, 1570, North Dixie Highway, Elizabethtown, Hardin County, Kentucky, 42701, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1447553487",
@@ -28659,7 +29466,10 @@
       "educationIndex": 84,
       "employmentRate": 96.4,
       "_demographicsPopulated": "2025-12-19T06:49:37.097538"
-    }
+    },
+    "address": "Yelm, Washington, 98597",
+    "display_name": "937, West Yelm Avenue, Yelm, Thurston County, Washington, 98597, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1451782929",
@@ -28680,7 +29490,10 @@
       "educationIndex": 79,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.097545"
-    }
+    },
+    "address": "Niles, Ohio, 44446",
+    "display_name": "Wingstop, Youngstown Warren Road, Ekerts Corners, Niles, Trumbull County, Ohio, 44446, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1453248856",
@@ -28701,7 +29514,10 @@
       "educationIndex": 75,
       "employmentRate": 92.8,
       "_demographicsPopulated": "2025-12-19T06:49:37.097552"
-    }
+    },
+    "address": "Rainbow City, Alabama, 35906",
+    "display_name": "Wingstop, Rainbow Drive, Morgans Crossroads, Rainbow City, Etowah County, Alabama, 35906, United States",
+    "country": "United States"
   },
   {
     "id": "WING_1454512694",
@@ -28722,7 +29538,10 @@
       "educationIndex": 79,
       "employmentRate": 95.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.097558"
-    }
+    },
+    "address": "Villa Rica, Georgia, 30180",
+    "display_name": "Wingstop, Mirror Lake Connector, Villa Rica, Carroll County, Georgia, 30180, United States",
+    "country": "United States"
   },
   {
     "id": "WING_7401354",
@@ -28743,7 +29562,10 @@
       "educationIndex": 87,
       "employmentRate": 96.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.097564"
-    }
+    },
+    "address": "Los Angeles, California, 91343",
+    "display_name": "Wingstop, 8633, Woodley Avenue, North Hills West Neighborhood Council District, Los Angeles, Los Angeles County, California, 91343, United States",
+    "country": "United States"
   },
   {
     "id": "WING_18910444",
@@ -28764,6 +29586,9 @@
       "educationIndex": 75,
       "employmentRate": 94.0,
       "_demographicsPopulated": "2025-12-19T06:49:37.097570"
-    }
+    },
+    "address": "Tulsa, Oklahoma, 74132",
+    "display_name": "Wingstop, 1531, West 81st Street South, Tulsa, Tulsa County, Oklahoma, 74132, United States",
+    "country": "United States"
   }
 ]

@@ -11,7 +11,10 @@
       "walkScore": 99,
       "transitScore": 100,
       "bikeScore": 89
-    }
+    },
+    "address": "City of New York, New York, 10019",
+    "display_name": "7th Avenue, Times Square, Manhattan Community Board 5, Manhattan, New York County, City of New York, New York, 10019, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-002",
@@ -25,7 +28,10 @@
       "walkScore": 100,
       "transitScore": 100,
       "bikeScore": 92
-    }
+    },
+    "address": "City of New York, New York, 10118",
+    "display_name": "WBAI-FM (New York), 350, 5th Avenue, Koreatown, Manhattan Community Board 5, Manhattan, New York County, City of New York, New York, 10118, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-003",
@@ -39,7 +45,10 @@
       "walkScore": 98,
       "transitScore": 99,
       "bikeScore": 87
-    }
+    },
+    "address": "City of New York, New York, 10019",
+    "display_name": "11, West 53rd Street, Midtown East, Manhattan Community Board 5, Manhattan, New York County, City of New York, New York, 10019, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-004",
@@ -53,7 +62,10 @@
       "walkScore": 98,
       "transitScore": 100,
       "bikeScore": 85
-    }
+    },
+    "address": "Chicago, Illinois, 60604",
+    "display_name": "314, South Federal Street, Printer's Row, Loop, Chicago, South Chicago Township, Cook County, Illinois, 60604, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-005",
@@ -67,7 +79,10 @@
       "walkScore": 97,
       "transitScore": 95,
       "bikeScore": 82
-    }
+    },
+    "address": "Chicago, Illinois, 60603",
+    "display_name": "AT&T Plaza, Jewelers Row, Loop, Chicago, South Chicago Township, Cook County, Illinois, 60603, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-006",
@@ -81,7 +96,10 @@
       "walkScore": 91,
       "transitScore": 75,
       "bikeScore": 68
-    }
+    },
+    "address": "Los Angeles, California, 90012",
+    "display_name": "Los Angeles Police Department Headquarters, West 1st Street, Civic Center, Downtown, Los Angeles, Los Angeles County, California, 90012, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-007",
@@ -95,7 +113,10 @@
       "walkScore": 86,
       "transitScore": 58,
       "bikeScore": 88
-    }
+    },
+    "address": "Santa Monica, California, 90401",
+    "display_name": "Santa Monica Boulevard, Downtown Santa Monica, Santa Monica, Los Angeles County, California, 90401, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-008",
@@ -109,7 +130,10 @@
       "walkScore": 95,
       "transitScore": 89,
       "bikeScore": 92
-    }
+    },
+    "address": "San Francisco, California, 94103",
+    "display_name": "South Van Ness Avenue, Civic Center, San Francisco, California, 94103, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-009",
@@ -123,7 +147,10 @@
       "walkScore": 97,
       "transitScore": 96,
       "bikeScore": 89
-    }
+    },
+    "address": "Boston, Massachusetts, 02203",
+    "display_name": "Dock Square, Boston, Suffolk County, Massachusetts, 02203, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-010",
@@ -137,7 +164,10 @@
       "walkScore": 93,
       "transitScore": 88,
       "bikeScore": 85
-    }
+    },
+    "address": "Boston, Massachusetts, 02215",
+    "display_name": "Bleacher Bar, 82A, Lansdowne Street, Fenway, Boston, Suffolk County, Massachusetts, 02215, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-011",
@@ -151,7 +181,10 @@
       "walkScore": 96,
       "transitScore": 88,
       "bikeScore": 78
-    }
+    },
+    "address": "Seattle, Washington, 98164",
+    "display_name": "Schuchart, 919, 5th Avenue, Central Business District, First Hill, Seattle, King County, Washington, 98164, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-012",
@@ -165,7 +198,10 @@
       "walkScore": 72,
       "transitScore": 48,
       "bikeScore": 62
-    }
+    },
+    "address": "Phoenix, Arizona, 85003",
+    "display_name": "2, North Central Avenue, Central City, Phoenix, Maricopa County, Arizona, 85003, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-013",
@@ -179,7 +215,10 @@
       "walkScore": 85,
       "transitScore": 56,
       "bikeScore": 48
-    }
+    },
+    "address": "Houston, Texas, 77002",
+    "display_name": "West Walker Tunnel, Downtown, Houston, Harris County, Texas, 77002, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-014",
@@ -193,7 +232,10 @@
       "walkScore": 78,
       "transitScore": 52,
       "bikeScore": 45
-    }
+    },
+    "address": "Dallas, Texas, 75242",
+    "display_name": "Dallas City Hall, 1500, Marilla Street, Downtown PID, Dallas, Dallas County, Texas, 75242, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-015",
@@ -207,7 +249,10 @@
       "walkScore": 89,
       "transitScore": 62,
       "bikeScore": 72
-    }
+    },
+    "address": "Miami, Florida, 33131",
+    "display_name": "CVS Pharmacy, 1201, Brickell Avenue, Miami, Miami-Dade County, Florida, 33131, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-016",
@@ -221,7 +266,10 @@
       "walkScore": 88,
       "transitScore": 65,
       "bikeScore": 82
-    }
+    },
+    "address": "Denver, Colorado, 80274",
+    "display_name": "Bannock Central Plaza, Golden Triangle, Denver, Colorado, 80274, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-017",
@@ -235,7 +283,10 @@
       "walkScore": 91,
       "transitScore": 55,
       "bikeScore": 42
-    }
+    },
+    "address": "Las Vegas, Nevada, 89101",
+    "display_name": "Rachel's Kitchen, North Las Vegas Boulevard, Fremont East Entertainment District, Downtown Las Vegas, Las Vegas, Clark County, Nevada, 89101, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-018",
@@ -249,7 +300,10 @@
       "walkScore": 75,
       "transitScore": 32,
       "bikeScore": 55
-    }
+    },
+    "address": "Nashville, Tennessee, 37219",
+    "display_name": "6th Avenue North, Downtown Nashville, Nashville, Davidson County, Middle Tennessee, Tennessee, 37219, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-019",
@@ -263,7 +317,10 @@
       "walkScore": 70,
       "transitScore": 28,
       "bikeScore": 48
-    }
+    },
+    "address": "Charlotte, North Carolina, 28202",
+    "display_name": "Industry, East Trade Street, Uptown, Charlotte, Mecklenburg County, North Carolina, 28202, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-020",
@@ -277,7 +334,10 @@
       "walkScore": 82,
       "transitScore": 42,
       "bikeScore": 72
-    }
+    },
+    "address": "Austin, Texas, 78701",
+    "display_name": "Charles Schwab, 501, Congress Avenue, Downtown, Austin, Travis County, Texas, 78701, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-021",
@@ -291,7 +351,10 @@
       "walkScore": 68,
       "transitScore": 35,
       "bikeScore": 52
-    }
+    },
+    "address": "Kansas City, Missouri, 64106",
+    "display_name": "1200, Oak Street, Central Business District KC, Downtown Kansas City, Kansas City, Jackson County, Missouri, 64106, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-022",
@@ -305,7 +368,10 @@
       "walkScore": 85,
       "transitScore": 68,
       "bikeScore": 92
-    }
+    },
+    "address": "Minneapolis, Minnesota, 55415",
+    "display_name": "Minneapolis Skyway (Tunnel), Minneapolis, Hennepin County, Minnesota, 55415, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-023",
@@ -319,7 +385,10 @@
       "walkScore": 94,
       "transitScore": 85,
       "bikeScore": 78
-    }
+    },
+    "address": "Washington, District of Columbia, 20036",
+    "display_name": "Scott Circle Northwest, Downtown, Ward 2, Washington, District of Columbia, 20036, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-024",
@@ -333,7 +402,10 @@
       "walkScore": 92,
       "transitScore": 75,
       "bikeScore": 95
-    }
+    },
+    "address": "Portland, Oregon, 97258",
+    "display_name": "Robert Hugh Baldock Freeway, Downtown, Portland, Multnomah County, Oregon, 97258, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-025",
@@ -347,7 +419,10 @@
       "walkScore": 85,
       "transitScore": 52,
       "bikeScore": 78
-    }
+    },
+    "address": "San Diego, California, 92101",
+    "display_name": "The US Grant, A Luxury Collection Hotel, 326, Broadway, Marina, Gaslamp Quarter, Banker's Hill, San Diego, San Diego County, California, 92101, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-026",
@@ -361,7 +436,10 @@
       "walkScore": 92,
       "transitScore": 85,
       "bikeScore": 72
-    }
+    },
+    "address": "City of New York, New York, 11366",
+    "display_name": "74-26, 175th Street, Fresh Meadows, Queens, Queens County, City of New York, New York, 11366, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-027",
@@ -375,7 +453,10 @@
       "walkScore": 95,
       "transitScore": 89,
       "bikeScore": 85
-    }
+    },
+    "address": "City of New York, New York, 11203",
+    "display_name": "Brooklyn Avenue, Brooklyn, Kings County, City of New York, New York, 11203, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-028",
@@ -389,7 +470,10 @@
       "walkScore": 88,
       "transitScore": 78,
       "bikeScore": 65
-    }
+    },
+    "address": "City of New York, New York, 10462",
+    "display_name": "1728, Hunt Avenue, Van Nest, The Bronx, Bronx County, City of New York, New York, 10462, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-029",
@@ -403,7 +487,10 @@
       "walkScore": 82,
       "transitScore": 55,
       "bikeScore": 52
-    }
+    },
+    "address": "Atlanta, Georgia, 30334",
+    "display_name": "Miss Freedom, 206, Washington Street Southwest, South Downtown, Atlanta, Fulton County, Georgia, 30334, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-030",
@@ -417,7 +504,10 @@
       "walkScore": 94,
       "transitScore": 82,
       "bikeScore": 75
-    }
+    },
+    "address": "Philadelphia, Pennsylvania, 19110",
+    "display_name": "North 15th Street, Gayborhood, Center City, Philadelphia, Philadelphia County, Pennsylvania, 19110, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-031",
@@ -431,7 +521,10 @@
       "walkScore": 72,
       "transitScore": 38,
       "bikeScore": 55
-    }
+    },
+    "address": "Detroit, Michigan, 48226",
+    "display_name": "52, Cadillac Square, Greektown, Detroit, Wayne County, Michigan, 48226, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-032",
@@ -445,7 +538,10 @@
       "walkScore": 68,
       "transitScore": 35,
       "bikeScore": 48
-    }
+    },
+    "address": "Cincinnati, Ohio, 45202",
+    "display_name": "Metropole, 609, Walnut Street, Main Street Historic District, Central Business District, Cincinnati, Hamilton County, Ohio, 45202, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-033",
@@ -459,7 +555,10 @@
       "walkScore": 65,
       "transitScore": 32,
       "bikeScore": 52
-    }
+    },
+    "address": "Columbus, Ohio, 43216",
+    "display_name": "Ohio House of Representatives, East State Street, Downtown, Columbus, Franklin County, Ohio, 43216, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-034",
@@ -473,7 +572,10 @@
       "walkScore": 72,
       "transitScore": 45,
       "bikeScore": 58
-    }
+    },
+    "address": "Cleveland, Ohio, 44113",
+    "display_name": "Superior Avenue, Downtown Cleveland, Cleveland, Cuyahoga County, Ohio, 44113, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-035",
@@ -487,7 +589,10 @@
       "walkScore": 78,
       "transitScore": 52,
       "bikeScore": 62
-    }
+    },
+    "address": "Pittsburgh, Pennsylvania, 15219",
+    "display_name": "BNY Mellon Center, 500, Grant Street, Chinatown, Downtown, Pittsburgh, Allegheny County, Pennsylvania, 15219, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-036",
@@ -501,7 +606,10 @@
       "walkScore": 75,
       "transitScore": 42,
       "bikeScore": 55
-    }
+    },
+    "address": "Saint Louis, Missouri, 63103",
+    "display_name": "St. Louis City Hall, 1200, Market Street, Downtown West, Saint Louis, Missouri, 63103, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-037",
@@ -515,7 +623,10 @@
       "walkScore": 62,
       "transitScore": 28,
       "bikeScore": 45
-    }
+    },
+    "address": "Indianapolis, Indiana, 46204",
+    "display_name": "Soldiers and Sailors Monument, 1, Monument Circle, Indianapolis, Marion, Indiana, 46204, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-038",
@@ -529,7 +640,10 @@
       "walkScore": 55,
       "transitScore": 22,
       "bikeScore": 38
-    }
+    },
+    "address": "Memphis, Tennessee, 38103",
+    "display_name": "Vasco A. Smith, Jr. Shelby County Office Building, 157, Poplar Avenue, Lauderdale Courts, Memphis, Shelby County, West Tennessee, Tennessee, 38103, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-039",
@@ -543,7 +657,10 @@
       "walkScore": 82,
       "transitScore": 48,
       "bikeScore": 68
-    }
+    },
+    "address": "New Orleans, Louisiana, 70130",
+    "display_name": "335, Carondelet Street, Central Business District, French Quarter, New Orleans, Orleans Parish, Louisiana, 70130, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-040",
@@ -557,7 +674,10 @@
       "walkScore": 52,
       "transitScore": 28,
       "bikeScore": 55
-    }
+    },
+    "address": "Tampa, Florida, 33602",
+    "display_name": "North Marion Street, Clarkes, Tampa, Hillsborough County, Florida, 33602, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-041",
@@ -571,7 +691,10 @@
       "walkScore": 45,
       "transitScore": 22,
       "bikeScore": 48
-    }
+    },
+    "address": "Orlando, Florida, 32801",
+    "display_name": "City Common Plaza, Central Business District, Orlando, Orange County, Florida, 32801, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-042",
@@ -585,7 +708,10 @@
       "walkScore": 58,
       "transitScore": 32,
       "bikeScore": 82
-    }
+    },
+    "address": "Tempe, Arizona, 85281",
+    "display_name": "East 5th Street, Tempe, Maricopa County, Arizona, 85281, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-043",
@@ -599,7 +725,10 @@
       "walkScore": 42,
       "transitScore": 25,
       "bikeScore": 65
-    }
+    },
+    "address": "Tucson, Arizona, 85701",
+    "display_name": "West Alameda Street, Tucson, Pima County, Arizona, 85701, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-044",
@@ -613,7 +742,10 @@
       "walkScore": 48,
       "transitScore": 22,
       "bikeScore": 55
-    }
+    },
+    "address": "Albuquerque, New Mexico, 87102",
+    "display_name": "Sunrise Bank, 219, Central Avenue Northwest, Barelas, Albuquerque, Bernalillo County, New Mexico, 87102, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-045",
@@ -627,7 +759,10 @@
       "walkScore": 68,
       "transitScore": 45,
       "bikeScore": 75
-    }
+    },
+    "address": "Salt Lake City, Utah, 84111",
+    "display_name": "Apollo Burger, 379, Main Street, Downtown, Salt Lake City, Salt Lake County, Utah, 84111, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-046",
@@ -641,7 +776,10 @@
       "walkScore": 52,
       "transitScore": 18,
       "bikeScore": 72
-    }
+    },
+    "address": "Boise, Idaho, 83702",
+    "display_name": "Perrault Building, 625, West Main Street, Downtown, Boise, Ada County, Idaho, 83702, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-047",
@@ -655,7 +793,10 @@
       "walkScore": 65,
       "transitScore": 35,
       "bikeScore": 78
-    }
+    },
+    "address": "Sacramento, California, 95814",
+    "display_name": "La Bou Bakery & Cafe, 900, 9th Street, Downtown, Sacramento, Sacramento County, California, 95814, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-048",
@@ -669,7 +810,10 @@
       "walkScore": 42,
       "transitScore": 18,
       "bikeScore": 52
-    }
+    },
+    "address": "California",
+    "display_name": "Terrace Avenue, Fresno County, California, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-049",
@@ -683,7 +827,10 @@
       "walkScore": 58,
       "transitScore": 38,
       "bikeScore": 72
-    }
+    },
+    "address": "San Jose, California, 95112",
+    "display_name": "223, East Santa Clara Street, Horace Mann, San Jose, Santa Clara County, California, 95112, United States",
+    "country": "United States"
   },
   {
     "id": "mcd-050",
@@ -697,6 +844,9 @@
       "walkScore": 48,
       "transitScore": 35,
       "bikeScore": 62
-    }
+    },
+    "address": "Fremont, California, 94536",
+    "display_name": "Mowry Avenue, Centerville District, Fremont, Alameda County, California, 94536, United States",
+    "country": "United States"
   }
 ]
