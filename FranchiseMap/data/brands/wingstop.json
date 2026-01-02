@@ -11,7 +11,10 @@
       "walkScore": 78,
       "transitScore": 52,
       "bikeScore": 45
-    }
+    },
+    "address": "Dallas, Texas, 75242",
+    "display_name": "Dallas City Hall, 1500, Marilla Street, Downtown PID, Dallas, Dallas County, Texas, 75242, United States",
+    "country": "United States"
   },
   {
     "id": "wing-002",
@@ -25,7 +28,10 @@
       "walkScore": 99,
       "transitScore": 100,
       "bikeScore": 89
-    }
+    },
+    "address": "City of New York, New York, 10019",
+    "display_name": "7th Avenue, Times Square, Manhattan Community Board 5, Manhattan, New York County, City of New York, New York, 10019, United States",
+    "country": "United States"
   },
   {
     "id": "wing-003",
@@ -39,7 +45,10 @@
       "walkScore": 91,
       "transitScore": 75,
       "bikeScore": 68
-    }
+    },
+    "address": "Los Angeles, California, 90012",
+    "display_name": "Los Angeles Police Department Headquarters, West 1st Street, Civic Center, Downtown, Los Angeles, Los Angeles County, California, 90012, United States",
+    "country": "United States"
   },
   {
     "id": "wing-004",
@@ -53,7 +62,10 @@
       "walkScore": 82,
       "transitScore": 55,
       "bikeScore": 52
-    }
+    },
+    "address": "Atlanta, Georgia, 30334",
+    "display_name": "Miss Freedom, 206, Washington Street Southwest, South Downtown, Atlanta, Fulton County, Georgia, 30334, United States",
+    "country": "United States"
   },
   {
     "id": "wing-005",
@@ -67,7 +79,10 @@
       "walkScore": 85,
       "transitScore": 56,
       "bikeScore": 48
-    }
+    },
+    "address": "Houston, Texas, 77002",
+    "display_name": "West Walker Tunnel, Downtown, Houston, Harris County, Texas, 77002, United States",
+    "country": "United States"
   },
   {
     "id": "wing-006",
@@ -81,7 +96,10 @@
       "walkScore": 94,
       "transitScore": 85,
       "bikeScore": 78
-    }
+    },
+    "address": "Washington, District of Columbia, 20036",
+    "display_name": "Scott Circle Northwest, Downtown, Ward 2, Washington, District of Columbia, 20036, United States",
+    "country": "United States"
   },
   {
     "id": "wing-007",
@@ -95,7 +113,10 @@
       "walkScore": 88,
       "transitScore": 65,
       "bikeScore": 82
-    }
+    },
+    "address": "Denver, Colorado, 80274",
+    "display_name": "Bannock Central Plaza, Golden Triangle, Denver, Colorado, 80274, United States",
+    "country": "United States"
   },
   {
     "id": "wing-008",
@@ -109,7 +130,10 @@
       "walkScore": 75,
       "transitScore": 32,
       "bikeScore": 55
-    }
+    },
+    "address": "Nashville, Tennessee, 37219",
+    "display_name": "6th Avenue North, Downtown Nashville, Nashville, Davidson County, Middle Tennessee, Tennessee, 37219, United States",
+    "country": "United States"
   },
   {
     "id": "wing-009",
@@ -123,7 +147,10 @@
       "walkScore": 70,
       "transitScore": 28,
       "bikeScore": 48
-    }
+    },
+    "address": "Charlotte, North Carolina, 28202",
+    "display_name": "Industry, East Trade Street, Uptown, Charlotte, Mecklenburg County, North Carolina, 28202, United States",
+    "country": "United States"
   },
   {
     "id": "wing-010",
@@ -137,7 +164,10 @@
       "walkScore": 94,
       "transitScore": 82,
       "bikeScore": 75
-    }
+    },
+    "address": "Philadelphia, Pennsylvania, 19110",
+    "display_name": "North 15th Street, Gayborhood, Center City, Philadelphia, Philadelphia County, Pennsylvania, 19110, United States",
+    "country": "United States"
   },
   {
     "id": "wing-011",
@@ -151,7 +181,10 @@
       "walkScore": 98,
       "transitScore": 100,
       "bikeScore": 85
-    }
+    },
+    "address": "Chicago, Illinois, 60604",
+    "display_name": "314, South Federal Street, Printer's Row, Loop, Chicago, South Chicago Township, Cook County, Illinois, 60604, United States",
+    "country": "United States"
   },
   {
     "id": "wing-012",
@@ -165,7 +198,10 @@
       "walkScore": 95,
       "transitScore": 89,
       "bikeScore": 92
-    }
+    },
+    "address": "San Francisco, California, 94103",
+    "display_name": "South Van Ness Avenue, Civic Center, San Francisco, California, 94103, United States",
+    "country": "United States"
   },
   {
     "id": "wing-013",
@@ -179,7 +215,10 @@
       "walkScore": 97,
       "transitScore": 96,
       "bikeScore": 89
-    }
+    },
+    "address": "Boston, Massachusetts, 02203",
+    "display_name": "Dock Square, Boston, Suffolk County, Massachusetts, 02203, United States",
+    "country": "United States"
   },
   {
     "id": "wing-014",
@@ -193,7 +232,10 @@
       "walkScore": 72,
       "transitScore": 48,
       "bikeScore": 62
-    }
+    },
+    "address": "Phoenix, Arizona, 85003",
+    "display_name": "2, North Central Avenue, Central City, Phoenix, Maricopa County, Arizona, 85003, United States",
+    "country": "United States"
   },
   {
     "id": "wing-015",
@@ -207,7 +249,10 @@
       "walkScore": 89,
       "transitScore": 62,
       "bikeScore": 72
-    }
+    },
+    "address": "Miami, Florida, 33131",
+    "display_name": "CVS Pharmacy, 1201, Brickell Avenue, Miami, Miami-Dade County, Florida, 33131, United States",
+    "country": "United States"
   },
   {
     "id": "wing-016",
@@ -221,7 +266,10 @@
       "walkScore": 82,
       "transitScore": 42,
       "bikeScore": 72
-    }
+    },
+    "address": "Austin, Texas, 78701",
+    "display_name": "Charles Schwab, 501, Congress Avenue, Downtown, Austin, Travis County, Texas, 78701, United States",
+    "country": "United States"
   },
   {
     "id": "wing-017",
@@ -235,7 +283,10 @@
       "walkScore": 85,
       "transitScore": 68,
       "bikeScore": 92
-    }
+    },
+    "address": "Minneapolis, Minnesota, 55415",
+    "display_name": "Minneapolis Skyway (Tunnel), Minneapolis, Hennepin County, Minnesota, 55415, United States",
+    "country": "United States"
   },
   {
     "id": "wing-018",
@@ -249,7 +300,10 @@
       "walkScore": 96,
       "transitScore": 88,
       "bikeScore": 78
-    }
+    },
+    "address": "Seattle, Washington, 98164",
+    "display_name": "Schuchart, 919, 5th Avenue, Central Business District, First Hill, Seattle, King County, Washington, 98164, United States",
+    "country": "United States"
   },
   {
     "id": "wing-019",
@@ -263,7 +317,10 @@
       "walkScore": 91,
       "transitScore": 55,
       "bikeScore": 42
-    }
+    },
+    "address": "Las Vegas, Nevada, 89101",
+    "display_name": "Rachel's Kitchen, North Las Vegas Boulevard, Fremont East Entertainment District, Downtown Las Vegas, Las Vegas, Clark County, Nevada, 89101, United States",
+    "country": "United States"
   },
   {
     "id": "wing-020",
@@ -277,6 +334,9 @@
       "walkScore": 85,
       "transitScore": 52,
       "bikeScore": 78
-    }
+    },
+    "address": "San Diego, California, 92101",
+    "display_name": "The US Grant, A Luxury Collection Hotel, 326, Broadway, Marina, Gaslamp Quarter, Banker's Hill, San Diego, San Diego County, California, 92101, United States",
+    "country": "United States"
   }
 ]
