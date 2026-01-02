@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-01-02 06:44:46 EST",
+  "last_updated": "2026-01-02 12:56:37 EST",
   "nfl": {
     "games": [
       {
@@ -519,7 +519,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "-395",
+                "odds": "-380",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -551,7 +551,7 @@
             },
             "away": {
               "close": {
-                "odds": "+310",
+                "odds": "+300",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -2122,7 +2122,7 @@
         },
         "homeScore": "118",
         "awayScore": "101",
-        "video_url": "https://www.youtube.com/embed/7cbuuBTl3Po?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/bSDXHPjs7cw?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -2327,7 +2327,7 @@
         },
         "homeScore": "6",
         "awayScore": "5",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/nvykQwxaWZ4?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -2429,7 +2429,7 @@
         },
         "homeScore": "5",
         "awayScore": "7",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/m_pNEkx5BWY?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -2480,7 +2480,7 @@
         },
         "homeScore": "3",
         "awayScore": "5",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/QDQtNwZCvUE?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -2531,7 +2531,7 @@
         },
         "homeScore": "4",
         "awayScore": "3",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/eAlV0F4j2z8?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -2582,7 +2582,7 @@
         },
         "homeScore": "4",
         "awayScore": "1",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/0iquZRs5sRI?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -2945,7 +2945,7 @@
           "name": "D.C. United",
           "shortName": "D.C. United",
           "abbreviation": "DC",
-          "logoUrl": "",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/soccer/500/193.png",
           "record": "0-0-0",
           "players": [],
           "injuries": [],
