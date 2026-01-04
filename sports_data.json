@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-01-04 06:42:03 EST",
+  "last_updated": "2026-01-04 12:55:30 EST",
   "nfl": {
     "games": [
       {
@@ -630,7 +630,7 @@
         "league": "NFL",
         "odds": {
           "spread": -10.5,
-          "overUnder": 38.5,
+          "overUnder": 39.5,
           "moneyline": {
             "displayName": "Moneyline",
             "shortDisplayName": "ML",
@@ -1338,7 +1338,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "-675",
+                "odds": "-750",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1370,7 +1370,7 @@
             },
             "away": {
               "close": {
-                "odds": "+490",
+                "odds": "+525",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -2092,7 +2092,7 @@
         },
         "homeScore": "123",
         "awayScore": "114",
-        "video_url": "https://www.youtube.com/embed/Cy2z25J5jjE?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/UdO27lwjb4M?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
