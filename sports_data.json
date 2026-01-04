@@ -1,102 +1,7 @@
 {
-  "last_updated": "2026-01-04 02:31:25 EST",
+  "last_updated": "2026-01-04 06:42:03 EST",
   "nfl": {
     "games": [
-      {
-        "id": "401772961",
-        "date": "2026-01-04T01:00Z",
-        "status": "Halftime",
-        "is_active": true,
-        "is_final": false,
-        "clock": "0:00",
-        "period": 2,
-        "network": "ABC",
-        "venue": {
-          "name": "Levi's Stadium",
-          "city": "Santa Clara",
-          "state": "CA",
-          "capacity": "",
-          "indoor": false
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "San Francisco 49ers",
-          "shortName": "49ers",
-          "abbreviation": "SF",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png",
-          "record": "12-4",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Seattle Seahawks",
-          "shortName": "Seahawks",
-          "abbreviation": "SEA",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png",
-          "record": "13-3",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "3",
-        "awayScore": "10",
-        "video_url": null,
-        "league": "NFL",
-        "odds": null,
-        "headlines": []
-      },
-      {
-        "id": "401772969",
-        "date": "2026-01-03T21:30Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "ABC",
-        "venue": {
-          "name": "Raymond James Stadium",
-          "city": "Tampa",
-          "state": "FL",
-          "capacity": "",
-          "indoor": false
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Tampa Bay Buccaneers",
-          "shortName": "Buccaneers",
-          "abbreviation": "TB",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png",
-          "record": "8-9",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Carolina Panthers",
-          "shortName": "Panthers",
-          "abbreviation": "CAR",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png",
-          "record": "8-9",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "16",
-        "awayScore": "14",
-        "video_url": "https://www.youtube.com/embed/Np56aguXdrA?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": [
-          {
-            "headline": "Recap",
-            "description": "",
-            "type": "recap",
-            "url": "https://www.espn.com/nfl/recap?gameId=401772969"
-          }
-        ]
-      },
       {
         "id": "401772966",
         "date": "2026-01-04T18:00Z",
@@ -146,7 +51,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "-192",
+                "odds": "-185",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -178,7 +83,7 @@
             },
             "away": {
               "close": {
-                "odds": "+160",
+                "odds": "+154",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -380,7 +285,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "-575",
+                "odds": "-600",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -412,7 +317,7 @@
             },
             "away": {
               "close": {
-                "odds": "+425",
+                "odds": "+440",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -731,7 +636,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "-650",
+                "odds": "-625",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -763,7 +668,7 @@
             },
             "away": {
               "close": {
-                "odds": "+470",
+                "odds": "+455",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1082,7 +987,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "-1600",
+                "odds": "-1450",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1114,7 +1019,7 @@
             },
             "away": {
               "close": {
-                "odds": "+900",
+                "odds": "+850",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1309,14 +1214,14 @@
         "video_url": null,
         "league": "NFL",
         "odds": {
-          "spread": -10.5,
-          "overUnder": 46.5,
+          "spread": -13.5,
+          "overUnder": 47.5,
           "moneyline": {
             "displayName": "Moneyline",
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "-535",
+                "odds": "-1000",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1348,7 +1253,7 @@
             },
             "away": {
               "close": {
-                "odds": "+400",
+                "odds": "+650",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1550,7 +1455,7 @@
             "shortDisplayName": "ML",
             "home": {
               "close": {
-                "odds": "-238",
+                "odds": "-230",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1582,7 +1487,7 @@
             },
             "away": {
               "close": {
-                "odds": "+195",
+                "odds": "+190",
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -1734,6 +1639,108 @@
           "lastUpdated": ""
         },
         "headlines": []
+      },
+      {
+        "id": "401772969",
+        "date": "2026-01-03T21:30Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "ABC",
+        "venue": {
+          "name": "Raymond James Stadium",
+          "city": "Tampa",
+          "state": "FL",
+          "capacity": "",
+          "indoor": false
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Tampa Bay Buccaneers",
+          "shortName": "Buccaneers",
+          "abbreviation": "TB",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png",
+          "record": "8-9",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Carolina Panthers",
+          "shortName": "Panthers",
+          "abbreviation": "CAR",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png",
+          "record": "8-9",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "16",
+        "awayScore": "14",
+        "video_url": "https://www.youtube.com/embed/Np56aguXdrA?autoplay=1&rel=0",
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772969"
+          }
+        ]
+      },
+      {
+        "id": "401772961",
+        "date": "2026-01-04T01:00Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "ABC",
+        "venue": {
+          "name": "Levi's Stadium",
+          "city": "Santa Clara",
+          "state": "CA",
+          "capacity": "",
+          "indoor": false
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "San Francisco 49ers",
+          "shortName": "49ers",
+          "abbreviation": "SF",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png",
+          "record": "12-5",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Seattle Seahawks",
+          "shortName": "Seahawks",
+          "abbreviation": "SEA",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png",
+          "record": "14-3",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "3",
+        "awayScore": "13",
+        "video_url": "https://www.youtube.com/embed/wzGCiI_gjOc?autoplay=1&rel=0",
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772961"
+          }
+        ]
       }
     ],
     "week": 18
@@ -1794,11 +1801,11 @@
       {
         "id": "401810342",
         "date": "2026-01-04T00:30Z",
-        "status": "9:59 - 4th Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "9:59",
-        "period": 4,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "MSG",
         "venue": {
           "name": "Madison Square Garden",
@@ -1813,7 +1820,7 @@
           "shortName": "Knicks",
           "abbreviation": "NY",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ny.png",
-          "record": "23-11",
+          "record": "23-12",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1823,26 +1830,33 @@
           "shortName": "76ers",
           "abbreviation": "PHI",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phi.png",
-          "record": "18-14",
+          "record": "19-14",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "94",
-        "awayScore": "103",
-        "video_url": null,
+        "homeScore": "119",
+        "awayScore": "130",
+        "video_url": "https://www.youtube.com/embed/Jw8cuZZaRrw?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nba/recap?gameId=401810342"
+          }
+        ]
       },
       {
         "id": "401810343",
         "date": "2026-01-04T00:30Z",
-        "status": "9:46 - 4th Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "9:46",
-        "period": 4,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "FanDuel SN SE",
         "venue": {
           "name": "Scotiabank Arena",
@@ -1857,7 +1871,7 @@
           "shortName": "Raptors",
           "abbreviation": "TOR",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/tor.png",
-          "record": "20-15",
+          "record": "21-15",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1867,26 +1881,33 @@
           "shortName": "Hawks",
           "abbreviation": "ATL",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/atl.png",
-          "record": "17-19",
+          "record": "17-20",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "114",
-        "awayScore": "106",
-        "video_url": null,
+        "homeScore": "134",
+        "awayScore": "117",
+        "video_url": "https://www.youtube.com/embed/lSEAANKL408?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nba/recap?gameId=401810343"
+          }
+        ]
       },
       {
         "id": "401810344",
         "date": "2026-01-04T01:00Z",
-        "status": "6:00 - 3rd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "6:00",
-        "period": 3,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "CHSN+",
         "venue": {
           "name": "United Center",
@@ -1901,7 +1922,7 @@
           "shortName": "Bulls",
           "abbreviation": "CHI",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/chi.png",
-          "record": "17-17",
+          "record": "17-18",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1911,26 +1932,33 @@
           "shortName": "Hornets",
           "abbreviation": "CHA",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/cha.png",
-          "record": "11-23",
+          "record": "12-23",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "65",
-        "awayScore": "67",
-        "video_url": null,
+        "homeScore": "99",
+        "awayScore": "112",
+        "video_url": "https://www.youtube.com/embed/L-q2RjRId0E?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nba/recap?gameId=401810344"
+          }
+        ]
       },
       {
         "id": "401810345",
         "date": "2026-01-04T01:00Z",
-        "status": "8:43 - 3rd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "8:43",
-        "period": 3,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "KUNP 16",
         "venue": {
           "name": "Frost Bank Center",
@@ -1945,7 +1973,7 @@
           "shortName": "Spurs",
           "abbreviation": "SA",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png",
-          "record": "25-9",
+          "record": "25-10",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1955,26 +1983,33 @@
           "shortName": "Trail Blazers",
           "abbreviation": "POR",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/por.png",
-          "record": "15-20",
+          "record": "16-20",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "61",
-        "awayScore": "63",
-        "video_url": null,
+        "homeScore": "110",
+        "awayScore": "115",
+        "video_url": "https://www.youtube.com/embed/gQTX7yAT10E?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nba/recap?gameId=401810345"
+          }
+        ]
       },
       {
         "id": "401810346",
         "date": "2026-01-04T01:30Z",
-        "status": "4:10 - 2nd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "4:10",
-        "period": 2,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "Space City Home Network",
         "venue": {
           "name": "American Airlines Center",
@@ -1989,7 +2024,7 @@
           "shortName": "Mavericks",
           "abbreviation": "DAL",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/dal.png",
-          "record": "12-23",
+          "record": "13-23",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1999,24 +2034,31 @@
           "shortName": "Rockets",
           "abbreviation": "HOU",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/hou.png",
-          "record": "21-10",
+          "record": "21-11",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "46",
-        "awayScore": "42",
-        "video_url": null,
+        "homeScore": "110",
+        "awayScore": "104",
+        "video_url": "https://www.youtube.com/embed/jZLINQQAVx8?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nba/recap?gameId=401810346"
+          }
+        ]
       },
       {
         "id": "401810347",
         "date": "2026-01-04T03:00Z",
-        "status": "Sat, January 3rd at 10:00 PM EST",
+        "status": "Final",
         "is_active": false,
-        "is_final": false,
+        "is_final": true,
         "clock": "",
         "period": "",
         "network": "NBC Sports BA",
@@ -2033,7 +2075,7 @@
           "shortName": "Warriors",
           "abbreviation": "GS",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png",
-          "record": "18-17",
+          "record": "19-17",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -2043,97 +2085,31 @@
           "shortName": "Jazz",
           "abbreviation": "UTAH",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/utah.png",
-          "record": "12-21",
+          "record": "12-22",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "0",
-        "awayScore": "0",
-        "video_url": null,
+        "homeScore": "123",
+        "awayScore": "114",
+        "video_url": "https://www.youtube.com/embed/Cy2z25J5jjE?autoplay=1&rel=0",
         "league": "NBA",
-        "odds": {
-          "spread": -11.5,
-          "overUnder": 247.5,
-          "moneyline": {
-            "displayName": "Moneyline",
-            "shortDisplayName": "ML",
-            "home": {
-              "close": {
-                "odds": "-550",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "home",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33392494%3Foutcomes%3D0ML82812699_1",
-                  "text": "Home Bet",
-                  "shortText": "Home Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nba",
-                      "sport": "basketball",
-                      "gameId": 401810347,
-                      "betSide": "home",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-520"
-              }
-            },
-            "away": {
-              "close": {
-                "odds": "+410",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "away",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33392494%3Foutcomes%3D0ML82812699_3",
-                  "text": "Away Bet",
-                  "shortText": "Away Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nba",
-                      "sport": "basketball",
-                      "gameId": 401810347,
-                      "betSide": "away",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "+390"
-              }
-            }
-          },
-          "provider": "Draft Kings",
-          "lastUpdated": ""
-        },
-        "headlines": []
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nba/recap?gameId=401810347"
+          }
+        ]
       },
       {
         "id": "401810348",
         "date": "2026-01-04T03:30Z",
-        "status": "Sat, January 3rd at 10:30 PM EST",
+        "status": "Final",
         "is_active": false,
-        "is_final": false,
+        "is_final": true,
         "clock": "",
         "period": "",
         "network": "NBA TV",
@@ -2150,7 +2126,7 @@
           "shortName": "Clippers",
           "abbreviation": "LAC",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lac.png",
-          "record": "12-21",
+          "record": "12-22",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -2160,90 +2136,24 @@
           "shortName": "Celtics",
           "abbreviation": "BOS",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/bos.png",
-          "record": "21-12",
+          "record": "22-12",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "0",
-        "awayScore": "0",
-        "video_url": null,
+        "homeScore": "115",
+        "awayScore": "146",
+        "video_url": "https://www.youtube.com/embed/r2kBpJ4UmTc?autoplay=1&rel=0",
         "league": "NBA",
-        "odds": {
-          "spread": -1.5,
-          "overUnder": 219.5,
-          "moneyline": {
-            "displayName": "Moneyline",
-            "shortDisplayName": "ML",
-            "home": {
-              "close": {
-                "odds": "-120",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "home",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33392495%3Foutcomes%3D0ML82812705_1",
-                  "text": "Home Bet",
-                  "shortText": "Home Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nba",
-                      "sport": "basketball",
-                      "gameId": 401810348,
-                      "betSide": "home",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-105"
-              }
-            },
-            "away": {
-              "close": {
-                "odds": "EVEN",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "away",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33392495%3Foutcomes%3D0ML82812705_3",
-                  "text": "Away Bet",
-                  "shortText": "Away Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nba",
-                      "sport": "basketball",
-                      "gameId": 401810348,
-                      "betSide": "away",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-115"
-              }
-            }
-          },
-          "provider": "Draft Kings",
-          "lastUpdated": ""
-        },
-        "headlines": []
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nba/recap?gameId=401810348"
+          }
+        ]
       }
     ]
   },
@@ -2606,11 +2516,11 @@
       {
         "id": "401803001",
         "date": "2026-01-04T00:00Z",
-        "status": "6:28 - 3rd Period",
-        "is_active": true,
-        "is_final": false,
-        "clock": "6:28",
-        "period": 3,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "ESPN+",
         "venue": {
           "name": "Canadian Tire Centre",
@@ -2625,7 +2535,7 @@
           "shortName": "Senators",
           "abbreviation": "OTT",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/ott.png",
-          "record": "19-15-5",
+          "record": "20-15-5",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -2635,26 +2545,33 @@
           "shortName": "Jets",
           "abbreviation": "WPG",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wpg.png",
-          "record": "15-20-4",
+          "record": "15-21-4",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "3",
+        "homeScore": "4",
         "awayScore": "2",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/iCvdBO5jEQs?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nhl/recap?gameId=401803001"
+          }
+        ]
       },
       {
         "id": "401803002",
         "date": "2026-01-04T00:00Z",
-        "status": "8:03 - 3rd Period",
-        "is_active": true,
-        "is_final": false,
-        "clock": "8:03",
-        "period": 3,
+        "status": "Final/OT",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "NHL Net",
         "venue": {
           "name": "UBS Arena",
@@ -2669,7 +2586,7 @@
           "shortName": "Islanders",
           "abbreviation": "NYI",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nyi.png",
-          "record": "22-15-4",
+          "record": "23-15-4",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -2679,26 +2596,33 @@
           "shortName": "Maple Leafs",
           "abbreviation": "TOR",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/tor.png",
-          "record": "19-15-6",
+          "record": "19-15-7",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "2",
-        "awayScore": "2",
-        "video_url": null,
+        "homeScore": "4",
+        "awayScore": "3",
+        "video_url": "https://www.youtube.com/embed/k6il5XCfPuo?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nhl/recap?gameId=401803002"
+          }
+        ]
       },
       {
         "id": "401803003",
         "date": "2026-01-04T00:00Z",
-        "status": "1:26 - 3rd Period",
-        "is_active": true,
-        "is_final": false,
-        "clock": "1:26",
-        "period": 3,
+        "status": "Final/SO",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "ESPN+",
         "venue": {
           "name": "Capital One Arena",
@@ -2713,7 +2637,7 @@
           "shortName": "Capitals",
           "abbreviation": "WSH",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/wsh.png",
-          "record": "21-15-5",
+          "record": "21-15-6",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -2723,26 +2647,33 @@
           "shortName": "Blackhawks",
           "abbreviation": "CHI",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/chi.png",
-          "record": "15-18-7",
+          "record": "16-18-7",
           "players": [],
           "injuries": [],
           "rank": ""
         },
         "homeScore": "2",
-        "awayScore": "2",
-        "video_url": null,
+        "awayScore": "3",
+        "video_url": "https://www.youtube.com/embed/UsJhM399AIE?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nhl/recap?gameId=401803003"
+          }
+        ]
       },
       {
         "id": "401803004",
         "date": "2026-01-04T00:00Z",
-        "status": "6:14 - 3rd Period",
-        "is_active": true,
-        "is_final": false,
-        "clock": "6:14",
-        "period": 3,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "ESPN+",
         "venue": {
           "name": "Lenovo Center",
@@ -2757,7 +2688,7 @@
           "shortName": "Hurricanes",
           "abbreviation": "CAR",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/car.png",
-          "record": "24-13-3",
+          "record": "24-14-3",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -2767,26 +2698,33 @@
           "shortName": "Avalanche",
           "abbreviation": "COL",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/col.png",
-          "record": "30-2-7",
+          "record": "31-2-7",
           "players": [],
           "injuries": [],
           "rank": ""
         },
         "homeScore": "3",
-        "awayScore": "4",
-        "video_url": null,
+        "awayScore": "5",
+        "video_url": "https://www.youtube.com/embed/tiL9TDfMWoo?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nhl/recap?gameId=401803004"
+          }
+        ]
       },
       {
         "id": "401803005",
         "date": "2026-01-04T00:00Z",
-        "status": "17:03 - 3rd Period",
-        "is_active": true,
-        "is_final": false,
-        "clock": "17:03",
-        "period": 3,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "ESPN+",
         "venue": {
           "name": "Scotiabank Saddledome",
@@ -2801,7 +2739,7 @@
           "shortName": "Flames",
           "abbreviation": "CGY",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/cgy.png",
-          "record": "18-18-4",
+          "record": "18-19-4",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -2811,26 +2749,33 @@
           "shortName": "Predators",
           "abbreviation": "NSH",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nsh.png",
-          "record": "18-18-4",
+          "record": "19-18-4",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "2",
-        "awayScore": "3",
-        "video_url": null,
+        "homeScore": "3",
+        "awayScore": "4",
+        "video_url": "https://www.youtube.com/embed/i48oHJNdhpA?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nhl/recap?gameId=401803005"
+          }
+        ]
       },
       {
         "id": "401803006",
         "date": "2026-01-04T02:00Z",
-        "status": "5:12 - 1st Period",
-        "is_active": true,
-        "is_final": false,
-        "clock": "5:12",
-        "period": 1,
+        "status": "Final/SO",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "ESPN+",
         "venue": {
           "name": "crypto.com Arena",
@@ -2845,7 +2790,7 @@
           "shortName": "Kings",
           "abbreviation": "LA",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/la.png",
-          "record": "16-14-9",
+          "record": "17-14-9",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -2855,24 +2800,31 @@
           "shortName": "Wild",
           "abbreviation": "MIN",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/min.png",
-          "record": "25-10-7",
+          "record": "25-10-8",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "1",
-        "awayScore": "1",
-        "video_url": null,
+        "homeScore": "5",
+        "awayScore": "4",
+        "video_url": "https://www.youtube.com/embed/dGOnTbKOOOc?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nhl/recap?gameId=401803006"
+          }
+        ]
       },
       {
         "id": "401803007",
         "date": "2026-01-04T03:00Z",
-        "status": "Sat, January 3rd at 10:00 PM EST",
+        "status": "Final/OT",
         "is_active": false,
-        "is_final": false,
+        "is_final": true,
         "clock": "",
         "period": "",
         "network": "ESPN+",
@@ -2889,7 +2841,7 @@
           "shortName": "Canucks",
           "abbreviation": "VAN",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/van.png",
-          "record": "16-20-4",
+          "record": "16-20-5",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -2899,90 +2851,24 @@
           "shortName": "Bruins",
           "abbreviation": "BOS",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/bos.png",
-          "record": "21-18-2",
+          "record": "22-18-2",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "0",
-        "awayScore": "0",
-        "video_url": null,
+        "homeScore": "2",
+        "awayScore": "3",
+        "video_url": "https://www.youtube.com/embed/xV6O3a2I6lQ?autoplay=1&rel=0",
         "league": "NHL",
-        "odds": {
-          "spread": 1.5,
-          "overUnder": 6.5,
-          "moneyline": {
-            "displayName": "Moneyline",
-            "shortDisplayName": "ML",
-            "home": {
-              "close": {
-                "odds": "+114",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "home",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33390132%3Foutcomes%3D0ML82811237_1",
-                  "text": "Home Bet",
-                  "shortText": "Home Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nhl",
-                      "sport": "hockey",
-                      "gameId": 401803007,
-                      "betSide": "home",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-105"
-              }
-            },
-            "away": {
-              "close": {
-                "odds": "-135",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "away",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33390132%3Foutcomes%3D0ML82811237_3",
-                  "text": "Away Bet",
-                  "shortText": "Away Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nhl",
-                      "sport": "hockey",
-                      "gameId": 401803007,
-                      "betSide": "away",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-115"
-              }
-            }
-          },
-          "provider": "Draft Kings",
-          "lastUpdated": ""
-        },
-        "headlines": []
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nhl/recap?gameId=401803007"
+          }
+        ]
       }
     ]
   },
