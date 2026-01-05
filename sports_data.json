@@ -1,700 +1,7 @@
 {
-  "last_updated": "2026-01-05 02:30:54 EST",
+  "last_updated": "2026-01-05 06:51:15 EST",
   "nfl": {
     "games": [
-      {
-        "id": "401772960",
-        "date": "2026-01-05T01:20Z",
-        "status": "4:21 - 2nd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "4:21",
-        "period": 2,
-        "network": "NBC",
-        "venue": {
-          "name": "Acrisure Stadium",
-          "city": "Pittsburgh",
-          "state": "PA",
-          "capacity": "",
-          "indoor": false
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Pittsburgh Steelers",
-          "shortName": "Steelers",
-          "abbreviation": "PIT",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
-          "record": "9-7",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Baltimore Ravens",
-          "shortName": "Ravens",
-          "abbreviation": "BAL",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png",
-          "record": "8-8",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "3",
-        "awayScore": "10",
-        "video_url": null,
-        "league": "NFL",
-        "odds": null,
-        "headlines": []
-      },
-      {
-        "id": "401772966",
-        "date": "2026-01-04T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "FOX",
-        "venue": {
-          "name": "Mercedes-Benz Stadium",
-          "city": "Atlanta",
-          "state": "GA",
-          "capacity": "",
-          "indoor": true
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Atlanta Falcons",
-          "shortName": "Falcons",
-          "abbreviation": "ATL",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
-          "record": "8-9",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "New Orleans Saints",
-          "shortName": "Saints",
-          "abbreviation": "NO",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png",
-          "record": "6-11",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "19",
-        "awayScore": "17",
-        "video_url": "https://www.youtube.com/embed/5PeYdCZKVvs?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": []
-      },
-      {
-        "id": "401772964",
-        "date": "2026-01-04T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "CBS",
-        "venue": {
-          "name": "Paycor Stadium",
-          "city": "Cincinnati",
-          "state": "OH",
-          "capacity": "",
-          "indoor": false
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Cincinnati Bengals",
-          "shortName": "Bengals",
-          "abbreviation": "CIN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png",
-          "record": "6-11",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Cleveland Browns",
-          "shortName": "Browns",
-          "abbreviation": "CLE",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png",
-          "record": "5-12",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "18",
-        "awayScore": "20",
-        "video_url": "https://www.youtube.com/embed/Lt0_Oko0_OM?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": [
-          {
-            "headline": "Recap",
-            "description": "",
-            "type": "recap",
-            "url": "https://www.espn.com/nfl/recap?gameId=401772964"
-          }
-        ]
-      },
-      {
-        "id": "401772968",
-        "date": "2026-01-04T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "CBS",
-        "venue": {
-          "name": "U.S. Bank Stadium",
-          "city": "Minneapolis",
-          "state": "MN",
-          "capacity": "",
-          "indoor": true
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Minnesota Vikings",
-          "shortName": "Vikings",
-          "abbreviation": "MIN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
-          "record": "9-8",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Green Bay Packers",
-          "shortName": "Packers",
-          "abbreviation": "GB",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
-          "record": "9-7-1",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "16",
-        "awayScore": "3",
-        "video_url": "https://www.youtube.com/embed/8pgoEj-pJq0?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": [
-          {
-            "headline": "Recap",
-            "description": "",
-            "type": "recap",
-            "url": "https://www.espn.com/nfl/recap?gameId=401772968"
-          }
-        ]
-      },
-      {
-        "id": "401772963",
-        "date": "2026-01-04T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "FOX",
-        "venue": {
-          "name": "MetLife Stadium",
-          "city": "East Rutherford",
-          "state": "NJ",
-          "capacity": "",
-          "indoor": false
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "New York Giants",
-          "shortName": "Giants",
-          "abbreviation": "NYG",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png",
-          "record": "4-13",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Dallas Cowboys",
-          "shortName": "Cowboys",
-          "abbreviation": "DAL",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
-          "record": "7-9-1",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "34",
-        "awayScore": "17",
-        "video_url": "https://www.youtube.com/embed/MWxNQm6JLDo?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": [
-          {
-            "headline": "Recap",
-            "description": "",
-            "type": "recap",
-            "url": "https://www.espn.com/nfl/recap?gameId=401772963"
-          }
-        ]
-      },
-      {
-        "id": "401772970",
-        "date": "2026-01-04T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "FOX",
-        "venue": {
-          "name": "EverBank Stadium",
-          "city": "Jacksonville",
-          "state": "FL",
-          "capacity": "",
-          "indoor": false
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Jacksonville Jaguars",
-          "shortName": "Jaguars",
-          "abbreviation": "JAX",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png",
-          "record": "13-4",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Tennessee Titans",
-          "shortName": "Titans",
-          "abbreviation": "TEN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png",
-          "record": "3-14",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "41",
-        "awayScore": "7",
-        "video_url": "https://www.youtube.com/embed/Ec9zTFY2J2Q?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": [
-          {
-            "headline": "Recap",
-            "description": "",
-            "type": "recap",
-            "url": "https://www.espn.com/nfl/recap?gameId=401772970"
-          }
-        ]
-      },
-      {
-        "id": "401772962",
-        "date": "2026-01-04T18:00Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "CBS",
-        "venue": {
-          "name": "NRG Stadium",
-          "city": "Houston",
-          "state": "TX",
-          "capacity": "",
-          "indoor": true
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Houston Texans",
-          "shortName": "Texans",
-          "abbreviation": "HOU",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png",
-          "record": "12-5",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Indianapolis Colts",
-          "shortName": "Colts",
-          "abbreviation": "IND",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png",
-          "record": "8-9",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "38",
-        "awayScore": "30",
-        "video_url": "https://www.youtube.com/embed/uWYghIkm7GY?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": [
-          {
-            "headline": "Recap",
-            "description": "",
-            "type": "recap",
-            "url": "https://www.espn.com/nfl/recap?gameId=401772962"
-          }
-        ]
-      },
-      {
-        "id": "401772967",
-        "date": "2026-01-04T21:25Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "CBS",
-        "venue": {
-          "name": "Highmark Stadium",
-          "city": "Orchard Park",
-          "state": "NY",
-          "capacity": "",
-          "indoor": false
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Buffalo Bills",
-          "shortName": "Bills",
-          "abbreviation": "BUF",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png",
-          "record": "12-5",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "New York Jets",
-          "shortName": "Jets",
-          "abbreviation": "NYJ",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
-          "record": "3-14",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "35",
-        "awayScore": "8",
-        "video_url": "https://www.youtube.com/embed/ZzMyyUsDgx0?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": []
-      },
-      {
-        "id": "401772965",
-        "date": "2026-01-04T21:25Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "FOX",
-        "venue": {
-          "name": "Soldier Field",
-          "city": "Chicago",
-          "state": "IL",
-          "capacity": "",
-          "indoor": false
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Chicago Bears",
-          "shortName": "Bears",
-          "abbreviation": "CHI",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png",
-          "record": "11-6",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Detroit Lions",
-          "shortName": "Lions",
-          "abbreviation": "DET",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png",
-          "record": "9-8",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "16",
-        "awayScore": "19",
-        "video_url": "https://www.youtube.com/embed/o1qvOaD1fdY?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": [
-          {
-            "headline": "Recap",
-            "description": "",
-            "type": "recap",
-            "url": "https://www.espn.com/nfl/recap?gameId=401772965"
-          }
-        ]
-      },
-      {
-        "id": "401772956",
-        "date": "2026-01-04T21:25Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "CBS",
-        "venue": {
-          "name": "Empower Field at Mile High",
-          "city": "Denver",
-          "state": "CO",
-          "capacity": "",
-          "indoor": false
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Denver Broncos",
-          "shortName": "Broncos",
-          "abbreviation": "DEN",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png",
-          "record": "14-3",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Los Angeles Chargers",
-          "shortName": "Chargers",
-          "abbreviation": "LAC",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png",
-          "record": "11-6",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "19",
-        "awayScore": "3",
-        "video_url": "https://www.youtube.com/embed/pm8atRQXdHY?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": [
-          {
-            "headline": "Recap",
-            "description": "",
-            "type": "recap",
-            "url": "https://www.espn.com/nfl/recap?gameId=401772956"
-          }
-        ]
-      },
-      {
-        "id": "401772957",
-        "date": "2026-01-04T21:25Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "CBS",
-        "venue": {
-          "name": "Allegiant Stadium",
-          "city": "Las Vegas",
-          "state": "NV",
-          "capacity": "",
-          "indoor": true
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Las Vegas Raiders",
-          "shortName": "Raiders",
-          "abbreviation": "LV",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png",
-          "record": "3-14",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Kansas City Chiefs",
-          "shortName": "Chiefs",
-          "abbreviation": "KC",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png",
-          "record": "6-11",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "14",
-        "awayScore": "12",
-        "video_url": "https://www.youtube.com/embed/x4RPMVe9z24?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": [
-          {
-            "headline": "Recap",
-            "description": "",
-            "type": "recap",
-            "url": "https://www.espn.com/nfl/recap?gameId=401772957"
-          }
-        ]
-      },
-      {
-        "id": "401772955",
-        "date": "2026-01-04T21:25Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "FOX",
-        "venue": {
-          "name": "SoFi Stadium",
-          "city": "Inglewood",
-          "state": "CA",
-          "capacity": "",
-          "indoor": true
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Los Angeles Rams",
-          "shortName": "Rams",
-          "abbreviation": "LAR",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
-          "record": "12-5",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Arizona Cardinals",
-          "shortName": "Cardinals",
-          "abbreviation": "ARI",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png",
-          "record": "3-14",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "37",
-        "awayScore": "20",
-        "video_url": "https://www.youtube.com/embed/_XRAeo9eZpQ?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": [
-          {
-            "headline": "Recap",
-            "description": "",
-            "type": "recap",
-            "url": "https://www.espn.com/nfl/recap?gameId=401772955"
-          }
-        ]
-      },
-      {
-        "id": "401772958",
-        "date": "2026-01-04T21:25Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "FOX",
-        "venue": {
-          "name": "Gillette Stadium",
-          "city": "Foxborough",
-          "state": "MA",
-          "capacity": "",
-          "indoor": false
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "New England Patriots",
-          "shortName": "Patriots",
-          "abbreviation": "NE",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png",
-          "record": "14-3",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Miami Dolphins",
-          "shortName": "Dolphins",
-          "abbreviation": "MIA",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png",
-          "record": "7-10",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "38",
-        "awayScore": "10",
-        "video_url": "https://www.youtube.com/embed/WOUY5H6b6N0?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": [
-          {
-            "headline": "Recap",
-            "description": "",
-            "type": "recap",
-            "url": "https://www.espn.com/nfl/recap?gameId=401772958"
-          }
-        ]
-      },
-      {
-        "id": "401772959",
-        "date": "2026-01-04T21:25Z",
-        "status": "Final",
-        "is_active": false,
-        "is_final": true,
-        "clock": "",
-        "period": "",
-        "network": "CBS",
-        "venue": {
-          "name": "Lincoln Financial Field",
-          "city": "Philadelphia",
-          "state": "PA",
-          "capacity": "",
-          "indoor": false
-        },
-        "weather": null,
-        "homeTeam": {
-          "name": "Philadelphia Eagles",
-          "shortName": "Eagles",
-          "abbreviation": "PHI",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png",
-          "record": "11-6",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "awayTeam": {
-          "name": "Washington Commanders",
-          "shortName": "Commanders",
-          "abbreviation": "WSH",
-          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png",
-          "record": "5-12",
-          "players": [],
-          "injuries": [],
-          "rank": ""
-        },
-        "homeScore": "17",
-        "awayScore": "24",
-        "video_url": "https://www.youtube.com/embed/HmZNZD-TU5E?autoplay=1&rel=0",
-        "league": "NFL",
-        "odds": null,
-        "headlines": [
-          {
-            "headline": "Recap",
-            "description": "",
-            "type": "recap",
-            "url": "https://www.espn.com/nfl/recap?gameId=401772959"
-          }
-        ]
-      },
       {
         "id": "401772969",
         "date": "2026-01-03T21:30Z",
@@ -734,7 +41,7 @@
         },
         "homeScore": "16",
         "awayScore": "14",
-        "video_url": "https://www.youtube.com/embed/Np56aguXdrA?autoplay=1&rel=0",
+        "video_url": null,
         "league": "NFL",
         "odds": null,
         "headlines": [
@@ -785,7 +92,7 @@
         },
         "homeScore": "3",
         "awayScore": "13",
-        "video_url": "https://www.youtube.com/embed/30TGVl3knQw?autoplay=1&rel=0",
+        "video_url": null,
         "league": "NFL",
         "odds": null,
         "headlines": [
@@ -794,6 +101,706 @@
             "description": "",
             "type": "recap",
             "url": "https://www.espn.com/nfl/recap?gameId=401772961"
+          }
+        ]
+      },
+      {
+        "id": "401772966",
+        "date": "2026-01-04T18:00Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "FOX",
+        "venue": {
+          "name": "Mercedes-Benz Stadium",
+          "city": "Atlanta",
+          "state": "GA",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Atlanta Falcons",
+          "shortName": "Falcons",
+          "abbreviation": "ATL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
+          "record": "8-9",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "New Orleans Saints",
+          "shortName": "Saints",
+          "abbreviation": "NO",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png",
+          "record": "6-11",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "19",
+        "awayScore": "17",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": []
+      },
+      {
+        "id": "401772964",
+        "date": "2026-01-04T18:00Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "CBS",
+        "venue": {
+          "name": "Paycor Stadium",
+          "city": "Cincinnati",
+          "state": "OH",
+          "capacity": "",
+          "indoor": false
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Cincinnati Bengals",
+          "shortName": "Bengals",
+          "abbreviation": "CIN",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png",
+          "record": "6-11",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Cleveland Browns",
+          "shortName": "Browns",
+          "abbreviation": "CLE",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png",
+          "record": "5-12",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "18",
+        "awayScore": "20",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772964"
+          }
+        ]
+      },
+      {
+        "id": "401772968",
+        "date": "2026-01-04T18:00Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "CBS",
+        "venue": {
+          "name": "U.S. Bank Stadium",
+          "city": "Minneapolis",
+          "state": "MN",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Minnesota Vikings",
+          "shortName": "Vikings",
+          "abbreviation": "MIN",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
+          "record": "9-8",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Green Bay Packers",
+          "shortName": "Packers",
+          "abbreviation": "GB",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
+          "record": "9-7-1",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "16",
+        "awayScore": "3",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772968"
+          }
+        ]
+      },
+      {
+        "id": "401772963",
+        "date": "2026-01-04T18:00Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "FOX",
+        "venue": {
+          "name": "MetLife Stadium",
+          "city": "East Rutherford",
+          "state": "NJ",
+          "capacity": "",
+          "indoor": false
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "New York Giants",
+          "shortName": "Giants",
+          "abbreviation": "NYG",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png",
+          "record": "4-13",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Dallas Cowboys",
+          "shortName": "Cowboys",
+          "abbreviation": "DAL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
+          "record": "7-9-1",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "34",
+        "awayScore": "17",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772963"
+          }
+        ]
+      },
+      {
+        "id": "401772970",
+        "date": "2026-01-04T18:00Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "FOX",
+        "venue": {
+          "name": "EverBank Stadium",
+          "city": "Jacksonville",
+          "state": "FL",
+          "capacity": "",
+          "indoor": false
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Jacksonville Jaguars",
+          "shortName": "Jaguars",
+          "abbreviation": "JAX",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png",
+          "record": "13-4",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Tennessee Titans",
+          "shortName": "Titans",
+          "abbreviation": "TEN",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png",
+          "record": "3-14",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "41",
+        "awayScore": "7",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772970"
+          }
+        ]
+      },
+      {
+        "id": "401772962",
+        "date": "2026-01-04T18:00Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "CBS",
+        "venue": {
+          "name": "NRG Stadium",
+          "city": "Houston",
+          "state": "TX",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Houston Texans",
+          "shortName": "Texans",
+          "abbreviation": "HOU",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png",
+          "record": "12-5",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Indianapolis Colts",
+          "shortName": "Colts",
+          "abbreviation": "IND",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png",
+          "record": "8-9",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "38",
+        "awayScore": "30",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772962"
+          }
+        ]
+      },
+      {
+        "id": "401772967",
+        "date": "2026-01-04T21:25Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "CBS",
+        "venue": {
+          "name": "Highmark Stadium",
+          "city": "Orchard Park",
+          "state": "NY",
+          "capacity": "",
+          "indoor": false
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Buffalo Bills",
+          "shortName": "Bills",
+          "abbreviation": "BUF",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png",
+          "record": "12-5",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "New York Jets",
+          "shortName": "Jets",
+          "abbreviation": "NYJ",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
+          "record": "3-14",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "35",
+        "awayScore": "8",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": []
+      },
+      {
+        "id": "401772965",
+        "date": "2026-01-04T21:25Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "FOX",
+        "venue": {
+          "name": "Soldier Field",
+          "city": "Chicago",
+          "state": "IL",
+          "capacity": "",
+          "indoor": false
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Chicago Bears",
+          "shortName": "Bears",
+          "abbreviation": "CHI",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png",
+          "record": "11-6",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Detroit Lions",
+          "shortName": "Lions",
+          "abbreviation": "DET",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png",
+          "record": "9-8",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "16",
+        "awayScore": "19",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772965"
+          }
+        ]
+      },
+      {
+        "id": "401772956",
+        "date": "2026-01-04T21:25Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "CBS",
+        "venue": {
+          "name": "Empower Field at Mile High",
+          "city": "Denver",
+          "state": "CO",
+          "capacity": "",
+          "indoor": false
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Denver Broncos",
+          "shortName": "Broncos",
+          "abbreviation": "DEN",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png",
+          "record": "14-3",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Los Angeles Chargers",
+          "shortName": "Chargers",
+          "abbreviation": "LAC",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png",
+          "record": "11-6",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "19",
+        "awayScore": "3",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772956"
+          }
+        ]
+      },
+      {
+        "id": "401772957",
+        "date": "2026-01-04T21:25Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "CBS",
+        "venue": {
+          "name": "Allegiant Stadium",
+          "city": "Las Vegas",
+          "state": "NV",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Las Vegas Raiders",
+          "shortName": "Raiders",
+          "abbreviation": "LV",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png",
+          "record": "3-14",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Kansas City Chiefs",
+          "shortName": "Chiefs",
+          "abbreviation": "KC",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png",
+          "record": "6-11",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "14",
+        "awayScore": "12",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772957"
+          }
+        ]
+      },
+      {
+        "id": "401772955",
+        "date": "2026-01-04T21:25Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "FOX",
+        "venue": {
+          "name": "SoFi Stadium",
+          "city": "Inglewood",
+          "state": "CA",
+          "capacity": "",
+          "indoor": true
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Los Angeles Rams",
+          "shortName": "Rams",
+          "abbreviation": "LAR",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
+          "record": "12-5",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Arizona Cardinals",
+          "shortName": "Cardinals",
+          "abbreviation": "ARI",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png",
+          "record": "3-14",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "37",
+        "awayScore": "20",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772955"
+          }
+        ]
+      },
+      {
+        "id": "401772958",
+        "date": "2026-01-04T21:25Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "FOX",
+        "venue": {
+          "name": "Gillette Stadium",
+          "city": "Foxborough",
+          "state": "MA",
+          "capacity": "",
+          "indoor": false
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "New England Patriots",
+          "shortName": "Patriots",
+          "abbreviation": "NE",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png",
+          "record": "14-3",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Miami Dolphins",
+          "shortName": "Dolphins",
+          "abbreviation": "MIA",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png",
+          "record": "7-10",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "38",
+        "awayScore": "10",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772958"
+          }
+        ]
+      },
+      {
+        "id": "401772959",
+        "date": "2026-01-04T21:25Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "CBS",
+        "venue": {
+          "name": "Lincoln Financial Field",
+          "city": "Philadelphia",
+          "state": "PA",
+          "capacity": "",
+          "indoor": false
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Philadelphia Eagles",
+          "shortName": "Eagles",
+          "abbreviation": "PHI",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png",
+          "record": "11-6",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Washington Commanders",
+          "shortName": "Commanders",
+          "abbreviation": "WSH",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png",
+          "record": "5-12",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "17",
+        "awayScore": "24",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772959"
+          }
+        ]
+      },
+      {
+        "id": "401772960",
+        "date": "2026-01-05T01:20Z",
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
+        "network": "NBC",
+        "venue": {
+          "name": "Acrisure Stadium",
+          "city": "Pittsburgh",
+          "state": "PA",
+          "capacity": "",
+          "indoor": false
+        },
+        "weather": null,
+        "homeTeam": {
+          "name": "Pittsburgh Steelers",
+          "shortName": "Steelers",
+          "abbreviation": "PIT",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
+          "record": "10-7",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "awayTeam": {
+          "name": "Baltimore Ravens",
+          "shortName": "Ravens",
+          "abbreviation": "BAL",
+          "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png",
+          "record": "8-9",
+          "players": [],
+          "injuries": [],
+          "rank": ""
+        },
+        "homeScore": "26",
+        "awayScore": "24",
+        "video_url": null,
+        "league": "NFL",
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nfl/recap?gameId=401772960"
           }
         ]
       }
@@ -841,7 +848,7 @@
         },
         "homeScore": "110",
         "awayScore": "114",
-        "video_url": "https://www.youtube.com/embed/BkeG_JUpDOs?autoplay=1&rel=0",
+        "video_url": null,
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -892,7 +899,7 @@
         },
         "homeScore": "135",
         "awayScore": "127",
-        "video_url": "https://www.youtube.com/embed/uoNXIvwaFeE?autoplay=1&rel=0",
+        "video_url": null,
         "league": "NBA",
         "odds": null,
         "headlines": []
@@ -936,7 +943,7 @@
         },
         "homeScore": "127",
         "awayScore": "115",
-        "video_url": "https://www.youtube.com/embed/G7ejFdjmWeY?autoplay=1&rel=0",
+        "video_url": null,
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -987,7 +994,7 @@
         },
         "homeScore": "125",
         "awayScore": "106",
-        "video_url": "https://www.youtube.com/embed/J_C8falkD8M?autoplay=1&rel=0",
+        "video_url": null,
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -1053,11 +1060,11 @@
       {
         "id": "401810354",
         "date": "2026-01-05T01:00Z",
-        "status": "10:47 - 3rd Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "10:47",
-        "period": 3,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "Arizona's Family 3TV",
         "venue": {
           "name": "Mortgage Matchup Center",
@@ -1072,7 +1079,7 @@
           "shortName": "Suns",
           "abbreviation": "PHX",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phx.png",
-          "record": "20-14",
+          "record": "21-14",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1082,26 +1089,33 @@
           "shortName": "Thunder",
           "abbreviation": "OKC",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/okc.png",
-          "record": "30-5",
+          "record": "30-6",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "46",
-        "awayScore": "51",
+        "homeScore": "108",
+        "awayScore": "105",
         "video_url": null,
         "league": "NBA",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nba/recap?gameId=401810354"
+          }
+        ]
       },
       {
         "id": "401810355",
         "date": "2026-01-05T02:00Z",
-        "status": "48.1 - 1st Quarter",
-        "is_active": true,
-        "is_final": false,
-        "clock": "48.1",
-        "period": 1,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "FanDuel SN WI",
         "venue": {
           "name": "Golden 1 Center",
@@ -1116,7 +1130,7 @@
           "shortName": "Kings",
           "abbreviation": "SAC",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sac.png",
-          "record": "8-27",
+          "record": "8-28",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1126,13 +1140,13 @@
           "shortName": "Bucks",
           "abbreviation": "MIL",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mil.png",
-          "record": "15-20",
+          "record": "16-20",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "26",
-        "awayScore": "26",
+        "homeScore": "98",
+        "awayScore": "115",
         "video_url": null,
         "league": "NBA",
         "odds": null,
@@ -1141,9 +1155,9 @@
       {
         "id": "401810356",
         "date": "2026-01-05T02:30Z",
-        "status": "Sun, January 4th at 9:30 PM EST",
+        "status": "Final",
         "is_active": false,
-        "is_final": false,
+        "is_final": true,
         "clock": "",
         "period": "",
         "network": "Spectrum Sports Net",
@@ -1160,7 +1174,7 @@
           "shortName": "Lakers",
           "abbreviation": "LAL",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png",
-          "record": "21-11",
+          "record": "22-11",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1170,90 +1184,24 @@
           "shortName": "Grizzlies",
           "abbreviation": "MEM",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mem.png",
-          "record": "15-19",
+          "record": "15-20",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "0",
-        "awayScore": "0",
+        "homeScore": "120",
+        "awayScore": "114",
         "video_url": null,
         "league": "NBA",
-        "odds": {
-          "spread": -5.5,
-          "overUnder": 239.5,
-          "moneyline": {
-            "displayName": "Moneyline",
-            "shortDisplayName": "ML",
-            "home": {
-              "close": {
-                "odds": "-230",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "home",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33371035%3Foutcomes%3D0ML82764153_1",
-                  "text": "Home Bet",
-                  "shortText": "Home Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nba",
-                      "sport": "basketball",
-                      "gameId": 401810356,
-                      "betSide": "home",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "-225"
-              }
-            },
-            "away": {
-              "close": {
-                "odds": "+190",
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "away",
-                    "desktop",
-                    "bets",
-                    "draft-kings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33371035%3Foutcomes%3D0ML82764153_3",
-                  "text": "Away Bet",
-                  "shortText": "Away Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "tracking": {
-                    "campaign": "betting-integrations",
-                    "tags": {
-                      "league": "nba",
-                      "sport": "basketball",
-                      "gameId": 401810356,
-                      "betSide": "away",
-                      "betType": "straight"
-                    }
-                  }
-                }
-              },
-              "open": {
-                "odds": "+185"
-              }
-            }
-          },
-          "provider": "Draft Kings",
-          "lastUpdated": ""
-        },
-        "headlines": []
+        "odds": null,
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nba/recap?gameId=401810356"
+          }
+        ]
       }
     ]
   },
@@ -1463,11 +1411,11 @@
       {
         "id": "401803011",
         "date": "2026-01-05T00:00Z",
-        "status": "3:29 - 3rd Period",
-        "is_active": true,
-        "is_final": false,
-        "clock": "3:29",
-        "period": 3,
+        "status": "Final",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "ESPN+",
         "venue": {
           "name": "Prudential Center",
@@ -1482,7 +1430,7 @@
           "shortName": "Devils",
           "abbreviation": "NJ",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/nj.png",
-          "record": "22-17-2",
+          "record": "22-18-2",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1492,7 +1440,7 @@
           "shortName": "Hurricanes",
           "abbreviation": "CAR",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/car.png",
-          "record": "24-14-3",
+          "record": "25-14-3",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1502,16 +1450,23 @@
         "video_url": null,
         "league": "NHL",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nhl/recap?gameId=401803011"
+          }
+        ]
       },
       {
         "id": "401803012",
         "date": "2026-01-05T00:00Z",
-        "status": "0:37 - 3rd Period",
-        "is_active": true,
-        "is_final": false,
-        "clock": "0:37",
-        "period": 3,
+        "status": "Final/OT",
+        "is_active": false,
+        "is_final": true,
+        "clock": "",
+        "period": "",
         "network": "ESPN+",
         "venue": {
           "name": "United Center",
@@ -1526,7 +1481,7 @@
           "shortName": "Blackhawks",
           "abbreviation": "CHI",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/chi.png",
-          "record": "16-18-7",
+          "record": "17-18-7",
           "players": [],
           "injuries": [],
           "rank": ""
@@ -1536,17 +1491,24 @@
           "shortName": "Golden Knights",
           "abbreviation": "VGK",
           "logoUrl": "https://a.espncdn.com/i/teamlogos/nhl/500/scoreboard/vgk.png",
-          "record": "17-11-11",
+          "record": "17-11-12",
           "players": [],
           "injuries": [],
           "rank": ""
         },
-        "homeScore": "2",
+        "homeScore": "3",
         "awayScore": "2",
         "video_url": null,
         "league": "NHL",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nhl/recap?gameId=401803012"
+          }
+        ]
       }
     ]
   },
