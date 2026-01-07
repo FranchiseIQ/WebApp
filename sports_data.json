@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-01-07 06:45:34 EST",
+  "last_updated": "2026-01-07 13:01:42 EST",
   "nfl": {
     "games": [
       {
@@ -748,7 +748,7 @@
         },
         "homeScore": "116",
         "awayScore": "120",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/Besd8rrRRBY?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -799,7 +799,7 @@
         },
         "homeScore": "120",
         "awayScore": "112",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/y0lX4fbb_xw?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -850,7 +850,7 @@
         },
         "homeScore": "106",
         "awayScore": "105",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/JCqmOqcr640?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -901,7 +901,7 @@
         },
         "homeScore": "122",
         "awayScore": "94",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/qKRf3Qt0AIM?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -952,7 +952,7 @@
         },
         "homeScore": "103",
         "awayScore": "111",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/krDsnJ_Ohfw?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -1003,10 +1003,17 @@
         },
         "homeScore": "98",
         "awayScore": "100",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/ahJ41YrN9LE?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nba/recap?gameId=401810370"
+          }
+        ]
       }
     ]
   },
@@ -1099,7 +1106,7 @@
         },
         "homeScore": "5",
         "awayScore": "3",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/16IbRdruvF4?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -1150,7 +1157,7 @@
         },
         "homeScore": "4",
         "awayScore": "2",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/16IbRdruvF4?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -1201,7 +1208,7 @@
         },
         "homeScore": "5",
         "awayScore": "2",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/b_3vsNrxy8c?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -1252,7 +1259,7 @@
         },
         "homeScore": "6",
         "awayScore": "3",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/inNyDSlq-Dk?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -1303,7 +1310,7 @@
         },
         "homeScore": "9",
         "awayScore": "0",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/bPH8ZiWm7BE?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -1354,7 +1361,7 @@
         },
         "homeScore": "4",
         "awayScore": "1",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/2r-M0zV3Geo?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -1405,7 +1412,7 @@
         },
         "homeScore": "3",
         "awayScore": "4",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/FWdx8BX4JTs?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -1456,7 +1463,7 @@
         },
         "homeScore": "6",
         "awayScore": "2",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/16IbRdruvF4?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -1507,7 +1514,7 @@
         },
         "homeScore": "5",
         "awayScore": "2",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/NIk8CDFWKNU?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
@@ -1558,7 +1565,7 @@
         },
         "homeScore": "7",
         "awayScore": "4",
-        "video_url": null,
+        "video_url": "https://www.youtube.com/embed/Yti8kiDp2go?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
         "headlines": [
