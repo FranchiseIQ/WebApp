@@ -1,51 +1,51 @@
 [
   {
     "ticker": "CMG",
-    "price": 39.72,
-    "change": 1.05,
-    "changePercent": 2.7,
-    "timestamp": "2026-01-08T18:55:15.433342"
+    "price": 39.67,
+    "change": 1.0,
+    "changePercent": 2.59,
+    "timestamp": "2026-01-08T19:19:39.995645"
   },
   {
     "ticker": "SBUX",
-    "price": 88.77,
-    "change": 2.87,
-    "changePercent": 3.34,
-    "timestamp": "2026-01-08T18:55:15.590826"
+    "price": 88.99,
+    "change": 3.09,
+    "changePercent": 3.6,
+    "timestamp": "2026-01-08T19:19:40.138591"
   },
   {
     "ticker": "MCD",
-    "price": 308.44,
-    "change": 5.0,
-    "changePercent": 1.65,
-    "timestamp": "2026-01-08T18:55:15.851132"
+    "price": 308.74,
+    "change": 5.3,
+    "changePercent": 1.75,
+    "timestamp": "2026-01-08T19:19:40.443315"
   },
   {
     "ticker": "WEN",
-    "price": 8.38,
-    "change": 0.23,
-    "changePercent": 2.76,
-    "timestamp": "2026-01-08T18:55:16.004325"
+    "price": 8.44,
+    "change": 0.29,
+    "changePercent": 3.5,
+    "timestamp": "2026-01-08T19:19:40.638179"
   },
   {
     "ticker": "WING",
-    "price": 271.44,
-    "change": 13.69,
-    "changePercent": 5.31,
-    "timestamp": "2026-01-08T18:55:16.119405"
+    "price": 272.32,
+    "change": 14.57,
+    "changePercent": 5.65,
+    "timestamp": "2026-01-08T19:19:40.768663"
   },
   {
     "ticker": "SHAK",
-    "price": 93.78,
-    "change": 3.71,
-    "changePercent": 4.12,
-    "timestamp": "2026-01-08T18:55:16.254422"
+    "price": 93.92,
+    "change": 3.85,
+    "changePercent": 4.27,
+    "timestamp": "2026-01-08T19:19:40.868520"
   },
   {
     "ticker": "DPZ",
-    "price": 407.53,
-    "change": 5.33,
-    "changePercent": 1.33,
-    "timestamp": "2026-01-08T18:55:16.479232"
+    "price": 407.73,
+    "change": 5.53,
+    "changePercent": 1.38,
+    "timestamp": "2026-01-08T19:19:41.053326"
   }
 ]
