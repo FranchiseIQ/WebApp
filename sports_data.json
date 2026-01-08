@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-01-08 06:46:15 EST",
+  "last_updated": "2026-01-08 13:02:05 EST",
   "nfl": {
     "games": [
       {
@@ -799,7 +799,7 @@
         },
         "homeScore": "108",
         "awayScore": "93",
-        "video_url": "https://www.youtube.com/embed/hnZ-MBcY--8?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/8M-GVnsqs8I?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -1054,7 +1054,7 @@
         },
         "homeScore": "123",
         "awayScore": "111",
-        "video_url": "https://www.youtube.com/embed/oLqmouNzMr4?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/Jw8cuZZaRrw?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -1105,7 +1105,7 @@
         },
         "homeScore": "98",
         "awayScore": "117",
-        "video_url": "https://www.youtube.com/embed/nb4LLlqihvw?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/oK1_FOYHqTI?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -1156,7 +1156,7 @@
         },
         "homeScore": "129",
         "awayScore": "125",
-        "video_url": "https://www.youtube.com/embed/oLqmouNzMr4?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/8M-GVnsqs8I?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -1258,7 +1258,7 @@
         },
         "homeScore": "120",
         "awayScore": "113",
-        "video_url": "https://www.youtube.com/embed/nb4LLlqihvw?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/8M-GVnsqs8I?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -1309,7 +1309,7 @@
         },
         "homeScore": "103",
         "awayScore": "102",
-        "video_url": "https://www.youtube.com/embed/HAZQejeiwPA?autoplay=1&rel=0",
+        "video_url": "https://www.youtube.com/embed/x8yqM23Xj-k?autoplay=1&rel=0",
         "league": "NBA",
         "odds": null,
         "headlines": [
@@ -1619,7 +1619,14 @@
         "video_url": "https://www.youtube.com/embed/jhLLAXAd4RM?autoplay=1&rel=0",
         "league": "NHL",
         "odds": null,
-        "headlines": []
+        "headlines": [
+          {
+            "headline": "Recap",
+            "description": "",
+            "type": "recap",
+            "url": "https://www.espn.com/nhl/recap?gameId=401803032"
+          }
+        ]
       }
     ]
   },
